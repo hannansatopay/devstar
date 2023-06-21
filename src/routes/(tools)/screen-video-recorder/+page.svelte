@@ -1,15 +1,17 @@
 <script lang="ts">
 	import Intro from '../Intro.svelte';
-	import { Label, Input, Range } from 'flowbite-svelte';
-	import { Radio } from 'flowbite-svelte'
-	import { Checkbox } from 'flowbite-svelte'
-	import { Button } from 'flowbite-svelte'
+	import { Label, Input, Range, A } from 'flowbite-svelte';
+	import { Radio } from 'flowbite-svelte';
+	import { Checkbox } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	export let data;
 
 	let recorder;
 	let strm;
+	let src;
+	let starting = false;
 
 	function start() {
 		getMedia();
@@ -17,44 +19,53 @@
 
 	function stop() {
 		recorder.stop();
-		strm.getTracks().forEach(function(track) {
-        	track.stop();
-      	});
-	}
-
-	function getMedia() {
-		navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
-  		.then(function(stream) {
-			strm = stream;
-			// Create a new MediaRecorder instance to record the stream
-			recorder = new MediaRecorder(stream);
-			
-			// Create an array to store the recorded chunks
-			var chunks = [];
-
-			recorder.start();
-			
-			// Save the recorded video when the recorder has data available
-			recorder.addEventListener("dataavailable", function(event) {
-				chunks.push(event.data);
-			});
-			
-			// Create a new video element and play the recorded video
-			recorder.addEventListener("stop", function() {
-				var video = document.createElement("video");
-				video.src = URL.createObjectURL(new Blob(chunks, { type: "video/webm" }));
-				document.body.appendChild(video);
-				video.play();
-			});
-		})
-		.catch(function(error) {
-			console.error("Could not get display media: " + error);
+		strm.getTracks().forEach(function (track) {
+			track.stop();
 		});
 	}
 
-	onMount(() => {
-	});
+	function getMedia() {
+		navigator.mediaDevices
+			.getDisplayMedia({ video: true, audio: true })
+			.then(function (stream) {
+				strm = stream;
+				// Create a new MediaRecorder instance to record the stream
+				recorder = new MediaRecorder(stream);
 
+				// Create an array to store the recorded chunks
+				var chunks = [];
+
+				recorder.start();
+
+				// Save the recorded video when the recorder has data available
+				recorder.addEventListener('dataavailable', function (event) {
+					chunks.push(event.data);
+				});
+
+				// Create a new video element and play the recorded video
+				recorder.addEventListener('stop', function () {
+					var video = document.createElement('video');
+					src = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' }));
+					document.body.appendChild(video);
+					video.play();
+				});
+			})
+			.catch(function (error) {
+				console.error('Could not get display media: ' + error);
+			});
+	}
+
+	onMount(() => {});
+
+	function download() {
+		if (src) {
+			var video = document.createElement('a');
+			video.href = src;
+			video.download = 'screen_recording.webm';
+			video.click();
+			URL.revokeObjectURL(src);
+		}
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -64,18 +75,21 @@
 		<div
 			class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
 		>
-		<div class="p-8">
-			<Button id="start-recording" on:click={start}>Start</Button>
-			<Button id="stop-recording" on:click={stop}>Stop</Button>
-		</div>
-		<div class="p-8 h-full flex rounded-lg relative justify-center items-center">
-			<div
-				class="bg-green-100 dark:bg-green-200 text-green-700 dark:text-green-800 rounded-lg py-1 px-2 text-sm font-medium absolute top-4 right-4 cursor-pointer"
-			>
-				Download
+			<div class="p-8">
+				<Button id="start-recording" on:click={start}>Start</Button>
+				<Button id="stop-recording" on:click={stop}>Stop</Button>
 			</div>
-			<video></video>
-		</div>
+			<div class="p-8 h-full flex rounded-lg relative justify-center items-center">
+				{#if src}
+					<video width="500" height="250" controls {src} />
+
+					<div
+						class="bg-blue-100 dark:bg-blue-200 text-blue-700 dark:text-blue-800 rounded-lg py-1 px-2 text-sm font-medium absolute top-4 right-4 cursor-pointer"
+					>
+						<button on:click={download}>Download</button>
+					</div>
+				{/if}
+			</div>
 		</div>
 	</div>
 </section>
