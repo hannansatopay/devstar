@@ -89,4 +89,13 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'todo': {
+        name: 'todo',
+        icon: 'layer-group',
+        link: '/todo',
+        meta: {
+            title: 'todo',
+            description: 'This is a not fun!'
+        }
+    },
 };
