@@ -89,4 +89,13 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'advice-generator': {
+        name: 'advice-generator',
+        icon: 'layer-group',
+        link: '/advice-generator',
+        meta: {
+            title: 'advice-generator',
+            description: 'This is not a fun!'
+        }
+    },
 };
