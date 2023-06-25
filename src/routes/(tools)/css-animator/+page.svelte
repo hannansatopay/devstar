@@ -19,8 +19,24 @@
 	let fillMode = 'both';
 
 	let animationGroup = {
-		'scale-up': ['scale-up-center', 'scale-up-top', 'scale-up-tr'],
-		'scale-down': ['scale-down-center', 'scale-down-top']
+		'scale-up': ['scale-up-center', 'scale-up-top', 'scale-up-tr', 'scale-up-right', 'scale-up-br', 'scale-up-bottom', 'scale-up-bl', 'scale-up-left', 'scale-up-tl', 'scale-up-hor-center', 'scale-up-hor-left', 'scale-up-hor-right', 'scale-up-ver-center', 'scale-up-ver-top', 'scale-up-ver-bottom'],
+		'scale-down': ['scale-down-center', 'scale-down-top', 'scale-down-tr', 'scale-down-right', 'scale-down-br', 'scale-down-bottom', 'scale-down-bl', 'scale-down-left', 'scale-down-tl', 'scale-down-hor-center', 'scale-down-hor-left', 'scale-down-hor-right', 'scale-down-ver-center', 'scale-down-ver-top', 'scale-down-ver-bottom'],
+		'rotate':['rotate-center', 'rotate-top', 'rotate-tr', 'rotate-right', 'rotate-br', 'rotate-bottom', 'rotate-bl', 'rotate-left', 'rotate-tl', 'rotate-hor-center', 'rotate-hor-top', 'rotate-hor-bottom', 'rotate-vert-center', 'rotate-vert-left', 'rotate-vert-right', 'rotate-diagonal-1', 'rotate-diagonal-2', 'rotate-diagonal-tr', 'rotate-diagonal-br', 'rotate-diagonal-bl', 'rotate-diagonal-tl'],
+		'rotate-scale':['rotate-scale-up', 'rotate-scale-down', 'rotate-scale-up-hor', 'rotate-scale-down-hor', 'rotate-scale-up-ver', 'rotate-scale-down-ver', 'rotate-scale-up-diag-1', 'rotate-scale-down-diag-1', 'rotate-scale-up-diag-2', 'rotate-scale-down-diag-2'],
+		'rotate-90':['rotate-90-cw', 'rotate-90-ccw', 'rotate-90-top-cw', 'rotate-90-top-ccw', 'rotate-90-tr-cw', 'rotate-90-tr-ccw', 'rotate-90-right-cw', 'rotate-90-right-ccw', 'rotate-90-br-cw', 'rotate-90-br-ccw', 'rotate-90-bottom-cw', 'rotate-90-bottom-ccw', 'rotate-90-bl-cw', 'rotate-90-bl-ccw', 'rotate-90-left-cw', 'rotate-90-left-ccw', 'rotate-90-tl-cw', 'rotate-90-tl-ccw', 'rotate-90-horizontal-fwd', 'rotate-90-horizontal-bck', 'rotate-90-vertical-fwd', 'rotate-90-vertical-bck'],
+		'flip':['flip-horizontal-bottom', 'flip-horizontal-top', 'flip-horizontal-bck', 'flip-horizontal-fwd', 'flip-vertical-right', 'flip-vertical-left', 'flip-vertical-bck', 'flip-vertical-fwd', 'flip-diagonal-1-tr', 'flip-diagonal-1-bl', 'flip-diagonal-1-bck', 'flip-diagonal-1-fwd',  'flip-diagonal-2-br', 'flip-diagonal-2-tl', 'flip-diagonal-2-bck', 'flip-diagonal-2-fwd'],
+		'flip-2':['flip-2-hor-top-1','flip-2-hor-top-2', 'flip-2-hor-top-bck', 'flip-2-hor-top-fwd', 'flip-2-ver-right-1', 'flip-2-ver-right-2', 'flip-2-ver-right-bck', 'flip-2-ver-right-fwd', 'flip-2-hor-bottom-1', 'flip-2-hor-bottom-2', 'flip-2-hor-bottom-bck', 'flip-2-hor-bottom-fwd', 'flip-2-ver-left-1', 'flip-2-ver-left-2', 'flip-2-ver-left-bck', 'flip-2-ver-left-fwd'],
+		'flip-scale':['flip-scale-up-hor', 'flip-scale-down-hor', 'flip-scale-up-ver', 'flip-scale-down-ver', 'flip-scale-up-diag-1', 'flip-scale-down-diag-1', 'flip-scale-up-diag-2', 'flip-scale-down-diag-2'],
+		'flip-scale-2':['flip-scale-2-hor-top', 'flip-scale-2-ver-right', 'flip-scale-2-hor-bottom', 'flip-scale-2-ver-left'],
+		'swing':['swing-top-fwd', 'swing-top-bck', 'swing-top-right-fwd', 'swing-top-right-bck', 'swing-right-fwd', 'swing-right-bck', 'swing-bottom-right-fwd', 'swing-bottom-right-bck', 'swing-bottom-fwd', 'swing-bottom-bck', 'swing-bottom-left-fwd', 'swing-bottom-left-bck', 'swing-left-fwd', 'swing-left-bck', 'swing-top-left-fwd', 'swing-top-left-bck'],
+		'slide':['slide-top', 'slide-tr', 'slide-right', 'slide-br', 'slide-bottom', 'slide-bl', 'slide-left', 'slide-tl'],
+		'slide-bck':['slide-bck-center', 'slide-bck-top', 'slide-bck-tr', 'slide-bck-right', 'slide-bck-br', 'slide-bck-bottom', 'slide-bck-bl', 'slide-bck-left', 'slide-bck-tl'],
+		'slide-fwd':['slide-fwd-center', 'slide-fwd-top', 'slide-fwd-tr', 'slide-fwd-right', 'slide-fwd-br', 'slide-fwd-bottom', 'slide-fwd-bl', 'slide-fwd-left', 'slide-fwd-tl'],
+		'slide-rotate':['slide-rotate-hor-top', 'slide-rotate-hor-t-bck', 'slide-rotate-hor-t-fwd','slide-rotate-ver-right', 'slide-rotate-ver-r-bck', 'slide-rotate-ver-r-fwd', 'slide-rotate-hor-bottom', 'slide-rotate-hor-b-bck', 'slide-rotate-hor-b-fwd', 'slide-rotate-ver-left', 'slide-rotate-ver-l-bck', 'slide-rotate-ver-l-fwd'],
+		'shadow-drop':['shadow-drop-center', 'shadow-drop-top', 'shadow-drop-right', 'shadow-drop-bottom', 'shadow-drop-left', 'shadow-drop-lr', 'shadow-drop-tb', 'shadow-drop-tr', 'shadow-drop-br', 'shadow-drop-bl', 'shadow-drop-tl'],
+		'shadow-drop-2':['shadow-drop-2-center', 'shadow-drop-2-top', 'shadow-drop-2-right', 'shadow-drop-2-bottom', 'shadow-drop-2-left', 'shadow-drop-2-lr', 'shadow-drop-2-tb', 'shadow-drop-2-tr', 'shadow-drop-2-br', 'shadow-drop-2-bl', 'shadow-drop-2-tl'],
+		'shadow-pop':['shadow-pop-tr', 'shadow-pop-br', 'shadow-pop-bl', 'shadow-pop-tl'],
+		'shadow-inset':['shadow-inset-center', 'shadow-inset-top', 'shadow-inset-right', 'shadow-inset-bottom', 'shadow-inset-left', 'shadow-inset-lr', 'shadow-inset-tb', 'shadow-inset-tr', 'shadow-inset-br', 'shadow-inset-bl', 'shadow-inset-tl']
 	};
 
 	let animation = '';
