@@ -62,6 +62,7 @@
 		"@bytemd/plugin-gfm": "^1.21.0",
 		"bytemd": "^1.21.0",
 		"colorthief": "^2.4.0",
-		"qr-code-styling": "^1.6.0-rc.1"
+		"qr-code-styling": "^1.6.0-rc.1",
+		"svelte-datepicker": "^1.0.0"
 	}
 }
