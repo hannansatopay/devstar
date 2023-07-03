@@ -89,6 +89,15 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'age-calculator': {
+        name: 'age-calculator',
+        icon: 'layer-group',
+        link: '/age-calculator',
+        meta: {
+            title: 'age-calculator',
+            description: 'This is not a fun!'
+        }
+    },
     'crypto-validator': {
         name: 'crypto-validator',
         icon: 'layer-group',
