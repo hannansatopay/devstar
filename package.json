@@ -20,6 +20,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "2.0.0",
 		"@sveltejs/kit": "1.7.2",
+		"@types/multicoin-address-validator": "^0.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
 		"autoprefixer": "^10.4.13",
@@ -27,7 +28,7 @@
 		"eslint-config-prettier": "^8.6.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"flowbite": "^1.6.3",
-		"flowbite-svelte": "^0.29.13",
+		"flowbite-svelte": "^0.38.5",
 		"flowbite-svelte-blocks": "^0.1.6",
 		"postcss": "^8.4.21",
 		"prettier": "^2.8.4",
@@ -62,7 +63,10 @@
 		"@bytemd/plugin-gfm": "^1.21.0",
 		"bytemd": "^1.21.0",
 		"colorthief": "^2.4.0",
-		"qr-code-styling": "^1.6.0-rc.1",
-		"svelte-datepicker": "^1.0.0"
+    "qr-code-styling": "^1.6.0-rc.1",
+		"svelte-datepicker": "^1.0.0",
+    "countries-list": "^2.6.1",
+		"multicoin-address-validator": "^0.5.12",
+		"svelte-tags-input": "^5.0.0"
 	}
 }
