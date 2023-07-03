@@ -89,6 +89,15 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'css-animator': {
+        name: 'CSS Animator',
+        icon: 'layer-group',
+        link: '/css-animator',
+        meta: {
+            title: 'image-base64-decode',
+            description: 'This is a fun!'
+        }
+    },
     'device-details': {
         name: 'device-details',
         icon: 'layer-group',
