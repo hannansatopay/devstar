@@ -89,6 +89,15 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'todo': {
+        name: 'todo',
+        icon: 'layer-group',
+        link: '/todo',
+        meta: {
+            title: 'todo',
+            description: 'This is a not fun!'
+        }
+    },
     'advice-generator': {
         name: 'advice-generator',
         icon: 'layer-group',
@@ -98,7 +107,7 @@ export let tools = {
             description: 'This is not a fun!'
         }
     },
-    'sample-files': {
+  'sample-files': {
         name: 'sample-files',
         icon: 'layer-group',
         link: '/sample-files',
