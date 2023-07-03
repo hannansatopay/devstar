@@ -1,96 +1,195 @@
-<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+<script>
+    import { Avatar, Dropdown, DropdownHeader, DropdownItem, DropdownDivider, Tooltip } from "flowbite-svelte"
+
+    let launched = [
+        {
+            name: 'Neumorphism Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Password Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Color Converter',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Image Color Picker',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Dummy Text Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Random Image Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Screen Video Recorder',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            },
+            {
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Unit Converter',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Image Base64 Encoder',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Image Base64 Decoder',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'CSS Animator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
+        },
+        {
+            name: 'Pomodoro Timer',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            }]
+        },
+        {
+            name: 'To-do App',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            }]
+        },
+        {
+            name: 'Advice Generator',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            }]
+        },
+        {
+            name: 'Markdown Editor',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            }]
+        },
+        {
+            name: 'Age Calculator',
+            contributors: [{
+                name: 'Rifat Perween',
+                githubId: 'rifatperween'
+            }]
+        },
+        {
+            name: 'JSON Beautifier',
+            contributors: []
+        },
+        {
+            name: 'WhatsApp API Generator',
+            contributors: []
+        },
+        {
+            name: 'User Agent Generator',
+            contributors: []
+        },
+        {
+            name: 'Device Details',
+            contributors: []
+        },
+        {
+            name: 'Crypto Address Validator',
+            contributors: []
+        },
+        {
+            name: 'Robots.txt Generator',
+            contributors: []
+        },
+        {
+            name: 'Spreadsheet to HTML Table',
+            contributors: []
+        },
+        {
+            name: 'Video Thumbnail Extractor',
+            contributors: []
+        },
+        {
+            name: 'File Examples',
+            contributors: []
+        },
+    ];
+
+    console.log("Launched", launched.length);
+
+    let planned = [];
+</script>
+<section class="bg-white dark:bg-gray-900 p-3 sm:p-5">
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-        <h1 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
-            Phase I
-        </h1>
+        <h2 class="mb-8 text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white">
+            Launched
+        </h2>
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-4 py-3">Feature</th>
-                            <th scope="col" class="px-4 py-3" width="200">Status</th>
+                            <th scope="col" class="px-4 py-3">Contributors</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
-                        <tr class="border-b dark:border-gray-700">
-                            <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">Binary to ASCII</th>
-                            <td class="px-4 py-3">
-								<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Launched</span>
-							</td>
-                        </tr>
+                        {#each launched as l}
+                            <tr class="border-b dark:border-gray-700">
+                                <td scope="row" class="px-4 py-3 text-gray-900 dark:text-white">{l.name}</td>
+                                <td scope="row" class="px-4 py-3 text-gray-900 dark:text-white">
+                                    <div class="flex items-center space-x-2">
+                                        {#each l.contributors as contributor}
+                                            <a href="https://github.com/{contributor.githubId}" target="_blank" class="flex items-center space-x-1 font-medium inline-flex items-center justify-center px-2.5 py-1 text-xs border bg-gray-100 dark:bg-gray-700 border-primary-400 hover:bg-primary-200 rounded">
+                                                <Avatar src="https://github.com/{contributor.githubId}.png" size="xs"/>
+                                                <div>{contributor.name}</div>
+                                            </a>
+                                        {/each}
+                                    </div>
+                                </td>
+                            </tr>
+                        {/each}
                     </tbody>
                 </table>
             </div>
