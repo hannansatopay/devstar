@@ -13,3 +13,4 @@ functions/package-lock.json
 package-lock.json
 functions/*
 ui-debug.log
+yarn.lock
