@@ -89,6 +89,15 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'device-details': {
+        name: 'device-details',
+        icon: 'layer-group',
+        link: '/device-details',
+        meta: {
+            title: 'device-details',
+            description: 'This is a fun!'
+        }
+    },
     'age-calculator': {
         name: 'age-calculator',
         icon: 'layer-group',
