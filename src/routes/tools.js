@@ -98,4 +98,58 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'css-animator': {
+        name: 'CSS Animator',
+        icon: 'layer-group',
+        link: '/css-animator',
+        meta: {
+            title: 'image-base64-decode',
+            description: 'This is a fun!'
+        }
+    },
+    'device-details': {
+        name: 'device-details',
+        icon: 'layer-group',
+        link: '/device-details',
+        meta: {
+            title: 'device-details',
+            description: 'This is a fun!'
+        }
+    },
+    'age-calculator': {
+        name: 'age-calculator',
+        icon: 'layer-group',
+        link: '/age-calculator',
+        meta: {
+            title: 'age-calculator',
+            description: 'This is not a fun!'
+        }
+    },
+    'crypto-validator': {
+        name: 'crypto-validator',
+        icon: 'layer-group',
+        link: '/crypto-validator',
+        meta: {
+            title: 'crypto-validator',
+            description: 'This is a fun!'
+        }
+    },
+    'whatsapp-api-generator': {
+        name: 'whatsapp-api-generator',
+        icon: 'layer-group',
+        link: '/whatsapp-api-generator',
+        meta: {
+            title: 'whatsapp-api-generator',
+            description: 'This is a fun!'
+        }
+    },
+    'robots-txt-generator': {
+        name: 'robots-txt-generator',
+        icon: 'layer-group',
+        link: '/robots-txt-generator',
+        meta: {
+            title: 'robots-txt-generator',
+            description: 'This is a fun!'
+        }
+    }
 };
