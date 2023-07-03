@@ -59,7 +59,7 @@ export let tools = {
         link: '/screen-video-recorder',
         meta: {
             title: 'screen-video-recorder',
-            description: 'This is a fun!'
+            description: 'This is a not fun!'
         }
     },
     'unit-converter': {
@@ -89,7 +89,25 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
-    'todo': {
+    'pomodoro': {
+        name: 'pomodoro',
+        icon: 'layer-group',
+        link: '/pomodoro',
+        meta: {
+            title: 'pomodoro',
+            description: 'This is a not fun!'
+        }
+    },
+    'css-generator': {
+        name: 'css-generator',
+        icon: 'layer-group',
+        link: '/css-generator',
+        meta: {
+            title: 'css-generator',
+            description: 'This is a not fun!'
+        }
+    },
+  'todo': {
         name: 'todo',
         icon: 'layer-group',
         link: '/todo',
