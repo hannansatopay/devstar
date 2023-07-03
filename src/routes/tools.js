@@ -89,6 +89,15 @@ export let tools = {
             description: 'This is a fun!'
         }
     },
+    'sample-files': {
+        name: 'sample-files',
+        icon: 'layer-group',
+        link: '/sample-files',
+        meta: {
+            title: 'sample-files',
+            description: 'This is a fun!'
+        }
+    },
     'css-animator': {
         name: 'CSS Animator',
         icon: 'layer-group',
