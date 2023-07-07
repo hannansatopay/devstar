@@ -58,5 +58,3 @@ Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-[![License: MIT](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=Svelte&logoColor=white)]
