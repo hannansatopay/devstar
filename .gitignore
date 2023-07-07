@@ -14,3 +14,4 @@ package-lock.json
 functions/*
 ui-debug.log
 yarn.lock
+static/samples/*

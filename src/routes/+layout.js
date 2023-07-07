@@ -12,7 +12,11 @@ export async function load({route, url}) {
 function getMeta(route, url) {
     if (route.id.includes("(tools)")) {
         // @ts-ignore
-        return tools[url.pathname.replace("/","")].meta
+        let tool = tools[url.pathname.replace("/","")];
+        return {
+            title: tool.name,
+            description: tool.description
+        }
     }
     return 0;
 }

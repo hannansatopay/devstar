@@ -1,23 +1,21 @@
 <script lang="ts">
-	import Intro from '../Intro.svelte';
-	import { Label, Input, Range } from 'flowbite-svelte';
-	import { Radio } from 'flowbite-svelte';
-	import { Checkbox } from 'flowbite-svelte';
+	import Intro from '$lib/Intro.svelte';
+	import { Label, Input, Range, Radio, Checkbox } from 'flowbite-svelte';
+	import { onMount } from 'svelte';
 
 	export let data;
-	import { onMount } from 'svelte';
 
 	let innerWidth: any = null;
 	let innerHeight: any = null;
-	let screenWidth = null;
-	let screenHeight = null;
+	let screenWidth: any = null;
+	let screenHeight: any = null;
 
-	let operatingSystem = null;
-	let osVersion = null;
-	let osArchitecture = null;
+	let operatingSystem: any = null;
+	let osVersion: any = null;
+	let osArchitecture: any = null;
 
-	let browserName = null;
-	let browserVersion = null;
+	let browserName: any = null;
+	let browserVersion: any = null;
 
 	onMount(() => {
 		screenWidth = screen.width;
@@ -41,15 +39,10 @@
 				} else if (userAgent.includes('windows nt 5.1') || userAgent.includes('windows xp')) {
 					osVersion = 'XP';
 				}
-				if (
-					userAgent.includes('wow64') ||
-					userAgent.includes('win64') ||
-					userAgent.includes('x64')
-				) {
-					osArchitecture = '64-bit';
-				} else {
-					osArchitecture = '32-bit';
-				}
+				osArchitecture =
+					userAgent.includes('wow64') || userAgent.includes('win64') || userAgent.includes('x64')
+						? '64-bit'
+						: '32-bit';
 			} else if (userAgent.includes('mac')) {
 				operatingSystem = 'MacOS';
 				osVersion = userAgent.match(/mac os x (\d+(?:[\.\_\d]+)?)/)[1];
@@ -98,63 +91,42 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
 		<div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12 md:space-y-0">
-			<div
-				class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-			>
-				<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-					Operating System
-				</h5>
-				<p class="font-normal text-gray-700 dark:text-gray-400">
-					{operatingSystem||''}
-					{osVersion||''}
-					{osArchitecture||''}
-				</p>
-			</div>
-			<div
-				class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-			>
-				<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Browser</h5>
-				<p class="font-normal text-gray-700 dark:text-gray-400">{browserName||''} {browserVersion||''}</p>
-			</div>
-			<div
-				class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-			>
-				<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-					Browser Resolution
-				</h5>
-				<p class="font-normal text-gray-700 dark:text-gray-400">{innerWidth||''} x {innerHeight||''}</p>
-			</div>
-			<div
-				class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-			>
-				<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-					Screen Resolution
-				</h5>
-				<p class="font-normal text-gray-700 dark:text-gray-400">{screenWidth||''} x {screenHeight||''}</p>
-			</div>
+			{#each ['Operating System', 'Browser', 'Browser Resolution', 'Screen Resolution'] as item}
+				<div
+					class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+				>
+					<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+						{item}
+					</h5>
+					{#if item === 'Operating System'}
+						<p class="font-normal text-gray-700 dark:text-gray-400">
+							{operatingSystem || ''}
+							{osVersion || ''}
+							{osArchitecture || ''}
+						</p>
+					{/if}
+					{#if item === 'Browser'}
+						<p class="font-normal text-gray-700 dark:text-gray-400">
+							{browserName || ''}
+							{browserVersion || ''}
+						</p>
+					{/if}
+					{#if item === 'Browser Resolution'}
+						{#if innerWidth || innerHeight}
+							<p class="font-normal text-gray-700 dark:text-gray-400">
+								{innerWidth} x {innerHeight}
+							</p>
+						{/if}
+					{/if}
+					{#if item === 'Screen Resolution'}
+						{#if screenWidth || screenHeight}
+							<p class="font-normal text-gray-700 dark:text-gray-400">
+								{screenWidth} x {screenHeight}
+							</p>
+						{/if}
+					{/if}
+				</div>
+			{/each}
 		</div>
 	</div>
 </section>
-
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<h2
-			class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-		>
-			How does it work?
-		</h2>
-		<p class="mb-4 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-			voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-			non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-	</div>
-</section>
-
-<style>
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-	}
-</style>

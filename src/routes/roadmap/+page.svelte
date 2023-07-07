@@ -1,5 +1,5 @@
 <script>
-    import { Avatar, Dropdown, DropdownHeader, DropdownItem, DropdownDivider, Tooltip } from "flowbite-svelte"
+    import { Avatar } from "flowbite-svelte"
 
     let launched = [
         {
@@ -11,13 +11,6 @@
         },
         {
             name: 'Password Generator',
-            contributors: [{
-                name: 'Hannan Satopay',
-                githubId: 'hannansatopay'
-            }]
-        },
-        {
-            name: 'Color Converter',
             contributors: [{
                 name: 'Hannan Satopay',
                 githubId: 'hannansatopay'
@@ -60,6 +53,10 @@
             contributors: [{
                 name: 'Hannan Satopay',
                 githubId: 'hannansatopay'
+            },
+            {
+                name: 'Munsif Satopay',
+                githubId: 'munsifsatopay'
             }]
         },
         {
@@ -81,17 +78,14 @@
             contributors: [{
                 name: 'Hannan Satopay',
                 githubId: 'hannansatopay'
+            },
+            {
+                name: 'Munsif Satopay',
+                githubId: 'munsifsatopay'
             }]
         },
         {
             name: 'Pomodoro Timer',
-            contributors: [{
-                name: 'Rifat Perween',
-                githubId: 'rifatperween'
-            }]
-        },
-        {
-            name: 'To-do App',
             contributors: [{
                 name: 'Rifat Perween',
                 githubId: 'rifatperween'
@@ -105,60 +99,38 @@
             }]
         },
         {
-            name: 'Markdown Editor',
-            contributors: [{
-                name: 'Rifat Perween',
-                githubId: 'rifatperween'
-            }]
-        },
-        {
-            name: 'Age Calculator',
-            contributors: [{
-                name: 'Rifat Perween',
-                githubId: 'rifatperween'
-            }]
-        },
-        {
-            name: 'JSON Beautifier',
-            contributors: []
-        },
-        {
             name: 'WhatsApp API Generator',
-            contributors: []
-        },
-        {
-            name: 'User Agent Generator',
-            contributors: []
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
         },
         {
             name: 'Device Details',
-            contributors: []
-        },
-        {
-            name: 'Crypto Address Validator',
-            contributors: []
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
         },
         {
             name: 'Robots.txt Generator',
-            contributors: []
-        },
-        {
-            name: 'Spreadsheet to HTML Table',
-            contributors: []
-        },
-        {
-            name: 'Video Thumbnail Extractor',
-            contributors: []
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }]
         },
         {
             name: 'File Examples',
-            contributors: []
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            },
+            {
+                name: 'Munsif Satopay',
+                githubId: 'munsifsatopay'
+            }]
         },
     ];
-
-    console.log("Launched", launched.length);
-
-    let planned = [];
 </script>
 <section class="bg-white dark:bg-gray-900 p-3 sm:p-5">
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -181,7 +153,7 @@
                                 <td scope="row" class="px-4 py-3 text-gray-900 dark:text-white">
                                     <div class="flex items-center space-x-2">
                                         {#each l.contributors as contributor}
-                                            <a href="https://github.com/{contributor.githubId}" target="_blank" class="flex items-center space-x-1 font-medium inline-flex items-center justify-center px-2.5 py-1 text-xs border bg-gray-100 dark:bg-gray-700 border-primary-400 hover:bg-primary-200 rounded">
+                                            <a href="https://github.com/{contributor.githubId}" target="_blank" class="flex items-center space-x-1 font-medium inline-flex items-center justify-center px-2.5 py-1 text-xs bg-gray-100 dark:bg-gray-700 border-primary-400 hover:bg-gray-200 rounded">
                                                 <Avatar src="https://github.com/{contributor.githubId}.png" size="xs"/>
                                                 <div>{contributor.name}</div>
                                             </a>

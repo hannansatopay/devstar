@@ -1,19 +1,18 @@
 <script lang="ts">
-	import Intro from '../Intro.svelte';
-	import { Label, Input, Range } from 'flowbite-svelte';
-	import { Tooltip, Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
-	import { Fileupload } from 'flowbite-svelte';
+	import { Label } from 'flowbite-svelte';
+	import Intro from '$lib/Intro.svelte';
 
 	export let data;
 
+	let fileInput;
 	let canvas: HTMLCanvasElement;
-
 	let colors = [];
-	let numberofColors = 5;
 
 	function drawImageOnCanvas(file) {
 		const ctx = canvas.getContext('2d');
+		canvas.width = canvas.offsetWidth;
+    	canvas.height = canvas.offsetHeight;
 
 		// Create new image element
 		const img = new Image();
@@ -27,11 +26,156 @@
 
 		// When image is loaded, draw it on the canvas
 		img.onload = function () {
-			canvas.width = img.width;
-			canvas.height = img.height;
-			ctx.drawImage(img, 0, 0);
+			// Calculate the dimensions to fit the image within the container
+			var container = document.getElementById('container');
+			// Calculate the dimensions to fit the image within the container
+			var maxWidth = container.offsetWidth;
+			var imageWidth = img.width;
+			var imageHeight = img.height;
+			var scaleFactor = maxWidth / imageWidth;
+			var canvasWidth = imageWidth * scaleFactor;
+			var canvasHeight = imageHeight * scaleFactor;
+
+			// Set the canvas size and draw the image
+			canvas.width = canvasWidth;
+			canvas.height = canvasHeight;
+
+			// Update the container's height
+			container.style.height = canvasHeight + 'px';
+			ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
 			getDominantColors();
 		};
+	}
+
+	function getDominantColors() {
+		const ctx = canvas.getContext('2d');
+		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		const rgbArray = buildRgb(imageData.data);
+		colors = quantization(rgbArray, 0).map(rgbToHex);
+	}
+
+	function buildRgb(imageData) {
+		const rgbValues = new Array(Math.floor(imageData.length / 4));
+
+		for (let i = 0, j = 0; i < imageData.length; i += 4, j++) {
+			rgbValues[j] = {
+				r: imageData[i],
+				g: imageData[i + 1],
+				b: imageData[i + 2],
+			};
+		}
+
+		return rgbValues;
+	}
+
+	function findBiggestColorRange(rgbValues) {
+		let rMin = Number.MAX_VALUE;
+		let gMin = Number.MAX_VALUE;
+		let bMin = Number.MAX_VALUE;
+		let rMax = Number.MIN_VALUE;
+		let gMax = Number.MIN_VALUE;
+		let bMax = Number.MIN_VALUE;
+
+		for (let i = 0; i < rgbValues.length; i++) {
+			const pixel = rgbValues[i];
+			rMin = Math.min(rMin, pixel.r);
+			gMin = Math.min(gMin, pixel.g);
+			bMin = Math.min(bMin, pixel.b);
+			rMax = Math.max(rMax, pixel.r);
+			gMax = Math.max(gMax, pixel.g);
+			bMax = Math.max(bMax, pixel.b);
+		}
+
+		const rRange = rMax - rMin;
+		const gRange = gMax - gMin;
+		const bRange = bMax - bMin;
+
+		if (rRange >= gRange && rRange >= bRange) {
+			return 'r';
+		} else if (gRange >= rRange && gRange >= bRange) {
+			return 'g';
+		} else {
+			return 'b';
+		}
+	}
+
+	function quantization(rgbValues, depth) {
+		const MAX_DEPTH = 2;
+
+		if (depth === MAX_DEPTH || rgbValues.length === 0) {
+			const color = rgbValues.reduce(
+			(prev, curr) => {
+				prev.r += curr.r;
+				prev.g += curr.g;
+				prev.b += curr.b;
+				return prev;
+			},
+			{ r: 0, g: 0, b: 0 }
+			);
+
+			const count = rgbValues.length || 1;
+			color.r = Math.round(color.r / count);
+			color.g = Math.round(color.g / count);
+			color.b = Math.round(color.b / count);
+			return [color];
+		}
+
+		const componentToSortBy = findBiggestColorRange(rgbValues);
+		rgbValues.sort((p1, p2) => p1[componentToSortBy] - p2[componentToSortBy]);
+
+		const mid = Math.floor(rgbValues.length / 2);
+		return [
+			...quantization(rgbValues.slice(0, mid), depth + 1),
+			...quantization(rgbValues.slice(mid), depth + 1),
+		];
+	}
+
+	function rgbToHex(rgb) {
+		// Separate the RGB components
+		var r = rgb.r;
+		var g = rgb.g;
+		var b = rgb.b;
+
+		// Convert each component to a hexadecimal string
+		var rHex = r.toString(16).padStart(2, '0');
+		var gHex = g.toString(16).padStart(2, '0');
+		var bHex = b.toString(16).padStart(2, '0');
+
+		// Combine the hexadecimal values
+		var hex = '#' + rHex + gHex + bHex;
+
+		return hex;
+	}
+
+	function getContrastColor(hexColor) {
+		// Remove the leading '#' if present
+		hexColor = hexColor.replace('#', '');
+
+		// Convert the hex color to RGB
+		var r = parseInt(hexColor.substr(0, 2), 16);
+		var g = parseInt(hexColor.substr(2, 2), 16);
+		var b = parseInt(hexColor.substr(4, 2), 16);
+
+		// Calculate the relative luminance of the color
+		var relativeLuminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+
+		// Determine the contrast color based on the relative luminance
+		var contrastColor = relativeLuminance > 0.5 ? '#000000' : '#ffffff';
+
+		return contrastColor;
+	}
+
+	function copy(e, text) {
+		e.target.innerText = 'Copied';
+		const element = document.createElement('textarea');
+		element.value = text;
+		document.body.appendChild(element);
+		element.select();
+		document.execCommand('copy');
+		document.body.removeChild(element);
+		setTimeout(() => {
+			e.target.innerText = text;
+		}, 1000);
 	}
 
 	function handleFileUpload(event) {
@@ -40,247 +184,49 @@
 	}
 
 	onMount(() => {
-		drawImageOnCanvas('/office-long-1.png');
+		drawImageOnCanvas('/quino-al-J1_1YigSUPA-unsplash.jpg');
 	});
-
-	function updateColors(type) {
-		numberofColors = numberofColors + type;
-		getDominantColors();
-	}
-
-	function getDominantColors() {
-		// Get the image data
-		const imageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
-
-		const rgbArray = buildRgb(imageData.data);
-
-		/**
-		 * Color quantization
-		 * A process that reduces the number of colors used in an image
-		 * while trying to visually maintin the original image as much as possible
-		 */
-		const quantColors = quantization(rgbArray, 0);
-
-		console.log(quantColors);
-
-		colors = quantColors;
-
-		// // Loop through the pixels and count each color
-		// const colorCounts = {};
-		// const pixels = imageData.data;
-		// for (let i = 0; i < pixels.length; i += 4) {
-		// 	const r = pixels[i];
-		// 	const g = pixels[i + 1];
-		// 	const b = pixels[i + 2];
-		// 	const rgb = `${r},${g},${b}`;
-		// 	if (rgb in colorCounts) {
-		// 		colorCounts[rgb]++;
-		// 	} else {
-		// 		colorCounts[rgb] = 1;
-		// 	}
-		// }
-
-		// // Sort the colors by count in descending order
-		// const sortedColors = Object.keys(colorCounts).sort((a, b) => colorCounts[b] - colorCounts[a]);
-
-		// // Return the top numColors colors
-		// const dominantColors = [];
-		// for (let i = 0; i < numberofColors && i < sortedColors.length; i++) {
-		// 	const [r, g, b] = sortedColors[i].split(',').map(Number);
-		// 	dominantColors.push({ r, g, b });
-		// }
-		// colors = dominantColors;
-	}
-
-	const buildRgb = (imageData) => {
-  const rgbValues = [];
-  // note that we are loopin every 4!
-  // for every Red, Green, Blue and Alpha
-  for (let i = 0; i < imageData.length; i += 4) {
-    const rgb = {
-      r: imageData[i],
-      g: imageData[i + 1],
-      b: imageData[i + 2],
-    };
-
-    rgbValues.push(rgb);
-  }
-
-  return rgbValues;
-};
-
-// returns what color channel has the biggest difference
-const findBiggestColorRange = (rgbValues) => {
-  /**
-   * Min is initialized to the maximum value posible
-   * from there we procced to find the minimum value for that color channel
-   *
-   * Max is initialized to the minimum value posible
-   * from there we procced to fin the maximum value for that color channel
-   */
-  let rMin = Number.MAX_VALUE;
-  let gMin = Number.MAX_VALUE;
-  let bMin = Number.MAX_VALUE;
-
-  let rMax = Number.MIN_VALUE;
-  let gMax = Number.MIN_VALUE;
-  let bMax = Number.MIN_VALUE;
-
-  rgbValues.forEach((pixel) => {
-    rMin = Math.min(rMin, pixel.r);
-    gMin = Math.min(gMin, pixel.g);
-    bMin = Math.min(bMin, pixel.b);
-
-    rMax = Math.max(rMax, pixel.r);
-    gMax = Math.max(gMax, pixel.g);
-    bMax = Math.max(bMax, pixel.b);
-  });
-
-  const rRange = rMax - rMin;
-  const gRange = gMax - gMin;
-  const bRange = bMax - bMin;
-
-  // determine which color has the biggest difference
-  const biggestRange = Math.max(rRange, gRange, bRange);
-  if (biggestRange === rRange) {
-    return "r";
-  } else if (biggestRange === gRange) {
-    return "g";
-  } else {
-    return "b";
-  }
-};
-
-/**
- * Median cut implementation
- * can be found here -> https://en.wikipedia.org/wiki/Median_cut
- */
-const quantization = (rgbValues, depth) => {
-  const MAX_DEPTH = 2;
-
-  // Base case
-  if (depth === MAX_DEPTH || rgbValues.length === 0) {
-    const color = rgbValues.reduce(
-      (prev, curr) => {
-        prev.r += curr.r;
-        prev.g += curr.g;
-        prev.b += curr.b;
-
-        return prev;
-      },
-      {
-        r: 0,
-        g: 0,
-        b: 0,
-      }
-    );
-
-    color.r = Math.round(color.r / rgbValues.length);
-    color.g = Math.round(color.g / rgbValues.length);
-    color.b = Math.round(color.b / rgbValues.length);
-
-    return [color];
-  }
-
-  /**
-   *  Recursively do the following:
-   *  1. Find the pixel channel (red,green or blue) with biggest difference/range
-   *  2. Order by this channel
-   *  3. Divide in half the rgb colors list
-   *  4. Repeat process again, until desired depth or base case
-   */
-  const componentToSortBy = findBiggestColorRange(rgbValues);
-  rgbValues.sort((p1, p2) => {
-    return p1[componentToSortBy] - p2[componentToSortBy];
-  });
-
-  const mid = rgbValues.length / 2;
-  return [
-    ...quantization(rgbValues.slice(0, mid), depth + 1),
-    ...quantization(rgbValues.slice(mid + 1), depth + 1),
-  ];
-};
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div
-			class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
-		>
-			<div class="p-8">
-				<Label>Palette</Label>
-				<div class="flex">
-					<Button on:click={() => updateColors(-1)}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-5 h-5 mr-2 text-purple-500 dark:text-green-500"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-							/></svg
-						>
-					</Button>
-					<div class="palette flex w-full">
-						{#each colors as color}
-							<div
-								style="background: rgb({color.r},{color.g},{color.b}); cursor: pointer;height: 100%;position: relative;flex-grow: 1;"
-							/>
-						{/each}
+		<div class="card items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-12 overflow-hidden rounded-lg">
+			<div class="p-8 col-span-5 flex h-full flex-col justify-between">
+				<div>
+					<Label class="mb-1">Palette</Label>
+					<div class="flex">
+						<div class="palette flex w-full h-10 rounded-lg overflow-hidden">
+							{#each colors as color}
+								<div on:click={(event)=>copy(event,color)} class="cursor-pointer relative flex flex-grow items-center justify-center" style="color:{getContrastColor(color)}; background: {color};">{color}</div>
+							{/each}
+						</div>
 					</div>
-					<Button on:click={() => updateColors(1)}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="1.5"
-							stroke="currentColor"
-							class="w-5 h-5 mr-2 text-purple-500 dark:text-green-500"
-							><path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-							/></svg
-						>
-					</Button>
 				</div>
 
-				<Fileupload on:change={handleFileUpload} />
+				<button on:click={()=>fileInput.click()} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Browse image</button>
+				<input type="file" class="hidden" accept="image/*" bind:this={fileInput} on:change={handleFileUpload}>
 			</div>
-			<div class="p-8 h-full flex rounded-lg relative justify-center items-center">
-				<canvas bind:this={canvas} />
+			<div class="p-8 h-full flex rounded-lg relative justify-center items-center col-span-7 bg-gray-100">
+				<div class="canvas-container w-full" id="container">
+					<canvas bind:this={canvas} class="canvas"/>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<h2
-			class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-		>
-			How does it work?
-		</h2>
-		<p class="mb-4 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-			voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-			non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-	</div>
-</section>
-
 <style>
-	.box {
-		border-radius: 20px;
-	}
+	.canvas-container {
+      position: relative;
+    }
+
+    .canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
 
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;

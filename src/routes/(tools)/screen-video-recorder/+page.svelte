@@ -1,27 +1,21 @@
 <script lang="ts">
-	import Intro from '../Intro.svelte';
-	import { Label, Input, Range, A } from 'flowbite-svelte';
-	import { Radio } from 'flowbite-svelte';
-	import { Checkbox } from 'flowbite-svelte';
-	import { Button } from 'flowbite-svelte';
-	import { onMount } from 'svelte';
-
+	import { Button, VideoPlaceholder } from 'flowbite-svelte';
+	import Intro from '$lib/Intro.svelte';
+	
 	export let data;
 
 	let recorder;
 	let strm;
 	let src;
-	let starting = false;
 
-	function start() {
-		getMedia();
-	}
+	let recording = false;
 
 	function stop() {
 		recorder.stop();
 		strm.getTracks().forEach(function (track) {
 			track.stop();
 		});
+		recording = false;
 	}
 
 	function getMedia() {
@@ -37,6 +31,8 @@
 
 				recorder.start();
 
+				recording = true;
+
 				// Save the recorded video when the recorder has data available
 				recorder.addEventListener('dataavailable', function (event) {
 					chunks.push(event.data);
@@ -44,26 +40,25 @@
 
 				// Create a new video element and play the recorded video
 				recorder.addEventListener('stop', function () {
+					stop();
 					var video = document.createElement('video');
 					src = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' }));
 					document.body.appendChild(video);
 					video.play();
 				});
-			})
-			.catch(function (error) {
+			}).catch(function (error) {
 				console.error('Could not get display media: ' + error);
 			});
 	}
-
-	onMount(() => {});
 
 	function download() {
 		if (src) {
 			var video = document.createElement('a');
 			video.href = src;
-			video.download = 'screen_recording.webm';
+			video.download = `screen-recording-${Date.now()}.webm`;
 			video.click();
 			URL.revokeObjectURL(src);
+			document.body.removeChild(video);
 		}
 	}
 </script>
@@ -72,50 +67,25 @@
 
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div
-			class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
-		>
-			<div class="p-8">
-				<Button id="start-recording" on:click={start}>Start</Button>
-				<Button id="stop-recording" on:click={stop}>Stop</Button>
-			</div>
-			<div class="p-8 h-full flex rounded-lg relative justify-center items-center">
+		<div class="card mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+			<div class="h-full flex rounded-lg relative justify-center items-center">
 				{#if src}
-					<video width="500" height="250" controls {src} />
-
-					<div
-						class="bg-blue-100 dark:bg-blue-200 text-blue-700 dark:text-blue-800 rounded-lg py-1 px-2 text-sm font-medium absolute top-4 right-4 cursor-pointer"
-					>
-						<button on:click={download}>Download</button>
-					</div>
+					<video class="w-full h-auto" controls {src} />
+					<Button color="green" on:click={download} class="absolute top-4 right-4">Download</Button>
+				{:else}
+					<VideoPlaceholder size='xxl' class="w-full max-w-full h-96"/>
+				{/if}
+				{#if recording}
+					<Button on:click={stop} class="absolute top-4 left-4">Stop</Button>
+				{:else}
+					<Button on:click={getMedia} class="absolute top-4 left-4">Start</Button>
 				{/if}
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<h2
-			class="mb-4 text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-		>
-			How does it work?
-		</h2>
-		<p class="mb-4 text-gray-500 dark:text-gray-400">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-			laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-			voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-			non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-	</div>
-</section>
-
 <style>
-	.box {
-		border-radius: 20px;
-	}
-
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}

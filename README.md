@@ -1,68 +1,62 @@
+# Developerstar
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+Welcome to the ultimate solution for developers seeking to enhance their productivity and streamline their workflows. Our free online developer toolkit empowers you to unlock your full potential with a comprehensive collection of top-notch tools. Say goodbye to the struggles of searching for the right tools and embrace the convenience of our user-friendly platform.
 
+As fellow developers, we understand the daily challenges of finding the perfect tools to solve programming problems. That's why we have curated a high-quality selection of developer tools, all in one place. Our platform is available to developers worldwide, and it will remain free forever.
 
-# Project Title
+Our mission is to lead the way in providing developer tools that empower software developers to overcome obstacles and work more efficiently. We are dedicated to streamlining workflows and increasing productivity, envisioning a future where software development is faster, more accessible, and more innovative than ever before.
 
-A brief description of what this project does and who it's for
-
+Join us on this journey to maximize your efficiency and productivity as a developer. Experience the power of our developer toolkit today!
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
-
-**Server:** Node, Express
+SvelteKit
 
 
 ## Run Locally
 
-Clone the project
+ Clone the project
 
 ```bash
-  git clone https://link-to-project
+
+git  clone  https://github.com/hannansatopay/devstar
+
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+
+cd  devstar
+
 ```
 
 Install dependencies
 
 ```bash
-  npm install
+
+npm  install
+
 ```
 
 Start the server
 
+  
 ```bash
-  npm run start
+
+npm  run  dev
+
 ```
 
-
 ## Demo
-
-Insert gif or link to demo
-
-
-## Features
-
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
-
+https://developerstar.com
 
 ## Contributing
-
 Contributions are always welcome!
 
 See `contributing.md` for ways to get started.
 
 Please adhere to this project's `code of conduct`.
 
-
 ## License
-
 [MIT](https://choosealicense.com/licenses/mit/)
