@@ -1,3 +1,5 @@
+[![Screenshot of the plaform](platform-screenshot.png)](https://developerstar.com)
+
 # Developerstar
 
 Welcome to the ultimate solution for developers seeking to enhance their productivity and streamline their workflows. Our free online developer toolkit empowers you to unlock your full potential with a comprehensive collection of top-notch tools. Say goodbye to the struggles of searching for the right tools and embrace the convenience of our user-friendly platform.
@@ -8,10 +10,9 @@ Our mission is to lead the way in providing developer tools that empower softwar
 
 Join us on this journey to maximize your efficiency and productivity as a developer. Experience the power of our developer toolkit today!
 
-## Tech Stack
+## Powered by
 
-SvelteKit
-
+![SvelteKit](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=Svelte&logoColor=white) ![SvelteKit](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 ## Run Locally
 
@@ -48,11 +49,6 @@ npm  run  dev
 
 ```
 
-## Demo
-![Screenshot of the plaform](platform-screenshot.png)
-https://developerstar.com
-
-
 ## Contributing
 Contributions are always welcome!
 
@@ -61,4 +57,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
 Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![License: MIT](https://img.shields.io/badge/SvelteKit-FF3E00?style=for-the-badge&logo=Svelte&logoColor=white)]
