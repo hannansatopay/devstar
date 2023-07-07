@@ -49,14 +49,16 @@ npm  run  dev
 ```
 
 ## Demo
+![Screenshot of the plaform](platform-screenshot.png)
 https://developerstar.com
+
 
 ## Contributing
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
 
-Please adhere to this project's `code of conduct`.
+Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
