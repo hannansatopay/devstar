@@ -10,7 +10,7 @@ export async function load({route, url}) {
 
 // @ts-ignore
 function getMeta(route, url) {
-    if (route.id.includes("(tools)")) {
+    if (route.id && route.id.includes("(tools)")) {
         // @ts-ignore
         let tool = tools[url.pathname.replace("/","")];
         return {

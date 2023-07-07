@@ -83,12 +83,6 @@ export let tools = {
         link: '/device-details',
         description: "The Device Details tool provides developers with essential information about user devices, including browser specifications, screen resolution, operating system details, and more. By integrating this tool into your applications, you can gather valuable insights about your users' devices, allowing you to optimize user experiences, ensure compatibility, and tailor your content or features accordingly."
     },
-    // 'crypto-validator': {
-    //     name: 'Crypto Validator',
-    //     icon: 'layer-group',
-    //     link: '/crypto-validator',
-    //     description: "The Crypto Validator is a vital tool for developers working with cryptographic algorithms and data security. This tool allows you to validate various cryptographic inputs, including hashes, signatures, and encryption outputs, ensuring their integrity and correctness. Verify the accuracy of cryptographic operations within your applications with this reliable and efficient tool."
-    // },
     'whatsapp-api-generator': {
         name: 'WhatsApp API Generator',
         icon: 'whatsapp',
