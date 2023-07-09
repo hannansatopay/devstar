@@ -7,6 +7,9 @@
             contributors: [{
                 name: 'Hannan Satopay',
                 githubId: 'hannansatopay'
+            }, {
+                name: 'Abhishek Jadhav',
+                githubId: 'AbhishekJadhav2002'
             }]
         },
         {
