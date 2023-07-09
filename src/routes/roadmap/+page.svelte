@@ -10,6 +10,10 @@
             }, {
                 name: 'Abhishek Jadhav',
                 githubId: 'AbhishekJadhav2002'
+            },
+            {
+                name: 'Vikas Kushwaha',
+                githubId: 'Vikas350'
             }]
         },
         {
