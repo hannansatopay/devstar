@@ -28,6 +28,10 @@
             contributors: [{
                 name: 'Hannan Satopay',
                 githubId: 'hannansatopay'
+            },
+            {
+                name: 'Vikas Kushwaha',
+                githubId: 'Vikas350'
             }]
         },
         {
