@@ -131,6 +131,13 @@
             }]
         },
         {
+            name: 'FavIcon Generator',        
+            contributors: [{
+                name: 'Pranjal Kumar',
+                githubId: 'pranjal-barnwal'
+            }]
+        },
+        {
             name: 'File Examples',
             contributors: [{
                 name: 'Hannan Satopay',
