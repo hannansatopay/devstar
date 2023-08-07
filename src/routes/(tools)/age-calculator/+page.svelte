@@ -36,7 +36,7 @@
   </script>
   
   <main>
-	<h1>Stylish Age Calculator</h1>
+	<h1> Age Calculator</h1>
   
 	<div class="input-container">
 	  <label for="startDate">Start Date:</label>
