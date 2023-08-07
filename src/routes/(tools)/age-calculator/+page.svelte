@@ -23,8 +23,10 @@
 	  age.months = Math.floor((diffSeconds % (365 * 24 * 60 * 60)) / (30 * 24 * 60 * 60));
 	  age.weeks = Math.floor((diffSeconds % (30 * 24 * 60 * 60)) / (7 * 24 * 60 * 60));
 	  age.days = Math.floor((diffSeconds % (7 * 24 * 60 * 60)) / (24 * 60 * 60));
-	  age.hours = Math.floor((diffSeconds % (24 * 60 * 60)) / (60 * 60));
-	  age.minutes = Math.floor((diffSeconds % (60 * 60)) / 60);
+  
+	  // Calculate hours, minutes, and seconds
+	  age.hours = Math.floor((diffSeconds % (24 * 60 * 60)) / 3600);
+	  age.minutes = Math.floor((diffSeconds % 3600) / 60);
 	  age.seconds = diffSeconds % 60;
 	  
 	  if (age.hours < 0) age.hours += 24; // Adjust for negative hours
