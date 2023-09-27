@@ -28,7 +28,7 @@
         console.log(len)
 		highlightedText = testText.replace(
 			new RegExp(regexPattern, 'g'),
-			`<div class="bg-yellow-300 inline-block font-semibold opacity-75 h-6">&nbsp;$& &nbsp;</div>`
+			`<div class="bg-blue-200 text-black inline-block font-semibold opacity-75 h-6">&nbsp;$& &nbsp;</div>`
 		);
 	}
 </script>
@@ -38,7 +38,7 @@
 <section class="bg-white dark:bg-gray-900 flex justify-center">
 	<div class="border border-white h-96 mb-2 w-2/3">
 		<div class="regex-Header">
-			<div class="hover:dark:bg-gray-900" on:click={() => (language = 'Python')}>Python</div>
+			<div class="hover:dark:bg-gray-900 " on:click={() => (language = 'Python')}>Python</div>
 			<div class="hover:dark:bg-gray-900" on:click={() => (language = 'Javascript')}>
 				Javascript
 			</div>
