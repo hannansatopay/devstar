@@ -94,5 +94,11 @@ export let tools = {
         icon: 'spider-web',
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'invoice-generator': {
+        name: 'Invoice Generator',
+        icon: 'files',
+        link: '/invoice-generator',
+        description: "The small invoice module is a compact and efficient solution for generating invoices with ease. This single-page tool simplifies the invoicing process, allowing you to quickly input client information, itemize products or services, calculate totals, and generate professional invoices. Whether you're a small business owner or a freelancer, this module provides a straightforward and time-saving way to create and manage your invoices. Streamline your invoicing tasks and keep your finances in order effortlessly."
     }
 };
