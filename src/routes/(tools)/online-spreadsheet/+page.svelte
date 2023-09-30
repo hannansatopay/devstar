@@ -2,9 +2,15 @@
 	import Intro from '$lib/Intro.svelte';
 	import { Label, Input, Range, Radio, Checkbox } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
-
+	
 	export let data;
 
+	// Might need these for tabular view
+	let innerWidth: any = null; // defining this solve the of svelte:window tag  
+	let innerHeight: any = null; // and now all other elements are visible
+	let screenWidth: any = null;
+	let screenHeight: any = null;
+	
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
