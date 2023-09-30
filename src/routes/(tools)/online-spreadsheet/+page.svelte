@@ -25,9 +25,9 @@
 			//Code goes here
 			<!-- <div class="flex flex-wrap gap-2"> -->
 			<!-- <Button size="xl" outline color="green">Open New Spreadsheet (.csv)</Button> -->
-			<GradientButton size="xl" color="blue">Open New Spreadsheet (.csv)</GradientButton>
-			<Button size="xl" outline color="blue">Open New Spreadsheet (.csv)</Button>
-				<!--<Button size="xl"><EnvelopeSolid class="w-4 h-4 mr-2" />Extra large</Button>-->
+			<Button size="xl" outline color="blue">Upload Spreadsheet (.csv)</Button>
+			<GradientButton size="xl" color="blue">Create New Spreadsheet (.csv)</GradientButton>
+			<!-- <Button size="xl"><EnvelopeSolid class="w-4 h-4 mr-2" />Create New Spreadsheet (.csv)</Button> -->
 			<!-- </div> -->
 		</div>
 	</div>
