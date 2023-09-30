@@ -41,7 +41,7 @@
 		<!-- </div> -->
 	<!-- </div> -->
 	<div class="flex justify-center items-center">
-		<Button size="xl" outline color="blue" class="py-2 px-4 m-6">Open New Spreadsheet (.csv)</Button>
-	    <GradientButton size="xl" color="blue" class="py-2 px-4 m-6">Create New Spreadsheet (.csv)</GradientButton>
+		<Button size="xl" outline color="blue" class="m-6">Open New Spreadsheet<br/>(.csv)</Button>
+	    <GradientButton size="xl" color="blue" class="m-6">Create New Spreadsheet<br/>(.csv)</GradientButton>
 	</div>
 </section>
