@@ -143,10 +143,10 @@
         },
         
         { 
-             name: 'Terminal Generator', 
-             contributors: [{ 
-                 name: 'Sahil Balia', 
-                 githubId: 'sahilbalia' 
+            name: 'Terminal Generator', 
+            contributors: [{ 
+                name: 'Sahil Balia', 
+                githubId: 'sahilbalia' 
             }] 
        },    ];
 </script>
