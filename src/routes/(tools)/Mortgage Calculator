@@ -1,0 +1,8 @@
+<form action="">
+  <label>APR%: <input type="text" id="apr" name="APR"/></label>
+  <label>Loan Term: <input type="text" id="trm" name="APR"/></label>
+  <label>Loan Amount: <input type="text" id="amt" name="amt"/></lablel>
+  <input type="text" id="pmt" name="mPmt"/>
+  <input type="button" id="sbt" value="Submit" />
+  <input type="reset" id="rst" value="Reset Form" />
+</form>
