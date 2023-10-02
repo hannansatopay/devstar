@@ -189,6 +189,14 @@
   function handleFileChange(event) {
     file = event.target.files[0];
     readFileColumns();
+
+    const uploadIcon = document.getElementById('uploadIcon');
+    if(file){
+      uploadIcon.style.color = 'greenyellow';
+    }
+    else{
+      uploadIcon.style.color = 'text-gray-500';
+    }
   }
 </script>
 
@@ -199,7 +207,7 @@
     <div class="card items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-12 overflow-hidden rounded-lg shadow-lg">
       <div class="p-8 col-span-5 flex h-full flex-col justify-between">
         <div class="file-container mb-4 flex flex-col items-center space-y-2">
-          <i class="icon-files text-gray-500 dark:text-gray-400 text-5xl cursor-pointer" on:click={() => fileInput.click()}></i>
+          <i id="uploadIcon" class="icon-files text-gray-500 dark:text-gray-400 text-5xl cursor-pointer" on:click={() => fileInput.click()}></i>
           <legend for="fileInput" class="text-xm" style="color: #7b7b7b;">Upload File</legend>
           <input type="file" id="fileInput" accept=".csv, .json" class="hidden" on:change={handleFileChange}>
           <legend class="text-xm" style="color: #7b7b7b;">File Type</legend>
