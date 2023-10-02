@@ -99,6 +99,6 @@ export let tools = {
         name: 'Terminal Generator',
         icon: 'spider-web',
         link: '/terminal-generator',
-        description: "The is Terminal Generator Module."
+        description: "A dynamic tool designed to enhance the appearance of your source code in terminal environments. It leverages a wide array of customizable terminal themes to breathe fresh aesthetics into your code, making reading and debugging an enjoyable experience. Whether you desire a minimalist look, neon retro, or something entirely unique, it's flexibility ensures your terminal mirrors your style."
     }
 };
