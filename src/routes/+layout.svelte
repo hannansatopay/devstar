@@ -27,7 +27,7 @@
 		<meta name="title" content={data.meta.title}>
 		<meta name="description" content="{data.meta.description}">
 	{:else}
-		<title>Developerstar — A Comprehensive Developer Toolkit</title>
+		<title>Developerstar — String Utility Tools</title>
 		<meta name="title" content="Developerstar — A Comprehensive Developer Toolkit">
 		<meta name="description" content="Looking to boost your productivity and efficiency as a developer? Our free online developer toolkit has everything you need to unlock your full potential. From a user-friendly platform to a comprehensive collection of tools, we've got you covered. Experience the convenience and power of our toolkit today!">
 	{/if}
