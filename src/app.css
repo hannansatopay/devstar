@@ -136,3 +136,6 @@
 .icon-text-size:before {
   content: "\e912";
 }
+.icon-charts:before {
+  content: "\e99c";
+}
