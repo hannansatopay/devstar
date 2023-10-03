@@ -13,7 +13,7 @@
   <meta charset = "UTF-8">
   <style>
      body {
-      background: linear-gradient(to left, white, #000099);
+      background: linear-gradient(to left, white 5%, #000099 80%);
       color: white;
       display: block;
       
@@ -31,14 +31,38 @@
      input {
       color: black;
      }
-    
+     #urlInput {
+  background-color: #232528;
+  color: white;
+  border: none;
+  border-radius: 32px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: 1px solid #ffffff;
+  box-shadow: 0 0 10px #000000;
+}
+input::placeholder {
+  color: #e6e6e6;
+}
+
+input:hover {
+  background-color: #232528;
+}
     button {
-      transition-duration: 0.4s;
+      transition-duration: 0.8s;
       box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    }
+      border: none;
+      border-radius: 32px;
+      padding: 10px;
+      font-size: 16px;
+}
+    
 
     button:hover {
-      background-color: red;
+      background: linear-gradient(to right, blue 5%, #FF0000 80%);
       color: white;
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
@@ -48,6 +72,7 @@
       
     }
     .rst {
+      transition-duration: 0.4s;
       color: violet;
       content: center;
     }
@@ -60,6 +85,7 @@
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
     #reload {
+      transition-duration: 0.4s;
       color: violet;
       content: center;
     }
@@ -84,8 +110,12 @@
     
     #speed-test-results ul {
       list-style-type: circle;
-      padding: 0;
+
       display: block;
+      border: none;
+      border-radius: 32px;
+      padding: 10px;
+      font-size: 16px;
     }
     
     #speed-test-results li {
