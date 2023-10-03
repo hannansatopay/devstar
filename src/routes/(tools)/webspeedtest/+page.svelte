@@ -55,6 +55,14 @@
       background: linear-gradient(to right, blue, #FF0099);
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     }
+    #reload:hover {
+      background: linear-gradient(to right, #6f4e37 , #4291db);
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    #reload {
+      color: violet;
+      content: center;
+    }
     p {
       font-family: sans-serif;
       font-size: 16px;
@@ -75,7 +83,7 @@
     }
     
     #speed-test-results ul {
-      list-style-type: none;
+      list-style-type: circle;
       padding: 0;
       display: block;
     }
@@ -143,6 +151,7 @@
   <input type="text" placeholder="Enter a URL to test" id='urlInput'>
   <button onclick="startSpeedTest()">Start Speed Test</button>
   <button onclick="resetForm()" class='rst'>Reset</button>
+  <button type="button" onclick="location.reload();" id='reload'>Reload Page</button>
   <div id="speed-test-results"></div>
 </body>
 <script lang='ts'>
@@ -168,15 +177,7 @@ function startSpeedTest() {
       });
     });
 }
-function resetForm() {
-  // Clear the input field
-  const urlInput = document.getElementById('urlInput');
-  urlInput.value = '';
 
-  // Clear the speed test results
-  const speedTestResults = document.getElementById('#speed-test-results');
-  speedTestResults.innerHTML = '';
-}
 
 function convertJSONToHTML(jsonResults) {
   const htmlResults = [];
@@ -210,7 +211,11 @@ function convertJSONToHTML(jsonResults) {
 
   return htmlResults;
 }
-
+function resetForm() {
+  // Clear the input field
+  const urlInput = document.getElementById('urlInput');
+  urlInput.value = '';
+}
 </script>
 
 </html>
