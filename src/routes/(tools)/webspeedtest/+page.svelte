@@ -1,9 +1,4 @@
-<script>
-
-	import { blank_object, get_root_for_style } from "svelte/internal";
-  import { Label, Range, Checkbox } from 'flowbite-svelte';
-
-	import Intro from '$lib/Intro.svelte';
+<script lang='ts'>
 
 </script>
 
@@ -338,7 +333,7 @@ function resetForm() {
   const urlInput = document.getElementById('urlInput');
   urlInput.value = '';
 }
+/*No Copyrights please - - by Priyant*/
 </script>
 
 </html>
-/*No Copyrights please - - by Priyant*/

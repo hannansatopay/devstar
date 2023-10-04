@@ -99,5 +99,6 @@ export let tools = {
         name: 'WebPage SpeedTester',
         icon: 'spider-web',
         link: '/webspeedtest',
+        description: "A web page speed test that's as swift as the Bard's quill, revealing your site's performance with poetic skill.<br> Elevate your web page's performance with our swift and accurate web page speed test. Discover your site's strengths and weaknesses, and make informed decisions to improve user experience and boost conversions. Very useful for all users."
     }
 };
