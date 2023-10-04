@@ -18,13 +18,14 @@
 			<i class="icon-angle-right ml-2" />
 		</a> -->
 		<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-			A Comprehensive Developer Toolkit
+			String Utility Tools
 		</h1>
 		<p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
-			Maximize your efficiency and productivity as a developer with our free online developer
-			toolkit. Experience the convenience of our user-friendly platform and unlock your full
-			potential. Our comprehensive collection of tools has got you covered!
-		</p>
+			The String Utility Toolbox is a versatile and user-friendly platform designed to empower developers
+			 with a plethora of string and text manipulation functionalities.
+			 With intuitive customization options and lightning-fast processing, developers can effortlessly manipulate 
+			 text data according to their specific requirements. Simplify your coding challenges and enhance your 
+			 productivity with our comprehensive suite of text manipulation tools.</p>
 		<div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
 			<Search bind:value={query} />
 		</div>
