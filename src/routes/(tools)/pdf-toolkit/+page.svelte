@@ -2,27 +2,24 @@
   import { Label, Input, Range } from 'flowbite-svelte';
   import Intro from '$lib/Intro.svelte';
   import Copy from '$lib/Copy.svelte';
-  let file = null; // Store the selected file object
-  let fileName = "No file chosen"; // Default message
-  let isDecrypted = false; // Flag to track decryption status
+  let file = null; 
+  let fileName = "No file chosen"; 
+  let isDecrypted = false; 
 
   const handleFile = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       file = selectedFile;
-      fileName = selectedFile.name; // Get and set the file name
+      fileName = selectedFile.name; 
     } else {
       file = null;
-      fileName = "No file chosen"; // Reset the message
+      fileName = "No file chosen";
     }
   }
 
   const decryptAndDownload = () => {
-    // You can implement decryption logic here (if needed)
-    // For simplicity, we will simulate decryption by just waiting for 2 seconds
     isDecrypted = true;
     setTimeout(() => {
-      // Trigger the download by creating an anchor element
       const a = document.createElement('a');
       const url = URL.createObjectURL(file);
       a.href = url;
@@ -31,9 +28,8 @@
       a.click();
       URL.revokeObjectURL(url);
       document.body.removeChild(a);
-    }, 2000); // Simulating decryption delay
+    }, 2000);
   }
-
   export let data;
 </script>
 
@@ -50,11 +46,9 @@
     </label>
   </section>
 </div>
-
 <div class="flex justify-center font-sans mt-3">
   <div class="" style="color: white;">{fileName}</div>
 </div>
-
 <div class="flex justify-center mt-5">
   {#if !isDecrypted}
     <button on:click={decryptAndDownload} type="button " class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Decrypt Now</button>
