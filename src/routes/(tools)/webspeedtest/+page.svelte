@@ -1,6 +1,9 @@
 <script>
 
-	import { blank_object } from "svelte/internal";
+	import { blank_object, get_root_for_style } from "svelte/internal";
+  import { Label, Range, Checkbox } from 'flowbite-svelte';
+
+	import Intro from '$lib/Intro.svelte';
 
 </script>
 
@@ -13,21 +16,26 @@
   <meta charset = "UTF-8">
   <style>
      body {
-      background: linear-gradient(to left, white 5%, #000099 80%);
+      /*background: linear-gradient(to left, white 5%, #000099 80%);*/
       color: white;
       display: block;
       
       padding: auto;
       margin: auto;
-      justify-content: center;
+      align-items: center;
+      font-family: lucida console;
     }
 
-    h1 {
-      font-family: sans-serif;
-      font-weight: bold;
-      color: pink;
-      
-     }
+    h3 {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ff69b4; /* Gradient text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
+  margin-left: 850px;
+}
+
+
      input {
       color: black;
      }
@@ -38,6 +46,7 @@
   border-radius: 32px;
   padding: 10px;
   font-size: 16px;
+  margin-left: 600px;
 }
 
 input:focus {
@@ -45,7 +54,7 @@ input:focus {
   box-shadow: 0 0 10px #000000;
 }
 input::placeholder {
-  color: #e6e6e6;
+  color: grey;
 }
 
 input:hover {
@@ -58,18 +67,34 @@ input:hover {
       border-radius: 32px;
       padding: 10px;
       font-size: 16px;
+      transition: background-position 0.3s ease;
 }
-    
+#cont {
+      display: inline-block;
+      position: relative;
+    }
 
     button:hover {
       background: linear-gradient(to right, blue 5%, #FF0000 80%);
       color: white;
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      animation: gradientMove 3s linear infinite;
     }
     button {
+      border:none;
+      pointer: cursor;
       color: powderblue;
       justify-content: center;
-      
+      cursor: pointer;
+      transition: background-position 0.3s ease;
+    }
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+      100% {
+        background-position: 100% 50%;
+      }
     }
     .rst {
       transition-duration: 0.4s;
@@ -105,9 +130,16 @@ input:hover {
     }
     #speed-test-results {
       margin: 0 auto;
+      margin-top: 100px;
       width: 80%;
+
     }
-    
+    #speed-test-results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
     #speed-test-results ul {
       list-style-type: circle;
 
@@ -144,22 +176,32 @@ input:hover {
       color: red;
     }
     /* Add CSS for the result cards */
+/* Add CSS for the result cards */
 .result-card {
-  background-color: black;
+  background: linear-gradient(90deg, rgba(24,17,136,1) 0%, rgba(0,0,1,1) 20%, rgba(2,5,70,1) 89%);
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   padding: 16px;
   margin-bottom: 16px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  animation: wipe-in 0.5s ease-in-out;
+}
+
+.result-card:hover {
+  background: linear-gradient(90deg, rgba(66,8,18,1) 2%, rgba(0,0,1,1) 56%, rgba(41,5,12,1) 95%); /* Darken the background on hover */
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); /* Add a stronger shadow on hover */
 }
 
 .result-card h3 {
   font-size: 1.2em;
   margin-bottom: 8px;
+  color: #fff; /* Text color */
 }
 
 .result-card p {
   font-size: 1em;
   margin: 0;
+  color: #ccc; /* Text color */
 }
 
 .result-card .score-good {
@@ -173,29 +215,75 @@ input:hover {
 .result-card .score-poor {
   color: red;
 }
+@keyframes wipe-in {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
+.loading-container {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
+    }
+
+    .loading-circle {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 2s linear infinite;
+    }
+    
   </style>
 </head>
 <body>
-  <h1>Web Page Speed Test</h1>
-  <input type="text" placeholder="Enter a URL to test" id='urlInput'>
+  <h3><i>Web Page Speed Test</i></h3>
+  <input type="text" placeholder="https://www.ex.com/" id='urlInput'>
+  <span id="error" class="error-message"></span>
+  <div id='cont'>
   <button onclick="startSpeedTest()">Start Speed Test</button>
+  </div>
   <button onclick="resetForm()" class='rst'>Reset</button>
   <button type="button" onclick="location.reload();" id='reload'>Reload Page</button>
   <div id="speed-test-results"></div>
+   <!-- Loading circle container -->
+   <div class="loading-container" id="loadingContainer">
+    <div class="loading-circle"></div>
+  </div>
 </body>
 <script lang='ts'>
 
 function startSpeedTest() {
+  // Show the loading circle
+  const loadingContainer = document.getElementById('loadingContainer');
+      loadingContainer.style.display = 'flex';
   // Perform the speed test and display the results.
 
   // Get the URL from the input field.
   const url = document.querySelector('input[type="text"]').value;
 
+
   // Make a request to the PageSpeed Insights API to get the speed test results.
   fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`)
     .then(response => response.json())
     .then(results => {
+       // Hide the loading circle
+       loadingContainer.style.display = 'none';
       // Display the speed test results in the results div.
       const speedTestResults = document.querySelector('#speed-test-results');
       speedTestResults.innerHTML = ''; // Clear existing results
@@ -232,6 +320,8 @@ function convertJSONToHTML(jsonResults) {
     } else {
       pElement.classList.add('score-poor');
     }
+
+    
 
     cardElement.appendChild(h3Element);
     cardElement.appendChild(pElement);
