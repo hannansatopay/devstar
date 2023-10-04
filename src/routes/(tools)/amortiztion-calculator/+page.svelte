@@ -8,6 +8,7 @@
     let interest = 5;
     let yes =false;
     let current_year =2023;
+    let monthly_pay =0;
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -41,7 +42,22 @@
     <br>
     Extra monthly pay 
     <br>
-    <input type="number" class="monthly_pay">
+    <input type="number" value={monthly_pay}>
+    <select>
+        <option value="1" selected>Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>
+        <option value="4">Apr</option>
+        <option value="5">May</option>
+        <option value="6">Jun</option>
+        <option value="7">Jul</option>
+        <option value="8">Aug</option>
+        <option value="9">Sep</option>
+        <option value="10">Oct</option>
+        <option value="11">Nov</option>
+        <option value="12">Dec</option>
+    </select> 
+    <input type="number" class="monthly_pay" value={current_year}>
     {/if}
 </form>
 <style>
