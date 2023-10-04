@@ -99,6 +99,6 @@ export let tools = {
         name: 'PDF-ToolKit',
         icon: 'files',
         link: '/pdf-toolkit',
-        description:"Pdf che je kahi kam astil ithe kra"
+        description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
     }
 };
