@@ -29,10 +29,10 @@
     h3 {
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
   color: #ff69b4; /* Gradient text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
-  margin-left: 850px;
+  margin-left: 825px;
 }
 
 
@@ -265,6 +265,8 @@ input:hover {
    <div class="loading-container" id="loadingContainer">
     <div class="loading-circle"></div>
   </div>
+  
+  
 </body>
 <script lang='ts'>
 
@@ -339,3 +341,4 @@ function resetForm() {
 </script>
 
 </html>
+/*No Copyrights please - - by Priyant*/
