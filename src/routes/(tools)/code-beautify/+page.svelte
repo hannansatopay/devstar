@@ -5,6 +5,10 @@
 
 	export let data;
 
+	// Based on your project, you will get 3 options in type
+	// if type === 'JSON' --> TEAM JSON PARSER
+	// if type === 'HTML' --> TEAM HTML PARSER
+	// if type === 'XML' --> TEAM XML PARSER
 	let type = 'JSON';
 	let types = [
 		{ value: 'JSON', name: 'JSON Parser' },
@@ -13,6 +17,10 @@
 	];
 
 	let space = 1;
+
+	// This the input you get from textarea
+	// MANIPULATE THIS - and text will get disaplyed in same text area
+	// as it is binded
 	let string = '';
 </script>
 
