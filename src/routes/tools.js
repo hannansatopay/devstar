@@ -100,5 +100,5 @@ export let tools = {
         icon: 'files',
         link: '/Unlock-Pdf',
         description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
-    }
+    },
 };
