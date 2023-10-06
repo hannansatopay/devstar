@@ -1,0 +1,161 @@
+export const conversionRates = {
+    'Area': {
+        'square-meters': 1,
+        'square-foot': 0.092903,
+        'square-inch': 0.00064516,
+        'square-kilometer': 1000000,
+        'square-yards': 0.836127,
+        'hectare': 10000,
+        'acre': 4046.86
+    },
+    'Energy': {
+        'joule': 1,
+        'gram-calorie': 4.184,
+        'kilojoule': 1000,
+        'kilocalorie': 4184,
+        'watthour': 3600,
+        'kilowatt-hour': 3600000,
+        'british-thermal-unit': 1055.06,
+        'us-therm': 105480400,
+        'foot-pound': 1.35582,
+        'electronvolts': 1.60218e-19
+    },
+    'Frequency': {
+        'hertz': 1,
+        'kilohertz': 1000,
+        'megahertz': 1000000,
+        'gigahertz': 1000000000
+    },
+    'Data Transfer Rate': {
+        'bit-per-second': 1,
+        'kilobit-per-second': 1000,
+        'kilobyte-per-second': 8000,
+        'kibibit-per-second': 1024,
+        'megabit-per-second': 1000000,
+        'megabyte-per-second': 8000000,
+        'mebibit-per-second': 1048576,
+        'gigabit-per-second': 1000000000,
+        'gigabyte-per-second': 8000000000,
+        'gibibit-per-second': 1073741824,
+        'terabit-per-second': 1000000000000,
+        'terabyte-per-second': 8000000000000,
+        'tebibit-per-second': 1099511627776
+    },
+    'Data Storage': {
+        'bit': 1,
+        'kilobit': 1000,
+        'kibibit': 1024,
+        'megabit': 1000000,
+        'mebibit': 1048576,
+        'gigabit': 1000000000,
+        'gibibit': 1073741824,
+        'terabit': 1000000000000,
+        'tebibit': 1099511627776,
+        'petabit': 1000000000000000,
+        'pebibit': 1125899906842624,
+        'byte': 8,
+        'kilobyte': 8000,
+        'kibibyte': 8192,
+        'megabyte': 8000000,
+        'mebibyte': 8388608,
+        'gigabyte': 8000000000,
+        'gibibyte': 8589934592,
+        'terabyte': 8000000000000,
+        'tebibyte': 8796093022208,
+        'petabyte': 8000000000000000,
+        'pebibyte': 9007199254740992
+    },
+    'Fuel Economy': {
+        'miles-per-gallon': 1,
+        'miles-per-gallon-imperial': 1.20095,
+        'kilometer-per-liter': 2.82481,
+        'liter-per-100-kilometers': 282.481
+    },
+    'Length': {
+        'kilometre': 1,
+        'meter': 0.001,
+        'centimeter': 0.00001,
+        'millimetre': 0.000001,
+        'micrometres': 1e-9,
+        'nanometre': 1e-12,
+        'mile': 1.60934,
+        'yard': 0.9144,
+        'foot': 0.3048,
+        'inch': 0.0254,
+        'nautical-mile': 1.852
+    },
+    'Mass': {
+        'tonne': 1000,
+        'kilogram': 1,
+        'gram': 0.001,
+        'milligram': 0.000001,
+        'microgram': 1e-9,
+        'imperial-ton': 1016.05,
+        'us-ton': 907.185,
+        'stone': 6.35029,
+        'pound': 0.453592,
+        'ounce': 0.0283495
+    },
+    'Plane Angle': {
+        'aresecond': 1,
+        'degree': 0.000277778,
+        'gradian': 0.000308642,
+        'milliradian': 0.000057296,
+        'minute-of-arc': 0.00000484814,
+        'radian': 0.159155
+    },
+    'Pressure': {
+        'bar': 1,
+        'pascal': 0.00001,
+        'pound-per-square-inch': 0.0689476,
+        'standard-atmosphere': 1.01325,
+        'tor': 0.00133322
+    },
+    'Speed': {
+        'mile-per-hour': 0.44704,
+        'foot-per-second': 0.3048,
+        'meter-per-second': 1,
+        'kilometer-per-hour': 0.277778,
+        'knot': 0.514444
+    },
+    'Temperature': {
+        'degree-celsius': 1,
+        'fahrenheit': 0.555556,
+        'kelvin': 1
+    },
+    'Time': {
+        'nanosecond': 0.000000001,
+        'microsecond': 0.000001,
+        'millisecond': 0.001,
+        'second': 1,
+        'minute': 60,
+        'hour': 3600,
+        'day': 86400,
+        'week': 604800,
+        'month': 2629800,
+        'calendar-year': 31557600,
+        'decade': 315576000,
+        'century': 3155760000
+    },
+    'Volume': {
+        'us-liquid-gallon': 3.78541,
+        'us-liquid-quart': 0.946353,
+        'us-liquid-pint': 0.473176,
+        'us-legal-cup': 0.24,
+        'fluid-ounce': 0.0295735,
+        'us-tablespoon': 0.0147868,
+        'us-teaspoon': 0.00492892,
+        'cubic-meter': 1000,
+        'liter': 1,
+        'milliliter': 0.001,
+        'imperial-gallon': 4.54609,
+        'imperial-quart': 1.13652,
+        'imperial-pint': 0.568261,
+        'imperial-cup': 0.284131,
+        'imp-fluid-ounce': 0.0284131,
+        'imperial-tablespoon': 0.0177582,
+        'imperial-teaspoon': 0.00591939,
+        'cubic-foot': 28.3168,
+        'cubic-inch': 0.0163871
+    }
+}

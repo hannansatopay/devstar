@@ -1,4 +1,4 @@
-<script lang="ts">
+ <script lang="ts"> 
 	import { Input, Select } from 'flowbite-svelte';
 	import Intro from '$lib/Intro.svelte';
 	import { conversionRates } from './conversion.js';
