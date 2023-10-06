@@ -1,5 +1,5 @@
 <svelte:head>
-	<title> CodeBeautify </title>
+	<title> Photo Editor</title>
 </svelte:head>
 <script lang="ts">
 	import { onMount } from 'svelte';
