@@ -5,22 +5,33 @@
 
     export let data;
     let inputText = '';
-    let formattedText = '';
+    let strlength = '';
   
     
 	function calculateLength()
 	{
+	// 	const trimmedText = inputText.trim();
+
+    // // Calculate the length of the trimmed text
+    //    const length = trimmedText.length;
 		const length = inputText.length;
-		formattedText =`${length}`;
+		strlength =`${length}`;
 	}
     function copyText() {
         if (inputText.length > 0) {
             var textarea = document.createElement("textarea");
-            textarea.value = formattedText;  // Changed to formattedText
+            textarea.value = strlength; 
             document.body.appendChild(textarea);
             textarea.select();
             document.execCommand("copy");
             document.body.removeChild(textarea);
+        }
+    }
+	function downloadPDF() {
+        if (strlength.length > 0) {
+            const pdf = new jsPDF();
+            pdf.text(strlength, 10, 10); 
+            pdf.save("Result.pdf"); 
         }
     }
 </script>
@@ -36,13 +47,14 @@
                     bind:value={inputText}/>
                 </div>
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-                    <textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    bind:value={formattedText}/>
+                    <textarea readonly placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    bind:value={strlength}/>
                 </div>
             </div>
             <div id="buttonArea">
                 <Button color="blue" on:click={calculateLength}>Calculate Length</Button>
                 <Button color="blue" on:click={copyText}>Copy</Button>
+				<Button color="blue" on:click={downloadPDF}>Download PDF</Button>
             </div>
         </div>
     </div>
@@ -50,6 +62,7 @@
 
 <style>    
     #textbox{
+	
         resize: none;
     }
     #tarea1{
