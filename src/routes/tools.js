@@ -1,9 +1,9 @@
 export let tools = {
-    'unit-converter': {
-        name: 'Unit Converter',
+    'find-and-replace-text': {
+        name: 'Find and Replace Text',
         icon: 'arrow-right-arrow-left',
-        link: '/unit-converter',
-        description: "The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
+        link: '/find-and-replace-text',
+        description: "A find and replace text string utility tool is a feature that enables users to search for specific text within a string and replace it with another specified text. This tool is valuable for efficiently editing and updating content, making it a time-saving solution for tasks like content editing, code refactoring, and data manipulation. Users can easily locate and substitute multiple occurrences of a target string, streamlining content management and data processing workflows."
     },
     'palindrome-generator': {
         name: 'Palindrome Generator',
