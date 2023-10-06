@@ -16,5 +16,11 @@ export let tools = {
         icon: 'arrow-right-arrow-left',
         link: '/remove-space',
         description: "The 'Remove Extra Spaces' button allows you to clean up your text by eliminating redundant spaces.Sometimes, when typing or copying text, extra spaces can unintentionally appear between words. Clicking the 'Remove Extra Spaces' button will streamline your text by replacing consecutive spaces with a single space, giving your text a cleaner and more uniform appearance."
-    }
+    },
+    'string-length-calculator': {
+        name: 'String Length Calculator',
+        icon: 'arrow-right-arrow-left',
+        link: '/string-length-calculator',
+        description: "Discover character counts instantly! Input text into our String Length Calculator to find the total number of characters, including spaces and special characters. Ideal for writers, coders, and anyone tracking character limits. Simplify text management for any length – from short phrases to lengthy paragraphs. Take control of character counts effortlessly. Try our String Length Calculator today!"
+    },
 };
