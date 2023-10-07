@@ -97,8 +97,8 @@ export let tools = {
     },
     'online-spreadsheet': {
         name: 'Online Spreadsheet',
-        icon: 'spider-web',
+        icon: 'files',
         link: '/online-spreadsheet',
-        description: "This is an Online Spreadsheet for your quick handling of data!"
+        description: "Welcome to our website for using spreadsheet online. Let's your work go in flow !"
     }
 };
