@@ -63,9 +63,12 @@
 	},
 	"dependencies": {
 		"@bytemd/plugin-gfm": "^1.21.0",
+		"ag-grid-community": "^30.2.0",
+		"ag-grid-react": "^30.2.0",
 		"bytemd": "^1.21.0",
 		"colorthief": "^2.4.0",
 		"countries-list": "^2.6.1",
+		"handsontable": "^13.1.0",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
