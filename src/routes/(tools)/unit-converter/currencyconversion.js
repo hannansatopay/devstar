@@ -1,4 +1,8 @@
-export const conversionRates = {
+export const cconversionRates = {
+    'currency': {
+        'dollars':1,
+        'rupees':80
+    },
     'Area': {
         'square-meters': 1,
         'square-foot': 0.092903,
