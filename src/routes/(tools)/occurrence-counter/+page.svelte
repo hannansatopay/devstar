@@ -14,14 +14,14 @@ import jsPDF from 'jspdf';
   let occurrences = 0;
 
   function countOccurrences() {
+    if (!inputText || !searchStr) {
+      occurrences = 0;
+      return;
+    }
+    
     const regex = new RegExp(searchStr, 'g');
     const matches = inputText.match(regex);
-
-    if (matches) {
-      occurrences = matches.length;
-    } else {
-      occurrences = 0;
-    }
+    occurrences = matches ? matches.length : 0;
   }
   function downloadPDF() {
   const doc = new jsPDF();
@@ -45,73 +45,55 @@ function copyText() {
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-        <div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-            <div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
-                <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-                    <textarea placeholder="Input Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    bind:value={inputText}/>
+  <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
+    <div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+        <div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden"> 
+            <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
+                <div class="grid grid-cols-2 gap-0.5">
+                    <div class="col-span-1"> 
+                        <textarea placeholder="Search String" id="textbox" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style= "resize: none;"
+                            bind:value={searchStr}></textarea>
+                    </div>
+                    <div class="col-span-1"> 
+                        <textarea placeholder="Occurrence: 0" id="textbox" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"style= "resize: none;"
+                        on:input={countOccurrences} bind:value={occurrences}></textarea>
+                    </div>
                 </div>
-                <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-                    <textarea placeholder="Search String" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    bind:value={searchStr}/>
-                </div>
-			</div><br>
-			
-      <div id="buttonArea">
-				<button on:click={countOccurrences}>Count Occurrences</button>
-        <button color="blue" on:click={copyText}>Copy</button>
-				<button on:click={downloadPDF}>Download as pdf</button>
+            </div>
+            <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
+                <textarea placeholder="Input Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style= "resize: none;"
+                on:input={countOccurrences} bind:value={inputText}></textarea>
+            </div>
+        </div>
+    
+        <div id="buttonArea">
+				
+        <Button color="blue" on:click={copyText}>Copy</Button>
+				<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
 			</div>
-			<div class="result-box">
-				<p>Occurrences: {occurrences}</p>
+    </div>
 			
 
-		</div>
 	</div>
+	
 	 
 </section>
 
 <style>
-	.card {
+ 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
 
 	:is(.dark .card) {
 		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
 	}
-	button {
-	  display: block;
-	  margin:1% auto;
-	  color: aliceblue;
-	  background-color: rgb(65, 37, 228);
-	  padding: 10px 20px;
-	  border: none;
-	  border-radius: 5px;
-	  cursor: pointer;
-	  cursor: pointer;
-    transition: background-color 0.3s;
-	}
-	button:hover {
-	  background-color: rgb(113, 109, 247);
-	}
-	p{
-		color: rgb(23, 94, 122);
-		font-weight: bold;
-	}
-	.result-box {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 20px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-  }
+	
   #buttonArea {
-		margin-top: 0px;
+		margin-top: 30px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 0px; /* Adjust the gap between buttons as needed */
+		gap: 30px; /* Adjust the gap between buttons as needed */
 	}
 
 </style>
