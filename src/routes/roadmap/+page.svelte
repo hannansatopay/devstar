@@ -130,11 +130,11 @@
                 githubId: 'hannansatopay'
             }]
         },
-        {
-            name: 'File Examples',
+       {
+            name: 'Image Compress Services',
             contributors: [{
-                name: 'Hannan Satopay',
-                githubId: 'hannansatopay'
+                name: 'Shreya Patil',
+                githubId: '1712200'
             },
             {
                 name: 'Munsif Satopay',
