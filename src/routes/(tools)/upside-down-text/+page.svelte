@@ -1,24 +1,43 @@
 <script lang="ts">
 
-import { Button } from 'flowbite-svelte';
+	import { Button } from 'flowbite-svelte';
 	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
 
 	export let data;
 
-	var palindrome;
+	const normalChars = [
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 
+		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 
+		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+	];
+
+	const flippedChars = [  
+		'∀', 'ꓭ', 'Ͻ', 'ᗡ', 'Ǝ', 'ᖵ', '⅁', 'H', 'I', 'ᒋ', 'ꓘ', '⅂', 'ꟽ',  
+		'N', 'O', 'Ԁ', 'Ꝺ', 'ꓤ', 'S', 'ꓕ', 'Ո', 'Ʌ', 'Ϻ', 'X', '⅄', 'Z',  
+		'ɐ', 'q', 'ɔ', 'p', 'ǝ', 'ⅎ', 'ƃ', 'ɥ', 'ᴉ', 'ɾ', 'ʞ', 'ʅ', 'ɯ', 
+		'u', 'o', 'd', 'b', 'ɹ', 's', 'ʇ', 'n', 'ʌ', 'ʍ', 'x', 'ʎ', 'z'
+	]
+
+	var flippedtext={};
 
 	function generatePalindrome(input){
-		palindrome = input.target.value;
-		for (var i = input.target.value.length - 1; i >= 0; i--) {
-                palindrome += input.target.value[i];
+		flippedtext={};
+		for (var i = 0; i < input.target.value.length; i++) {
+			for (var j = 0; j < normalChars.length; j++) {
+                if (input.target.value[i] == normalChars[j]){
+						flippedtext[i] = flippedChars[j];
+				}
+
             }
+		}
 	}
 
 	function copyText() {
-		if (palindrome.length > 0) {
+		if (flippedtext.length > 0) {
 			var textarea = document.createElement("textarea");
-			textarea.value = palindrome;
+			textarea.value = flippedtext;
 			document.body.appendChild(textarea);
 			textarea.select();
 			document.execCommand("copy");
@@ -27,9 +46,9 @@ import { Button } from 'flowbite-svelte';
 	}
 
 	function downloadText() {
-		if (palindrome.length > 0) {
+		if (flippedtext.length > 0) {
 			var filename = "DevStarPalindrome.txt";
-			var blob = new Blob([palindrome], { type: 'text/plain' });
+			var blob = new Blob([flippedtext], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
 			
 			var a = document.createElement('a');
@@ -45,7 +64,7 @@ import { Button } from 'flowbite-svelte';
   
 	function downloadPDF() {
 		const doc = new jsPDF();
-		doc.text(palindrome, 20, 20);
+		doc.text(flippedtext, 20, 20);
 		doc.save('DevStarPalindrome.pdf');
 	}
 
@@ -56,7 +75,7 @@ import { Button } from 'flowbite-svelte';
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
+			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -65,7 +84,7 @@ import { Button } from 'flowbite-svelte';
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
 					<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					bind:value={palindrome}/>
+					bind:value={flippedtext}/>
 				</div>
 
 			</div>
@@ -86,12 +105,8 @@ import { Button } from 'flowbite-svelte';
 		resize: none;
 	}
 
-	#tarea1{
-		margin-right: 10px;
-	}
-
-	#tarea2{
-		margin-left: 10px;
+	#boxarea{
+		gap:30px;
 	}
 
 	#buttonArea {

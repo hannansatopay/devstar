@@ -56,7 +56,7 @@ import { Button } from 'flowbite-svelte';
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
+			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -86,12 +86,8 @@ import { Button } from 'flowbite-svelte';
 		resize: none;
 	}
 
-	#tarea1{
-		margin-right: 10px;
-	}
-
-	#tarea2{
-		margin-left: 10px;
+	#boxarea{
+		gap:30px;
 	}
 
 	#buttonArea {
