@@ -35,4 +35,10 @@ export let tools = {
         link: '/Remove-Line-Breaks',
         description: "A line breaks removal tool is a simple utility that eliminates newline characters, such as '\n' or '\r', from a text document or string. It's useful for formatting text by joining fragmented lines into a single continuous block of text. Users can input the text with line breaks, and the tool processes it to produce a version with no line breaks, aiding in readability and further data processing."
     },
+    'occurrence-counter': {
+        name: 'Occurrence Counter',
+        icon: 'arrow-right-arrow-left',
+        link: '/occurrence-counter',
+        description: "Our word frequency counter allows you to count the frequency usage of each word in your text. Paste or type in your text below, and click submit.Discover character counts instantly!. A string occurrence counter is a utility that helps you find and tally the number of times a specific substring or character sequence appears within a given text or string. It's a valuable tool for tasks such as text analysis, search functionality, and data processing, providing quick insights into the frequency of a particular pattern within a larger text body." 
+    },
 };
