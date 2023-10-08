@@ -1,6 +1,7 @@
 export let tools = {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	'unit-converter': {
 		name: 'Unit Converter',
 		icon: 'arrow-right-arrow-left',
@@ -26,6 +27,8 @@ export let tools = {
 =======
 =======
 >>>>>>> parent of 4de119f (first commit)
+=======
+>>>>>>> parent of 4de119f (first commit)
     'unit-converter': {
         name: 'Unit Converter',
         icon: 'arrow-right-arrow-left',
@@ -37,6 +40,7 @@ export let tools = {
         icon: 'arrow-right-arrow-left',
         link: '/palindrome-generator',
         description: "Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony."
+<<<<<<< HEAD
 <<<<<<< HEAD
     },
     'find-and-replace-text': {
@@ -71,6 +75,10 @@ export let tools = {
     },
 };
 >>>>>>> 81a5cdf6033bc1d0a2fc999ebfd3dc7c78a8af85
+=======
+    }
+};
+>>>>>>> parent of 4de119f (first commit)
 =======
     }
 };
