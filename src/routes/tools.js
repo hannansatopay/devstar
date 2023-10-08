@@ -1,4 +1,10 @@
 export let tools = {
+    'unit-converter': {
+        name: 'Unit Converter',
+        icon: 'arrow-right-arrow-left',
+        link: '/unit-converter',
+        description: "The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
+    },
     'find-and-replace-text': {
         name: 'Find and Replace Text',
         icon: 'arrow-right-arrow-left',
