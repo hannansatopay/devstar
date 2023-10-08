@@ -236,7 +236,7 @@ textareaElement.select();
 	}
 	#box{
 		border:2px solid gray ;
-		padding:30px;
+		padding:35px;
 	}
 	.dropdown-container {
 	  position: absolute;
@@ -280,4 +280,36 @@ textareaElement.select();
 		margin-left: 0;
 	  }
 	}
+	@media screen and (max-width: 768px) {
+    #box {
+      padding: 15px;
+    }
+
+    select {
+      width: 100%;
+      margin-top: 10px; 
+    }
+
+    .buttons {
+      flex-direction: column; 
+      align-items: center; 
+      margin-top: 20px;
+    }
+
+    button {
+      width: 100%; 
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    #box {
+      padding: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    #box {
+      padding: 30px;
+    }
+  }
 </style>
