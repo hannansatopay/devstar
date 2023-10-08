@@ -54,6 +54,6 @@ export let tools = {
         name: 'Upside Down Text Generator',
         icon: 'arrow-right-arrow-left',
         link: '/upside-down-text',
-        description: "Our word frequency counter allows you to count the frequency usage of each word in your text. Paste or type in your text below, and click submit.Discover character counts instantly!. A string occurrence counter is a utility that helps you find and tally the number of times a specific substring or character sequence appears within a given text or string. It's a valuable tool for tasks such as text analysis, search functionality, and data processing, providing quick insights into the frequency of a particular pattern within a larger text body." 
+        description: "Transform your text into intriguing upside-down counterparts with our Upside-Down Text Generator. Input any text, and witness it magically flip into its upside-down form, adding a unique twist to your words. Ideal for creative writers, social media enthusiasts, and anyone looking to add a playful flair to their messages. Experiment with various fonts and styles, turning your ordinary text into visually captivating, topsy-turvy creations. Start generating upside-down text effortlessly and give your words a delightful spin."    
     },
 };

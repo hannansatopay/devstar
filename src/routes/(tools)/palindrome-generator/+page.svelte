@@ -9,10 +9,7 @@ import { Button } from 'flowbite-svelte';
 	var palindrome;
 
 	function generatePalindrome(input){
-		palindrome = input.target.value;
-		for (var i = input.target.value.length - 1; i >= 0; i--) {
-                palindrome += input.target.value[i];
-            }
+		palindrome = input.target.value + input.target.value.split("").reduce((acc, char) => char + acc, "");
 	}
 
 	function copyText() {

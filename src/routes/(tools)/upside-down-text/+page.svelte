@@ -20,18 +20,20 @@
 		'u', 'o', 'd', 'b', 'ɹ', 's', 'ʇ', 'n', 'ʌ', 'ʍ', 'x', 'ʎ', 'z'
 	]
 
-	var flippedtext={};
+	var flippedtext;
+	var flippedtextlist;
 
-	function generatePalindrome(input){
-		flippedtext={};
+	function generateFlippedtext(input){
+		flippedtext="";
+		flippedtextlist=[];
 		for (var i = 0; i < input.target.value.length; i++) {
 			for (var j = 0; j < normalChars.length; j++) {
                 if (input.target.value[i] == normalChars[j]){
-						flippedtext[i] = flippedChars[j];
+					flippedtextlist[i]=flippedChars[j];
 				}
-
             }
 		}
+		flippedtext= flippedtextlist.join("").split("").reduce((acc, char) => char + acc, "");
 	}
 
 	function copyText() {
@@ -79,7 +81,7 @@
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={generatePalindrome}/>
+					on:input={generateFlippedtext}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
