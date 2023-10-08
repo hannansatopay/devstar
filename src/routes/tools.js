@@ -5,17 +5,17 @@ export let tools = {
         link: '/unit-converter',
         description: "The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
     },
-    'find-and-replace-text': {
-        name: 'Find and Replace Text',
-        icon: 'arrow-right-arrow-left',
-        link: '/find-and-replace-text',
-        description: "A find and replace text string utility tool is a feature that enables users to search for specific text within a string and replace it with another specified text. This tool is valuable for efficiently editing and updating content, making it a time-saving solution for tasks like content editing, code refactoring, and data manipulation. Users can easily locate and substitute multiple occurrences of a target string, streamlining content management and data processing workflows."
-    },
     'palindrome-generator': {
         name: 'Palindrome Generator',
         icon: 'arrow-right-arrow-left',
         link: '/palindrome-generator',
         description: "Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony."
+    },
+    'find-and-replace-text': {
+        name: 'Find and Replace Text',
+        icon: 'arrow-right-arrow-left',
+        link: '/find-and-replace-text',
+        description: "A find and replace text string utility tool is a feature that enables users to search for specific text within a string and replace it with another specified text. This tool is valuable for efficiently editing and updating content, making it a time-saving solution for tasks like content editing, code refactoring, and data manipulation. Users can easily locate and substitute multiple occurrences of a target string, streamlining content management and data processing workflows."
     },
     'remove-space': {
         name: 'Remove-Space',
