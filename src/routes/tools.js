@@ -1,28 +1,4 @@
 export let tools = {
-<<<<<<< HEAD
-	'unit-converter': {
-		name: 'Unit Converter',
-		icon: 'arrow-right-arrow-left',
-		link: '/unit-converter',
-		description:
-			'The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions.'
-	},
-	'palindrome-generator': {
-		name: 'Palindrome Generator',
-		icon: 'arrow-right-arrow-left',
-		link: '/palindrome-generator',
-		description:
-			'Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony.'
-	},
-	'case-converter': {
-		name: 'Case Converter',
-		icon: 'arrow-right-arrow-left',
-		link: '/case-converter',
-		description:
-			'The Case Converter is a comprehensive tool that simplifies the conversion of various Strings for developers. It can convert text to uppercase, lowercase, camel case, sentence case ,  and other styles, making it useful for formatting and editing text and code. Case converters help ensure consistency and readability in written content and simplify tasks involving text manipulation.'
-	}
-};
-=======
     'unit-converter': {
         name: 'Unit Converter',
         icon: 'arrow-right-arrow-left',
@@ -66,4 +42,3 @@ export let tools = {
         description: "Our word frequency counter allows you to count the frequency usage of each word in your text. Paste or type in your text below, and click submit.Discover character counts instantly!. A string occurrence counter is a utility that helps you find and tally the number of times a specific substring or character sequence appears within a given text or string. It's a valuable tool for tasks such as text analysis, search functionality, and data processing, providing quick insights into the frequency of a particular pattern within a larger text body." 
     },
 };
->>>>>>> 81a5cdf6033bc1d0a2fc999ebfd3dc7c78a8af85
