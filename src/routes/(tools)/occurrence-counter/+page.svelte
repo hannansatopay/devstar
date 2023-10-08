@@ -1,8 +1,8 @@
 <script lang="ts"> 
-	import { Input, Select } from 'flowbite-svelte';
-	import Intro from '$lib/Intro.svelte';
-	import { Button } from 'flowbite-svelte';
-    import jsPDF from 'jspdf';
+import { Input, Select } from 'flowbite-svelte';
+import Intro from '$lib/Intro.svelte';
+import { Button } from 'flowbite-svelte';
+import jsPDF from 'jspdf';
     
 
 	
@@ -30,7 +30,16 @@
   doc.text(`Occurrences: ${occurrences}`, 20, 40);
   doc.save('Occurrence-counter.pdf');
 }
-  
+function copyText() {
+        if (inputText.length > 0) {
+            var textarea = document.createElement("textarea");
+            textarea.value = occurrences.toString();
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+      }
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -51,6 +60,7 @@
 			
       <div id="buttonArea">
 				<button on:click={countOccurrences}>Count Occurrences</button>
+        <button color="blue" on:click={copyText}>Copy</button>
 				<button on:click={downloadPDF}>Download as pdf</button>
 			</div>
 			<div class="result-box">
@@ -89,28 +99,7 @@
 		color: rgb(23, 94, 122);
 		font-weight: bold;
 	}
-	.button-container {
-     display: flex;
-     margin-right: 10px;
-  }
-  .toast {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .show-toast {
-    display: block;
-  }
-
-  .result-box {
+	.result-box {
     border: 1px solid #ccc;
     padding: 10px;
     margin-top: 20px;
