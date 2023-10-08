@@ -18,7 +18,7 @@ export let tools = {
         description: "A find and replace text string utility tool is a feature that enables users to search for specific text within a string and replace it with another specified text. This tool is valuable for efficiently editing and updating content, making it a time-saving solution for tasks like content editing, code refactoring, and data manipulation. Users can easily locate and substitute multiple occurrences of a target string, streamlining content management and data processing workflows."
     },
     'remove-space': {
-        name: 'Remove-Space',
+        name: 'Remove Extra Spaces',
         icon: 'arrow-right-arrow-left',
         link: '/remove-space',
         description: "The 'Remove Extra Spaces' button allows you to clean up your text by eliminating redundant spaces.Sometimes, when typing or copying text, extra spaces can unintentionally appear between words. Clicking the 'Remove Extra Spaces' button will streamline your text by replacing consecutive spaces with a single space, giving your text a cleaner and more uniform appearance."
@@ -30,7 +30,7 @@ export let tools = {
         description: "Discover character counts instantly! Input text into our String Length Calculator to find the total number of characters, including spaces and special characters. Ideal for writers, coders, and anyone tracking character limits. Simplify text management for any length – from short phrases to lengthy paragraphs. Take control of character counts effortlessly. Try our String Length Calculator today!"
     },
     'Remove-Line-Breaks': {
-        name: 'Remove-Line-Breaks',
+        name: 'Remove Line Breaks',
         icon: 'arrow-right-arrow-left',
         link: '/Remove-Line-Breaks',
         description: "A line breaks removal tool is a simple utility that eliminates newline characters, such as '\n' or '\r', from a text document or string. It's useful for formatting text by joining fragmented lines into a single continuous block of text. Users can input the text with line breaks, and the tool processes it to produce a version with no line breaks, aiding in readability and further data processing."

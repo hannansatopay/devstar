@@ -1,4 +1,5 @@
 <script lang="ts"> 
+import { Button } from 'flowbite-svelte';
 import Intro from '$lib/Intro.svelte';
 import jsPDF from 'jspdf';
 import { Button } from 'flowbite-svelte';
