@@ -67,7 +67,6 @@
 		"countries-list": "^2.6.1",
 		"jspdf": "^2.5.1",
 		"multicoin-address-validator": "^0.5.12",
-		"pdf-lib": "^1.17.1",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0"
