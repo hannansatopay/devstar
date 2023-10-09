@@ -11,7 +11,6 @@
     let percentages = [0,10,20,30,40,50,60,70,80,90,100];
     let Rotations = [0,45,90,135,180,225,270,315,360];
     
-<<<<<<< HEAD
     let gradienttype = `${Types[0]}`;
     let gradientrotation = 0;
     let gradientColors = ["#AE2828","#000000"];
@@ -20,7 +19,7 @@
 
     function generateGradient() {
     gradientCode = `linear-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`;
-=======
+
     let gradientCode = "";
     let gradienttype = `${Types[0]}`;
     let gradientrotation = `0`;
@@ -29,7 +28,6 @@
 
     function generateGradient() {
     gradientCode = `${gradienttype}-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`;
->>>>>>> 07851ea81206985e32aa01e265d4bf44c932829c
   }
 
    function generateRandomGradient() {
@@ -47,19 +45,6 @@
    function updateGradient() {
     generateGradient();
   }
-
-<<<<<<< HEAD
-=======
-  function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    gradientCode = color;
-  }
-
->>>>>>> 07851ea81206985e32aa01e265d4bf44c932829c
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description}/>
