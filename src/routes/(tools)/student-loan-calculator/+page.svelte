@@ -40,7 +40,7 @@
   
     .calculator {
       width: 400px;
-      height: 450px;
+      height: 500px;
       background-color: black;
       position: absolute;
       left: 50%;
