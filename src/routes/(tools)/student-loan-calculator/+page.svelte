@@ -30,7 +30,7 @@
     }
   
     h1 {
-      font-size: 35px;
+      font-size: 20px;
     }
   
     h2 {
