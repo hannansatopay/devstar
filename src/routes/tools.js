@@ -94,5 +94,11 @@ export let tools = {
         icon: 'spider-web',
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'markdown-editor': {
+        name: 'Markdown Editor',
+        icon: 'files',
+        link: '/markdown-editor',
+        description: "The Markdown Editor is a tool for developers to create markdown file, which shows how your markdown code would look in the browser. This tool offers a user-friendly interface to edit your markdown code and preview the output side by side. Create and customize your markdown code efficiently with this editor to enhance your blog's look and layout."
     }
 };
