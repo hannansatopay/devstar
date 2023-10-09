@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Label, Input, Select, Textarea, Tooltip } from 'flowbite-svelte';
+	import { Label, Input, Select, Tooltip } from 'flowbite-svelte';
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 
@@ -19,8 +19,22 @@
 	// This the input you get from textarea
 	// MANIPULATE THIS - and text will get disaplyed in same text area
 	// as it is binded
-	let string = '';
+	let editorContent = '';
 	
+	let bitCount = 0;
+	let lineIndex = 1;
+	let colIndex = 0;
+	let editor;
+
+	function findLineColumnIndex() {
+		let textLines = editorContent.substring(0, editor.selectionStart).split("\n");
+    	lineIndex = textLines.length;
+    	colIndex = textLines[textLines.length - 1].length;
+	}
+
+	function findBitCount() {
+		bitCount = editorContent.length
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -28,9 +42,9 @@
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
-			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-600">
+			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Select class="border-gray-400" items={types} bind:value={type} />
+					<Select class="border-gray-400 dark:border-gray-400" items={types} bind:value={type} />
 					<Tooltip color="blue" arrow={false}>Select Language</Tooltip>
 
 					<button type="button" class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600">
@@ -118,14 +132,18 @@
 			</button>
 			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
 		</div>
-		<div class="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
-			<label for="editor" class="sr-only">Publish post</label>
-			<textarea id="editor" rows="8" class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="{type} code" required></textarea>
+		<div class="px-4 py-2 bg-white dark:bg-gray-800">
+			<Label for="editor" class="sr-only">Code Editor</Label>
+			<textarea bind:this={editor} bind:value={editorContent} on:keyup={findLineColumnIndex} on:keyup={findBitCount} on:mouseup={findLineColumnIndex} rows="8" class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="{type} code"></textarea>
+		</div>
+		<div class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400">
+			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
+			<p class="px-4">Col : {colIndex}</p>
+			<p class="px-4">{bitCount} B</p>
 		</div>
 	</div>
 	<button type="button" class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Beautify</button>
 </div>
  
-
 <style>
 </style>
