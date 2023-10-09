@@ -98,7 +98,7 @@ export let tools = {
     'color-palette-gen': {
         name: 'Color Palette Generator',
         icon: 'palette',
-        link: '/color-pallette-gen',
+        link: '/color-palette-gen',
         description: "abc"
     }
 };
