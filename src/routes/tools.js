@@ -38,10 +38,10 @@ export let tools = {
         link: '/string-length-calculator',
         description: "Discover character counts instantly! Input text into our String Length Calculator to find the total number of characters, including spaces and special characters. Ideal for writers, coders, and anyone tracking character limits. Simplify text management for any length – from short phrases to lengthy paragraphs. Take control of character counts effortlessly. Try our String Length Calculator today!"
     },
-    'remove-line-breaks': {
+    'Remove-Line-Breaks': {
         name: 'Remove Line Breaks',
         icon: 'arrow-right-arrow-left',
-        link: '/remove-line-breaks',
+        link: '/Remove-Line-Breaks',
         description: "A line breaks removal tool is a simple utility that eliminates newline characters, such as '\n' or '\r', from a text document or string. It's useful for formatting text by joining fragmented lines into a single continuous block of text. Users can input the text with line breaks, and the tool processes it to produce a version with no line breaks, aiding in readability and further data processing."
     },
     'occurrence-counter': {
