@@ -6,6 +6,7 @@
   
     function calculate() {
       const interest = (amount * (rate * 0.01)) / months;
+      // @ts-ignore
       total = ((amount / months) + interest).toFixed(2);
     }
   </script>
@@ -24,11 +25,7 @@
   </main>
   
   <style>
-    body {
-      background-color: lightblue;
-      font-family: 'Trebuchet MS';
-    }
-  
+   
     h1 {
       font-size: 30px;
     }
