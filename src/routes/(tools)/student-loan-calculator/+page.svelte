@@ -59,8 +59,8 @@
     }
   
     button {
-      padding: 20px;
-      margin: 10px;
+      padding: 10px;
+      margin: 20px;
       background-color: red;
       color: white;
       border: none;
