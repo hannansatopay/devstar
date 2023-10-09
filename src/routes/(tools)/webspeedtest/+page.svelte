@@ -60,9 +60,9 @@ input:hover {
       box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
       border: none;
       border-radius: 32px;
-      padding: 10px;
+      padding: 10px 20px;
       font-size: 16px;
-      transition: background-position 0.3s ease;
+      transition: background 0.3s ease;
 }
 #cont {
       display: inline-block;
@@ -73,7 +73,7 @@ input:hover {
       background: linear-gradient(to right, blue 5%, #FF0000 80%);
       color: white;
       box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-      animation: gradientMove 3s linear infinite;
+      
     }
     button {
       border:none;
@@ -81,7 +81,7 @@ input:hover {
       color: powderblue;
       justify-content: center;
       cursor: pointer;
-      transition: background-position 0.3s ease;
+      transition: background 0.3s ease;
     }
     @keyframes gradientMove {
       0% {
