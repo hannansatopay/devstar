@@ -97,7 +97,7 @@ export let tools = {
     },
     'student-loan-calculator': {
         name: 'Student Loan Calculator',
-        icon: 'spider-web',
+        icon: 'money',
         link: '/student-loan-calculator',
         description: "It is a Student Loan Calculator"
     }
