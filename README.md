@@ -78,6 +78,14 @@ git push origin main
 
 ```
 
+In order to fetch the changes that have been made by other members to the repository use the below command to pull the changes to your local machine :
+
+```bash
+
+git pull
+
+```
+
 ## Contributing
 
 Contributions are always welcome!
