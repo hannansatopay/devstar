@@ -94,5 +94,12 @@ export let tools = {
         icon: 'spider-web',
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'terminal-generator': {
+        name: 'Terminal Generator',
+        icon: 'terminal',
+        link: '/terminal-generator',
+        description: "A dynamic tool designed to enhance the appearance of your source code in terminal environments. It leverages a wide array of customizable terminal themes to breathe fresh aesthetics into your code, making reading and debugging an enjoyable experience. Whether you desire a minimalist look, neon retro, or something entirely unique, it's flexibility ensures your terminal mirrors your style."
     }
+};
 };
