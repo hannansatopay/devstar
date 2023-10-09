@@ -22,6 +22,14 @@ export let tools = {
 			'Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony.'
 	},
 
+	'remove-line-breaks': {
+		name: 'Remove Line Breaks',
+		icon: 'arrow-right-arrow-left',
+		link: '/remove-line-breaks',
+		description:
+			"A line breaks removal tool is a simple utility that eliminates newline characters, such as '\n' or '\r', from a text document or string. It's useful for formatting text by joining fragmented lines into a single continuous block of text. Users can input the text with line breaks, and the tool processes it to produce a version with no line breaks, aiding in readability and further data processing."
+	},
+
 	'find-and-replace-text': {
 		name: 'Find and Replace Text',
 		icon: 'arrow-right-arrow-left',
@@ -44,13 +52,7 @@ export let tools = {
 		description:
 			'Discover character counts instantly! Input text into our String Length Calculator to find the total number of characters, including spaces and special characters. Ideal for writers, coders, and anyone tracking character limits. Simplify text management for any length – from short phrases to lengthy paragraphs. Take control of character counts effortlessly. Try our String Length Calculator today!'
 	},
-	'remove-line-breaks': {
-		name: 'Remove Line Breaks',
-		icon: 'arrow-right-arrow-left',
-		link: '/remove-line-breaks',
-		description:
-			"A line breaks removal tool is a simple utility that eliminates newline characters, such as '\n' or '\r', from a text document or string. It's useful for formatting text by joining fragmented lines into a single continuous block of text. Users can input the text with line breaks, and the tool processes it to produce a version with no line breaks, aiding in readability and further data processing."
-	},
+
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
 		icon: 'arrow-right-arrow-left',
