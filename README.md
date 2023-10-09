@@ -48,11 +48,11 @@ npm  run  dev
 
 ```
 
-Our Module of Online Content-Sharing Tool is in the following Folder :
+### Our Module of Online Content-Sharing Tool is in the following Folder :
 
-src/routes/content-sharing-tool
+`src/routes/content-sharing-tool`
 
-After Making the chnages in your local machine , use the following commands to push them to Github
+_After Making the chnages in your local machine , use the following commands to push them to Github_
 
 To Load the changes to staging stage
 
