@@ -1,23 +1,150 @@
 <script lang="ts">
     import Intro from '$lib/Intro.svelte'
     import { Label, Input } from 'flowbite-svelte';
+    import { identity } from 'svelte/internal';
+    import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+    import ColorPicker from 'svelte-awesome-color-picker';
+
     export let data;
+
+    let Types = ['Linear','Radial'];
+    let percentages = [0,10,20,30,40,50,60,70,80,90,100];
+    let Rotations = [0,45,90,135,180,225,270,315,360];
+    
+    let gradienttype = `${Types[0]}`;
+    let gradientrotation = 0;
+    let gradientColors = ["#AE2828","#000000"];
+    let gradientper = 0;
+    let gradientCode = `${gradienttype}-gradient(45deg, #000000 , #000000)`;
+
+    function generateGradient() {
+    gradientCode = `linear-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`;
+  }
+
+   function generateRandomGradient() {
+    const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+    const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+    const b = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+
+  // Combine the three bytes into a hexadecimal color value.
+    const color1 = `#${r}${g}${b}`;
+    const color2 = `#${g}${b}${r}`;
+
+    gradientCode = `linear-gradient(45deg, ${color1}, ${color2})`;
+  }
+
+   function updateGradient() {
+    generateGradient();
+  }
+
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
+<Intro heading={data.meta.title} description={data.meta.description}/>
 
+<div class="bg-white dark:bg-gray-900">
 
-<button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-white bg-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Dropdown hover <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-  </svg>
-</button>
+  <main class="min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-4xl p-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex">
+      
+      <!-- Settings (Left Half) -->
+      <div class="w-1/2 p-4">
 
-<div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-    
+        <!-- Gradient Type Selector -->
+        <div class="mt-4">
+          <Label for="gradientType" class="text-gray-700 dark:text-gray-400">Gradient Type:</Label>
+
+          <select bind:value={gradienttype} class="text-gray-900 bg-white col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+            {gradienttype}
+          {#each Types as type}
+              <option>{type}</option>
+          {/each}
+          </select>
+
+        </div>
+  
+        <!-- Color Pickers -->
+        <div class="mt-4">
+          <Label class="text-gray-700 dark:text-gray-400">Gradient Colors:</Label>
+          <div class="flex space-x-2">
+            {#each gradientColors as color,index}
+              <input
+                type="color"
+                bind:value={gradientColors[index]}
+                class="mt-1"
+                on:input={updateGradient}
+              />
+            {/each}
+          </div>
+        </div>
+
+        <!-- Rotation -->
+        <Label class="text-gray-700 dark:text-gray-400">Rotation:</Label>
+          <div class="flex space-x-2">
+            <select bind:value={gradientrotation} class="text-gray-900 bg-white col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+              {#each Rotations as Rotation}
+                  <option>{Rotation}&#176;</option>
+              {/each}
+              </select>
+          </div>
+
+        <!-- Percentage -->
+        <Label class="text-gray-700 dark:text-gray-400">Percentage:</Label>
+          <div class="flex space-x-2">
+            <select bind:value={gradientper} class="text-gray-900 bg-white col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+              {#each percentages as percentage}
+                  <option>{percentage}%</option>
+              {/each}
+              </select>
+          </div>
+  
+        <!-- Button Container -->
+        <div class="mt-4 flex items-center">
+          <!-- Generate and Random Buttons -->
+          
+            <button
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              on:click={generateGradient}
+            >
+              Generate Gradient
+            </button>
+            <button
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              on:click={generateRandomGradient}
+            >
+              Random
+            </button>
+          </div>
+  
+          <!-- Copy CSS Button -->
+          <button
+            type="button"
+            class="text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-2"
+          >
+            Copy CSS
+          </button>
+      </div>
+  
+      <!-- Gradient Display (Right Half) {gradientCode}-->
+      <div class="w-1/2 p-4">
+        <div
+          class="w-full h-64"
+          style="background-Image: {gradientCode};"
+        ></div>
+        <Label class="text-gray-700 dark:text-gray-400">{gradientCode}</Label>
+      </div>
+    </div>
+  </main>
 </div>
 
 
-<button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Random</button>
-<button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Copy CSS</button>
+
+
+
+
+
+  
+ 
 
 
