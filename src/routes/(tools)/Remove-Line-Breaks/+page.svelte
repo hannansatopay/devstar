@@ -8,11 +8,11 @@
     let removeBreak = '';
   
     
-	function removeLinebreak()
-	{
+    function removeLinebreak()
+    {
     const length = inputText.replace(/[\r\n]+/g, '');
-	removeBreak =`${length}`;
-	}
+    removeBreak =`${length}`;
+    }
     
     function copyText() {
         if (inputText.length > 0) {
@@ -24,7 +24,24 @@
             document.body.removeChild(textarea);
         }
     }
-	function downloadPDF() {
+
+    function downloadText() {
+        if (inputText.length > 0) {
+            var filename = "DevStarRemoveLineBreak.txt";
+            var blob = new Blob([removeBreak], { type: 'text/plain' });
+            var url = window.URL.createObjectURL(blob);
+            
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    }
+
+    function downloadPDF() {
         if (removeBreak.length > 0) {
             const pdf = new jsPDF();
             pdf.text(removeBreak, 10, 10); 
@@ -49,9 +66,11 @@
                 </div>
             </div>
             <div id="buttonArea">
+
                 <Button color="blue" on:click={removeLinebreak}>Remove Line breaks</Button>
+                <Button color="blue" on:click={downloadText}>Download Text</Button>
                 <Button color="blue" on:click={copyText}>Copy</Button>
-				<Button color="blue" on:click={downloadPDF}>Download PDF</Button>
+                <Button color="blue" on:click={downloadPDF}>Download PDF</Button>
             </div>
         </div>
     </div>
@@ -59,7 +78,7 @@
 
 <style>    
     #textbox{
-	
+    
         resize: none;
     }
     #tarea1{
@@ -84,5 +103,6 @@
 </style>
 
 
-
   
+
+
