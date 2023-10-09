@@ -19,7 +19,7 @@
       <p>Months to Pay: <input bind:value={months} on:change={calculate} type="number" /></p>
       <button on:click={calculate}>Calculate EMI</button>
   
-      <h2 id="total">EMI: (₹){total}</h2>
+      <center> <h2 id="total">EMI: (₹){total}</h2> </center>
     </div>
   </main>
   
