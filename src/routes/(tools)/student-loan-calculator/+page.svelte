@@ -52,6 +52,7 @@
     }
   
     input {
+        color: black;
       padding: 7px;
       width: 70%;
       margin-top: 7px;
