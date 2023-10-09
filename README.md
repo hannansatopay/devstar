@@ -16,11 +16,11 @@ Join us on this journey to maximize your efficiency and productivity as a develo
 
 ## Run Locally
 
- Clone the project
+Clone the project
 
 ```bash
 
-git  clone  https://github.com/hannansatopay/devstar
+git  clone  https://github.com/bandya2003/IEEEdevstar.git
 
 ```
 
@@ -42,14 +42,44 @@ npm  install
 
 Start the server
 
-  
 ```bash
 
 npm  run  dev
 
 ```
 
+Our Module of Online Content-Sharing Tool is in the following Folder :
+
+src/routes/content-sharing-tool
+
+After Making the chnages in your local machine , use the following commands to push them to Github
+
+To Load the changes to staging stage
+
+```bash
+
+git add .
+
+```
+
+To commit the changes :
+
+```bash
+
+git commit -m "Your Commit Message"
+
+```
+
+To finally push the changes to the repository :
+
+```bash
+
+git push origin main
+
+```
+
 ## Contributing
+
 Contributions are always welcome!
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
@@ -57,4 +87,5 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
 Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
 ## License
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
