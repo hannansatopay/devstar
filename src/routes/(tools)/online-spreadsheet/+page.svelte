@@ -30,7 +30,7 @@
 	// 	keyValuePairs[letter] = "\t\t"; // Assuming you want a tab character as the value
 	// }
 	const gridOptions: GridOptions = {
-			columnDefs: [
+			columnDefs: [ { field: "ID", editable: false},
 				{ field: "A" },{ field: "B" },{ field: "C" },{ field: "D" },{ field: "E" },{ field: "F" },{ field: "G" },{ field: "H" },
 				{ field: "I" },{ field: "J" },{ field: "K" },{ field: "L" },{ field: "M" },{ field: "N" },{ field: "O" },{ field: "P" },
 				{ field: "Q" },{ field: "R" },{ field: "S" },{ field: "T" },{ field: "U" },{ field: "V" },{ field: "W" },{ field: "X" },
@@ -39,21 +39,21 @@
 			defaultColDef: {
 				sortable: true,
 				filter: true,
-				flex: 1,
+				flex: 0,
 				resizable: true,
 				editable: true,
 			},
 			rowData: [ 		
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				{ A:"		", B:"		", C:"		", D:"		", E:"		", F:"		", G:"		", H:"		", I:"		", J:"		", K:"		", L:"		", M:"		", N:"		", O:"		", P:"		", Q:"		", R:"		", S:"		", T:"		", U:"		", V:"		", W:"		", X:"		", Y:"		", Z:"		",},
-				
-
+				{ ID:1, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:2, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:3, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:4, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:5, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:6, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:7 ,A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:8, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:9, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
+				{ ID:10, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",},
 			]
 		}
 		
@@ -65,17 +65,36 @@
 		grid = new Grid(gridEl, gridOptions);
 	});
 
+	function addRow() {
+		const rowCount = gridOptions.api?.getDisplayedRowCount();
+		if(!rowCount) {
+			console.error("Grid API not accessible")
+		}
+
+		let newRow = {
+			ID:1 + rowCount, A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:"",
+		};
+
+		gridOptions.api?.applyTransaction({
+			add: [newRow],
+			addIndex: rowCount
+		})
+	}
+
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
+	<div class="mt-2 flex">
+		<div id="Spreadsheet" style="height:500px; width:100%; margin:4px" class="ag-theme-alpine"/>
+		<GradientButton on:click={addRow} class="w-32 h-32 ml-2 mr-2" size="sm" color="blue">Add Row</GradientButton>
+	</div>
 	
-	<div id="Spreadsheet" style="width:100% height:80%" class="ag-theme-alpine ag-theme-acmecorp"/>
 	
 </section>
 
-<style>
+<!-- <style>
 	/* set the background color of many elements across the grid */
 .ag-theme-alpine {
     --ag-background-color-dark: bg-gray-900;
@@ -91,4 +110,4 @@
 .ag-theme-acmecorp {
     --ag-odd-row-background-color: bg-gray-900;
 }
-</style>
+</style> -->
