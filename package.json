@@ -23,6 +23,7 @@
 		"@types/multicoin-address-validator": "^0.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
+		"ag-grid-community": "^30.2.0",
 		"autoprefixer": "^10.4.13",
 		"eslint": "^8.34.0",
 		"eslint-config-prettier": "^8.6.0",
