@@ -6,16 +6,23 @@
 
 	export let data;
 
-	var palindrome;
+	var reqfunc;
 
-	function generatePalindrome(input){
-		palindrome = input.target.value + input.target.value.split("").reduce((acc, char) => char + acc, "");
+	var output;
+
+	function encodedecode(input){
+		if (reqfunc=="encode") {
+			output = btoa(input.target.value);
+		}
+		else if (reqfunc=="decode") {
+			output = atob(input.target.value);
+		}
 	}
 
 	function copyText() {
-		if (palindrome.length > 0) {
+		if (output.length > 0) {
 			var textarea = document.createElement("textarea");
-			textarea.value = palindrome;
+			textarea.value = output;
 			document.body.appendChild(textarea);
 			textarea.select();
 			document.execCommand("copy");
@@ -24,9 +31,9 @@
 	}
 
 	function downloadText() {
-		if (palindrome.length > 0) {
+		if (output.length > 0) {
 			var filename = "DevStarPalindrome.txt";
-			var blob = new Blob([palindrome], { type: 'text/plain' });
+			var blob = new Blob([output], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
 			
 			var a = document.createElement('a');
@@ -42,7 +49,7 @@
   
 	function downloadPDF() {
 		const doc = new jsPDF();
-		doc.text(palindrome, 20, 20);
+		doc.text(output, 20, 20);
 		doc.save('DevStarPalindrome.pdf');
 	}
 
@@ -53,16 +60,26 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+
+			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
+				<select bind:value={reqfunc} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+						<option value="encode">Encode</option>
+						<option value="decode">Decode</option>
+
+				</select>
+			</div>
+
 			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={generatePalindrome}/>
+					on:input={encodedecode}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
 					<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					bind:value={palindrome}/>
+					bind:value={output}/>
 				</div>
 
 			</div>
@@ -84,7 +101,8 @@
 	}
 
 	#boxarea{
-		gap:30px;
+		margin-top: 20px;
+		gap:20px;
 	}
 
 	#buttonArea {

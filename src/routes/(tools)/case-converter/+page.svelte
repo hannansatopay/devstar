@@ -1,27 +1,36 @@
 <script lang="ts">
 	
-	
-	import { PDFDocument, rgb } from "pdf-lib";
+	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
-	import { Textarea } from 'flowbite-svelte';
+	import { Textarea,Button } from 'flowbite-svelte';
+export const caseConversionOptions = [
+	'Text Case Inversion',
+	'Sentence Case',
+	'Lower Case',
+	'Upper Case',
+	'Capitalize Case',
+	'De-Capitalize Case',
+	'Snake Case',
+	'camelCase',
+	'kebab-Case'
+];
+
 	export let data;
 	let inputValue = "";
 	let outputValue = "";
 	let selectedValue = '';
-
-	
 
 	function handleChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     selectedValue = selectElement.value;
 	handleOptionChange(selectedValue);
   }
-  const inputElement = document.querySelector("#iptextarea-id");
+  const inputElement = document.querySelector("#input-textarea-id");
   if (inputElement) {
     inputElement.addEventListener("input", handleInput);
   }
 	function handleInput(event: Event) {
-  const inputElement = document.querySelector<HTMLInputElement>("#iptextarea-id");
+  const inputElement = document.querySelector<HTMLInputElement>("#input-textarea-id");
   if (inputElement) {
     inputValue = inputElement.value;
   }
@@ -76,7 +85,7 @@ function handleOptionChange(selectedOption: string) {
 	}
   
 	function downloadAsText() {
-  const textarea = document.querySelector<HTMLTextAreaElement>("#textarea-id");
+  const textarea = document.querySelector<HTMLTextAreaElement>("#output-textarea-id");
   const text = textarea?.value;
 
   if (typeof text === "string") {
@@ -96,73 +105,15 @@ function handleOptionChange(selectedOption: string) {
   }
 }
 
-  
-	async function downloadAsPdf() {
-	  const textarea = document.querySelector("#textarea-id");
-	  if(!textarea){
-		return ;
-	  }
-	  const textareaElement = textarea as HTMLTextAreaElement;
-const text = textareaElement.value;
-
-	  const maxLinesPerPage = 30; 
-	  const lineHeight = 20; 
-	  const pageWidth = 500; 
-	  const pageHeight = 700; 
-	  const margin = 50; 
-  
-	  const lines = text.split("\n");
-	  const totalPages = Math.ceil(lines.length / maxLinesPerPage);
-  
-	  const pdfDoc = await PDFDocument.create();
-	  for (let pageNum = 0; pageNum < totalPages; pageNum++) {
-		const page = pdfDoc.addPage([pageWidth, pageHeight]);
-		const startLine = pageNum * maxLinesPerPage;
-		const endLine = Math.min(startLine + maxLinesPerPage, lines.length);
-		const pageLines = lines.slice(startLine, endLine);
-  
-		
-		const fontSize = 12; 
-		const textX = margin;
-		let textY = pageHeight - margin;
-  
-		for (const line of pageLines) {
-		  page.drawText(line, {
-			x: textX,
-			y: textY,
-			size: fontSize,
-			color: rgb(0, 0, 0),
-			maxWidth: pageWidth - 2 * margin,
-			lineHeight: fontSize * 1.2, 
-			opacity: 1, 
-		  });
-		  textY -= lineHeight;
-		}
-  
-		if (pageNum < totalPages - 1) {
-		  pdfDoc.addPage(); 
-		}
-	  }
-  
-	  const pdfBytes = await pdfDoc.save();
-  
-	  const blob = new Blob([pdfBytes], { type: "application/pdf" });
-  
-	  const url = URL.createObjectURL(blob);
-  
-	  const a = document.createElement("a");
-	  a.href = url;
-	  a.download = "output.pdf";
-	  a.style.display = "none";
-	  document.body.appendChild(a);
-	  a.click();
-	  document.body.removeChild(a);
-  
-	  URL.revokeObjectURL(url);
+function downloadPDF() {
+		const doc = new jsPDF();
+		doc.text(outputValue, 20, 20);
+		doc.save('DevStarCase.pdf');
 	}
+
   
 	function copyToClipboard() {
-	  const textarea = document.querySelector("#textarea-id");
+	  const textarea = document.querySelector("#output-textarea-id");
 	  const textareaElement = textarea as HTMLTextAreaElement;
 textareaElement.select();
 
@@ -177,48 +128,42 @@ textareaElement.select();
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg" id="box">
+			<select on:change={handleChange} 
+				class="rounded-lg bg-gray-50 text-gray-900 text-sm border-0 border-t-2 border-white focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+				<option>--Select Conversion-- </option>
+				{#each caseConversionOptions as option}
+				<option value={option}>{option}</option>
+			{/each}
+		</select>	
 			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
-
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1" >
-					<Textarea
-		  placeholder="Enter Text ...."
-		  id="iptextarea-id"
-		  rows="8"
-		  name="message"
-		  on:input={handleInput}
-		  />
+				
+				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
+					<Textarea placeholder="Enter Text" id="input-textarea-id" rows="8" name="message"
+					on:input={handleInput}/>
+					
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<Textarea
-			placeholder="Result ...."
-			id="textarea-id"
-		rows="8"
-		bind:value={outputValue}/>
-		  <div class="dropdown-container">
-			<select on:change={handleChange}>
-
-			  <option/>
-			  <option value="Text Case Inversion">Text Case Inversion</option>
-			  <option value="Sentence Case">Sentence Case</option>
-			  <option value="Upper Case">Upper Case</option>
-			  <option value="Lower Case">Lower Case</option>
-			  <option value="camelCase">Camel Case</option>
-			  <option value="Capitalize Case">Capitalize Case</option>
-			  <option value="De-Capitalize Case">De-Capitalize Case</option>		  >
-			  <option value="kebab-Case">kebab-Case</option>
-			  <option value="Snake Case">Snake Case</option>
-			</select>
-		  </div>
+					
+				<Textarea
+					placeholder="Result ...."
+					readOnly
+					id="output-textarea-id"
+					
+					rows="8"
+					
+					style="border-radius:0"
+					bind:value={outputValue}
+					/>
 				</div>
 
 			</div>
 
 			<div class="buttons" >
-				<button on:click={copyToClipboard}>Copy</button>
-				<button on:click={downloadAsText}>Download as Text</button>
-	  
-				<button on:click={downloadAsPdf}>Download as PDF</button>
+				<Button color="blue" on:click={copyToClipboard}>Copy</Button>
+				<Button color="blue" on:click={downloadAsText}>Download as txt</Button>
+				<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+			
 			  </div>
 
 		</div>
@@ -227,52 +172,28 @@ textareaElement.select();
 
 <style>
 	
-	section {
-	  display: flex;
-	  flex-direction: row;
-	  align-items: center;
-	  justify-content: center;
-	  background-color: tranparent;
-	}
+	
 	#box{
 		border:2px solid gray ;
-		padding:30px;
+		padding:35px;
 	}
-	.dropdown-container {
-	  position: absolute;
-	  top:45px;
-	  right:38px;
+	
+	#tarea1{
+		margin-right: 10px;
 	}
-  
-	select {
-	  background-color: transparent;
-	  color: #141314;
-	  padding: 8px;
-	  border: none;
-	  font-size: 16px;
-	  width: 30px;
-	  height: 15px;
+
+	#tarea2{
+		margin-left: 10px;
 	}
 	.buttons {
-	  display: flex;
-	  gap: 20px;
-	  margin-top: 30px;
+		margin-top: 30px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
 
 	}
-  
-	button {
-	  padding: 5px;
-	  background-color: #007bff;
-	  color: white;
-	  border-radius: 7px;
-	  border: none;
-	  width:190px;
-	  cursor: pointer;
-	}
-  
-	button:hover {
-	  background-color: #0056b3;
-	}
+/* 
 	@media screen and (max-width: 768px) {
 	  
   
@@ -280,4 +201,34 @@ textareaElement.select();
 		margin-left: 0;
 	  }
 	}
+	@media screen and (max-width: 768px) {
+    #box {
+      padding: 15px;
+    }
+
+    select {
+      width: 100%;
+      margin-top: 10px; 
+    }
+
+    .buttons {
+      flex-direction: column; 
+      align-items: center; 
+      margin-top: 20px;
+    }
+
+  }
+
+  @media screen and (max-width: 1024px) {
+    #box {
+      padding: 20px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    #box {
+      padding: 30px;
+    }
+  } */
 </style>
+
