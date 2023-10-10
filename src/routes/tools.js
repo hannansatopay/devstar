@@ -96,4 +96,11 @@ export let tools = {
         description: 
 		"Refine your content effortlessly with our Strip HTML Tags Tool. Input any text containing HTML markup, and watch as it instantly removes all HTML tags, leaving you with clean, readable text. Perfect for writers, editors, and developers dealing with web content, ensuring seamless integration across various platforms. Say goodbye to cluttered code and hello to polished, tag-free content. Streamline your text processing tasks, enhancing readability and user experience. Start stripping HTML tags with ease, transforming your content into its purest, most accessible form."
 	},
+	'remove-accents': {
+        name: 'Remove Accents',
+        icon: 'arrow-right-arrow-left',
+        link: '/remove-accents',
+        description: 
+		"Enhance the clarity of your text with our Remove Accent from Text Tool. Input any text containing accented characters, and witness as it effortlessly strips away accents, leaving behind clean and simplified text. Ideal for language enthusiasts, writers, and researchers striving for precise, accent-free communication. Ensure uniformity and readability in your documents, web content, and communications by effortlessly removing diacritical marks. Streamline your text processing tasks, making your content universally understandable. Start removing accents with ease, elevating the professionalism and accessibility of your text."
+	},
 };
