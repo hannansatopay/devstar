@@ -24,6 +24,15 @@ export let tools = {
 			'The Case Converter is a comprehensive tool that simplifies the conversion of various Strings for developers. It can convert text to uppercase, lowercase, camel case, sentence case ,  and other styles, making it useful for formatting and editing text and code. Case converters help ensure consistency and readability in written content and simplify tasks involving text manipulation.'
 	},
 
+
+    'remove-duplicate-lines-words': {
+		name: 'Remove Duplicate Lines OR Words',
+		icon: 'arrow-right-arrow-left',
+		link: '/remove-duplicate-lines-words',
+		description:
+			' Remove Duplicate Lines and Words Tool is the ultimate solution for swiftly eliminating redundancy in your text. Whether you are a writer, coder, or data analyst, this user-friendly tool instantly identifies and cleans up repeated lines and words, saving you valuable time and ensuring your content is concise and error-free. Simplify your workflow and boost productivity with this essential text optimization tool.'
+	},
+
 	'find-and-replace-text': {
 		name: 'Find and Replace Text',
 		icon: 'arrow-right-arrow-left',
