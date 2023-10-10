@@ -73,7 +73,5 @@
 		<div id="Spreadsheet" style="height:500px; width:100%; margin:4px" class="ag-theme-alpine"/>
 		<GradientButton on:click={addRow} class="w-32 h-32 ml-2 mr-2" size="sm" color="blue">Add Row</GradientButton>
 	</div>
-	
-	
 </section>
 
