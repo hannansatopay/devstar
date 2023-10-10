@@ -73,4 +73,11 @@ export let tools = {
         description: 
             "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors."
     },
+	'escape-unescape-text': {
+        name: 'Escape & Unescape Text',
+        icon: 'arrow-right-arrow-left',
+        link: '/escape-unescape-text',
+        description: 
+		"Elevate your text manipulation tasks with our Escape and Unescape Text Tool. Whether you need to escape special characters for safe transmission or unescape encoded strings, our intuitive tool simplifies the process. Input your text, and watch as it seamlessly escapes special characters or reverses the process, restoring your text to its original form. Ideal for programmers, web developers, and content creators dealing with HTML, URLs, or JavaScript strings. Enhance your workflow by effortlessly handling special characters and encoded text. Start escaping and unescaping with ease, ensuring accurate data representation in any context."	
+	},
 };

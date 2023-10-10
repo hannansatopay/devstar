@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
     import { Button } from 'flowbite-svelte';
     import jsPDF from 'jspdf';
     import Intro from '$lib/Intro.svelte';
@@ -76,8 +75,8 @@
                 </div>
             </div>
             <div id="buttonArea">
-                <Button color="blue" on:click={downloadText}>Download as Text</Button>
                 <Button color="blue" on:click={copyText}>Copy</Button>
+                <Button color="blue" on:click={downloadText}>Download as Text</Button>
 				<Button color="blue" on:click={downloadPDF}>Download as PDF</Button>
             </div>
         </div>
