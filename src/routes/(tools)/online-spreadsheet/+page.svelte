@@ -2,9 +2,7 @@
 	import Intro from '$lib/Intro.svelte';
 	import { Button, GradientButton } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
-	// import { Fileupload, Label, Helper } from 'flowbite-svelte';
-	// import CsvEditor from './CsvEditor.svelte';
-	// import Editabletable from './EditableTable.svelte';
+	
 	import { Grid } from 'ag-grid-community';
 	import type { GridOptions } from 'ag-grid-community';
 	import 'ag-grid-community/styles/ag-grid.css';
@@ -14,21 +12,6 @@
 
 	let grid: Grid;
 	
-	// const uppercaseLetters = [];
-
-	// for (let i = 65; i <= 90; i++) {
-	// 	uppercaseLetters.push(String.fromCharCode(i));
-	// }
-	// for (let i = 0; i < 26; i++) {
-
-	// }
-
-	// const keyValuePairs = {};
-
-	// for (let charCode = 65; charCode <= 90; charCode++) {
-	// 	const letter = String.fromCharCode(charCode);
-	// 	keyValuePairs[letter] = "\t\t"; // Assuming you want a tab character as the value
-	// }
 	const gridOptions: GridOptions = {
 			columnDefs: [ { field: "ID", editable: false},
 				{ field: "A" },{ field: "B" },{ field: "C" },{ field: "D" },{ field: "E" },{ field: "F" },{ field: "G" },{ field: "H" },
@@ -94,20 +77,3 @@
 	
 </section>
 
-<!-- <style>
-	/* set the background color of many elements across the grid */
-.ag-theme-alpine {
-    --ag-background-color-dark: bg-gray-900;
-	--ag-background-color: bg-white
-	
-}
-/* change the font style of a single UI component */
-.ag-theme-alpine .ag-header-cell-label {
-    font-style: italic;
-}
-
-/* ag-theme-acmecorp.css */
-.ag-theme-acmecorp {
-    --ag-odd-row-background-color: bg-gray-900;
-}
-</style> -->
