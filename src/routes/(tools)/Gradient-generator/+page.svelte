@@ -20,12 +20,6 @@
     function generateGradient() {
     gradientCode = `linear-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`;
 
-    let gradientCode = "";
-    let gradienttype = `${Types[0]}`;
-    let gradientrotation = `0`;
-    let gradientColors = ["#AE2828","#000000"];
-    let gradientper = `${percentages[0]}`;
-
     function generateGradient() {
     gradientCode = `${gradienttype}-gradient(45deg, ${gradientColors[0]}, ${gradientColors[1]})`;
   }
