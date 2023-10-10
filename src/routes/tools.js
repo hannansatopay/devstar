@@ -89,4 +89,11 @@ export let tools = {
         description: 
 		"Elevate your text manipulation tasks with our Escape and Unescape Text Tool. Whether you need to escape special characters for safe transmission or unescape encoded strings, our intuitive tool simplifies the process. Input your text, and watch as it seamlessly escapes special characters or reverses the process, restoring your text to its original form. Ideal for programmers, web developers, and content creators dealing with HTML, URLs, or JavaScript strings. Enhance your workflow by effortlessly handling special characters and encoded text. Start escaping and unescaping with ease, ensuring accurate data representation in any context."	
 	},
+	'strip-html-tags': {
+        name: 'Strip HTML Tags',
+        icon: 'arrow-right-arrow-left',
+        link: '/strip-html-tags',
+        description: 
+		"Refine your content effortlessly with our Strip HTML Tags Tool. Input any text containing HTML markup, and watch as it instantly removes all HTML tags, leaving you with clean, readable text. Perfect for writers, editors, and developers dealing with web content, ensuring seamless integration across various platforms. Say goodbye to cluttered code and hello to polished, tag-free content. Streamline your text processing tasks, enhancing readability and user experience. Start stripping HTML tags with ease, transforming your content into its purest, most accessible form."
+	},
 };
