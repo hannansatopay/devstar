@@ -100,5 +100,11 @@ export let tools = {
         icon: 'charts',
         link: '/chart-generator',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
+    },
+    'random-data-generator': {
+        name: 'Random Data Generator (βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/random-data-generator',
+        description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
     }
-};
+}
