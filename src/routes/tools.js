@@ -82,8 +82,19 @@ export let tools = {
         description: 
             "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors."
     },
+<<<<<<< Updated upstream
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
+=======
+    'string-reversal':{
+        name: 'String Reversal',
+        icon: 'arrow-right-arrow-left',
+        link: '/string-reversal',
+        description: "This tool allows you Reversing the string and giving the ouput as reversed characters or words of a string ."
+    },
+    'upside-down-text': {
+        name: 'Upside Down Text Generator',
+>>>>>>> Stashed changes
         icon: 'arrow-right-arrow-left',
         link: '/escape-unescape-text',
         description: 
