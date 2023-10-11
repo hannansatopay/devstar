@@ -14,10 +14,6 @@
 		DropdownDivider
 	} from 'flowbite-svelte';
 
-	// import CodeMirror from 'codemirror';
-	// import 'codemirror/lib/codemirror.css';
-	// import 'codemirror/theme/dracula.css';
-
 	import { onMount } from 'svelte';
 
 	import {
@@ -31,7 +27,7 @@
 		UserSettingsSolid
 	} from 'flowbite-svelte-icons';
 
-	export let data;
+// 	export let data;
 
 	let innerWidth: any = null;
 	let innerHeight: any = null;
@@ -52,7 +48,10 @@
 		innerWidth = window.innerWidth;
 		innerHeight = window.innerHeight;
 	});
+
 </script>
+
+<!--  Introduction  -->
 
 <!-- <Intro heading={data.meta.title} description={data.meta.description} /> -->
 <!--or-->
@@ -72,16 +71,16 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
+<!-- Terminal -->
+
 <section class="bg-custom-blue dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="bg min-h-[16rem] md:w-2/3 rounded-lg mx-auto flex flex-col p-2">
+		<div class="bg min-h-[35rem] md:w-4/5 rounded-lg mx-auto flex flex-col p-2">
 			<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
 				<div class="toolbar">
-					<div class="box">
-						<span> Theme</span>
-						<span class="ml-auto">
-							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-						</span>
+					<div class="box1">
+					</div>
+					<div class="box2">
 					</div>
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 						<div slot="header" class="p-3">
@@ -94,22 +93,49 @@
 						<DropdownDivider />
 					</Dropdown>
 
-
-					<!---------             Scripting            --------->
-					<div class="box">
-						<span>Languages</span>
-						<span class="ml-auto">
+<!-- 	Scripting -->
+										
+					<div class="theme ml-auto">
+						<span>Theme</span>
+						<span class="ml-auto"></span>
 							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-						</span>
 					</div>
+
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<div slot="header" class="p-3">
+            <div slot="header" class="p-3">
 							<Search size="md" />
 						</div>
-						<!-- Other list items ... -->
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Aptos</DropdownItem>
 						<DropdownDivider />
+						<DropdownItem>Calibri</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Sans serif</DropdownItem>
+						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 					</Dropdown>
+
+					<div class="language ml-auto">
+						<span>Language</span>
+						<span class="ml-auto"></span>
+							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+					</div>
+
+					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+            <div slot="header" class="p-3">
+							<Search size="md" />
+						</div>
+						<DropdownItem>C++</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Java</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Python</DropdownItem>
+						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+					</Dropdown>
+
+					<div class="icon">
+						<Button>
+							<img src="/color-palatte.png" alt="Your  Description" />
+						</Button>
+					</div>
 
 					<div class="icon">
 						<Button>
@@ -123,22 +149,59 @@
 						</Button>
 					</div>
 
-					<div class="export ml-auto">
-						<span> Export</span>
-						<span class="ml-auto">
-							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-						</span>
+					<div class="icon">
+						<Button>
+							<img src="/Texttospeech.png" alt="Your  Description" />
+						</Button>
 					</div>
-					<!-- 					
+
+					<div class="save ml-auto">
+						<span>Save</span>
+						<span class="ml-auto"></span>
+							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+					</div>
+
+					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+						<DropdownItem>Jpg</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Png</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Psd</DropdownItem>
+						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+					</Dropdown>
+
+					<div class="post ml-auto">
+						<span>Post</span>
+						<span class="ml-auto"></span>
+							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+							
+							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+								<DropdownItem>Facebook</DropdownItem>
+								<DropdownDivider />
+								<DropdownItem>Instagram</DropdownItem>
+								<DropdownDivider />
+								<DropdownItem>Twitter</DropdownItem>
+								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+							</Dropdown>
+
+						</div>
+					<div class="export ml-auto">
+						<span>Export</span>
+						<span class="ml-auto"></span>
+							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+					</div>					
+
+					<!--	
+
 						<div slot="header" class="p-3" size="md">
 							<Search size="md" />
 						</div>
 						<!-- Other list items ... 
 					</Dropdown> -->
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Code</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Size</DropdownItem>
+						<DropdownItem>1 mb</DropdownItem>
 						<DropdownDivider />
 						<DropdownItem>Export</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
@@ -150,6 +213,8 @@
 			</div>-->
 		</div>
 	</div>
+
+
 </section>
 
 <style>
@@ -166,42 +231,131 @@
 		align-items: center;
 	}
 
+	.theme{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: 1px solid white;
+		width: 120px;
+		padding: 5px 20px;
+		margin-right: 8px;
+		margin-left: 9px;
+		margin-top: 5px;
+		border-radius: 10px;
+		font-size: 15px;
+		color: white;
+	}
+
+	.language{
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: 1px solid white;
+		width: 150px;
+		padding: 5px 25px;
+		margin-left: 0.5px;
+		margin-right: 8px;
+		margin-top: 5px;
+		border-radius: 10px;
+		font-size: 15px;
+		color: white;
+	}
+
+	.save {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: 1px solid white;
+		width: 120px;
+		padding: 5px 30px;
+		margin-right: 8px;
+		margin-top: 5px;
+		margin-left: 8px;
+		border-radius: 10px;
+		font-size: 15px;
+		color: white;
+	}
+
+	.post {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		border: 1px solid white;
+		width: 120px;
+		padding: 5px 30px;
+		margin-right: 8px;
+		margin-top: 5px;
+		margin-left: 0.5px;
+		border-radius: 10px;
+		font-size: 15px;
+		color: white;
+	}
+
 	.export {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 		border: 1px solid white;
-		width: 180px;
+		width: 120px;
 		padding: 5px 20px;
-		margin-right: 10px;
-		border-radius: 5px;
-
+		margin-right: 9px;
+		margin-top: 5px;
+		margin-left: 0.5px;
+		border-radius: 10px;
+		font-size: 15px;
 		color: white;
 	}
-	.box {
+
+	/* .box {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
 		border: 1px solid white;
-		width: 180px;
+		width: 200px;	
 		padding: 5px 20px;
 		margin-right: 10px;
-		border-radius: 5px;
-
+		margin-top: 5px;
+		border-radius: 10px;
+		font-size: 15px;
 		color: white;
+	} */
+
+	.box1 {
+  		position: absolute;
+  		top: 86%;
+  		left: 50%;
+  		transform: translate(-50%, -50%);
+  		width: 910px;
+  		height: 470px;
+  		background-color: #ffffff;
+  		/* z-index: 999; */
+		border-radius: 10px;
+	}
+
+	.box2 {
+  		position: absolute;
+  		top: 86%;
+  		left: 50%;
+  		transform: translate(-50%, -50%);
+  		width: 880px;
+  		height: 440px;
+  		background-color: black;
+  		/* z-index: 999; */
+		border-radius: 10px;
 	}
 
 	.icon img {
-		width: 24px;
-		height: 24px;
+		width: 30px;
+		height: 26px;
 		object-fit: cover;
 	}
 
 	.icon {
 		display: flex;
 		align-items: center;
-		margin-right: 10px;
-		border-radius: 5px;
+		margin-right: 3px;
+		margin-top: 5px;
+		border-radius: 10px;
 		color: white;
 		background-color: #2d3748;
 	}
@@ -214,6 +368,8 @@
 		background-color: #121212;
 		border: white 2px solid;
 	}
+
+
 /* 
 	.code-editor {
 		height: 400px;
