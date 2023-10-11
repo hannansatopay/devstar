@@ -14,10 +14,6 @@
 		DropdownDivider
 	} from 'flowbite-svelte';
 
-	// import CodeMirror from 'codemirror';
-	// import 'codemirror/lib/codemirror.css';
-	// import 'codemirror/theme/dracula.css';
-
 	import { onMount } from 'svelte';
 
 	import {
@@ -31,7 +27,7 @@
 		UserSettingsSolid
 	} from 'flowbite-svelte-icons';
 
-	// export let data;
+// 	export let data;
 
 	let innerWidth: any = null;
 	let innerHeight: any = null;
@@ -54,7 +50,9 @@
 	});
 
 </script>
-	
+
+<!--  Introduction  -->
+
 <!-- <Intro heading={data.meta.title} description={data.meta.description} /> -->
 <!--or-->
 <section class="bg-custom-blue dark:bg-gray-900">
@@ -72,6 +70,8 @@
 </section>
 
 <svelte:window bind:innerWidth bind:innerHeight />
+
+<!-- Terminal -->
 
 <section class="bg-custom-blue dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
@@ -93,17 +93,8 @@
 						<DropdownDivider />
 					</Dropdown>
 
-					<!---------             Scripting            --------->
-					
-					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<div slot="header" class="p-3">
-							<Search size="md" />
-						</div>
-						<!-- Other list items ... -->
-						<DropdownItem>File Name</DropdownItem>
-						<DropdownDivider />
-					</Dropdown>
-					
+<!-- 	Scripting -->
+										
 					<div class="theme ml-auto">
 						<span>Theme</span>
 						<span class="ml-auto"></span>
@@ -111,6 +102,9 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+            <div slot="header" class="p-3">
+							<Search size="md" />
+						</div>
 						<DropdownItem>Aptos</DropdownItem>
 						<DropdownDivider />
 						<DropdownItem>Calibri</DropdownItem>
@@ -126,6 +120,9 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+            <div slot="header" class="p-3">
+							<Search size="md" />
+						</div>
 						<DropdownItem>C++</DropdownItem>
 						<DropdownDivider />
 						<DropdownItem>Java</DropdownItem>
