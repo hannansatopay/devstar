@@ -111,11 +111,11 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Aptos</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Calibri</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>File name</DropdownItem>
+						<DropdownItem>Sans serif</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 					</Dropdown>
 
@@ -126,11 +126,11 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>C++</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Java</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>File name</DropdownItem>
+						<DropdownItem>Python</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 					</Dropdown>
 
@@ -202,9 +202,9 @@
 						<!-- Other list items ... 
 					</Dropdown> -->
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<DropdownItem>File Name</DropdownItem>
+						<DropdownItem>Code</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Size</DropdownItem>
+						<DropdownItem>1 mb</DropdownItem>
 						<DropdownDivider />
 						<DropdownItem>Export</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
@@ -217,7 +217,7 @@
 		</div>
 	</div>
 
-		
+
 </section>
 
 <style>
