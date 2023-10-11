@@ -127,4 +127,21 @@ export let tools = {
         description: 
 		"Experience the art of text transformation with our Text Reversal Tool. Effortlessly reverse your text, both word-wise and character-wise, with a simple input. Perfect for writers, language enthusiasts, and puzzle solvers, our tool reverses your sentences, preserving word order while also flipping individual characters. Whether you want to decode encrypted messages, play with linguistic patterns, or add a unique twist to your writing, our tool is your solution. Seamlessly switch between reversing entire sentences or just the characters within each word. Unlock the creative potential of your text, exploring reverse language constructs in both words and characters. Start exploring the world of text reversal with ease, adding depth and creativity to your linguistic endeavors."
 	},
+
+	'text-truncator':{
+        name: 'Text Truncator',
+        icon: 'arrow-right-arrow-left',
+        link: '/text-truncator',
+        description:
+		"Refine your text effortlessly with our Text Truncator Tool. Tailor your text to specific lengths, ensuring concise and polished communication. Input your text, set the desired character limit, and watch as it trims down your content while preserving its essence. Ideal for writers, marketers, and social media enthusiasts striving for impactful, concise messaging. Whether you're crafting tweets, headlines, or product descriptions, our tool helps you maintain clarity within space constraints. Simplify lengthy texts without losing their meaning, optimizing readability and engagement. Start truncating text with precision, transforming your content into concise, impactful messages that resonate with your audience." 
+	},
+
+	'url-encode-decode': {
+        name: 'URL Encoder & Decoder',
+        icon: 'arrow-right-arrow-left',
+        link: '/url-encode-decode',
+        description: 
+		"Optimize your web interactions with our URL Encoder and Decoder Tool. Encode sensitive data for secure transmission or decode encoded URLs effortlessly, ensuring seamless communication online. Input your text, and our tool swiftly converts special characters into URL-friendly formats or decodes URLs back to their original state. Ideal for developers, marketers, and anyone managing web content, our tool simplifies the handling of URLs, query strings, and form data. Enhance your website's functionality, ensuring accurate data exchange and smooth user experiences. Start encoding and decoding URLs with ease, streamlining your web interactions and data management tasks."
+    },
+
 };
