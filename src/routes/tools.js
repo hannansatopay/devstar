@@ -24,7 +24,6 @@ export let tools = {
 			'The Case Converter is a comprehensive tool that simplifies the conversion of various Strings for developers. It can convert text to uppercase, lowercase, camel case, sentence case ,  and other styles, making it useful for formatting and editing text and code. Case converters help ensure consistency and readability in written content and simplify tasks involving text manipulation.'
 	},
 
-
     'remove-duplicate-text': {
 		name: 'Remove Duplicate Text',
 		icon: 'arrow-right-arrow-left',
@@ -82,19 +81,8 @@ export let tools = {
         description: 
             "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors."
     },
-<<<<<<< Updated upstream
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
-=======
-    'string-reversal':{
-        name: 'String Reversal',
-        icon: 'arrow-right-arrow-left',
-        link: '/string-reversal',
-        description: "This tool allows you Reversing the string and giving the ouput as reversed characters or words of a string ."
-    },
-    'upside-down-text': {
-        name: 'Upside Down Text Generator',
->>>>>>> Stashed changes
         icon: 'arrow-right-arrow-left',
         link: '/escape-unescape-text',
         description: 
@@ -114,4 +102,17 @@ export let tools = {
         description: 
 		"Enhance the clarity of your text with our Remove Accent from Text Tool. Input any text containing accented characters, and witness as it effortlessly strips away accents, leaving behind clean and simplified text. Ideal for language enthusiasts, writers, and researchers striving for precise, accent-free communication. Ensure uniformity and readability in your documents, web content, and communications by effortlessly removing diacritical marks. Streamline your text processing tasks, making your content universally understandable. Start removing accents with ease, elevating the professionalism and accessibility of your text."
 	},
+	'random-string-generator': {
+        name: 'Random String Generator',
+        icon: 'arrow-right-arrow-left',
+        link: '/random-string-generator',
+        description: 
+		"Elevate your data generation tasks with our Random String Generator. Tailor your random strings based on your preferences, specifying maximum and minimum lengths, desired number of strings, and specific patterns. Whether you need diverse passwords, unique identifiers, or customized test data, our tool delivers. Perfect for developers, testers, and data analysts, enabling the creation of random strings for various applications. Craft strings of specific lengths, incorporate patterns, or generate diverse strings in bulk effortlessly. Enhance your data generation experience, ensuring seamless integration into your projects. Start generating tailored random strings with ease, empowering your data-driven endeavors."
+	},
+	'string-reversal':{
+        name: 'String Reversal',
+        icon: 'arrow-right-arrow-left',
+        link: '/string-reversal',
+        description: 
+		"Experience the art of text transformation with our Text Reversal Tool. Effortlessly reverse your text, both word-wise and character-wise, with a simple input. Perfect for writers, language enthusiasts, and puzzle solvers, our tool reverses your sentences, preserving word order while also flipping individual characters. Whether you want to decode encrypted messages, play with linguistic patterns, or add a unique twist to your writing, our tool is your solution. Seamlessly switch between reversing entire sentences or just the characters within each word. Unlock the creative potential of your text, exploring reverse language constructs in both words and characters. Start exploring the world of text reversal with ease, adding depth and creativity to your linguistic endeavors."    },
 };
