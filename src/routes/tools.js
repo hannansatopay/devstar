@@ -25,10 +25,10 @@ export let tools = {
 	},
 
 
-    'remove-duplicate-lines-words': {
-		name: 'Remove Duplicate Lines OR Words',
+    'remove-duplicate-text': {
+		name: 'Remove Duplicate Text',
 		icon: 'arrow-right-arrow-left',
-		link: '/remove-duplicate-lines-words',
+		link: '/remove-duplicate-text',
 		description:
 			' Remove Duplicate Lines and Words Tool is the ultimate solution for swiftly eliminating redundancy in your text. Whether you are a writer, coder, or data analyst, this user-friendly tool instantly identifies and cleans up repeated lines and words, saving you valuable time and ensuring your content is concise and error-free. Simplify your workflow and boost productivity with this essential text optimization tool.'
 	},
