@@ -1,7 +1,8 @@
 
-
 <script>
 	import { onMount } from 'svelte';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { ChevronDownSolid } from 'flowbite-svelte-icons';
 	import * as am5 from '@amcharts/amcharts5?client';
 	import * as am5xy from '@amcharts/amcharts5/xy?client';
 	import am5themes_Animated from '@amcharts/amcharts5/themes/Animated?client';
@@ -136,7 +137,7 @@
 
 
 
-<div class="flex justify-center items-center p-2 ">
+<div class="flex justify-center items-center py-4 px-12 border-2 rounded-lg shadow-sm shadow-blue-300 ">
 	<!-- Chart container -->
 	<div class="chart_container">
 		<div id="chartdiv" bind:this={chartdiv}/>
@@ -145,6 +146,16 @@
 	<!-- Input fields to capture user input for each data item -->
 
 	<div class="bg-white">
+
+		<Button class="mt-2 mb-4 w-full bg-gray-600 hover:bg-gray-700 focus:ring-gray-400 ">Select Chart Type<ChevronDownSolid class="w-3 h-3 ml-2 text-white dark:text-white" /></Button>
+		<Dropdown>
+		  <DropdownItem>Bar Chart</DropdownItem>
+		  <DropdownItem>Pie Chart</DropdownItem>
+		  <DropdownItem>Line Chart</DropdownItem>
+		  <DropdownItem>More comming Soon</DropdownItem>
+		</Dropdown>
+
+		
 		{#each data as item (item.country)}
 		  <div>
 			<input type="text" class=" mb-2 rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.country} placeholder="Country">
@@ -187,4 +198,6 @@
 		background-color: rgb(243, 243, 243);
 		border-radius: 5px;
 	}
+
+	
 </style>
