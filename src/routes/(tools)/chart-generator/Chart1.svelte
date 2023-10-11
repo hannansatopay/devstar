@@ -1,4 +1,4 @@
-<div id="chartdiv" bind:this={chartdiv}/>
+
 
 <script>
 	import { onMount } from 'svelte';
@@ -33,26 +33,7 @@
 				country: 'France',
 				value: 1114
 			}
-			// {
-			// 	country: 'India',
-			// 	value: 984
-			// },
-			// {
-			// 	country: 'Spain',
-			// 	value: 711
-			// },
-			// {
-			// 	country: 'Netherlands',
-			// 	value: 665
-			// },
-			// {
-			// 	country: 'South Korea',
-			// 	value: 443
-			// },
-			// {
-			// 	country: 'Canada',
-			// 	value: 441
-			// }
+			
 	];
 	
 	onMount(() => {
@@ -152,36 +133,43 @@
     }
   }
 </script>
-<div>
-	<!-- Input fields to capture user input for each data item -->
-	{#each data as item (item.country)}
-	  <div>
-		<input type="text" class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.country} placeholder="Country">
-		<input type="number" class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.value} placeholder="Value" min="0" step="1" />
-	  </div>
-	{/each}
-  
-	<!-- Button to trigger chart update -->
-	<div class="container"><button on:click={updateChart}>Update Chart</button></div>
-  
-	<!-- Chart container -->
-	<div id={chartdiv}></div>
-  </div>
 
-<!-- <div class="container">
-	<form>
-		<div class="mb-6">
-		  <label for="val1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value on x-axis</label>
-		  <input type="val1" id="val1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="X-axis input" required>
-		</div>
-		<div class="mb-6">
-		  <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value on y-axis</label>
-		  <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Y-axis input" required>
-		</div>
+
+
+<div class="flex justify-center items-center p-2 ">
+	<!-- Chart container -->
+	<div class="chart_container">
+		<div id="chartdiv" bind:this={chartdiv}/>
+	</div>
 	
-		<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-	</form>
-</div> -->
+	<!-- Input fields to capture user input for each data item -->
+
+	<div class="bg-white">
+		{#each data as item (item.country)}
+		  <div>
+			<input type="text" class=" mb-2 rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.country} placeholder="Country">
+			<input type="number" class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.value} placeholder="Value" min="0" step="1" />
+		  </div>
+		{/each}
+  
+			<!-- Button to trigger chart update -->
+			<button class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" 
+			>Add Data</button>
+			<!-- Button to trigger chart update -->
+			<button class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" 
+			>Download</button>
+			<!-- Button to trigger chart update -->
+			<button class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" 
+			on:click={updateChart}>Update Data</button>
+
+	</div>
+  
+	
+</div>
+
+
+
+
   
   <style>
 	body {
@@ -189,9 +177,14 @@
 			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 	}
 
+	.chart_container{
+		padding: 20px;
+	}
+
 	#chartdiv {
-        padding: 70 70 70 70px;
-		width: 100%;
+		width: 600px;
 		height: 400px;
+		background-color: rgb(243, 243, 243);
+		border-radius: 5px;
 	}
 </style>

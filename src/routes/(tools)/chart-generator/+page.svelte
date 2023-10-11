@@ -14,9 +14,10 @@
 	<h1>Sample Chart</h1>
 </div>
 <Chart /> -->
-<div class="decoration-gray-700 text-5xl flex justify-center m-3">
-	<h1>XYChart</h1>
-</div>
+<!-- <div class="flex ml-20 mr-20 justify-center items-center">
+	<div class="w-2/4 h-80 bg-blue-400">left</div>
+	<div class="w-2/4 h-80 bg-blue-300">right</div>
+</div> -->
 <div>
 	<Chart1/>
 </div>
