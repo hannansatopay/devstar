@@ -78,8 +78,7 @@
 		<div class="bg min-h-[35rem] md:w-4/5 rounded-lg mx-auto flex flex-col p-2">
 			<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
 				<div class="toolbar">
-					<div class="box1">
-					</div>
+					<div class="box1"></div>
 					<div class="box2">
 					</div>
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
@@ -372,6 +371,21 @@
 		border: white 2px solid;
 	}
 
+	.body {
+    	background: #000;
+    	min-height: 90vh;
+    	display: flex;
+    	justify-content: center;
+    	align-items: center;
+	}
+
+	.body {
+    background: #000;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	}
 
 /* 
 	.code-editor {
