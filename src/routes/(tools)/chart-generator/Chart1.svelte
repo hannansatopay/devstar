@@ -125,6 +125,11 @@
       // Push the new data point into the data array
       data.push({ country: XaxisInput, value: YaxisInput });
 
+	  document.querySelector('#last_data_added').style.display = "block";
+	  document.querySelector('#Xaxis_value').innerHTML =XaxisInput;
+	  document.querySelector('#Yaxis_value').innerHTML =YaxisInput;
+
+
       // Clear the input fields
       document.querySelector('#XaxisInput').value = '';
       document.querySelector('#YaxisInput').value = '';
@@ -132,20 +137,17 @@
   }
 	
 </script>
-<div class="flex justify-center items-center flex-col lg:flex-row py-4 px-12 border-2 rounded-lg shadow-sm shadow-blue-300">
+<div class="main-container flex justify-center items-center flex-col lg:flex-row py-4 px-12 border-2 rounded-lg shadow-sm shadow-blue-300">
 
   <!-- Input fields to capture user input for each data item -->
 
-  <div class="bg-white lg:w-1/3">
+  <div class="min-w-full lg:min-w-0 bg-white lg:w-1/3">
     <Button class="mb-4 w-full bg-gray-600 hover:bg-gray-700 focus:ring-gray-400">Select Chart Type<ChevronDownSolid class="w-3 h-3 ml-2 text-white dark:text-white" /></Button>
     <Dropdown>
       <DropdownItem>Bar Chart</DropdownItem>
-      <DropdownItem>Pie Chart</DropdownItem>
-      <DropdownItem>Line Chart</DropdownItem>
-      <DropdownItem>More coming Soon</DropdownItem>
     </Dropdown>
 
-    <div class="bg-white">
+    <div id="input-div" class="bg-white">
       <input
         type="text"
         id="XaxisInput"
@@ -162,6 +164,8 @@
       />
     </div>
 
+	
+
     <div class="button-container">
 		<button
       class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
@@ -175,6 +179,10 @@
     >
       Update Data
     </button>
+	</div>
+
+	<div style="display: none;" id="last_data_added" class="py-2" >
+		<p class="text-sm font-bold py-2">Added Data <span class="px-2 py-1 text-green-700 bg-green-200 rounded-md" id="Xaxis_value"></span> <span class="py-1 px-2 text-green-700 bg-green-200 rounded-md" id="Yaxis_value"></span></p>
 	</div>
   </div>
 
@@ -191,11 +199,20 @@
   .chart_container {
     display: flex;
     padding: 20px;
+	width: 500px;
   }
 
   @media (max-width: 768px) {
+
+	.main-container{
+		min-width: 350px;
+	}
     .chart_container {
       flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  width: 350px;
+	  height: 300px;
     }
 	.button-container{
 		justify-content: center;
