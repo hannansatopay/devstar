@@ -170,4 +170,11 @@ export let tools = {
 		"The Hex Converter Tool is a simple and handy utility designed to convert regular text into its hexadecimal representation. Hexadecimal, often referred to as ~ hex ~is a base-16 numbering system commonly used in computer science and programming. This tool allows you to input any text, and it will swiftly convert it into a series of hexadecimal values, each representing a character or symbol from the original text. Whether you're a developer, a security enthusiast, or someone interested in understanding how text can be represented in the digital world, this tool makes it easy to convert and explore text in its hexadecimal form. It can be particularly useful for tasks like debugging, encoding, or simply learning about the internal structure of text data. Simply enter your text, and the Hex Converter Tool will provide you with the corresponding hexadecimal representation, which can be copied for further use. It's a valuable resource for anyone working with digital data and programming."
 	},
 
+	'remove-lines-containing':{
+        name: 'Remove Lines Containing',
+        link: '/remove-lines-containing',
+        description: 
+		"The Hex Converter Tool is a simple and handy utility designed to convert regular text into its hexadecimal representation. Hexadecimal, often referred to as ~ hex ~is a base-16 numbering system commonly used in computer science and programming. This tool allows you to input any text, and it will swiftly convert it into a series of hexadecimal values, each representing a character or symbol from the original text. Whether you're a developer, a security enthusiast, or someone interested in understanding how text can be represented in the digital world, this tool makes it easy to convert and explore text in its hexadecimal form. It can be particularly useful for tasks like debugging, encoding, or simply learning about the internal structure of text data. Simply enter your text, and the Hex Converter Tool will provide you with the corresponding hexadecimal representation, which can be copied for further use. It's a valuable resource for anyone working with digital data and programming."
+	},
+
 };
