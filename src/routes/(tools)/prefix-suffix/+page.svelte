@@ -4,28 +4,29 @@
 	import jsPDF from 'jspdf';
 	export let data;
 
-	let originalString = '';
+	let inputText = '';
 	let suffix = '';
 	let prefix = '';
-	let resultString = '';
-	let buttonClicked = false;
+	let results='';
 
 	function downloadPDF() {
-		if (resultString.length > 0) {
+		if (results.length > 0) {
 			const doc = new jsPDF();
-			doc.text(resultString, 20, 20);
+			doc.text(results, 20, 20);
 			doc.save('add-prefix-suffix.pdf');
 		}
 	}
 
 	function updateText() {
-		resultString = `${prefix}${originalString}${suffix}`;
+		const lines=inputText.split('\n');
+		results = lines.map(lines => `${prefix}${lines}${suffix}`).join('\n');
+		
 	}
 
 	function copyText() {
-		if (resultString.length > 0) {
+		if (results.length > 0) {
 			const el = document.createElement('textarea');
-			el.value = resultString;
+			el.value = results;
 			document.body.appendChild(el);
 			el.select();
 			document.execCommand('copy');
@@ -34,8 +35,8 @@
 	}
 
 	function downloadFile() {
-		if (resultString.length > 0) {
-			const resultString1 = resultString;
+		if (results.length > 0) {
+			const resultString1 = results;
 			const blob = new Blob([resultString1], { type: 'text/plain' });
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement('a');
@@ -53,10 +54,7 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<div
-				class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden"
-				id="boxarea"
-			>
+			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
 				<Input type="text" placeholder="Prefix" bind:value={prefix} class="rounded-none border-0 " on:input={updateText}/>
 			</div>
@@ -67,11 +65,12 @@
 
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Input text" id="textbox" rows="8" bind:value={originalString} class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" on:input={updateText}/>
+					<textarea placeholder="Input text" id="textbox" rows="8" bind:value={inputText} class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" on:input={updateText}/>
 				</div>
+				  
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<textarea readOnly placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={resultString}/>
+					<textarea readOnly placeholder="Result" id="textbox" bind:value={results} rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
 				</div>
 			</div>
 
