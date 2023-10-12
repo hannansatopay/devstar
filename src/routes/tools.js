@@ -76,7 +76,6 @@ export let tools = {
         description: 
         "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors."
     },
-
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
         link: '/escape-unescape-text',
@@ -132,5 +131,10 @@ export let tools = {
         description:
 		"Transform text into a digital language or decode binary data with our Text to Binary and Binary to Text Converter Tool. Input your text, and instantly convert it into binary code, allowing seamless integration into digital systems or secure data transmission. Conversely, input binary digits, and watch them transform back into human-readable text. Ideal for programmers, cybersecurity professionals, and tech enthusiasts, our tool simplifies data conversion tasks. Whether you're working with computer protocols, coding messages, or decoding binary files, our converter ensures accuracy and efficiency. Start converting text to binary and vice versa with ease, bridging the gap between human language and digital communication." 
     },
-
+	'prefix-suffix': {
+        name: 'Add Prefix and Suffix to Lines',
+        link: '/prefix-suffix',
+        description: 
+            "'Add Prefix and Suffix to Lines' is a powerful tool designed for text manipulation and enhancement. This tool enables users to augment lines of text with precise prefix and suffix additions. Ideal for professionals and content creators, this tool simplifies the process of customizing text for a variety of purposes, from code documentation to formal documents.Elevate the quality and impact of the textual content by utilizing this tool to add prefixes and suffixes effortlessly. "
+    },
 };
