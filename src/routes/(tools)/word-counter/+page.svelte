@@ -74,8 +74,7 @@
     }
 
     #boxarea {
-        margin-top: 20px;
-        gap: 20px;
+        gap: 30px;
     }
 
     #buttonArea {
