@@ -142,5 +142,11 @@ export let tools = {
         link: '/word-counter',
         description: 
 		"The Word Count Tool is a simple and handy utility that helps you determine the number of words in a given text or string. Whether you're a writer, student, or content creator, this tool is useful for keeping track of the word count in your documents, essays, or any text you provide. Just input your text, click the ~ Count Words ~ button, and quickly find out how many words are in your content. It's a valuable aid for meeting word count requirements, optimizing your writing, and managing your textual content efficiently."
+	},
+	'hex-text':{
+        name: 'Hex Text Converter',
+        link: '/hex-text',
+        description: 
+		"The Hex Converter Tool is a simple and handy utility designed to convert regular text into its hexadecimal representation. Hexadecimal, often referred to as ~ hex ~is a base-16 numbering system commonly used in computer science and programming. This tool allows you to input any text, and it will swiftly convert it into a series of hexadecimal values, each representing a character or symbol from the original text. Whether you're a developer, a security enthusiast, or someone interested in understanding how text can be represented in the digital world, this tool makes it easy to convert and explore text in its hexadecimal form. It can be particularly useful for tasks like debugging, encoding, or simply learning about the internal structure of text data. Simply enter your text, and the Hex Converter Tool will provide you with the corresponding hexadecimal representation, which can be copied for further use. It's a valuable resource for anyone working with digital data and programming."
 	}
 };
