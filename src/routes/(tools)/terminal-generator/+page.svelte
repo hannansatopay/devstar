@@ -1,5 +1,4 @@
 <script lang="ts">
-	 
 	// import Intro from '$lib/Intro.svelte';
 	import {
 		Label,
@@ -83,7 +82,16 @@
 					</div>
 					<div class="box2">
 					</div>
-					
+					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+						<div slot="header" class="p-3">
+							<Search size="md" />
+						</div>
+						<!-- Other list items ... -->
+						<DropdownItem>File Name</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>File Name</DropdownItem>
+						<DropdownDivider />
+					</Dropdown>
 
 					<!---------             Scripting            --------->
 					
@@ -103,14 +111,11 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<div slot="header" class="p-3">
-							<Search size="md" />
-						</div>
-						<DropdownItem>Aptos</DropdownItem>
+						<DropdownItem>File Name</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Calibri</DropdownItem>
+						<DropdownItem>File Name</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Sans serif</DropdownItem>
+						<DropdownItem>File name</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 					</Dropdown>
 
@@ -121,14 +126,11 @@
 					</div>
 
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-					<div slot="header" class="p-3">
-						<Search size="md" />
-					</div>
-						<DropdownItem>C++</DropdownItem>
+						<DropdownItem>File Name</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Java</DropdownItem>
+						<DropdownItem>File Name</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>Python</DropdownItem>
+						<DropdownItem>File name</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 					</Dropdown>
 
@@ -200,9 +202,9 @@
 						<!-- Other list items ... 
 					</Dropdown> -->
 					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-						<DropdownItem>Code</DropdownItem>
+						<DropdownItem>File Name</DropdownItem>
 						<DropdownDivider />
-						<DropdownItem>1 mb</DropdownItem>
+						<DropdownItem>Size</DropdownItem>
 						<DropdownDivider />
 						<DropdownItem>Export</DropdownItem>
 						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
@@ -215,7 +217,7 @@
 		</div>
 	</div>
 
-
+		
 </section>
 
 <style>
