@@ -1,63 +1,27 @@
-<div id="chartdiv" bind:this={chartdiv}/>
-
 <script>
 	import { onMount } from 'svelte';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { ChevronDownSolid } from 'flowbite-svelte-icons';
 	import * as am5 from '@amcharts/amcharts5?client';
 	import * as am5xy from '@amcharts/amcharts5/xy?client';
 	import am5themes_Animated from '@amcharts/amcharts5/themes/Animated?client';
 
     let chartdiv;
 	let chart;
-	let data = [
-			{
-				country: 'USA',
-				value: 2025
-			},
-			{
-				country: 'China',
-				value: 1882
-			},
-			{
-				country: 'Japan',
-				value: 1809
-			},
-			{
-				country: 'Germany',
-				value: 1322
-			},
-			{
-				country: 'UK',
-				value: 1122
-			},
-			{
-				country: 'France',
-				value: 1114
-			}
-			// {
-			// 	country: 'India',
-			// 	value: 984
-			// },
-			// {
-			// 	country: 'Spain',
-			// 	value: 711
-			// },
-			// {
-			// 	country: 'Netherlands',
-			// 	value: 665
-			// },
-			// {
-			// 	country: 'South Korea',
-			// 	value: 443
-			// },
-			// {
-			// 	country: 'Canada',
-			// 	value: 441
-			// }
-	];
-	
+	let data = [];
+	let chartWidth = '100%';
+
+  	function handleResize() {
+    	if (window.innerWidth > 768) {
+      		chartWidth = '600px'; // Set a fixed width for larger screens
+    	} else {
+      		chartWidth = '100%'; // Use full width for smaller screens
+    	}
+  	}
+
 	onMount(() => {
 		var root = am5.Root.new(chartdiv);
-
+		handleResize();
 		// Set themes
 		// https://www.amcharts.com/docs/v5/concepts/themes/
 		root.setThemes([am5themes_Animated.new(root)]);
@@ -144,6 +108,7 @@
 		series.appear(1000);
 		chart.appear(1000, 100);
 		updateChart();
+		window.addEventListener('resize', handleResize);
 	});
 	function updateChart() {
     if (chart) {
@@ -151,47 +116,92 @@
       chart.series.values[0].data.setAll(data);
     }
   }
+
+  function addData() {
+    const XaxisInput = document.querySelector('#XaxisInput').value;
+    const YaxisInput = parseFloat(document.querySelector('#YaxisInput').value);
+
+    if (XaxisInput && !isNaN(YaxisInput)) {
+      // Push the new data point into the data array
+      data.push({ country: XaxisInput, value: YaxisInput });
+
+      // Clear the input fields
+      document.querySelector('#XaxisInput').value = '';
+      document.querySelector('#YaxisInput').value = '';
+    }
+  }
+	
 </script>
-<div>
-	<!-- Input fields to capture user input for each data item -->
-	{#each data as item (item.country)}
-	  <div>
-		<input type="text" class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.country} placeholder="Country">
-		<input type="number" class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" bind:value={item.value} placeholder="Value" min="0" step="1" />
-	  </div>
-	{/each}
-  
-	<!-- Button to trigger chart update -->
-	<div class="container"><button on:click={updateChart}>Update Chart</button></div>
-  
-	<!-- Chart container -->
-	<div id={chartdiv}></div>
+<div class="flex justify-center items-center flex-col lg:flex-row py-4 px-12 border-2 rounded-lg shadow-sm shadow-blue-300">
+
+  <!-- Input fields to capture user input for each data item -->
+
+  <div class="bg-white lg:w-1/3">
+    <Button class="mb-4 w-full bg-gray-600 hover:bg-gray-700 focus:ring-gray-400">Select Chart Type<ChevronDownSolid class="w-3 h-3 ml-2 text-white dark:text-white" /></Button>
+    <Dropdown>
+      <DropdownItem>Bar Chart</DropdownItem>
+      <DropdownItem>Pie Chart</DropdownItem>
+      <DropdownItem>Line Chart</DropdownItem>
+      <DropdownItem>More coming Soon</DropdownItem>
+    </Dropdown>
+
+    <div class="bg-white">
+      <input
+        type="text"
+        id="XaxisInput"
+        class="mb-2 rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+        placeholder="Value on x-axis"
+      />
+      <input
+        type="number"
+        id="YaxisInput"
+        class="rounded-lg border-gray-300 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+        placeholder="Value on y-axis"
+        min="0"
+        step="1"
+      />
+    </div>
+
+    <div class="button-container">
+		<button
+      class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      on:click={addData}
+    >
+      Add Data
+    </button>
+    <button
+      class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      on:click={updateChart}
+    >
+      Update Data
+    </button>
+	</div>
   </div>
 
-<!-- <div class="container">
-	<form>
-		<div class="mb-6">
-		  <label for="val1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value on x-axis</label>
-		  <input type="val1" id="val1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="X-axis input" required>
-		</div>
-		<div class="mb-6">
-		  <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Value on y-axis</label>
-		  <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Y-axis input" required>
-		</div>
-	
-		<button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-	</form>
-</div> -->
-  
-  <style>
-	body {
-		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-			'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-	}
+  <div class="chart_container lg:w-1/3">
+    <div id="chartdiv" bind:this={chartdiv} style="width: {chartWidth}; height: 400px; background-color: rgb(243, 243, 243); border-radius: 5px;"></div>
+  </div>
+</div>
 
-	#chartdiv {
-        padding: 70 70 70 70px;
-		width: 100%;
-		height: 400px;
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  }
+
+  .chart_container {
+    display: flex;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .chart_container {
+      flex-direction: column;
+    }
+	.button-container{
+		justify-content: center;
 	}
+    #chartdiv {
+      width: 100%;
+    }
+  }
 </style>
