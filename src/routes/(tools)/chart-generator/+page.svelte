@@ -10,14 +10,7 @@
 <section class="bg-white dark:bg-gray-900">
 
 </section>
-<!-- <div class="text-white-400 text-5xl flex justify-center m-5 p-5">
-	<h1>Sample Chart</h1>
-</div>
-<Chart /> -->
-<div class="decoration-gray-700 text-5xl flex justify-center m-3">
-	<h1>XYChart</h1>
-</div>
-<div>
+<div class="flex justify-center items-center">
 	<Chart1/>
 </div>
 

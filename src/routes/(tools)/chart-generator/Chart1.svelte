@@ -18,7 +18,7 @@
       		chartWidth = '100%'; // Use full width for smaller screens
     	}
   	}
-
+	
 	onMount(() => {
 		var root = am5.Root.new(chartdiv);
 		handleResize();
