@@ -99,5 +99,6 @@ export let tools = {
         name: 'Image Compress Services',
         icon: 'file-image',
         link: '/image-comp-services',
+        description: "The Image Compress Service presents a user-friendly image compression utility. You can easily upload images, which are automatically resized and compressed, maintaining quality while reducing file size. It simplifies the process of preparing images for web use, making it ideal for a wide range of applications, from photography to web design."
     }
 };
