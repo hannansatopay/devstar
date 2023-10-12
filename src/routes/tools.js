@@ -137,4 +137,10 @@ export let tools = {
         description: 
             "'Add Prefix and Suffix to Lines' is a powerful tool designed for text manipulation and enhancement. This tool enables users to augment lines of text with precise prefix and suffix additions. Ideal for professionals and content creators, this tool simplifies the process of customizing text for a variety of purposes, from code documentation to formal documents.Elevate the quality and impact of the textual content by utilizing this tool to add prefixes and suffixes effortlessly. "
     },
+	'word-counter':{
+        name: 'Word Counter',
+        link: '/word-counter',
+        description: 
+		"The Word Count Tool is a simple and handy utility that helps you determine the number of words in a given text or string. Whether you're a writer, student, or content creator, this tool is useful for keeping track of the word count in your documents, essays, or any text you provide. Just input your text, click the ~ Count Words ~ button, and quickly find out how many words are in your content. It's a valuable aid for meeting word count requirements, optimizing your writing, and managing your textual content efficiently."
+	}
 };
