@@ -1,11 +1,4 @@
 export let tools = {
-	
-	'unit-converter': {
-		name: 'Unit Converter',
-		link: '/unit-converter',
-		description:
-		'The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions.'
-	},
 
 	'palindrome-generator': {
 		name: 'Palindrome Generator',
@@ -150,7 +143,7 @@ export let tools = {
 		"The Hex Converter Tool is a simple and handy utility designed to convert regular text into its hexadecimal representation. Hexadecimal, often referred to as ~ hex ~is a base-16 numbering system commonly used in computer science and programming. This tool allows you to input any text, and it will swiftly convert it into a series of hexadecimal values, each representing a character or symbol from the original text. Whether you're a developer, a security enthusiast, or someone interested in understanding how text can be represented in the digital world, this tool makes it easy to convert and explore text in its hexadecimal form. It can be particularly useful for tasks like debugging, encoding, or simply learning about the internal structure of text data. Simply enter your text, and the Hex Converter Tool will provide you with the corresponding hexadecimal representation, which can be copied for further use. It's a valuable resource for anyone working with digital data and programming."
 	},
 	'string-extraction': {
-		name: 'String Extraction',
+		name: 'Substring Extractor',
 		link: '/string-extraction',
 		description:
 		"Free online substring extractor. Just enter your string and this utility will automatically extract a string fragment of the given length from the given position. There are no intrusive ads, popups or nonsense, just a substring extractor. Load a string – get a substring. Created for developers by developers."
