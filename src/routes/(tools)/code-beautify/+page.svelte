@@ -3,12 +3,14 @@
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 	import { Textarea } from 'flowbite-svelte';
+	import xmlFormat from 'xml-formatter';
 	export let data;
 
 	// Based on your project, you will get 3 options in type
 	// if type === 'JSON' --> TEAM JSON PARSER
 	// if type === 'HTML' --> TEAM HTML PARSER
 	// if type === 'XML' --> TEAM XML PARSER
+
 	let type = 'JSON';
 	let types = [
 		{ value: 'JSON', name: 'JSON Parser' },
@@ -26,6 +28,31 @@
 	let colIndex = 0;
 	let editor;
 
+	let formattedXML = '';
+	let minifiedXML = '';
+	let outputXML = ''; 
+
+	let inputXML = ''; 
+
+	function formatXML() {
+		inputXML = editorContent;
+		formattedXML = xmlFormat(inputXML, {
+			indentation: '  ',
+			filter: (node) => node.type !== 'Comment',
+			collapseContent: true,
+			lineSeparator: '\n'
+		});
+		outputXML = formattedXML; 
+	}
+
+	function minifyXML() {
+		inputXML = editorContent;
+		minifiedXML = xmlFormat.minify(inputXML, {
+			filter: (node) => node.type !== 'Comment',
+			collapseContent: true
+		});
+		outputXML = minifiedXML; 
+	}
 	function findLineColumnIndex() {
 		let textLines = editorContent.substring(0, editor.selectionStart).split('\n');
 		lineIndex = textLines.length;
@@ -275,20 +302,47 @@
 			<p class="px-4">{bitCount} B</p>
 		</div>
 	</div>
-	<button
-		type="button"
-		class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-		>Beautify</button
-	>
-	<button
-		type="button"
-		class="inline-flex items-center px-5 py-2.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-		>Minify</button
-	>
-	
+	{#if type === 'XML'}
+		
+		<button
+			type="button"
+			class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+			on:click={formatXML}
+		>
+			Beautify
+		</button>
+		<button
+			type="button"
+			class="inline-flex items-center px-5 py-2.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+			on:click={minifyXML}
+		>
+			Minify
+		</button>
+	{:else}
+		
+		<button
+			type="button"
+			class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+		>
+			Beautify
+		</button>
+		<button
+			type="button"
+			class="inline-flex items-center px-5 py-2.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+		>
+			Minify
+		</button>
+		
+	{/if}
 
 	<Label for="textarea-id" class="mb-2 mt-6">Your Output</Label>
-	<Textarea id="textarea-id" placeholder="{type} code" rows="4" name="message" />
+	<Textarea
+		id="textarea-id"
+		placeholder="{type} code"
+		bind:value={outputXML}
+		rows="4"
+		name="message"
+	/>
 </div>
 
 <style>
