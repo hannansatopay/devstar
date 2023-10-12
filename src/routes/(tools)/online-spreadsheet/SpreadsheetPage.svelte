@@ -1,129 +1,193 @@
 <script>
-	import { Button, GradientButton } from 'flowbite-svelte';
+	import { Button, GradientButton, ButtonGroup } from 'flowbite-svelte';
 
-    let isSpreadsheetOpen = false;
-    let rowData = []; // To store user-entered data
-  
-    function toggleSpreadsheet() {
-      isSpreadsheetOpen = !isSpreadsheetOpen;
-    }
+	let isSpreadsheetOpen = false;
+	let rowData = []; // To store user-entered data
 
-//     function saveData() {
-//     // Extract data from the table and save it to rowData
-//     const tableRows = document.querySelectorAll('tbody tr');
+	function toggleSpreadsheet() {
+		isSpreadsheetOpen = !isSpreadsheetOpen;
+	}
 
-//     rowData = Array.from(tableRows).map((row) => {
-//       const cells = row.querySelectorAll('td');
-//       return Array.from(cells).map((cell) => cell.textContent || '');
-//     });
-//   }
+	//     function saveData() {
+	//     // Extract data from the table and save it to rowData
+	//     const tableRows = document.querySelectorAll('tbody tr');
 
-  function downloadSheet() {
-    const tableRows = document.querySelectorAll('tbody tr');
+	//     rowData = Array.from(tableRows).map((row) => {
+	//       const cells = row.querySelectorAll('td');
+	//       return Array.from(cells).map((cell) => cell.textContent || '');
+	//     });
+	//   }
 
-    rowData = Array.from(tableRows).map((row) => {
-      const cells = row.querySelectorAll('td');
-      return Array.from(cells).map((cell) => cell.textContent || '');
-    });
+	function downloadSheet() {
+		const tableRows = document.querySelectorAll('tbody tr');
 
-    const data = rowData.map((row) => row.join(',')).join('\n');
-    const blob = new Blob([data], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'spreadsheet.csv';
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-  }
+		rowData = Array.from(tableRows).map((row) => {
+			const cells = row.querySelectorAll('td');
+			return Array.from(cells).map((cell) => cell.textContent || '');
+		});
 
-  function goBack() {
-    isSpreadsheetOpen = false;
-  }
-  </script>
-  
-  <main>
-    <!-- <button>Open Spreadsheet</button> -->
-    {#if !isSpreadsheetOpen}
-        <Button size="xl" outline color="blue" class="m-6" on:click={toggleSpreadsheet}>Create a New Spreadsheet<br/>(.csv)</Button>
-	    <GradientButton size="xl" color="blue" class="m-6">Open Existing Spreadsheet<br/>(.csv)</GradientButton>
-    {:else}
-        <Button size="xl" outline color="blue" class="m-6" on:click={goBack}>Back</Button>
-    {/if}
-    
-    {#if isSpreadsheetOpen}
-      <!-- <Button size="xl" outline color="blue" class="m-6" on:click={saveData}>Save Data</Button> -->
-      <Button size="xl" outline color="blue" class="m-6" on:click={downloadSheet}>Download Sheet</Button>
-      <table>
-        <thead>
-          <tr>
-            <th class="untouch-field"></th> <!-- Empty cell for numbering -->
-            <th class="content untouch-field">A</th>
-            <th class="content untouch-field">B</th>
-            <th class="content untouch-field">C</th>
-            <th class="content untouch-field">D</th>
-            <th class="content untouch-field">E</th>
-            <!-- Add more headers as needed -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="row-numbering untouch-field">1</td> <!-- Numbered row -->
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <!-- Add more cells as needed -->
-          </tr>
-          <!-- Add more rows as needed -->
-          <tr>
-            <td class="row-numbering untouch-field">2</td> <!-- Numbered row -->
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <!-- Add more cells as needed -->
-          </tr>
-          <tr>
-            <td class="row-numbering untouch-field">3</td> <!-- Numbered row -->
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <td contenteditable="true" class="content"></td>
-            <!-- Add more cells as needed -->
-          </tr>
-        </tbody>
-      </table>
-    {/if}
-  </main>
-  
-  <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      background-color: white;
-    }
-  
-    table, th, td {
-      border: 1px solid #000;
-      padding: 8px;
-    }
+		const data = rowData.map((row) => row.join(',')).join('\n');
+		const blob = new Blob([data], { type: 'text/csv' });
+		const url = window.URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'spreadsheet.csv';
+		document.body.appendChild(a);
+		a.click();
+		window.URL.revokeObjectURL(url);
+	}
 
-    .content {
-        width: 125px;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
+	function goBack() {
+		isSpreadsheetOpen = false;
+	}
+</script>
 
-    .row-numbering {
-        width: 35px;
-    }
+<main>
+	<!-- <button>Open Spreadsheet</button> -->
+	{#if !isSpreadsheetOpen}
+		<div class="flex justify-center items-center"> <!--Two buttons added from flowbite-svelte-->
+			<Button size="xl" outline color="blue" class="m-6">Upload Your Spreadsheet<br />(.csv)</Button>
+			<GradientButton size="xl" color="blue" class="m-6" on:click={toggleSpreadsheet}>Create New Spreadsheet<br />(.csv)</GradientButton>
+		</div>
+		<!-- {:else} -->
+	{/if}
 
-    .untouch-field {
-        background-color: #c3bdbd;
-    }
-  </style>
-  
+	{#if isSpreadsheetOpen}
+		<!-- <Button size="xl" outline color="blue" class="m-6" on:click={saveData}>Save Data</Button> -->
+		<div class="flex justify-center item-center mt-4 ml-4 mr-4">
+			<ButtonGroup>
+				<GradientButton size="md" color="blue" class="mb-4" on:click={downloadSheet}>Download Sheet</GradientButton>
+				<Button size="md" outline color="blue" class="mb-4">Add Row</Button>
+				<!-- For Future Implementation -->
+				<!-- 
+				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
+				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
+				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
+				 -->
+				<Button size="md" outline color="blue" class="mb-4">Add Column</Button>
+				<GradientButton size="md" color="blue" class="mb-4" on:click={goBack}>Back</GradientButton>
+			</ButtonGroup>
+		</div>
+
+		<div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
+			<table>
+				<thead>
+					<tr>
+						<th class="describers" />
+						<!-- Empty cell for numbering -->
+						<th class="content describers">A</th>
+						<th class="content describers">B</th>
+						<th class="content describers">C</th>
+						<th class="content describers">D</th>
+						<th class="content describers">E</th>
+						<th class="content describers">F</th>
+						<th class="content describers">G</th>
+						<th class="content describers">H</th>
+						<th class="content describers">I</th>
+						<th class="content describers">J</th>
+						<th class="content describers">K</th>
+						<!-- Add more headers as needed -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="row-numbering describers"><b>1</b></td>
+						<!-- Numbered row -->
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<!-- Add more cells as needed -->
+					</tr>
+					<!-- Add more rows as needed -->
+					<tr>
+						<td class="row-numbering describers"><b>2</b></td>
+						<!-- Numbered row -->
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<!-- Add more cells as needed -->
+					</tr>
+					<tr>
+						<td class="row-numbering describers"><b>3</b></td>
+						<!-- Numbered row -->
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<td contenteditable="true" class="content" />
+						<!-- Add more cells as needed -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	{/if}
+</main>
+
+<style>
+	table {
+		border-collapse: collapse;
+		background-color: azure;
+	}
+
+	table, th {
+		/* border: 1px solid #236cf1; */
+		border: 1px solid black;
+		padding: 8px;
+		color: #1e1818;
+	}
+
+	td {
+		padding: 12px;
+		/* border: 1px solid #236cf1; */
+		border: 1px solid black;
+		/* text-align: center; */ /*If needed*/
+	}
+
+	.content {
+		width: 125px;
+		overflow-x: auto;
+		white-space: nowrap;
+
+	}
+
+	.row-numbering {
+		width: 35px;
+		/* border: 1px solid #236cf1; */
+		border: 1px solid black;
+	}
+
+	.describers {
+		/* background-color: #8f9bf1; */
+		/* background-color: #3b83cc; */
+		background-color: #1E66F2;
+		color: azure;
+	}
+
+	/* For Implementing Scroll Functionality */
+	.scrollable-container { 
+		overflow-x: auto; 
+		overflow-y: auto; 
+	}
+</style>
