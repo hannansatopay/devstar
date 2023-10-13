@@ -1,23 +1,16 @@
 <script lang="ts">
 	
-	import { Button } from 'flowbite-svelte';
 	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
+	import { Button } from 'flowbite-svelte';
 
 	export let data;
-	
-	export const caseConversionOptions = [
-		'Text Case Inversion',
-		'Sentence Case',
-		'Lower Case',
-		'Upper Case',
-		'Capitalize Case',
-		'De-Capitalize Case',
-		'Snake Case',
-		'Camel Case',
-		'Kebab Case'
-	];
-	
+
+    export const removeDuplicateOptions = [
+		'Remove Duplicate Words',
+		'Remove Duplicate Lines',
+	]
+
 	let input = "";
 	let output = "";
 	let selectedValue = '';
@@ -27,70 +20,43 @@
 		selectedValue = selectElement.value;
 		handleOptionChange(selectedValue);
 	}
-
+  	
 	const inputElement = document.querySelector("#input-textarea-id");
-	
+  
 	if (inputElement) {
 		inputElement.addEventListener("input", handleInput);
 	}
 
 	function handleInput(event: Event) {
 		const inputElement = document.querySelector<HTMLInputElement>("#input-textarea-id");
-		if (inputElement) {
+		if (inputElement) {  
 			input = inputElement.value;
 		}
-
-		handleOptionChange((document.querySelector<HTMLSelectElement>("select") as HTMLSelectElement).value);
+	handleOptionChange((document.querySelector<HTMLSelectElement>("select") as HTMLSelectElement).value);
 	}
+
 
 	function handleOptionChange(selectedOption: string) {
 		switch (selectedOption) {
-			case "Text Case Inversion":
-			output = input
-				.split("")
-				.map((char) =>
-				char === char.toLowerCase()
-					? char.toUpperCase()
-					: char.toLowerCase()
-				)
-				.join("");
+
+			case "Remove Duplicate Words":
+			const sentences = input.split('.'); // Split input text into sentences
+				const cleanedSentences = sentences.map(sentence => {
+				const words = sentence.split(' '); // Split sentence into words
+				const uniqueWords = Array.from(new Set(words)); // Remove duplicate words
+				return uniqueWords.join(' '); // Join unique words back into sentence
+			});
+
+			output = cleanedSentences.join('.');
 			break;
-			case "Sentence Case":
-			output = input.charAt(0).toUpperCase() + input.slice(1);
-			break;
-			case "Upper Case":
-			output = input.toUpperCase();
-			break;
-			case "Lower Case":
-			output = input.toLowerCase();
-			break;
-			case "Capitalize Case":
-			output = input
-				.split(/[\s\n]+/)
-				.map(
-				(word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-				)
-				.join(" ");
-			break;
-			case "De-Capitalize Case":
-			output = input
-				.split(/[\s\n]+/)
-				.map((word) => word.charAt(0).toLowerCase() + word.slice(1))
-				.join(" ");
-			break;
-			case "Snake Case":
-			output = input?.toLowerCase().replace(/\s+/g, "_");
-			break;
-			case "Camel Case":
-			output = input
-				?.toLowerCase()
-				.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
-			break;
-			case "Kebab Case":
-			output = input?.toLowerCase().replace(/\s+/g, "-");
+
+			case "Remove Duplicate Lines":
+			const lines = input.split('\n'); // Split input text into lines
+			const uniqueLines = Array.from(new Set(lines)); // Remove duplicates
+			output = uniqueLines.join('\n');
 		}
 	}
-  
+    
 	function copyText() {
 		if (output.length > 0) {
 			var textarea = document.createElement("textarea");
@@ -124,7 +90,8 @@
 		doc.text(output, 20, 20);
 		doc.save('DevStarPalindrome.pdf');
 	}
-	
+
+    	
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -136,8 +103,8 @@
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 				<select on:change={handleChange} 
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					<option>Select Conversion</option>
-					{#each caseConversionOptions as option}
+					<option>Select Option</option>
+					{#each removeDuplicateOptions as option}
 					<option value={option}>{option}</option>
 					{/each}
 				</select>	
@@ -167,7 +134,7 @@
 	</div>
 </section>
 
-<style>	
+<style>
 
 	#textbox > div > textarea{
 		resize: none;

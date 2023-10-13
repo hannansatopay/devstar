@@ -91,7 +91,7 @@
                      on:input={handleInput} bind:value={keyword}/>
 				</div>
                 <div>
-                    <label class="grey-text"> <!-- Apply the "grey-text" class here -->
+                    <label class="grey-text"> 
                         <input type="checkbox" bind:checked={ignoreCase} />
                         Ignore Case
                     </label>
