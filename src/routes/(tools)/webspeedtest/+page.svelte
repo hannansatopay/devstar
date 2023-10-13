@@ -64,6 +64,14 @@ input:hover {
       font-size: 16px;
       transition: background 0.3s ease;
 }
+p {
+  justify-content: center ;
+  margin-left: 450px;
+  margin-bottom: 50px;
+}
+p:hover {
+color: powderblue;
+}
 #cont {
       display: inline-block;
       position: relative;
@@ -111,7 +119,7 @@ input:hover {
     }
     p {
       font-family: sans-serif;
-      font-size: 16px;
+      font-size: 22px;
       color: pink;
     }
 
@@ -247,6 +255,7 @@ input:hover {
   </style>
 </head>
 <body>
+  <p> This is an awesome web page, where users can find the speed of the different website/pages on a click!<br> Especially a motivating and an hands-on experience website for cybersecurity professionals too!! <br>Moreover, very fast paced and perfect results web page!<br> And, please note: Do use https:// or http:// or else website wouldn't work!</p>
   <h3><i>Web Page Speed Test</i></h3>
   <input type="text" placeholder="https://www.ex.com/" id='urlInput'>
   <span id="error" class="error-message"></span>
