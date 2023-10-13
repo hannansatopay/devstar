@@ -53,7 +53,8 @@
 		innerHeight = window.innerHeight;
 	});
 
-	</script>
+</script>
+
 	
 <!-- <Intro heading={data.meta.title} description={data.meta.description} /> -->
 <!--or-->
