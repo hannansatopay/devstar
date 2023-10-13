@@ -1,44 +1,45 @@
 <script lang="ts">
+
 	import { Button } from 'flowbite-svelte';
 	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
 
 	export let data;
 
-	let inputString = '';
-	let sortedString = '';
-	let sortingOption = "Select"; // Default value
+	var criteria;
 
-	function handleInputChange(event) {
-		inputString = event.target.value;
-		sortText();
+	var output;
+
+	function sortLines(input) {
+
+		var lines = input.target.value.split('\n').filter(line => line.trim() !== '');
+
+		switch (criteria) {
+			case 'alphabetically':
+				lines.sort((a, b) => a.localeCompare(b));
+				break;
+			case 'length':
+				lines.sort((a, b) => a.length - b.length);
+				break;
+			case 'reverse':
+				lines.sort((a, b) => b.localeCompare(a));
+				break;
+			case 'random':
+				for (let i = lines.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[lines[i], lines[j]] = [lines[j], lines[i]];
+				}
+				break;
+			default:
+				return 'Invalid criteria';
+		}
+		output = lines.join('\n');
 	}
-
-	function sortText() {
-	switch (sortingOption) {
-		case "alphabetical":
-			// Convert the input to lowercase before sorting
-			sortedString = inputString.split('').sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).join('');
-			break;
-		case "reverse":
-			sortedString = inputString.split('').reverse().join('');
-			break;
-		case "random":
-			sortedString = inputString.split('').sort(() => 0.5 - Math.random()).join('');
-			break;
-		case "length":
-			sortedString = inputString.split(' ').sort((a, b) => a.length - b.length).join(' ');
-			break;
-		default:
-			sortedString = inputString;
-	}
-}
-
 
 	function copyText() {
-		if (sortedString.length > 0) {
+		if (output.length > 0) {
 			var textarea = document.createElement("textarea");
-			textarea.value = sortedString;
+			textarea.value = output;
 			document.body.appendChild(textarea);
 			textarea.select();
 			document.execCommand("copy");
@@ -47,27 +48,28 @@
 	}
 
 	function downloadText() {
-		if (sortedString.length > 0) {
-			var filename = "SortedText.txt";
-			var blob = new Blob([sortedString], { type: 'text/plain' });
+		if (output.length > 0) {
+			var filename = "DevStarPalindrome.txt";
+			var blob = new Blob([output], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
-
+			
 			var a = document.createElement('a');
 			a.href = url;
 			a.download = filename;
 			document.body.appendChild(a);
 			a.click();
-
+			
 			window.URL.revokeObjectURL(url);
 			document.body.removeChild(a);
 		}
 	}
-
+  
 	function downloadPDF() {
 		const doc = new jsPDF();
-		doc.text(sortedString, 20, 20);
-		doc.save('SortedText.pdf');
+		doc.text(output, 20, 20);
+		doc.save('DevStarPalindrome.pdf');
 	}
+
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -75,40 +77,51 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="selectorBox">
-				<select bind:value={sortingOption} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					<option value="Select">Select Option</option>
-					<option value="alphabetical">Sort Alphabetically</option>
-					<option value="length">Sort by Length</option>
-					<option value="reverse">Reverse</option>
-					<option value="random">Random Sort</option>
+
+			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
+				<select bind:value={criteria} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+						<option value="alphabetically">Sort Alphabetically</option>
+						<option value="length">Sort by length</option>
+						<option value="reverse">Sort Random</option>
+						<option value="random">Sort Reverse</option>
+
 				</select>
 			</div>
+
 			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
+
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" on:input={handleInputChange}/>
+					<textarea placeholder="Enter Text" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					on:input={sortLines}/>
 				</div>
+
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={sortedString}/>
+					<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					bind:value={output}/>
 				</div>
+
 			</div>
+
 			<div id="buttonArea">
 				<Button color="blue" on:click={copyText}>Copy</Button>
 				<Button color="blue" on:click={downloadText}>Download as txt</Button>
 				<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
 			</div>
+
 		</div>
 	</div>
 </section>
 
-<style>
-	#textbox {
+<style>	
+
+	#textbox{
 		resize: none;
 	}
 
-	#boxarea {
+	#boxarea{
 		margin-top: 20px;
-		gap: 20px;
+		gap:20px;
 	}
 
 	#buttonArea {
@@ -116,7 +129,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		gap: 30px;
+		gap: 30px; /* Adjust the gap between buttons as needed */
 	}
 
 	.card {
@@ -126,4 +139,5 @@
 	:is(.dark .card) {
 		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
 	}
+
 </style>

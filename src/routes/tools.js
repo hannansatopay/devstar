@@ -106,14 +106,6 @@ export let tools = {
 		"Enhance the readability of your text by eliminating extra spaces between words and sentences with our Remove Extra Spaces Tool. Input your text, and watch as it instantly removes redundant spaces, ensuring a clean and professional appearance. Perfect for content editing, code formatting, or data cleaning. Streamline your text presentation with this efficient tool."
 	},
 
-	'remove-lines-containing': {
-		name: 'Remove Lines Containing',
-		link: '/remove-lines-containing',
-		description:
-			"Simplify your text management with the 'Remove Lines Containing' feature. Enter your text, specify a keyword, and instantly eliminate lines containing that keyword. Choose to 'Ignore Case' for a case-insensitive search. Ideal for writers, coders, and those tracking character limits."
-	},
-
-
 	'remove-line-breaks': {
         name: 'Remove Line Breaks',
         link: '/remove-line-breaks',
@@ -121,7 +113,12 @@ export let tools = {
 		"Simplify your text formatting with our Remove Line Breaks Tool. Input text containing line breaks, and watch as it seamlessly removes them, creating a continuous flow of text. Ideal for cleaning copied content, formatting paragraphs, or streamlining data. Ensure consistent text presentation by eliminating unexpected line breaks."
     },
 
-	
+	'remove-lines-containing':{
+        name: 'Remove Lines Containing',
+        link: '/remove-lines-containing',
+        description: 
+		"Effortlessly filter and clean your text by removing lines containing specific words, phrases, or patterns with our Remove Lines Containing Tool. Input your text and specify the criteria, and watch as it instantly removes matching lines. Perfect for content filtering, data analysis, or decluttering text files. Enhance your text processing tasks by eliminating unwanted content."
+	},
 
 	'sorting-tool': {
 		name: 'Sorting Tool',
@@ -129,7 +126,6 @@ export let tools = {
 		description:
 		"Streamline your data with our Sorting Tool, offering diverse options for efficient organization. Sort text alphabetically for orderly lists, arrange by length for readability, shuffle randomly for variety, or reverse order for a fresh perspective. Simplify your tasks with precision and flexibility."
 	},
-
 
 	'string-length-calculator': {
 		name: 'String Length Calculator',
