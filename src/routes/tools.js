@@ -120,6 +120,13 @@ export let tools = {
 		"Effortlessly filter and clean your text by removing lines containing specific words, phrases, or patterns with our Remove Lines Containing Tool. Input your text and specify the criteria, and watch as it instantly removes matching lines. Perfect for content filtering, data analysis, or decluttering text files. Enhance your text processing tasks by eliminating unwanted content."
 	},
 
+	'sorting-tool': {
+		name: 'Sorting Tool',
+		link: '/sorting-tool',
+		description:
+		"Streamline your data with our Sorting Tool, offering diverse options for efficient organization. Sort text alphabetically for orderly lists, arrange by length for readability, shuffle randomly for variety, or reverse order for a fresh perspective. Simplify your tasks with precision and flexibility."
+	},
+
 	'string-length-calculator': {
 		name: 'String Length Calculator',
 		link: '/string-length-calculator',
