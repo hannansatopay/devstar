@@ -41,7 +41,6 @@ export let tools = {
 	},
 	'remove-lines-containing': {
 		name: 'Remove Lines Containing',
-		icon: 'arrow-right-arrow-left',
 		link: '/remove-lines-containing',
 		description:
 			"Simplify your text management with the 'Remove Lines Containing' feature. Enter your text, specify a keyword, and instantly eliminate lines containing that keyword. Choose to 'Ignore Case' for a case-insensitive search. Ideal for writers, coders, and those tracking character limits."
