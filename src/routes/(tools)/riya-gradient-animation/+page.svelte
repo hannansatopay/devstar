@@ -18,16 +18,13 @@
 	});
 
 	let clrList = ['#833ab4', '#fd1d1d', '#fcb045'];
+	const pushArr = () => {
+		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
+	};
 
 	$: clrStyle = clrList.map((x) => {
 		return `background: ${x};`;
 	});
-
-	console.log(clrStyle);
-
-	const pushArr = () => {
-		clrList = [...clrList, clrVal3];
-	};
 
 	let clrVal = '';
 
@@ -42,7 +39,7 @@
 
 	let angle = 0;
 
-	let speed = 5;
+	let speed = 4;
 
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
 
@@ -52,7 +49,7 @@
 	let alphaSlider;
 	let colorDisplay;
 
-	let clrVal3 = '';
+	let clrVal3 = '#000';
 
 	function updateColorDisplay() {
 		const selectedColor = colorInput.value;
@@ -61,13 +58,41 @@
 		colorDisplay.style.opacity = alphaValue;
 	}
 	// Set the initial color
+
+	$: css = `
+	.animated-background {
+		height: 100vh;
+		width: 100vw;
+		background-size: 400% 400%;
+		${bgGradient}
+		animation: gradient ease infinite;
+		animation-duration: ${speed}s;
+	}
+
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}`;
+
+	function copyFunction() {
+		// Copy the text inside the text field
+		navigator.clipboard.writeText(css);
+
+		// Alert the copied text
+		alert('Copied the styles');
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<svelte:window bind:innerWidth bind:innerHeight />
-
-<section class="bg-white dark:bg-gray-900">
+<section class="bg-white dark:bg-gray-900" bind:this={root}>
 	<br />
 	<hr />
 
@@ -107,17 +132,11 @@
 				</div>
 
 				<div class="my-8">
-					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}>
-						Add color
-					</button>
-                    <br>
-                    <button class="m-4 w-40 p-4 rounded-lg">
-						Random
-					</button>
-                    <br>
-                    <button class="m-4 w-40 p-4 rounded-lg">
-						Choose the type of Gradient
-					</button>
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}> Add color </button>
+					<br />
+					<button class="m-4 w-40 p-4 rounded-lg"> Random </button>
+					<br />
+					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
 				</div>
 
 				<Label class="mt-3">ANGLE</Label>
@@ -129,7 +148,7 @@
 						console.log(angle);
 					}}
 				/>
-                <br>
+				<br />
 				<Label class="mt-3">SPEED</Label>
 				<Range
 					bind:value={speed}
@@ -146,19 +165,20 @@
 		<br />
 
 		<!-- the text area part -->
-		<div
-			class="card m-4 items-center mx-auto max-w-screen-xl lg:grid md:max-h-96 overflow-hidden rounded-lg"
-		>
-			<div class="p-8 box rounded-lg md:max-h-96 relative bg-gray-100"><Copy text={css} /></div>
+		<div class="card m-4 p-3 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative">
+			<pre>
+			{@html css}
+		</pre>
+			<Copy text={css} on:click={copyFunction} />
 		</div>
 	</div>
 </section>
 
 <style>
-    button{
-        background-color: #B8DBD9;
-        color: #2F4550;
-    }
+	button {
+		background-color: #b8dbd9;
+		color: #2f4550;
+	}
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
@@ -168,17 +188,6 @@
 	}
 	.h-full {
 		min-height: 300px;
-		/*background: rgb(116, 0, 211);
-		background: linear-gradient(
-			90deg,
-			rgba(116, 0, 211, 1) 0%,
-			rgba(171, 0, 130, 1) 33.33%,
-			rgba(213, 92, 0, 1) 66.33%,
-			rgba(255, 231, 0, 1) 100%
-		);*/
-	}
-	.box {
-		height: 300px;
 	}
 
 	.output {
