@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Input, Label } from 'flowbite-svelte';
 	import Intro from '$lib/Intro.svelte';
 	import axios from 'axios';
   
+
+	let someValue;
+
+
+
 	export let data;
   
 	const currencyCodes = [
@@ -27,66 +33,69 @@
   
 	const sortedCurrencyCodes = currencyCodes.sort();
   
-	let num1 = 1;
-	let num2 = 60;
+	let num1 = 0;
+	let amountt = 0;
 	let selectedFromCurrency = '';
 	let selectedToCurrency = '';
-	let amount = 0;
-  
-	// Function to update num2 when currencies change
-	function updateNum2() {
-	  if (selectedFromCurrency && selectedToCurrency && amount !== '') {
-		performCurrencyConversion();
-	  } else {
-		console.error('Please select currencies and enter an amount.');
-	  }
-	}
-  
-	function handleFromCurrencyChange(event) {
-	  selectedFromCurrency = event.target.value;
-	  updateNum2();
-	}
-  
-	function handleToCurrencyChange(event) {
-	  selectedToCurrency = event.target.value;
-	  updateNum2();
-	}
-  
-	function handleAmountChange(event) {
-	  amount = event.target.value;
-	  updateNum2();
-	}
-  
-	async function performCurrencyConversion() {
-	  if (!selectedFromCurrency || !selectedToCurrency || !amount) {
-		console.error('Please select currencies and enter an amount.');
-		return;
-	  }
-  
-	  const options = {
-  method: 'GET',
-  url: 'https://currency-conversion-and-exchange-rates.p.rapidapi.com/latest',
-  params: {
-    from: 'USD',
-    to: 'EUR,GBP'
-  },
-  headers: {
-    'X-RapidAPI-Key': '1ee06155f4msh85bb0e5ca340082p189b39jsn0cfa04b860bc',
-    'X-RapidAPI-Host': 'currency-conversion-and-exchange-rates.p.rapidapi.com'
-  }
-};
-  
-	  try {
-		const response = await axios.request(options);
-		num2 = response.data.result;
-	  } catch (error) {
-		console.error('Error performing currency conversion:', error);
-	  }
+
+
+	let input1;
+	let select1;
+	let select2;
+
+	onMount(() => {
+  		// This code will only run in the browser
+		  input1 = document.getElementById('input1');
+		  select1 = document.getElementById('mySelect1');
+		  select2 = document.getElementById('mySelect2');
+	});
+
+	input1?.addEventListener('change', (event) => {
+		num1 = event?.target?.value;
+		updateConversion();
+	});
+
+	select1?.addEventListener('change', (event) => {
+		selectedFromCurrency = event?.target?.value;
+		updateConversion();
+	});
+
+	select2?.addEventListener('change', (event) => {
+		selectedToCurrency = event?.target?.value;
+		updateConversion();
+	});
+
+	async function updateConversion() {
+		if (!selectedFromCurrency || !selectedToCurrency || !num1) {
+			console.error('Please select currencies and enter a valid amount.');
+			return;
+		}
+
+		const options = {
+			method: 'GET',
+			url: 'https://currency-conversion-and-exchange-rates.p.rapidapi.com/convert',
+			params: {
+				from: selectedFromCurrency,
+				to: selectedToCurrency,
+				amount: num1,
+			},
+			headers: {
+				'X-RapidAPI-Key': '1ee06155f4msh85bb0e5ca340082p189b39jsn0cfa04b860bc',
+				'X-RapidAPI-Host': 'currency-conversion-and-exchange-rates.p.rapidapi.com',
+			},
+		};
+
+		try {
+			const response = await axios.request(options);
+			amountt = response.data.result;
+		} catch (error) {
+			console.error(error);
+		}
 	}
   </script>
   
   <Intro heading={data.meta.title} description={data.meta.description} />
-  
+    
   <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 	  <div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
@@ -94,7 +103,8 @@
 		  <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
 			<Label class="bg-white dark:bg-gray-900 px-4 py-5">From</Label>
 			<Input id="input1" type="number" class="rounded-none border-0" bind:value={num1} />
-			<select id='mySelect1' class="lowercase capitalize bg-gray-50 text-gray-900 text-sm border-0 border-t-2 border-white focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" on:change={handleFromCurrencyChange} bind:value={selectedFromCurrency}>
+			<select id='mySelect1' class="lowercase capitalize bg-gray-50 text-gray-900 text-sm border-0 border-t-2 border-white focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+			bind:value={selectedFromCurrency}>
 			  {#each currencyCodes as currency}
 			  <option value={currency}>{currency}</option>
 			  {/each}
@@ -102,15 +112,17 @@
 		  </div>
 		  <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
 			<Label class="bg-white dark:bg-gray-900 px-4 py-5">To</Label>
-			<Input id="input2" type="number" class="rounded-none border-0" bind:value={num2} />
-			<select id='mySelect2' class="lowercase capitalize bg-gray-50 text-gray-900 text-sm border-0 border-t-2 border-white focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" on:change={handleToCurrencyChange} bind:value={selectedToCurrency}>
+			<Input id="input2" type="number" class="rounded-none border-0" bind:value={amountt} />
+			<select id='mySelect2' class="lowercase capitalize bg-gray-50 text-gray-900 text-sm border-0 border-t-2 border-white focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+			bind:value={selectedToCurrency}>
 			  {#each currencyCodes as currency}
 			  <option value={currency}>{currency}</option>
 			  {/each}
 			</select>
 		  </div>
 		</div>
-		<button class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" on:click={performCurrencyConversion}>
+		<button class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" 
+		on:click={updateConversion}>
 		  Convert Currency
 		</button>
 	  </div>
