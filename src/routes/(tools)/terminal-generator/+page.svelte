@@ -1,3 +1,4 @@
+
 <script lang="ts">
 	// import Intro from '$lib/Intro.svelte';
 	import {
@@ -53,7 +54,7 @@
 		innerHeight = window.innerHeight;
 	});
 
-</script>
+	</script>
 	
 <!-- <Intro heading={data.meta.title} description={data.meta.description} /> -->
 <!--or-->
@@ -216,8 +217,8 @@
 		</div>
 	</div>
 
-		
 </section>
+		
 
 <style>
 	.card {
