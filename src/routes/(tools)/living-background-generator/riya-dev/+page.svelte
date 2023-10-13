@@ -8,7 +8,7 @@
     const title = tools['living-background-generator'].name;
 	const description = tools['living-background-generator'].description;
 
-	export let data../living-background-generator/$types.js;
+	// export let data;
 	let innerWidth: any = null;
 	let innerHeight: any = null;
 	let screenWidth: any = null;
@@ -21,7 +21,7 @@
 	});
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
+<Intro heading={title} description={description} />
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
