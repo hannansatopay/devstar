@@ -63,13 +63,15 @@
 	},
 	"dependencies": {
 		"@bytemd/plugin-gfm": "^1.21.0",
+		"@codemirror/lang-javascript": "^6.2.1",
+		"@codemirror/theme-one-dark": "^6.1.2",
 		"@types/codemirror": "^5.60.10",
 		"bytemd": "^1.21.0",
-		"codemirror": "^6.0.1",
 		"colorthief": "^2.2.0",
 		"countries-list": "^2.6.1",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
+		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0"
 	}

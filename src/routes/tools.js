@@ -97,8 +97,8 @@ export let tools = {
     },
     'terminal-generator': {
         name: 'Terminal Generator',
-        icon: 'terminal',
+        icon: 'laptop-mobile',
         link: '/terminal-generator',
-        description: "A dynamic tool designed to enhance the appearance of your source code in terminal environments. It leverages a wide array of customizable terminal themes to breathe fresh aesthetics into your code, making reading and debugging an enjoyable experience. Whether you desire a minimalist look, neon retro, or something entirely unique, it's flexibility ensures your terminal mirrors your style."
+        description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
     }
 };
