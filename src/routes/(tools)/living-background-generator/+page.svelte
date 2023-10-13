@@ -3,8 +3,8 @@
 	import Intro from '$lib/Intro.svelte';
 	import { P } from 'flowbite-svelte';
 	import { tools } from '../../tools';
-	const title = tools['gradient-background-generator'].name;
-	const description = tools['gradient-background-generator'].description;
+	const title = tools['living-background-generator'].name;
+	const description = tools['living-background-generator'].description;
 
 	let clrList = ['#fff', '#000', '#f00'];
 
@@ -33,7 +33,7 @@
 
     let speed = 1
 
-    $: gradientSpeed = `animation-duration: ${speed};`;
+    $: gradientSpeed = `animation-duration: ${speed}s;`;
 
     let root;
 
@@ -69,7 +69,7 @@
             <Label class="mt-3">Angle</Label>
             <Range bind:value={angle}  min="0" max="360" on:change={() => {console.log(angle)}}/>
             <Label class="mt-3">Spped</Label>
-            <Range bind:value={speed}  min="1" max="15" on:change={() => {console.log(speed)}}/>
+            <Range bind:value={speed}  min="1" max="20" on:change={() => {console.log(speed)}}/>
 
         </div>
         <div class="output h-96 m-8 aspect-square" style={bgGradient + gradientSpeed} />
