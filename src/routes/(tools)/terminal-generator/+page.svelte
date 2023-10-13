@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	// import Intro from '$lib/Intro.svelte';
 	import {
@@ -217,8 +216,8 @@
 		</div>
 	</div>
 
-</section>
 		
+</section>
 
 <style>
 	.card {
