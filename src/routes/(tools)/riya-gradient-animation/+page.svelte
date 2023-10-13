@@ -37,7 +37,7 @@
 
 	$: bgGradient = `background-image: linear-gradient(${angle}deg, ${clrList});`;
 
-	let angle = 0;
+	let angle = 120;
 
 	let speed = 4;
 
@@ -113,10 +113,10 @@
 		<div
 			class="card gap-16 m-4 items-center mx-auto max-w-screen-xl md:grid md:grid-cols-2 overflow-hidden rounded-lg"
 		>
-			<div class="p-8">
+			<div class="p-8 text-center">
 				<Label class="mt-3">COLOR PALETTE</Label>
 				<br />
-				<Label class="mt-3">Choose color from the Box.</Label>
+				<Label class="mt-3">Choose color from the box</Label>
 				<div class="color-picker">
 					<input type="color" id="color-input" bind:value={clrVal3} on:input={updateColorDisplay} />
 					<!-- <input
@@ -165,7 +165,9 @@
 		<br />
 
 		<!-- the text area part -->
-		<div class="card m-4 p-3 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative">
+		<div
+			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
+		>
 			<pre>
 			{@html css}
 		</pre>
@@ -205,6 +207,12 @@
 		}
 		100% {
 			background-position: 0% 50%;
+		}
+	}
+
+	@media only screen and (max-width: 600px) {
+		div {
+			font-size: 2vw;
 		}
 	}
 </style>
