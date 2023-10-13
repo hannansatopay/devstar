@@ -1,17 +1,25 @@
-<script>
-	import { Label, Input, Range } from 'flowbite-svelte';
+<script lang="ts">
 	import Intro from '$lib/Intro.svelte';
-	import { P } from 'flowbite-svelte';
+	import { Label, Input, Range, Radio, Checkbox } from 'flowbite-svelte';
+	import { onMount } from 'svelte';
 	import { tools } from '../../tools';
 	import Copy from '$lib/Copy.svelte';
-	// import ColorPalette from './components/ColorPalette.svelte';
-	const title = tools['living-background-generator'].name;
-	const description = tools['living-background-generator'].description;
 
-	let clrList = ['#fff', '#000', '#f00'];
+	export let data;
+	let innerWidth: any = null;
+	let innerHeight: any = null;
+	let screenWidth: any = null;
+	let screenHeight: any = null;
+	let css = '';
 
+	onMount(() => {
+		screenWidth = screen.width;
+		screenHeight = screen.height;
+	});
+
+	let clrList = ['#833ab4', '#fd1d1d', '#fcb045'];
 	const pushArr = () => {
-		clrList.length < 5 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
+		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
 	$: clrStyle = clrList.map((x) => {
@@ -29,7 +37,7 @@
 
 	$: bgGradient = `background-image: linear-gradient(${angle}deg, ${clrList});`;
 
-	let angle = 0;
+	let angle = 120;
 
 	let speed = 4;
 
@@ -82,45 +90,57 @@
 	}
 </script>
 
-<section class="p-24" bind:this={root}>
-	<Intro heading={title} {description} />
-	<div class="grid grid-cols-2">
-		<div class="flex flex-col justify-center items-center px-24">
-			<div class="color-div mx-auto w-fit flex">
-				{#each [...clrStyle] as clr}
-					<div class="aspect-square h-[50px] mx-4" style={clr} />
-				{/each}
-			</div>
+<Intro heading={data.meta.title} description={data.meta.description} />
 
-			<label class="mt-2 font-bold dark:text-white" for="">Select Color: </label>
-			<div class="color-picker">
-				<input
-					class="w-12 h-12 mt-4"
-					type="color"
-					id="color-input"
-					bind:value={clrVal3}
-					on:input={updateColorDisplay}
-				/>
-				<!-- <input
-					type="range"
-					id="alpha-slider"
-					min="0"
-					max="1"
-					step="0.01"
-					value="1"
-					on:input={updateColorDisplay}
-				/> -->
-				<!-- <div id="color-display" /> -->
-			</div>
+<section class="bg-white dark:bg-gray-900" bind:this={root}>
+	<br />
+	<hr />
 
-			<div class="my-8 w-fit mx-auto">
-				<button class="text-[#2F4550] bg-[#B8DBD9] rounded-full px-2 rounded-lg" on:click={pushArr}>
-					Add Color
-				</button>
-			</div>
+	<div
+		class="color-div py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-12 items-center content-center"
+	>
+		<!-- the color div part -->
+		<div class="sm:grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
+			<!-- <div class="w-2 m-2 p-6 bg-purple-800 border border-gray-200" /> -->
+			{#each [...clrStyle] as clr}
+				<div class="aspect-square h-[50px] mx-4 w-2 m-2 p-6 border border-gray-200" style={clr} />
+			{/each}
+		</div>
 
-			<div class="w-3/4">
-				<Label class="mt-3">Angle</Label>
+		<br />
+
+		<!-- Color Palette part -->
+		<div
+			class="card gap-16 m-4 items-center mx-auto max-w-screen-xl md:grid md:grid-cols-2 overflow-hidden rounded-lg"
+		>
+			<div class="p-8 text-center">
+				<Label class="mt-3 text-2xl">COLOR PALETTE</Label>
+				<br />
+				<Label class="mt-3">Choose color from the box</Label>
+				<br>
+				<div class="color-picker">
+					<input type="color" id="color-input" bind:value={clrVal3} on:input={updateColorDisplay} />
+					<!-- <input
+                                type="range"
+                                id="alpha-slider"
+                                min="0"
+                                max="1"
+                                step="0.01"
+                                value="1"
+                                on:input={updateColorDisplay}
+                            /> -->
+					<div id="color-display" />
+				</div>
+
+				<div class="my-8">
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}> Add color </button>
+					<br />
+					<button class="m-4 w-40 p-4 rounded-lg"> Random </button>
+					<br />
+					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
+				</div>
+
+				<Label class="mt-3">ANGLE</Label>
 				<Range
 					bind:value={angle}
 					min="0"
@@ -129,7 +149,8 @@
 						console.log(angle);
 					}}
 				/>
-				<Label class="mt-3">Duration</Label>
+				<br />
+				<Label class="mt-3">SPEED</Label>
 				<Range
 					bind:value={speed}
 					min="1"
@@ -139,24 +160,39 @@
 					}}
 				/>
 			</div>
+
+			<div class="p-8 h-full flex rounded-lg relative output" style={bgGradient + gradientSpeed} />
 		</div>
-		<div class="output h-96 m-8 aspect-square" style={bgGradient + gradientSpeed} />
-	</div>
-	<div class="dark:bg-white bg-gray-900 dark:text-black text-white w-3/4 h-62 overflow-scroll mx-auto relative">
-		<pre>
+		<br />
+
+		<!-- the text area part -->
+		<div
+			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
+		>
+			<pre>
 			{@html css}
 		</pre>
-		<button class="text-[#2F4550] bg-[#B8DBD9] rounded-full px-2 rounded-lg absolute top-2 right-4" on:click={copyFunction}>
-			Copy Code
-		</button>
+			<Copy text={css} on:click={copyFunction} />
+		</div>
 	</div>
-
-	<!-- example with the default display and a custom Input component -->
-	<!-- example with the ChromeVariant -->
-	<!-- <ColorPicker bind:rgb components={ChromeVariant} isRight /> -->
 </section>
 
 <style>
+	button {
+		background-color: #b8dbd9;
+		color: #2f4550;
+	}
+	.card {
+		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
+	}
+
+	:is(.dark .card) {
+		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
+	}
+	.h-full {
+		min-height: 300px;
+	}
+
 	.output {
 		background-size: 400% 400%;
 		animation: gradient ease infinite;
@@ -175,10 +211,9 @@
 		}
 	}
 
-	.color-picker {
-		display: flex;
-		align-items: center;
+	@media only screen and (max-width: 600px) {
+		div {
+			font-size: 2vw;
+		}
 	}
-
-	
 </style>

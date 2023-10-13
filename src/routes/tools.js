@@ -77,10 +77,10 @@ export let tools = {
         link: '/css-animator',
         description: "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily."
     },
-    'riya-gradient-animation': {
-        name: 'Animated Background Generator(βeta)',
+    'living-background-generator': {
+        name: 'Living Background Generator(βeta)',
         icon: 'files', // Pending Icon Update
-        link: '/riya-gradient-animation',
+        link: '/living-background-generator',
         description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
     },
     'device-details': {
@@ -100,11 +100,5 @@ export let tools = {
         icon: 'spider-web',
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
-    },
-    'living-background-generator': {
-        name: 'Living Background Generator(βeta)',
-        icon: 'files', // Pending Icon Update
-        link: '/living-background-generator',
-        description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
     }
 }
