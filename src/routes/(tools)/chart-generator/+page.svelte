@@ -1,7 +1,7 @@
 
 <script lang="ts">
 	import Chart from "./Chart.svelte";
-	import Chart1 from "./Chart1.svelte";
+	import Chart1 from "./Chart.svelte";
 	import Intro from '$lib/Intro.svelte'
 	export let data;
 	export let arr;
@@ -11,7 +11,7 @@
 
 </section>
 <div class="flex justify-center items-center">
-	<Chart1/>
+	<Chart/>
 </div>
 
 <style>
