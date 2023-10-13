@@ -23,7 +23,7 @@
 #colorPaletee{
     height: 748px;
     width: 391px;
-    background-color: #19242A;
+    background-color: #111827;
     display: flex;  
     flex-direction: column;
     align-items: center;
