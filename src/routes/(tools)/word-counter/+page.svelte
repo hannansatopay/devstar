@@ -74,11 +74,7 @@
     }
 
     #boxarea {
-<<<<<<< Updated upstream
         gap: 30px;
-=======
-        gap: 20px;
->>>>>>> Stashed changes
     }
 
     #buttonArea {
