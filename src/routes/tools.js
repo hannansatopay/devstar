@@ -39,6 +39,13 @@ export let tools = {
 		description:
 			"The 'Remove Extra Spaces' button allows you to clean up your text by eliminating redundant spaces.Sometimes, when typing or copying text, extra spaces can unintentionally appear between words. Clicking the 'Remove Extra Spaces' button will streamline your text by replacing consecutive spaces with a single space, giving your text a cleaner and more uniform appearance."
 	},
+	'remove-lines-containing': {
+		name: 'Remove Lines Containing',
+		icon: 'arrow-right-arrow-left',
+		link: '/remove-lines-containing',
+		description:
+			"Simplify your text management with the 'Remove Lines Containing' feature. Enter your text, specify a keyword, and instantly eliminate lines containing that keyword. Choose to 'Ignore Case' for a case-insensitive search. Ideal for writers, coders, and those tracking character limits."
+	},
 	'string-length-calculator': {
 		name: 'String Length Calculator',
 		icon: 'arrow-right-arrow-left',
