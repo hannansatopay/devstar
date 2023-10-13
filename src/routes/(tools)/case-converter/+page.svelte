@@ -18,76 +18,58 @@
 		'Kebab Case'
 	];
 	
-	let input = "";
-	let output = "";
-	let selectedValue = '';
+	var output;
 
-	function handleChange(event: Event) {
-		const selectElement = event.target as HTMLSelectElement;
-		selectedValue = selectElement.value;
-		handleOptionChange(selectedValue);
-	}
+	var selectedOption;
 
-	const inputElement = document.querySelector("#input-textarea-id");
-	
-	if (inputElement) {
-		inputElement.addEventListener("input", handleInput);
-	}
 
-	function handleInput(event: Event) {
-		const inputElement = document.querySelector<HTMLInputElement>("#input-textarea-id");
-		if (inputElement) {
-			input = inputElement.value;
-		}
-
-		handleOptionChange((document.querySelector<HTMLSelectElement>("select") as HTMLSelectElement).value);
-	}
-
-	function handleOptionChange(selectedOption: string) {
+	function switchcase(input) {
 		switch (selectedOption) {
 			case "Text Case Inversion":
-			output = input
-				.split("")
-				.map((char) =>
-				char === char.toLowerCase()
-					? char.toUpperCase()
-					: char.toLowerCase()
-				)
-				.join("");
-			break;
+				output = input.target.value
+					.split("")
+					.map((char) =>
+						char === char.toLowerCase()
+							? char.toUpperCase()
+							: char.toLowerCase()
+					)
+					.join("");
+				break;
 			case "Sentence Case":
-			output = input.charAt(0).toUpperCase() + input.slice(1);
-			break;
+				output = input.target.value.charAt(0).toUpperCase() + input.target.value.slice(1).toLowerCase();
+				break;
 			case "Upper Case":
-			output = input.toUpperCase();
-			break;
+				output = input.target.value.toUpperCase();
+				break;
 			case "Lower Case":
-			output = input.toLowerCase();
-			break;
+				output = input.target.value.toLowerCase();
+				break;
 			case "Capitalize Case":
-			output = input
-				.split(/[\s\n]+/)
-				.map(
-				(word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-				)
-				.join(" ");
-			break;
+				output = input.target.value
+					.split(/[\s\n]+/)
+					.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+					.join(" ");
+				break;
 			case "De-Capitalize Case":
-			output = input
-				.split(/[\s\n]+/)
-				.map((word) => word.charAt(0).toLowerCase() + word.slice(1))
-				.join(" ");
-			break;
+				output = input.target.value
+					.split(/[\s\n]+/)
+					.map((word) => word.charAt(0).toLowerCase() + word.slice(1))
+					.join(" ");
+				break;
 			case "Snake Case":
-			output = input?.toLowerCase().replace(/\s+/g, "_");
-			break;
+				output = input.target.value.toLowerCase().replace(/\s+/g, "_");
+				break;
 			case "Camel Case":
-			output = input
-				?.toLowerCase()
-				.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
-			break;
+				output = input.target.value
+					.toLowerCase()
+					.replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase());
+				break;
 			case "Kebab Case":
-			output = input?.toLowerCase().replace(/\s+/g, "-");
+				output = input.target.value.toLowerCase().replace(/\s+/g, "-");
+				break;
+			default:
+				output = input.target.value;
+				break;
 		}
 	}
   
@@ -134,7 +116,7 @@
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg" id="box">
 
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-				<select on:change={handleChange} 
+				<select bind:value={selectedOption}
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 					<option>Select Conversion</option>
 					{#each caseConversionOptions as option}
@@ -147,7 +129,7 @@
 				
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="input-textarea-id" rows="8" name="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={handleInput}/>
+					on:input={switchcase}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
