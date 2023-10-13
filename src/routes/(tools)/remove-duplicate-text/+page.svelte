@@ -11,39 +11,17 @@
 		'Remove Duplicate Lines',
 	]
 
-	let input = "";
-	let output = "";
-	let selectedValue = '';
+	var output;
+	var selectedOption;
 
-	function handleChange(event: Event) {
-		const selectElement = event.target as HTMLSelectElement;
-		selectedValue = selectElement.value;
-		handleOptionChange(selectedValue);
-	}
-  	
-	const inputElement = document.querySelector("#input-textarea-id");
-  
-	if (inputElement) {
-		inputElement.addEventListener("input", handleInput);
-	}
-
-	function handleInput(event: Event) {
-		const inputElement = document.querySelector<HTMLInputElement>("#input-textarea-id");
-		if (inputElement) {  
-			input = inputElement.value;
-		}
-	handleOptionChange((document.querySelector<HTMLSelectElement>("select") as HTMLSelectElement).value);
-	}
-
-
-	function handleOptionChange(selectedOption: string) {
+	function removeDuplicates(input) {
 		switch (selectedOption) {
 
 			case "Remove Duplicate Words":
-			const sentences = input.split('.'); // Split input text into sentences
-				const cleanedSentences = sentences.map(sentence => {
-				const words = sentence.split(' '); // Split sentence into words
-				const uniqueWords = Array.from(new Set(words)); // Remove duplicate words
+			var sentences = input.target.value.split('.'); // Split input text into sentences
+				var cleanedSentences = sentences.map(sentence => {
+				var words = sentence.split(' '); // Split sentence into words
+				var uniqueWords = Array.from(new Set(words)); // Remove duplicate words
 				return uniqueWords.join(' '); // Join unique words back into sentence
 			});
 
@@ -51,8 +29,8 @@
 			break;
 
 			case "Remove Duplicate Lines":
-			const lines = input.split('\n'); // Split input text into lines
-			const uniqueLines = Array.from(new Set(lines)); // Remove duplicates
+			var lines = input.target.value.split('\n'); // Split input text into lines
+			var uniqueLines = Array.from(new Set(lines)); // Remove duplicates
 			output = uniqueLines.join('\n');
 		}
 	}
@@ -101,7 +79,7 @@
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg" id="box">
 
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-				<select on:change={handleChange} 
+				<select bind:value={selectedOption} 
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 					<option>Select Option</option>
 					{#each removeDuplicateOptions as option}
@@ -114,7 +92,7 @@
 				
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
 					<textarea placeholder="Enter Text" id="input-textarea-id" rows="8" name="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={handleInput}/>
+					on:input={removeDuplicates}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
