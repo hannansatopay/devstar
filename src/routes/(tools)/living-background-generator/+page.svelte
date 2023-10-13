@@ -9,15 +9,13 @@
 
 	let clrList = ['#fff', '#000', '#f00'];
 
-	$: clrStyle = clrList.map((x) => {
+	const pushArr = () => {
+		clrList.length < 5 ? clrList = [...clrList, clrVal3] : alert("Too many colors");
+	};
+
+    $: clrStyle = clrList.map((x) => {
 		return `background: ${x};`;
 	});
-
-	console.log(clrStyle);
-
-	const pushArr = () => {
-		clrList = [...clrList, clrVal3];
-	};
 
 	let clrVal = '';
 
