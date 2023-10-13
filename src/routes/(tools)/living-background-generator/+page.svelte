@@ -3,8 +3,8 @@
 	import Intro from '$lib/Intro.svelte';
 	import { P } from 'flowbite-svelte';
 	import { tools } from '../../tools';
-	const title = tools['gradient-background-generator'].name;
-	const description = tools['gradient-background-generator'].description;
+	const title = tools['living-background-generator'].name;
+	const description = tools['living-background-generator'].description;
 
 	let clrList = ['#fff', '#000', '#f00'];
 
