@@ -17,7 +17,7 @@
 		screenHeight = screen.height;
 	});
 
-	let clrList = ['#833ab4', '#fd1d1d', '#fcb045'];
+	let clrList = ['#360259', '#b92f2f', '#ffb600'];
 	const pushArr = () => {
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
@@ -39,11 +39,9 @@
 
 	let angle = 120;
 
-	let speed = 4;
+	let speed = 8;
 
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
-
-	let root;
 
 	let colorInput;
 	let alphaSlider;
@@ -57,16 +55,14 @@
 		colorDisplay.style.backgroundColor = selectedColor;
 		colorDisplay.style.opacity = alphaValue;
 	}
+
 	// Set the initial color
 
 	$: css = `
 	.animated-background {
-		height: 100vh;
-		width: 100vw;
-		background-size: 400% 400%;
 		${bgGradient}
-		animation: gradient ease infinite;
-		animation-duration: ${speed}s;
+		background-size: 400% 400%;
+		animation: gradient ${speed}s ease infinite;
 	}
 
 	@keyframes gradient {
@@ -92,7 +88,7 @@
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<section class="bg-white dark:bg-gray-900" bind:this={root}>
+<section class="bg-white dark:bg-gray-900">
 	<br />
 	<hr />
 
@@ -100,7 +96,7 @@
 		class="color-div py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-12 items-center content-center"
 	>
 		<!-- the color div part -->
-		<div class="sm:grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
+		<div class="grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
 			<!-- <div class="w-2 m-2 p-6 bg-purple-800 border border-gray-200" /> -->
 			{#each [...clrStyle] as clr}
 				<div class="aspect-square h-[50px] mx-4 w-2 m-2 p-6 border border-gray-200" style={clr} />
@@ -117,7 +113,7 @@
 				<Label class="mt-3 text-2xl">COLOR PALETTE</Label>
 				<br />
 				<Label class="mt-3">Choose color from the box</Label>
-				<br>
+				<br />
 				<div class="color-picker">
 					<input type="color" id="color-input" bind:value={clrVal3} on:input={updateColorDisplay} />
 					<!-- <input
@@ -133,14 +129,14 @@
 				</div>
 
 				<div class="my-8">
-					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}> Add color </button>
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg"> Random </button>
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
 				</div>
 
-				<Label class="mt-3">ANGLE</Label>
+				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}%</Label>
 				<Range
 					bind:value={angle}
 					min="0"
@@ -150,7 +146,7 @@
 					}}
 				/>
 				<br />
-				<Label class="mt-3">SPEED</Label>
+				<Label class="mt-3">SPEED&nbsp;&nbsp;&nbsp;{speed}s</Label>
 				<Range
 					bind:value={speed}
 					min="1"
@@ -189,6 +185,7 @@
 	:is(.dark .card) {
 		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
 	}
+
 	.h-full {
 		min-height: 300px;
 	}
@@ -211,7 +208,7 @@
 		}
 	}
 
-	@media only screen and (max-width: 600px) {
+	@media only screen and (max-width: 800px) {
 		div {
 			font-size: 2vw;
 		}
