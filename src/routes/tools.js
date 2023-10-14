@@ -101,4 +101,4 @@ export let tools = {
         link: '/invoice-generator',
         description: "The small invoice module is a compact and efficient solution for generating invoices with ease. This single-page tool simplifies the invoicing process, allowing you to quickly input client information, itemize products or services, calculate totals, and generate professional invoices. Whether you're a small business owner or a freelancer, this module provides a straightforward and time-saving way to create and manage your invoices. Streamline your invoicing tasks and keep your finances in order effortlessly."
     }
-};
+}
