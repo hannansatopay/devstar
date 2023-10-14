@@ -1,81 +1,140 @@
 <script lang="ts">
-	import { Label, Input, Select, Tooltip } from 'flowbite-svelte';
+	import { 
+		Label, 
+		Select, 
+		Tooltip,
+		Button,
+		Dropdown,
+		DropdownItem,
+	} from 'flowbite-svelte';
+
+	import { 
+		FolderOpenSolid,
+		PapperClipSolid,
+		ClockSolid,
+		CheckSolid,
+		PrintSolid,
+		TrashBinSolid,
+		FileCopySolid,
+		DownloadSolid,
+		ExpandSolid,
+		ChevronDownSolid
+	} from 'flowbite-svelte-icons';
+	
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
-	import { Textarea } from 'flowbite-svelte';
 	import xmlFormat from 'xml-formatter';
+
 	export let data;
 
 	// Based on your project, you will get 3 options in type
 	// if type === 'JSON' --> TEAM JSON PARSER
 	// if type === 'HTML' --> TEAM HTML PARSER
 	// if type === 'XML' --> TEAM XML PARSER
-
 	let type = 'JSON';
-	let types = [
-		{ value: 'JSON', name: 'JSON Parser' },
-		{ value: 'HTML', name: 'HTML Parser' },
-		{ value: 'XML', name: 'XML Parser' }
-	];
+
+	let dropdownOpen = false;
 
 	// This the input you get from textarea
 	// MANIPULATE THIS - and text will get disaplyed in same text area
 	// as it is binded
-	let editorContent = '';
+	let inputTextAreaContent = '';
+	let outputTextAreaContent = '';
 
 	let bitCount = 0;
 	let lineIndex = 1;
 	let colIndex = 0;
-	let editor;
-
-	let formattedXML = '';
-	let minifiedXML = '';
-	let outputXML = ''; 
-
-	let inputXML = ''; 
+	let inputTextArea: HTMLTextAreaElement;
+	let outputTextArea: HTMLTextAreaElement;
 
 	function formatXML() {
-		inputXML = editorContent;
-		formattedXML = xmlFormat(inputXML, {
+		let inputXML = inputTextAreaContent;
+		let formattedXML = xmlFormat(inputXML, {
 			indentation: '  ',
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true,
 			lineSeparator: '\n'
 		});
-		outputXML = formattedXML; 
+		outputTextAreaContent = formattedXML; 
+	}
+
+	function formatHTML() {
+
+	}
+
+	function formatJSON() {
+
 	}
 
 	function minifyXML() {
-		inputXML = editorContent;
-		minifiedXML = xmlFormat.minify(inputXML, {
+		let inputXML = inputTextAreaContent;
+		let minifiedXML = xmlFormat.minify(inputXML, {
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true
 		});
-		outputXML = minifiedXML; 
+		outputTextAreaContent = minifiedXML; 
 	}
+
+	function minifyJSON() {
+
+	}
+
+	function minifyHTML() {
+
+	}
+
 	function findLineColumnIndex() {
-		let textLines = editorContent.substring(0, editor.selectionStart).split('\n');
+		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
 		lineIndex = textLines.length;
 		colIndex = textLines[textLines.length - 1].length;
 	}
 
 	function findBitCount() {
-		bitCount = editorContent.length;
+		bitCount = inputTextAreaContent.length;
+	}
+
+	function format() {
+		if (type === 'XML')
+			formatXML()
+		else if (type === 'JSON')
+			formatJSON()
+		else if (type === 'HTML')
+			formatHTML()
+	}
+
+	function minify() {
+		if (type === 'XML')
+			minifyXML()
+		else if (type === 'JSON')
+			minifyJSON()
+		else if (type === 'HTML')
+			minifyHTML()
 	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div
-		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
-	>
+	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Select class="border-gray-400 dark:border-gray-400" items={types} bind:value={type} />
-					<Tooltip color="blue" arrow={false}>Select Language</Tooltip>
-
+					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
+					<Dropdown bind:open={dropdownOpen}>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'JSON';
+						}}>JSON Formatter</DropdownItem>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'XML';
+						}}>XML Formatter</DropdownItem>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'HTML';
+						}}>HTML Formatter</DropdownItem>
+					</Dropdown>
+					
 					<button
 						type="button"
 						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
@@ -89,20 +148,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="m14.707 4.793-4-4a1 1 0 0 0-1.416 0l-4 4a1 1 0 1 0 1.416 1.414L9 3.914V12.5a1 1 0 0 0 2 0V3.914l2.293 2.293a1 1 0 0 0 1.414-1.414Z"
-							/>
-							<path
-								d="M18 12h-5v.5a3 3 0 0 1-6 0V12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
-							/>
-						</svg>
+						<FolderOpenSolid size="sm" />
 						<span class="sr-only">Upload File</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Upload File</Tooltip>
@@ -111,20 +157,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 12 20"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M1 6v8a5 5 0 1 0 10 0V4.5a3.5 3.5 0 1 0-7 0V13a2 2 0 0 0 4 0V6"
-							/>
-						</svg>
+						<PapperClipSolid size="sm" />
 						<span class="sr-only">Load URL</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Load URL</Tooltip>
@@ -134,17 +167,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"
-							/>
-						</svg>
+						<ClockSolid size="sm" />
 						<span class="sr-only">Load Previous Data</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Load Previous Data</Tooltip>
@@ -153,21 +176,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 16 12"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M1 5.917 5.724 10.5 15 1.5"
-							/>
-						</svg>
+						<CheckSolid size="sm" />
 						<span class="sr-only">Validate {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Validate {type}</Tooltip>
@@ -176,18 +185,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-						>
-							<path d="M5 20h10a1 1 0 0 0 1-1v-5H4v5a1 1 0 0 0 1 1Z" />
-							<path
-								d="M18 7H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2v-3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-1-2V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3h14Z"
-							/>
-						</svg>
+						<PrintSolid size="sm" />
 						<span class="sr-only">Print {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Print {type}</Tooltip>
@@ -196,17 +194,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 18 20"
-						>
-							<path
-								d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"
-							/>
-						</svg>
+						<TrashBinSolid size="sm" />
 						<span class="sr-only">Delete {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Delete {type}</Tooltip>
@@ -215,20 +203,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 18 20"
-						>
-							<path
-								d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z"
-							/>
-							<path
-								d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z"
-							/>
-						</svg>
+						<FileCopySolid size="sm" />
 						<span class="sr-only">Copy to Clipboard</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Copy to Clipboard</Tooltip>
@@ -238,20 +213,7 @@
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
-						<svg
-							class="w-4 h-4"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
-						>
-							<path
-								d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"
-							/>
-							<path
-								d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"
-							/>
-						</svg>
+						<DownloadSolid size="sm" />
 						<span class="sr-only">Download {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
@@ -262,21 +224,7 @@
 				data-tooltip-target="tooltip-fullscreen"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 			>
-				<svg
-					class="w-4 h-4"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 19 19"
-				>
-					<path
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M13 1h5m0 0v5m0-5-5 5M1.979 6V1H7m0 16.042H1.979V12M18 12v5.042h-5M13 12l5 5M2 1l5 5m0 6-5 5"
-					/>
-				</svg>
+				<ExpandSolid size="sm" />
 				<span class="sr-only">Full screen</span>
 			</button>
 			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
@@ -284,14 +232,14 @@
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Editor</Label>
 			<textarea
-				bind:this={editor}
-				bind:value={editorContent}
+				bind:this={inputTextArea}
+				bind:value={inputTextAreaContent}
 				on:keyup={findLineColumnIndex}
 				on:keyup={findBitCount}
 				on:mouseup={findLineColumnIndex}
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-				placeholder="{type} code"
+				placeholder="{type} Code"
 			/>
 		</div>
 		<div
@@ -299,51 +247,102 @@
 		>
 			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
 			<p class="px-4">Col : {colIndex}</p>
-			<p class="px-4">{bitCount} B</p>
+			<p class="px-4">Size : {bitCount} B</p>
 		</div>
 	</div>
-	{#if type === 'XML'}
-		
-		<button
-			type="button"
-			class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-			on:click={formatXML}
-		>
-			Beautify
-		</button>
-		<button
-			type="button"
-			class="inline-flex items-center px-5 py-2.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-			on:click={minifyXML}
-		>
-			Minify
-		</button>
-	{:else}
-		
-		<button
-			type="button"
-			class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-		>
-			Beautify
-		</button>
-		<button
-			type="button"
-			class="inline-flex items-center px-5 py-2.5 ml-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-		>
-			Minify
-		</button>
-		
-	{/if}
+	
+	<Button color="blue" class="mr-1" on:click={format}>Beautify</Button>
+	<Button color="blue" class="ml-1" on:click={minify}>Minify</Button>
 
-	<Label for="textarea-id" class="mb-2 mt-6">Your Output</Label>
-	<Textarea
-		id="textarea-id"
-		placeholder="{type} code"
-		bind:value={outputXML}
-		rows="4"
-		name="message"
-	/>
+	<div
+		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
+	>
+		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
+			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
+				<div class="flex items-center space-x-1 sm:pr-4">
+					<span
+						class="px-2 py-1 text-gray-700 rounded dark:text-gray-200"
+					>
+						Output
+					</span>
+				</div>
+				<div class="flex flex-wrap items-center space-x-1 sm:px-4">
+					<button
+						type="button"
+						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+					>
+						<ClockSolid size="sm" />
+						<span class="sr-only">Load Previous Data</span>
+					</button>
+					<Tooltip color="blue" arrow={false}>Load Previous Data</Tooltip>
+
+					<button
+						type="button"
+						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+					>
+						<PrintSolid size="sm" />
+						<span class="sr-only">Print {type}</span>
+					</button>
+					<Tooltip color="blue" arrow={false}>Print {type}</Tooltip>
+
+					<button
+						type="button"
+						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+					>
+						<TrashBinSolid size="sm" />
+						<span class="sr-only">Delete {type}</span>
+					</button>
+					<Tooltip color="blue" arrow={false}>Delete {type}</Tooltip>
+
+					<button
+						type="button"
+						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+					>
+						<FileCopySolid size="sm" />
+						<span class="sr-only">Copy to Clipboard</span>
+					</button>
+					<Tooltip color="blue" arrow={false}>Copy to Clipboard</Tooltip>
+				</div>
+				<div class="flex flex-wrap items-center space-x-1 sm:px-4">
+					<button
+						type="button"
+						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+					>
+						<DownloadSolid size="sm" />
+						<span class="sr-only">Download {type}</span>
+					</button>
+					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
+				</div>
+			</div>
+			<button
+				type="button"
+				data-tooltip-target="tooltip-fullscreen"
+				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+			>
+				<ExpandSolid size="sm" />
+				<span class="sr-only">Full screen</span>
+			</button>
+			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
+		</div>
+		<div class="px-4 py-2 bg-white dark:bg-gray-800">
+			<Label for="editor" class="sr-only">Code Output</Label>
+			<textarea
+				bind:this={outputTextArea}
+				bind:value={outputTextAreaContent}
+				on:keyup={findLineColumnIndex}
+				on:keyup={findBitCount}
+				on:mouseup={findLineColumnIndex}
+				rows="8"
+				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+				placeholder="{type} Output"
+			/>
+		</div>
+		<div
+			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
+		>
+			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
+			<p class="px-4">Col : {colIndex}</p>
+			<p class="px-4">Size : {bitCount} B</p>
+		</div>
+	</div>
 </div>
-
-<style>
-</style>
