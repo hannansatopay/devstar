@@ -148,6 +148,13 @@ export let tools = {
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
 
+	'string-sorting-tool': {
+		name: 'String Sorting Tool',
+		link: '/string-sorting-tool',
+		description:
+		"String Sorting Tool-the magical tool that transforms chaos into order with a single click! Whether you want to arrange your words alphabetically for a touch of elegance, unveil a secret message through reversal, bring the excitement of randomness into your text, or even sort words by their unique lengths.Experience the art of sorting, the way you want it, and let your words dance to your tune!"
+	},
+
 	'text-reversal':{
         name: 'Text Reversal',
         link: '/text-reversal',
