@@ -98,7 +98,7 @@ export let tools = {
     'QR-Generator': {
         name: 'QR Code Generator',
         icon: 'spider-web',
-        link: '/qr-genertor',
+        link: '/qr-generator',
         description: "This QR code generator is a must-have tool to generate QR code."
     }
 };

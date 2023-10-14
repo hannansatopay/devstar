@@ -1,53 +1,55 @@
-<script lang="ts">
-	import { Label, Range, Checkbox } from 'flowbite-svelte';
-
-	import Intro from '$lib/Intro.svelte';
-	import Copy from '$lib/Copy.svelte';
-
-	export let data;
-
-	const charsets = {
-		uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-		lowercase: 'abcdefghijklmnopqrstuvwxyz',
-		numbers: '0123456789',
-		symbols: '!@#$%^&*?',
-	};
-
-	let length = 12;
-	let characters = ['uppercase', 'lowercase', 'numbers', 'symbols'];
-	let password: string;
-
-	$: {
-		(() => {
-			let charset = Object.keys(charsets)
-				.filter((character) => characters.includes(character))
-				.map((character) => charsets[character])
-				.join('');
-
-			password = '';
-			for (let i = 0; i < length; i++) {
-				const randomIndex = Math.floor(Math.random() * charset.length);
-				password += charset[randomIndex];
-			}
-		})();
+<script>
+	let inputText = "";
+	let textPresent = false;
+	let API_URL = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=';
+	function dataSubmit(e){
+		e.preventDefault();
+		if(inputText !== ""){
+			textPresent = true;
+			API_URL+=inputText;
+		}
 	}
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
-
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">				
-		</div>
-	</div>
-</section>
-
 <style>
-	.card {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
+	img{
+		margin-top: 100px;
+		margin-bottom: 30px;
 	}
-
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
+	a{
+		font-weight: 700px;
+		font-size: 30px;
+		color: black;
+	}
+	#textInput{
+		width: 70%;
+		height: 40px;
+		color: #484848;
+		border-width: 1.5px;
+		border-style: solid;
+		border-color: black;
+		padding: 3px;
+		font-weight: 700;
+	}
+	#btn{
+		border-radius: 3px;
+		background-color: black;
+		color: whitesmoke;
+		font-weight: 700;
+		cursor: pointer;
 	}
 </style>
+
+<div>
+<center>
+<h1>QR CODE GENERATOR</h1>
+<form on:submit={dataSubmit}>
+<input id="textInput" type="text" placeholder="Enter any text or url..." bind:value={inputText}/>
+<input id="btn" type="submit">
+</form>
+{#if textPresent}
+	<img src={API_URL} /><br>
+	<a href={API_URL} download>Download</a> 
+{/if}
+</center>
+</div>
