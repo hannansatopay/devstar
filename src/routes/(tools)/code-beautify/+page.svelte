@@ -38,28 +38,24 @@
 	// This the input you get from textarea
 	// MANIPULATE THIS - and text will get disaplyed in same text area
 	// as it is binded
-	let editorContent = '';
+	let inputTextAreaContent = '';
+	let outputTextAreaContent = '';
 
 	let bitCount = 0;
 	let lineIndex = 1;
 	let colIndex = 0;
-	let editor: HTMLTextAreaElement;
-
-	let formattedXML = '';
-	let minifiedXML = '';
-	let outputXML = ''; 
-
-	let inputXML = ''; 
+	let inputTextArea: HTMLTextAreaElement;
+	let outputTextArea: HTMLTextAreaElement;
 
 	function formatXML() {
-		inputXML = editorContent;
-		formattedXML = xmlFormat(inputXML, {
+		let inputXML = inputTextAreaContent;
+		let formattedXML = xmlFormat(inputXML, {
 			indentation: '  ',
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true,
 			lineSeparator: '\n'
 		});
-		outputXML = formattedXML; 
+		outputTextAreaContent = formattedXML; 
 	}
 
 	function formatHTML() {
@@ -71,12 +67,12 @@
 	}
 
 	function minifyXML() {
-		inputXML = editorContent;
-		minifiedXML = xmlFormat.minify(inputXML, {
+		let inputXML = inputTextAreaContent;
+		let minifiedXML = xmlFormat.minify(inputXML, {
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true
 		});
-		outputXML = minifiedXML; 
+		outputTextAreaContent = minifiedXML; 
 	}
 
 	function minifyJSON() {
@@ -88,13 +84,13 @@
 	}
 
 	function findLineColumnIndex() {
-		let textLines = editorContent.substring(0, editor.selectionStart).split('\n');
+		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
 		lineIndex = textLines.length;
 		colIndex = textLines[textLines.length - 1].length;
 	}
 
 	function findBitCount() {
-		bitCount = editorContent.length;
+		bitCount = inputTextAreaContent.length;
 	}
 
 	function format() {
@@ -127,15 +123,15 @@
 					<Dropdown bind:open={dropdownOpen}>
 						<DropdownItem on:click={() => {
 							dropdownOpen = false;
-							type = 'JSON'
+							type = 'JSON';
 						}}>JSON Formatter</DropdownItem>
 						<DropdownItem on:click={() => {
 							dropdownOpen = false;
-							type = 'XML'
+							type = 'XML';
 						}}>XML Formatter</DropdownItem>
 						<DropdownItem on:click={() => {
-							dropdownOpen = false
-							type = 'HTML'
+							dropdownOpen = false;
+							type = 'HTML';
 						}}>HTML Formatter</DropdownItem>
 					</Dropdown>
 					
@@ -236,8 +232,8 @@
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Editor</Label>
 			<textarea
-				bind:this={editor}
-				bind:value={editorContent}
+				bind:this={inputTextArea}
+				bind:value={inputTextAreaContent}
 				on:keyup={findLineColumnIndex}
 				on:keyup={findBitCount}
 				on:mouseup={findLineColumnIndex}
@@ -256,7 +252,7 @@
 	</div>
 	
 	<Button color="blue" class="mr-1" on:click={format}>Beautify</Button>
-	<Button color="blue" class="ml-1" on:click={format}>Minify</Button>
+	<Button color="blue" class="ml-1" on:click={minify}>Minify</Button>
 
 	<div
 		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
@@ -331,8 +327,8 @@
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Output</Label>
 			<textarea
-				bind:this={editor}
-				bind:value={editorContent}
+				bind:this={outputTextArea}
+				bind:value={outputTextAreaContent}
 				on:keyup={findLineColumnIndex}
 				on:keyup={findBitCount}
 				on:mouseup={findLineColumnIndex}
