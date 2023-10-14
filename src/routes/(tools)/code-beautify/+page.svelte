@@ -130,21 +130,30 @@
 	}
 
 	function format() {
-		if (type === 'XML') formatXML();
-		else if (type === 'JSON') formatJSON();
-		else if (type === 'HTML') formatHTML();
+		if (type === 'XML') 
+			formatXML();
+		else if (type === 'JSON') 
+			formatJSON();
+		else if (type === 'HTML') 
+			formatHTML();
 	}
 
 	function minify() {
-		if (type === 'XML') minifyXML();
-		else if (type === 'JSON') minifyJSON();
-		else if (type === 'HTML') minifyHTML();
+		if (type === 'XML') 
+			minifyXML();
+		else if (type === 'JSON') 
+			minifyJSON();
+		else if (type === 'HTML') 
+			minifyHTML();
 	}
 
 	function sample() {
-		if (type === 'XML') sampleXML();
-		else if (type === 'JSON') sampleJSON();
-		else if (type === 'HTML') sampleJSON();
+		if (type === 'XML') 
+			sampleXML();
+		else if (type === 'JSON') 
+			sampleJSON();
+		else if (type === 'HTML') 
+			sampleJSON();
 	}
 </script>
 
@@ -152,44 +161,32 @@
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 	<div
-		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
-	>
+		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Button
-						outline
-						color="light"
-						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
-						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
-					>
+					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
 					<Dropdown bind:open={dropdownOpen}>
-						<DropdownItem
-							on:click={() => {
-								dropdownOpen = false;
-								type = 'JSON';
-							}}>JSON Formatter</DropdownItem
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'JSON';
+						}}>JSON Formatter</DropdownItem
 						>
-						<DropdownItem
-							on:click={() => {
-								dropdownOpen = false;
-								type = 'XML';
-							}}>XML Formatter</DropdownItem
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'XML';
+						}}>XML Formatter</DropdownItem
 						>
-						<DropdownItem
-							on:click={() => {
-								dropdownOpen = false;
-								type = 'HTML';
-							}}>HTML Formatter</DropdownItem
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'HTML';
+						}}>HTML Formatter</DropdownItem
 						>
 					</Dropdown>
 
 					<button
 						type="button"
-						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-						on:click={sample}
-					>
-						Sample
+						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"on:click={sample}>Sample
 						<span class="sr-only">Sample {type} Data</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Sample {type} Data</Tooltip>
