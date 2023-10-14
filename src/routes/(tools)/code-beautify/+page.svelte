@@ -1,14 +1,7 @@
 <script lang="ts">
-	import { 
-		Label, 
-		Select, 
-		Tooltip,
-		Button,
-		Dropdown,
-		DropdownItem,
-	} from 'flowbite-svelte';
+	import { Label, Select, Tooltip, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 
-	import { 
+	import {
 		FolderOpenSolid,
 		PapperClipSolid,
 		ClockSolid,
@@ -20,7 +13,7 @@
 		ExpandSolid,
 		ChevronDownSolid
 	} from 'flowbite-svelte-icons';
-	
+
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 	import xmlFormat from 'xml-formatter';
@@ -46,6 +39,8 @@
 	let colIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
+	let spaceoption = 4;
+	let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	function formatXML() {
 		let inputXML = inputTextAreaContent;
@@ -55,15 +50,20 @@
 			collapseContent: true,
 			lineSeparator: '\n'
 		});
-		outputTextAreaContent = formattedXML; 
+		outputTextAreaContent = formattedXML;
 	}
 
-	function formatHTML() {
-
-	}
+	function formatHTML() {}
 
 	function formatJSON() {
-
+		try {
+			let parsedData = JSON.parse(inputTextAreaContent);
+			let formattedJSON = JSON.stringify(parsedData, null, spaceoption);
+			outputTextAreaContent = formattedJSON;
+		} catch (error) {
+			let formattedJSON = 'Invalid JSON';
+			outputTextAreaContent = formattedJSON;
+		}
 	}
 
 	function minifyXML() {
@@ -72,15 +72,51 @@
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true
 		});
-		outputTextAreaContent = minifiedXML; 
+		outputTextAreaContent = minifiedXML;
 	}
 
 	function minifyJSON() {
-
+		try {
+			let parsedData = JSON.parse(inputTextAreaContent);
+			let minifiedJSON = JSON.stringify(parsedData);
+			outputTextAreaContent = minifiedJSON;
+		} catch (error) {
+			let minifiedJSON = 'Invalid JSON';
+			outputTextAreaContent = minifiedJSON;
+		}
 	}
 
-	function minifyHTML() {
+	function minifyHTML() {}
 
+	function sampleHTML() {}
+
+	function sampleXML() {}
+
+	function sampleJSON() {
+		let samplejson = `{
+    "glossary": {
+      "title": "example glossary",
+      "GlossDiv": {
+        "title": "S",
+        "GlossList": {
+          "GlossEntry": {
+            "ID": "SGML",
+            "SortAs": "SGML",
+            "GlossTerm": "Standard Generalized Markup Language",
+            "Acronym": "SGML",
+            "Abbrev": "ISO 8879:1986",
+            "GlossDef": {
+              "para": "A meta-markup language, used to create markup languages such as DocBook.",
+              "GlossSeeAlso": ["GML", "XML"]
+            },
+            "GlossSee": "markup"
+          }
+        }
+      }
+    }
+  }`;
+
+		inputTextAreaContent = samplejson;
 	}
 
 	function findLineColumnIndex() {
@@ -94,50 +130,64 @@
 	}
 
 	function format() {
-		if (type === 'XML')
-			formatXML()
-		else if (type === 'JSON')
-			formatJSON()
-		else if (type === 'HTML')
-			formatHTML()
+		if (type === 'XML') formatXML();
+		else if (type === 'JSON') formatJSON();
+		else if (type === 'HTML') formatHTML();
 	}
 
 	function minify() {
-		if (type === 'XML')
-			minifyXML()
-		else if (type === 'JSON')
-			minifyJSON()
-		else if (type === 'HTML')
-			minifyHTML()
+		if (type === 'XML') minifyXML();
+		else if (type === 'JSON') minifyJSON();
+		else if (type === 'HTML') minifyHTML();
+	}
+
+	function sample() {
+		if (type === 'XML') sampleXML();
+		else if (type === 'JSON') sampleJSON();
+		else if (type === 'HTML') sampleJSON();
 	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
+	<div
+		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
+	>
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
+					<Button
+						outline
+						color="light"
+						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
+					>
 					<Dropdown bind:open={dropdownOpen}>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'JSON';
-						}}>JSON Formatter</DropdownItem>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'XML';
-						}}>XML Formatter</DropdownItem>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'HTML';
-						}}>HTML Formatter</DropdownItem>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'JSON';
+							}}>JSON Formatter</DropdownItem
+						>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'XML';
+							}}>XML Formatter</DropdownItem
+						>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'HTML';
+							}}>HTML Formatter</DropdownItem
+						>
 					</Dropdown>
-					
+
 					<button
 						type="button"
 						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={sample}
 					>
 						Sample
 						<span class="sr-only">Sample {type} Data</span>
@@ -217,6 +267,16 @@
 						<span class="sr-only">Download {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
+					<label for="dropdown" class="text-white">Space:</label>
+					<select
+						id="dropdown"
+						class="text-white rounded cursor-pointer dark:bg-gray-700 dark:border-gray-600"
+						bind:value={spaceoption}
+					>
+						{#each Tabs as option (option)}
+							<option value={option}>{option} Tabs</option>
+						{/each}
+					</select>
 				</div>
 			</div>
 			<button
@@ -250,7 +310,7 @@
 			<p class="px-4">Size : {bitCount} B</p>
 		</div>
 	</div>
-	
+
 	<Button color="blue" class="mr-1" on:click={format}>Beautify</Button>
 	<Button color="blue" class="ml-1" on:click={minify}>Minify</Button>
 
@@ -260,11 +320,7 @@
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<span
-						class="px-2 py-1 text-gray-700 rounded dark:text-gray-200"
-					>
-						Output
-					</span>
+					<span class="px-2 py-1 text-gray-700 rounded dark:text-gray-200"> Output </span>
 				</div>
 				<div class="flex flex-wrap items-center space-x-1 sm:px-4">
 					<button
