@@ -4,7 +4,8 @@
 		Select, 
 		Tooltip,
 		Button,
-		Textarea 
+		Dropdown,
+		DropdownItem,
 	} from 'flowbite-svelte';
 
 	import { 
@@ -16,7 +17,8 @@
 		TrashBinSolid,
 		FileCopySolid,
 		DownloadSolid,
-		ExpandSolid
+		ExpandSolid,
+		ChevronDownSolid
 	} from 'flowbite-svelte-icons';
 	
 	import Intro from '$lib/Intro.svelte';
@@ -29,13 +31,9 @@
 	// if type === 'JSON' --> TEAM JSON PARSER
 	// if type === 'HTML' --> TEAM HTML PARSER
 	// if type === 'XML' --> TEAM XML PARSER
-
 	let type = 'JSON';
-	let types = [
-		{ value: 'JSON', name: 'JSON Parser' },
-		{ value: 'HTML', name: 'HTML Parser' },
-		{ value: 'XML', name: 'XML Parser' }
-	];
+
+	let dropdownOpen = false;
 
 	// This the input you get from textarea
 	// MANIPULATE THIS - and text will get disaplyed in same text area
@@ -121,14 +119,25 @@
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div
-		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
-	>
+	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Select class="border-gray-400 dark:border-gray-400" items={types} bind:value={type} />
-					<Tooltip color="blue" arrow={false}>Select Language</Tooltip>
+					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
+					<Dropdown bind:open={dropdownOpen}>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'JSON'
+						}}>JSON Formatter</DropdownItem>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false;
+							type = 'XML'
+						}}>XML Formatter</DropdownItem>
+						<DropdownItem on:click={() => {
+							dropdownOpen = false
+							type = 'HTML'
+						}}>HTML Formatter</DropdownItem>
+					</Dropdown>
 					
 					<button
 						type="button"
@@ -341,6 +350,3 @@
 		</div>
 	</div>
 </div>
-
-<style>
-</style>
