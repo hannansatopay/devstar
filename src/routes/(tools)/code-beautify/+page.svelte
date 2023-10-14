@@ -1,14 +1,7 @@
 <script lang="ts">
-	import { 
-		Label, 
-		Select, 
-		Tooltip,
-		Button,
-		Dropdown,
-		DropdownItem,
-	} from 'flowbite-svelte';
+	import { Label, Select, Tooltip, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 
-	import { 
+	import {
 		FolderOpenSolid,
 		PapperClipSolid,
 		ClockSolid,
@@ -20,7 +13,7 @@
 		ExpandSolid,
 		ChevronDownSolid
 	} from 'flowbite-svelte-icons';
-	
+
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 	import xmlFormat from 'xml-formatter';
@@ -55,15 +48,21 @@
 			collapseContent: true,
 			lineSeparator: '\n'
 		});
-		outputTextAreaContent = formattedXML; 
+		outputTextAreaContent = formattedXML;
 	}
 
-	function formatHTML() {
+	function formatHTML() {}
 
-	}
+	function formatJSON() {}
 
-	function formatJSON() {
-
+	function validateJSON() {
+		try {
+			let inputJSON = inputTextAreaContent;
+			const parsed = JSON.parse(inputJSON);
+			alert('Valid JSON');
+		} catch (error) {
+			alert('Invalid JSON input: ' + error.message);
+		}
 	}
 
 	function minifyXML() {
@@ -72,16 +71,12 @@
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true
 		});
-		outputTextAreaContent = minifiedXML; 
+		outputTextAreaContent = minifiedXML;
 	}
 
-	function minifyJSON() {
+	function minifyJSON() {}
 
-	}
-
-	function minifyHTML() {
-
-	}
+	function minifyHTML() {}
 
 	function findLineColumnIndex() {
 		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
@@ -94,47 +89,54 @@
 	}
 
 	function format() {
-		if (type === 'XML')
-			formatXML()
-		else if (type === 'JSON')
-			formatJSON()
-		else if (type === 'HTML')
-			formatHTML()
+		if (type === 'XML') formatXML();
+		else if (type === 'JSON') formatJSON();
+		else if (type === 'HTML') formatHTML();
 	}
 
 	function minify() {
-		if (type === 'XML')
-			minifyXML()
-		else if (type === 'JSON')
-			minifyJSON()
-		else if (type === 'HTML')
-			minifyHTML()
+		if (type === 'XML') minifyXML();
+		else if (type === 'JSON') minifyJSON();
+		else if (type === 'HTML') minifyHTML();
 	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
+	<div
+		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
+	>
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
+					<Button
+						outline
+						color="light"
+						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
+					>
 					<Dropdown bind:open={dropdownOpen}>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'JSON';
-						}}>JSON Formatter</DropdownItem>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'XML';
-						}}>XML Formatter</DropdownItem>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'HTML';
-						}}>HTML Formatter</DropdownItem>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'JSON';
+							}}>JSON Formatter</DropdownItem
+						>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'XML';
+							}}>XML Formatter</DropdownItem
+						>
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'HTML';
+							}}>HTML Formatter</DropdownItem
+						>
 					</Dropdown>
-					
+
 					<button
 						type="button"
 						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
@@ -175,6 +177,7 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={validateJSON}
 					>
 						<CheckSolid size="sm" />
 						<span class="sr-only">Validate {type}</span>
@@ -250,7 +253,7 @@
 			<p class="px-4">Size : {bitCount} B</p>
 		</div>
 	</div>
-	
+
 	<Button color="blue" class="mr-1" on:click={format}>Beautify</Button>
 	<Button color="blue" class="ml-1" on:click={minify}>Minify</Button>
 
@@ -260,11 +263,7 @@
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<span
-						class="px-2 py-1 text-gray-700 rounded dark:text-gray-200"
-					>
-						Output
-					</span>
+					<span class="px-2 py-1 text-gray-700 rounded dark:text-gray-200"> Output </span>
 				</div>
 				<div class="flex flex-wrap items-center space-x-1 sm:px-4">
 					<button
