@@ -83,8 +83,8 @@
 
 						<option value="alphabetically">Sort Alphabetically</option>
 						<option value="length">Sort by length</option>
-						<option value="reverse">Sort Random</option>
-						<option value="random">Sort Reverse</option>
+						<option value="reverse">Sort Reverse</option>
+						<option value="random">Sort Random</option>
 
 				</select>
 			</div>
