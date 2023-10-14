@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card } from 'flowbite-svelte';
+	import { Button, Card } from 'flowbite-svelte';
 
 	import Intro from '$lib/Intro.svelte';
 	let regexPattern = '';
@@ -58,6 +58,8 @@
 				on:change={handleTextChange}
 				placeholder="Input your text for regex testing here :)"
 			/>
+			<button on:click={findMatchingPatterns}
+			class="w-1/3 m-2 text-white border border-white rounded-md bg-gray-800 placeholder-gray-500 focus:placeholder-gray-400 relative left-2">Test</button>
 			<div
 				class="w-3/3 h-20 m-4 text-white border border-white flex justify-center text-center rounded-md bg-gray-800 placeholder-gray-500 focus:placeholder-gray-400 color-gray-400"
 			>
