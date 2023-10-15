@@ -16,10 +16,10 @@
         margin-top: 100px;
         margin-bottom: 30px;
     }
-    a {
+    a,h1 {
         font-weight: 700px;
         font-size: 30px;
-        color: black;
+        color: rgb(116, 133, 204);
     }
     #textInput {
         width: 70%;
