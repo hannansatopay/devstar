@@ -60,7 +60,9 @@
 			if (response.ok && result) {
 				sslInfo = result;
 			} else {
-				error = result?.message || "We couldn't reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.";
+				error =
+					result?.message ||
+					"We couldn't reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.";
 			}
 		} catch (err) {
 			console.error('Error fetching SSL data:', err);
@@ -72,6 +74,11 @@
 	}
 
 	function handleCheckSSL() {
+		if (!hostname.trim()) {
+			// Check if hostname is empty
+			error = 'Please provide a hostname before checking SSL.';
+			return; // Exit the function
+		}
 		hostname = cleanInputURL(hostname);
 		fetchSSLData();
 	}
