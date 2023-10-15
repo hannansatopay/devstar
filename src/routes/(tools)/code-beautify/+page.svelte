@@ -99,7 +99,13 @@
 		}
 	}
 
-	function minifyHTML() {}
+	function minifyHTML() {
+		btnMinify.addEventListener("click", () => {
+  const inputHTML = inputArea.value;
+  const minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
+  outputArea.value = minifiedHTML;
+});
+	}
 
 	function sampleHTML() {}
 
