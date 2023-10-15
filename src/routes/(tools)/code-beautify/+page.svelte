@@ -264,6 +264,7 @@
 		element.click();
 		document.body.removeChild(element);
 	};
+
 	// file upload
 	const handleFileUpload = (event) => {
 		const file = event.target.files[0];
@@ -274,10 +275,27 @@
 		};
 		reader.readAsText(file);
 	};
+
 	// print functionality
 	const printContent = () => {
 		window.print();
 	};
+
+	// url upload
+	const handleURLUpload = async (event) => {
+	try {
+		let url = prompt("Please Enter URL : ");
+		const response = await fetch(url);
+		if (!response.ok) {
+			alert('Network Error');
+		} else {
+			const data = await response.text();
+			inputTextAreaContent = data;
+		}
+	} catch (error) {
+		console.error('Error : ', error);
+	}
+};
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -345,6 +363,7 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={handleURLUpload}
 					>
 						<PapperClipSolid size="sm" />
 						<span class="sr-only">Load URL</span>
