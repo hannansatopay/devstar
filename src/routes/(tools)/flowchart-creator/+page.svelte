@@ -1,6 +1,12 @@
 <script lang="ts">
 	import Intro from '$lib/Intro.svelte';
+	import FlowchartArea from './flowchartarea.svelte';
+	import { selectedTool } from './toolstore';
 	export let data;
+
+	function setTool(tool) {
+      selectedTool.set(tool);
+    }
 
 </script>
 
@@ -10,13 +16,16 @@
 	<div class="border-2 text-white p-2  w-2/5  lg:w-1/4 sm:w-full bg-[#111827]">
 		<div class="shapes ">
 			<h3 class="text-center text font-bold  border">Shapes</h3>
-			<ul>Rectangle</ul>
-			<ul>Square</ul>
-			<ul>Circle</ul>
-			<ul>Triangle</ul>
-			<ul>Oval</ul>
-			<ul>Diamond</ul>
-			<ul>Parallelogram</ul>
+			<button on:click={() => setTool('rectangle')}>Rectangle</button><br>
+			<button>Square</button><br>
+			<button on:click={() => setTool('circle')}>Circle</button><br>
+			<button >Triangle</button><br>
+			<button>Oval</button><br>
+			<button on:click={() => setTool('diamond')}>Diamond</button><br>
+			<button on:click={() => setTool('arrow')}>Arrow</button><br>
+			<button>Parallelogram</button><br>
+			<button on:click={() => setTool('text')}>Text</button><br>
+
 		</div>
 		<div class="tool">
 			<h3 class="text-center font-bold border">Tools</h3>
@@ -41,8 +50,8 @@
 		</div>
 		
 	</div>
-	
-	<canvas class=" bg-white w-3/5  lg:w-3/4 sm:w-full">The Flow Chart Generator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.</canvas>
+	<FlowchartArea />
+	<!-- <canvas class=" bg-white w-3/5  lg:w-3/4 sm:w-full">The Flow Chart Generator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.</canvas> -->
 </div>
 
 
