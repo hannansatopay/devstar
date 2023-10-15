@@ -68,7 +68,7 @@
 		  type="range"
 		  id="brightnessSlider"
 		  min="0"
-		  max="200"
+		  max="400"
 		  step="1"
 		  bind:value={brightness}
 		  on:input={handleChange}
