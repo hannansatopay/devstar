@@ -27,17 +27,10 @@
 
 	export let data;
 
-	// Based on your project, you will get 3 options in type
-	// if type === 'JSON' --> TEAM JSON PARSER
-	// if type === 'HTML' --> TEAM HTML PARSER
-	// if type === 'XML' --> TEAM XML PARSER
 	let type = 'JSON';
 
 	let dropdownOpen = false;
 
-	// This the input you get from textarea
-	// MANIPULATE THIS - and text will get disaplyed in same text area
-	// as it is binded
 	let inputTextAreaContent = '';
 	let outputTextAreaContent = '';
 
@@ -111,12 +104,9 @@
 	}
 
 	function minifyHTML() {
-
-		
-  let inputHTML = inputTextAreaContent;
-  let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
-  outputTextAreaContent = minifiedHTML;
-
+		let inputHTML = inputTextAreaContent;
+		let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
+		outputTextAreaContent = minifiedHTML;
 	}
 
 	function sampleHTML() {
@@ -179,6 +169,34 @@
 		bitCount = inputTextAreaContent.length;
 	}
 
+	function allowTabIndentation(event) {
+		if (event.key === 'Tab') {
+			event.preventDefault()
+
+			let textAreaType = event.target.getAttribute('data-text-area-type');
+			if (textAreaType === 'input') {
+				const startPos = inputTextArea.selectionStart;
+    			const endPos = inputTextArea.selectionEnd;
+        		inputTextAreaContent = inputTextAreaContent.substring(0, startPos) + '    ' + inputTextAreaContent.substring(endPos);
+        
+        		inputTextArea.value = inputTextAreaContent;
+
+				inputTextArea.selectionStart = startPos + 4;
+				inputTextArea.selectionEnd = startPos + 4;
+			}
+			else if (textAreaType === 'output') {
+				const startPos = outputTextArea.selectionStart;
+    			const endPos = outputTextArea.selectionEnd;
+        		outputTextAreaContent = outputTextAreaContent.substring(0, startPos) + '    ' + outputTextAreaContent.substring(endPos);
+        
+        		outputTextArea.value = outputTextAreaContent;
+
+				outputTextArea.selectionStart = startPos + 4;
+				outputTextArea.selectionEnd = startPos + 4;
+			}
+		}
+	}
+
 	function format() {
 		if (type === 'XML') 
 			formatXML();
@@ -204,7 +222,6 @@
 			sampleJSON();
 		else if (type === 'HTML') 
 			sampleHTML();
-
 	}
 </script>
 
@@ -349,7 +366,9 @@
 				bind:value={inputTextAreaContent}
 				on:keyup={findLineColumnIndex}
 				on:keyup={findBitCount}
+				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
+				data-text-area-type="input"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{type} Code"
@@ -440,7 +459,9 @@
 				bind:value={outputTextAreaContent}
 				on:keyup={findLineColumnIndex}
 				on:keyup={findBitCount}
+				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
+				data-text-area-type="output"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{type} Output"
