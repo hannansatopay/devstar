@@ -63,8 +63,21 @@
 		} catch (error) {
 			let formattedJSON = 'Invalid JSON';
 			outputTextAreaContent = formattedJSON;
+      
+   }
+  }
+
+	function validateJSON() {
+		try {
+			let inputJSON = inputTextAreaContent;
+			const parsed = JSON.parse(inputJSON);
+			alert('Valid JSON');
+		} catch (error) {
+			alert('Invalid JSON input: ' + error.message);
+
 		}
-	}
+  }
+
 
 	function minifyXML() {
 		let inputXML = inputTextAreaContent;
@@ -119,6 +132,7 @@
 		inputTextAreaContent = samplejson;
 	}
 
+
 	function findLineColumnIndex() {
 		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
 		lineIndex = textLines.length;
@@ -154,18 +168,24 @@
 			sampleJSON();
 		else if (type === 'HTML') 
 			sampleJSON();
+
 	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div
+<div class="py-8 px-4 mx-auto max-w-screen
 		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
+
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
-					<Button outline color="light" class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button>
+					<Button
+						outline
+						color="light"
+						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
+					>
 					<Dropdown bind:open={dropdownOpen}>
 						<DropdownItem on:click={() => {
 							dropdownOpen = false;
@@ -222,6 +242,7 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={validateJSON}
 					>
 						<CheckSolid size="sm" />
 						<span class="sr-only">Validate {type}</span>
