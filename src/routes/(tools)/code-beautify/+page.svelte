@@ -27,23 +27,19 @@
 
 	export let data;
 
-	// Based on your project, you will get 3 options in type
-	// if type === 'JSON' --> TEAM JSON PARSER
-	// if type === 'HTML' --> TEAM HTML PARSER
-	// if type === 'XML' --> TEAM XML PARSER
 	let type = 'JSON';
 
 	let dropdownOpen = false;
 
-	// This the input you get from textarea
-	// MANIPULATE THIS - and text will get disaplyed in same text area
-	// as it is binded
 	let inputTextAreaContent = '';
 	let outputTextAreaContent = '';
 
-	let bitCount = 0;
-	let lineIndex = 1;
-	let colIndex = 0;
+	let inputTextAreaSize = 0;
+	let outputTextAreaSize = 0;
+	let inputTextAreaLnIndex = 1;
+	let outputTextAreaLnIndex = 1;
+	let inputTextAreaColIndex = 0;
+	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
 	let spaceoption = 4;
@@ -84,7 +80,7 @@
 			let inputJSON = inputTextAreaContent;
 			const parsed = JSON.parse(inputJSON);
 			alert('Valid JSON');
-		} catch (error) {
+		} catch (error: any) {
 			alert('Invalid JSON input: ' + error.message);
 		}
   	}
@@ -111,35 +107,27 @@
 	}
 
 	function minifyHTML() {
-
-		
-  let inputHTML = inputTextAreaContent;
-  let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
-  outputTextAreaContent = minifiedHTML;
-
+		let inputHTML = inputTextAreaContent;
+		let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
+		outputTextAreaContent = minifiedHTML;
 	}
 
 	function sampleHTML() {
-		let samplehtml = `
-    <div>
-      <h1>Hello, World!</h1>
-      <p>This is a sample HTML content.</p>
-    </div>
-  `;
+		let samplehtml = `<div>
+		<h1>Hello, World!</h1>
+		<p>This is a sample HTML content.</p>
+</div>`;
 		inputTextAreaContent = samplehtml;
-
 	}
 
 	function sampleXML() {
-		let samplehtml = `
-		<?xml version="1.0" encoding="UTF-8"?>
-<book>
- <name>A Song of Ice and Fire</name>
- <author>George R. R. Martin</author>
- <language>English</language>
- <genre>Epic fantasy</genre>
-</book>
-  `;
+		let samplehtml = `<?xml version="1.0" encoding="UTF-8"?>
+		<book>
+		<name>A Song of Ice and Fire</name>
+		<author>George R. R. Martin</author>
+		<language>English</language>
+		<genre>Epic fantasy</genre>
+</book>`;
 		inputTextAreaContent = samplehtml;
 	}
 
@@ -169,14 +157,60 @@
 		inputTextAreaContent = samplejson;
 	}
 
-	function findLineColumnIndex() {
-		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
-		lineIndex = textLines.length;
-		colIndex = textLines[textLines.length - 1].length;
+	function findLineColumnIndex(event: any) {
+		const textAreaType = event.target.getAttribute('data-text-area-type');
+		
+		if (textAreaType === 'input') {
+			const startPos = inputTextArea.selectionStart;
+			const textLines = inputTextAreaContent.substring(0, startPos).split('\n');
+			inputTextAreaLnIndex = textLines.length;
+			inputTextAreaColIndex = textLines[textLines.length - 1].length;
+		}
+		else if (textAreaType === 'output')	{
+			const startPos = outputTextArea.selectionStart;
+			const textLines = outputTextAreaContent.substring(0, startPos).split('\n');
+			outputTextAreaLnIndex = textLines.length;
+			outputTextAreaColIndex = textLines[textLines.length - 1].length;
+		}
 	}
 
-	function findBitCount() {
-		bitCount = inputTextAreaContent.length;
+	function findSize(event: any) {
+		const textAreaType = event.target.getAttribute('data-text-area-type');
+		
+		if (textAreaType === 'input') {
+			inputTextAreaSize = inputTextAreaContent.length;
+		}
+		else if (textAreaType === 'output')	{
+			outputTextAreaSize = outputTextAreaContent.length;
+		}
+	}
+
+	function allowTabIndentation(event: any) {
+		if (event.key === 'Tab') {
+			event.preventDefault()
+
+			let textAreaType = event.target.getAttribute('data-text-area-type');
+			if (textAreaType === 'input') {
+				const startPos = inputTextArea.selectionStart;
+    			const endPos = inputTextArea.selectionEnd;
+        		inputTextAreaContent = inputTextAreaContent.substring(0, startPos) + '    ' + inputTextAreaContent.substring(endPos);
+        
+        		inputTextArea.value = inputTextAreaContent;
+
+				inputTextArea.selectionStart = startPos + 4;
+				inputTextArea.selectionEnd = startPos + 4;
+			}
+			else if (textAreaType === 'output') {
+				const startPos = outputTextArea.selectionStart;
+    			const endPos = outputTextArea.selectionEnd;
+        		outputTextAreaContent = outputTextAreaContent.substring(0, startPos) + '    ' + outputTextAreaContent.substring(endPos);
+        
+        		outputTextArea.value = outputTextAreaContent;
+
+				outputTextArea.selectionStart = startPos + 4;
+				outputTextArea.selectionEnd = startPos + 4;
+			}
+		}
 	}
 
 	function format() {
@@ -204,7 +238,6 @@
 			sampleJSON();
 		else if (type === 'HTML') 
 			sampleHTML();
-
 	}
 </script>
 
@@ -348,8 +381,10 @@
 				bind:this={inputTextArea}
 				bind:value={inputTextAreaContent}
 				on:keyup={findLineColumnIndex}
-				on:keyup={findBitCount}
+				on:keyup={findSize}
+				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
+				data-text-area-type="input"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{type} Code"
@@ -358,9 +393,9 @@
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
 		>
-			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
-			<p class="px-4">Col : {colIndex}</p>
-			<p class="px-4">Size : {bitCount} B</p>
+			<p class="pr-4 pl-2">Ln : {inputTextAreaLnIndex}</p>
+			<p class="px-4">Col : {inputTextAreaColIndex}</p>
+			<p class="px-4">Size : {inputTextAreaSize} B</p>
 		</div>
 	</div>
 
@@ -439,8 +474,10 @@
 				bind:this={outputTextArea}
 				bind:value={outputTextAreaContent}
 				on:keyup={findLineColumnIndex}
-				on:keyup={findBitCount}
+				on:keyup={findSize}
+				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
+				data-text-area-type="output"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{type} Output"
@@ -449,9 +486,9 @@
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
 		>
-			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
-			<p class="px-4">Col : {colIndex}</p>
-			<p class="px-4">Size : {bitCount} B</p>
+			<p class="pr-4 pl-2">Ln : {outputTextAreaLnIndex}</p>
+			<p class="px-4">Col : {outputTextAreaColIndex}</p>
+			<p class="px-4">Size : {outputTextAreaSize} B</p>
 		</div>
 	</div>
 </div>
