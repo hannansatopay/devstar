@@ -371,7 +371,6 @@
 			</div>
 			<button
 				type="button"
-				data-tooltip-target="tooltip-fullscreen"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 			>
 				<ExpandSolid size="sm" />
@@ -406,7 +405,7 @@
 	<Button 
 		color="blue"
 		class="mr-1"
-		data-text-area-type='input'
+		data-text-area-type='output'
 		on:click={format}
 		on:click={findSize}>Beautify
 	</Button>
@@ -476,7 +475,6 @@
 			</div>
 			<button
 				type="button"
-				data-tooltip-target="tooltip-fullscreen"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 			>
 				<ExpandSolid size="sm" />
