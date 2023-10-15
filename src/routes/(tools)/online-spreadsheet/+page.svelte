@@ -135,7 +135,7 @@
 	{#if !showCreateSection && !showUploadSection}
 		<div class="flex justify-center items-center"> <!--Two buttons added from flowbite-svelte-->
 			<Button size="xl" outline color="blue" class="m-6" on:click={()=>{
-				fileInput.click();}}>Upload Your Spreadsheet<br />(.csv)</Button>
+				fileInput.click();}}>Upload Your Spreadsheet<br />(.xlsx)</Button>
 			<input id="sheetuploader" type="file" class="hidden" accept=".xlsx" bind:this={fileInput} on:change={handleFileChange} />
 			<GradientButton size="xl" color="blue" class="m-6" on:click={()=>{showCreateSection = !showCreateSection}}>Create New Spreadsheet<br />(.csv)</GradientButton>
 		</div>
