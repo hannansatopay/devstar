@@ -137,8 +137,9 @@
 	}
 </script>
 
-<section class="bg-white dark:bg-gray-900 min-h-screen flex items-center">
-	<div class="container mx-auto py-8 px-4">
+<section class="bg-white dark:bg-gray-900 min-h-screen flex flex-col items-center">
+    <div class="container mx-auto py-8 px-4">
+        <h1 class="text-4xl font-bold text-blue-600 mb-8 mt-4">SSL Checker</h1>
 		<div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
 			<div class="mb-4">
 				<input
