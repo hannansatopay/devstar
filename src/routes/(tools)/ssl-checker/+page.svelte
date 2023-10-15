@@ -136,7 +136,7 @@
 					</div>
 					<div class="ml-2">
 						<h1 class="text-white text-3xl mb-2">{sslInfo.commonName}</h1>
-						<p class="text-white mb-1">{hostname} resolves to {sslInfo.ipAddress}</p>
+						<p class="text-white mb-1">{sslInfo.commonName} resolves to {sslInfo.ipAddress}</p>
 						<p class="text-white mb-1">
 							Certificate expires in {calculateDaysToExpiry(sslInfo.validTo)} days
 						</p>
