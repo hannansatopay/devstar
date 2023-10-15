@@ -3,8 +3,8 @@
 
 let isSpreadsheetOpen = false;
 let rowData = []; // To store user-entered data
-let numRows = 6;
-let numCols = 4;
+let numRows = 8;
+let numCols = 13;
 let index = 1;
 
 	function toggleSpreadsheet() {
