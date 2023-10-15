@@ -60,6 +60,8 @@
 		colorDisplay.style.opacity = alphaValue;
 	}
 
+	let myBtn;
+
 	// Set the initial color
 
 	$: css = `
@@ -67,6 +69,10 @@
 		${bgGradient}
 		background-size: 400% 400%;
 		animation: gradient ${speed}s ease infinite;
+	}
+
+	.cross {
+		pointer-events: none;
 	}
 
 	@keyframes gradient {
@@ -88,6 +94,7 @@
 		// Alert the copied text
 		alert('Copied the styles');
 	}
+
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -110,6 +117,7 @@
 							<button
 								class="absolute top-[-4px] right-2 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
 								on:click={removeOnClick}
+								bind:this={myBtn}
 								id={`${clrList[i]}`}
 							>
 								<svg
