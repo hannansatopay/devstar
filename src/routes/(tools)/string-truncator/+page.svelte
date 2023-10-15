@@ -6,7 +6,7 @@
 
     export let data;
 
-    var characterLimit = 7; // Default character limit
+    var characterLimit = 5; // Default character limit
     var truncatedText;
    
 	
