@@ -53,16 +53,19 @@
 		};
 
 		try {
-			const response = await fetch(`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`);
+			const response = await fetch(
+				`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`
+			);
 			const result = await response.json();
 			if (response.ok && result) {
 				sslInfo = result;
 			} else {
-				error = result?.message || 'An error occurred.';
+				error = result?.message || "We couldn't reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.";
 			}
 		} catch (err) {
 			console.error('Error fetching SSL data:', err);
-			error = 'An error occurred.';
+			error =
+				'We could&apos;t reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.';
 		} finally {
 			isLoading = false;
 		}
@@ -138,8 +141,8 @@
 </script>
 
 <section class="bg-white dark:bg-gray-900 min-h-screen flex flex-col items-center">
-    <div class="container mx-auto py-8 px-4">
-        <h1 class="text-4xl font-bold text-blue-600 mb-8 mt-4">SSL Checker</h1>
+	<div class="container mx-auto py-8 px-4">
+		<h1 class="text-4xl font-bold text-blue-600 mb-8 mt-4">SSL Checker</h1>
 		<div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
 			<div class="mb-4">
 				<input
@@ -175,6 +178,18 @@
 							</p>
 							<p>
 								Hostname is correctly listed in the certificate: {isHostnameListed() ? 'Yes' : 'No'}
+							</p>
+							<p>
+								<span class="font-semibold">Valid From:</span>
+								{formatCertDate(sslInfo.validFrom)} to {formatCertDate(sslInfo.validTo)}
+							</p>
+							<p>
+								<span class="font-semibold">Serial Number:</span>
+								{sslInfo.serialNumber}
+							</p>
+							<p>
+								<span class="font-semibold">Signature Algorithm:</span>
+								{sslInfo.signatureAlgorithm}
 							</p>
 						</div>
 					</div>
