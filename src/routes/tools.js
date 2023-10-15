@@ -100,5 +100,12 @@ export let tools = {
         icon: ' ',
         link: '/basic-photo-editor',
         description: "The Basic Photo Editor is a simple tool that enables developers to perform basic image editing operations, such as cropping, resizing, and rotating. This tool provides a user-friendly interface to upload images and apply various transformations to them. Integrate this tool into your applications to enable users to perform basic image editing operations effortlessly."
+    },
+        'random-data-generator': {
+        name: 'Random Data Generator (βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/random-data-generator',
+        description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+
     }
-};
+}
