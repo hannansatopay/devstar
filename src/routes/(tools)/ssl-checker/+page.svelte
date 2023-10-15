@@ -86,6 +86,20 @@
 		return Math.ceil(differenceInTime / (1000 * 3600 * 24));
 	}
 
+	function formatCertDate(dateString: string) {
+		const year = dateString.substring(0, 4);
+		const month = dateString.substring(4, 6);
+		const day = dateString.substring(6, 8);
+		const hour = dateString.substring(8, 10);
+		const minute = dateString.substring(10, 12);
+		const second = dateString.substring(12, 14);
+
+		const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}Z`);
+
+		// Now you can format the date any way you'd like. Here's one way:
+		return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+	}
+
 	function isHostnameListed(): boolean {
 		return sslInfo.commonName === hostname;
 	}
@@ -101,7 +115,9 @@
 		<button
 			on:click={handleCheckSSL}
 			class="mb-4 py-2.5 px-5 text-sm font-medium bg-blue-600 text-white rounded-lg w-full hover:bg-blue-700"
-		>Check SSL</button>
+		>
+			Check SSL
+		</button>
 
 		{#if error}
 			<p class="text-red-600">{error}</p>
@@ -140,7 +156,7 @@
 							<p class="text-white mb-1"><strong>Location:</strong> {chainItem.location}</p>
 							<p class="text-white mb-1">
 								<strong>Valid From:</strong>
-								{chainItem.validFrom} to {chainItem.validTo}
+								{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}
 							</p>
 							<p class="text-white mb-1">
 								<strong>Serial Number:</strong>
@@ -160,7 +176,7 @@
 </section>
 
 <style>
-    /* Add the necessary styles here */
+	/* Add the necessary styles here */
 	.ssl-container {
 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	}
