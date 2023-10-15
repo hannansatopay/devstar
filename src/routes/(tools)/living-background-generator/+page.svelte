@@ -146,7 +146,7 @@
 					}}
 				/>
 				<br />
-				<Label class="mt-3">SPEED&nbsp;&nbsp;&nbsp;{speed}s</Label>
+				<Label class="mt-3">DURATION&nbsp;&nbsp;&nbsp;{speed}s</Label>
 				<Range
 					bind:value={speed}
 					min="1"
