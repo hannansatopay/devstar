@@ -133,11 +133,11 @@
 		// Remove any routes or extra slashes
 		cleaned = cleaned.split('/')[0];
 
-		// Remove subdomains, keeping only the domain and TLD
-		const parts = cleaned.split('.');
-		if (parts.length > 2) {
-			cleaned = parts.slice(-2).join('.');
-		}
+		// // Remove subdomains, keeping only the domain and TLD
+		// const parts = cleaned.split('.');
+		// if (parts.length > 2) {
+		// 	cleaned = parts.slice(-2).join('.');
+		// }
 
 		return cleaned;
 	}
