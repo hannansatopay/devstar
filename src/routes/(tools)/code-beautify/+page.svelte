@@ -76,7 +76,13 @@
 
 	function minifyJSON() {}
 
-	function minifyHTML() {}
+	function minifyHTML() {
+		btnMinify.addEventListener("click", () => {
+  const inputHTML = inputArea.value;
+  const minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
+  outputArea.value = minifiedHTML;
+});
+	}
 
 	function findLineColumnIndex() {
 		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
