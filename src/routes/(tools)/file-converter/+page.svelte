@@ -6,9 +6,9 @@
 
 	
 	let selectedFormat = ''; 
-	let inputFile = '', fileName='', extension='';
+	let inputFile = '', fileName='', extension='', outputFile = '';
 	let supportedFormats = fileFormats;
-	
+
 	const getFileFormat = ()=>{
 		if(inputFile.length){
 			let path = inputFile.split('\\');
@@ -20,6 +20,7 @@
 				fileFormats[format]['outputFormat'].forEach((ext,key)=>{
 					if(extension===ext){
 						supportedFormats = fileFormats[format];
+						return;
 					}
 				})
 			}
@@ -28,9 +29,16 @@
 			extension='';
 		}
 	}
-	// to be implemented accordingly
-	const convertFormat=()=>{
 
+	const downloadFile = async () => {
+		const blob = new Blob([inputFile], { type: 'application/octet-stream' });
+		const a = document.createElement('a');
+		a.href = URL.createObjectURL(blob);
+		a.download = fileName + selectedFormat;
+		a.style.display = 'none';
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 	}
 	export let data;
 </script>
@@ -38,8 +46,8 @@
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<form class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden rounded-lg" on:submit|preventDefault={convertFormat}>
+	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 card overflow-hidden rounded-lg">
+		<form class="gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 " on:submit|preventDefault={convertFormat}>
 			<div class="p-8">
 				<Label>Input File</Label>
 				<div class="flex items-center">
@@ -77,7 +85,18 @@
 				</div>
 			</div>
 		</form>
+
+		{#if outputFile!==''}
+			<div class="rounded-lg grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-16  m-8  overflow-hidden">
+				<div class="py-2 px-8 bg-white border border-gray-200 lg:col-span-2 ">{outputFile} This is the file name</div>
+				<div class="flex items-center justify-center ">
+					<button class="bg-green-700 border text-white p-2 rounded-lg w-24">Preview</button>
+					<button class="bg-blue-700 border text-white p-2 rounded-lg w-24 mx-2" on:click={downloadFile}>Download</button>
+				</div>
+			</div>
+		{/if}
 	</div>
+
 </section>
 
 <style>
