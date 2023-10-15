@@ -1,10 +1,11 @@
 export let tools = {
-    'neumorphism-generator': {
-        name: 'Neumorphism Generator',
-        icon: 'layer-group',
-        link: '/neumorphism-generator',
-        description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
+    'favicon-generator': {
+        name: 'Favicon Generator',
+        icon: 'palette',
+        link: '/favicon-generator',
+        description: 'Generate custom favicons for your website.'
     },
+    
     'password-generator': {
         name: 'Password Generator',
         icon: 'key',
