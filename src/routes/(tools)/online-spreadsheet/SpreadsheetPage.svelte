@@ -1,8 +1,11 @@
 <script>
 	import { Button, GradientButton, ButtonGroup } from 'flowbite-svelte';
 
-	let isSpreadsheetOpen = false;
-	let rowData = []; // To store user-entered data
+let isSpreadsheetOpen = false;
+let rowData = []; // To store user-entered data
+let numRows = 6;
+let numCols = 4;
+let index = 1;
 
 	function toggleSpreadsheet() {
 		isSpreadsheetOpen = !isSpreadsheetOpen;
@@ -40,6 +43,26 @@
 	function goBack() {
 		isSpreadsheetOpen = false;
 	}
+
+  function addRow() {
+		numRows++;
+	}
+
+	function addColumn() {
+		numCols++;
+	}
+
+	function getColumnName(index) {
+		if (index < 26) {
+			// A to Z
+			return String.fromCharCode(65 + index);
+		} else {
+			// After Z, A1, A2, A3...
+			let firstChar = String.fromCharCode(65 + Math.floor(index / 26) - 1);
+			let secondChar = String.fromCharCode(65 + (index % 26));
+			return `${firstChar}${secondChar}`;
+		}
+	}
 </script>
 
 <main>
@@ -57,14 +80,14 @@
 		<div class="flex justify-center item-center mt-4 ml-4 mr-4">
 			<ButtonGroup>
 				<GradientButton size="md" color="blue" class="mb-4" on:click={downloadSheet}>Download Sheet</GradientButton>
-				<Button size="md" outline color="blue" class="mb-4">Add Row</Button>
+				<Button size="md" outline color="blue" class="mb-4" on:click={addRow}>Add Row</Button>
 				<!-- For Future Implementation -->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
 				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
 				 -->
-				<Button size="md" outline color="blue" class="mb-4">Add Column</Button>
+        		<Button size="md" outline color="blue" class="mb-4" on:click={addColumn}>Add Column</Button>
 				<GradientButton size="md" color="blue" class="mb-4" on:click={goBack}>Back</GradientButton>
 			</ButtonGroup>
 		</div>
@@ -74,74 +97,23 @@
 				<thead>
 					<tr>
 						<th class="describers" />
-						<!-- Empty cell for numbering -->
-						<th class="content describers">A</th>
-						<th class="content describers">B</th>
-						<th class="content describers">C</th>
-						<th class="content describers">D</th>
-						<th class="content describers">E</th>
-						<th class="content describers">F</th>
-						<th class="content describers">G</th>
-						<th class="content describers">H</th>
-						<th class="content describers">I</th>
-						<th class="content describers">J</th>
-						<th class="content describers">K</th>
-						<!-- Add more headers as needed -->
+						{#each Array(numCols) as _, i}
+							<th class="content describers">{getColumnName(i)}</th>
+						{/each}
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="row-numbering describers"><b>1</b></td>
-						<!-- Numbered row -->
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<!-- Add more cells as needed -->
-					</tr>
-					<!-- Add more rows as needed -->
-					<tr>
-						<td class="row-numbering describers"><b>2</b></td>
-						<!-- Numbered row -->
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<!-- Add more cells as needed -->
-					</tr>
-					<tr>
-						<td class="row-numbering describers"><b>3</b></td>
-						<!-- Numbered row -->
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<td contenteditable="true" class="content" />
-						<!-- Add more cells as needed -->
-					</tr>
+					{#each Array(numRows) as _, rowIndex}
+						<tr>
+							<td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
+							{#each Array(numCols) as _, colIndex}
+								<td contenteditable="true" class="content" />
+							{/each}
+						</tr>
+					{/each}
 				</tbody>
 			</table>
-		</div>
+		</div>		
 	{/if}
 </main>
 
