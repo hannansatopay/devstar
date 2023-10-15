@@ -29,7 +29,12 @@
 		const url = window.URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = 'spreadsheet.csv';
+
+		// for giving unique name to files
+		var uniqueNum = Math.random().toString(9).substr(2,3);
+		var uniqueStr = Math.random().toString(36).substr(2);
+		a.download = `Spreadsheet_${uniqueNum + uniqueStr}.csv`;
+
 		document.body.appendChild(a);
 		a.click();
 		window.URL.revokeObjectURL(url);
