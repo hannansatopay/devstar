@@ -361,12 +361,10 @@
     context.fillStyle = 'black';
     context.fillText(text, x, y);
   }
-
 </script>
 
 <div class="drawing-area">
-  <!-- <canvas class=" bg-white w-3/5  lg:w-3/4 sm:w-full" height="430vh">The Flow Chart Generator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.</canvas> -->
-  <canvas height="500px" width="1000px"></canvas>
+  <canvas height="1800px" width="2000px"></canvas>
 </div>
 
 {#if textEditing}
@@ -381,6 +379,8 @@
 {/if}
 <style>
   .drawing-area{
+    overflow: scroll;
+    height: 600px;
     background-color: white;
   }
 </style>
