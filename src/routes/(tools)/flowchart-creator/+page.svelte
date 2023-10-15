@@ -26,8 +26,8 @@
 			<button on:click={() => setTool('diamond')}>Diamond</button><br>
 		</div>
 		<div class="tool m-2">
-			<button on:click={() => setTool('text')}>Text</button><br>
 			<h3 class="text-center font-bold border">Tools</h3>
+			<button on:click={() => setTool('text')}>Text</button><br>
 			<button>Eraser</button><br>
 			<button>Pencil</button><br>
 			<button>Brush</button><br>
