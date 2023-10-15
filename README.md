@@ -20,7 +20,7 @@ Clone the project
 
 ```bash
 
-git  clone  https://github.com/bandya2003/IEEEdevstar.git
+git  clone  https://github.com/hannansatopay/devstar
 
 ```
 
@@ -45,44 +45,6 @@ Start the server
 ```bash
 
 npm  run  dev
-
-```
-
-### Our Module of Online Content-Sharing Tool is in the following Folder :
-
-`src/routes/content-sharing-tool`
-
-_After Making the chnages in your local machine , use the following commands to push them to Github_
-
-To Load the changes to staging stage
-
-```bash
-
-git add .
-
-```
-
-To commit the changes :
-
-```bash
-
-git commit -m "Your Commit Message"
-
-```
-
-To finally push the changes to the repository :
-
-```bash
-
-git push origin main
-
-```
-
-In order to fetch the changes that have been made by other members to the repository use the below command to pull the changes to your local machine :
-
-```bash
-
-git pull
 
 ```
 
