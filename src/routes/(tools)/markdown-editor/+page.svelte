@@ -1,6 +1,7 @@
 <script lang="js">
 	import Intro from '$lib/Intro.svelte';
 	import { marked } from 'marked';
+	import "./markdown.css";
 
 	export let data;
 
@@ -8,35 +9,28 @@
 	$: preview = marked(markdownCode);
 
 	const convert = (e) => {
-		preview = e.target.value;
-		preview = marked(preview.replace(/\n/g, '\n'));
-		console.log(preview);
+		preview = marked(e.target.value);
 	};
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<section class="bg-white dark:bg-gray-900">
+<section class="bg-white dark:bg-gray-900 editor">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div
-			class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg markdown-editor-wrapper"
-		>
-			<div class="p-8">
+		<div class="card gap-4 lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+			<div class="p-2 bg-white">
+				<h1 class="text-center">Markdown</h1>
 				<textarea
 					name="markdown"
 					bind:value={markdownCode}
 					on:input={convert}
 					cols="30"
 					rows="10"
+					class="rounded-lg w-full h-full resize-none border-none p-1"
 				/>
 			</div>
-			<div class="p-8 h-full flex rounded-lg relative marked-preview">
-				<!-- <h1
-					class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-black"
-				>
-					Dummy text to check
-				</h1> -->
-				<br />
+			<div class="pl-4 p-2 h-full marked-preview bg-white">
+				<h1 class="text-center">Preview</h1>
 				{@html preview}
 			</div>
 		</div>
@@ -46,12 +40,10 @@
 <style>
 	.marked-preview {
 		border-left: 2px solid black;
-		border-radius: 0;
 	}
 
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-		background: white;
 	}
 
 	:is(.dark .card) {
