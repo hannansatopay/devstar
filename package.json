@@ -66,6 +66,7 @@
 		"colorthief": "^2.2.0",
 		"countries-list": "^2.6.1",
 		"flowbite-svelte-icons": "^0.4.4",
+		"html-prettify": "^1.0.7",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",

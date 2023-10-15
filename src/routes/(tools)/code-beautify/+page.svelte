@@ -17,6 +17,7 @@
 	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 	import xmlFormat from 'xml-formatter';
+	import prettify from 'html-prettify';
 
 	export let data;
 
@@ -53,7 +54,12 @@
 		outputTextAreaContent = formattedXML;
 	}
 
-	function formatHTML() {	}
+	function formatHTML() {
+		let inputHTML = inputTextAreaContent;
+		let formattedHTML = prettify(inputHTML);
+		outputTextAreaContent = formattedHTML;
+
+		}
 
 	function formatJSON() {
 		try {
@@ -106,9 +112,29 @@
   outputTextAreaContent = minifiedHTML;
 	}
 
-	function sampleHTML() {}
+	function sampleHTML() {
+		let samplehtml = `
+    <div>
+      <h1>Hello, World!</h1>
+      <p>This is a sample HTML content.</p>
+    </div>
+  `;
+		inputTextAreaContent = samplehtml;
 
-	function sampleXML() {}
+	}
+
+	function sampleXML() {
+		let samplehtml = `
+		<?xml version="1.0" encoding="UTF-8"?>
+<book>
+ <name>A Song of Ice and Fire</name>
+ <author>George R. R. Martin</author>
+ <language>English</language>
+ <genre>Epic fantasy</genre>
+</book>
+  `;
+		inputTextAreaContent = samplehtml;
+	}
 
 	function sampleJSON() {
 		let samplejson = `{
@@ -172,7 +198,7 @@
 		else if (type === 'JSON') 
 			sampleJSON();
 		else if (type === 'HTML') 
-			sampleJSON();
+			sampleHTML();
 
 	}
 </script>
