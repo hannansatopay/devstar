@@ -180,8 +180,8 @@
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<div class="py-8 px-4 mx-auto max-w-screen
-		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
+<div class="py-8 px-4 mx-auto max-w-screen" >
+		<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
