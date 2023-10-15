@@ -67,12 +67,8 @@
 	$: css = `
 	.animated-background {
 		${bgGradient}
-		background-size: 400% 400%;
+		background-size: 300% 300%;
 		animation: gradient ${speed}s ease infinite;
-	}
-
-	.cross {
-		pointer-events: none;
 	}
 
 	@keyframes gradient {
@@ -229,7 +225,7 @@
 	}
 
 	.output {
-		background-size: 400% 400%;
+		background-size: 300% 300%;
 		animation: gradient ease infinite;
 		animation-duration: 15s;
 	}
