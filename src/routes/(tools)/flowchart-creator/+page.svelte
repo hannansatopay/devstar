@@ -17,15 +17,14 @@
 		<div class="shapes ">
 			<h3 class="text-center text font-bold  border">Shapes</h3>
 			<button on:click={() => setTool('rectangle')}>Rectangle</button><br>
-			<button>Square</button><br>
+			<button on:click={() => setTool('square')}>Square</button><br>
 			<button on:click={() => setTool('circle')}>Circle</button><br>
-			<button >Triangle</button><br>
-			<button>Oval</button><br>
+			<button on:click={() => setTool('triangle')}>Triangle</button><br>
+			<button on:click={() => setTool('oval')}>Oval</button><br>
 			<button on:click={() => setTool('diamond')}>Diamond</button><br>
 			<button on:click={() => setTool('arrow')}>Arrow</button><br>
-			<button>Parallelogram</button><br>
+			<button on:click={() => setTool('parallelogram')}>Parallelogram</button><br>
 			<button on:click={() => setTool('text')}>Text</button><br>
-
 		</div>
 		<div class="tool">
 			<h3 class="text-center font-bold border">Tools</h3>
