@@ -98,7 +98,7 @@ export let tools = {
 
     'code-beautify': {
         name: 'Code Beautify',
-        icon: '',
+        icon: 'indent',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
     }

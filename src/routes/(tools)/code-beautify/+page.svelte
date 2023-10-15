@@ -53,7 +53,7 @@
 		outputTextAreaContent = formattedXML;
 	}
 
-	function formatHTML() {}
+	function formatHTML() {	}
 
 	function formatJSON() {
 		try {
@@ -100,11 +100,10 @@
 	}
 
 	function minifyHTML() {
-		btnMinify.addEventListener("click", () => {
-  const inputHTML = inputArea.value;
-  const minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
-  outputArea.value = minifiedHTML;
-});
+		
+  let inputHTML = inputTextAreaContent;
+  let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
+  outputTextAreaContent = minifiedHTML;
 	}
 
 	function sampleHTML() {}
