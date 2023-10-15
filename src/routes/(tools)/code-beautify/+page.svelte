@@ -34,7 +34,8 @@
 	let inputTextAreaContent = '';
 	let outputTextAreaContent = '';
 
-	let bitCount = 0;
+	let inputTextAreaSize = 0;
+	let outputTextAreaSize = 0;
 	let inputTextAreaLnIndex = 1;
 	let outputTextAreaLnIndex = 1;
 	let inputTextAreaColIndex = 0;
@@ -79,7 +80,7 @@
 			let inputJSON = inputTextAreaContent;
 			const parsed = JSON.parse(inputJSON);
 			alert('Valid JSON');
-		} catch (error) {
+		} catch (error: any) {
 			alert('Invalid JSON input: ' + error.message);
 		}
   	}
@@ -112,26 +113,21 @@
 	}
 
 	function sampleHTML() {
-		let samplehtml = `
-    <div>
-      <h1>Hello, World!</h1>
-      <p>This is a sample HTML content.</p>
-    </div>
-  `;
+		let samplehtml = `<div>
+		<h1>Hello, World!</h1>
+		<p>This is a sample HTML content.</p>
+</div>`;
 		inputTextAreaContent = samplehtml;
-
 	}
 
 	function sampleXML() {
-		let samplehtml = `
-		<?xml version="1.0" encoding="UTF-8"?>
-<book>
- <name>A Song of Ice and Fire</name>
- <author>George R. R. Martin</author>
- <language>English</language>
- <genre>Epic fantasy</genre>
-</book>
-  `;
+		let samplehtml = `<?xml version="1.0" encoding="UTF-8"?>
+		<book>
+		<name>A Song of Ice and Fire</name>
+		<author>George R. R. Martin</author>
+		<language>English</language>
+		<genre>Epic fantasy</genre>
+</book>`;
 		inputTextAreaContent = samplehtml;
 	}
 
@@ -161,7 +157,7 @@
 		inputTextAreaContent = samplejson;
 	}
 
-	function findLineColumnIndex(event) {
+	function findLineColumnIndex(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
 		
 		if (textAreaType === 'input') {
@@ -178,11 +174,18 @@
 		}
 	}
 
-	function findBitCount() {
-		bitCount = inputTextAreaContent.length;
+	function findSize(event: any) {
+		const textAreaType = event.target.getAttribute('data-text-area-type');
+		
+		if (textAreaType === 'input') {
+			inputTextAreaSize = inputTextAreaContent.length;
+		}
+		else if (textAreaType === 'output')	{
+			outputTextAreaSize = outputTextAreaContent.length;
+		}
 	}
 
-	function allowTabIndentation(event) {
+	function allowTabIndentation(event: any) {
 		if (event.key === 'Tab') {
 			event.preventDefault()
 
@@ -378,7 +381,7 @@
 				bind:this={inputTextArea}
 				bind:value={inputTextAreaContent}
 				on:keyup={findLineColumnIndex}
-				on:keyup={findBitCount}
+				on:keyup={findSize}
 				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
 				data-text-area-type="input"
@@ -392,7 +395,7 @@
 		>
 			<p class="pr-4 pl-2">Ln : {inputTextAreaLnIndex}</p>
 			<p class="px-4">Col : {inputTextAreaColIndex}</p>
-			<p class="px-4">Size : {bitCount} B</p>
+			<p class="px-4">Size : {inputTextAreaSize} B</p>
 		</div>
 	</div>
 
@@ -471,7 +474,7 @@
 				bind:this={outputTextArea}
 				bind:value={outputTextAreaContent}
 				on:keyup={findLineColumnIndex}
-				on:keyup={findBitCount}
+				on:keyup={findSize}
 				on:keydown={(e) => allowTabIndentation(e)}
 				on:mouseup={findLineColumnIndex}
 				data-text-area-type="output"
@@ -485,7 +488,7 @@
 		>
 			<p class="pr-4 pl-2">Ln : {outputTextAreaLnIndex}</p>
 			<p class="px-4">Col : {outputTextAreaColIndex}</p>
-			<p class="px-4">Size : {bitCount} B</p>
+			<p class="px-4">Size : {outputTextAreaSize} B</p>
 		</div>
 	</div>
 </div>
