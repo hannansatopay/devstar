@@ -251,4 +251,8 @@
 			font-size: 2vw;
 		}
 	}
+
+	.cross {
+		pointer-events: none;
+	}
 </style>
