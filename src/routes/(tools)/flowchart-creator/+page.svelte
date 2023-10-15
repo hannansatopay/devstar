@@ -53,17 +53,3 @@
 	<FlowchartArea />
 	<!-- <canvas class=" bg-white w-3/5  lg:w-3/4 sm:w-full">The Flow Chart Generator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.</canvas> -->
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
