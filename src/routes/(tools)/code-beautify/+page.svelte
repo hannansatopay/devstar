@@ -35,8 +35,10 @@
 	let outputTextAreaContent = '';
 
 	let bitCount = 0;
-	let lineIndex = 1;
-	let colIndex = 0;
+	let inputTextAreaLnIndex = 1;
+	let outputTextAreaLnIndex = 1;
+	let inputTextAreaColIndex = 0;
+	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
 	let spaceoption = 4;
@@ -159,10 +161,21 @@
 		inputTextAreaContent = samplejson;
 	}
 
-	function findLineColumnIndex() {
-		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
-		lineIndex = textLines.length;
-		colIndex = textLines[textLines.length - 1].length;
+	function findLineColumnIndex(event) {
+		const textAreaType = event.target.getAttribute('data-text-area-type');
+		
+		if (textAreaType === 'input') {
+			const startPos = inputTextArea.selectionStart;
+			const textLines = inputTextAreaContent.substring(0, startPos).split('\n');
+			inputTextAreaLnIndex = textLines.length;
+			inputTextAreaColIndex = textLines[textLines.length - 1].length;
+		}
+		else if (textAreaType === 'output')	{
+			const startPos = outputTextArea.selectionStart;
+			const textLines = outputTextAreaContent.substring(0, startPos).split('\n');
+			outputTextAreaLnIndex = textLines.length;
+			outputTextAreaColIndex = textLines[textLines.length - 1].length;
+		}
 	}
 
 	function findBitCount() {
@@ -377,8 +390,8 @@
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
 		>
-			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
-			<p class="px-4">Col : {colIndex}</p>
+			<p class="pr-4 pl-2">Ln : {inputTextAreaLnIndex}</p>
+			<p class="px-4">Col : {inputTextAreaColIndex}</p>
 			<p class="px-4">Size : {bitCount} B</p>
 		</div>
 	</div>
@@ -470,8 +483,8 @@
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
 		>
-			<p class="pr-4 pl-2">Ln : {lineIndex}</p>
-			<p class="px-4">Col : {colIndex}</p>
+			<p class="pr-4 pl-2">Ln : {outputTextAreaLnIndex}</p>
+			<p class="px-4">Col : {outputTextAreaColIndex}</p>
 			<p class="px-4">Size : {bitCount} B</p>
 		</div>
 	</div>
