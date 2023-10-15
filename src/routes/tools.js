@@ -97,7 +97,7 @@ export let tools = {
     },
     'basic-photo-editor': {
         name: 'basic-photo-editor',
-        icon: ' ',
+        icon: 'photo-editor',
         link: '/basic-photo-editor',
         description: "The Basic Photo Editor is a simple tool that enables developers to perform basic image editing operations, such as cropping, resizing, and rotating. This tool provides a user-friendly interface to upload images and apply various transformations to them. Integrate this tool into your applications to enable users to perform basic image editing operations effortlessly."
     },
