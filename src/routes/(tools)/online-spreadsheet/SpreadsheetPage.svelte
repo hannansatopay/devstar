@@ -1,24 +1,21 @@
 <script>
-  import { Button, GradientButton } from 'flowbite-svelte';
-
-  let isSpreadsheetOpen = false;
-  let isBold = false; // Track bold state
-  let rowData = []; // To store user-entered data
-
-  function toggleSpreadsheet() {
+    import { Button, GradientButton, ButtonGroup } from 'flowbite-svelte';
+  
+    let isSpreadsheetOpen = false;
+    let rowData = []; // To store user-entered data
+    let numRows = 3;
+    let numCols = 11;
+  
+    function toggleSpreadsheet() {
       isSpreadsheetOpen = !isSpreadsheetOpen;
-  }
-
-  function downloadSheet() {
+    }
+  
+    function downloadSheet() {
       const tableRows = document.querySelectorAll('tbody tr');
-
       rowData = Array.from(tableRows).map((row) => {
-          const cells = row.querySelectorAll('td');
-          return Array.from(cells).map((cell) => {
-              return isBold ? `<b>${cell.textContent || ''}</b>` : cell.textContent || '';
-          });
+        const cells = row.querySelectorAll('td');
+        return Array.from(cells).map((cell) => cell.textContent || '');
       });
-
       const data = rowData.map((row) => row.join(',')).join('\n');
       const blob = new Blob([data], { type: 'text/csv' });
       const url = window.URL.createObjectURL(blob);
@@ -28,146 +25,103 @@
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
-  }
-
-  function goBack() {
+    }
+  
+    function goBack() {
       isSpreadsheetOpen = false;
-  }
-
-  async function openExistingSpreadsheet() {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = '.csv, .xlsx';
-
-      fileInput.addEventListener('change', async () => {
-          const file = fileInput.files[0];
-          if (file) {
-              try {
-                  const data = await readFile(file);
-                  populateTable(data);
-              } catch (error) {
-                  console.error('Error reading file:', error);
-              }
-          }
-      });
-
-      fileInput.click();
-  }
-
-  async function readFile(file) {
-      return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = (event) => resolve(event.target.result);
-          reader.onerror = (error) => reject(error);
-          reader.readAsText(file);
-      });
-  }
-
-  function populateTable(data) {
-      const tableRows = document.querySelectorAll('tbody tr');
-      rowData = data.split('\n').map((row) => row.split(','));
-
-      // Update table with new data
-      tableRows.forEach((row, rowIndex) => {
-          const cells = row.querySelectorAll('td');
-          rowData[rowIndex].forEach((cellValue, cellIndex) => {
-              cells[cellIndex].innerHTML = isBold ? `<b>${cellValue}</b>` : cellValue;
-          });
-      });
-  }
-
-  function toggleBold() {
-      isBold = !isBold;
-  }
-</script>
-
-<main>
-  {#if !isSpreadsheetOpen}
-      <Button size="xl" outline color="blue" class="m-6" on:click={toggleSpreadsheet}>Create a New Spreadsheet<br/>(.csv)</Button>
-      <GradientButton size="xl" color="blue" class="m-6" on:click={openExistingSpreadsheet}>Open Existing Spreadsheet<br/>(.csv)</GradientButton>
-  {:else}
-      <Button size="xl" outline color="blue" class="m-6" on:click={goBack}>Back</Button>
-  {/if}
-
-  {#if isSpreadsheetOpen}
-      <Button size="xl" outline color="blue" class="m-6" on:click={downloadSheet}>Download Sheet</Button>
-      <Button size="xl" outline color="blue" class="m-6" on:click={toggleBold}>Bold</Button>
-      <table>
+    }
+  
+    function addRow() {
+      numRows++;
+    }
+  
+    function addColumn() {
+      numCols++;
+    }
+  
+    // Function to add a new row above the clicked row
+    function addRowAbove(rowIndex) {
+      numRows++;
+      rowData.splice(rowIndex, 0, Array(numCols).fill(''));
+    }
+  
+    // Function to add a new column to the left of the clicked column
+    function addColumnLeft(colIndex) {
+      numCols++;
+      rowData.forEach((row) => row.splice(colIndex, 0, ''));
+    }
+  </script>
+  
+  <main>
+    {#if !isSpreadsheetOpen}
+      <div class="flex justify-center items-center">
+        <Button size="xl" outline color="blue" class="m-6">Upload Your Spreadsheet<br />(.csv)</Button>
+        <GradientButton size="xl" color="blue" class="m-6" on:click={toggleSpreadsheet}>Create New Spreadsheet<br />(.csv)</GradientButton>
+      </div>
+    {:else}
+      <div class="flex justify-center item-center mt-4 ml-4 mr-4">
+        <ButtonGroup>
+          <GradientButton size="md" color="blue" class="mb-4" on:click={downloadSheet}>Download Sheet</GradientButton>
+          <Button size="md" outline color="blue" class="mb-4" on:click={addRow}>Add Row</Button>
+          <Button size="md" outline color="blue" class="mb-4" on:click={addColumn}>Add Column</Button>
+          <GradientButton size="md" color="blue" class="mb-4" on:click={goBack}>Back</GradientButton>
+        </ButtonGroup>
+      </div>
+      <div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
+        <table>
           <thead>
-              <tr>
-                  <th class="untouch-field"></th> <!-- Empty cell for numbering -->
-                  <th class="content untouch-field">A</th>
-                  <th class="content untouch-field">B</th>
-                  <th class="content untouch-field">C</th>
-                  <th class="content untouch-field">D</th>
-                  <th class="content untouch-field">E</th>
-                  <!-- Add more headers as needed -->
-              </tr>
+            <tr>
+              <th class="describers" />
+              {#each Array(numCols) as _, i}
+                <th class="content describers">{String.fromCharCode(65 + i)}</th>
+              {/each}
+            </tr>
           </thead>
           <tbody>
+            {#each Array(numRows) as _, rowIndex}
               <tr>
-                  <td class="row-numbering untouch-field">1</td> <!-- Numbered row -->
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <!-- Add more cells as needed -->
+                <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
+                {#each Array(numCols) as _, colIndex}
+                  <td contenteditable="true" class="content" />
+                {/each}
               </tr>
-              <!-- Add more rows as needed -->
-              <tr>
-                  <td class="row-numbering untouch-field">2</td> <!-- Numbered row -->
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <!-- Add more cells as needed -->
-              </tr>
-              <tr>
-                  <td class="row-numbering untouch-field">3</td> <!-- Numbered row -->
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <td contenteditable="true" class="content"></td>
-                  <!-- Add more cells as needed -->
-              </tr>
+            {/each}
           </tbody>
-      </table>
-  {/if}
-</main>
-
-<style>
-  table {
+        </table>
+      </div>
+    {/if}
+  </main>
+  
+  <style>
+    table {
       border-collapse: collapse;
-      width: 100%;
-      background-color: white;
-  }
-
-  table, th, td {
-      border: 1px solid #000;
+      background-color: azure;
+    }
+  
+    table, th, td {
+      border: 1px solid black;
       padding: 8px;
-  }
-
-  .content {
+      text-align: center;
+    }
+  
+    .content {
       width: 125px;
       overflow-x: auto;
-      border: 0px;
       white-space: nowrap;
-  }
-
-  .row-numbering {
+    }
+  
+    .row-numbering {
       width: 35px;
-  }
-
-  .untouch-field {
-      background-color: #c3bdbd;
-      border: 1px solid #000;
-  }
-
-  /* Added style for bold */
-  .bold {
-      font-weight: bold;
-  }
-</style>
+    }
+  
+    .describers {
+      background-color: #1E66F2;
+      color: azure;
+    }
+  
+    .scrollable-container {
+      overflow-x: auto;
+      overflow-y: auto;
+    }
+  </style>
+  
