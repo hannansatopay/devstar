@@ -40,7 +40,7 @@
 		clrVal = '#00f';
 	};
 
-	$: bgGradient = `background-image: linear-gradient(${angle}deg, ${clrList});`;
+	$: bgGradient = clrList.length > 1 ? `background-image: linear-gradient(${angle}deg, ${clrList});` : `background-color: ${clrList};`;
 
 	let angle = 120;
 
