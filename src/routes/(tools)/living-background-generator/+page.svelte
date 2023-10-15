@@ -22,6 +22,11 @@
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
+	const removeOnClick = (e) => {
+		clrList = clrList.filter((x, y) => x !== e.target.id)
+		console.log(e.target.id);
+	};
+
 	$: clrStyle = clrList.map((x) => {
 		return `background: ${x};`;
 	});
@@ -98,9 +103,35 @@
 		<!-- the color div part -->
 		<div class="grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
 			<!-- <div class="w-2 m-2 p-6 bg-purple-800 border border-gray-200" /> -->
-			{#each [...clrStyle] as clr}
-				<div class="aspect-square h-[50px] mx-4 w-2 m-2 p-6 border border-gray-200" style={clr} />
-			{/each}
+			{#each clrStyle as clr, i}
+						<div 
+							class="relative"
+							
+							>
+							<button
+								class="absolute top-[-4px] right-2 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
+								on:click={removeOnClick}
+								id={`${clrList[i]}`}
+							>
+								<svg
+									class="cross w-[12px] h-[12px] text-gray-800"
+									aria-hidden="true"
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 14 14"
+								>
+									<path
+										stroke="currentColor"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+									/>
+								</svg>
+							</button>
+							<div class="aspect-square h-[50px] mx-4" style={clr} />
+						</div>
+					{/each}
 		</div>
 
 		<br />
@@ -136,7 +167,7 @@
 					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
 				</div>
 
-				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}%</Label>
+				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
 				<Range
 					bind:value={angle}
 					min="0"
