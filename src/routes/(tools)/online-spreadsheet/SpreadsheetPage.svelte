@@ -3,19 +3,11 @@
   import { Button, GradientButton, ButtonGroup, } from 'flowbite-svelte';
   import * as XLSX from 'xlsx';
 
-<<<<<<< Updated upstream
-  let isSpreadsheetOpen = false;
-  let rowData = [];
-  let numRows = 8;
-  let numCols = 11;
-  let selectedCell = null;
-=======
 	let isSpreadsheetOpen = false;
 	let rowData = []; // To store user-entered data
 	let numRows = 8;
 	let numCols = 13;
 	let index = 1;
->>>>>>> Stashed changes
 
   onMount(() => {
     // Initialize rowData with empty strings
