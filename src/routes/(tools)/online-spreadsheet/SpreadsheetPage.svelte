@@ -1,11 +1,11 @@
 <script>
   import { onMount } from 'svelte';
-  import { Button, GradientButton, ButtonGroup } from 'flowbite-svelte';
+  import { Button, GradientButton, ButtonGroup, } from 'flowbite-svelte';
   import * as XLSX from 'xlsx';
 
   let isSpreadsheetOpen = false;
   let rowData = [];
-  let numRows = 3;
+  let numRows = 8;
   let numCols = 11;
   let selectedCell = null;
 
