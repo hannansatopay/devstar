@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Zone Converter</title>
+    <style>
+        body 
+        {
+            font-family: Franklin Gothic Medium, sans-serif;
+            background-color: #f4f4f4;
+            background-size: 1200px;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #title 
+        {
+            text-align: center;
+            color: #00a8f7ea;
+            text-shadow: rgba(0, 112, 139, 0.37);
+            padding: 20px 0;
+        }
+
+        .container 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .rect1, .rect2 {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 112, 139, 0.37);
+            padding: 20px;
+            height: 100px;
+            width: 300px;
+            margin: 10px;
+        }
+
+        select 
+        {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h3 
+        {
+            color: #ffffff;
+        }
+
+        .select-container 
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .shape1
+        {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 112, 139, 0.37);
+            padding: 20px;
+            height: 50px;
+            width: 665px;
+            margin: 10px;
+        }
+
+        .shape2
+        {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 133, 167, 0.37);
+            padding: 20px;
+            height: 100px;
+            width: 665px;
+            margin: 10px;
+        }
+
+        #datetime
+        {
+            width: 70%;
+            padding-block: 15px;
+            float: right; 
+            margin-right: 2%;
+            border: 1px solid #ccc;
+            font-size: large;
+        }
+
+        #convert
+        {
+            width: 710px;
+            padding-block: 15px;
+            color: #ffffff;
+            background: #00a8f7ea;
+            border: 1px solid #9ce7fa;
+            font-size: large;
+            border-radius: 10px;
+        }
+
+        div
+        {
+            margin-top: auto;
+            height: 100px;
+        }
+    </style>
+</head>
+<body background="world.png">
+    <h1 id="title">Time Zone Converter</h1>
+    <div class="container">
+        <div class="shape1">
+            <div style="flex-direction: row;">
+                <h3 style="float: left; margin-left: 2%;">Select Date</h3>
+                <input id="datetime" type="datetime-local">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="rect1">
+            <h3>Select Source Time</h3>
+            <div class="select-container">
+                <select name="source-timezone" id="source-timezone">
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">New York</option>
+                    <option value="America/Los_Angeles">Los Angeles</option>
+                    <option value="Europe/London">London</option>
+                    <option value="Europe/Paris">Paris</option>
+                    <option value="Asia/Tokyo">Tokyo</option>
+                </select>
+            </div>
+        </div>
+        <div class="rect2">
+            <h3>Select Target Time</h3>
+            <div class="select-container">
+                <select name="target-timezone" id="target-timezone">
+                    <option value="UTC">UTC</option>
+                    <option value="America/New_York">New York</option>
+                    <option value="America/Los_Angeles">Los Angeles</option>
+                    <option value="Europe/London">London</option>
+                    <option value="Europe/Paris">Paris</option>
+                    <option value="Asia/Tokyo">Tokyo</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+            <div style="flex-direction: row;">
+                <button id="convert" type="button" style="font-size: x-large;" onclick="convertTimezone()"><b>Convert</b></button>
+            </div>
+    </div>
+    <div class="container">
+        <div class="shape2">
+            <p><h3 style="text-align: center; font-size: x-large; margin-top: 2%;"><u>Converted Time</u></h3></p>
+            <div id="converted-time" style="color: #ffffff; font-size: medium;"></div>
+        </div>
+    </div>
+
+
+    <script>
+        function convertTimezone() {
+            const datetimeInput = document.getElementById("datetime");
+            const sourceTimezoneInput = document.getElementById("source-timezone");
+            const targetTimezoneInput = document.getElementById("target-timezone");
+            const convertedTimeDisplay = document.getElementById("converted-time");
+
+            const datetimeValue = new Date(datetimeInput.value);
+            const sourceTimezone = sourceTimezoneInput.value;
+            const targetTimezone = targetTimezoneInput.value;
+
+            const options = {
+                timeZone: sourceTimezone,
+                hour12: false,
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            };
+
+            const sourceTime = datetimeValue.toLocaleTimeString("en-US", options);
+
+            options.timeZone = targetTimezone;
+            const targetTime = datetimeValue.toLocaleTimeString("en-US", options);
+
+            convertedTimeDisplay.textContent = `Source Time (${sourceTimezone}): ${sourceTime}, Target Time (${targetTimezone}): ${targetTime}`;
+        }
+    </script>
+</body>
+</html>
