@@ -136,3 +136,6 @@
 .icon-text-size:before {
   content: "\e912";
 }
+.icon-tts:before {
+  content: "\e91e";
+}
