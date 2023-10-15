@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { Label, Select, Tooltip, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { 
+		Label, 
+		Tooltip, 
+		Button, 
+		Dropdown, 
+		DropdownItem 
+	} from 'flowbite-svelte';
 
 	import {
 		FolderOpenSolid,
@@ -63,15 +69,15 @@
 
 	function formatJSON() {
 		try {
-			let parsedData = JSON.parse(inputTextAreaContent);
-			let formattedJSON = JSON.stringify(parsedData, null, spaceoption);
+			let inputJSON = inputTextAreaContent;
+			let parsedJSON = JSON.parse(inputJSON);
+			let formattedJSON = JSON.stringify(parsedJSON, null, spaceoption);
 			outputTextAreaContent = formattedJSON;
 		} catch (error) {
 			let formattedJSON = 'Invalid JSON';
 			outputTextAreaContent = formattedJSON;
-      
-   }
-  }
+		}
+  	}
 
 	function validateJSON() {
 		try {
@@ -80,10 +86,8 @@
 			alert('Valid JSON');
 		} catch (error) {
 			alert('Invalid JSON input: ' + error.message);
-
 		}
-  }
-
+  	}
 
 	function minifyXML() {
 		let inputXML = inputTextAreaContent;
@@ -96,8 +100,9 @@
 
 	function minifyJSON() {
 		try {
-			let parsedData = JSON.parse(inputTextAreaContent);
-			let minifiedJSON = JSON.stringify(parsedData);
+			let inputJSON = inputTextAreaContent;
+			let parsedJSON = JSON.parse(inputJSON);
+			let minifiedJSON = JSON.stringify(parsedJSON);
 			outputTextAreaContent = minifiedJSON;
 		} catch (error) {
 			let minifiedJSON = 'Invalid JSON';
@@ -106,10 +111,12 @@
 	}
 
 	function minifyHTML() {
+
 		
   let inputHTML = inputTextAreaContent;
   let minifiedHTML = inputHTML.replace(/>\s+</g, '><').trim();
   outputTextAreaContent = minifiedHTML;
+
 	}
 
 	function sampleHTML() {
@@ -138,31 +145,29 @@
 
 	function sampleJSON() {
 		let samplejson = `{
-    "glossary": {
-      "title": "example glossary",
-      "GlossDiv": {
-        "title": "S",
-        "GlossList": {
-          "GlossEntry": {
-            "ID": "SGML",
-            "SortAs": "SGML",
-            "GlossTerm": "Standard Generalized Markup Language",
-            "Acronym": "SGML",
-            "Abbrev": "ISO 8879:1986",
-            "GlossDef": {
-              "para": "A meta-markup language, used to create markup languages such as DocBook.",
-              "GlossSeeAlso": ["GML", "XML"]
-            },
-            "GlossSee": "markup"
-          }
-        }
-      }
-    }
-  }`;
-
+			"glossary": {
+			"title": "example glossary",
+			"GlossDiv": {
+				"title": "S",
+				"GlossList": {
+				"GlossEntry": {
+					"ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+					"para": "A meta-markup language, used to create markup languages such as DocBook.",
+					"GlossSeeAlso": ["GML", "XML"]
+					},
+					"GlossSee": "markup"
+				}
+				}
+			}
+			}
+		}`;
 		inputTextAreaContent = samplejson;
 	}
-
 
 	function findLineColumnIndex() {
 		let textLines = inputTextAreaContent.substring(0, inputTextArea.selectionStart).split('\n');
@@ -205,9 +210,8 @@
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<div class="py-8 px-4 mx-auto max-w-screen" >
-		<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
-
+<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
+	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
