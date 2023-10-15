@@ -1,10 +1,11 @@
 <script>
 	import { Button, GradientButton, ButtonGroup } from 'flowbite-svelte';
 
-	let isSpreadsheetOpen = false;
-	let rowData = []; // To store user-entered data
-  let numRows = 3;
-  let numCols = 11;
+let isSpreadsheetOpen = false;
+let rowData = []; // To store user-entered data
+let numRows = 2;
+let numCols = 2;
+let index = 1;
 
 	function toggleSpreadsheet() {
 		isSpreadsheetOpen = !isSpreadsheetOpen;
@@ -50,6 +51,18 @@
 	function addColumn() {
 		numCols++;
 	}
+
+	function getColumnName(index) {
+		if (index < 26) {
+			// A to Z
+			return String.fromCharCode(65 + index);
+		} else {
+			// After Z, A1, A2, A3...
+			let firstChar = String.fromCharCode(65 + Math.floor(index / 26) - 1);
+			let secondChar = String.fromCharCode(65 + (index % 26));
+			return `${firstChar}${secondChar}`;
+		}
+	}
 </script>
 
 <main>
@@ -85,7 +98,7 @@
 					<tr>
 						<th class="describers" />
 						{#each Array(numCols) as _, i}
-							<th class="content describers">{String.fromCharCode(65 + i)}</th>
+							<th class="content describers">{getColumnName(i)}</th>
 						{/each}
 					</tr>
 				</thead>
