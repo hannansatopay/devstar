@@ -65,3 +65,12 @@
   margin-left: 0;
   margin-right: 0;
 }
+
+.editor code {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.editor ul {
+  margin-left: 2rem;
+  list-style: disc;
+}
