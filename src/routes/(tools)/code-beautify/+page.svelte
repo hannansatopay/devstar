@@ -42,8 +42,8 @@
 	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
-	let spaceoption = 4;
-	let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	// let spaceoption = 4;
+	// let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	function formatXML() {
 		let inputXML = inputTextAreaContent;
@@ -67,7 +67,7 @@
 		try {
 			let inputJSON = inputTextAreaContent;
 			let parsedJSON = JSON.parse(inputJSON);
-			let formattedJSON = JSON.stringify(parsedJSON, null, spaceoption);
+			let formattedJSON = JSON.stringify(parsedJSON, null, 4);
 			outputTextAreaContent = formattedJSON;
 		} catch (error) {
 			let formattedJSON = 'Invalid JSON';
@@ -357,7 +357,7 @@
 						<span class="sr-only">Download {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
-					<label for="dropdown" class="text-white">Space:</label>
+					<!-- <label for="dropdown" class="text-white">Space:</label>
 					<select
 						id="dropdown"
 						class="text-white rounded cursor-pointer dark:bg-gray-700 dark:border-gray-600"
@@ -366,7 +366,7 @@
 						{#each Tabs as option (option)}
 							<option value={option}>{option} Tabs</option>
 						{/each}
-					</select>
+					</select> -->
 				</div>
 			</div>
 			<button
