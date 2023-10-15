@@ -79,5 +79,3 @@
 	  <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
 	</FooterLinkGroup>
 </Footer>
-
-<!-- End -->
