@@ -37,10 +37,23 @@
 	async function fetchSSLData() {
 		isLoading = true;
 		error = null;
+
+		// Reset the sslInfo object when starting a new search
+		sslInfo = {
+			chain: [],
+			commonName: '',
+			issuer: '',
+			location: '',
+			organization: '',
+			serialNumber: '',
+			signatureAlgorithm: '',
+			validFrom: '',
+			validTo: '',
+			ipAddress: ''
+		};
+
 		try {
-			const response = await fetch(
-				`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`
-			);
+			const response = await fetch(`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`);
 			const result = await response.json();
 			if (response.ok && result) {
 				sslInfo = result;
@@ -125,70 +138,75 @@
 </script>
 
 <section class="bg-white dark:bg-gray-900 min-h-screen flex items-center">
-    <div class="container mx-auto py-8 px-4">
-        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
-            <div class="mb-4">
-                <input bind:value={hostname} placeholder="Server Hostname" class="p-2 w-full rounded-md border dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300" />
-            </div>
-            <div class="mb-4">
-                <button on:click={handleCheckSSL} class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md">
-                    Check SSL
-                </button>
-            </div>
-            {#if error}
-                <div class="text-red-500 mb-4">{error}</div>
-            {/if}
-            {#if isLoading}
-                <div class="flex justify-center items-center h-40">
-                    <Spinner color="blue" />
-                </div>
-            {:else if sslInfo.commonName}
-                <div class="bg-gray-700 p-6 rounded-md text-white shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <img src="/server-ok.png" alt="Server OK" class="h-12 w-12 mr-4" />
-                        <div>
-                            <h2 class="text-2xl font-bold mb-2">{sslInfo.commonName}</h2>
-                            <p class="mb-1">{sslInfo.commonName} resolves to {sslInfo.ipAddress}</p>
-                            <p class="mb-1">Certificate expires in {calculateDaysToExpiry(sslInfo.validTo)} days</p>
-                            <p>Hostname is correctly listed in the certificate: {isHostnameListed() ? 'Yes' : 'No'}</p>
-                        </div>
-                    </div>
-                    {#each sslInfo.chain as chainItem, index}
-                        <div class="p-4 border-t border-gray-600">
-                            <h3 class="text-blue-400 mb-2">Chain {index + 1}</h3>
-                            <p class="mb-1"><span class="font-semibold">Common Name:</span> {chainItem.commonName}</p>
-                            <p class="mb-1"><span class="font-semibold">Organization:</span> {chainItem.organization}</p>
-                            <p class="mb-1"><span class="font-semibold">Location:</span> {chainItem.location}</p>
-                            <p class="mb-1"><span class="font-semibold">Valid From:</span> {formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}</p>
-                            <p class="mb-1"><span class="font-semibold">Serial Number:</span> {chainItem.serialNumber}</p>
-                            <p class="mb-1"><span class="font-semibold">Signature Algorithm:</span> {chainItem.signatureAlgorithm}</p>
-                            <p><span class="font-semibold">Issuer:</span> {chainItem.issuer}</p>
-                        </div>
-                    {/each}
-                </div>
-            {/if}
-        </div>
-    </div>
+	<div class="container mx-auto py-8 px-4">
+		<div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
+			<div class="mb-4">
+				<input
+					bind:value={hostname}
+					placeholder="Server Hostname"
+					class="p-2 w-full rounded-md border dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+				/>
+			</div>
+			<div class="mb-4">
+				<button
+					on:click={handleCheckSSL}
+					class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md"
+				>
+					Check SSL
+				</button>
+			</div>
+			{#if error}
+				<div class="text-red-500 mb-4">{error}</div>
+			{/if}
+			{#if isLoading}
+				<div class="flex justify-center items-center h-40">
+					<Spinner color="blue" />
+				</div>
+			{:else if sslInfo.commonName}
+				<div class="bg-gray-700 p-6 rounded-md text-white shadow-lg">
+					<div class="flex items-center mb-4">
+						<img src="/server-ok.png" alt="Server OK" class="h-12 w-12 mr-4" />
+						<div>
+							<h2 class="text-2xl font-bold mb-2">{sslInfo.commonName}</h2>
+							<p class="mb-1">{sslInfo.commonName} resolves to {sslInfo.ipAddress}</p>
+							<p class="mb-1">
+								Certificate expires in {calculateDaysToExpiry(sslInfo.validTo)} days
+							</p>
+							<p>
+								Hostname is correctly listed in the certificate: {isHostnameListed() ? 'Yes' : 'No'}
+							</p>
+						</div>
+					</div>
+					{#each sslInfo.chain as chainItem, index}
+						<div class="p-4 border-t border-gray-600">
+							<img src="/chain-ok.png" alt="Server OK" class="h-12 w-12 mr-4" />
+							<h3 class="text-blue-400 mb-2">Chain {index + 1}</h3>
+							<p class="mb-1">
+								<span class="font-semibold">Common Name:</span>
+								{chainItem.commonName}
+							</p>
+							<p class="mb-1">
+								<span class="font-semibold">Organization:</span>
+								{chainItem.organization}
+							</p>
+							<p class="mb-1"><span class="font-semibold">Location:</span> {chainItem.location}</p>
+							<p class="mb-1">
+								<span class="font-semibold">Valid From:</span>
+								{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}
+							</p>
+							<p class="mb-1">
+								<span class="font-semibold">Serial Number:</span>
+								{chainItem.serialNumber}
+							</p>
+							<p class="mb-1">
+								<span class="font-semibold">Signature Algorithm:</span>
+								{chainItem.signatureAlgorithm}
+							</p>
+							<p><span class="font-semibold">Issuer:</span> {chainItem.issuer}</p>
+						</div>
+					{/each}
+				</div>
+			{/if}
+		</div>
+	</div>
 </section>
-
-
-<style>
-	/* Add the necessary styles here */
-	.ssl-container {
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	}
-
-	.ssl-section:first-child {
-		border-top: none;
-	}
-
-	.ssl-section {
-		border-top: 1px solid #e0e0e0;
-	}
-
-	.ssl-logo {
-		width: 40px;
-		height: 40px;
-		background-size: cover;
-	}
-</style>
