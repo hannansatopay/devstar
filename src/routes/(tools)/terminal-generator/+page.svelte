@@ -380,14 +380,6 @@
     	align-items: center;
 	}
 
-	.body {
-    background: #000;
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	}
-
 /* 
 	.code-editor {
 		height: 400px;
