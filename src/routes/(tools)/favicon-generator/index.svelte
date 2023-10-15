@@ -14,7 +14,7 @@
       utilizing popular emojis to represent your site. With these converters at your disposal, you can effortlessly 
       generate eye-catching and unique favicons to enhance your web presence and make your site more memorable.
     </p>
-  jhn
+
     <div class="container">
       <div class="convbuttons">
         <button class="pngbutton" >PNG to ICO</button>
