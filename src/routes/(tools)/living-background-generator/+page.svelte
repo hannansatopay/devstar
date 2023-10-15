@@ -2,7 +2,6 @@
 	import Intro from '$lib/Intro.svelte';
 	import { Label, Input, Range, Radio, Checkbox } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
-	import { tools } from '../../tools';
 	import Copy from '$lib/Copy.svelte';
 
 	export let data;
