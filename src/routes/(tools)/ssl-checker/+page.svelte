@@ -38,7 +38,9 @@
 		isLoading = true;
 		error = null;
 		try {
-			const response = await fetch(`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`);
+			const response = await fetch(
+				`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`
+			);
 			const result = await response.json();
 			if (response.ok && result) {
 				sslInfo = result;
@@ -54,6 +56,7 @@
 	}
 
 	function handleCheckSSL() {
+		hostname = cleanInputURL(hostname);
 		fetchSSLData();
 	}
 
@@ -98,6 +101,22 @@
 
 		// Now you can format the date any way you'd like. Here's one way:
 		return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+	}
+
+	function cleanInputURL(url: string) {
+		// Remove http:// or https://
+		let cleaned = url.replace(/^https?:\/\//, '');
+
+		// Remove any routes or extra slashes
+		cleaned = cleaned.split('/')[0];
+
+		// Remove subdomains, keeping only the domain and TLD
+		const parts = cleaned.split('.');
+		if (parts.length > 2) {
+			cleaned = parts.slice(-2).join('.');
+		}
+
+		return cleaned;
 	}
 
 	function isHostnameListed(): boolean {
