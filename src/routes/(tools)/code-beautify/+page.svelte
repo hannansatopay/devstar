@@ -1,11 +1,5 @@
 <script lang="ts">
-	import { 
-		Label, 
-		Tooltip, 
-		Button, 
-		Dropdown, 
-		DropdownItem 
-	} from 'flowbite-svelte';
+	import { Label, Tooltip, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 
 	import {
 		FolderOpenSolid,
@@ -60,8 +54,7 @@
 		let inputHTML = inputTextAreaContent;
 		let formattedHTML = prettify(inputHTML);
 		outputTextAreaContent = formattedHTML;
-
-		}
+	}
 
 	function formatJSON() {
 		try {
@@ -73,7 +66,7 @@
 			let formattedJSON = 'Invalid JSON';
 			outputTextAreaContent = formattedJSON;
 		}
-  	}
+	}
 
 	function validateJSON() {
 		try {
@@ -83,7 +76,7 @@
 		} catch (error: any) {
 			alert('Invalid JSON input: ' + error.message);
 		}
-  	}
+	}
 
 	function minifyXML() {
 		let inputXML = inputTextAreaContent;
@@ -159,14 +152,13 @@
 
 	function findLineColumnIndex(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
-		
+
 		if (textAreaType === 'input') {
 			const startPos = inputTextArea.selectionStart;
 			const textLines = inputTextAreaContent.substring(0, startPos).split('\n');
 			inputTextAreaLnIndex = textLines.length;
 			inputTextAreaColIndex = textLines[textLines.length - 1].length;
-		}
-		else if (textAreaType === 'output')	{
+		} else if (textAreaType === 'output') {
 			const startPos = outputTextArea.selectionStart;
 			const textLines = outputTextAreaContent.substring(0, startPos).split('\n');
 			outputTextAreaLnIndex = textLines.length;
@@ -176,36 +168,40 @@
 
 	function findSize(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
-		
+
 		if (textAreaType === 'input') {
 			inputTextAreaSize = inputTextAreaContent.length;
-		}
-		else if (textAreaType === 'output')	{
+		} else if (textAreaType === 'output') {
 			outputTextAreaSize = outputTextAreaContent.length;
 		}
 	}
 
 	function allowTabIndentation(event: any) {
 		if (event.key === 'Tab') {
-			event.preventDefault()
+			event.preventDefault();
 
 			let textAreaType = event.target.getAttribute('data-text-area-type');
 			if (textAreaType === 'input') {
 				const startPos = inputTextArea.selectionStart;
-    			const endPos = inputTextArea.selectionEnd;
-        		inputTextAreaContent = inputTextAreaContent.substring(0, startPos) + '    ' + inputTextAreaContent.substring(endPos);
-        
-        		inputTextArea.value = inputTextAreaContent;
+				const endPos = inputTextArea.selectionEnd;
+				inputTextAreaContent =
+					inputTextAreaContent.substring(0, startPos) +
+					'    ' +
+					inputTextAreaContent.substring(endPos);
+
+				inputTextArea.value = inputTextAreaContent;
 
 				inputTextArea.selectionStart = startPos + 4;
 				inputTextArea.selectionEnd = startPos + 4;
-			}
-			else if (textAreaType === 'output') {
+			} else if (textAreaType === 'output') {
 				const startPos = outputTextArea.selectionStart;
-    			const endPos = outputTextArea.selectionEnd;
-        		outputTextAreaContent = outputTextAreaContent.substring(0, startPos) + '    ' + outputTextAreaContent.substring(endPos);
-        
-        		outputTextArea.value = outputTextAreaContent;
+				const endPos = outputTextArea.selectionEnd;
+				outputTextAreaContent =
+					outputTextAreaContent.substring(0, startPos) +
+					'    ' +
+					outputTextAreaContent.substring(endPos);
+
+				outputTextArea.value = outputTextAreaContent;
 
 				outputTextArea.selectionStart = startPos + 4;
 				outputTextArea.selectionEnd = startPos + 4;
@@ -214,37 +210,82 @@
 	}
 
 	function format() {
-		if (type === 'XML') 
-			formatXML();
-		else if (type === 'JSON') 
-			formatJSON();
-		else if (type === 'HTML') 
-			formatHTML();
+		if (type === 'XML') formatXML();
+		else if (type === 'JSON') formatJSON();
+		else if (type === 'HTML') formatHTML();
 	}
 
 	function minify() {
-		if (type === 'XML') 
-			minifyXML();
-		else if (type === 'JSON') 
-			minifyJSON();
-		else if (type === 'HTML') 
-			minifyHTML();
+		if (type === 'XML') minifyXML();
+		else if (type === 'JSON') minifyJSON();
+		else if (type === 'HTML') minifyHTML();
 	}
 
 	function sampleCode() {
-		if (type === 'XML') 
-			sampleXML();
-		else if (type === 'JSON') 
-			sampleJSON();
-		else if (type === 'HTML') 
-			sampleHTML();
+		if (type === 'XML') sampleXML();
+		else if (type === 'JSON') sampleJSON();
+		else if (type === 'HTML') sampleHTML();
 	}
+	// delete functionality
+	const clearContent = () => {
+		inputTextAreaContent = '';
+		outputTextAreaContent = '';
+	};
+
+	// download functionality
+	const downloadFile = () => {
+		const element = document.createElement('a');
+		let fileExtension;
+		let fileName;
+		let fileType;
+
+		if (type === 'JSON') {
+			fileExtension = 'json';
+			fileName = 'output.json';
+			fileType = 'application/json';
+		} else if (type === 'XML') {
+			fileExtension = 'xml';
+			fileName = 'output.xml';
+			fileType = 'application/xml';
+		} else if (type === 'HTML') {
+			fileExtension = 'html';
+			fileName = 'output.html';
+			fileType = 'text/html';
+		} else {
+			fileExtension = 'txt';
+			fileName = 'output.txt';
+			fileType = 'text/plain';
+		}
+
+		const file = new Blob([outputTextAreaContent], { type: fileType });
+		element.href = URL.createObjectURL(file);
+		element.download = fileName;
+		document.body.appendChild(element);
+		element.click();
+		document.body.removeChild(element);
+	};
+	// file upload
+	const handleFileUpload = (event) => {
+		const file = event.target.files[0];
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const contents = e.target.result;
+			inputTextAreaContent = contents;
+		};
+		reader.readAsText(file);
+	};
+	// print functionality
+	const printContent = () => {
+		window.print();
+	};
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
+	<div
+		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
+	>
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
@@ -255,37 +296,46 @@
 						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
 					>
 					<Dropdown bind:open={dropdownOpen}>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'JSON';
-						}}>JSON Formatter</DropdownItem
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'JSON';
+							}}>JSON Formatter</DropdownItem
 						>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'XML';
-						}}>XML Formatter</DropdownItem
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'XML';
+							}}>XML Formatter</DropdownItem
 						>
-						<DropdownItem on:click={() => {
-							dropdownOpen = false;
-							type = 'HTML';
-						}}>HTML Formatter</DropdownItem
+						<DropdownItem
+							on:click={() => {
+								dropdownOpen = false;
+								type = 'HTML';
+							}}>HTML Formatter</DropdownItem
 						>
 					</Dropdown>
 
 					<button
 						type="button"
-						data-text-area-type='input'
-						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600" 
-						on:click={sampleCode} 
-						on:click={findSize}>
+						data-text-area-type="input"
+						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={sampleCode}
+						on:click={findSize}
+					>
 						Sample
 						<span class="sr-only">Sample {type} Data</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Sample {type} Data</Tooltip>
+					<input type="file" id="fileInput" class="hidden" on:change={handleFileUpload} />
 
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={() => {
+							const input = document.getElementById('fileInput');
+							input.click();
+						}}
 					>
 						<FolderOpenSolid size="sm" />
 						<span class="sr-only">Upload File</span>
@@ -324,6 +374,7 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={printContent}
 					>
 						<PrintSolid size="sm" />
 						<span class="sr-only">Print {type}</span>
@@ -333,11 +384,12 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={clearContent}
 					>
 						<TrashBinSolid size="sm" />
-						<span class="sr-only">Delete {type}</span>
+						<span class="sr-only">Delete Content</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Delete {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Delete Content</Tooltip>
 
 					<button
 						type="button"
@@ -352,11 +404,13 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						on:click={downloadFile}
 					>
 						<DownloadSolid size="sm" />
 						<span class="sr-only">Download {type}</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
+
 					<!-- <label for="dropdown" class="text-white">Space:</label>
 					<select
 						id="dropdown"
@@ -402,19 +456,21 @@
 		</div>
 	</div>
 
-	<Button 
+	<Button
 		color="blue"
 		class="mr-1"
-		data-text-area-type='output'
+		data-text-area-type="output"
 		on:click={format}
-		on:click={findSize}>Beautify
+		on:click={findSize}
+		>Beautify
 	</Button>
-	<Button 
-		color="blue" 
-		class="ml-1" 
-		data-text-area-type='output'
+	<Button
+		color="blue"
+		class="ml-1"
+		data-text-area-type="output"
 		on:click={minify}
-		on:click={findSize}>Minify
+		on:click={findSize}
+		>Minify
 	</Button>
 
 	<div
