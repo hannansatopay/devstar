@@ -231,7 +231,7 @@
 			minifyHTML();
 	}
 
-	function sample() {
+	function sampleCode() {
 		if (type === 'XML') 
 			sampleXML();
 		else if (type === 'JSON') 
@@ -274,7 +274,11 @@
 
 					<button
 						type="button"
-						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"on:click={sample}>Sample
+						data-text-area-type='input'
+						class="px-2 py-1 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600" 
+						on:click={sampleCode} 
+						on:click={findSize}>
+						Sample
 						<span class="sr-only">Sample {type} Data</span>
 					</button>
 					<Tooltip color="blue" arrow={false}>Sample {type} Data</Tooltip>
@@ -399,8 +403,20 @@
 		</div>
 	</div>
 
-	<Button color="blue" class="mr-1" on:click={format}>Beautify</Button>
-	<Button color="blue" class="ml-1" on:click={minify}>Minify</Button>
+	<Button 
+		color="blue"
+		class="mr-1"
+		data-text-area-type='input'
+		on:click={format}
+		on:click={findSize}>Beautify
+	</Button>
+	<Button 
+		color="blue" 
+		class="ml-1" 
+		data-text-area-type='output'
+		on:click={minify}
+		on:click={findSize}>Minify
+	</Button>
 
 	<div
 		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
