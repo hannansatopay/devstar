@@ -99,6 +99,6 @@ export let tools = {
         name: 'Online Spreadsheet',
         icon: 'files',
         link: '/online-spreadsheet',
-        description: "Attention, Web Devs! Are you ready to Supercharge your Productivity and Streamline your Web Development Projects like never before? Our Online Spreadsheet tool is your Secret Weapon in the Ever-Evolving World of Web Development. With it's User-Friendly Interface and Powerful Features, It Empowers you to Effortlessly Manage Data, Track Project Milestones and much more. Don't wait any longer; Harness the Power of our Online Spreadsheets and Take your Web Development Projects to the Next Level Today!"
+        description: "Attention, Devs! Are you ready to Supercharge your Productivity and Streamline your Development Projects like never before? Our Online Spreadsheet tool is your Secret Weapon in this Ever-Evolving World of Development. With it's User-Friendly Interface, It Empowers you to Effortlessly Manage Data, Track Project Milestones and much more. Don't wait any longer; Harness the Power of our Online Spreadsheets and Take your Development Projects to the Next Level Today!"
     }
 };
