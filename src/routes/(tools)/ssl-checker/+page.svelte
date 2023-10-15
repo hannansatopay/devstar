@@ -65,7 +65,7 @@
 		} catch (err) {
 			console.error('Error fetching SSL data:', err);
 			error =
-				'We could&apos;t reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.';
+				"We couldn't reslove the IP address of your domain or your domain is using a deprecated version of SSL. Please update your DNS and SSL Certificate to the latest version.";
 		} finally {
 			isLoading = false;
 		}
