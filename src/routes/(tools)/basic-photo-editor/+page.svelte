@@ -4,75 +4,52 @@
 <script lang="ts">
   import Intro from '$lib/Intro.svelte';
   import { onMount } from 'svelte'
+  import { Fileupload, Label, Helper } from 'flowbite-svelte';
+  import '@pqina/pintura/pintura.css';
+  import { getEditorDefaults } from '@pqina/pintura';
+  import { PinturaEditor } from '@pqina/svelte-pintura';
+  let uploadedImageSrc = null; // Store the uploaded image source
+  let editedImageSrc = null;
   export let data;
 
-  let imageSrc = '';
-  let downloadLink = '';
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        imageSrc = e.target.result;
-        downloadLink = imageSrc;
-      };
-      reader.readAsDataURL(file);
+  
+
+  function handleFileUpload(event) {
+    const uploadedFile = event.target.files[0];
+    if (uploadedFile) {
+      uploadedImageSrc = URL.createObjectURL(uploadedFile);
     }
-  };
+  }
 
-  const downloadImage = () => {
-    const a = document.createElement('a');
-    a.href = downloadLink;
-    a.download = 'image.png';
-    a.click();
-  };
+
+
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 
-<div class="image-editor">
-  <div class="image-input">
-    <input type="file" accept="image/*" on:change={handleImageUpload} />
-    <button class="download-button" on:click={downloadImage}>Download</button>
-  </div>
-  {#if imageSrc}
-    <div class="image-preview-container">
-      <img src={imageSrc} alt="Uploaded Image" class="image-preview" />
-    </div>
-  {/if}
-</div>
+  <Intro heading={data.meta.title} description={data.meta.description} />
 
-<style>
-  .image-editor {
-    text-align: center;
-  }
 
-  .image-input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+  
 
-  .download-button {
-    margin-left: 20px;
-    color: white;
-    background-color: grey;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
+    
+      <Label for="with_helper" class="pb-2">Upload file</Label>
+      <Fileupload id="with_helper" class="mb-2" on:change={handleFileUpload} />
+       <div class="flex justify-center">
+     </div>
+        <Helper>SVG, PNG, JPG or GIF (MAX. 800x400px).</Helper>
+		
+      
+        <div style="height:80vh">
+          <PinturaEditor
+          {...getEditorDefaults()}
+          src={uploadedImageSrc}
+          />
+          </div>
+          <!-- Download Button -->
+          <button on:click={saveEditedImage}>Download Edited Image</button>
 
-  .image-preview-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px; /* Set a fixed height */
-  }
-
-  .image-preview {
-    max-width: 100%;
-    max-height: 100%;
-  }
-</style>
+          <!-- Provide a download link -->
+          {#if editedImageSrc}
+          <a href={editedImageSrc} download="edited_image.jpg">Download Edited Image</a>
+          {/if}

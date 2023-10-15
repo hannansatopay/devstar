@@ -96,8 +96,8 @@ export let tools = {
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
     'basic-photo-editor': {
-        name: 'basic-photo-editor',
-        icon: 'photo-editor',
+        name: 'Basic Photo Editor',
+        icon: ' ',
         link: '/basic-photo-editor',
         description: "The Basic Photo Editor is a simple tool that enables developers to perform basic image editing operations, such as cropping, resizing, and rotating. This tool provides a user-friendly interface to upload images and apply various transformations to them. Integrate this tool into your applications to enable users to perform basic image editing operations effortlessly."
     }
