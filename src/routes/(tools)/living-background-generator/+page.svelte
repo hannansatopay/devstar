@@ -27,6 +27,8 @@
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
+	//remove the div on click
+
 	const removeOnClick = (e) => {
 		clrList = clrList.filter((x, y) => x !== e.target.id);
 		console.log(e.target.id);
@@ -98,6 +100,8 @@
 		alert('Copied the styles');
 	};
 
+	// function for the Random button
+
 	const changeGradient = () => {
 		isRandom = !isRandom;
 
@@ -113,6 +117,19 @@
 		}
 		return color;
 	}
+
+	// A flag to toggle between linear and radial gradients
+	let isLinearGradient = true;
+
+	const toggleGradientType = () => {
+		isLinearGradient = !isLinearGradient;
+	};
+
+	$: bgGradient = isLinearGradient
+		? clrList.length > 1
+			? `background-image: linear-gradient(${angle}deg, ${clrList});`
+			: `background-color: ${clrList};`
+		: `background-image: radial-gradient(circle, ${clrList});`;
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -136,7 +153,7 @@
 						id={`${clrList[i]}`}
 					>
 						<svg
-							class="cross w-[12px] h-[12px] text-gray-800"
+							class="cross w-[12px] h-[12px] text-gray-500"
 							aria-hidden="true"
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
@@ -186,7 +203,13 @@
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
 					<br />
-					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={toggleGradientType}>
+						{#if isLinearGradient}
+							Use Radial Gradient
+						{:else}
+							Use Linear Gradient
+						{/if}
+					</button>
 				</div>
 
 				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
@@ -225,10 +248,29 @@
 </section>
 
 <style>
+	/* Add a hover effect to your buttons */
 	button {
 		background-color: #b8dbd9;
 		color: #2f4550;
+		transition: background-color 0.3s ease;
+		cursor: pointer;
 	}
+
+	button::after {
+		background: rgba(0, 0, 0, 0);
+		color: #b8dbd9;
+		transition: all 0.3s ease;
+	}
+
+	button:hover {
+		color: #b8dbd9;
+		background-color: black;
+	}
+
+	button:hover::after {
+		background: rgba(184, 219, 217, 0.3);
+	}
+
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
