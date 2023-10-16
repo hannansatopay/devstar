@@ -1,0 +1,24 @@
+<div class="calcContainer">
+    <div class="calcSub">
+      <div class="calcHeading">Calculate your Monthly Payment</div>
+      <div>
+        <form action="#" name="mortgage_calculator">
+        <input type="text" class="calcInput" id="inCost" placeholder="Loan Amount (₹)" />
+  
+  
+        <input type="text" class="calcInput" id="inDown" placeholder="Down Payment (₹)" />
+  
+  
+        <input type="text" class="calcInput" id="inInterest" placeholder="Interest (%)" />
+  
+  
+        <input type="text" class="calcInput" id="inTerm" placeholder="Length of Loan (years)" />
+      </div>
+      <p>
+        <button type="button" class="calcButton" id="btnCalculate">Calculate</button></form>
+      </p>
+      <p class="calcAnswer"><b>Total Monthly Payment</b>:
+        <br/>
+        <br/><span id="outMonthly">Please enter the values above.</span></p>
+    </div>
+  </div>
