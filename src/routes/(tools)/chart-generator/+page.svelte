@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Chart from './Chart.svelte';
-	import Chart1 from './Chart.svelte';
 	import Intro from '$lib/Intro.svelte';
 	export let data;
 	export let arr;

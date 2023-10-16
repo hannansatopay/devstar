@@ -1,3 +1,4 @@
+
 <script>
 	import { onMount } from 'svelte';
 	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
@@ -5,11 +6,14 @@
 	import * as am5 from '@amcharts/amcharts5?client';
 	import * as am5xy from '@amcharts/amcharts5/xy?client';
 	import am5themes_Animated from '@amcharts/amcharts5/themes/Animated?client';
+	import * as am5plugins_exporting from "@amcharts/amcharts5/plugins/exporting?client";
+
 
 	let chartdiv;
 	let chart;
 	let data = [];
 	let chartWidth = '100%';
+	let exportFun;
 
 	function handleResize() {
 		if (window.innerWidth > 768) {
@@ -109,7 +113,18 @@
 		chart.appear(1000, 100);
 		updateChart();
 		window.addEventListener('resize', handleResize);
+
+		let exporting = am5plugins_exporting.Exporting.new(root, {
+		});
+
+		exportFun = exporting;
+
 	});
+
+	function downloadChart(){
+			exportFun.download("png");
+		}
+
 	function updateChart() {
 		if (chart) {
 			chart.xAxes.values[0].data.setAll(data);
@@ -118,6 +133,7 @@
 	}
 
 	function addData() {
+
 		const XaxisInput = document.querySelector('#XaxisInput').value;
 		const YaxisInput = parseFloat(document.querySelector('#YaxisInput').value);
 
@@ -134,6 +150,8 @@
 			document.querySelector('#YaxisInput').value = '';
 		}
 	}
+
+
 </script>
 
 <div
@@ -168,16 +186,22 @@
 
 		<div class="button-container">
 			<button
-				class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+				class="mt-4  bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
 				on:click={addData}
 			>
 				Add Data
 			</button>
 			<button
-				class="mt-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+				class="mt-4  bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
 				on:click={updateChart}
 			>
-				Update Data
+				Update Chart
+			</button>
+			<button
+				class="mt-4 text-xs bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+				on:click={downloadChart}
+			>
+				Download ⬇️
 			</button>
 		</div>
 
@@ -220,7 +244,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			width:  350px;
+			width: 350px;
 			height: 300px;
 		}
 		.button-container {
