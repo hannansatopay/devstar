@@ -50,6 +50,13 @@ export let tools = {
 		"Bridge the gap between human language and machine code effortlessly with our Hex to Text and Text to Hex Converter Tool. Input hexadecimal data, and convert it into readable text or input text and convert it into hexadecimal representation. Perfect for developers, cybersecurity experts, and tech enthusiasts dealing with binary data. Ensure seamless data conversion and integration into your projects."
 	},
 
+	'lorem-ipsum-generator': {
+		name: 'Lorem Ipsum Generator',
+		link: '/lorem-ipsum-generator',
+		description:
+		"Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content."
+	},
+
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
 		link: '/occurrence-counter',
@@ -146,6 +153,13 @@ export let tools = {
 		link: '/string-extraction',
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
+	},
+
+	'text-editor':{
+        name: 'Text Editor',
+        link: '/text-editor',
+        description: 
+		"Experience simplicity and functionality with our Text Editor – a user-friendly tool akin to a digital notepad. Input and edit text effortlessly, and choose from options to copy your content, download it as a plain text file, or generate a PDF document. Ideal for quick notes, drafts, or document creation on the go. Enjoy the convenience of basic text editing paired with essential export options, allowing you to save your work instantly or share it seamlessly. Embrace hassle-free text editing and effortless document management with our straightforward Text Editor."
 	},
 
 	'text-reversal':{
