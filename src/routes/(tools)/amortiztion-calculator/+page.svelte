@@ -11,6 +11,7 @@
     let payment:number;
     let totpayment:number;
     let print;
+    
     function amort(){
         term = year*12+month;
         var monthinterest=Number((interest/(100*12)));
