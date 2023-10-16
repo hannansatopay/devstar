@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.body{
+    background-color: rgb(238, 206, 166);
+}
+
+.shortText {
+    padding: 30px 0px;
+    text-align: center;
+}
+
+
+.img1{
+    float: right;
+}
+
+.img2{
+    float: left;
+}
+
+.img3{
+    float: right;
+}
+
+.clearfix {
+    overflow: auto;
+  }
+
+.grid-container h1{
+    margin: 25px 0;
+}
+
+.grid-container p{
+    margin: 10px 0;
+}

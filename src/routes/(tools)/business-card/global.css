@@ -1,0 +1,16 @@
+
+body {
+    margin: 0;
+    line-height: normal;
+  }
+  
+  :root {
+    /* fonts */
+    --font-inter: Inter;
+  
+    /* font sizes */
+    --font-size-xs: 12px;
+  
+    /* Colors */
+    --color-white: #fff;
+  }

@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>temp</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair Display:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Serif Display:wght@400&display=swap" />
+
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="#" width="30" height="30" class="d-inline-block align-top" alt="">
+            Bootstrap
+        </a>
+    </nav>
+
+    <!-- crousal -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Cardify</h1>
+            <p class="lead">Here Users can edit their business cards</p>
+        </div>
+    </div>
+
+    <!-- temp format -->
+    <div class="container data">
+        <form>
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInput">Business Name</label>
+                    <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Business Name">
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="inlineFormInputGroup">Keyword</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Keyword">
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- templates -->
+    <div class="container-fluid manageCol">
+        <!-- row1-->
+        <div class="row my-1">
+            <!-- card1 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <!-- temp code -->
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-news-cycle: "News Cycle";
+                            --font-playfair-display: "Playfair Display";
+                            --font-dm-serif-display: "DM Serif Display";
+
+                            /* font sizes */
+                            --font-size-5xs-1: 7.1px;
+                            --font-size-4xs-7: 8.7px;
+
+                            /* Colors */
+                            --color-olivedrab: #7ba02f;
+                            --color-white: #fff;
+
+                            /* Gaps */
+                            --gap-sm: 14px;
+                            --gap-0: 0px;
+
+                            /* Paddings */
+                            --padding-11xs: 2px;
+                        }
+
+                        .frame-icon {
+                            flex: 1;
+                            max-width: 100%;
+                            overflow: hidden;
+                            height: 200px;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+
+                        .icon {
+                            position: relative;
+                            width: 57.14px;
+                            height: 33.64px;
+                            object-fit: cover;
+                        }
+
+                        .vegan {
+                            margin: 0;
+                        }
+
+                        .for-wedding-birthday,
+                        .vegan-catering {
+                            position: relative;
+                            display: inline-block;
+                            flex-shrink: 0;
+                        }
+
+                        .vegan-catering {
+                            font-weight: 600;
+                            width: 158px;
+                            height: 68px;
+                        }
+
+                        .for-wedding-birthday {
+                            font-size: 7.14px;
+                            font-family: var(--font-news-cycle);
+                            color: #fffefe;
+                            width: 170.57px;
+                            height: 12.57px;
+                        }
+
+                        .frame {
+                            flex: 1;
+                            height: 163px;
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .frame-parent,
+                        .front2 {
+                            width: 300px;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                        }
+
+                        .front2 {
+                            position: relative;
+                            background-color: var(--color-olivedrab);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            width: 300px;
+                            overflow: hidden;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: 25.71px;
+                            color: var(--color-white);
+                            font-family: var(--font-playfair-display);
+                        }
+
+                        @media screen and (max-width: 1200px) {
+                            .frame-icon {
+                                width: 453px;
+                            }
+
+                            .front2 {
+                                height: 200px;
+                            }
+                        }
+
+                        @media screen and (max-width: 960px) {
+                            .frame-icon {
+                                height: 600px;
+                                align-items: center;
+                                justify-content: flex-start;
+                                padding-left: var(--padding-11xs);
+                                padding-right: var(--padding-11xs);
+                                box-sizing: border-box;
+                            }
+
+                            .front2 {
+                                gap: var(--gap-sm);
+                            }
+                        }
+
+                        @media screen and (max-width: 420px) {
+                            .frame-icon {
+                                height: 600px;
+                            }
+                        }
+                    </style>
+                    <!-- front -->
+                    <div class="front2" class="frontContainer">
+                        <div class="frame-parent">
+                            <img class="frame-icon" alt="" src="./public/frame@2x.png" id="frameImage" />
+
+                            <div class="frame">
+                                <img class="icon" alt="" src="./public/3-1@2x.png" />
+
+                                <div class="vegan-catering">
+                                    <p class="vegan">Vegan</p>
+                                    <p class="vegan">Catering</p>
+                                </div>
+                                <div class="for-wedding-birthday">
+                                    For wedding, birthday party & gathering
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card2 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-dm-serif-display: "DM Serif Display";
+                            --font-playfair-display: "Playfair Display";
+
+                            /* font sizes */
+                            --font-size-xs: 12px;
+
+                            /* Colors */
+                            --color-gray: #012531;
+                            --color-burlywood-100: #dcb86f;
+                            --color-burlywood-200: #dcb76d;
+
+                            /* Gaps */
+                            --gap-mini: 15px;
+
+                            /* Border radiuses */
+                            --br-xl: 20px;
+                        }
+
+
+                        .company-name,
+                        .tagline {
+                            position: absolute;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                        }
+
+                        .company-name {
+                            top: 84px;
+                            font-size: 28.5px;
+                            font-weight: 600;
+                            text-align: left;
+                            height: 31.71px;
+                        }
+
+                        .tagline {
+                            top: 118px;
+                            font-weight: 500;
+                            height: 12.86px;
+                        }
+
+                        .logo-icon1 {
+                            position: absolute;
+                            top: 43px;
+                            left: calc(50% - 33px);
+                            width: 66.67px;
+                            height: 39.24px;
+                            object-fit: cover;
+                        }
+
+                        .website {
+                            position: absolute;
+                            bottom: 21.14px;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                            height: 12.86px;
+                        }
+
+                        .front1 {
+                            position: relative;
+                            border-radius: var(--br-xl);
+                            background-color: var(--color-gray);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            border: 1px solid var(--color-burlywood-100);
+                            box-sizing: border-box;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: var(--font-size-xs);
+                            color: var(--color-burlywood-200);
+                            font-family: var(--font-playfair-display);
+                        }
+                    </style>
+
+                    <div class="front1" id="frontContainer">
+                        <div class="company-name">COMPANY</div>
+                        <div class="tagline">Slogan Slogan here</div>
+                        <img class="logo-icon1" alt="" src="./public/logo1@2x.png" />
+                        <div class="website">Https://www.google.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card3 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-judson: Judson;
+                            --font-averia-serif-libre: "Averia Serif Libre";
+
+                            /* Colors */
+                            --color-black: #000;
+
+                            /* Border radiuses */
+                            --br-xs: 12px;
+                        }
+
+                        /* front */
+                        .js {
+                            position: absolute;
+                            top: 30px;
+                            left: 77px;
+                            font-size: 50px;
+                            font-weight: 500px;
+                        }
+
+                        .juliana-silva {
+                            margin: 0;
+                        }
+
+                        .juliana-silva-photography-container {
+                            position: absolute;
+                            top: 100px;
+                            left: calc(50% - 109px);
+                            font-size: 20px;
+                            text-transform: capitalize;
+                            font-family: var(--font-averia-serif-libre);
+                            text-align: center;
+                        }
+
+                        .call-us {
+                            position: absolute;
+                            bottom: 12px;
+                            left: 41px;
+                            font-size: 12px;
+                        }
+
+                        .frame-child {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            border-radius: 0 var(--br-xs) var(--br-xs) 0;
+                            width: 113px;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+
+                        .js-parent {
+                            position: relative;
+                            border-radius: var(--br-xs);
+                            background-color: rgba(24, 109, 146, 0.94);
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: left;
+                            font-size: 50px;
+                            color: var(--color-black);
+                            font-family: var(--font-judson);
+                        }
+                    </style>
+                    <div class="js-parent" id="frontContainer">
+                        <div class="js">JS</div>
+                        <div class="juliana-silva-photography-container">
+                            <p class="juliana-silva">Juliana Silva</p>
+                            <p class="juliana-silva">photography</p>
+                        </div>
+                        <div class="call-us">Call Us : +123-456-7890</div>
+                        <img class="frame-child" alt="" src="./public/rectangle-1@2x.png" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card4 -->
+            <div class="col-lg-3 col-md-5  pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-actor: Actor;
+                            --font-abril-fatface: "Abril Fatface";
+                            --font-abhaya-libre-medium: "Abhaya Libre Medium";
+                            --font-abhaya-libre-extrabold: "Abhaya Libre ExtraBold";
+
+                            /* font sizes */
+                            --font-size-sm: 14px;
+
+                            /* Colors */
+                            --color-gray-100: #0f0f0f;
+                        }
+
+                        /* front css */
+                        .dr-icon {
+                            position: absolute;
+                            top: 1px;
+                            left: 1px;
+                            border-radius: 30px;
+                            width: 149px;
+                            height: 199px;
+                            object-fit: cover;
+                        }
+
+                        .health-safety,
+                        .medical-center {
+                            position: absolute;
+                            top: 20px;
+                            right: 17px;
+                        }
+
+                        .health-safety {
+                            top: 49px;
+                            font-size: 20px;
+                            font-family: var(--font-abhaya-libre-medium);
+                            color: #0f0f0f;
+                        }
+
+                        .taglline {
+                            position: absolute;
+                            top: 83px;
+                            right: 84px;
+                            font-size: 14px;
+                            font-family: var(--font-actor);
+                            text-align: left;
+                        }
+
+                        .card3-front {
+                            position: relative;
+                            border-radius: 12px;
+                            background-color: #f0c540;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: right;
+                            font-size: 25px;
+                            color: var(--color-gray-100);
+                            font-family: var(--font-abhaya-libre-extrabold);
+                        }
+                    </style>
+                    <div class="card3-front" id="frontContainer">
+                        <img class="dr-icon" alt="" src="./public/dr@2x.png" />
+
+                        <div class="medical-center">Medical Center</div>
+                        <div class="health-safety">Health Safety</div>
+                        <div class="taglline">taglline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- row2 -->
+        <div class="row my-1">
+            <!-- card1 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <!-- temp code -->
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-news-cycle: "News Cycle";
+                            --font-playfair-display: "Playfair Display";
+                            --font-dm-serif-display: "DM Serif Display";
+
+                            /* font sizes */
+                            --font-size-5xs-1: 7.1px;
+                            --font-size-4xs-7: 8.7px;
+
+                            /* Colors */
+                            --color-olivedrab: #7ba02f;
+                            --color-white: #fff;
+
+                            /* Gaps */
+                            --gap-sm: 14px;
+                            --gap-0: 0px;
+
+                            /* Paddings */
+                            --padding-11xs: 2px;
+                        }
+
+                        .frame-icon {
+                            flex: 1;
+                            max-width: 100%;
+                            overflow: hidden;
+                            height: 200px;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+
+                        .icon {
+                            position: relative;
+                            width: 57.14px;
+                            height: 33.64px;
+                            object-fit: cover;
+                        }
+
+                        .vegan {
+                            margin: 0;
+                        }
+
+                        .for-wedding-birthday,
+                        .vegan-catering {
+                            position: relative;
+                            display: inline-block;
+                            flex-shrink: 0;
+                        }
+
+                        .vegan-catering {
+                            font-weight: 600;
+                            width: 158px;
+                            height: 68px;
+                        }
+
+                        .for-wedding-birthday {
+                            font-size: 7.14px;
+                            font-family: var(--font-news-cycle);
+                            color: #fffefe;
+                            width: 170.57px;
+                            height: 12.57px;
+                        }
+
+                        .frame {
+                            flex: 1;
+                            height: 163px;
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .frame-parent,
+                        .front2 {
+                            width: 300px;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                        }
+
+                        .front2 {
+                            position: relative;
+                            background-color: var(--color-olivedrab);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            width: 300px;
+                            overflow: hidden;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: 25.71px;
+                            color: var(--color-white);
+                            font-family: var(--font-playfair-display);
+                        }
+
+                        @media screen and (max-width: 1200px) {
+                            .frame-icon {
+                                width: 453px;
+                            }
+
+                            .front2 {
+                                height: 200px;
+                            }
+                        }
+
+                        @media screen and (max-width: 960px) {
+                            .frame-icon {
+                                height: 600px;
+                                align-items: center;
+                                justify-content: flex-start;
+                                padding-left: var(--padding-11xs);
+                                padding-right: var(--padding-11xs);
+                                box-sizing: border-box;
+                            }
+
+                            .front2 {
+                                gap: var(--gap-sm);
+                            }
+                        }
+
+                        @media screen and (max-width: 420px) {
+                            .frame-icon {
+                                height: 600px;
+                            }
+                        }
+                    </style>
+                    <!-- front -->
+                    <div class="front2" class="frontContainer">
+                        <div class="frame-parent">
+                            <img class="frame-icon" alt="" src="./public/frame@2x.png" id="frameImage" />
+
+                            <div class="frame">
+                                <img class="icon" alt="" src="./public/3-1@2x.png" />
+
+                                <div class="vegan-catering">
+                                    <p class="vegan">Vegan</p>
+                                    <p class="vegan">Catering</p>
+                                </div>
+                                <div class="for-wedding-birthday">
+                                    For wedding, birthday party & gathering
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card2 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-dm-serif-display: "DM Serif Display";
+                            --font-playfair-display: "Playfair Display";
+
+                            /* font sizes */
+                            --font-size-xs: 12px;
+
+                            /* Colors */
+                            --color-gray: #012531;
+                            --color-burlywood-100: #dcb86f;
+                            --color-burlywood-200: #dcb76d;
+
+                            /* Gaps */
+                            --gap-mini: 15px;
+
+                            /* Border radiuses */
+                            --br-xl: 20px;
+                        }
+
+
+                        .company-name,
+                        .tagline {
+                            position: absolute;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                        }
+
+                        .company-name {
+                            top: 84px;
+                            font-size: 28.5px;
+                            font-weight: 600;
+                            text-align: left;
+                            height: 31.71px;
+                        }
+
+                        .tagline {
+                            top: 118px;
+                            font-weight: 500;
+                            height: 12.86px;
+                        }
+
+                        .logo-icon1 {
+                            position: absolute;
+                            top: 43px;
+                            left: calc(50% - 33px);
+                            width: 66.67px;
+                            height: 39.24px;
+                            object-fit: cover;
+                        }
+
+                        .website {
+                            position: absolute;
+                            bottom: 21.14px;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                            height: 12.86px;
+                        }
+
+                        .front1 {
+                            position: relative;
+                            border-radius: var(--br-xl);
+                            background-color: var(--color-gray);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            border: 1px solid var(--color-burlywood-100);
+                            box-sizing: border-box;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: var(--font-size-xs);
+                            color: var(--color-burlywood-200);
+                            font-family: var(--font-playfair-display);
+                        }
+                    </style>
+
+                    <div class="front1" id="frontContainer">
+                        <div class="company-name">COMPANY</div>
+                        <div class="tagline">Slogan Slogan here</div>
+                        <img class="logo-icon1" alt="" src="./public/logo1@2x.png" />
+                        <div class="website">Https://www.google.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card3 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-judson: Judson;
+                            --font-averia-serif-libre: "Averia Serif Libre";
+
+                            /* Colors */
+                            --color-black: #000;
+
+                            /* Border radiuses */
+                            --br-xs: 12px;
+                        }
+
+                        /* front */
+                        .js {
+                            position: absolute;
+                            top: 30px;
+                            left: 77px;
+                            font-size: 50px;
+                            font-weight: 500px;
+                        }
+
+                        .juliana-silva {
+                            margin: 0;
+                        }
+
+                        .juliana-silva-photography-container {
+                            position: absolute;
+                            top: 100px;
+                            left: calc(50% - 109px);
+                            font-size: 20px;
+                            text-transform: capitalize;
+                            font-family: var(--font-averia-serif-libre);
+                            text-align: center;
+                        }
+
+                        .call-us {
+                            position: absolute;
+                            bottom: 12px;
+                            left: 41px;
+                            font-size: 12px;
+                        }
+
+                        .frame-child {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            border-radius: 0 var(--br-xs) var(--br-xs) 0;
+                            width: 113px;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+
+                        .js-parent {
+                            position: relative;
+                            border-radius: var(--br-xs);
+                            background-color: rgba(24, 109, 146, 0.94);
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: left;
+                            font-size: 50px;
+                            color: var(--color-black);
+                            font-family: var(--font-judson);
+                        }
+                    </style>
+                    <div class="js-parent" id="frontContainer">
+                        <div class="js">JS</div>
+                        <div class="juliana-silva-photography-container">
+                            <p class="juliana-silva">Juliana Silva</p>
+                            <p class="juliana-silva">photography</p>
+                        </div>
+                        <div class="call-us">Call Us : +123-456-7890</div>
+                        <img class="frame-child" alt="" src="./public/rectangle-1@2x.png" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card4 -->
+            <div class="col-lg-3 col-md-5  pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-actor: Actor;
+                            --font-abril-fatface: "Abril Fatface";
+                            --font-abhaya-libre-medium: "Abhaya Libre Medium";
+                            --font-abhaya-libre-extrabold: "Abhaya Libre ExtraBold";
+
+                            /* font sizes */
+                            --font-size-sm: 14px;
+
+                            /* Colors */
+                            --color-gray-100: #0f0f0f;
+                        }
+
+                        /* front css */
+                        .dr-icon {
+                            position: absolute;
+                            top: 1px;
+                            left: 1px;
+                            border-radius: 30px;
+                            width: 149px;
+                            height: 199px;
+                            object-fit: cover;
+                        }
+
+                        .health-safety,
+                        .medical-center {
+                            position: absolute;
+                            top: 20px;
+                            right: 17px;
+                        }
+
+                        .health-safety {
+                            top: 49px;
+                            font-size: 20px;
+                            font-family: var(--font-abhaya-libre-medium);
+                            color: #0f0f0f;
+                        }
+
+                        .taglline {
+                            position: absolute;
+                            top: 83px;
+                            right: 84px;
+                            font-size: 14px;
+                            font-family: var(--font-actor);
+                            text-align: left;
+                        }
+
+                        .card3-front {
+                            position: relative;
+                            border-radius: 12px;
+                            background-color: #f0c540;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: right;
+                            font-size: 25px;
+                            color: var(--color-gray-100);
+                            font-family: var(--font-abhaya-libre-extrabold);
+                        }
+                    </style>
+                    <div class="card3-front" id="frontContainer">
+                        <img class="dr-icon" alt="" src="./public/dr@2x.png" />
+
+                        <div class="medical-center">Medical Center</div>
+                        <div class="health-safety">Health Safety</div>
+                        <div class="taglline">taglline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row3 -->
+        <div class="row my-1">
+            <!-- card1 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <!-- temp code -->
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-news-cycle: "News Cycle";
+                            --font-playfair-display: "Playfair Display";
+                            --font-dm-serif-display: "DM Serif Display";
+
+                            /* font sizes */
+                            --font-size-5xs-1: 7.1px;
+                            --font-size-4xs-7: 8.7px;
+
+                            /* Colors */
+                            --color-olivedrab: #7ba02f;
+                            --color-white: #fff;
+
+                            /* Gaps */
+                            --gap-sm: 14px;
+                            --gap-0: 0px;
+
+                            /* Paddings */
+                            --padding-11xs: 2px;
+                        }
+
+                        .frame-icon {
+                            flex: 1;
+                            max-width: 100%;
+                            overflow: hidden;
+                            height: 200px;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+
+                        .icon {
+                            position: relative;
+                            width: 57.14px;
+                            height: 33.64px;
+                            object-fit: cover;
+                        }
+
+                        .vegan {
+                            margin: 0;
+                        }
+
+                        .for-wedding-birthday,
+                        .vegan-catering {
+                            position: relative;
+                            display: inline-block;
+                            flex-shrink: 0;
+                        }
+
+                        .vegan-catering {
+                            font-weight: 600;
+                            width: 158px;
+                            height: 68px;
+                        }
+
+                        .for-wedding-birthday {
+                            font-size: 7.14px;
+                            font-family: var(--font-news-cycle);
+                            color: #fffefe;
+                            width: 170.57px;
+                            height: 12.57px;
+                        }
+
+                        .frame {
+                            flex: 1;
+                            height: 163px;
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .frame-parent,
+                        .front2 {
+                            width: 300px;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                        }
+
+                        .front2 {
+                            position: relative;
+                            background-color: var(--color-olivedrab);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            width: 300px;
+                            overflow: hidden;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: 25.71px;
+                            color: var(--color-white);
+                            font-family: var(--font-playfair-display);
+                        }
+
+                        @media screen and (max-width: 1200px) {
+                            .frame-icon {
+                                width: 453px;
+                            }
+
+                            .front2 {
+                                height: 200px;
+                            }
+                        }
+
+                        @media screen and (max-width: 960px) {
+                            .frame-icon {
+                                height: 600px;
+                                align-items: center;
+                                justify-content: flex-start;
+                                padding-left: var(--padding-11xs);
+                                padding-right: var(--padding-11xs);
+                                box-sizing: border-box;
+                            }
+
+                            .front2 {
+                                gap: var(--gap-sm);
+                            }
+                        }
+
+                        @media screen and (max-width: 420px) {
+                            .frame-icon {
+                                height: 600px;
+                            }
+                        }
+                    </style>
+                    <!-- front -->
+                    <div class="front2" class="frontContainer">
+                        <div class="frame-parent">
+                            <img class="frame-icon" alt="" src="./public/frame@2x.png" id="frameImage" />
+
+                            <div class="frame">
+                                <img class="icon" alt="" src="./public/3-1@2x.png" />
+
+                                <div class="vegan-catering">
+                                    <p class="vegan">Vegan</p>
+                                    <p class="vegan">Catering</p>
+                                </div>
+                                <div class="for-wedding-birthday">
+                                    For wedding, birthday party & gathering
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card2 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-dm-serif-display: "DM Serif Display";
+                            --font-playfair-display: "Playfair Display";
+
+                            /* font sizes */
+                            --font-size-xs: 12px;
+
+                            /* Colors */
+                            --color-gray: #012531;
+                            --color-burlywood-100: #dcb86f;
+                            --color-burlywood-200: #dcb76d;
+
+                            /* Gaps */
+                            --gap-mini: 15px;
+
+                            /* Border radiuses */
+                            --br-xl: 20px;
+                        }
+
+
+                        .company-name,
+                        .tagline {
+                            position: absolute;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                        }
+
+                        .company-name {
+                            top: 84px;
+                            font-size: 28.5px;
+                            font-weight: 600;
+                            text-align: left;
+                            height: 31.71px;
+                        }
+
+                        .tagline {
+                            top: 118px;
+                            font-weight: 500;
+                            height: 12.86px;
+                        }
+
+                        .logo-icon1 {
+                            position: absolute;
+                            top: 43px;
+                            left: calc(50% - 33px);
+                            width: 66.67px;
+                            height: 39.24px;
+                            object-fit: cover;
+                        }
+
+                        .website {
+                            position: absolute;
+                            bottom: 21.14px;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                            height: 12.86px;
+                        }
+
+                        .front1 {
+                            position: relative;
+                            border-radius: var(--br-xl);
+                            background-color: var(--color-gray);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            border: 1px solid var(--color-burlywood-100);
+                            box-sizing: border-box;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: var(--font-size-xs);
+                            color: var(--color-burlywood-200);
+                            font-family: var(--font-playfair-display);
+                        }
+                    </style>
+
+                    <div class="front1" id="frontContainer">
+                        <div class="company-name">COMPANY</div>
+                        <div class="tagline">Slogan Slogan here</div>
+                        <img class="logo-icon1" alt="" src="./public/logo1@2x.png" />
+                        <div class="website">Https://www.google.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card3 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-judson: Judson;
+                            --font-averia-serif-libre: "Averia Serif Libre";
+
+                            /* Colors */
+                            --color-black: #000;
+
+                            /* Border radiuses */
+                            --br-xs: 12px;
+                        }
+
+                        /* front */
+                        .js {
+                            position: absolute;
+                            top: 30px;
+                            left: 77px;
+                            font-size: 50px;
+                            font-weight: 500px;
+                        }
+
+                        .juliana-silva {
+                            margin: 0;
+                        }
+
+                        .juliana-silva-photography-container {
+                            position: absolute;
+                            top: 100px;
+                            left: calc(50% - 109px);
+                            font-size: 20px;
+                            text-transform: capitalize;
+                            font-family: var(--font-averia-serif-libre);
+                            text-align: center;
+                        }
+
+                        .call-us {
+                            position: absolute;
+                            bottom: 12px;
+                            left: 41px;
+                            font-size: 12px;
+                        }
+
+                        .frame-child {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            border-radius: 0 var(--br-xs) var(--br-xs) 0;
+                            width: 113px;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+
+                        .js-parent {
+                            position: relative;
+                            border-radius: var(--br-xs);
+                            background-color: rgba(24, 109, 146, 0.94);
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: left;
+                            font-size: 50px;
+                            color: var(--color-black);
+                            font-family: var(--font-judson);
+                        }
+                    </style>
+                    <div class="js-parent" id="frontContainer">
+                        <div class="js">JS</div>
+                        <div class="juliana-silva-photography-container">
+                            <p class="juliana-silva">Juliana Silva</p>
+                            <p class="juliana-silva">photography</p>
+                        </div>
+                        <div class="call-us">Call Us : +123-456-7890</div>
+                        <img class="frame-child" alt="" src="./public/rectangle-1@2x.png" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card4 -->
+            <div class="col-lg-3 col-md-5  pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-actor: Actor;
+                            --font-abril-fatface: "Abril Fatface";
+                            --font-abhaya-libre-medium: "Abhaya Libre Medium";
+                            --font-abhaya-libre-extrabold: "Abhaya Libre ExtraBold";
+
+                            /* font sizes */
+                            --font-size-sm: 14px;
+
+                            /* Colors */
+                            --color-gray-100: #0f0f0f;
+                        }
+
+                        /* front css */
+                        .dr-icon {
+                            position: absolute;
+                            top: 1px;
+                            left: 1px;
+                            border-radius: 30px;
+                            width: 149px;
+                            height: 199px;
+                            object-fit: cover;
+                        }
+
+                        .health-safety,
+                        .medical-center {
+                            position: absolute;
+                            top: 20px;
+                            right: 17px;
+                        }
+
+                        .health-safety {
+                            top: 49px;
+                            font-size: 20px;
+                            font-family: var(--font-abhaya-libre-medium);
+                            color: #0f0f0f;
+                        }
+
+                        .taglline {
+                            position: absolute;
+                            top: 83px;
+                            right: 84px;
+                            font-size: 14px;
+                            font-family: var(--font-actor);
+                            text-align: left;
+                        }
+
+                        .card3-front {
+                            position: relative;
+                            border-radius: 12px;
+                            background-color: #f0c540;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: right;
+                            font-size: 25px;
+                            color: var(--color-gray-100);
+                            font-family: var(--font-abhaya-libre-extrabold);
+                        }
+                    </style>
+                    <div class="card3-front" id="frontContainer">
+                        <img class="dr-icon" alt="" src="./public/dr@2x.png" />
+
+                        <div class="medical-center">Medical Center</div>
+                        <div class="health-safety">Health Safety</div>
+                        <div class="taglline">taglline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row4 -->
+        <div class="row my-1">
+            <!-- card1 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <!-- temp code -->
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-news-cycle: "News Cycle";
+                            --font-playfair-display: "Playfair Display";
+                            --font-dm-serif-display: "DM Serif Display";
+
+                            /* font sizes */
+                            --font-size-5xs-1: 7.1px;
+                            --font-size-4xs-7: 8.7px;
+
+                            /* Colors */
+                            --color-olivedrab: #7ba02f;
+                            --color-white: #fff;
+
+                            /* Gaps */
+                            --gap-sm: 14px;
+                            --gap-0: 0px;
+
+                            /* Paddings */
+                            --padding-11xs: 2px;
+                        }
+
+                        .frame-icon {
+                            flex: 1;
+                            max-width: 100%;
+                            overflow: hidden;
+                            height: 200px;
+                            object-fit: cover;
+                            cursor: pointer;
+                        }
+
+                        .icon {
+                            position: relative;
+                            width: 57.14px;
+                            height: 33.64px;
+                            object-fit: cover;
+                        }
+
+                        .vegan {
+                            margin: 0;
+                        }
+
+                        .for-wedding-birthday,
+                        .vegan-catering {
+                            position: relative;
+                            display: inline-block;
+                            flex-shrink: 0;
+                        }
+
+                        .vegan-catering {
+                            font-weight: 600;
+                            width: 158px;
+                            height: 68px;
+                        }
+
+                        .for-wedding-birthday {
+                            font-size: 7.14px;
+                            font-family: var(--font-news-cycle);
+                            color: #fffefe;
+                            width: 170.57px;
+                            height: 12.57px;
+                        }
+
+                        .frame {
+                            flex: 1;
+                            height: 163px;
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        .frame-parent,
+                        .front2 {
+                            width: 300px;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                        }
+
+                        .front2 {
+                            position: relative;
+                            background-color: var(--color-olivedrab);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            width: 300px;
+                            overflow: hidden;
+                            justify-content: space-between;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: 25.71px;
+                            color: var(--color-white);
+                            font-family: var(--font-playfair-display);
+                        }
+
+                        @media screen and (max-width: 1200px) {
+                            .frame-icon {
+                                width: 453px;
+                            }
+
+                            .front2 {
+                                height: 200px;
+                            }
+                        }
+
+                        @media screen and (max-width: 960px) {
+                            .frame-icon {
+                                height: 600px;
+                                align-items: center;
+                                justify-content: flex-start;
+                                padding-left: var(--padding-11xs);
+                                padding-right: var(--padding-11xs);
+                                box-sizing: border-box;
+                            }
+
+                            .front2 {
+                                gap: var(--gap-sm);
+                            }
+                        }
+
+                        @media screen and (max-width: 420px) {
+                            .frame-icon {
+                                height: 600px;
+                            }
+                        }
+                    </style>
+                    <!-- front -->
+                    <div class="front2" class="frontContainer">
+                        <div class="frame-parent">
+                            <img class="frame-icon" alt="" src="./public/frame@2x.png" id="frameImage" />
+
+                            <div class="frame">
+                                <img class="icon" alt="" src="./public/3-1@2x.png" />
+
+                                <div class="vegan-catering">
+                                    <p class="vegan">Vegan</p>
+                                    <p class="vegan">Catering</p>
+                                </div>
+                                <div class="for-wedding-birthday">
+                                    For wedding, birthday party & gathering
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card2 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 18rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-dm-serif-display: "DM Serif Display";
+                            --font-playfair-display: "Playfair Display";
+
+                            /* font sizes */
+                            --font-size-xs: 12px;
+
+                            /* Colors */
+                            --color-gray: #012531;
+                            --color-burlywood-100: #dcb86f;
+                            --color-burlywood-200: #dcb76d;
+
+                            /* Gaps */
+                            --gap-mini: 15px;
+
+                            /* Border radiuses */
+                            --br-xl: 20px;
+                        }
+
+
+                        .company-name,
+                        .tagline {
+                            position: absolute;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                        }
+
+                        .company-name {
+                            top: 84px;
+                            font-size: 28.5px;
+                            font-weight: 600;
+                            text-align: left;
+                            height: 31.71px;
+                        }
+
+                        .tagline {
+                            top: 118px;
+                            font-weight: 500;
+                            height: 12.86px;
+                        }
+
+                        .logo-icon1 {
+                            position: absolute;
+                            top: 43px;
+                            left: calc(50% - 33px);
+                            width: 66.67px;
+                            height: 39.24px;
+                            object-fit: cover;
+                        }
+
+                        .website {
+                            position: absolute;
+                            bottom: 21.14px;
+                            left: calc(50% - 71px);
+                            display: inline-block;
+                            width: 141.71px;
+                            height: 12.86px;
+                        }
+
+                        .front1 {
+                            position: relative;
+                            border-radius: var(--br-xl);
+                            background-color: var(--color-gray);
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                            border: 1px solid var(--color-burlywood-100);
+                            box-sizing: border-box;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            cursor: pointer;
+                            text-align: center;
+                            font-size: var(--font-size-xs);
+                            color: var(--color-burlywood-200);
+                            font-family: var(--font-playfair-display);
+                        }
+                    </style>
+
+                    <div class="front1" id="frontContainer">
+                        <div class="company-name">COMPANY</div>
+                        <div class="tagline">Slogan Slogan here</div>
+                        <img class="logo-icon1" alt="" src="./public/logo1@2x.png" />
+                        <div class="website">Https://www.google.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- card3 -->
+            <div class="col-lg-3 col-md-5 pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-judson: Judson;
+                            --font-averia-serif-libre: "Averia Serif Libre";
+
+                            /* Colors */
+                            --color-black: #000;
+
+                            /* Border radiuses */
+                            --br-xs: 12px;
+                        }
+
+                        /* front */
+                        .js {
+                            position: absolute;
+                            top: 30px;
+                            left: 77px;
+                            font-size: 50px;
+                            font-weight: 500px;
+                        }
+
+                        .juliana-silva {
+                            margin: 0;
+                        }
+
+                        .juliana-silva-photography-container {
+                            position: absolute;
+                            top: 100px;
+                            left: calc(50% - 109px);
+                            font-size: 20px;
+                            text-transform: capitalize;
+                            font-family: var(--font-averia-serif-libre);
+                            text-align: center;
+                        }
+
+                        .call-us {
+                            position: absolute;
+                            bottom: 12px;
+                            left: 41px;
+                            font-size: 12px;
+                        }
+
+                        .frame-child {
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            border-radius: 0 var(--br-xs) var(--br-xs) 0;
+                            width: 113px;
+                            height: 200px;
+                            object-fit: cover;
+                        }
+
+                        .js-parent {
+                            position: relative;
+                            border-radius: var(--br-xs);
+                            background-color: rgba(24, 109, 146, 0.94);
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: left;
+                            font-size: 50px;
+                            color: var(--color-black);
+                            font-family: var(--font-judson);
+                        }
+                    </style>
+                    <div class="js-parent" id="frontContainer">
+                        <div class="js">JS</div>
+                        <div class="juliana-silva-photography-container">
+                            <p class="juliana-silva">Juliana Silva</p>
+                            <p class="juliana-silva">photography</p>
+                        </div>
+                        <div class="call-us">Call Us : +123-456-7890</div>
+                        <img class="frame-child" alt="" src="./public/rectangle-1@2x.png" />
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- card4 -->
+            <div class="col-lg-3 col-md-5  pt-2">
+                <div class="card" style="width: 17rem;">
+                    <style>
+                        body {
+                            margin: 0;
+                            line-height: normal;
+                        }
+
+                        :root {
+                            /* fonts */
+                            --font-actor: Actor;
+                            --font-abril-fatface: "Abril Fatface";
+                            --font-abhaya-libre-medium: "Abhaya Libre Medium";
+                            --font-abhaya-libre-extrabold: "Abhaya Libre ExtraBold";
+
+                            /* font sizes */
+                            --font-size-sm: 14px;
+
+                            /* Colors */
+                            --color-gray-100: #0f0f0f;
+                        }
+
+                        /* front css */
+                        .dr-icon {
+                            position: absolute;
+                            top: 1px;
+                            left: 1px;
+                            border-radius: 30px;
+                            width: 149px;
+                            height: 199px;
+                            object-fit: cover;
+                        }
+
+                        .health-safety,
+                        .medical-center {
+                            position: absolute;
+                            top: 20px;
+                            right: 17px;
+                        }
+
+                        .health-safety {
+                            top: 49px;
+                            font-size: 20px;
+                            font-family: var(--font-abhaya-libre-medium);
+                            color: #0f0f0f;
+                        }
+
+                        .taglline {
+                            position: absolute;
+                            top: 83px;
+                            right: 84px;
+                            font-size: 14px;
+                            font-family: var(--font-actor);
+                            text-align: left;
+                        }
+
+                        .card3-front {
+                            position: relative;
+                            border-radius: 12px;
+                            background-color: #f0c540;
+                            width: 300px;
+                            height: 200px;
+                            overflow: hidden;
+                            text-align: right;
+                            font-size: 25px;
+                            color: var(--color-gray-100);
+                            font-family: var(--font-abhaya-libre-extrabold);
+                        }
+                    </style>
+                    <div class="card3-front" id="frontContainer">
+                        <img class="dr-icon" alt="" src="./public/dr@2x.png" />
+
+                        <div class="medical-center">Medical Center</div>
+                        <div class="health-safety">Health Safety</div>
+                        <div class="taglline">taglline</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <!--Pagination -->
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination justify-content-center my-3">
+                <li class="page-item disabled ">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+
+    <!-- footer -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+
+        <!-- Section: Links  -->
+        <section class="">
+            <div class="container text-center text-md-start mt-5 pt-2">
+                <!-- Grid row -->
+                <div class="row mt-3">
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <!-- Content -->
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>Company name
+                        </h6>
+                        <p>
+                            Here you can use rows and columns to organize your footer content. Lorem ipsum
+                            dolor sit amet, consectetur adipisicing elit.
+                        </p>
+                    </div>
+
+
+                    <!-- Grid column -->
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Useful links
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Pricing</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Settings</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Orders</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Help</a>
+                        </p>
+                    </div>
+
+
+                    <!-- Grid column -->
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <!-- Links -->
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            info@example.com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+            </div>
+        </section>
+        <!-- Section: Links  -->
+
+        <!-- Copyright -->
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2021 Copyright:
+            <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!--Footer -->
+
+    <!-- script for card -->
+    <script>
+        var frontContainer = document.getElementsByClassName("frontContainer");
+        var backContainer = document.getElementsByClassName("backContainer");
+
+        frontContainer.style.display = "block";
+        backContainer.style.display = "none";
+
+        if (frontContainer && backContainer) {
+            frontContainer.addEventListener("click", function (e) {
+                frontContainer.style.display = "none"; // Hide the front1Container
+                backContainer.style.display = "block"; // Show the back1Container
+            });
+
+            backContainer.addEventListener("click", function (e) {
+                frontContainer.style.display = "block"; // Hide the front1Container
+                backContainer.style.display = "none"; // Show the back1Container
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

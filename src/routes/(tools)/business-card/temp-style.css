@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.data{
+    margin: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.manageCol{
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    justify-content:space-around;
+    flex-wrap: wrap;
+}
+
+
+/* card1 */
+
+  
+.company-name {
+    position: absolute;
+    top: calc(50% - 5px);
+    left: calc(50% - 113px);
+    font-size: 30px;
+    display: inline-block;
+    width: 236px;
+    height: 38px;
+  }
+  .website-url {
+    position: absolute;
+    bottom: 11px;
+    left: calc(50% - 33px);
+  }
+  .tag-line {
+    position: absolute;
+    top: calc(50% + 28px);
+    left: calc(50% - 24px);
+  }
+  .icon-sun {
+    position: absolute;
+    top: 41px;
+    left: calc(50% - 32px);
+    width: 59px;
+    height: 54.12px;
+  }
+  .company-name-parent {
+    position: relative;
+    border-radius: 12px;
+    background-color: #363c67;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: left;
+    font-size: var(--font-size-xs);
+    color: var(--color-white);
+    font-family: var(--font-inter);
+  }
+  
+  
