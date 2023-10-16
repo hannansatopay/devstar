@@ -14,15 +14,21 @@
 	onMount(() => {
 		screenWidth = screen.width;
 		screenHeight = screen.height;
+		colorInput = document.getElementById('color-input');
+        alphaSlider = document.getElementById('alpha-slider');
+        colorDisplay = document.getElementById('color-display');
 	});
 
-	let clrList = ['#360259', '#b92f2f', '#ffb600'];
+	let clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
+	let clrVal3 = '#000';
+	let isRandom = false; // A flag to toggle random colors
+
 	const pushArr = () => {
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
 	const removeOnClick = (e) => {
-		clrList = clrList.filter((x, y) => x !== e.target.id)
+		clrList = clrList.filter((x, y) => x !== e.target.id);
 		console.log(e.target.id);
 	};
 
@@ -39,11 +45,14 @@
 		clrVal = '#00f';
 	};
 
-	$: bgGradient = clrList.length > 1 ? `background-image: linear-gradient(${angle}deg, ${clrList});` : `background-color: ${clrList};`;
+	$: bgGradient =
+		clrList.length > 1
+			? `background-image: linear-gradient(${angle}deg, ${clrList});`
+			: `background-color: ${clrList};`;
 
-	let angle = 120;
+	let angle = 270;
 
-	let speed = 8;
+	let speed = 7;
 
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
 
@@ -51,14 +60,12 @@
 	let alphaSlider;
 	let colorDisplay;
 
-	let clrVal3 = '#000';
-
-	function updateColorDisplay() {
+	const updateColorDisplay = () => {
 		const selectedColor = colorInput.value;
 		const alphaValue = alphaSlider.value;
 		colorDisplay.style.backgroundColor = selectedColor;
 		colorDisplay.style.opacity = alphaValue;
-	}
+	};
 
 	let myBtn;
 
@@ -67,7 +74,7 @@
 	$: css = `
 	.animated-background {
 		${bgGradient}
-		background-size: 300% 300%;
+		background-size: 400% 400%;
 		animation: gradient ${speed}s ease infinite;
 	}
 
@@ -83,13 +90,35 @@
 		}
 	}`;
 
-	function copyFunction() {
+	const copyFunction = () => {
 		// Copy the text inside the text field
 		navigator.clipboard.writeText(css);
 
 		// Alert the copied text
 		alert('Copied the styles');
 	}
+
+
+	const changeGradient = () => {
+    isRandom = !isRandom;
+  
+    if (isRandom) {
+      // Generate random colors
+      clrList = [
+        getRandomColor(),
+        getRandomColor(),
+        getRandomColor(),
+		getRandomColor()
+      ];
+    } else {
+		// Revert to original colors
+		clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
+    }
+  };
+  
+  function getRandomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  }
 
 </script>
 
@@ -106,35 +135,32 @@
 		<div class="grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
 			<!-- <div class="w-2 m-2 p-6 bg-purple-800 border border-gray-200" /> -->
 			{#each clrStyle as clr, i}
-						<div 
-							class="relative"
-							
-							>
-							<button
-								class="absolute top-[-4px] right-2 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
-								on:click={removeOnClick}
-								bind:this={myBtn}
-								id={`${clrList[i]}`}
-							>
-								<svg
-									class="cross w-[12px] h-[12px] text-gray-800"
-									aria-hidden="true"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 14 14"
-								>
-									<path
-										stroke="currentColor"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-									/>
-								</svg>
-							</button>
-							<div class="aspect-square h-[50px] mx-4" style={clr} />
-						</div>
-					{/each}
+				<div class="relative">
+					<button
+						class="absolute top-[-4px] right-2 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
+						on:click={removeOnClick}
+						bind:this={myBtn}
+						id={`${clrList[i]}`}
+					>
+						<svg
+							class="cross w-[12px] h-[12px] text-gray-800"
+							aria-hidden="true"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 14 14"
+						>
+							<path
+								stroke="currentColor"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+							/>
+						</svg>
+					</button>
+					<div class="aspect-square h-[50px] mx-4" style={clr} />
+				</div>
+			{/each}
 		</div>
 
 		<br />
@@ -165,7 +191,7 @@
 				<div class="my-8">
 					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
 					<br />
-					<button class="m-4 w-40 p-4 rounded-lg"> Random </button>
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> {#if isRandom} Revert Colors {:else} Random Colors {/if} </button>
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
 				</div>
@@ -196,12 +222,8 @@
 		<br />
 
 		<!-- the text area part -->
-		<div
-			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
-		>
-			<pre>
-			{@html css}
-		</pre>
+		<div class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative">
+			<pre>{@html css}</pre>
 			<Copy text={css} on:click={copyFunction} />
 		</div>
 	</div>
@@ -225,7 +247,7 @@
 	}
 
 	.output {
-		background-size: 300% 300%;
+		background-size: 400% 400%;
 		animation: gradient ease infinite;
 		animation-duration: 15s;
 	}
