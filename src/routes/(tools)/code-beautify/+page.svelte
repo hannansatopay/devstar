@@ -283,19 +283,39 @@
 
 	// url upload
 	const handleURLUpload = async (event) => {
-	try {
-		let url = prompt("Please Enter URL : ");
-		const response = await fetch(url);
-		if (!response.ok) {
-			alert('Network Error');
-		} else {
-			const data = await response.text();
-			inputTextAreaContent = data;
+		try {
+			let url = prompt("Please Enter URL : ");
+			const response = await fetch(url);
+			if (!response.ok) {
+				alert('Network Error');
+			} else {
+				const data = await response.text();
+				inputTextAreaContent = data;
+			}
+		} catch (error) {
+			console.error('Error : ', error);
 		}
-	} catch (error) {
-		console.error('Error : ', error);
 	}
-};
+
+	// copy to clipboard
+	const handleCopyClipboard = async (event) => {
+		const textAreaType = event.currentTarget.getAttribute('data-text-area-type');
+		let textCopied = '';
+
+		if (textAreaType === 'input') {
+			textCopied = inputTextAreaContent;
+		} else if (textAreaType === 'output') {
+			textCopied = outputTextAreaContent;
+		}
+
+		try {
+			await navigator.clipboard.writeText(textCopied);
+      		alert("Text Copied");
+		}
+		catch(error) {
+			alert("Error during copy");
+		}
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -413,6 +433,8 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						data-text-area-type="input"
+						on:click={handleCopyClipboard}
 					>
 						<FileCopySolid size="sm" />
 						<span class="sr-only">Copy to Clipboard</span>
@@ -531,6 +553,8 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						data-text-area-type="output"
+						on:click={handleCopyClipboard}
 					>
 						<FileCopySolid size="sm" />
 						<span class="sr-only">Copy to Clipboard</span>
