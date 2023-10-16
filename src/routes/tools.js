@@ -101,4 +101,4 @@ export let tools = {
         link:'/currency-calculator',
         description:'The Currency Calculator is a valuable tool that can help you to convert one currency to another using the latest exchange rates.'
     }
-};
+}
