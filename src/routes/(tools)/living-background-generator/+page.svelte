@@ -15,8 +15,8 @@
 		screenWidth = screen.width;
 		screenHeight = screen.height;
 		colorInput = document.getElementById('color-input');
-        alphaSlider = document.getElementById('alpha-slider');
-        colorDisplay = document.getElementById('color-display');
+		alphaSlider = document.getElementById('alpha-slider');
+		colorDisplay = document.getElementById('color-display');
 	});
 
 	let clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
@@ -96,30 +96,23 @@
 
 		// Alert the copied text
 		alert('Copied the styles');
-	}
-
+	};
 
 	const changeGradient = () => {
-    isRandom = !isRandom;
-  
-    if (isRandom) {
-      // Generate random colors
-      clrList = [
-        getRandomColor(),
-        getRandomColor(),
-        getRandomColor(),
-		getRandomColor()
-      ];
-    } else {
-		// Revert to original colors
-		clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
-    }
-  };
-  
-  function getRandomColor() {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  }
+		isRandom = !isRandom;
 
+		// Generate random colors
+		clrList = [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()];
+	};
+
+	function getRandomColor() {
+		const letters = '0123456789ABCDEF';
+		let color = '#';
+		for (let i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -191,7 +184,7 @@
 				<div class="my-8">
 					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
 					<br />
-					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> {#if isRandom} Revert Colors {:else} Random Colors {/if} </button>
+					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg"> Choose the type of Gradient </button>
 				</div>
@@ -222,7 +215,9 @@
 		<br />
 
 		<!-- the text area part -->
-		<div class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative">
+		<div
+			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
+		>
 			<pre>{@html css}</pre>
 			<Copy text={css} on:click={copyFunction} />
 		</div>
@@ -248,8 +243,7 @@
 
 	.output {
 		background-size: 400% 400%;
-		animation: gradient ease infinite;
-		animation-duration: 15s;
+		animation: gradient 15s ease infinite;
 	}
 
 	@keyframes gradient {
@@ -264,7 +258,7 @@
 		}
 	}
 
-	@media only screen and (max-width: 800px) {
+	@media only screen and (max-width: 900px) {
 		div {
 			font-size: 2vw;
 		}
