@@ -119,17 +119,28 @@
 	}
 
 	// A flag to toggle between linear and radial gradients
-	let isLinearGradient = true;
+	let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
 
 	const toggleGradientType = () => {
-		isLinearGradient = !isLinearGradient;
+		if (gradientType === 'linear') {
+			gradientType = 'angular';
+		} else if (gradientType === 'angular') {
+			gradientType = 'radial';
+		} else {
+			gradientType = 'linear';
+		}
 	};
 
-	$: bgGradient = isLinearGradient
-		? clrList.length > 1
-			? `background-image: linear-gradient(${angle}deg, ${clrList});`
-			: `background-color: ${clrList};`
-		: `background-image: radial-gradient(circle, ${clrList});`;
+	$: bgGradient =
+		gradientType === 'linear'
+			? clrList.length > 1
+				? `background-image: linear-gradient(${angle}deg, ${clrList});`
+				: `background-color: ${clrList};`
+			: gradientType === 'angular'
+			? clrList.length > 1
+				? `background-image: conic-gradient(from ${angle}deg, ${clrList});`
+				: `background-color: ${clrList};`
+			: `background-image: radial-gradient(circle, ${clrList});`;
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -204,7 +215,9 @@
 					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
 					<br />
 					<button class="m-4 w-40 p-4 rounded-lg" on:click={toggleGradientType}>
-						{#if isLinearGradient}
+						{#if gradientType === 'linear'}
+							Use Angular Gradient
+						{:else if gradientType === 'angular'}
 							Use Radial Gradient
 						{:else}
 							Use Linear Gradient
