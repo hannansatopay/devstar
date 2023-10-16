@@ -1,8 +1,8 @@
 export let tools = {
 
-	'prefix-suffix': {
+	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
-        link: '/prefix-suffix',
+        link: '/add-prefix-suffix',
         description: 
 		"Easily modify your text lines by adding custom prefixes and suffixes with our Prefix and Suffix Adder Tool. Input your text, specify the desired prefix and suffix, and watch as it instantly modifies each line according to your preferences. Perfect for formatting lists, coding snippets, or creating structured data. Empower your text editing tasks with this convenient tool, ensuring consistent formatting in various contexts."
     },
