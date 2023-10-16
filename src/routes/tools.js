@@ -100,5 +100,11 @@ export let tools = {
         icon: 'files',
         link: '/markdown-editor',
         description: "The Markdown Editor is a tool for developers to create markdown file, which shows how your markdown code would look in the browser. This tool offers a user-friendly interface to edit your markdown code and preview the output side by side. Create and customize your markdown code efficiently with this editor to enhance your blog's look and layout."
+    },
+    'random-data-generator': {
+        name: 'Random Data Generator (βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/random-data-generator',
+        description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
     }
-};
+}
