@@ -1,5 +1,6 @@
 <script lang="js">
 	import Intro from '$lib/Intro.svelte';
+	import Toolbar from "./Toolbar.svelte";
 	import { marked } from 'marked';
 	import "./markdown.css";
 
@@ -17,9 +18,9 @@
 
 <section class="bg-white dark:bg-gray-900 editor">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card gap-4 lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+		<Toolbar />
+		<div class="card gap-4 lg:grid lg:grid-cols-2 overflow-hidden rounded-lg editor-wrapper">
 			<div class="p-2 bg-white">
-				<h1 class="text-center">Markdown</h1>
 				<textarea
 					name="markdown"
 					bind:value={markdownCode}
@@ -27,10 +28,10 @@
 					cols="30"
 					rows="10"
 					class="rounded-lg w-full h-full resize-none border-none p-1"
+					id="myTextarea"
 				/>
 			</div>
 			<div class="pl-4 p-2 h-full marked-preview bg-white">
-				<h1 class="text-center">Preview</h1>
 				{@html preview}
 			</div>
 		</div>
@@ -40,6 +41,10 @@
 <style>
 	.marked-preview {
 		border-left: 2px solid black;
+	}
+	
+	.editor-wrapper {
+		height: 65vh;
 	}
 
 	.card {
