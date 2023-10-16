@@ -100,5 +100,11 @@ export let tools = {
         icon: 'files', // Pending Icon Update
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+    'who-is': {
+        name: 'Whois Lookup',
+        icon: 'whois',
+        link: '/who-is',
+        description: ""
     }
 }
