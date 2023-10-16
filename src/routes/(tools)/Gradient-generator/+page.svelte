@@ -50,6 +50,9 @@ const copyCode = async () => {
   }
 
   onMount(generateRandomGradient);
+   function updateGradient() {
+    generateGradient();
+  }
 </script>
 
 <!-- svelte-ignore non-top-level-reactive-declaration -->
