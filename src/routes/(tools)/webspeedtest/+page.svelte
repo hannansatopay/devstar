@@ -1,6 +1,5 @@
-<script lang='ts'>
+<script lang='ts'></script>
 
-</script>
 
 <html lang='en'>
 <head>
@@ -25,11 +24,36 @@
   font-family: sans-serif;
   font-weight: bold;
   font-size: 24px;
-  color: #ff69b4; /* Gradient text color */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1.5);
   margin-left: 825px;
 }
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+     
+}
 
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
 
      input {
       color: black;
@@ -256,7 +280,7 @@ color: powderblue;
 </head>
 <body>
   <p> This is an awesome web page, where users can find the speed of the different website/pages on a click!<br> Especially a motivating and an hands-on experience website for cybersecurity professionals too!! <br>Moreover, very fast paced and perfect results web page!<br> And, please note: Do use https:// or http:// or else website wouldn't work!</p>
-  <h3><i>Web Page Speed Test</i></h3>
+  <h3 class='animate-charcter'><i>Web Page Speed Test</i></h3>
   <input type="text" placeholder="https://www.ex.com/" id='urlInput'>
   <span id="error" class="error-message"></span>
   <div id='cont'>
