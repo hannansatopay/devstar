@@ -36,10 +36,6 @@
   generateGradient();
 }
 
- function updateGradient() {
-  generateGradient();
-}
-
 const copyCode = async () => {
     try {
       await navigator.clipboard.writeText(gradientCode);
@@ -50,9 +46,11 @@ const copyCode = async () => {
   }
 
   onMount(generateRandomGradient);
+
    function updateGradient() {
     generateGradient();
   }
+  
 </script>
 
 <!-- svelte-ignore non-top-level-reactive-declaration -->
@@ -64,7 +62,7 @@ const copyCode = async () => {
   <div class="w-full max-w-4xl p-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex">
     
     <!-- Settings (Left Half) -->
-    <div class="w-1/2 p-4">
+    <div class="w-1/2 p-0 grid grid-cols-2 gap-4">
 
       <!-- Gradient Type Selector -->
       <div class="mt-4">
@@ -96,7 +94,7 @@ const copyCode = async () => {
 
       <!-- Rotation -->
       <Label class="text-gray-700 dark:text-gray-400">Rotation:</Label>
-        <div class="flex space-x-2">
+        <div class="flex-grow-1 space-x-2">
           <select bind:value={gradientrotation} class="text-gray-900 bg-white col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
             {#each Rotations as Rotation,index}
                 <option>{Rotation}</option>
@@ -106,7 +104,7 @@ const copyCode = async () => {
 
       <!-- Percentage -->
       <Label class="text-gray-700 dark:text-gray-400">Percentage:</Label>
-        <div class="flex space-x-2">
+        <div class=" space-x-2">
           <select bind:value={gradientper} class="text-gray-900 bg-white col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
             {#each percentages as percentage}
                 <option>{percentage}</option>
@@ -163,12 +161,12 @@ const copyCode = async () => {
     </div>
 
     <!-- Gradient Display (Right Half) {gradientCode}-->
-    <div class="w-1/2 p-4">
+    <div class="w-1/2 p-0">
       <div
-        class="w-full h-64"
+        class="w-full h-full rounded-lg"
         style="background-Image: {gradientCode};"
       >
-      </div>
-  </div>
+    </div>
+  
 </main>
 </div>
