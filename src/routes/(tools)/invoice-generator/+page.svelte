@@ -50,8 +50,26 @@
 	//pdf
 	import jsPDF from 'jspdf';
 
-	let name = '';
-	let email = '';
+	// let name = '';
+	// let email = '';
+	let invoice = 'Invoice';
+	let businessName = "";
+	let businessEmail = "";
+	let businessAddress = "";
+	let businessPhone = "";
+	let businessNumber = "";
+	let businessOwner = "";
+	let businessWebsite = "";
+	let showAdditionalDetails = false;
+	let ClientName="";
+	let ClientEmail="";
+	let ClientAddress="";
+	let ClientPhone="";
+	let ClientNumber="";
+	let ClientFax="";	
+	function showAdditionalDetailsFun() {
+		showAdditionalDetails = true;
+	}
 	let selectedImage = null;
 
 	function handleSubmit() {
@@ -65,11 +83,12 @@
 	async function convertToPDF() {
 	const doc = new jsPDF();
 	doc.setFontSize(30);
-	doc.text(90, 20, 'Invoice');
+	let l = 4.75 * invoice.length;
+	doc.text((210-l)/2, 20, invoice);
 	doc.line(10, 30, 195, 30); 
 	doc.setFontSize(12);
-	doc.text(20, 100, 'NAME: ' + name);
-	doc.text(20, 110, 'EMAIL: ' + email);
+	doc.text(20, 100, 'NAME: ' + businessName);
+	doc.text(20, 110, 'EMAIL: ' + businessEmail);
 	if(selectedImage){
 		const imageBlob = await fetch(URL.createObjectURL(selectedImage)).then((response) => response.blob());
 		doc.addImage(URL.createObjectURL(imageBlob), 'JPEG', 135, 40, 50, 50);
@@ -190,15 +209,156 @@
 				</div>
 				<br>
 				<div class="block max-w p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 ">
-					<form on:submit={handleSubmit}>
-						<label for="name">Name:</label>
+					<form>
+						<!-- <label for="name">Name:</label>
 						<input type="text" bind:value={name} required /><br><br>
 		  				<label for="email">Email:</label>
-						<input type="email" bind:value={email} required /><br><br>
+						<input type="email" bind:value={email} required /><br><br> -->
+						<label for="invoice_header"></label>
+						<input type="text" bind:value={invoice} placeholder="Invoice Header" required /><br><br>
 						<label for="logo">Logo:</label>
 						<input accept="image/*" on:change={handleFileChange} class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
 						<div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A logo of your company to be display over invoice.</div>
-		  			</form><br>
+		  			</form>
+					  <div class="invoice-container invoice-detail-body">
+						<div class="lg:flex lg:space-x-4">
+							<div class="lg:w-1/2">
+								<h1 class="text-3xl text-gray-900">From</h1> <br/>
+								<form>
+								  <div class="input-with-label">
+									<label for="invoice-company-name" class="dark:text-gray-900">Name:</label>
+									<input
+									  type="text"
+									  bind:value={businessName}
+									  id="invoice-company-name"
+									  placeholder="Business Name"
+									/>
+								  </div>
+								  <div class="input-with-label">
+									<label for="invoice-company-email" class="text-gray-900">Email:</label>
+									<input
+									  type="email"
+									  bind:value={businessEmail}
+									  id="invoice-company-email"
+									  placeholder="name@business.com"
+									/>
+								  </div>
+								  <div class="input-with-label">
+									<label for="invoice-company-address" class=" text-gray-900">Address:</label>
+									<input
+									  type="text"
+									  value={businessAddress}
+									  id="invoice-company-address"
+									  placeholder="Street"
+									/>
+								  </div>
+								  <div class="input-with-label">
+									<label for="invoice-company-phone" class="text-gray-900">Phone:</label>
+									<input
+									  type="text"
+									  value={businessPhone}
+									  id="invoice-company-phone"
+									  placeholder="(123) 456 789"
+									/>
+								  </div>
+								  <div class="input-with-label">
+									<label for="invoice-company-business-number" title="Business Number" class="text-gray-900">Business Number:</label>
+									<input
+									  type="text"
+									  value={businessNumber}
+									  id="invoice-company-business-number"
+									  placeholder="E.g. 123-45-6789"
+									/>
+								  </div>
+								  {#if !showAdditionalDetails}
+									  <a class="show-details-link" on:click={showAdditionalDetailsFun}>
+									  Show additional business details
+									  </a>
+								  {/if}
+								  {#if showAdditionalDetails}
+									  <div class="input-with-label">
+										  <label for="invoice-company-website" class="text-gray-900">Website:</label>
+										  <input
+										  type="text"
+										  value={businessWebsite}
+										  id="invoice-company-website"
+										  placeholder="https://example-website.com"
+										  />
+									  </div>
+									  <div class="input-with-label">
+										  <label for="invoice-company-owner" class="text-gray-900">Owner:</label>
+										  <input
+										  type="text"
+										  value={businessOwner}
+										  id="invoice-company-owner"
+										  placeholder="Business Owner Name"
+										  />
+									  </div>
+								  {/if}
+								</form>
+							</div><br>
+							<div class="lg:w-1/2">
+							  <!-- Card Content -->
+							  <h1 class="text-3xl text-gray-900">To</h1> <br/>
+						<form>
+						  <div class="input-with-label">
+							<label for="client-name" class="dark:text-gray-900">Name:</label>
+							<input
+							  type="text"
+							  bind:value={ClientName}
+							  id="invoice-company-name"
+							  placeholder="Client Name"
+							/>
+						  </div>
+						  <div class="input-with-label">
+							<label for="client-email" class="text-gray-900">Email:</label>
+							<input
+							  type="email"
+							  bind:value={ClientEmail}
+							  id="invoice-company-email"
+							  placeholder="name@client.com"
+							/>
+						  </div>
+						  <div class="input-with-label">
+							<label for="client-address" class=" text-gray-900">Address:</label>
+							<input
+							  type="text"
+							  value={ClientAddress}
+							  id="invoice-company-address"
+							  placeholder="Street"
+							/>
+						  </div>
+						  <div class="input-with-label">
+							<label for="client-phone" class="text-gray-900">Phone:</label>
+							<input
+							  type="tel"
+							  value={ClientPhone}
+							  id="invoice-company-phone"
+							  placeholder="(123) 456 789"
+							/>
+						  </div>
+						  <div class="input-with-label">
+							<label for="client-number" title="Mobile Number" class="text-gray-900">Mobile:</label>
+							<input
+							  type="tel"
+							  value={ClientNumber}
+							  id="invoice-company-business-number"
+							  placeholder="E.g. 123-45-6789"
+							/>
+						  </div>
+						  <div class="input-with-label">
+							<label for="client-fax" title="Fax Number" class="text-gray-900">Fax:</label>
+							<input
+							  type="tel"
+							  value={ClientFax}
+							  id="invoice-company-business-number"
+							  placeholder="E.g. 123-45-6789"
+							/>
+						  </div>
+						</form>
+							</div>
+						</div>
+					  </div><br>
 					<hr/>
 					<table class="w-full">
 						<thead class="border-collapse border-b">
@@ -283,4 +443,29 @@
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
+	.invoice-detail-body {
+        padding: 10px 10px 10px 10px;
+    }
+    .input-with-label label {
+      /* display: inline-block; */
+      font-weight: 500;
+      margin-bottom: 8px;
+      white-space: normal;
+      word-wrap: "break-word";
+      width: 5%;
+    }
+  
+    .input-with-label input {
+      width: 40%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+  
+    .show-details-link {
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
 </style>
