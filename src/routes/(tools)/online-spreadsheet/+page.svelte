@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Intro from '$lib/Intro.svelte';
-	import { Button, GradientButton, ButtonGroup, } from 'flowbite-svelte';
+	import { Button, GradientButton, Dropdown, DropdownItem, ChevronRight, DropdownDivider, } from 'flowbite-svelte';
 	import * as XLSX from 'xlsx';
 	import { onMount } from 'svelte';
 
@@ -19,12 +19,12 @@
 	function downloadSheet() {
 		const tableRows = document.querySelectorAll('tbody tr');
 
-		rowData = Array.from(tableRows).map((row) => {
+		let row_Data = Array.from(tableRows).map((row) => {
 			const cells = row.querySelectorAll('td');
 			return Array.from(cells).map((cell) => cell.textContent || '');
 		});
 
-		const data = rowData.map((row) => row.join(',')).join('\n');
+		const data = row_Data.map((row) => row.join(',')).join('\n');
 		const blob = new Blob([data], { type: 'text/csv' });
 		const url = window.URL.createObjectURL(blob);
 		const a = document.createElement('a');
@@ -38,6 +38,8 @@
 		document.body.appendChild(a);
 		a.click();
 		window.URL.revokeObjectURL(url);
+		document.body.removeChild(a);
+		return;
 	}
 
 	// create logic:
@@ -73,7 +75,7 @@
   	function parseExcel(file) {
 		const reader = new FileReader();
 
-		reader.onload = (e) => {
+		reader.onloadend = (e) => {
 		const data = new Uint8Array(e.target.result);
 		const workbook = XLSX.read(data, { type: 'array' });
 		const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -133,28 +135,31 @@
 <Intro heading={data.meta.title} description={data.meta.description} />
 <section class="bg-white dark:bg-gray-900">
 	{#if !showCreateSection && !showUploadSection}
-		<div class="flex justify-center items-center"> <!--Two buttons added from flowbite-svelte-->
-			<Button size="xl" outline color="blue" class="m-6" on:click={()=>{
+		<div class="flex justify-center items-center section-button mt-2 mb-4 mr-4 ml-4"> <!--Two buttons added from flowbite-svelte-->
+			<Button size="xl" outline color="blue" class="mr-2" on:click={()=>{
 				fileInput.click();}}>Upload Your Spreadsheet<br />(.xlsx)</Button>
 			<input id="sheetuploader" type="file" class="hidden" accept=".xlsx" bind:this={fileInput} on:change={handleFileChange} />
-			<GradientButton size="xl" color="blue" class="m-6" on:click={()=>{showCreateSection = !showCreateSection}}>Create New Spreadsheet<br />(.csv)</GradientButton>
+			<GradientButton size="xl" color="blue" class="ml-2" on:click={()=>{showCreateSection = !showCreateSection}}>Create New Spreadsheet<br />(.csv)</GradientButton>
 		</div>
 
 	{:else if showUploadSection}
-		<div class="flex justify-center item-center mt-4 ml-4 mr-4">
-			<ButtonGroup>
-				<GradientButton size="md" color="blue" class="mb-4" on:click={downloadSheet}>Download Sheet</GradientButton>
-				<Button size="md" outline color="blue" class="mb-4" on:click={uploadAddRow}>Add Row</Button>
+
+		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
+			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
+			<Dropdown placement="right-start">
+				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownDivider />
+				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
 				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
 				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				 -->
-				<Button size="md" outline color="blue" class="mb-4" on:click={uploadAddColumn}>Add Column</Button>
-				<GradientButton size="md" color="blue" class="mb-4" 
-				on:click={() => {showUploadSection = false; selectedCell = null; rowData = []; numRows=8; numCols=13;}}>Back</GradientButton>
-			</ButtonGroup>
+				-->
+				<DropdownItem on:click={uploadAddColumn}>Add Column</DropdownItem>
+				<DropdownDivider />
+				<DropdownItem on:click={() => {showUploadSection = false; selectedCell = null; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
+			</Dropdown>
 		</div>
 
 		<div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
@@ -182,20 +187,22 @@
 
 	{:else if showCreateSection}
 		
-		<div class="flex justify-center item-center mt-4 ml-4 mr-4">
-			<ButtonGroup>
-				<GradientButton size="md" color="blue" class="mb-4" on:click={downloadSheet}>Download Sheet</GradientButton>
-				<Button size="md" outline color="blue" class="mb-4" on:click={createAddRow}>Add Row</Button>
-				<!-- For Future Implementation -->
+		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
+			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
+			<Dropdown placement="right-start">
+				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownDivider />
+				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
+				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
 				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				 -->
-				<Button size="md" outline color="blue" class="mb-4" on:click={createAddColumn}>Add Column</Button>
-				<GradientButton size="md" color="blue" class="mb-4" 
-				on:click={() => {showCreateSection = false; rowData = []; numRows=8; numCols=13;}}>Back</GradientButton>
-			</ButtonGroup>
+				-->
+				<DropdownItem on:click={createAddColumn}>Add Column</DropdownItem>
+				<DropdownDivider />
+				<DropdownItem on:click={() => {showCreateSection = false; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
+			</Dropdown>
 		</div>	
 	
 		<div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
@@ -267,5 +274,11 @@
 	.scrollable-container { 
 		overflow-x: auto; 
 		overflow-y: auto; 
+		max-height: 385px;
+		max-width: fit-content;
+	}
+
+	.section-button {
+		max-width: 100%;
 	}
 </style>
