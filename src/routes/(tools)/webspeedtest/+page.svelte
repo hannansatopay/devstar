@@ -108,12 +108,14 @@ color: powderblue;
       
     }
     button {
-      border:none;
-      pointer: cursor;
-      color: powderblue;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      color: hsl(0, 0%, 28%);
+    font-size: 15px;
+    font-weight: bold;
+    font-family: Lucida;
+    letter-spacing: 7px;
+    cursor: pointer;
+    transition: 0.5s ease-out;
+    margin-right: 2px;
     }
     @keyframes gradientMove {
       0% {
