@@ -2,6 +2,7 @@
     <title>Student Loan Calculator</title>
     <link rel="stylesheet" href="style.css">   
     <style type="text/css">
+
 #about{
     margin:30px;
     width: 800px;
