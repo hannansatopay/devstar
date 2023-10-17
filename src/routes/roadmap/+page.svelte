@@ -141,6 +141,13 @@
                 githubId: 'munsifsatopay'
             }]
         },
+        {
+            name: 'Annuity Payout Calculator',
+            contributors: [{
+                name: 'Sumit Mishra',
+                githubid : 'Sumitm6879'
+            }]
+        },
     ];
 </script>
 <section class="bg-white dark:bg-gray-900 p-3 sm:p-5">
