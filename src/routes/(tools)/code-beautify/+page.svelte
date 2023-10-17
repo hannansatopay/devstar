@@ -11,7 +11,9 @@
 		FileCopySolid,
 		DownloadSolid,
 		ExpandSolid,
-		ChevronDownSolid
+		ChevronDownSolid,
+		ArrowRightSolid,
+		CotateSolid
 	} from 'flowbite-svelte-icons';
 
 	import Intro from '$lib/Intro.svelte';
@@ -21,9 +23,33 @@
 
 	export let data;
 
-	let type = 'JSON';
+	// possible types :
+	// JSON
+	// XML
+	// HTML
+	// CSV
+	// JS
+	// SQL
 
-	let dropdownOpen = false;
+	let toolType = 'JSON';
+	let convertTypeOne = 'CSV';
+	let convertTypeTwo = 'JSON';
+
+	let toggle = true;
+
+	let converterList: any = {
+		'JSON': ['XML', 'CSV'],
+		'XML': ['JSON', 'CSV'],
+		'CSV': ['XML', 'JSON']
+	}
+
+	$: inputTextAreaPlaceholder = toolType === "CONVERT" ? convertTypeOne : toolType;
+	$: outputTextAreaPlaceholder = toolType === "CONVERT" ? convertTypeTwo : toolType;
+	$: convertTypeTwo = converterList[convertTypeOne][0];
+
+	let toolsDropdownOpen = false;
+	let converterOneDropdownOpen = false;
+	let converterTwoDropdownOpen = false;
 
 	let inputTextAreaContent = '';
 	let outputTextAreaContent = '';
@@ -210,22 +236,46 @@
 	}
 
 	function format() {
-		if (type === 'XML') formatXML();
-		else if (type === 'JSON') formatJSON();
-		else if (type === 'HTML') formatHTML();
+		if (toolType === 'XML') formatXML();
+		else if (toolType === 'JSON') formatJSON();
+		else if (toolType === 'HTML') formatHTML();
 	}
 
 	function minify() {
-		if (type === 'XML') minifyXML();
-		else if (type === 'JSON') minifyJSON();
-		else if (type === 'HTML') minifyHTML();
+		if (toolType === 'XML') minifyXML();
+		else if (toolType === 'JSON') minifyJSON();
+		else if (toolType === 'HTML') minifyHTML();
 	}
 
 	function sampleCode() {
-		if (type === 'XML') sampleXML();
-		else if (type === 'JSON') sampleJSON();
-		else if (type === 'HTML') sampleHTML();
+		if (toolType === 'XML') sampleXML();
+		else if (toolType === 'JSON') sampleJSON();
+		else if (toolType === 'HTML') sampleHTML();
 	}
+
+	function convert() {
+		if (toolType === 'CONVERT') {
+			if (convertTypeOne === 'CSV') {
+				if (convertTypeTwo === 'JSON') convertCSV2JSON();
+				else if (convertTypeTwo === 'XML') convertCSV2XML();
+			}
+			else if (convertTypeOne === 'XML') {
+				if (convertTypeTwo === 'JSON') convertXML2JSON();
+				else if (convertTypeTwo === 'CSV') convertCSV2XML();
+			}
+			else if (convertTypeOne === 'JSON') {
+				if (convertTypeTwo === 'CSV') convertJSON2CSV();
+				else if (convertTypeTwo === 'XML') convertJSON2XML();
+			}
+		}
+	}
+
+	function convertCSV2JSON() {}
+	function convertCSV2XML() {}
+	function convertXML2JSON() {}
+	function convertJSON2CSV() {}
+	function convertJSON2XML() {}
+	
 	// delete functionality
 	const clearContent = () => {
 		inputTextAreaContent = '';
@@ -239,15 +289,15 @@
 		let fileName;
 		let fileType;
 
-		if (type === 'JSON') {
+		if (toolType === 'JSON') {
 			fileExtension = 'json';
 			fileName = 'output.json';
 			fileType = 'application/json';
-		} else if (type === 'XML') {
+		} else if (toolType === 'XML') {
 			fileExtension = 'xml';
 			fileName = 'output.xml';
 			fileType = 'application/xml';
-		} else if (type === 'HTML') {
+		} else if (toolType === 'HTML') {
 			fileExtension = 'html';
 			fileName = 'output.html';
 			fileType = 'text/html';
@@ -316,6 +366,11 @@
 			alert("Error during copy");
 		}
 	}
+
+	// switch button
+	const handleSwitch = () => {
+		[convertTypeOne, convertTypeTwo] = [convertTypeTwo, convertTypeOne];
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -331,29 +386,107 @@
 						outline
 						color="light"
 						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
-						>{type} Formatter<ChevronDownSolid size="xs" class="ml-2" /></Button
+						>
+						{ #if toolType === 'CONVERT' }
+							Converter
+						{ :else }
+							{toolType} Formatter
+						{ /if }
+						<ChevronDownSolid size="xs" class="ml-2" /></Button
 					>
-					<Dropdown bind:open={dropdownOpen}>
+					<Dropdown bind:open={toolsDropdownOpen}>
 						<DropdownItem
 							on:click={() => {
-								dropdownOpen = false;
-								type = 'JSON';
+								toolsDropdownOpen = false;
+								toolType = 'JSON';
 							}}>JSON Formatter</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
-								dropdownOpen = false;
-								type = 'XML';
+								toolsDropdownOpen = false;
+								toolType = 'XML';
 							}}>XML Formatter</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
-								dropdownOpen = false;
-								type = 'HTML';
+								toolsDropdownOpen = false;
+								toolType = 'HTML';
 							}}>HTML Formatter</DropdownItem
 						>
+						<DropdownItem
+							on:click={() => {
+								toolsDropdownOpen = false;
+								toolType = 'CONVERT';
+							}}>Converter</DropdownItem
+						>
 					</Dropdown>
+					
+					{ #if toolType === 'CONVERT' }
+						<Button
+							outline
+							color="light"
+							class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+							>{convertTypeOne}<ChevronDownSolid size="xs" class="ml-2" /></Button
+						>
+						<Dropdown bind:open={converterOneDropdownOpen}>
+							<DropdownItem
+								on:click={() => {
+									converterOneDropdownOpen = false;
+									convertTypeOne = 'JSON';
+								}}>JSON</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									converterOneDropdownOpen = false;
+									convertTypeOne = 'XML';
+								}}>XML</DropdownItem
+							>
+							<DropdownItem
+								on:click={() => {
+									converterOneDropdownOpen = false;
+									convertTypeOne = 'CSV';
+								}}>CSV</DropdownItem
+							>
+						</Dropdown>
 
+						<button
+							type="button"
+							class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+						>
+							<ArrowRightSolid size="sm" />
+							<span class="sr-only">Converts to</span>
+						</button>
+						<Tooltip color="blue" arrow={false}>Converted To</Tooltip>
+
+						<Button
+							outline
+							color="light"
+							class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+							>{convertTypeTwo}<ChevronDownSolid size="xs" class="ml-2" /></Button
+						>
+						<Dropdown bind:open={converterTwoDropdownOpen}>
+							{ #each converterList[convertTypeOne] as converterOption }
+							<DropdownItem
+								on:click={() => {
+									converterTwoDropdownOpen = false;
+									convertTypeTwo = converterOption;
+								}}>{converterOption}</DropdownItem
+							>
+							{ /each }
+						</Dropdown>
+
+						<button
+							type="button"
+							class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+							on:click={handleSwitch}
+						>
+							<CotateSolid size="sm" />
+							<span class="sr-only">Switch</span>
+						</button>
+						<Tooltip color="blue" arrow={false}>Switch</Tooltip>
+					{ /if }
+				</div>
+				<div class="flex items-center space-x-1 sm:pr-4 sm:pl-4">
 					<button
 						type="button"
 						data-text-area-type="input"
@@ -362,9 +495,9 @@
 						on:click={findSize}
 					>
 						Sample
-						<span class="sr-only">Sample {type} Data</span>
+						<span class="sr-only">Sample {toolType} Data</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Sample {type} Data</Tooltip>
+					<Tooltip color="blue" arrow={false}>Sample {toolType} Data</Tooltip>
 					<input type="file" id="fileInput" class="hidden" on:change={handleFileUpload} />
 
 					<button
@@ -406,9 +539,9 @@
 						on:click={validateJSON}
 					>
 						<CheckSolid size="sm" />
-						<span class="sr-only">Validate {type}</span>
+						<span class="sr-only">Validate {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Validate {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Validate {toolType}</Tooltip>
 
 					<button
 						type="button"
@@ -416,9 +549,9 @@
 						on:click={printContent}
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print {type}</span>
+						<span class="sr-only">Print {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Print {toolType}</Tooltip>
 
 					<button
 						type="button"
@@ -448,9 +581,9 @@
 						on:click={downloadFile}
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download {type}</span>
+						<span class="sr-only">Download {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Download {toolType}</Tooltip>
 
 					<!-- <label for="dropdown" class="text-white">Space:</label>
 					<select
@@ -485,7 +618,7 @@
 				data-text-area-type="input"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-				placeholder="{type} Code"
+				placeholder="{inputTextAreaPlaceholder} Code"
 			/>
 		</div>
 		<div
@@ -497,22 +630,33 @@
 		</div>
 	</div>
 
-	<Button
-		color="blue"
-		class="mr-1"
-		data-text-area-type="output"
-		on:click={format}
-		on:click={findSize}
-		>Beautify
-	</Button>
-	<Button
-		color="blue"
-		class="ml-1"
-		data-text-area-type="output"
-		on:click={minify}
-		on:click={findSize}
-		>Minify
-	</Button>
+	{ #if toolType === 'CONVERT' }
+		<Button
+			color="blue"
+			class="ml-1"
+			data-text-area-type="output"
+			on:click={convert}
+			on:click={findSize}
+			>Convert
+		</Button>	
+	{ :else }
+		<Button
+			color="blue"
+			class="mr-1"
+			data-text-area-type="output"
+			on:click={format}
+			on:click={findSize}
+			>Beautify
+		</Button>
+		<Button
+			color="blue"
+			class="ml-1"
+			data-text-area-type="output"
+			on:click={minify}
+			on:click={findSize}
+			>Minify
+		</Button>
+	{ /if }
 
 	<div
 		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
@@ -537,18 +681,18 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print {type}</span>
+						<span class="sr-only">Print {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Print {toolType}</Tooltip>
 
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<TrashBinSolid size="sm" />
-						<span class="sr-only">Delete {type}</span>
+						<span class="sr-only">Delete {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Delete {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Delete {toolType}</Tooltip>
 
 					<button
 						type="button"
@@ -567,9 +711,9 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download {type}</span>
+						<span class="sr-only">Download {toolType}</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download {type}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Download {toolType}</Tooltip>
 				</div>
 			</div>
 			<button
@@ -593,7 +737,8 @@
 				data-text-area-type="output"
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-				placeholder="{type} Output"
+				placeholder="{outputTextAreaPlaceholder} Output"
+				disabled
 			/>
 		</div>
 		<div
