@@ -21,7 +21,7 @@
 	</div>
 	<div class="px-4 mx-auto max-w-8xl lg:px-4">
 		<div class="p-4 mx-auto max-w-3xl rounded-lg border-gray-50 shadow-md dark:bg-gray-800 lg:p-8">
-			<form action="https://send.pageclip.co/ZDe8jQnoIlqujUxdqprrB3TNUYpZ8azq" class="pageclip-form" method="post">
+			<form action="https://send.pageclip.co/2mvHeHg01i3xkJZUHF4e4LF0E39BXxN9" class="pageclip-form" method="post">
 				<div class="mb-6">
 					<label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name <span class="text-red-600">*</span></label>
 					<input

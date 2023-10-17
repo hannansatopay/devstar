@@ -8,10 +8,3 @@ node_modules
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-.firebase/*
-functions/package-lock.json
-package-lock.json
-functions/*
-ui-debug.log
-yarn.lock
-static/samples/*
