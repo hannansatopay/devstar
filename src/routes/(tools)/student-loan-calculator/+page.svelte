@@ -1,33 +1,37 @@
+
 <head>    
     <title>Student Loan Calculator</title>
     <link rel="stylesheet" href="style.css">   
     <style type="text/css">
+
 #about{
-    margin:30px;
+    font-size:18px;
+    color:grey;
     width: 800px;
+    text-align:justify;
 }
-
+body{
+    background-color: white;
+}
 #box{
-    margin:30px;
+    margin:20px;
 }
-
-.container{
+.containerop {
+    background-color:#3E567C;
     display: center;
     justify-content: center;
     align-items: center;
-    width: 400px;
-    /* height: 300px; */
+    width: 500px;  
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0px 0px 10px 1px rgb(123, 114, 114);
+    box-shadow: 0px 0px 10px 1px rgb(123, 114, 120);
 }
 .heading{
     text-align: center;
     font-size: 30px;    
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
-    color:black;
-    margin-top: 10px;
+    color:black;    
 }
 /* Style for all input containers */
 .input-container{
@@ -83,11 +87,11 @@
     width: 58px;
     margin-left: 65px;
     margin-right: 0;        
-    /* background-color: aqua; */
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
-.radio-container{    
+.radio-container{  
+    background-color:grey;  
     display: flex;
     margin-left: 0;
 }
@@ -95,35 +99,31 @@
     display: none;
 }
 .radio-container label{
-    background-color: rgb(236, 235, 234);
+    
     padding: 3.7px 5px;        
     box-shadow: 0px 0px 2px 1px rgb(152, 145, 145);
     cursor: pointer;
-    transition: all 0.3s;    
-    
+    transition: all 0.3s;       
 }
 #month + label{
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 }
 .radio-container label:hover{
-    background-color: rgb(116, 101, 101);
+    background-color:orange;
     color:white;
 } 
 .radio-container input[type="radio"]:checked+label{
-    background-color:  rgb(116, 101, 101);
+    background-color: orange;
     color: white;
 } 
 
 /* Output */
-
 .output{
     margin: 10px;    
-    /* box-shadow: 0px 0px 5px rgb(51, 48, 48); */
     display: flex;
     flex-direction: column;
-    /* display: none; */
-
+    
 }
 .output p{
     font-size: 16px;
@@ -134,27 +134,31 @@
     box-shadow: 0px 0px 5px rgb(51, 48, 48);
     color:rgb(62, 58, 58);
     font-weight: 550;
-    
-
 }
 .output p span{
     float: right;
     word-wrap: break-word;
-    color: rgb(101, 17, 41);
+    color:black;
     font-weight: bolder;
     font-size: larger;
 }
+
+.op{
+    background-color: white;
+}
     </style> 
 </head>
+
 <body>
-    
+    <!--HTML-->
     <center>
         <div id="about">
+            <div class="heading"><u>Student Loan Calculator</u></div> <br>
             A student loan calculator is a tool that estimates monthly payments and total cost of student loans by considering factors like loan amount, interest rate, loan term, and repayment plan. It is useful for students to compare loan options and track their progress. To use a calculator, enter accurate information, compare loan options and repayment plans, and use the calculator to track progress. 
             </div>
         <div id="box">
-    <form class="container">
-        <p class="heading">Student Loan Calculator</p>
+    <form class="containerop">
+        
         <div class="input-container">
             <label for="amount">Loan Amount(₹)</label>
             <input type="number" id="amount" required>            
@@ -176,13 +180,14 @@
         </div>
         
         <div class="output">
-            <p >Loan EMI                           <span id="emi"         >₹</span></p>
-            <p >Total Interest Payable             <span id="totalInterest"    >₹</span></p>
-            <p >Total Payment(Principal + Interest)<span id="totalPayment">₹</span> </p>
-            
+            <p class="op">Loan EMI                           <span id="emi"         >₹</span></p>
+            <p class="op" >Total Interest Payable             <span id="totalInterest"    >₹</span></p>
+            <p class="op">Total Payment(Principal + Interest)<span id="totalPayment">₹</span> </p>
+           
         </div>
     </form> </div> </center> 
-      
+
+    <!--JavaScript-->
     <script>
       let loanAmount = document.getElementById("amount");
       let interestRate=document.getElementById("interest");
@@ -218,5 +223,6 @@
         document.getElementById("totalPayment").innerText="₹" + Math.round(totalPayment) ;
       }
      }
+     
     </script>
 </body>
