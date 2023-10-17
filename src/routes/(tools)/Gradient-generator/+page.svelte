@@ -36,10 +36,6 @@
   generateGradient();
 }
 
- function updateGradient() {
-  generateGradient();
-}
-
 const copyCode = async () => {
     try {
       await navigator.clipboard.writeText(gradientCode);
@@ -50,6 +46,7 @@ const copyCode = async () => {
   }
 
   onMount(generateRandomGradient);
+
    function updateGradient() {
     generateGradient();
   }
