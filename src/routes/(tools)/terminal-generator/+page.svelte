@@ -67,7 +67,15 @@
 	// 	}
 	// }
 
-	
+	const colorBoxes = document.querySelectorAll('.color-box');
+    const container = document.querySelector('.container');
+
+    colorBoxes.forEach(colorBox => {
+        colorBox.addEventListener('click', function () {
+            const color = this.style.backgroundColor;
+            container.style.backgroundColor = color;
+        });
+    });
 
 </script>
 
@@ -96,6 +104,7 @@
 <section class="bg-custom-white dark:bg-gray-900">
 	<div class="page py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="editor min-h-[35rem] md:w-4/5 lg:w-full rounded-lg mx-auto flex flex-col p-2">
+			<div class="container-bg" style="height: 100px; width: 100px; margin-top: 20px;"></div>
 			<!-- Toolbar Section  -->
 			<div class="toolbar flex flex-wrap justify-between mb-4">
 				<!-- Themes & Languages Dropdown -->
