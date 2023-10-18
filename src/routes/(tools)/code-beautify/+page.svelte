@@ -270,7 +270,27 @@
 		}
 	}
 
-	function convertCSV2JSON() {}
+	function convertCSV2JSON() {
+		const inputCSV = inputTextAreaContent;
+		const jsonArray = [];
+
+		const rows = inputCSV.split('\n');
+		const headers = rows[0].split(',');
+		const dataRows = rows.slice(1);
+
+		for (const dataRow of dataRows) {
+			const jsonObject: any = {};
+			const rowValues = dataRow.split(',');
+
+			for (let i = 0; i < headers.length; i++) {
+				jsonObject[headers[i]] = rowValues[i];
+			}
+			jsonArray.push(jsonObject);
+		}
+
+		outputTextAreaContent = JSON.stringify(jsonArray, null, 4);
+	}
+
 	function convertCSV2XML() {}
 	function convertXML2JSON() {}
 	function convertJSON2CSV() {}
@@ -495,9 +515,21 @@
 						on:click={findSize}
 					>
 						Sample
-						<span class="sr-only">Sample {toolType} Data</span>
+						<span class="sr-only">Sample 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeOne }
+							{ :else }
+								{ toolType }
+							{ /if }
+						Data</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Sample {toolType} Data</Tooltip>
+					<Tooltip color="blue" arrow={false}>Sample 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeOne }
+						{ :else }
+							{ toolType }
+						{ /if }
+					Data</Tooltip>
 					<input type="file" id="fileInput" class="hidden" on:change={handleFileUpload} />
 
 					<button
@@ -539,9 +571,21 @@
 						on:click={validateJSON}
 					>
 						<CheckSolid size="sm" />
-						<span class="sr-only">Validate {toolType}</span>
+						<span class="sr-only">Validate 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeOne }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Validate {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Validate 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeOne }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 
 					<button
 						type="button"
@@ -549,9 +593,21 @@
 						on:click={printContent}
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print {toolType}</span>
+						<span class="sr-only">Print 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeOne }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Print 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeOne }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 
 					<button
 						type="button"
@@ -581,9 +637,21 @@
 						on:click={downloadFile}
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download {toolType}</span>
+						<span class="sr-only">Download 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeOne }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Download 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeOne }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 
 					<!-- <label for="dropdown" class="text-white">Space:</label>
 					<select
@@ -681,18 +749,42 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print {toolType}</span>
+						<span class="sr-only">Print 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeTwo }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Print 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeTwo }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<TrashBinSolid size="sm" />
-						<span class="sr-only">Delete {toolType}</span>
+						<span class="sr-only">Delete 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeTwo }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Delete {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Delete 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeTwo }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 
 					<button
 						type="button"
@@ -711,9 +803,21 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download {toolType}</span>
+						<span class="sr-only">Download 
+							{ #if toolType === 'CONVERT' }
+								{ convertTypeTwo }
+							{ :else }
+								{ toolType }
+							{ /if }
+						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download {toolType}</Tooltip>
+					<Tooltip color="blue" arrow={false}>Download 
+						{ #if toolType === 'CONVERT' }
+							{ convertTypeTwo }
+						{ :else }
+							{ toolType }
+						{ /if }
+					</Tooltip>
 				</div>
 			</div>
 			<button
@@ -738,7 +842,6 @@
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{outputTextAreaPlaceholder} Output"
-				disabled
 			/>
 		</div>
 		<div
