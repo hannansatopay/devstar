@@ -270,7 +270,27 @@
 		}
 	}
 
-	function convertCSV2JSON() {}
+	function convertCSV2JSON() {
+		const inputCSV = inputTextAreaContent;
+		const jsonArray = [];
+
+		const rows = inputCSV.split('\n');
+		const headers = rows[0].split(',');
+		const dataRows = rows.slice(1);
+
+		for (const dataRow of dataRows) {
+			const jsonObject: any = {};
+			const rowValues = dataRow.split(',');
+
+			for (let i = 0; i < headers.length; i++) {
+				jsonObject[headers[i]] = rowValues[i];
+			}
+			jsonArray.push(jsonObject);
+		}
+
+		outputTextAreaContent = JSON.stringify(jsonArray, null, 4);
+	}
+
 	function convertCSV2XML() {}
 	function convertXML2JSON() {}
 	function convertJSON2CSV() {}
@@ -822,7 +842,6 @@
 				rows="8"
 				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
 				placeholder="{outputTextAreaPlaceholder} Output"
-				disabled
 			/>
 		</div>
 		<div
