@@ -1,7 +1,7 @@
 
 <script>
 	import { onMount } from 'svelte';
-	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, P } from 'flowbite-svelte';
 	import { ChevronDownSolid } from 'flowbite-svelte-icons';
 	import * as am5 from '@amcharts/amcharts5?client';
 	import * as am5xy from '@amcharts/amcharts5/xy?client';
@@ -132,6 +132,8 @@
 		}
 	}
 
+	
+
 	function addData() {
 
 		const XaxisInput = document.querySelector('#XaxisInput').value;
@@ -141,7 +143,7 @@
 			// Push the new data point into the data array
 			data.push({ country: XaxisInput, value: YaxisInput });
 
-			document.querySelector('#last_data_added').style.display = 'block';
+			document.querySelector('#last_data_added').style.display = 'flex';
 			document.querySelector('#Xaxis_value').innerHTML = XaxisInput;
 			document.querySelector('#Yaxis_value').innerHTML = YaxisInput;
 
@@ -150,6 +152,38 @@
 			document.querySelector('#YaxisInput').value = '';
 		}
 	}
+
+	function viewAllData(){
+
+		if(document.querySelector('#alldata').style.display == "none"){
+			document.querySelector('#alldata').style.display = "block";
+			document.querySelector('#view_all_btn').innerText = "close";
+		}else{
+			document.querySelector('#alldata').style.display = "none";
+			document.querySelector('#view_all_btn').innerText = "view all";
+		}
+		
+		let i =1;
+		let sum = `<tr class="text-xs"> 
+				<td class="p-1 mx-2 w-2/4 text-gray-800 bg-gray-200 border-b-2 border-gray-500 "> srno </td> 
+				<td class="p-1 mx-2 w-2/4 text-gray-800 bg-gray-200 border-b-2 border-gray-500 "> x-axis </td> 
+				<td class="p-1 mx-2 w-2/4 text-gray-800 bg-gray-200 border-b-2 border-gray-500 "> y-axis </td>  
+				</tr>`;
+
+		data.forEach(e => {
+			
+			sum += `<tr class="py-1 text-xs px-2  "> 
+				<td class="p-2 m-2 text-violet-700 bg-violet-200 "> ${i} </td> 
+				<td class="p-2 m-2 text-green-700 bg-green-200 "> ${ e.country} </td> 
+				<td class="p-2 m-2 text-blue-700 bg-blue-200 "> ${ e.value} </td> 
+				<tr>`;
+
+			i += 1;
+			
+		});
+
+		document.querySelector('#alldata_table').innerHTML= sum;
+}
 
 
 </script>
@@ -207,11 +241,19 @@
 
 		<div style="display: none;" id="last_data_added" class="py-2">
 			<p class="text-sm font-bold py-2 dark:text-white">
-				Added Data <span
-					class="px-2 py-1 text-green-700 bg-green-200 rounded-md"
-					id="Xaxis_value"
-				/> <span class="py-1 px-2 text-green-700 bg-green-200 rounded-md" id="Yaxis_value" />
+				Added Data 
+				<span class="px-2 py-1 text-green-700 bg-green-200 rounded-md" id="Xaxis_value"/>
+				<span class="py-1 px-2 text-green-700 bg-green-200 rounded-md" id="Yaxis_value" />
+				<button on:click={viewAllData} id="view_all_btn" class="btn py-1 px-2 text-blue-700 bg-blue-200 rounded-md" >View all</button>
 			</p>
+
+		
+		</div>
+
+		<div style="display: none;" id="alldata" class="w-3/4 h-32 bg-gray-100 mt-2 rounded-sm py-4 overflow-y-auto">
+			<table id="alldata_table" class="w-full overflow-y-auto">
+				
+			</table>
 		</div>
 	</div>
 
@@ -253,5 +295,7 @@
 		#chartdiv {
 			width: 100%;
 		}
+
+		
 	}
 </style>
