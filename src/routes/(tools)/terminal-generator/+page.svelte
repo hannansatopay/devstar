@@ -1,73 +1,3 @@
-<script lang="ts">
-	import Intro from '$lib/Intro.svelte';
-	import {
-		Label,
-		Input,
-		Range,
-		Radio,
-		Checkbox,
-		ButtonGroup,
-		Button,
-		Search,
-		Dropdown,
-		DropdownItem,
-		DropdownDivider
-	} from 'flowbite-svelte';
-
-	import { onMount } from 'svelte';
-
-	import {
-		ChevronDownSolid,
-		UserRemoveSolid,
-		UserCircleSolid,
-		AdjustmentsVerticalOutline,
-		DownloadSolid,
-		CopySolid,
-		UserSettingsOutline,
-		UserSettingsSolid
-	} from 'flowbite-svelte-icons';
-
-	import CodeMirror from 'svelte-codemirror-editor';
-	import { javascript } from '@codemirror/lang-javascript';
-	import { oneDark } from '@codemirror/theme-one-dark';
-
-	export let data;
-
-	let innerWidth: any = null;
-	let innerHeight: any = null;
-
-	let value = '';
-
-	onMount(() => {
-		// const codeEditor = document.querySelector('.code-editor');
-
-		// if (codeEditor) {
-		// 	editor = CodeMirror(codeEditor, {
-		// 		lineNumbers: true,
-		// 		theme: 'dracula'
-		// 		// ... any other CodeMirror options you want
-		// 	});
-		// }
-
-		innerWidth = window.innerWidth;
-		innerHeight = window.innerHeight;
-	});
-
-	let event;
-	let codeMirrorInstance: any = null;
-
-	// function handleKeydown(event) {
-	// 	if (event.keyCode === 8) {
-	// 		// If the key is backspace
-	// 		const cm = event.target.CodeMirror;
-	// 		const cursor = cm.getCursor();
-	// 		if (cursor.ch === 0 && cursor.line === 0) {
-	// 			event.preventDefault();
-	// 		}
-	// 	}
-	// }
-
-</script>
 
 <!--  Introduction  -->
 
@@ -779,3 +709,83 @@
 
 </style>
 
+<script lang="ts">
+	import Intro from '$lib/Intro.svelte';
+	import {
+		Label,
+		Input,
+		Range,
+		Radio,
+		Checkbox,
+		ButtonGroup,
+		Button,
+		Search,
+		Dropdown,
+		DropdownItem,
+		DropdownDivider
+	} from 'flowbite-svelte';
+
+	import { onMount } from 'svelte';
+
+	import {
+		ChevronDownSolid,
+		UserRemoveSolid,
+		UserCircleSolid,
+		AdjustmentsVerticalOutline,
+		DownloadSolid,
+		CopySolid,
+		UserSettingsOutline,
+		UserSettingsSolid
+	} from 'flowbite-svelte-icons';
+
+	import CodeMirror from 'svelte-codemirror-editor';
+	import { javascript } from '@codemirror/lang-javascript';
+	import { oneDark } from '@codemirror/theme-one-dark';
+
+	export let data;
+
+	let innerWidth: any = null;
+	let innerHeight: any = null;
+
+	let value = '';
+
+	onMount(() => {
+		// const codeEditor = document.querySelector('.code-editor');
+
+		// if (codeEditor) {
+		// 	editor = CodeMirror(codeEditor, {
+		// 		lineNumbers: true,
+		// 		theme: 'dracula'
+		// 		// ... any other CodeMirror options you want
+		// 	});
+		// }
+
+		innerWidth = window.innerWidth;
+		innerHeight = window.innerHeight;
+	});
+
+	let event;
+	let codeMirrorInstance: any = null;
+
+	// function handleKeydown(event) {
+	// 	if (event.keyCode === 8) {
+	// 		// If the key is backspace
+	// 		const cm = event.target.CodeMirror;
+	// 		const cursor = cm.getCursor();
+	// 		if (cursor.ch === 0 && cursor.line === 0) {
+	// 			event.preventDefault();
+	// 		}
+	// 	}
+	// }
+
+	const colorBoxes = document.querySelectorAll('.color-box');
+    const container = document.querySelector('.container');
+
+    colorBoxes.forEach(colorBox => {
+        colorBox.addEventListener('click', function () {
+            const color = this.style.backgroundColor;
+            container.style.backgroundColor = color;
+        });
+    });
+
+</script>
