@@ -67,16 +67,6 @@
 	// 	}
 	// }
 
-	const colorBoxes = document.querySelectorAll('.color-box');
-    const container = document.querySelector('.container');
-
-    colorBoxes.forEach(colorBox => {
-        colorBox.addEventListener('click', function () {
-            const color = this.style.backgroundColor;
-            container.style.backgroundColor = color;
-        });
-    });
-
 </script>
 
 <!--  Introduction  -->
