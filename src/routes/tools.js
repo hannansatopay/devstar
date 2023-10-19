@@ -41,6 +41,12 @@ export let tools = {
         link: '/unit-converter',
         description: "The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
     },
+    'rent-calculator': {
+        name: 'Rent Calculator',
+        icon: 'arrow-right-arrow-left',
+        link: '/rent-calculator',
+        description: "The Rent Calculator is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
+    },
     'image-base64-encode': {
         name: 'Image Base64 Encode',
         icon: 'folder-image',
