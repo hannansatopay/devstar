@@ -29,28 +29,23 @@
 			<div class="toolbar flex flex-wrap justify-between mb-4">
 				<!-- Themes & Languages Dropdown -->
 				<!-- <div class="flex space-x-4"> -->
-				<div class="theme">
-					<span>Theme</span>
-					<!-- <span
-						style="clip:rect(0 0 0 0);margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;word-wrap:normal"
-						id="theme-dropdown">Theme</span> -->
-					<span class="ml-auto" />
-					<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-
-					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44 z-index: 9999">
-						
-						<div slot="header" class="p-3">
-							<Search size="md" />
-						</div>
-						<DropdownItem>Aptos</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Calibri</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Sans serif</DropdownItem>
-						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-					</Dropdown>
-				</div>
-
+					<div class="theme">
+						<span>Theme</span>
+						<span class="ml-auto" />
+						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+	
+						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+							<div slot="header" class="p-3">
+								<Search size="md" />
+							</div>
+							<DropdownItem>Arial</DropdownItem>
+							<DropdownDivider />
+							<DropdownItem>Helvetica</DropdownItem>
+							<DropdownDivider />
+							<DropdownItem>Sans-serif</DropdownItem>
+							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+						</Dropdown>
+					</div>
 				<div class="language">
 					<span>Language</span>
 					<span class="ml-auto" />
@@ -321,6 +316,28 @@
 		font-size: 15px;
 		color: white;
 	}
+
+	body {
+    font-family: Arial, sans-serif; /* Default font family */
+}
+
+.theme-selector {
+    margin: 10px;
+}
+
+.theme-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.theme-button:hover {
+    background-color: #555;
+}
 
 	.language {
 		display: flex;
@@ -706,6 +723,13 @@
             cursor: pointer;
             border: 1px solid #ccc;
         }
+		.theme {
+    font-family: var(--theme-font, sans-serif);
+  }
+
+  .dropdown-item {
+    font-family: var(--dropdown-font, sans-serif);
+  }
 
 </style>
 
@@ -777,5 +801,7 @@
 	// 		}
 	// 	}
 	// }
+
+	let themeFont = "Font1"; // Set the default font
 
 </script>
