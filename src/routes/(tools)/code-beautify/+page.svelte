@@ -38,13 +38,13 @@
 	let toggle = true;
 
 	let converterList: any = {
-		'JSON': ['XML', 'CSV'],
-		'XML': ['JSON', 'CSV'],
-		'CSV': ['XML', 'JSON']
-	}
+		JSON: ['XML', 'CSV'],
+		XML: ['JSON', 'CSV'],
+		CSV: ['XML', 'JSON']
+	};
 
-	$: inputTextAreaPlaceholder = toolType === "CONVERT" ? convertTypeOne : toolType;
-	$: outputTextAreaPlaceholder = toolType === "CONVERT" ? convertTypeTwo : toolType;
+	$: inputTextAreaPlaceholder = toolType === 'CONVERT' ? convertTypeOne : toolType;
+	$: outputTextAreaPlaceholder = toolType === 'CONVERT' ? convertTypeTwo : toolType;
 	$: convertTypeTwo = converterList[convertTypeOne][0];
 
 	let toolsDropdownOpen = false;
@@ -258,12 +258,10 @@
 			if (convertTypeOne === 'CSV') {
 				if (convertTypeTwo === 'JSON') convertCSV2JSON();
 				else if (convertTypeTwo === 'XML') convertCSV2XML();
-			}
-			else if (convertTypeOne === 'XML') {
+			} else if (convertTypeOne === 'XML') {
 				if (convertTypeTwo === 'JSON') convertXML2JSON();
 				else if (convertTypeTwo === 'CSV') convertCSV2XML();
-			}
-			else if (convertTypeOne === 'JSON') {
+			} else if (convertTypeOne === 'JSON') {
 				if (convertTypeTwo === 'CSV') convertJSON2CSV();
 				else if (convertTypeTwo === 'XML') convertJSON2XML();
 			}
@@ -291,11 +289,27 @@
 		outputTextAreaContent = JSON.stringify(jsonArray, null, 4);
 	}
 
-	function convertCSV2XML() {}
+	function convertCSV2XML() {
+		let rows = inputTextAreaContent.split('\n');
+		let headers = rows[0].split(',');
+
+		let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<root>\n';
+		for (let i = 1; i < rows.length; i++) {
+			let values = rows[i].split(',');
+			xml += '<row>\n';
+			for (let j = 0; j < headers.length; j++) {
+				xml += `    <${headers[j]}>${values[j]}</${headers[j]}>\n`;
+			}
+			xml += '</row>\n';
+		}
+		xml += '</root>';
+
+		outputTextAreaContent = xml;
+	}
 	function convertXML2JSON() {}
 	function convertJSON2CSV() {}
 	function convertJSON2XML() {}
-	
+
 	// delete functionality
 	const clearContent = () => {
 		inputTextAreaContent = '';
@@ -354,7 +368,7 @@
 	// url upload
 	const handleURLUpload = async (event) => {
 		try {
-			let url = prompt("Please Enter URL : ");
+			let url = prompt('Please Enter URL : ');
 			const response = await fetch(url);
 			if (!response.ok) {
 				alert('Network Error');
@@ -365,7 +379,7 @@
 		} catch (error) {
 			console.error('Error : ', error);
 		}
-	}
+	};
 
 	// copy to clipboard
 	const handleCopyClipboard = async (event) => {
@@ -380,17 +394,16 @@
 
 		try {
 			await navigator.clipboard.writeText(textCopied);
-      		alert("Text Copied");
+			alert('Text Copied');
+		} catch (error) {
+			alert('Error during copy');
 		}
-		catch(error) {
-			alert("Error during copy");
-		}
-	}
+	};
 
 	// switch button
 	const handleSwitch = () => {
 		[convertTypeOne, convertTypeTwo] = [convertTypeTwo, convertTypeOne];
-	}
+	};
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -406,12 +419,12 @@
 						outline
 						color="light"
 						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
-						>
-						{ #if toolType === 'CONVERT' }
+					>
+						{#if toolType === 'CONVERT'}
 							Converter
-						{ :else }
+						{:else}
 							{toolType} Formatter
-						{ /if }
+						{/if}
 						<ChevronDownSolid size="xs" class="ml-2" /></Button
 					>
 					<Dropdown bind:open={toolsDropdownOpen}>
@@ -440,8 +453,8 @@
 							}}>Converter</DropdownItem
 						>
 					</Dropdown>
-					
-					{ #if toolType === 'CONVERT' }
+
+					{#if toolType === 'CONVERT'}
 						<Button
 							outline
 							color="light"
@@ -485,14 +498,14 @@
 							>{convertTypeTwo}<ChevronDownSolid size="xs" class="ml-2" /></Button
 						>
 						<Dropdown bind:open={converterTwoDropdownOpen}>
-							{ #each converterList[convertTypeOne] as converterOption }
-							<DropdownItem
-								on:click={() => {
-									converterTwoDropdownOpen = false;
-									convertTypeTwo = converterOption;
-								}}>{converterOption}</DropdownItem
-							>
-							{ /each }
+							{#each converterList[convertTypeOne] as converterOption}
+								<DropdownItem
+									on:click={() => {
+										converterTwoDropdownOpen = false;
+										convertTypeTwo = converterOption;
+									}}>{converterOption}</DropdownItem
+								>
+							{/each}
 						</Dropdown>
 
 						<button
@@ -504,7 +517,7 @@
 							<span class="sr-only">Switch</span>
 						</button>
 						<Tooltip color="blue" arrow={false}>Switch</Tooltip>
-					{ /if }
+					{/if}
 				</div>
 				<div class="flex items-center space-x-1 sm:pr-4 sm:pl-4">
 					<button
@@ -515,21 +528,25 @@
 						on:click={findSize}
 					>
 						Sample
-						<span class="sr-only">Sample 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeOne }
-							{ :else }
-								{ toolType }
-							{ /if }
-						Data</span>
+						<span class="sr-only"
+							>Sample
+							{#if toolType === 'CONVERT'}
+								{convertTypeOne}
+							{:else}
+								{toolType}
+							{/if}
+							Data</span
+						>
 					</button>
-					<Tooltip color="blue" arrow={false}>Sample 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeOne }
-						{ :else }
-							{ toolType }
-						{ /if }
-					Data</Tooltip>
+					<Tooltip color="blue" arrow={false}
+						>Sample
+						{#if toolType === 'CONVERT'}
+							{convertTypeOne}
+						{:else}
+							{toolType}
+						{/if}
+						Data</Tooltip
+					>
 					<input type="file" id="fileInput" class="hidden" on:change={handleFileUpload} />
 
 					<button
@@ -571,20 +588,22 @@
 						on:click={validateJSON}
 					>
 						<CheckSolid size="sm" />
-						<span class="sr-only">Validate 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeOne }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Validate
+							{#if toolType === 'CONVERT'}
+								{convertTypeOne}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Validate 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeOne }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Validate
+						{#if toolType === 'CONVERT'}
+							{convertTypeOne}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 
 					<button
@@ -593,20 +612,22 @@
 						on:click={printContent}
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeOne }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Print
+							{#if toolType === 'CONVERT'}
+								{convertTypeOne}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeOne }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Print
+						{#if toolType === 'CONVERT'}
+							{convertTypeOne}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 
 					<button
@@ -637,20 +658,22 @@
 						on:click={downloadFile}
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeOne }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Download
+							{#if toolType === 'CONVERT'}
+								{convertTypeOne}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeOne }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Download
+						{#if toolType === 'CONVERT'}
+							{convertTypeOne}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 
 					<!-- <label for="dropdown" class="text-white">Space:</label>
@@ -698,7 +721,7 @@
 		</div>
 	</div>
 
-	{ #if toolType === 'CONVERT' }
+	{#if toolType === 'CONVERT'}
 		<Button
 			color="blue"
 			class="ml-1"
@@ -706,8 +729,8 @@
 			on:click={convert}
 			on:click={findSize}
 			>Convert
-		</Button>	
-	{ :else }
+		</Button>
+	{:else}
 		<Button
 			color="blue"
 			class="mr-1"
@@ -724,7 +747,7 @@
 			on:click={findSize}
 			>Minify
 		</Button>
-	{ /if }
+	{/if}
 
 	<div
 		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
@@ -749,20 +772,22 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<PrintSolid size="sm" />
-						<span class="sr-only">Print 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeTwo }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Print
+							{#if toolType === 'CONVERT'}
+								{convertTypeTwo}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Print 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeTwo }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Print
+						{#if toolType === 'CONVERT'}
+							{convertTypeTwo}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 
 					<button
@@ -770,20 +795,22 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<TrashBinSolid size="sm" />
-						<span class="sr-only">Delete 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeTwo }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Delete
+							{#if toolType === 'CONVERT'}
+								{convertTypeTwo}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Delete 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeTwo }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Delete
+						{#if toolType === 'CONVERT'}
+							{convertTypeTwo}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 
 					<button
@@ -803,20 +830,22 @@
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
 					>
 						<DownloadSolid size="sm" />
-						<span class="sr-only">Download 
-							{ #if toolType === 'CONVERT' }
-								{ convertTypeTwo }
-							{ :else }
-								{ toolType }
-							{ /if }
+						<span class="sr-only"
+							>Download
+							{#if toolType === 'CONVERT'}
+								{convertTypeTwo}
+							{:else}
+								{toolType}
+							{/if}
 						</span>
 					</button>
-					<Tooltip color="blue" arrow={false}>Download 
-						{ #if toolType === 'CONVERT' }
-							{ convertTypeTwo }
-						{ :else }
-							{ toolType }
-						{ /if }
+					<Tooltip color="blue" arrow={false}
+						>Download
+						{#if toolType === 'CONVERT'}
+							{convertTypeTwo}
+						{:else}
+							{toolType}
+						{/if}
 					</Tooltip>
 				</div>
 			</div>
