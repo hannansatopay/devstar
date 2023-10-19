@@ -73,61 +73,165 @@
 								<img src="/color-palatte.png" alt="Your  Description" />
 								<div class="dropdown-content">
 									<div class="color-palette">
-										<div class="color-box" style="background-color: violet;"></div>
-										<div class="color-box" style="background-color: indigo;"></div>
-										<div class="color-box" style="background-color: blue;"></div>
-										<div class="color-box" style="background-color: green;"></div>
-										<div class="color-box" style="background-color: yellow;"></div>
-										<div class="color-box" style="background-color: orange;"></div>
-										<div class="color-box" style="background-color: red;"></div>
-										<div class="color-box" style="background-color: white;"></div>
-										<div class="color-box" style="background-color: black;"></div>
-										<div class="color-box" style="background-color: gray;"></div>
-										<div class="color-box" style="background-color: brown;"></div>
-										<div class="color-box" style="background-color: pink;"></div>
-										<div class="color-box" style="background-color: purple;"></div>
-										<div class="color-box" style="background-color: cyan;"></div>
-										<div class="color-box" style="background-color: magenta;"></div>
-										<div class="color-box" style="background-color: lime;"></div>
-										<div class="color-box" style="background-color: teal;"></div>
-										<div class="color-box" style="background-color: olive;"></div>
-										<div class="color-box" style="background-color: navy;"></div>
-										<div class="color-box" style="background-color: maroon;"></div>
-										<div class="color-box" style="background-color: aqua;"></div>
-										<div class="color-box" style="background-color: chartreuse;"></div>
-										<div class="color-box" style="background-color: crimson"></div>
-										<div class="color-box" style="background-color: darkblue;"></div>
-										<div class="color-box" style="background-color: darkcyan;"></div>
-										<div class="color-box" style="background-color: darkgoldenrod;"></div>
-										<div class="color-box" style="background-color: darkgray;"></div>
-										<div class="color-box" style="background-color: darkgreen;"></div>
-										<div class="color-box" style="background-color: darkkhaki;"></div>
-										<div class="color-box" style="background-color: darkmagenta;"></div>
-										<div class="color-box" style="background-color: darkolivegreen;"></div>
-										<div class="color-box" style="background-color: darkorange;"></div>
-										<div class="color-box" style="background-color: darkorchid;"></div>
-										<div class="color-box" style="background-color: darkred;"></div>
-										<div class="color-box" style="background-color: darkseagreen;"></div>
-										<div class="color-box" style="background-color: darkslateblue;"></div>
-										<div class="color-box" style="background-color: darkslategray;"></div>
-										<div class="color-box" style="background-color: darkturquoise;"></div>
-										<div class="color-box" style="background-color: darkviolet;"></div>
-										<div class="color-box" style="background-color: deeppink;"></div>
-										<div class="color-box" style="background-color: deepskyblue;"></div>
-										<div class="color-box" style="background-color: dimgray;"></div>
-										<div class="color-box" style="background-color: dodgerblue;"></div>
-										<div class="color-box" style="background-color: firebrick;"></div>
-										<div class="color-box" style="background-color: silver;"></div>
-										<div class="color-box" style="background-color: plum;"></div>
-										<div class="color-box" style="background-color: coral;"></div>
-										<div class="color-box" style="background-color: yellowgreen;"></div>
-										<div class="color-box" style="background-color: khaki;"></div>
-										<div class="color-box" style="background-color: sienna;"></div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
+											<div class="color-box" style="background-color: violet;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
+											<div class="color-box" style="background-color: indigo;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'blue'">
+											<div class="color-box" style="background-color: blue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'green'">
+											<div class="color-box" style="background-color: green;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellow'">
+											<div class="color-box" style="background-color: yellow;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'orange'">
+											<div class="color-box" style="background-color: orange;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'red'">
+											<div class="color-box" style="background-color: red;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'white'">
+											<div class="color-box" style="background-color: white;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'black'">
+											<div class="color-box" style="background-color: black;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'gray'">
+											<div class="color-box" style="background-color: gray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'brown'">
+											<div class="color-box" style="background-color: brown;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'pink'">
+											<div class="color-box" style="background-color: pink;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'purple'">
+											<div class="color-box" style="background-color: purple;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'cyan'">
+											<div class="color-box" style="background-color: cyan;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'magenta'">
+											<div class="color-box" style="background-color: magenta;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'lime'">
+											<div class="color-box" style="background-color: lime;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'teal'">
+											<div class="color-box" style="background-color: teal;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'olive'">
+											<div class="color-box" style="background-color: olive;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'navy'">
+											<div class="color-box" style="background-color: navy;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'maroon'">
+											<div class="color-box" style="background-color: maroon;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'aqua'">
+											<div class="color-box" style="background-color: aqua;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'chartreuse'">
+											<div class="color-box" style="background-color: chartreuse;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'crimson'">
+											<div class="color-box" style="background-color: crimson;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkblue'">
+											<div class="color-box" style="background-color: darkblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkcyan'">
+											<div class="color-box" style="background-color: darkcyan;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgoldenrod'">
+											<div class="color-box" style="background-color: darkgoldenrod;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgray'">
+											<div class="color-box" style="background-color: darkgray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgreen'">
+											<div class="color-box" style="background-color: darkgreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkkhaki'">
+											<div class="color-box" style="background-color: darkkhaki;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkmagenta'">
+											<div class="color-box" style="background-color: magenta;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkolivegreen'">
+											<div class="color-box" style="background-color: darkolivegreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkorange'">
+											<div class="color-box" style="background-color: darkorange;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkorchid'">
+											<div class="color-box" style="background-color: darkorchid;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkred'">
+											<div class="color-box" style="background-color: darkred;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkseagreen'">
+											<div class="color-box" style="background-color: darkseagreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkslateblue'">
+											<div class="color-box" style="background-color: darkslateblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkslategray'">
+											<div class="color-box" style="background-color: darkslategray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkturquoise'">
+											<div class="color-box" style="background-color: dark turquoise;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkviolet'">
+											<div class="color-box" style="background-color: darkviolet;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'deeppink'">
+											<div class="color-box" style="background-color: deeppink;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'deepskyblue'">
+											<div class="color-box" style="background-color: deepskyblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'dimgray'">
+											<div class="color-box" style="background-color: dimgray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'dodgerblue'">
+											<div class="color-box" style="background-color: dodgerblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'firebrick'">
+											<div class="color-box" style="background-color: firebrick;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'silver'">
+											<div class="color-box" style="background-color: silver;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'plum'">
+											<div class="color-box" style="background-color: plum;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'coral'">
+											<div class="color-box" style="background-color: coral;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellowgreen'">
+											<div class="color-box" style="background-color: yellowgreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'khaki'">
+											<div class="color-box" style="background-color: khaki;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'sienna'">
+											<div class="color-box" style="background-color: sienna;"></div>
+										</div>
+										
+
+										
+										
 										<!-- Add more color boxes as needed -->
 										<div class="container" style="height: 100px; width: 100px; margin-top: 20px;"></div>
+
 									</div>
 								</div>
-								
 							</Button>
 						</div>
 						<!-- Setting -->
@@ -276,6 +380,8 @@
 </section>
 
 <style>
+
+	
 	.toolbar-second-row {
 		/* display: flex;
 		align-items: center;
@@ -723,13 +829,8 @@
             cursor: pointer;
             border: 1px solid #ccc;
         }
-		.theme {
-    font-family: var(--theme-font, sans-serif);
-  }
 
-  .dropdown-item {
-    font-family: var(--dropdown-font, sans-serif);
-  }
+		
 
 </style>
 
@@ -801,7 +902,5 @@
 	// 		}
 	// 	}
 	// }
-
-	let themeFont = "Font1"; // Set the default font
 
 </script>
