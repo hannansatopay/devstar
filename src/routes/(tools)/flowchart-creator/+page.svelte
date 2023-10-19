@@ -7,6 +7,10 @@
 	function setTool(tool) {
       selectedTool.set(tool);
     }
+	const exportFlow = () => {
+		const event = new CustomEvent('export-request');
+		dispatchEvent(event);
+	};
 
 </script>
 
@@ -45,10 +49,11 @@
 		<div class="function grid grid-cols-2 gap-1  ">
 			<button class="border rounded-lg  px-1">Undo</button><button class="border rounded-lg px-1">Redo</button></div>
 		<div class="eraseall border px-1 border rounded-lg my-1 text-center"><button >Erase All</button></div>
-		<div class="border px-1 border rounded-lg text-center"><button>Export</button></div>
+		<div class="border px-1 border rounded-lg text-center"><button on:click={exportFlow}>Export</button></div>
+		  
 		</div>
 		
 	</div>
-	<FlowchartArea />
+	<FlowchartArea/>
 	<!-- <canvas class=" bg-white w-3/5  lg:w-3/4 sm:w-full">The Flow Chart Generator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.</canvas> -->
 </div>

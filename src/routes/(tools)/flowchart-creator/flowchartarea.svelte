@@ -1,10 +1,10 @@
 <!-- src/routes/FlowchartArea.svelte -->
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, afterUpdate } from 'svelte';
   import { selectedTool } from './toolstore'; // Adjust the path to your store file
 
+  export let context;
   let canvas;
-  let context;
   let isDrawing = false;
   let textEditing = false;
   let tempText = '';
@@ -178,7 +178,6 @@
   shapes.push(squareData);
   console.log('Added Square:', squareData);
   } 
-
   function drawSquare(x1, y1, x2, y2, color) {
     const sideLength = Math.min(Math.abs(x2 - x1), Math.abs(y2 - y1));
     context.beginPath();
@@ -339,9 +338,6 @@
   context.stroke();
 }
 
-
-
-
   function addText(x, y, text) {
     const textData = {
       type: 'text',x,y,text,
@@ -360,6 +356,24 @@
     context.font = '14px Arial';
     context.fillStyle = 'black';
     context.fillText(text, x, y);
+  }
+
+  window.addEventListener('export-request', exportCanvas);
+  function exportCanvas() {
+    const url = canvas.toDataURL('image/png');
+
+    // Create an anchor element to trigger the download
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'flowchart.png';
+
+    // Programmatically trigger a click event on the link
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: false,
+      cancelable: true,
+    });
+    link.dispatchEvent(clickEvent);
   }
 
 </script>
