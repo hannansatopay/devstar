@@ -7,7 +7,9 @@
 	function setTool(tool) {
       selectedTool.set(tool);
     }
-
+	function eraseit(){
+		location.reload()
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -44,7 +46,7 @@
 		<div class=" py-1">
 		<div class="function grid grid-cols-2 gap-1  ">
 			<button class="border rounded-lg  px-1">Undo</button><button class="border rounded-lg px-1">Redo</button></div>
-		<div class="eraseall border px-1 border rounded-lg my-1 text-center"><button >Erase All</button></div>
+		<div class="eraseall border px-1 border rounded-lg my-1 text-center"><button on:click={eraseit}>Erase All</button></div>
 		<div class="border px-1 border rounded-lg text-center"><button>Export</button></div>
 		</div>
 		
