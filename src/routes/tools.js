@@ -221,6 +221,12 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+    'online-spreadsheet': {
+        name: 'Online Spreadsheet',
+        icon: 'files',
+        link: '/online-spreadsheet',
+        description: "Attention, Devs! Are you ready to Supercharge your Productivity and Streamline your Development Projects like never before? Our Online Spreadsheet tool is your Secret Weapon in this Ever-Evolving World of Development. With it's User-Friendly Interface, It Empowers you to Effortlessly Manage Data, Track Project Milestones and much more. Don't wait any longer; Harness the Power of our Online Spreadsheets and Take your Development Projects to the Next Level Today!"
+    },
     'student-loan-calculator': {
         name: 'Student Loan Calculator',
         icon: 'money',
