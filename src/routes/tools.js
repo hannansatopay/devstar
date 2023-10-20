@@ -262,7 +262,7 @@ export let tools = {
         icon: 'charts',
         link: '/chart-generator-ex',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
-    }
+    },
     'terminal-generator': {
         name: 'Terminal Generator',
         icon: 'laptop-mobile',
@@ -346,5 +346,11 @@ export let tools = {
         icon: 'files', // Pending Icon Update
         link: '/flowchart-creator',
         description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
-    }
+    },
+    'Gradient-generator': {
+        name: 'Gradient Generator',
+        icon: 'key',
+        link: '/Gradient-generator',
+        description: "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output"
+    },
 };
