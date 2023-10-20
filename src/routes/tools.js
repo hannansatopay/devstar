@@ -95,6 +95,12 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+    'text-to-speech-&-speech-recognition': {
+        name: 'Text to Speech & Speech Recognition',
+        icon: 'tts',
+        link: '/text-to-speech-&-speech-recognition',
+        description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
+    },
     'currency-calculator':{
         name: 'Currency Calculator',
         icon: 'arrow-right-arrow-left',
