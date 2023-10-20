@@ -1,0 +1,14 @@
+{
+  "name": "Web Page Speed Test",
+  "short_name": "Speed Test",
+  "start_url": "/",
+  "display": "standalone",
+  "background": {
+    "scripts": ["service-worker.js"]
+  }
+}
+{
+  "accessControl": {
+    "allowOrigin": "*"
+  }
+}
