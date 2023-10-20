@@ -19,7 +19,7 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "2.0.0",
-		"@sveltejs/kit": "^1.25.1",
+		"@sveltejs/kit": "^1.25.2",
 		"@types/multicoin-address-validator": "^0.5.0",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
@@ -78,6 +78,7 @@
 		"flowbite-svelte-icons": "^0.4.4",
 		"downloadjs": "^1.4.7",
     	"file-saver": "^2.0.5",
+		"jspdf": "^2.5.1",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-codemirror-editor": "^1.1.0",
