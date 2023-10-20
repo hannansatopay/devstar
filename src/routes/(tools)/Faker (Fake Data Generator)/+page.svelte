@@ -5,9 +5,9 @@
 
 	export let testData = [];
 	let FormatTypes = [
-		{ value: 'html', name: 'HTML' },
-		{ value: 'csv', name: 'CSV' },
-		{ value: 'json', name: 'JSON' }
+		//{ value: 'html', name: 'HTML' },
+		{ value: 'csv', name: 'CSV' }
+		//{ value: 'json', name: 'JSON' }
 	];
 	let FormatType = 'csv';
 	let DataCount = '10';
@@ -45,12 +45,13 @@
 			state: false,
 			country: false
 		},
-		animals: {
-			cat: false,
-			dog: false,
-			fish: false,
-			snake: false,
-			horse: false
+		Misc: {
+			genre: false,
+			songName: false,
+			adverb: false,
+			adjective: false,
+			airline: false
+			
 		}
 	};
 	console.info(form);
@@ -77,8 +78,8 @@
 								case 'phoneNumber':
 									return faker.phone.number();
 
-								case 'sex':
-									return faker.person.gender();
+								case 'gender':
+									return faker.person.sex();
 
 								case 'zodiacSign':
 									return faker.person.zodiacSign();
@@ -134,20 +135,20 @@
 								case 'country':
 									return faker.location.country();
 
-								case 'cat':
-									return faker.animals.cat();
+								case 'songName':
+									return faker.music.songName();
 
-								case 'dog':
-									return faker.animals.dog();
+								case 'genre':
+									return faker.music.genre();
 
-								case 'fish':
-									return faker.animals.fish();
+								case 'adverb':
+									return faker.word.adverb();
 
 								case 'snake':
-									return faker.animals.snake();
+									return faker.word.adjective();
 
 								case 'horse':
-									return faker.animals.horse();
+									return faker.airline.airline();
 
 								default:
 									return 'New Data';
@@ -183,7 +184,6 @@
 		>
 			<div>
 				<p class="mb-4 font-semibold text-gray-900 dark:text-white">Person</p>
-				<pre>{form.person.fullName},{form.person.firstName},{form.person.lastName}</pre>
 				<ul
 					class="w-48 bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-600 divide-y divide-gray-200 dark:divide-gray-600"
 				>
@@ -434,53 +434,53 @@
 				</ul>
 			</div>
 			<div>
-				<p class="mb-4 font-semibold text-gray-900 dark:text-white">Animals</p>
+				<p class="mb-4 font-semibold text-gray-900 dark:text-white">Misc</p>
 				<ul
 					class="w-48 bg-white rounded-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-600 divide-y divide-gray-200 dark:divide-gray-600"
 				>
 					<li>
 						<Checkbox
-							bind:checked={form.animals.cat}
+							bind:checked={form.Misc.genre}
 							name="fields"
-							value="cat"
-							id="cat"
-							class="p-1.5">Cat</Checkbox
+							value="genre"
+							id="genre"
+							class="p-1.5">genre</Checkbox
 						>
 					</li>
 					<li>
 						<Checkbox
-							bind:checked={form.animals.dog}
+							bind:checked={form.Misc.songName}
 							name="fields"
-							value="dog"
-							id="dog"
-							class="p-1.5">Dog</Checkbox
+							value="songName"
+							id="songName"
+							class="p-1.5">songName</Checkbox
 						>
 					</li>
 					<li>
 						<Checkbox
-							bind:checked={form.animals.fish}
+							bind:checked={form.Misc.adverb}
 							name="fields"
-							value="fish"
-							id="fish"
-							class="p-1.5">Fish</Checkbox
+							value="adverb"
+							id="adverb"
+							class="p-1.5">adverb</Checkbox
 						>
 					</li>
 					<li>
 						<Checkbox
-							bind:checked={form.animals.snake}
+							bind:checked={form.Misc.adjective}
 							name="fields"
-							value="snake"
-							id="snake"
-							class="p-1.5">Snake</Checkbox
+							value="adjective"
+							id="adjective"
+							class="p-1.5">adjective</Checkbox
 						>
 					</li>
 					<li>
 						<Checkbox
-							bind:checked={form.animals.horse}
+							bind:checked={form.Misc.airline}
 							name="fields"
-							value="horse"
-							id="horse"
-							class="p-1.5">Horse</Checkbox
+							value="airline"
+							id="airline"
+							class="p-1.5">airline</Checkbox
 						>
 					</li>
 				</ul>
@@ -509,7 +509,7 @@
 	<br />
 	<div>
 		{#each Object.entries(testData) as [field, stat]}
-			<pre>{field},{stat}</pre>
+			<pre class="custom-scrollbar focus:outline-0 focus:shadow-none dark:text-gray-500 block p-2.5 bg-white bg-transparent w-full h-full text-sm text-gray-500 border-0" >{field},{stat}</pre>
 			
 		{/each}
 		<textarea 
