@@ -101,6 +101,72 @@ export let tools = {
         link: '/student-loan-calculator',
         description: "It is a Student Loan Calculator"
     },
+    'content-sharing-tool': {
+        name: 'Content Sharing Tool',
+        icon: 'spider-web',
+        link: '/content-sharing-tool',
+        description: "Tool for sharing code and media files."
+    },
+    'terms-conditions-generator': {
+        name: 'Terms and Conditons Generator',
+        icon: 'files',
+        link: '/terms-conditions-generator',
+        description: "A Terms and Conditions Generator is an online tool that quickly creates customized legal agreements for companies. It streamlines the process of crafting comprehensive terms and conditions, promoting legal compliance and clarity with minimal effort."
+    },
+    'privacy-policy-generator': {
+        name: 'Privacy Policy Generator',
+        icon: 'files',
+        link: '/privacy-policy-generator',
+        description: "A Privacy Policy Generator is an online tool designed to efficiently produce personalized privacy policies for websites and applications. It simplifies the task of developing detailed privacy statements, helping ensure legal compliance and transparency with minimal time and effort."
+    },
+    'cookies-policy-generator': {
+        name: 'Cookies Policy Generator',
+        icon: 'files',
+        link: '/cookies-policy-generator',
+        description: "A Cookies Policy Generator is an online tool created to streamline the creation of customized cookies policies for websites and applications. This tool simplifies the process of crafting comprehensive cookies usage disclosures, making it easier to achieve legal compliance and transparency while saving time and effort for website owners and app developers."
+    },
+    'chart-generator-ex': {
+        name: 'Chart generator (Beta)',
+        icon: 'charts',
+        link: '/chart-generator-ex',
+        description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
+    }
+    'terminal-generator': {
+        name: 'Terminal Generator',
+        icon: 'laptop-mobile',
+        link: '/terminal-generator',
+        description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
+    },
+    'living-background-generator': {
+        name: 'Living Background Generator(βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/living-background-generator',
+        description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
+    },
+    'text-to-speech-&-speech-recognition': {
+        name: 'Text to Speech & Speech Recognition',
+        icon: 'tts',
+        link: '/text-to-speech-&-speech-recognition',
+        description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
+    },
+    'currency-calculator':{
+        name: 'Currency Calculator',
+        icon: 'arrow-right-arrow-left',
+        link:'/currency-calculator',
+        description:'The Currency Calculator is a valuable tool that can help you to convert one currency to another using the latest exchange rates.'
+    },
+    'webspeedtest': {
+        name: 'WebPage SpeedTester',
+        icon: 'spider-web',
+        link: '/webspeedtest',
+        description: "A web page speed test that's as swift as the Bard's quill, revealing your site's performance with poetic skill.<br> Elevate your web page's performance with our swift and accurate web page speed test. Discover your site's strengths and weaknesses, and make informed decisions to improve user experience and boost conversions. Very useful for all users."
+    },
+    'regex-tool': {
+        name: 'Regex Tool',
+        icon: 'regex-tool',
+        link: '/regex-tool',
+        description: "Regular expressions are the Swiss Army knife of text manipulation, a powerful tool for both the timid and the fearless."
+    },
     'annuity-payout-calculator': {
         name: 'Annuity Payout Calculator',
         icon: 'arrow-right-arrow-left',
@@ -124,6 +190,24 @@ export let tools = {
         icon: 'files', // Pending Icon Update
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+    'chart-generator': {
+        name: 'Chart generator',
+        icon: 'spider-web',
+        link: '/chart-generator',
+        description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
+    },
+    'who-is': {
+        name: 'Whois Lookup',
+        icon: 'whois',
+        link: '/who-is',
+        description: ""
+    },
+    'ssl-checker': {
+        name: 'SSL Checker',
+        icon: 'lock',
+        link: '/ssl-checker',
+        description: "The SSL Checker tool is a convenient way for developers to verify the SSL certificate of a website. This tool provides essential information about the SSL certificate, including its validity, issuer, and expiration date. Ensure the security of your website by integrating this SSL checker into your development workflow."
     },
     'flowchart-creator': {
         name: 'Flowchart Creator',
