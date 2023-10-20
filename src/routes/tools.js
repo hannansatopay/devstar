@@ -103,8 +103,8 @@ export let tools = {
     },
     'terminal-generator': {
         name: 'Terminal Generator',
-        icon: 'laptop-mobile',
-        link: '/laptop-mobile',
+        icon: 'terminal-generator',
+        link: '/terminal',
         description: 'A terminal generator tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles. There are different applications of this tool in creating a terminal.'
     }
 }
