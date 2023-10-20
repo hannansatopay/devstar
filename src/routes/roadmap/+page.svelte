@@ -142,10 +142,10 @@
             }]
         },
         {
-            name: 'Annuity Payout Calculator',
+            name: 'Random Data Generator',
             contributors: [{
-                name: 'Sumit Mishra',
-                githubid : 'Sumitm6879'
+                name: 'Harshit Lakshakar',
+                githubId: 'hst-13'
             }]
         },
     ];
