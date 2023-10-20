@@ -49,7 +49,7 @@
 
 	$: bgGradient =
 		clrList.length > 1
-			? `background-image: linear-gradient(${angle}deg, ${clrList});`
+			? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
 			: `background-color: ${clrList};`;
 
 	let angle = 270;
@@ -134,13 +134,13 @@
 	$: bgGradient =
 		gradientType === 'linear'
 			? clrList.length > 1
-				? `background-image: linear-gradient(${angle}deg, ${clrList});`
+				? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
 				: `background-color: ${clrList};`
 			: gradientType === 'angular'
 			? clrList.length > 1
-				? `background-image: conic-gradient(from ${angle}deg, ${clrList});`
+				? `background-image: conic-gradient(from ${angle}deg, ${clrList.join(', ')});`
 				: `background-color: ${clrList};`
-			: `background-image: radial-gradient(circle, ${clrList});`;
+			: `background-image: radial-gradient(circle, ${clrList.join(', ')});`;
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -153,12 +153,14 @@
 		class="color-div py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-12 items-center content-center"
 	>
 		<!-- the color div part -->
-		<div class="grid sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 justify-items-center">
-			<!-- <div class="w-2 m-2 p-6 bg-purple-800 border border-gray-200" /> -->
+
+		<div
+			class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 2xl:grid-cols-14 gap-2 justify-center items-center"
+		>
 			{#each clrStyle as clr, i}
-				<div class="relative">
+				<div class="relative rounded-lg w-20 h-20">
 					<button
-						class="absolute top-[-4px] right-2 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
+						class="absolute top-[-4px] right-0 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
 						on:click={removeOnClick}
 						bind:this={myBtn}
 						id={`${clrList[i]}`}
@@ -254,7 +256,7 @@
 		<div
 			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
 		>
-			<pre>{@html css}</pre>
+			<pre class="whitespace-pre-line p-4">{@html css}</pre>
 			<Copy text={css} on:click={copyFunction} />
 		</div>
 	</div>
@@ -310,12 +312,6 @@
 		}
 		100% {
 			background-position: 0% 50%;
-		}
-	}
-
-	@media only screen and (max-width: 900px) {
-		div {
-			font-size: 2vw;
 		}
 	}
 
