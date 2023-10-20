@@ -84,6 +84,15 @@
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0",
 		"xlsx": "^0.18.5",
-		"svelte-transition": "^0.0.10"
+		"svelte-transition": "^0.0.10",
+		"@pqina/pintura": "^8.66.3",
+		"@pqina/svelte-pintura": "^9.0.1",
+		"@uppy/core": "^3.5.1",
+		"@uppy/dashboard": "^3.5.4",
+		"@uppy/image-editor": "^2.2.1",
+		"@uppy/svelte": "^3.1.0",
+		"filerobot-image-editor": "^4.5.2",
+		"react-filerobot-image-editor": "^4.5.2",
+		"svelte-filepond": "^0.2.0"
 	}
 }
