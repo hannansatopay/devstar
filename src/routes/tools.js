@@ -125,6 +125,12 @@ export let tools = {
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
     },
+    'who-is': {
+        name: 'Whois Lookup',
+        icon: 'whois',
+        link: '/who-is',
+        description: ""
+    },
     'ssl-checker': {
         name: 'SSL Checker',
         icon: 'lock',
