@@ -87,7 +87,7 @@
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0",
-		"xlsx": "^0.18.5"
+		"xlsx": "^0.18.5",
 		"svelte-transition": "^0.0.10"
 	}
 }

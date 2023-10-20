@@ -130,11 +130,21 @@
 	// 	selectedCell = event.target;
 	// }
 
+	// Functions by Umer:
+	function deleteRow() {
+		if (numRows > 1) 
+			numRows--;
+	}
+
+	function deleteColumn() {
+		if (numCols > 1) 
+			numCols--;
+	}
+
 	onMount(() => {
 		// Initialize rowData with empty strings
 		rowData = Array.from({ length: numRows }, () => Array(numCols).fill(''));
 	});
-
 </script>
 <Intro heading={data.meta.title} description={data.meta.description} />
 <section class="bg-white dark:bg-gray-900">
@@ -258,7 +268,6 @@
 		width: 125px;
 		overflow-x: auto;
 		white-space: nowrap;
-
 	}
 
 	.row-numbering {
