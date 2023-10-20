@@ -100,5 +100,17 @@ export let tools = {
         icon: 'palette',
         link: '/color-palette-gen',
         description: "abc"
+    },
+    'random-data-generator': {
+        name: 'Random Data Generator (βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/random-data-generator',
+        description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+    'flowchart-creator': {
+        name: 'Flowchart Creator',
+        icon: 'files', // Pending Icon Update
+        link: '/flowchart-creator',
+        description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
     }
 };
