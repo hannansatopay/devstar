@@ -99,32 +99,36 @@
 	}
 
 	function uploadAddRow() {
-		if (selectedCell) {
-		const rowIndex = selectedCell.parentNode.rowIndex;
-		rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
-		numRows++;
-		} else {
+		// This functionality is causing a bug
+		// if (selectedCell) {
+		// const rowIndex = selectedCell.parentNode.rowIndex;
+		// rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
+		// numRows++;
+		// } else {
+
 		// If selectedCell is not set, add a row at the end
 		rowData.push(Array(numCols).fill(''));
 		numRows++;
-		}
+		// }
 	}
 
 	function uploadAddColumn() {
-			if (selectedCell) {
-			const colIndex = selectedCell.cellIndex;
-			rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
-			numCols++;
-			} else {
-			// If selectedCell is not set, add a column at the end
-			rowData.forEach(row => row.push(''));
-			numCols++;
-			}
-		}
+		// This is causing a bug
+		// if (selectedCell) {
+		// const colIndex = selectedCell.cellIndex;
+		// rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
+		// numCols++;
+		// } else {
 
-	function selectCell(event) {
-		selectedCell = event.target;
+		// If selectedCell is not set, add a column at the end
+		rowData.forEach(row => row.push(''));
+		numCols++;
+		// }
 	}
+
+	// function selectCell(event) {
+	// 	selectedCell = event.target;
+	// }
 
 	onMount(() => {
 		// Initialize rowData with empty strings
@@ -177,7 +181,7 @@
 					<tr>
 					  <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
 					  {#each Array(numCols) as _, colIndex}
-						<td contenteditable="true" class="content" on:click={selectCell}>{rowData[rowIndex][colIndex]}</td>
+						<td contenteditable="true" class="content" >{rowData[rowIndex][colIndex]}</td>
 					  {/each}
 					</tr>
 				  {/each}
