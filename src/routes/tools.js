@@ -119,6 +119,12 @@ export let tools = {
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
     },
+    'ssl-checker': {
+        name: 'SSL Checker',
+        icon: 'lock',
+        link: '/ssl-checker',
+        description: "The SSL Checker tool is a convenient way for developers to verify the SSL certificate of a website. This tool provides essential information about the SSL certificate, including its validity, issuer, and expiration date. Ensure the security of your website by integrating this SSL checker into your development workflow."
+    },
     'flowchart-creator': {
         name: 'Flowchart Creator',
         icon: 'files', // Pending Icon Update
