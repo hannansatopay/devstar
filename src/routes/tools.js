@@ -95,6 +95,24 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+    'annuity-payout-calculator': {
+        name: 'Annuity Payout Calculator',
+        icon: 'arrow-right-arrow-left',
+        link: '/annuity-payout-calculator',
+        description: "This calculator can estimate the annuity payout amount for a fixed payout length or estimate the length that an annuity can last if supplied a fixed payout amount. Please use our Annuity Calculator to estimate the end balance of an annuity for the accumulation phase."
+    },
+    'compound': {
+        name: 'compound calculator',
+        icon: 'spider-web',
+        link: '/compound',
+        description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'color-palette-gen': {
+        name: 'Color Palette Generator',
+        icon: 'palette',
+        link: '/color-palette-gen',
+        description: "abc"
+    },
     'random-data-generator': {
         name: 'Random Data Generator (βeta)',
         icon: 'files', // Pending Icon Update
@@ -107,4 +125,10 @@ export let tools = {
         link: '/ssl-checker',
         description: "The SSL Checker tool is a convenient way for developers to verify the SSL certificate of a website. This tool provides essential information about the SSL certificate, including its validity, issuer, and expiration date. Ensure the security of your website by integrating this SSL checker into your development workflow."
     },
-}
+    'flowchart-creator': {
+        name: 'Flowchart Creator',
+        icon: 'files', // Pending Icon Update
+        link: '/flowchart-creator',
+        description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
+    }
+};
