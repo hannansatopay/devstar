@@ -32,9 +32,9 @@
 </section><section class="bg-white dark:bg-gray-900">
 	<div class="py-4 px-4 mx-auto max-w-screen-xl">
 		{#if results.length}
-			<div class="grid gap-7 space-y-0 grid-cols-2 lg:grid-cols-4">
+			<div class="grid gap-2 space-y-0 grid-cols-2 lg:grid-cols-4">
 				{#each results as tool}
-					<Card href={tool.link} class="items-center text-center sm:py-8">
+					<Card href={tool.link} class="items-center text-center">
 						<i class="icon-{tool.icon} mb-2 text-gray-500 dark:text-gray-400 text-4xl" />
 						<h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
 							{tool.name}
