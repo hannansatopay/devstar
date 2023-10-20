@@ -95,6 +95,12 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+    'color-palette-gen': {
+        name: 'Color Palette Generator',
+        icon: 'palette',
+        link: '/color-palette-gen',
+        description: "abc"
+    },
     'random-data-generator': {
         name: 'Random Data Generator (βeta)',
         icon: 'files', // Pending Icon Update
@@ -107,4 +113,4 @@ export let tools = {
         link: '/flowchart-creator',
         description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
     }
-}
+};
