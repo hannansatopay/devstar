@@ -95,6 +95,12 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+    'living-background-generator': {
+        name: 'Living Background Generator(βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/living-background-generator',
+        description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
+    },
     'text-to-speech-&-speech-recognition': {
         name: 'Text to Speech & Speech Recognition',
         icon: 'tts',
