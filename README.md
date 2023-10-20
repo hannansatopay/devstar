@@ -16,7 +16,7 @@ Join us on this journey to maximize your efficiency and productivity as a develo
 
 ## Run Locally
 
- Clone the project
+Clone the project
 
 ```bash
 
@@ -42,7 +42,6 @@ npm  install
 
 Start the server
 
-  
 ```bash
 
 npm  run  dev
@@ -50,6 +49,7 @@ npm  run  dev
 ```
 
 ## Contributing
+
 Contributions are always welcome!
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
@@ -57,4 +57,5 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
 Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
 ## License
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
