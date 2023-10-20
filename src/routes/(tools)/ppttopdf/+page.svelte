@@ -6,12 +6,13 @@
 	let file = null;
 	let fileName = 'No file chosen';
 	let pdfData = null;
-	
 	const handleFile = (e) => {
 	  const selectedFile = e.target.files[0];
 	  if (selectedFile) {
 		file = selectedFile;
+		
 		fileName = selectedFile.name;
+		console.log(fileName);
 	  } else {
 		file = null;
 		fileName = 'No file chosen';
