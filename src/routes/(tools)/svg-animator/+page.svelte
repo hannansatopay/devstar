@@ -111,6 +111,64 @@
     }
 </script>
 
+<div class="flex justify-between">
+    <!-- First Section (Upload SVG) -->
+    <div class="w-1/2">
+        <h1 class="text-2xl font-bold">Upload SVG</h1>
+        <input bind:this={input} on:change={onChange} type="file"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md file:py-2 file:px-4 file:rounded-full file:border-0" />
+        <div class="mt-4">
+            <label for="backgroundColor" class="block font-bold">Background Color:</label>
+            <input type="color" id="backgroundColor" bind:value={backgroundColor}
+                class="w px-20 py-5 border border-gray-300 rounded-md" />
+        </div>
+        <div class="flex items-center justify-center h-50 max-w-sm mt-5 border">
+            <div style="background-color: {backgroundColor}; padding: 20px;">
+                {#if showImage}
+                    <img bind:this={image} src="" alt="Preview" />
+                {:else}
+                    <span bind:this={placeholder} class="text-blue-600">Image Preview</span>
+                {/if}
+            </div>
+        </div>
+        <div class="mt-4">
+            <label for="animation-select" class="block font-bold">Transform Animation:</label>
+            <select id="animation-select" bind:value={selectedAnimation} on:change={applyAnimation}
+                class="w px-3 py-2 border border-gray-300 rounded-md">
+                {#each animations as anim}
+                    <option value={anim.name}>{anim.name}</option>
+                {/each}
+            </select>
+        </div>
+    </div>
+    <!-- Second Section (Customize Settings) -->
+    <div class="w-1/2">
+        <h1 class="text-2xl font-bold">Customize Settings</h1>
+        <div class="mt-4">
+            <h2><b>Stroke Animation:</b></h2>
+            <label for="animation-duration" class="block font-bold">Animation Duration:</label>
+            <input type="text" id="animation-duration" bind:value={animationDuration}
+                class="w px-20 py-2 border border-gray-300 rounded-md" />
+        </div>
+        <div class="mt-4">
+            <label for="animation-delay" class="block font-bold">Animation Delay:</label>
+            <input type="text" id="animation-delay" bind:value={animationDelay}
+                class="w px-20 py-2 border border-gray-300 rounded-md" />
+        </div>
+        <div class="mt-4">
+            <label for="animation-direction" class="block font-bold">Animation Direction:</label>
+            <select id="animation-direction" bind:value={animationDirection} on:change={applyAnimation}
+                class="w px-3 py-2 border border-gray-300 rounded-md">
+                <option value="normal">Normal</option>
+                <option value="reverse">Reverse</option>
+                <option value="alternate">Alternate</option>
+                <option value="alternate-reverse">Alternate Reverse</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- 
 <div>
     <div class="bg-blue-500 p-4 text-white">
         <button on:click={getSvgCode} class="px-3 py-1 bg-white text-blue-500 rounded-md">Get Code</button>
@@ -163,7 +221,7 @@
         </select>
     </div>
 
-    <!-- Sliding code window -->
+    
     <div id="code-window" class="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-4 rounded-md w-2/3">
             <button on:click={toggleCodeWindow} class="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
@@ -174,3 +232,5 @@
         </div>
     </div>
 </div>
+
+-->
