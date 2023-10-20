@@ -77,7 +77,6 @@
 		"countries-list": "^2.6.1",
 		"flowbite-svelte-icons": "^0.4.4",
 		"downloadjs": "^1.4.7",
-    	"file-saver": "^2.0.5",
 		"jspdf": "^2.5.1",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
