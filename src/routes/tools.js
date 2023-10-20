@@ -155,6 +155,12 @@ export let tools = {
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
     },
+    'chart-generator': {
+        name: 'Chart generator',
+        icon: 'spider-web',
+        link: '/chart-generator',
+        description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
+    },
     'who-is': {
         name: 'Whois Lookup',
         icon: 'whois',
