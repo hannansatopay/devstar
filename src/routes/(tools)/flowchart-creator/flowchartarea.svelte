@@ -357,7 +357,6 @@
     context.fillStyle = 'black';
     context.fillText(text, x, y);
   }
-
   window.addEventListener('export-request', exportCanvas);
   function exportCanvas() {
     const url = canvas.toDataURL('image/png');
@@ -375,7 +374,6 @@
     });
     link.dispatchEvent(clickEvent);
   }
-
 </script>
 
 <div class="drawing-area">
