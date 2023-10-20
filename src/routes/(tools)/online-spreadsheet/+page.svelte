@@ -164,6 +164,8 @@
 				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
@@ -171,6 +173,7 @@
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
 				-->
 				<DropdownItem on:click={uploadAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showUploadSection = false; selectedCell = null; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
@@ -207,6 +210,8 @@
 				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
@@ -214,6 +219,7 @@
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
 				-->
 				<DropdownItem on:click={createAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showCreateSection = false; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
