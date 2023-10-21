@@ -19,23 +19,26 @@
         payment = Number(pay.toFixed(2));
         totpayment=Number((payment*term).toFixed(2));
         let result='<p>Principal Amount='+start+'</p><br><p>Term='+term+'</p><br><p>Interest rate='+interest+'</p><br><p>Monthly Payment='+payment+'</p><br><p>Total Payment='+totpayment+'</p>';
-        const tab= amorttable(start,interest,term);
+        const tab= amorttable(start,interest/100,term);
         print.innerHTML= result+tab;
     }
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
 
-<h1>Amortization Calculator</h1>
-    <form action="">
-        Loan Amount<input type="number" class="sign" bind:value={start}>
-        Loan Term<input type="number"  bind:value={year} placeholder="Year" on:input={amort}>
-        <input type="number" placeholder="month" bind:value={month} on:input={amort}>
-        Interest rate<input type="number" bind:value={interest}>
-        <br>   
-    </form>
-    <button on:click={amort}>Calculate</button>
-    <div bind:this={print}></div>
+<main>
+    <div class="input">
+            <form action="">
+                Loan Amount<input type="number" class="sign" bind:value={start}><br>
+                Loan Term<br><input type="number"  bind:value={year} placeholder="Year">
+                <input type="number" placeholder="month" bind:value={month}><br>
+                Interest rate<input type="number" bind:value={interest}>
+                <br>   
+            </form>
+            <button on:click={amort}>Calculate</button>
+            <div bind:this={print}></div>
+    </div>  
+</main> 
     
 <style>
     h1{
@@ -48,15 +51,25 @@
     }
     button{
         text-align: center;
-        margin: auto;
-        width: 95%;
+        margin: center;
+        width: 43%;
+        color: black;
+        background-color: hsl(128, 89%, 25%);
     }
     div{
        text-align: center;
        margin-left: auto;
        margin-right: auto;
     }
-    .monthly_pay{
-        width: 100px;
+    main{
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid hsl(0, 0%, 7%); 
+        border-radius: 20px;
+        background-color: #1666d6fb;
+    }
+    .input{
+        box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
     }
 </style>

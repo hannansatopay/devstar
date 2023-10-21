@@ -1,6 +1,6 @@
 // <!-- AmortizationTable.svelte -->
 export function amorttable(balance, interestRate, terms)
-{
+{	
     //Calculate the per month interest rate
 	var monthlyRate = interestRate/12;
 	
@@ -12,7 +12,7 @@ export function amorttable(balance, interestRate, terms)
     //var result = "balance.toFixed(2)+ (interestRate*100).toFixed(2)+ terms+ payment.toFixed(2)+ (payment * terms).toFixed(2)" ;
         
     //add header row for table to return string
-	var result = "<table border='10'><tr><th>Month #</th><th>Balance</th><th>Interest</th><th>Principal</th>";
+	var result = "<table border='1' bordercolor='red' style='margin-left: auto; margin-right:auto'><tr><th> Month </th><th> Payment </th><th> Balance </th><th> Interest </th><th> Principal </th>";
     //console.log(result);
     /**
      * Loop that calculates the monthly Loan amortization amounts then adds 
@@ -32,17 +32,17 @@ export function amorttable(balance, interestRate, terms)
 		//display the month number in col 1 using the loop count variable
 		result += "<td>" + (count + 1) + "</td>";
 		
-		
+		result += "<td>" + payment.toFixed(2) + "</td>";
 		//code for displaying in loop balance
-		result += "<td> $" + balance.toFixed(2) + "</td>";
+		result += "<td> " + balance.toFixed(2) + "</td>";
 		
 		//calc the in-loop interest amount and display
 		interest = balance * monthlyRate;
-		result += "<td> $" + interest.toFixed(2) + "</td>";
+		result += "<td> " + interest.toFixed(2) + "</td>";
 		
 		//calc the in-loop monthly principal and display
 		monthlyPrincipal = payment - interest;
-		result += "<td> $" + monthlyPrincipal.toFixed(2) + "</td>";
+		result += "<td> " + monthlyPrincipal.toFixed(2) + "</td>";
 		
 		//end the table row on each iteration of the loop	
 		result += "</tr>";
@@ -57,12 +57,4 @@ export function amorttable(balance, interestRate, terms)
 	//returns the concatenated string to the page
     return result;
 };
-
-
-export function myFunction(param1, param2) {
-	// Add your custom logic here, using param1 and param2
-	const result = param1 + param2;
-	console.log('JavaScript function called from Svelte with result:', result);
-	return result;
-  }
   
