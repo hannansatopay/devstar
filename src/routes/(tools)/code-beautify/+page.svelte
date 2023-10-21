@@ -20,6 +20,7 @@
 	import Copy from '$lib/Copy.svelte';
 	import xmlFormat from 'xml-formatter';
 	import prettify from 'html-prettify';
+	import xml2js from 'xml2js';
 
 	export let data;
 
@@ -151,30 +152,16 @@
 	}
 
 	function sampleJSON() {
-		let samplejson = `{
-			"glossary": {
-			"title": "example glossary",
-			"GlossDiv": {
-				"title": "S",
-				"GlossList": {
-				"GlossEntry": {
-					"ID": "SGML",
-					"SortAs": "SGML",
-					"GlossTerm": "Standard Generalized Markup Language",
-					"Acronym": "SGML",
-					"Abbrev": "ISO 8879:1986",
-					"GlossDef": {
-					"para": "A meta-markup language, used to create markup languages such as DocBook.",
-					"GlossSeeAlso": ["GML", "XML"]
-					},
-					"GlossSee": "markup"
-				}
-				}
-			}
-			}
-		}`;
+		let samplejson = `{  
+    "employee": {  
+        "name":       "Sam",   
+        "salary":      56000,   
+        "married":    true  
+    }  
+}  `;
 		inputTextAreaContent = samplejson;
 	}
+
 
 	function findLineColumnIndex(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
@@ -251,6 +238,7 @@
 		if (toolType === 'XML') sampleXML();
 		else if (toolType === 'JSON') sampleJSON();
 		else if (toolType === 'HTML') sampleHTML();
+		else if (convertTypeOne == 'JSON') sampleJSON();
 	}
 
 	function convert() {
@@ -306,9 +294,27 @@
 
 		outputTextAreaContent = xml;
 	}
+	
 	function convertXML2JSON() {}
 	function convertJSON2CSV() {}
-	function convertJSON2XML() {}
+
+
+	//json to xml
+	function jsonToXml(jsonObject: Record<string, any>): string {
+		const builder = new xml2js.Builder();
+		return builder.buildObject(jsonObject);
+  	}
+
+	function convertJSON2XML() {
+		try {
+			let jsonInput = JSON.parse(inputTextAreaContent); 
+			outputTextAreaContent = jsonToXml({ root: jsonInput }); 
+		} catch (error) {
+			outputTextAreaContent = 'Invalid JSON input';
+		}
+	}	
+
+
 
 	// delete functionality
 	const clearContent = () => {

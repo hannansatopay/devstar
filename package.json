@@ -21,6 +21,7 @@
 		"@sveltejs/adapter-auto": "2.0.0",
 		"@sveltejs/kit": "^1.25.1",
 		"@types/multicoin-address-validator": "^0.5.0",
+		"@types/xml2js": "^0.4.13",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
 		"autoprefixer": "^10.4.13",
@@ -71,6 +72,7 @@
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0",
-		"xml-formatter": "^3.5.0"
+		"xml-formatter": "^3.5.0",
+		"xml2js": "^0.6.2"
 	}
 }
