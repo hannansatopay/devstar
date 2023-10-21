@@ -38,11 +38,11 @@
 							<div slot="header" class="p-3">
 								<Search size="md" />
 							</div>
-							<DropdownItem>Arial</DropdownItem>
+							<DropdownItem style="font-family:arial">Arial</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Helvetica</DropdownItem>
+							<DropdownItem style="font-family:helvetica">Helvetica</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Sans-serif</DropdownItem>
+							<DropdownItem style="font-family:sans-serif">Sans-serif</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
 					</div>
@@ -866,8 +866,6 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { oneDark } from '@codemirror/theme-one-dark';
-	import adapter from '@sveltejs/adapter-node';
-
 
 	export let data;
 
