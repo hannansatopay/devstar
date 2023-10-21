@@ -38,11 +38,11 @@
 							<div slot="header" class="p-3">
 								<Search size="md" />
 							</div>
-							<DropdownItem style="font-family:arial">Arial</DropdownItem>
+							<DropdownItem>Roboto</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family:helvetica">Helvetica</DropdownItem>
+							<DropdownItem>Open Sans</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family:sans-serif">Sans-serif</DropdownItem>
+							<DropdownItem>Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
 					</div>
@@ -425,25 +425,27 @@
 
 	body {
     font-family: Arial, sans-serif; /* Default font family */
-}
+    }
 
-.theme-selector {
-    margin: 10px;
-}
+	
 
-.theme-button {
-    cursor: pointer;
-    padding: 5px 10px;
-    margin: 5px;
-    border: none;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-}
+	.theme-selector {
+		margin: 10px;
+	}
 
-.theme-button:hover {
-    background-color: #555;
-}
+	.theme-button {
+		cursor: pointer;
+		padding: 5px 10px;
+		margin: 5px;
+		border: none;
+		background-color: #333;
+		color: #fff;
+		border-radius: 5px;
+	}
+
+	.theme-button:hover {
+		background-color: #555;
+	}
 
 	.language {
 		display: flex;
