@@ -42,7 +42,7 @@
 							<DropdownDivider />
 							<DropdownItem style="font-family:helvetica">Helvetica</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family:sans-serif"> Sans-serif</DropdownItem>
+							<DropdownItem style="font-family:sans-serif">Sans-serif</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
 					</div>
