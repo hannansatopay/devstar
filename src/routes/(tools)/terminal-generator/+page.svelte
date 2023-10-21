@@ -1,72 +1,3 @@
-<script lang="ts">
-	import Intro from '$lib/Intro.svelte';
-	import {
-		Label,
-		Input,
-		Range,
-		Radio,
-		Checkbox,
-		ButtonGroup,
-		Button,
-		Search,
-		Dropdown,
-		DropdownItem,
-		DropdownDivider
-	} from 'flowbite-svelte';
-
-	import { onMount } from 'svelte';
-
-	import {
-		ChevronDownSolid,
-		UserRemoveSolid,
-		UserCircleSolid,
-		AdjustmentsVerticalOutline,
-		DownloadSolid,
-		CopySolid,
-		UserSettingsOutline,
-		UserSettingsSolid
-	} from 'flowbite-svelte-icons';
-
-	import CodeMirror from 'svelte-codemirror-editor';
-	import { javascript } from '@codemirror/lang-javascript';
-	import { oneDark } from '@codemirror/theme-one-dark';
-
-	export let data;
-
-	let innerWidth: any = null;
-	let innerHeight: any = null;
-
-	let value = '';
-
-	onMount(() => {
-		// const codeEditor = document.querySelector('.code-editor');
-
-		// if (codeEditor) {
-		// 	editor = CodeMirror(codeEditor, {
-		// 		lineNumbers: true,
-		// 		theme: 'dracula'
-		// 		// ... any other CodeMirror options you want
-		// 	});
-		// }
-
-		innerWidth = window.innerWidth;
-		innerHeight = window.innerHeight;
-	});
-
-	let event;
-	let codeMirrorInstance: any = null;
-
-	// function handleKeydown(event) {
-	// 	if (event.keyCode === 8) {
-	// 		// If the key is backspace
-	// 		const cm = event.target.CodeMirror;
-	// 		const cursor = cm.getCursor();
-	// 		if (cursor.ch === 0 && cursor.line === 0) {
-	// 			event.preventDefault();
-	// 		}
-	// 	}
-	// }
-</script>
 
 <!--  Introduction  -->
 
@@ -93,32 +24,28 @@
 <section class="bg-custom-white dark:bg-gray-900">
 	<div class="page py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="editor min-h-[35rem] md:w-4/5 lg:w-full rounded-lg mx-auto flex flex-col p-2">
+			<div class="container-bg" style="height: 100px; width: 100px; margin-top: 20px;"></div>
 			<!-- Toolbar Section  -->
 			<div class="toolbar flex flex-wrap justify-between mb-4">
 				<!-- Themes & Languages Dropdown -->
 				<!-- <div class="flex space-x-4"> -->
-				<div class="theme">
-					<span>Theme</span>
-					<!-- <span
-						style="clip:rect(0 0 0 0);margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap;word-wrap:normal"
-						id="theme-dropdown">Theme</span> -->
-					<span class="ml-auto" />
-					<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-
-					<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44 z-index: 9999">
-						
-						<div slot="header" class="p-3">
-							<Search size="md" />
-						</div>
-						<DropdownItem>Aptos</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Calibri</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Sans serif</DropdownItem>
-						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-					</Dropdown>
-				</div>
-
+					<div class="theme">
+						<span>Theme</span>
+						<span class="ml-auto" />
+						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+	
+						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+							<div slot="header" class="p-3">
+								<Search size="md" />
+							</div>
+							<DropdownItem style="font-family:arial">Arial</DropdownItem>
+							<DropdownDivider />
+							<DropdownItem style="font-family:helvetica">Helvetica</DropdownItem>
+							<DropdownDivider />
+							<DropdownItem style="font-family:sans-serif">Sans-serif</DropdownItem>
+							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+						</Dropdown>
+					</div>
 				<div class="language">
 					<span>Language</span>
 					<span class="ml-auto" />
@@ -142,8 +69,169 @@
 						<!-- <div class="flex space-x-4"> -->
 						<!-- bg-select -->
 						<div class="icon">
-							<Button>
+							<Button >
 								<img src="/color-palatte.png" alt="Your  Description" />
+								<div class="dropdown-content">
+									<div class="color-palette">
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
+											<div class="color-box" style="background-color: violet;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
+											<div class="color-box" style="background-color: indigo;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'blue'">
+											<div class="color-box" style="background-color: blue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'green'">
+											<div class="color-box" style="background-color: green;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellow'">
+											<div class="color-box" style="background-color: yellow;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'orange'">
+											<div class="color-box" style="background-color: orange;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'red'">
+											<div class="color-box" style="background-color: red;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'white'">
+											<div class="color-box" style="background-color: white;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'black'">
+											<div class="color-box" style="background-color: black;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'gray'">
+											<div class="color-box" style="background-color: gray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'brown'">
+											<div class="color-box" style="background-color: brown;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'pink'">
+											<div class="color-box" style="background-color: pink;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'purple'">
+											<div class="color-box" style="background-color: purple;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'cyan'">
+											<div class="color-box" style="background-color: cyan;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'magenta'">
+											<div class="color-box" style="background-color: magenta;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'lime'">
+											<div class="color-box" style="background-color: lime;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'teal'">
+											<div class="color-box" style="background-color: teal;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'olive'">
+											<div class="color-box" style="background-color: olive;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'navy'">
+											<div class="color-box" style="background-color: navy;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'maroon'">
+											<div class="color-box" style="background-color: maroon;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'aqua'">
+											<div class="color-box" style="background-color: aqua;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'chartreuse'">
+											<div class="color-box" style="background-color: chartreuse;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'crimson'">
+											<div class="color-box" style="background-color: crimson;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkblue'">
+											<div class="color-box" style="background-color: darkblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkcyan'">
+											<div class="color-box" style="background-color: darkcyan;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgoldenrod'">
+											<div class="color-box" style="background-color: darkgoldenrod;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgray'">
+											<div class="color-box" style="background-color: darkgray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkgreen'">
+											<div class="color-box" style="background-color: darkgreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkkhaki'">
+											<div class="color-box" style="background-color: darkkhaki;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkmagenta'">
+											<div class="color-box" style="background-color: magenta;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkolivegreen'">
+											<div class="color-box" style="background-color: darkolivegreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkorange'">
+											<div class="color-box" style="background-color: darkorange;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkorchid'">
+											<div class="color-box" style="background-color: darkorchid;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkred'">
+											<div class="color-box" style="background-color: darkred;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkseagreen'">
+											<div class="color-box" style="background-color: darkseagreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkslateblue'">
+											<div class="color-box" style="background-color: darkslateblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkslategray'">
+											<div class="color-box" style="background-color: darkslategray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkturquoise'">
+											<div class="color-box" style="background-color: dark turquoise;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkviolet'">
+											<div class="color-box" style="background-color: darkviolet;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'deeppink'">
+											<div class="color-box" style="background-color: deeppink;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'deepskyblue'">
+											<div class="color-box" style="background-color: deepskyblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'dimgray'">
+											<div class="color-box" style="background-color: dimgray;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'dodgerblue'">
+											<div class="color-box" style="background-color: dodgerblue;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'firebrick'">
+											<div class="color-box" style="background-color: firebrick;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'silver'">
+											<div class="color-box" style="background-color: silver;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'plum'">
+											<div class="color-box" style="background-color: plum;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'coral'">
+											<div class="color-box" style="background-color: coral;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellowgreen'">
+											<div class="color-box" style="background-color: yellowgreen;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'khaki'">
+											<div class="color-box" style="background-color: khaki;"></div>
+										</div>
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'sienna'">
+											<div class="color-box" style="background-color: sienna;"></div>
+										</div>
+										
+
+										
+										
+										<!-- Add more color boxes as needed -->
+										<div class="container" style="height: 100px; width: 100px; margin-top: 20px;"></div>
+
+									</div>
+								</div>
 							</Button>
 						</div>
 						<!-- Setting -->
@@ -292,6 +380,8 @@
 </section>
 
 <style>
+
+	
 	.toolbar-second-row {
 		/* display: flex;
 		align-items: center;
@@ -332,6 +422,28 @@
 		font-size: 15px;
 		color: white;
 	}
+
+	body {
+    font-family: Arial, sans-serif; /* Default font family */
+}
+
+.theme-selector {
+    margin: 10px;
+}
+
+.theme-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.theme-button:hover {
+    background-color: #555;
+}
 
 	.language {
 		display: flex;
@@ -656,7 +768,139 @@
 	}
 
 	Dropdown {
-		z-index: 9999; /* Some high value to ensure it's on top of other elements */
+		/* z-index: 9999; */ /* Some high value to ensure it's on top of other elements */
 		/* position: relative; Ensures z-index applies */
 	}
+
+	/* Style for the dropdown container */
+	.icon {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Style for the button that triggers the dropdown */
+        .icon button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Style for the dropdown content */
+        .icon .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        /* Style for dropdown items */
+        .icon .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        /* Change color of dropdown items on hover */
+        .icon .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        /* Show the dropdown content when the button is clicked */
+        .icon:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Style for the color palette items */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+			height: 200px;
+        }
+
+        .color-palette .color-box {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+        }
+
+		
+
 </style>
+
+<script lang="ts">
+	import Intro from '$lib/Intro.svelte';
+	import {
+		Label,
+		Input,
+		Range,
+		Radio,
+		Checkbox,
+		ButtonGroup,
+		Button,
+		Search,
+		Dropdown,
+		DropdownItem,
+		DropdownDivider
+	} from 'flowbite-svelte';
+
+	import { onMount } from 'svelte';
+
+	import {
+		ChevronDownSolid,
+		UserRemoveSolid,
+		UserCircleSolid,
+		AdjustmentsVerticalOutline,
+		DownloadSolid,
+		CopySolid,
+		UserSettingsOutline,
+		UserSettingsSolid
+	} from 'flowbite-svelte-icons';
+
+	import CodeMirror from 'svelte-codemirror-editor';
+	import { javascript } from '@codemirror/lang-javascript';
+	import { oneDark } from '@codemirror/theme-one-dark';
+
+	export let data;
+
+	let innerWidth: any = null;
+	let innerHeight: any = null;
+
+	let value = '';
+
+	onMount(() => {
+		// const codeEditor = document.querySelector('.code-editor');
+
+		// if (codeEditor) {
+		// 	editor = CodeMirror(codeEditor, {
+		// 		lineNumbers: true,
+		// 		theme: 'dracula'
+		// 		// ... any other CodeMirror options you want
+		// 	});
+		// }
+
+		innerWidth = window.innerWidth;
+		innerHeight = window.innerHeight;
+	});
+
+	let event;
+	let codeMirrorInstance: any = null;
+
+	// function handleKeydown(event) {
+	// 	if (event.keyCode === 8) {
+	// 		// If the key is backspace
+	// 		const cm = event.target.CodeMirror;
+	// 		const cursor = cm.getCursor();
+	// 		if (cursor.ch === 0 && cursor.line === 0) {
+	// 			event.preventDefault();
+	// 		}
+	// 	}
+	// }
+
+</script>
