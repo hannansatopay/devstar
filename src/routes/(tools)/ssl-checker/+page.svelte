@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { Spinner } from 'flowbite-svelte';
+	import { Text, Timeline } from '@svelteuidev/core';
+	import { LockClosed } from 'radix-icons-svelte';
 
 	let hostname = '';
 	let isLoading = false;
@@ -54,7 +56,8 @@
 
 		try {
 			const response = await fetch(
-				`https://ssl-checker-zaidmukaddam.koyeb.app/ssl-info?hostname=${hostname}`
+				`https://ssl-checker-production.up.railway.app/sslinfo?hostname=${hostname}`
+				// `http://localhost:8080/sslinfo?hostname=${hostname}`
 			);
 			const result = await response.json();
 			if (response.ok && result) {
@@ -84,24 +87,15 @@
 	}
 
 	function parseDate(dateString: string): Date {
-		const year = dateString.substring(0, 4);
-		const month = dateString.substring(4, 6);
-		const day = dateString.substring(6, 8);
-		const hour = dateString.substring(8, 10);
-		const minute = dateString.substring(10, 12);
-		const second = dateString.substring(12, 14);
+		// Split date and time
+		const [datePart, timePart] = dateString.split(' ');
+
+		// Extract date components
+		const [year, month, day] = datePart.split('-').map(Number);
+		const [hour, minute, second] = timePart.split(':').map(Number);
 
 		// JavaScript months are 0-based (0 = January, 11 = December)
-		return new Date(
-			Date.UTC(
-				Number(year),
-				Number(month) - 1,
-				Number(day),
-				Number(hour),
-				Number(minute),
-				Number(second)
-			)
-		);
+		return new Date(Date.UTC(year, month - 1, day, hour, minute, second));
 	}
 
 	function calculateDaysToExpiry(validToDate: string): number {
@@ -112,18 +106,19 @@
 		return Math.ceil(differenceInTime / (1000 * 3600 * 24));
 	}
 
-	function formatCertDate(dateString: string) {
-		const year = dateString.substring(0, 4);
-		const month = dateString.substring(4, 6);
-		const day = dateString.substring(6, 8);
-		const hour = dateString.substring(8, 10);
-		const minute = dateString.substring(10, 12);
-		const second = dateString.substring(12, 14);
-
-		const date = new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}Z`);
+	function formatCertDate(dateString: string): string {
+		const date = parseDate(dateString);
 
 		// Now you can format the date any way you'd like. Here's one way:
-		return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+		return date.toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit',
+			timeZoneName: 'short'
+		});
 	}
 
 	function cleanInputURL(url: string) {
@@ -133,12 +128,6 @@
 		// Remove any routes or extra slashes
 		cleaned = cleaned.split('/')[0];
 
-		// // Remove subdomains, keeping only the domain and TLD
-		// const parts = cleaned.split('.');
-		// if (parts.length > 2) {
-		// 	cleaned = parts.slice(-2).join('.');
-		// }
-
 		return cleaned;
 	}
 
@@ -147,87 +136,87 @@
 	}
 </script>
 
-<section class="bg-white dark:bg-gray-900 min-h-screen flex flex-col items-center">
-	<div class="container mx-auto py-8 px-4">
-		<h1 class="text-4xl font-bold text-blue-600 mb-8 mt-4">SSL Checker</h1>
-		<div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-md shadow-md">
-			<div class="mb-4">
+<section class="flex flex-col items-center justify-center">
+	<div class="container mx-auto p-2.5 max-w-xl">
+		<h1 class="text-3xl sm:text-4xl font-semibold text-blue-400 mb-12 mt-8">SSL Checker</h1>
+		<div class="bg-white p-8 rounded-lg shadow-md mb-4">
+			<div class="mb-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
 				<input
 					bind:value={hostname}
-					placeholder="Server Hostname"
-					class="p-2 w-full rounded-md border dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300"
+					placeholder="Enter Server Hostname"
+					class="p-3 w-full sm:w-2/3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-150"
 				/>
-			</div>
-			<div class="mb-4">
 				<button
 					on:click={handleCheckSSL}
-					class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-md"
+					class="w-full sm:w-1/3 bg-black text-white font-semibold p-3 rounded-lg hover:bg-gray-800 transition duration-150"
 				>
 					Check SSL
 				</button>
 			</div>
 			{#if error}
-				<div class="text-red-500 mb-4">{error}</div>
+				<div class="text-red-600 mb-6 font-medium">{error}</div>
 			{/if}
 			{#if isLoading}
 				<div class="flex justify-center items-center h-40">
-					<Spinner color="blue" />
+					<Spinner color="gray" />
 				</div>
 			{:else if sslInfo.commonName}
-				<div class="bg-gray-700 p-6 rounded-md text-white shadow-lg">
-					<div class="flex items-center mb-4">
-						<img src="/server-ok.png" alt="Server OK" class="h-12 w-12 mr-4" />
+				<div class="text-gray-700">
+					<div class="flex items-center mb-6">
+						<img src="/server-ok.png" alt="Server OK" class="h-16 w-16 mr-6" />
 						<div>
-							<h2 class="text-2xl font-bold mb-2">{sslInfo.commonName}</h2>
-							<p class="mb-1">{sslInfo.commonName} resolves to {sslInfo.ipAddress}</p>
-							<p class="mb-1">
-								Certificate expires in {calculateDaysToExpiry(sslInfo.validTo)} days
+							<h2 class="text-xl font-semibold mb-2">{sslInfo.commonName}</h2>
+							<p class="text-sm mb-1">{sslInfo.commonName} resolves to {sslInfo.ipAddress}</p>
+							<p class="text-sm mb-1">
+								Certificate expires in <span class="font-semibold"
+									>{calculateDaysToExpiry(sslInfo.validTo)}</span
+								> days
 							</p>
-							<p>
-								Hostname is correctly listed in the certificate: {isHostnameListed() ? 'Yes' : 'No'}
-							</p>
-							<p>
-								<span class="font-semibold">Valid From:</span>
-								{formatCertDate(sslInfo.validFrom)} to {formatCertDate(sslInfo.validTo)}
-							</p>
-							<p>
-								<span class="font-semibold">Serial Number:</span>
-								{sslInfo.serialNumber}
-							</p>
-							<p>
-								<span class="font-semibold">Signature Algorithm:</span>
-								{sslInfo.signatureAlgorithm}
+							<p class="text-sm">
+								Hostname is correctly listed in the certificate:
+								<span class="font-semibold">{isHostnameListed() ? 'Yes' : 'No'}</span>
 							</p>
 						</div>
 					</div>
-					{#each sslInfo.chain as chainItem, index}
-						<div class="p-4 border-t border-gray-600">
-							<img src="/chain-ok.png" alt="Server OK" class="h-12 w-12 mr-4" />
-							<h3 class="text-blue-400 mb-2">Chain {index + 1}</h3>
-							<p class="mb-1">
-								<span class="font-semibold">Common Name:</span>
-								{chainItem.commonName}
-							</p>
-							<p class="mb-1">
-								<span class="font-semibold">Organization:</span>
-								{chainItem.organization}
-							</p>
-							<p class="mb-1"><span class="font-semibold">Location:</span> {chainItem.location}</p>
-							<p class="mb-1">
-								<span class="font-semibold">Valid From:</span>
-								{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}
-							</p>
-							<p class="mb-1">
-								<span class="font-semibold">Serial Number:</span>
-								{chainItem.serialNumber}
-							</p>
-							<p class="mb-1">
-								<span class="font-semibold">Signature Algorithm:</span>
-								{chainItem.signatureAlgorithm}
-							</p>
-							<p><span class="font-semibold">Issuer:</span> {chainItem.issuer}</p>
-						</div>
-					{/each}
+					<hr class="my-6" />
+					<h2 class="text-xl font-semibold mb-4">SSL Chains</h2>
+					<Timeline active={4} bulletSize={30} lineWidth={2}>
+						{#each sslInfo.chain as chainItem, index}
+							<Timeline.Item bullet={LockClosed} title={`Chain ${index + 1}`}>
+								<Text color="dimmed" size="sm">
+									{#if chainItem.commonName}
+										<strong>Common Name:</strong>
+										{chainItem.commonName} <br />
+									{/if}
+									{#if chainItem.organization}
+										<strong>Organization:</strong>
+										{chainItem.organization} <br />
+									{/if}
+									{#if chainItem.location}
+										<strong>Location:</strong>
+										{chainItem.location} <br />
+									{/if}
+									{#if chainItem.validFrom && chainItem.validTo}
+										<strong>Valid From:</strong>
+										{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}
+										<br />
+									{/if}
+									{#if chainItem.serialNumber}
+										<strong>Serial Number:</strong>
+										{chainItem.serialNumber} <br />
+									{/if}
+									{#if chainItem.signatureAlgorithm}
+										<strong>Signature Algorithm:</strong>
+										{chainItem.signatureAlgorithm} <br />
+									{/if}
+									{#if chainItem.issuer}
+										<strong>Issuer:</strong>
+										{chainItem.issuer}
+									{/if}
+								</Text>
+							</Timeline.Item>
+						{/each}
+					</Timeline>
 				</div>
 			{/if}
 		</div>
