@@ -162,7 +162,6 @@
 		inputTextAreaContent = samplejson;
 	}
 
-
 	function findLineColumnIndex(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
 
@@ -186,6 +185,29 @@
 			inputTextAreaSize = inputTextAreaContent.length;
 		} else if (textAreaType === 'output') {
 			outputTextAreaSize = outputTextAreaContent.length;
+		}
+	}
+
+	// Full screen
+	function handleMaximizeInput() {
+		const textEditor = document.getElementById('inputTextEditor');
+		if (textEditor) {
+			if (!document.fullscreenElement) {
+				textEditor.requestFullscreen();
+			} else {
+				document.exitFullscreen();
+			}
+		}
+	}
+
+	function handleMaximizeOutput() {
+		const textEditor = document.getElementById('outputTextEditor');
+		if (textEditor) {
+			if (!document.fullscreenElement) {
+				textEditor.requestFullscreen();
+			} else {
+				document.exitFullscreen();
+			}
 		}
 	}
 
@@ -294,27 +316,24 @@
 
 		outputTextAreaContent = xml;
 	}
-	
+
 	function convertXML2JSON() {}
 	function convertJSON2CSV() {}
-
 
 	//json to xml
 	function jsonToXml(jsonObject: Record<string, any>): string {
 		const builder = new xml2js.Builder();
 		return builder.buildObject(jsonObject);
-  	}
+	}
 
 	function convertJSON2XML() {
 		try {
-			let jsonInput = JSON.parse(inputTextAreaContent); 
-			outputTextAreaContent = jsonToXml({ root: jsonInput }); 
+			let jsonInput = JSON.parse(inputTextAreaContent);
+			outputTextAreaContent = jsonToXml({ root: jsonInput });
 		} catch (error) {
 			outputTextAreaContent = 'Invalid JSON input';
 		}
-	}	
-
-
+	}
 
 	// delete functionality
 	const clearContent = () => {
@@ -697,26 +716,29 @@
 			<button
 				type="button"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+				on:click={handleMaximizeInput}
 			>
 				<ExpandSolid size="sm" />
-				<span class="sr-only">Full screen</span>
+				<span class="sr-only">Full screen input</span>
 			</button>
 			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
 		</div>
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Editor</Label>
-			<textarea
-				bind:this={inputTextArea}
-				bind:value={inputTextAreaContent}
-				on:keyup={findLineColumnIndex}
-				on:keyup={findSize}
-				on:keydown={(e) => allowTabIndentation(e)}
-				on:mouseup={findLineColumnIndex}
-				data-text-area-type="input"
-				rows="8"
-				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-				placeholder="{inputTextAreaPlaceholder} Code"
-			/>
+			<div id="inputTextEditor" class="textarea">
+				<textarea
+					bind:this={inputTextArea}
+					bind:value={inputTextAreaContent}
+					on:keyup={findLineColumnIndex}
+					on:keyup={findSize}
+					on:keydown={(e) => allowTabIndentation(e)}
+					on:mouseup={findLineColumnIndex}
+					data-text-area-type="input"
+					rows="8"
+					class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+					placeholder="{inputTextAreaPlaceholder} Code"
+				/>
+			</div>
 		</div>
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
@@ -858,26 +880,29 @@
 			<button
 				type="button"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
+				on:click={handleMaximizeOutput}
 			>
 				<ExpandSolid size="sm" />
-				<span class="sr-only">Full screen</span>
+				<span class="sr-only">Full screen output</span>
 			</button>
 			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
 		</div>
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Output</Label>
-			<textarea
-				bind:this={outputTextArea}
-				bind:value={outputTextAreaContent}
-				on:keyup={findLineColumnIndex}
-				on:keyup={findSize}
-				on:keydown={(e) => allowTabIndentation(e)}
-				on:mouseup={findLineColumnIndex}
-				data-text-area-type="output"
-				rows="8"
-				class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
-				placeholder="{outputTextAreaPlaceholder} Output"
-			/>
+			<div id="outputTextEditor" class="textarea">
+				<textarea
+					bind:this={outputTextArea}
+					bind:value={outputTextAreaContent}
+					on:keyup={findLineColumnIndex}
+					on:keyup={findSize}
+					on:keydown={(e) => allowTabIndentation(e)}
+					on:mouseup={findLineColumnIndex}
+					data-text-area-type="output"
+					rows="8"
+					class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+					placeholder="{outputTextAreaPlaceholder} Output"
+				/>
+			</div>
 		</div>
 		<div
 			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
