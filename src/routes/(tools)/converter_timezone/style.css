@@ -1,0 +1,114 @@
+
+<style>
+        body 
+        {
+            font-family: Franklin Gothic Medium, sans-serif;
+            background-color: #f4f4f4;
+            background-size: 1200px;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #title 
+        {
+            text-align: center;
+            color: #00a8f7ea;
+            text-shadow: rgba(0, 112, 139, 0.37);
+            padding: 20px 0;
+        }
+
+        .container 
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .rect1, .rect2 {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 112, 139, 0.37);
+            padding: 20px;
+            height: 100px;
+            width: 300px;
+            margin: 10px;
+        }
+
+        select 
+        {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h3 
+        {
+            color: #ffffff;
+        }
+
+        .select-container 
+        {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .shape1
+        {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 112, 139, 0.37);
+            padding: 20px;
+            height: 50px;
+            width: 665px;
+            margin: 10px;
+        }
+
+        .shape2
+        {
+            background: #00a9f7c2;
+            text-align: center;
+            border: 1px solid #9ce7fa;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 133, 167, 0.37);
+            padding: 20px;
+            height: 100px;
+            width: 665px;
+            margin: 10px;
+        }
+
+        #datetime
+        {
+            width: 70%;
+            padding-block: 15px;
+            float: right; 
+            margin-right: 2%;
+            border: 1px solid #ccc;
+            font-size: large;
+        }
+
+        #convert
+        {
+            width: 710px;
+            padding-block: 15px;
+            color: #ffffff;
+            background: #00a8f7ea;
+            border: 1px solid #9ce7fa;
+            font-size: large;
+            border-radius: 10px;
+        }
+
+        div
+        {
+            margin-top: auto;
+            height: 100px;
+        }
+    </style>
