@@ -67,8 +67,6 @@
 	"dependencies": {
 		"@amcharts/amcharts4": "^4.10.38",
 		"@bytemd/plugin-gfm": "^1.21.0",
-		"ag-grid-community": "^30.2.0",
-		"ag-grid-react": "^30.2.0",
 		"@codemirror/lang-javascript": "^6.2.1",
 		"@codemirror/theme-one-dark": "^6.1.2",
 		"@types/codemirror": "^5.60.10",
