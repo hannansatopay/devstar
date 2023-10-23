@@ -19,21 +19,13 @@
 
 	let clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
 	let clrVal3 = '#70DD33';
-	let angle = 270;
+	let angle = 90;
 	let speed = 7;
 	let myBtn;
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
 
 	const pushArr = () => {
-		if (clrList.length < 6) {
-			clrList = [...clrList, clrVal3];
-		} else if (clrList.length == 1) {
-			alert('Add one more color to animate');
-		} else if (clrList.length < 1) {
-			alert('At least have one color');
-		} else {
-			alert('Too many colors');
-		}
+		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
 	const removeOnClick = (e) => {
@@ -65,10 +57,13 @@
 			? clrList.length > 1
 				? `background-image: conic-gradient(from ${angle}deg, ${clrList.join(', ')});`
 				: `background-color: ${clrList};`
-			: `background-image: radial-gradient(ellipse ${angle}% ${angle}% at center, ${clrList.join(
-					', '
-			  )});
-			`;
+			: gradientType === 'radial'
+			? clrList.length > 1
+				? `background-image: radial-gradient(ellipse ${angle}% ${angle}% at center, ${clrList.join(
+						', '
+				  )});`
+				: `background-color: ${clrList};`
+			: `background-color: ${clrList};`;
 
 	// Create a variable to store the style for the output div
 
@@ -143,7 +138,8 @@
 		} else if (gradientType === 'radial') {
 			css = `
           .animated-background {
-			${bgGradient}background-size: 400% 400%;
+			${bgGradient}
+			background-size: 400% 400%;
             animation: gradient ${speed}s ease infinite;
           }
   
