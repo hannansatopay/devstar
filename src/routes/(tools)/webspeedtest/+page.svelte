@@ -8,6 +8,7 @@
   <link rel="preload" href="https://www.google.com">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
   <meta charset = "UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
      body {
       /*background: linear-gradient(to left, white 5%, #000099 80%);*/
