@@ -481,5 +481,14 @@ export let tools = {
         icon: 'code',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
-    }
+    },
+	'bulk-image-resize':{
+		name:'Bulk Image Resize',
+		icon:'code',
+		link:'/bulk-image-resize',
+		description:" bulk image resize tool"
+		
+	}
+
+
 };
