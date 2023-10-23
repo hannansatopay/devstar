@@ -16,16 +16,30 @@ body
     text-shadow: rgba(0, 112, 139, 0.37);
     padding: 20px 0;
 }
-
+.container1{
+    
+    margin: 1 rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+.rect1,.rect2 {
+    display: inline-block;
+    border: 1px ;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
 .container 
 {
+    
+    margin: 1 rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 2rem 2rem;
 }
 
 .rect1, .rect2 {
+    display: inline-block;
     background: #00a9f7c2;
     text-align: center;
     border: 1px solid #9ce7fa;
