@@ -1,6 +1,8 @@
 <!-- src/SearchForm.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
+    import Intro from '$lib/Intro.svelte';
+    export let data;
     
     let domainName = "";
     let whoisData = null;
@@ -36,7 +38,8 @@
         domainName = "example.com"; // Change to your default domain
     });
 </script>
-
+<meta name="description" content="dd">
+<Intro heading={data.meta.title} description={data.meta.description} />
 <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
     <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 rounded-lg">
       <div class="p-8">
