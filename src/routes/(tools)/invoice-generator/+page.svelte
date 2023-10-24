@@ -860,4 +860,10 @@
       font-size: 75% !important;
     }
   }
+  .Invoice-Receipt div div {
+	width: 50%;
+  }
+  .Invoice-Receipt div div input, select{
+	width: 65%;
+  }
 </style>
