@@ -810,4 +810,49 @@
 		text-decoration: underline;
 		cursor: pointer;
 	}
+	.invoice-detail-body {
+	    padding: 10px 10px 10px 10px;
+	}
+	.input-with-label {
+	    overflow: hidden;
+	    min-width: 769;
+	}
+	.input-with-label label {
+	    display: inline-block;
+	    font-weight: 500;
+	    margin-bottom: 8px;
+	    white-space: normal;
+	    word-wrap: "break-word";
+	    width: 5%;
+	}
+	.input-with-label input {
+	    width: 35%;
+	    height: 5%;
+	    padding: 8px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    margin-bottom: 16px;
+	    margin-left: 15%;
+	}
+	  
+	.show-details-link {
+	    color: #007bff;
+	    text-decoration: underline;
+	    cursor: pointer;
+	}
+	::-webkit-input-placeholder{
+	    font-size: 75% !important;
+	}
+	@media screen and (max-width:768px) {
+	    .input-with-label label{
+	      display: none;
+	    }
+	    .input-with-label input {
+	      margin-left: 0%;
+	      width: 40%;
+	    }
+	    ::-webkit-input-placeholder{
+	      font-size: 75% !important;
+	    }
+	}
 </style>
