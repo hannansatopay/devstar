@@ -1,17 +1,24 @@
 <script lang="ts">
     import { Button } from 'flowbite-svelte';
     import Intro from '$lib/Intro.svelte';
-    import Tesseract from 'tesseract.js'; // Import createWorker and recognize
-  
+    import Tesseract from 'tesseract.js';
+
     export let data;
-  
+
     let inputImage: File | null = null;
     let extractedText = '';
-    
-    function logTesseract(){
-        Tesseract.recognize(inputImage,'eng',{logger:m =>console.log(m)})
-          .then(({data:{text}})=>{console.log(text);
-        })
+
+    async function logTesseract() {
+        if (inputImage) {
+            try {
+                const result = await Tesseract.recognize(inputImage, 'eng', {
+                    logger: m => console.log(m)
+                });
+                extractedText = result.data.text;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
     }
     // async function extractText() {
     //   if (inputImage) {
@@ -27,7 +34,6 @@
 
   </script>
   
-
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
@@ -37,36 +43,23 @@
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
                     <input type="file" accept="image/*" on:change={(e) => { inputImage = e.target.files[0]; }} />
                 </div>
-                <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-                    <textarea placeholder="Extracted Text" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={extractedText} />
+                <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+                    <textarea placeholder="Extracted Text" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={extractedText} rows="8" style="width: 100%;" />
                 </div>
             </div>
-            <div id="buttonArea">
-                <Button color="blue" on:click={extractText}>Extract Text from Image</Button>
+            <div class="mt-4 flex justify-center" id="buttonArea">
+                <Button color="blue" on:click={logTesseract}>Extract Text from Image</Button>
             </div>
         </div>
     </div>
 </section>
 
-
 <style>
-	#tarea2{
-		margin-left: 10px;
-	}
+    .card {
+        box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
+    }
 
-	#buttonArea {
-		margin-top: 30px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 30px; /* Adjust the gap between buttons as needed */
-	}
-
-	.card {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-	}
-
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-	}
+    :is(.dark .card) {
+        box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
+    }
 </style>

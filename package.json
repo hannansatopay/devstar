@@ -92,6 +92,7 @@
 		"svelte-filepond": "^0.2.0",
 		"svelte-tags-input": "^5.0.0",
 		"svelte-transition": "^0.0.10",
+		"tesseract.js": "^5.0.2",
 		"xlsx": "^0.18.5",
 		"xml-formatter": "^3.5.0"
 	}
