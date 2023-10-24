@@ -419,7 +419,7 @@ export let tools = {
         name: 'Whois Lookup',
         icon: 'code',
         link: '/who-is',
-        description: ""
+        description: "A Whois lookup is a query or search that provides information about a domain name or an IP address. It typically reveals details about the entity or organization that registered the domain, contact information of the domain owner, domain registration and expiration dates, and sometimes technical information like name servers. Whois lookups are commonly used to identify the owner of a website or IP address, check the availability of domain names, or investigate potential issues related to a particular online resource. This information can be useful for legal, technical, or administrative purposes on the internet."
     },
     'ssl-checker': {
         name: 'SSL Checker',
