@@ -58,11 +58,10 @@
 						y: textY,
 						font: font,
 						size: textSize,
-						color: rgb(0, 0, 0)
+						color: rgb(191/255, 184/255, 184/255)
 					});
 				}
 			} else if (watermarkType === 'image' && watermarkImage) {
-				// Embed the image as a PDFImage
 				const embeddedImage = await pdfDoc.embedPng(watermarkImage);
 				for (const page of pages) {
 					const { width, height } = page.getSize();
@@ -121,7 +120,7 @@
 				id="dropzone-file"
 				type="file"
 				class="mt-4 hidden"
-				accept=".xlsx"
+				accept=".pdf"
 				style="color:black"
 				on:change={handleFile}
 			/>
