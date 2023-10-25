@@ -66,18 +66,12 @@
         <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
           <Label class="bg-white dark:bg-gray-900 px-4 py-5">From</Label>
           <Input id="input1" type="date" class="rounded-none border-0" bind:value={fromInputValue} />
-        </div>
-        <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
           <Label class="bg-white dark:bg-gray-900 px-4 py-5">To</Label>
           <Input id="input2" type="date" class="rounded-none border-0" bind:value={toInputValue} />
         </div>
-      </div>
-      <button on:click={calculateAge} class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover-bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-        Calculate age
-      </button>
-    </div>
-	{#if calculatedAge !== null}
-	  <ul class="text-2xl text-black dark:text-white">The calculated age is:
+        <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+          {#if calculatedAge !== null}
+	  <ul class=" bg-gray-900 text-2xl text-black dark:text-white">The calculated age is:
 		<div class="px-8">
 			<li class="text-black dark:text-white">{calculatedAge.years} in years</li>
 			<li class="text-black dark:text-white">{calculatedAge.months} in months</li>
@@ -89,6 +83,13 @@
 		</div> 
 	  </ul>
 	{/if}
+        </div>
+      </div>
+      <button on:click={calculateAge} class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover-bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+        Calculate age
+      </button>
+    </div>
+	
   </div>
 </section>
 
