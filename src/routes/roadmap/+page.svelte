@@ -162,7 +162,21 @@
                 name:  'Harshit Kandpal',
                 githubId: 'harshitkandpal'
             }]
-        }
+        },
+        {
+            name: 'Tip Calculator',
+            contributors: [{
+                name:  'Harshit Kandpal',
+                githubId: 'harshitkandpal'
+            }]
+        },
+        {
+            name: 'Permutation and Combination Calculator',
+            contributors: [{
+                name:  'Harshit Kandpal',
+                githubId: 'harshitkandpal'
+            }]
+        },
     ]
 </script>
 <section class="bg-white dark:bg-gray-900 p-3 sm:p-5">

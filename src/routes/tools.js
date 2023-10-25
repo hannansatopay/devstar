@@ -397,6 +397,12 @@ export let tools = {
         link:'/tip-calculator',
         description:'The Tip Calculator calculates tip amount for various percentages of the cost of the service, and also provides a total amount that includes the tip.'
     },
+    'permutation-and-combination-calculator':{
+        name: 'Permutation and Combination Calculator',
+        icon: 'code',
+        link:'/permutation-and-combination-calculator',
+        description:'Permutations and combinations are part of a branch of mathematics called combinatorics, which involves studying finite, discrete structures. Permutations are specific selections of elements within a set where the order in which the elements are arranged is important, while combinations involve the selection of elements without regard for order'
+    },
     'webspeedtest': {
         name: 'WebPage SpeedTester',
         icon: 'code',
