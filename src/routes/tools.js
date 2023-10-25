@@ -100,6 +100,6 @@ export let tools = {
         name: 'SVG Animator',
         icon: 'film-simple',
         link: '/svg-animator',
-        description: "This is SVG Animator."
+        description: "TSVG Animator is a dynamic and versatile software tool or programming library designed to create captivating animations within Scalable Vector Graphics (SVG) files. SVG is an XML-based vector image format widely used for its scalability and compatibility with web applications, making it an ideal choice for creating interactive, lightweight animations for websites, mobile apps, and more."
     },
 };
