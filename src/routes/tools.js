@@ -107,6 +107,12 @@ export let tools = {
         link:'/age-calculator',
         description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
     },
+    'dice-roller':{
+        name: 'Dice Roller',
+        icon: 'arrow-right-arrow-left',
+        link:'/dice-roller',
+        description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
+    },
     'webspeedtest': {
         name: 'WebPage SpeedTester',
         icon: 'spider-web',
