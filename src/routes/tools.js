@@ -101,16 +101,4 @@ export let tools = {
         link: '/Unlock-Pdf',
         description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
     },
-    'exceltopdf': {
-        name: 'Convert-excel',
-        icon: 'files',
-        link: '/exceltopdf',
-        description:"This tool is very helpful to Convert excel to pdf"
-    },
-    'ppttopdf': {
-        name: 'Convert-PPT',
-        icon: 'files',
-        link: '/ppttopdf',
-        description:"This tool is very helpful to Convert PPT to pdf"
-    },
 };
