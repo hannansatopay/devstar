@@ -133,8 +133,17 @@
 .icon-spider-web:before {
   content: "\e904";
 }
+.icon-regex-tool:before {
+  content: "\e901";
+}
 .icon-text-size:before {
   content: "\e912";
+}
+.icon-charts:before {
+  content: "\e99c";
+}
+.icon-tts:before {
+  content: "\e91e";
 }
 .icon-dollar:before {
   content: "\e913";
