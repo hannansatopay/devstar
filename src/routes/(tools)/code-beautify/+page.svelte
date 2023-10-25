@@ -105,6 +105,14 @@
 		}
 	}
 
+	//xml indent
+	function indentxml() {
+            const spaces = " ".repeat(parseInt(indentation.value));
+            const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${spaces}`);
+            outputTextAreaContent = indentedXml;
+			
+        }
+
 	function minifyXML() {
 		let inputXML = inputTextAreaContent;
 		let minifiedXML = xmlFormat.minify(inputXML, {
@@ -774,6 +782,16 @@
 			on:click={minify}
 			on:click={findSize}
 			>Minify
+		</Button>	
+		<Button
+		color="blue"
+		class="ml-1"
+		data-text-area-type="output"
+		on:click={indentxml}
+		on:click={findSize}
+		>
+		<label for="indentation">Select Indentation:</label>
+  		<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
 		</Button>
 	{/if}
 
