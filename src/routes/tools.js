@@ -101,4 +101,10 @@ export let tools = {
         link: '/Unlock-Pdf',
         description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
     },
+    'exceltopdf': {
+        name: 'exceltopdf',
+        icon: 'files',
+        link: '/exceltopdf',
+        description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
+    },
 };
