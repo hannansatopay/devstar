@@ -74,6 +74,8 @@
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-polyfill": "^0.0.1",
-		"svelte-tags-input": "^5.0.0"
+		"svelte-tags-input": "^5.0.0",
+		"svelte-toasts": "^1.1.2",
+		"xlsx": "^0.18.5"
 	}
 }
