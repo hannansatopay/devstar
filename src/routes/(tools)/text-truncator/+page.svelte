@@ -12,9 +12,9 @@
    function updateTruncatedText() {
 if (text.length > limit) {
       if (direction === 'end') {
-        output = text.slice(0, limit) + '...';
+        output = text.slice(0, limit) + '';
       } else {
-        output = '...' + text.slice(-limit);
+        output = '' + text.slice(-limit);
       }
     } else {
       output = text; 
