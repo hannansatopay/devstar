@@ -389,7 +389,13 @@ export let tools = {
         name: 'Dice Roller',
         icon: 'code',
         link:'/dice-roller',
-        description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
+        description:' '
+    },
+    'tip-calculator':{
+        name: 'Tip Calculator',
+        icon: 'code',
+        link:'/tip-calculator',
+        description:'The Tip Calculator calculates tip amount for various percentages of the cost of the service, and also provides a total amount that includes the tip.'
     },
     'webspeedtest': {
         name: 'WebPage SpeedTester',
