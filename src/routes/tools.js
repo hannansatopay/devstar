@@ -113,4 +113,10 @@ export let tools = {
         link: '/PPTtoPDF',
         description:"Convert yout PPT file to PDF"
     },
+    'page-number-in-pdf': {
+        name: 'Add Page Numbers to PDF',
+        icon: 'files',
+        link: '/page-number-in-pdf',
+        description:"Add Page number at position..."
+    },
 };

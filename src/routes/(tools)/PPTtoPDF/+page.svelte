@@ -5,19 +5,7 @@
 	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
 	import pptxgen from 'pptxgenjs';
 	pdfMake.vfs = pdfFonts.pdfMake.vfs;
-	const convertPPTToPdf = async () => {
-	  if (!file) {
-		showToast('No file selected', 'error');
-		return;
-	  }
-	  const pptx = new pptxgen();
-	  const slide = pptx.addSlide();
-	  slide.addText('Hello, world!', { x: 1, y: 1, w: 4, h: 1 });
-	  const pdfData = await pptx.write('pdf', { base64: true }); 
-	  console.log(pdfData); 
-
-	  showToast('Conversion complete', 'success');
-	};
+	
   
 	const showToast = (message, type) => {
 	  const toast = toasts.add({
@@ -46,6 +34,9 @@
 		file = null;
 		fileName = 'No file chosen';
 	  }
+	};
+	const convertPPTToPdf = async () => {
+	  
 	};
   
 	export let data;
