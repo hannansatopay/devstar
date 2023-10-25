@@ -101,4 +101,10 @@ export let tools = {
         link: '/Unlock-Pdf',
         description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
     },
+    'watermark-pdf': {
+        name: 'watermark-pdf',
+        icon: 'files',
+        link: '/watermark-pdf',
+        description:"Add Text or Image as a watermark to the PDF document"
+    },
 };

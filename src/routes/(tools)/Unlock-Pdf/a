@@ -96,19 +96,18 @@
 
 <Intro heading="Add Watermark to PDF" description="Upload a PDF to add a watermark." />
 
-<div class="flex justify-center font-sans mt-4">
-  <label for="dropzone-file" class="mx-auto cursor-pointer flex w-full max-w-md flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center">
+<div class="flex justify-center font-sans mt-8">
+  <label for="dropzone-file" class="mx-auto cursor-pointer flex w-full max-w-2xl flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-10 text-center">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
     </svg>
-    <p class="mt-2 text-gray-500 tracking-wide">Upload your pdf</p>
     <input id="dropzone-file" type="file" class="mt-4 hidden" accept=".pdf" on:change={handleFile} />
   </label>
 </div>
 
 <div class="mt-8 flex justify-center">
-  <Label class="text-lg">Watermark Type</Label>
-  <select bind:value={watermarkType} class="ml-2 p-1 border border-gray-300 rounded-md">
+  <Label>Watermark Type</Label>
+  <select bind:value={watermarkType} class="ml-2 p-2 border border-gray-300 rounded-md">
     <option value="text">Text</option>
     <option value="image">Image</option>
   </select>
@@ -116,19 +115,17 @@
 
 {#if watermarkType === 'text'}
   <div class="mt-8 flex justify-center">
-    <Label for="watermark-text" class="text-lg">Watermark Text : </Label>
-    <Input id="watermark-text" bind:value={watermarkText} class="ml-2 p-2 border border-gray-300 rounded-md w-60" />
+    <Label for="watermark-text">Watermark Text</Label>
+    <Input id="watermark-text" bind:value={watermarkText} class="ml-2 p-2 border border-gray-300 rounded-md" />
   </div>
 {:else if watermarkType === 'image'}
-  <div class="mt-10 flex justify-center">
-    <Label for="watermark-image" class="text-lg">Watermark Image</Label>
-  </div>
-    <div class="mt-8 flex justify-center">
-    <Input id="watermark-image" type="file" accept="image/*" on:change={handleImageUpload} class="ml-2 p-2 border border-gray-300 rounded-md w-60" />
+  <div class="mt-8 flex justify-center">
+    <Label for="watermark-image">Watermark Image</Label>
+    <Input id="watermark-image" type="file" accept="image/*" on:change={handleImageUpload} class="ml-2 p-2 border border-gray-300 rounded-md" />
   </div>
 {/if}
 
-<div class="flex justify-center mt-6">
+<div class="flex justify-center mt-8">
   <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-8 py-3 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" on:click={addWatermark}>
     Add Watermark
   </button>
