@@ -67,6 +67,7 @@
 		"colorthief": "^2.2.0",
 		"countries-list": "^2.6.1",
 		"downloadjs": "^1.4.7",
+		"jspdf": "^2.5.1",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",

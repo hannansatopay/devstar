@@ -100,5 +100,11 @@ export let tools = {
         icon: 'files', // Pending Icon Update
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+    'text-truncator': {
+        name: 'Text Truncator',
+        icon: 'text-size', 
+        link: '/text-truncator',
+        description: 'The "Text Truncation Tool" allows users to truncate text based on their choice of either "Start" or "End". Users can input text into a textarea, select the truncation location (either the beginning or the end of the text) using a dropdown menu, and the tool will automatically display the truncated text based on their selection. This tool is useful for quickly shortening text for various purposes, such as creating summaries or previews of longer text content.'
     }
 }
