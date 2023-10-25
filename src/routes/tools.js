@@ -381,13 +381,13 @@ export let tools = {
     },
     'age-calculator':{
         name: 'Age Calculator',
-        icon: 'arrow-right-arrow-left',
+        icon: 'code',
         link:'/age-calculator',
         description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
     },
     'dice-roller':{
         name: 'Dice Roller',
-        icon: 'arrow-right-arrow-left',
+        icon: 'code',
         link:'/dice-roller',
         description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
     },
