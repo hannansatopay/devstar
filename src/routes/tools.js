@@ -484,7 +484,7 @@ export let tools = {
     },
 	'bulk-image-resize':{
 		name:'Bulk Image Resize',
-		icon:'code',
+		icon:'folder-image',
 		link:'/bulk-image-resize',
 		description:" bulk image resize tool"
 		
