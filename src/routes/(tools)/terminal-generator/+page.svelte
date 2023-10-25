@@ -38,11 +38,11 @@
 							<div slot="header" class="p-3">
 								<Search size="md" />
 							</div>
-							<DropdownItem style="font-family:arial">Arial</DropdownItem>
+							<DropdownItem>Roboto</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family:helvetica">Helvetica</DropdownItem>
+							<DropdownItem>Open sans</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family:sans-serif">Sans-serif</DropdownItem>
+							<DropdownItem>Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
 					</div>
@@ -535,8 +535,8 @@
 	}
 
 	.icon img {
-		width: 30px;
-		height: 26px;
+		width: 28px;
+		height: 28px;
 		object-fit: cover;
 	}
 
@@ -565,7 +565,7 @@
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
 		width: 800px;
-		height: calc(100% - 4rem); /* Assuming 4rem is the height of your toolbar, adjust as needed */
+		height: 400px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
 		display: flex;
 		/* flex-direction: column; */
 		margin: 0 auto;
@@ -619,8 +619,8 @@
 		position: relative;
 		min-width: 400px;
 		max-width: 700px;
-		width: auto;
-		height: auto;
+		width: 750px;
+		height: 800px;
 
 		padding: 56px 56px;
 	}
