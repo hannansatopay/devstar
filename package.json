@@ -84,6 +84,7 @@
 		"svelte-pdf-simple": "^2.0.0",
 		"svelte-polyfill": "^0.0.1",
 		"svelte-tags-input": "^5.0.0",
+		"svelte-toasts": "^1.1.2",
 		"xlsx": "^0.18.5"
 	}
 }

@@ -4,6 +4,25 @@
 	import pdfFonts from 'pdfmake/build/vfs_fonts';
 	import * as XLSX from 'xlsx';
 	pdfMake.vfs = pdfFonts.pdfMake.vfs;
+	import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
+	
+	const showToast = () => {
+    const toast = toasts.add({
+      title: 'Uploaded',
+      description: 'Excel Added',
+      duration: 3000, 
+      placement: 'bottom-right',
+      type: 'info',
+      theme: 'dark',
+      placement: 'bottom-right',
+			showProgress: true,
+      type: 'success',
+      theme: 'dark',
+      onClick: () => {},
+      onRemove: () => {},
+    });
+
+  };
 	let file = null;
 	let fileName = 'No file chosen';
 	let pdfData = null;
@@ -28,6 +47,7 @@
 		console.log('Error reading Excel file');
 		return;
 	  }
+	  showToast();
 	  const pdfDocDefinition = {
 		content: [
 		  {
@@ -78,9 +98,12 @@
   </div>
   
   <div class="flex justify-center font-sans mt-3">
-	<div class="" style="color: white;">{fileName}</div>
+	<div class="dark:text-white" style="">{fileName}</div>
   </div>
   
   <div class="flex justify-center mt-5">
 	<button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover-bg-blue-700 focus:outline-none dark:focus:ring-blue-800" on:click={convertExcelToPdf}>Convert Now</button>
   </div>
+	<ToastContainer let:data={data}>
+		<FlatToast {data}  />
+	</ToastContainer>
