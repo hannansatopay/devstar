@@ -2,31 +2,41 @@
 	import Intro from '$lib/Intro.svelte';
 	import pdfMake from 'pdfmake/build/pdfmake';
 	import pdfFonts from 'pdfmake/build/vfs_fonts';
-	import * as XLSX from 'xlsx';
+	import { toasts, ToastContainer, FlatToast } from 'svelte-toasts';
+	import pptxgen from 'pptxgenjs';
 	pdfMake.vfs = pdfFonts.pdfMake.vfs;
-	import { toasts, ToastContainer, FlatToast }  from "svelte-toasts";
-	
-	const showToast = () => {
-    const toast = toasts.add({
-      title: 'Converted',
-      description: 'Excel',
-      duration: 3000, 
-      placement: 'bottom-right',
-      type: 'info',
-      theme: 'dark',
-      placement: 'bottom-right',
-			showProgress: true,
-      type: 'success',
-      theme: 'dark',
-      onClick: () => {},
-      onRemove: () => {},
-    });
+	const convertPPTToPdf = async () => {
+	  if (!file) {
+		showToast('No file selected', 'error');
+		return;
+	  }
+	  const pptx = new pptxgen();
+	  const slide = pptx.addSlide();
+	  slide.addText('Hello, world!', { x: 1, y: 1, w: 4, h: 1 });
+	  const pdfData = await pptx.write('pdf', { base64: true }); 
+	  console.log(pdfData); 
 
-  };
+	  showToast('Conversion complete', 'success');
+	};
+  
+	const showToast = (message, type) => {
+	  const toast = toasts.add({
+		title: type === 'success' ? 'Success' : 'Error',
+		description: message,
+		duration: 3000,
+		placement: 'bottom-right',
+		type: type,
+		theme: 'dark',
+		showProgress: true,
+		onClick: () => {},
+		onRemove: () => {},
+	  });
+	};
+  
 	let file = null;
 	let fileName = 'No file chosen';
 	let pdfData = null;
-	
+  
 	const handleFile = (e) => {
 	  const selectedFile = e.target.files[0];
 	  if (selectedFile) {
@@ -37,7 +47,7 @@
 		fileName = 'No file chosen';
 	  }
 	};
-	
+  
 	export let data;
   </script>
   
@@ -62,8 +72,9 @@
   </div>
   
   <div class="flex justify-center mt-5">
-	<button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover-bg-blue-700 focus:outline-none dark:focus:ring-blue-800" on:click={convertExcelToPdf}>Convert Now</button>
+	<button type="button" class="text-white bg-blue-700 hover-bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover-bg-blue-700 focus:outline-none dark:focus-ring-blue-800" on:click={convertPPTToPdf}>Convert Now</button>
   </div>
-	<ToastContainer let:data={data}>
-		<FlatToast {data}  />
-	</ToastContainer>
+  
+  <ToastContainer let:data={data}>
+	<FlatToast {data} />
+  </ToastContainer>
