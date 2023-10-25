@@ -18,7 +18,7 @@
         var pay=start * (monthinterest/(1-Math.pow(1+monthinterest, -term)));
         payment = Number(pay.toFixed(2));
         totpayment=Number((payment*term).toFixed(2));
-        let result='<p>Principal Amount='+start+'</p><br><p>Term='+term+'</p><br><p>Interest rate='+interest+'</p><br><p>Monthly Payment='+payment+'</p><br><p>Total Payment='+totpayment+'</p>';
+        let result='<p style="font-weight: bold">Principal Amount='+start+'</p><br><p style="font-weight: bold">Term='+term+'</p><br><p style="font-weight: bold">Interest rate='+interest+'</p><br><p style="font-weight: bold">Monthly Payment='+payment+'</p><br><p style="font-weight: bold">Total Payment='+totpayment+'</p>';
         const tab= amorttable(start,interest/100,term);
         print.innerHTML= result+tab;
     }
@@ -29,10 +29,10 @@
 <main>
     <div class="input">
             <form action="">
-                Loan Amount<input type="number" class="sign" bind:value={start}><br>
-                Loan Term<br><input type="number"  bind:value={year} placeholder="Year">
+                <p>Loan Amount</p><input type="number" class="sign" bind:value={start}><br>
+                <p>Loan Term</p><input type="number"  bind:value={year} placeholder="Year">
                 <input type="number" placeholder="month" bind:value={month}><br>
-                Interest rate<input type="number" bind:value={interest}>
+                <p>Interest rate</p><input type="number" bind:value={interest}>
                 <br>   
             </form>
             <button on:click={amort}>Calculate</button>
@@ -41,9 +41,8 @@
 </main> 
     
 <style>
-    h1{
-        color: blue;
-        text-align: center;
+    p{
+        font-weight: bold;
     }
     form{
         padding: 4%;

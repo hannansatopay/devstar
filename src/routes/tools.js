@@ -373,17 +373,16 @@ export let tools = {
         link: '/text-to-speech-&-speech-recognition',
         description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
     },
-
     'amortiztion-calculator': {
         name: 'amortiztion-calculator',
         icon: 'spider-web',
         link: '/amortiztion-calculator',
         description: "There are two general definitions of amortization. The first is the systematic repayment of a loan over time. The second is used in the context of business accounting and is the act of spreading the cost of an expensive and long-lived item over many periods. The two are explained in more detail in the sections below."
     },
-    'currency-calculator':{
-        name: 'Currency Calculator',
-        icon: 'code',
-        link:'/currency-calculator',
-        description:'The Currency Calculator is a valuable tool that can help you to convert one currency to another using the latest exchange rates.'
+	'discount-calculator': {
+        name: 'discount-calculator',
+        icon: 'spider-web',
+        link: '/discount-calculator',
+        description: "The term discount can be used to refer to many forms of reduction in the price of a good or service. The two most common types of discounts are discounts in which you get a percent off."
     }
 };
