@@ -25,7 +25,7 @@
 		if (imageFile) {
 			const reader = new FileReader();
 			reader.onload = () => {
-				watermarkImage = reader.result; // Store the base64-encoded image
+				watermarkImage = reader.result; 
 			};
 			reader.readAsDataURL(imageFile);
 		}
@@ -138,16 +138,18 @@
 	</select>
 </div>
 
-<section class="bg-white dark:bg-gray-900" style="color: azure;">
+<section class="bg-white dark:bg-gray-900  mt-3" style="color: azure;">
 	{#if watermarkType === 'text'}
 		<div class="mt-3 flex justify-center">
 			<Label for="watermark-text">Watermark Text</Label>
+		</div>
+		<div class="mt-3 flex justify-center">
 			<Input id="watermark-text" bind:value={watermarkText} />
 		</div>
 	{:else if watermarkType === 'image'}
 		<div class="mt-3 flex justify-center">
 			<Label for="watermark-image">Watermark Image</Label>
-			<Input id="watermark-image" type="file" accept="image/*" on:change={handleImageUpload} />
+			<Input id="watermark-image" type="file" accept=".png" on:change={handleImageUpload} />
 		</div>
 	{/if}
 </section>
