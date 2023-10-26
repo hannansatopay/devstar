@@ -100,7 +100,7 @@
 				</svg>
 				<img src="https://img.freepik.com/premium-vector/pdf-format-file-template-your-design_97886-11001.jpg" alt="" style="height: 80px;"/>
 				<h2 class="text-xl font-medium text-gray-700 tracking-wide">Merge PDF's</h2>
-				<p class="mt-2 text-gray-500 tracking-wide">Upload your PDF1</p>
+				<p class="mt-2 text-gray-500 tracking-wide">Upload your PDF2</p>
 				<input id="dropzone-file2" type="file" class="mt-4 hidden" accept=".pdf" style="color: black" on:change={handleFile2}/>
 			</label>
 		</section>
