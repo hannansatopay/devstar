@@ -65,33 +65,23 @@
 		updateConversion();
 	});
 
-	async function updateConversion() {
-		if (!selectedFromCurrency || !selectedToCurrency || !num1) {
-			console.error('Please select currencies and enter a valid amount.');
-			return;
-		}
+	async function calculateOffers() {
+    const cashBackAmount = parseFloat(document.getElementById('ccashback').value);
+    const interestRateHigh = parseFloat(document.getElementById('cinterestrate').value);
+    const interestRateLow = parseFloat(document.getElementById('cinterestratelow').value);
+    const autoPrice = parseFloat(document.getElementById('cloanamount').value);
 
-		const options = {
-			method: 'GET',
-			url: 'https://currency-conversion-and-exchange-rates.p.rapidapi.com/convert',
-			params: {
-				from: selectedFromCurrency,
-				to: selectedToCurrency,
-				amount: num1,
-			},
-			headers: {
-				'X-RapidAPI-Key': '1ee06155f4msh85bb0e5ca340082p189b39jsn0cfa04b860bc',
-				'X-RapidAPI-Host': 'currency-conversion-and-exchange-rates.p.rapidapi.com',
-			},
-		};
+    // Calculate the offers
+    const offer1 = autoPrice - cashBackAmount + (autoPrice * (interestRateHigh / 100));
+    const offer2 = autoPrice * (1 - interestRateLow / 100);
 
-		try {
-			const response = await axios.request(options);
-			amountt = response.data.result;
-		} catch (error) {
-			console.error(error);
-		}
-	}
+    // Display the alert with the offer that provides the highest cashback
+    if (offer1 > offer2) {
+      alert('Cashback offer provides the highest cashback: ' + offer1);
+    } else {
+      alert('Low Interest Rate offer provides the highest cashback: ' + offer2);
+    }
+  }
   </script>
   
   <Intro heading={data.meta.title} description={data.meta.description} />
@@ -161,31 +151,7 @@ top:10px;
 	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48  dark:text-gray-400">Auto Price</td>
 	<td align="right" class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"><input type="text" name="cloanamount" id="cloanamount" value="50000" class="inhalf indollar" /></td>
   </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Loan Term</td>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48  dark:text-gray-400"><input type="text" name="cloanterm" id="cloanterm" value="60" class="inhalf inuipound" /><span class="inuipoundspan"></span></td>
-  </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Down Payment</td>
-	<td align="right" class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"><input type="text" name="cdownpayment" id="cdownpayment" value="10000" class="inhalf indollar" /></td>
-  </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Trade-in Value</td>
-	<td align="right" class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"><input type="text" name="ctradeinvalue" id="ctradeinvalue" value="0" class="inhalf indollar" /></td>
-  </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Sales Tax</td>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"><input type="text" name="csaletax" id="csaletax" value="7" class="inhalf inpct" /></td>
-  </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Title, Registration<br />and Other Fees</td>
-	<td valign="top" class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48  dark:text-gray-400"><input type="text" name="ctitlereg" id="ctitlereg" value="2000"  /></td>
-  </tr>
-  <tr>
-	<td class="text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400"colspan="2">
-	  <label for="cttrinloan" class="cbcontainer"><input type="checkbox" name="cttrinloan" id="cttrinloan" value="1" /><span class="cbmark"></span>Include All Fees in Loan</label>
-	</td>
-  </tr>
+
   <tr>
 	<td colspan="2" align="center" style="padding-top:8px;">
 	  <input name="printit" value="0" type="hidden" />
@@ -194,7 +160,7 @@ top:10px;
 </table>
 </div>
 <div align="center">
-	<button  class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+	<button on:click={calculateOffers} class="m-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
 		Calculate
 	  </button>
 </div>
