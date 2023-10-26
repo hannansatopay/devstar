@@ -19,7 +19,7 @@
   let state1 = false;
   let isDownload = false;
   let fileSizeKbBefor = 0;
-  let fileSizeKbAfter;
+  let fileSizeKbAfter  = 0;
   let backFile = false;
   const formats = ["jpeg", "png", "webp"];
 
@@ -297,16 +297,25 @@
 
   
 
-
   function dataURItoBlob(dataURI) {
-      const byteString = atob(dataURI.split(',')[1]);
-      const ab = new ArrayBuffer(byteString.length);
-      const ia = new Uint8Array(ab);
-      for (let i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-      }
-      return new Blob([ab], { type: 'image/jpeg' });
-  }
+  return new Promise((resolve, reject) => {
+    const byteString = atob(dataURI.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    const fileSizeKb = (byteString.length / 1024).toFixed(1);
+    
+    console.log("bytes => " + fileSizeKb);
+    
+    fileSizeKbAfter += parseFloat(fileSizeKb);
+    console.log("sum => " + fileSizeKbAfter);
+
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    resolve(new Blob([ab], { type: 'image/jpeg' }));
+  });
+}
 
  
   // ========on delete item======
@@ -314,6 +323,7 @@
     imageSelected = true;
     isvlue = false;
     fileSizeKbBefor = 0;
+    fileSizeKbAfter = 0;
     
   };
 
@@ -322,12 +332,14 @@
     isvlue = false;
     backFile = true;
     fileSizeKbBefor = 0;
+    fileSizeKbAfter = 0;
   }
 
   // ==========on back press =============
   const BackPage = () => {
     isvlue = true;
     isDownload = false;
+    fileSizeKbAfter = 0;
     
      
   };
@@ -335,6 +347,7 @@
   const deleteFile = ()=> {
     backFile = false;
     fileSizeKbBefor = 0;
+    fileSizeKbAfter = 0;
   }
 
 </script>
@@ -878,6 +891,7 @@
 
       <div>
         <div class="after">After</div>
+        <div >{fileSizeKbAfter.toFixed(1)} Kb</div>
       </div>
     </div>
     <p class="result">
