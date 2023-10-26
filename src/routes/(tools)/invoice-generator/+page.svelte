@@ -440,7 +440,7 @@
 					<div class="invoice-container invoice-detail-body">
 						<div class="lg:flex lg:space-x-4">
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900">From</h1>
+								<h1 class="text-3xl text-gray-900 headR">From</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
@@ -523,7 +523,7 @@
 							</div>
 							<br />
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900">To</h1>
+								<h1 class="text-3xl text-gray-900 headR">To</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
@@ -809,9 +809,6 @@
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
-	/* .invoice-detail-body {
-		padding: 10px 10px 10px 10px;
-	} */
 	.input-with-label label {
 		/* display: inline-block; */
 		font-weight: 500;
@@ -841,6 +838,7 @@
   .invoice-detail-body div div .headR{
     padding-left: 14%;
     margin: 0 auto;
+    padding-top: 4%;
   }
   .input-with-label {
     overflow: hidden;
