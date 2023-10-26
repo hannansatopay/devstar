@@ -36,15 +36,15 @@
 	
 						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 							<div slot="header" class="p-3">
-								<Search size="md" />
+							  <Search size="md" />
 							</div>
-							<DropdownItem>Roboto</DropdownItem>
+							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Open sans</DropdownItem>
+							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Lato</DropdownItem>
+							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-						</Dropdown>
+						  </Dropdown>
 					</div>
 				<div class="language">
 					<span>Language</span>
@@ -381,6 +381,29 @@
 
 <style>
 
+	@font-face {
+	font-family: 'Roboto';
+	src: url('/fonts/roboto.woff2') format('woff2'),
+		url('/fonts/roboto.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
+
+	@font-face {
+	font-family: 'Open Sans';
+	src: url('/fonts/open-sans.woff2') format('woff2'),
+		url('/fonts/open-sans.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
+
+	@font-face {
+	font-family: 'Lato';
+	src: url('/fonts/lato.woff2') format('woff2'),
+		url('/fonts/lato.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
 	
 	.toolbar-second-row {
 		/* display: flex;
