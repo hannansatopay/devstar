@@ -97,13 +97,13 @@ export let tools = {
     },
     'EXCELtoPDF': {
         name: 'EXCEL-to-PDF',
-        icon: 'files',
+        icon: 'angle-right',
         link: '/EXCELtoPDF',
         description:"Convert yout Excel file to PDF"
     },
     'watermark-pdf': {
         name: 'watermark-pdf',
-        icon: 'files',
+        icon: 'angle-right',
         link: '/watermark-pdf',
         description:"Add Text or Image as a watermark to the PDF document"
     },
@@ -115,8 +115,26 @@ export let tools = {
     },
     'page-number-in-pdf': {
         name: 'Add Page Numbers to PDF',
-        icon: 'files',
+        icon: 'angle-right',
         link: '/page-number-in-pdf',
         description:"Add Page number at position..."
+    },
+    'PDFtoEXCEL': {
+        name: 'PDF-to-EXCEL',
+        icon: 'files',
+        link: '/PDFtoEXCEL',
+        description:"Convert yout PDF file to EXCEL"
+    },
+    'Split-PDF': {
+        name: 'Split-PDF',
+        icon: 'angle-right',
+        link: '/Split-PDF',
+        description:"Split your PDF file"
+    },
+    'merge-PDF': {
+        name: 'Merge-PDFs',
+        icon: 'files',
+        link: '/merge-PDF',
+        description:"Merge 2 PDF's"
     },
 };
