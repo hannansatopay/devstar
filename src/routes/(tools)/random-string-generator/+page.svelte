@@ -46,7 +46,7 @@
 
 	function downloadText() {
 		if (output.length > 0) {
-			var filename = "DevStar.txt";
+			var filename = "devstar_output.txt";
 			var blob = new Blob([output], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
 			
@@ -65,7 +65,7 @@
 		if (output.length > 0) {
 			var doc = new jsPDF();
 			doc.text(output, 20, 20);
-			doc.save('DevStaroutput.pdf');
+			doc.save('devstar_output.pdf');
 		}
 	}
 
@@ -78,54 +78,56 @@
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
 			<form>
 	
-				<div class="grid gap-6 mb-6 md:grid-cols-3">
+				<div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
 
 					<div>
 						<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Min Length</label>
 						<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-							<input type="number" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							bind:value={minlen} on:change={generateoutput} placeholder="" required>
+							<input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							bind:value={minlen} on:change={generateoutput} required>
 						</div>
 					</div>
 
 					<div>
 						<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Max Length</label>
 						<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-							<input type="number" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							bind:value={maxlen} on:change={generateoutput} placeholder="" required>
+							<input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							bind:value={maxlen} on:change={generateoutput} required>
 						</div>
 					</div>
 
 					<div>
 						<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Strings</label>
 						<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-							<input type="number" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							bind:value={nos} on:change={generateoutput} placeholder="" required>
+							<input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							bind:value={nos} on:change={generateoutput} required>
 						</div>
 					</div>
 
 				</div>
 
-				<div>
+				<div class="mt-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
 					<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pattern</label>
 					<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-						<input type="text" id="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						<input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						bind:value={pattern} on:input={generateoutput} required>
 					</div>
 				</div>
 
-				<div id="boxarea">
+				<div class="mt-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
 					<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Result</label>
 					<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-						<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						<textarea placeholder="Result" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						bind:value={output}/>
 					</div>
 				</div>
 
-				<div id="buttonArea">
-					<Button color="blue" on:click={copyText}>Copy</Button>
-					<Button color="blue" on:click={downloadText}>Download as txt</Button>
-					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+				<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
+					<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
+						<Button color="blue" on:click={copyText}>Copy</Button>
+						<Button color="blue" on:click={downloadText}>Download as txt</Button>
+						<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+					</div>	
 				</div>
 
 			</form>
@@ -134,18 +136,6 @@
 </section>
 
 <style>	
-
-	#boxarea{
-		margin-top:25px ;
-	}
-
-	#buttonArea {
-		margin-top: 30px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 30px; /* Adjust the gap between buttons as needed */
-	}
 
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;

@@ -97,19 +97,18 @@ export let tools = {
 		description:
 			'The WhatsApp API Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.'
 	},
+	'neumorphism-generator': {
+        name: 'Neumorphism Generator',
+        icon: 'layer-group',
+        link: '/neumorphism-generator',
+        description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
+    },
 	'robots-txt-generator': {
 		name: 'Robots.txt Generator',
 		icon: 'spider-web',
 		link: '/robots-txt-generator',
 		description:
 			"The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
-	},
-	'random-data-generator': {
-		name: 'Random Data Generator',
-		icon: 'code',
-		link: '/random-data-generator',
-		description:
-			'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
 	},
 	'file-converter': {
 		name: 'File Converter',
@@ -118,12 +117,25 @@ export let tools = {
 		description:
 			'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
     },
-    'neumorphism-generator': {
-        name: 'Neumorphism Generator',
-        icon: 'layer-group',
-        link: '/neumorphism-generator',
-        description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
+	'terms-conditions-generator': {
+        name: 'Terms and Conditons Generator',
+        icon: 'code',
+        link: '/terms-conditions-generator',
+        description: "A Terms and Conditions Generator is an online tool that quickly creates customized legal agreements for companies. It streamlines the process of crafting comprehensive terms and conditions, promoting legal compliance and clarity with minimal effort."
     },
+	'text-to-speech-&-speech-recognition': {
+        name: 'Text to Speech & Speech Recognition',
+        icon: 'code',
+        link: '/text-to-speech-&-speech-recognition',
+        description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
+    },
+	'random-data-generator': {
+		name: 'Random Data Generator',
+		icon: 'code',
+		link: '/random-data-generator',
+		description:
+			'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+	},
 	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
 		icon: 'code',
@@ -313,6 +325,13 @@ export let tools = {
         description: 
 		"Optimize your web interactions with our URL Encoder and Decoder Tool. Encode sensitive data for secure transmission or decode encoded URLs effortlessly, ensuring seamless communication online. Input your text, and our tool swiftly converts special characters into URL-friendly formats or decodes URLs back to their original state. Ideal for developers, marketers, and anyone managing web content, our tool simplifies the handling of URLs, query strings, and form data. Enhance your website's functionality, ensuring accurate data exchange and smooth user experiences. Start encoding and decoding URLs with ease, streamlining your web interactions and data management tasks."
     },
+	'word-counter':{
+        name: 'Word Counter',
+		icon: 'code',
+        link: '/word-counter',
+        description: 
+		"Analyze your text effortlessly with our Word Counter Tool. Input your text, and instantly get accurate word counts, helping you understand the text's length and complexity. Ideal for writers, students, and researchers monitoring word limits or analyzing textual content. Enhance your writing and editing tasks with this reliable tool, gaining valuable insights into your text."
+	},
     'online-spreadsheet': {
         name: 'Online Spreadsheet',
         icon: 'code',
@@ -330,12 +349,6 @@ export let tools = {
         icon: 'code',
         link: '/content-sharing-tool',
         description: "Tool for sharing code and media files."
-    },
-    'terms-conditions-generator': {
-        name: 'Terms and Conditons Generator',
-        icon: 'code',
-        link: '/terms-conditions-generator',
-        description: "A Terms and Conditions Generator is an online tool that quickly creates customized legal agreements for companies. It streamlines the process of crafting comprehensive terms and conditions, promoting legal compliance and clarity with minimal effort."
     },
     'privacy-policy-generator': {
         name: 'Privacy Policy Generator',
@@ -367,12 +380,6 @@ export let tools = {
         link: '/living-background-generator',
         description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
     },
-    'text-to-speech-&-speech-recognition': {
-        name: 'Text to Speech & Speech Recognition',
-        icon: 'code',
-        link: '/text-to-speech-&-speech-recognition',
-        description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
-    },
     'currency-calculator':{
         name: 'Currency Calculator',
         icon: 'code',
@@ -398,7 +405,7 @@ export let tools = {
         description: "This calculator can estimate the annuity payout amount for a fixed payout length or estimate the length that an annuity can last if supplied a fixed payout amount. Please use our Annuity Calculator to estimate the end balance of an annuity for the accumulation phase."
     },
     'compound': {
-        name: 'compound calculator',
+        name: 'Compound Interest Calculator',
         icon: 'code',
         link: '/compound',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
@@ -410,7 +417,7 @@ export let tools = {
         description: "abc"
     },
     'chart-generator': {
-        name: 'Chart generator',
+        name: 'Chart Generator',
         icon: 'code',
         link: '/chart-generator',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
@@ -439,33 +446,14 @@ export let tools = {
         link: '/Gradient-generator',
         description: "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output"
     },
-	'word-counter':{
-        name: 'Word Counter',
-		icon: 'code',
-        link: '/word-counter',
-        description: 
-		"Analyze your text effortlessly with our Word Counter Tool. Input your text, and instantly get accurate word counts, helping you understand the text's length and complexity. Ideal for writers, students, and researchers monitoring word limits or analyzing textual content. Enhance your writing and editing tasks with this reliable tool, gaining valuable insights into your text."
-	},
-    'line-sorter': {
-        name: 'String Sorter',
-		icon: 'code',
-        link: '/line-sorter',
-        description: 'Line Sorter – the magical tool that transforms chaos into order with a single click! Whether you want to arrange your words alphabetically for a touch of elegance, unveil a secret message through reversal, bring the excitement of randomness into your text, or even sort words by their unique lengths.Experience the art of line sorting!'
-    }, 
-    'string-truncator': {
-        name: 'String Truncator',
-		icon: 'code',
-        link: '/string-truncator',
-        description: 'Easily shorten your text with our String Truncator Tool. Specify a character limit, and it will trim your content. Ideal for concise social media posts and emails'
-    },
     'bmi': {
-        name: 'BMI',
+        name: 'BMI Calculator',
         icon: 'code',
         link: '/bmi',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
     'simple-interest': {
-        name: 'Simple Interest',
+        name: 'Simple Interest Calculator',
         icon: 'code',
         link: '/simple-interest',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
@@ -481,5 +469,5 @@ export let tools = {
         icon: 'code',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
-    }
+    },
 };
