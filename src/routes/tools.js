@@ -107,4 +107,10 @@ export let tools = {
         link: '/watermark-pdf',
         description:"Add Text or Image as a watermark to the PDF document"
     },
+    'Unlock-Pdf': {
+        name: 'Unlock-Pdf',
+        icon: 'files',
+        link: '/Unlock-Pdf',
+        description:"Add Text or Image as a watermark to the PDF document"
+    },
 };
