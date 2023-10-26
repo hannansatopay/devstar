@@ -107,11 +107,10 @@
 
 	//xml indent
 	function indentxml() {
-            const spaces = " ".repeat(parseInt(indentation.value));
-            const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${spaces}`);
-            outputTextAreaContent = indentedXml;
-			
-        }
+		const spaces = ' '.repeat(parseInt(indentation.value));
+		const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${spaces}`);
+		outputTextAreaContent = indentedXml;
+	}
 
 	function minifyXML() {
 		let inputXML = inputTextAreaContent;
@@ -325,7 +324,43 @@
 		outputTextAreaContent = xml;
 	}
 
-	function convertXML2JSON() {}
+	function convertXML2JSON() {
+    const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
+    if (!inputXML) {
+        console.error('Input XML is empty.');
+        outputTextAreaContent = '';
+        return;
+    }
+
+    const parser = new DOMParser();
+    let xmlDoc;
+    try {
+        xmlDoc = parser.parseFromString(inputXML, 'text/xml');
+    } catch (error) {
+        console.error('Error while parsing XML:', error);
+        outputTextAreaContent = '';
+        return;
+    }
+
+    if (!xmlDoc || !xmlDoc.documentElement) {
+        console.error('Invalid XML format.');
+        outputTextAreaContent = '';
+        return;
+    }
+
+    const result = {};
+    const rootElement = xmlDoc.documentElement;
+    result[rootElement.tagName] = {};
+    const children = rootElement.children;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        result[rootElement.tagName][child.tagName] = child.textContent.trim();
+    }
+
+    outputTextAreaContent = JSON.stringify(result, null, 4);
+}
+
+
 	function convertJSON2CSV() {}
 
 	//json to xml
@@ -782,17 +817,17 @@
 			on:click={minify}
 			on:click={findSize}
 			>Minify
-		</Button>	
+		</Button>
 		<Button
-		color="blue"
-		size="5px"
-		class="ml-1"
-		data-text-area-type="output"
-		on:click={indentxml}
-		on:click={findSize}
+			color="blue"
+			size="5px"
+			class="ml-1"
+			data-text-area-type="output"
+			on:click={indentxml}
+			on:click={findSize}
 		>
-		<label for="indentation">Select Indentation</label>
-  		<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
+			<label for="indentation">Select Indentation</label>
+			<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
 		</Button>
 	{/if}
 
