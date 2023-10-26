@@ -454,7 +454,8 @@
         </ul>
       </nav>
     </div>
-
+    
+<!-- percentage button functionalities -->
     {#if activeDiv == "Percentage"}
       <div id="Percentage">
         <!-- Name of page  -->
@@ -521,6 +522,7 @@
       </div>
     {/if}
 
+    <!-- file size button functionalities -->
     {#if activeDiv == "FileSize"}
       <div id="FileSize">
         <h1 class="percentage"><u>File Size</u></h1>
@@ -577,7 +579,7 @@
         </div>
       </div>
     {/if}
-
+ <!-- Image Dimensions button functionalities -->
     {#if activeDiv == "ImageDimensions"}
       <div id="ImageDimensions">
         <h1 class="percentage"><u> Image Dimensions</u></h1>
@@ -652,7 +654,7 @@
         </div>
       </div>
     {/if}
-
+<!-- Width button functionalities -->
     {#if activeDiv == "WidthDiv"}
       <div id="WidthDiv">
         <h1 class="percentage"><u>Width</u></h1>
@@ -714,7 +716,7 @@
         </div>
       </div>
     {/if}
-
+<!-- Height button functionalities -->
     {#if activeDiv == "HeightDiv"}
       <div id="HeightDiv">
         <h1 class="percentage"><u>Height</u></h1>
@@ -777,7 +779,7 @@
         </div>
       </div>
     {/if}
-
+<!-- Longestside  button functionalities -->
     {#if activeDiv == "LongestSide"}
       <div id="LongestSide">
         <h1 class="percentage"><u>Longest Side</u></h1>
@@ -843,6 +845,8 @@
   </div>
 {/if}
 
+
+<!-- Download Page  -->
 {#if isDownload}
   <center>
     <div class="Heading_container">
