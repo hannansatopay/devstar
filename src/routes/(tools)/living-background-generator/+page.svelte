@@ -42,30 +42,22 @@
 			? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
 			: `background-color: ${clrList};`;
 
-	let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
+			let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
 
-	const setGradientType = (type) => {
-		gradientType = type;
-	};
+const setGradientType = (type) => {
+	gradientType = type;
+};
 
-	$: bgGradient =
-		gradientType === 'linear'
-			? clrList.length > 1
-				? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
-				: `background-color: ${clrList};`
-			: gradientType === 'angular'
-			? clrList.length > 1
-				? `background-image: conic-gradient(from ${angle}deg, ${clrList.join(', ')});`
-				: `background-color: ${clrList};`
-			: gradientType === 'radial'
-			? clrList.length > 1
-				? `background-image: radial-gradient(ellipse ${angle}% ${angle}% at center, ${clrList.join(
-						', '
-				  )});`
-				: `background-color: ${clrList};`
-			: `background-color: ${clrList};`;
 
-	// Create a variable to store the style for the output div
+    // let angle = 270;
+
+    // let speed = 7;
+
+    // $: gradientSpeed = `animation-duration: ${speed}s;`;
+
+    // let colorInput;
+    // let alphaSlider;
+    // let colorDisplay;
 
 	const updateColorDisplay = () => {
 		const selectedColor = colorInput.value;
@@ -92,6 +84,71 @@
 	$: isLinear = gradientType === 'linear';
 	$: isAngular = gradientType === 'angular';
 	$: isRadial = gradientType === 'radial';
+
+	let output;
+
+let isPaused = false;
+
+$: if (output) {
+	if (gradientType === 'linear') {
+		isPaused = true;
+		if (clrList.length > 1) {
+			output.style.setProperty(
+				'background-image',
+				`linear-gradient(${angle}deg, ${clrList.join(', ')})`
+			);
+			output.style.setProperty('background-size', `400% 400%`);
+		} else {
+			bgGradient = `background-color: ${clrList};`;
+		}
+	} else if (gradientType === 'angular') {
+		if (clrList.length > 1) {
+			isPaused = false;
+
+			output.style.setProperty(
+				'background-image',
+				`conic-gradient(from var(--angle), ${clrList.join(', ')})`
+			);
+			output.style.setProperty('background-size', `100% 100%`);
+
+			let angle = 0;
+
+			setInterval(() => {
+				angle += 1;
+				angle %= 360;
+				output.style.setProperty('--angle', `${angle}deg`);
+			}, 10);
+		} else {
+			bgGradient = `background-color: ${clrList};`;
+		}
+	} else {
+		isPaused = true;
+		if (clrList.length > 1) {
+			output.style.setProperty(
+				'background-image',
+				`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')})`
+			);
+
+			let zoom = 0;
+			let threshold = false
+
+			setInterval(() => {
+				if(!threshold) {
+					zoom += 1;
+					if(zoom === 360) threshold = true
+				}
+				else {
+					zoom -= 1;
+					if(zoom === 0) threshold = false
+				}
+				
+				output.style.setProperty('--zoom', `${zoom}%`);
+			}, 10);
+		} else {
+			bgGradient = `background-color: ${clrList};`;
+		}
+	}
+}
 
 	// Define a reactive variable for the generated CSS code
 	$: {
@@ -168,6 +225,8 @@
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
+	<br />
+	<hr />
 	<br />
 	<hr />
 
@@ -280,18 +339,12 @@
 				/>
 			</div>
 
-			<!-- Output div with conditional styles for different gradient types -->
-			<div class="output p-8 h-full flex rounded-lg relative" style={bgGradient + gradientSpeed}>
-				{#if gradientType === 'linear'}
-					<div class="animated-background linear" style={bgGradient + gradientSpeed} />
-				{/if}
-				{#if gradientType === 'angular'}
-					<div class="animated-background angular" style={bgGradient + gradientSpeed} />
-				{/if}
-				{#if gradientType === 'radial'}
-					<div class="animated-background radial" style={bgGradient + gradientSpeed} />
-				{/if}
-			</div>
+			<div
+				class="p-8 h-full flex rounded-lg relative output"
+				id="output"
+				bind:this={output}
+				style={gradientSpeed}
+			/>
 		</div>
 		<br />
 
@@ -361,6 +414,11 @@
 
 	.h-full {
 		min-height: 300px;
+	}
+
+	#output {
+		--angle: 0deg;
+		--zoom: 1;
 	}
 
 	/* Define animations for different gradient types */
