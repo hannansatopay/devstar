@@ -381,6 +381,7 @@
 
 <style>
 
+
 	@font-face {
 	font-family: 'Roboto';
 	src: url('/fonts/roboto.woff2') format('woff2'),
@@ -449,6 +450,7 @@
 	body {
     font-family: Arial, sans-serif; /* Default font family */
 }
+
 
 	.theme-selector {
 		margin: 10px;
@@ -824,7 +826,7 @@
         .icon .dropdown-content a {
             padding: 12px 16px;
             text-decoration: none;
-            display: block;
+            display: block;0
             cursor: pointer;
         }
 
