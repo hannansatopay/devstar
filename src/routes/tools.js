@@ -133,7 +133,7 @@ export let tools = {
     },
     'merge-PDF': {
         name: 'Merge-PDFs',
-        icon: 'files',
+        icon: 'angle-right',
         link: '/merge-PDF',
         description:"Merge 2 PDF's"
     },
