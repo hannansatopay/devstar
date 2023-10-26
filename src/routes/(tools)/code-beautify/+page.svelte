@@ -325,7 +325,7 @@
 	}
 
 	function convertXML2JSON() {
-    const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
+    const inputXML = inputTextAreaContent; 
     if (!inputXML) {
         console.error('Input XML is empty.');
         outputTextAreaContent = '';
@@ -350,15 +350,31 @@
 
     const result = {};
     const rootElement = xmlDoc.documentElement;
-    result[rootElement.tagName] = {};
-    const children = rootElement.children;
-    for (let i = 0; i < children.length; i++) {
-        const child = children[i];
-        result[rootElement.tagName][child.tagName] = child.textContent.trim();
+    if (rootElement.children.length === 0) {
+        result[rootElement.tagName] = rootElement.textContent.trim();
+    } else {
+        const data = [];
+        const children = rootElement.children;
+
+        for (let i = 0; i < children.length; i++) {
+            const child = children[i];
+            const item = {};
+            const subChildren = child.children;
+
+            for (let j = 0; j < subChildren.length; j++) {
+                const subChild = subChildren[j];
+                item[subChild.tagName] = subChild.textContent.trim();
+            }
+
+            data.push(item);
+        }
+
+        result[rootElement.tagName] = { [children[0].tagName]: data };
     }
 
     outputTextAreaContent = JSON.stringify(result, null, 4);
 }
+
 
 
 	function convertJSON2CSV() {}
