@@ -1,38 +1,106 @@
-<script lang="ts">
-	import { Card } from 'flowbite-svelte';
+<script>
+    let height = 0;
+    let weight = 0;
+    let age = 0;
+    let gender = 'male';
+    let bmi = 0;
+  
+    function calculateBMI() {
+      const heightInMeters = height / 100;
+      bmi = weight / (heightInMeters ** 2);
+    }
+  </script>
+  
+  <style>
+    .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #383838; 
+    border-radius: 10px;
+    background-color: #1e1e1e;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); 
+  }
 
-	import Intro from '$lib/Intro.svelte';
+  .input-group {
+    margin-bottom: 10px;
+  }
 
-	export let data;
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #bbb; 
+  }
 
-	let images = [
-		`https://picsum.photos/1080?q=${Math.random()}`,
-		`https://picsum.photos/1080?q=${Math.random()}`,
-		`https://picsum.photos/1080?q=${Math.random()}`,
-		`https://picsum.photos/1080?q=${Math.random()}`
-	];
+  .input-group input, .input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #2d2d2d; 
+    border-radius: 5px;
+    background-color: #2d2d2d; 
+    color: white; 
+  }
 
-	function refresh() {
-		images = [
-			`https://picsum.photos/1080?q=${Math.random()}`,
-			`https://picsum.photos/1080?q=${Math.random()}`,
-			`https://picsum.photos/1080?q=${Math.random()}`,
-			`https://picsum.photos/1080?q=${Math.random()}`
-		];
-	}
-</script>
+  .calculate-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
 
-<Intro heading={data.meta.title} description={data.meta.description} />
+  .calculate-button:hover {
+    background-color: #2980b9; 
+  }
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 text-center">
-		<div class="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-2 md:space-y-0">
-			{#each images as image}
-				<Card class="items-center text-center sm:p-0 overflow-hidden">
-					<img src={image} class="w-full" alt="Random Picture">
-				</Card>
-			{/each}
-		</div>
-		<button on:click={refresh} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mt-4">Refresh</button>
-	</div>
-</section>
+  .result {
+    margin-top: 20px;
+    font-size: 18px;
+    color: white; 
+  }
+
+  h2 {
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #3498db;
+    margin-bottom: 20px; 
+  }
+  </style>
+  
+  <div class="container">
+    <h2>BMI Calculator</h2>
+  
+    <div class="input-group">
+      <label for="height">Height (cm): </label>
+      <input type="number" id="height" bind:value={height} />
+    </div>
+  
+    <div class="input-group">
+      <label for="weight">Weight (kg): </label>
+      <input type="number" id="weight" bind:value={weight} />
+    </div>
+  
+    <div class="input-group">
+      <label for="age">Age: </label>
+      <input type="number" id="age" bind:value={age} />
+    </div>
+  
+    <div class="input-group">
+      <label for="gender">Gender: </label>
+      <select id="gender" bind:value={gender}>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+  
+    <button class="calculate-button" on:click={calculateBMI}>Calculate BMI</button>
+  
+    {#if bmi > 0}
+      <p class="result">Your BMI is: {bmi.toFixed(2)}</p>
+    {/if}
+  </div>
+  
