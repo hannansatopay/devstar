@@ -470,4 +470,10 @@ export let tools = {
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
     },
+	'punctuation-remover':{
+        name: 'Punctuation Remover',
+        link: '/punctuation-remover',
+        description: 
+		"A punctuation remover tool removes punctuation marks (such as commas, periods, exclamation points, and more) from a given text."
+	},
 };
