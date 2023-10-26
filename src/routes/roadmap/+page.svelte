@@ -149,7 +149,7 @@
             }, {
                 name: 'Sahil Balia',
                 githubId: 'sahilbalia'
-            },]
+            },
         }
     ];
 </script>
