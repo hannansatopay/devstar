@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Label, Input } from 'flowbite-svelte';
   import Intro from '$lib/Intro.svelte';
-  import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+  import { PDFDocument } from 'pdf-lib';
 
   let file = null;
   let fileName = "No file chosen";
@@ -20,14 +20,14 @@
     }
   };
 
+  const handleTextChange = (e) => {
+    watermarkText = e.target.value;
+  };
+
   const handleImageUpload = (e) => {
-    const imageFile = e.target.files[0];
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        watermarkImage = reader.result; // Store the base64-encoded image
-      };
-      reader.readAsDataURL(imageFile);
+    const selectedImage = e.target.files[0];
+    if (selectedImage) {
+      watermarkImage = selectedImage;
     }
   };
 
@@ -44,27 +44,37 @@
       const pages = pdfDoc.getPages();
 
       if (watermarkType === 'text') {
-        const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
-        for (const page of pages) {
-          const { width, height } = page.getSize();
-          const textSize = 30;
-          const textWidth = font.widthOfTextAtSize(watermarkText, textSize);
-          const textHeight = font.heightAtSize(textSize);
-          const textX = (width - textWidth) / 2;
-          const textY = (height - textHeight) / 2;
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = 300; 
+  canvas.height = 50;
+  ctx.font = '30px Arial';
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(watermarkText, canvas.width / 2, canvas.height / 2);
 
-          // Set the text color with opacity for a very light appearance
-          page.drawText(watermarkText, {
-            x: textX,
-            y: textY,
-            font: font,
-            size: textSize,
-            color: rgb(0, 0, 0, 0.1), // Very light black color for text watermark
-          });
-        }
-      } else if (watermarkType === 'image' && watermarkImage) {
-        // Embed the image as a PDFImage
-        const embeddedImage = await pdfDoc.embedPng(watermarkImage);
+  const textImageSrc = canvas.toDataURL();
+
+  const textImage = await pdfDoc.embedPng(textImageSrc);
+  for (const page of pages) {
+    const { width, height } = page.getSize();
+    const imageSize = textImage.size();
+
+    const imageX = (width - imageSize.width) / 2;
+    const imageY = (height - imageSize.height) / 2;
+
+    page.drawImage(textImage, {
+      x: imageX,
+      y: imageY,
+      width: imageSize.width,
+      height: imageSize.height,
+    });
+  }
+}else if (watermarkType === 'image' && watermarkImage) {
+        const imageBytes = await watermarkImage.arrayBuffer();
+        const embeddedImage = await pdfDoc.embedPng(imageBytes);
+
         for (const page of pages) {
           const { width, height } = page.getSize();
           const imageSize = embeddedImage.size();
@@ -117,7 +127,7 @@
 {#if watermarkType === 'text'}
   <div class="mt-8 flex justify-center">
     <Label for="watermark-text" class="text-lg">Watermark Text : </Label>
-    <Input id="watermark-text" bind:value={watermarkText} class="ml-2 p-2 border border-gray-300 rounded-md w-60" />
+    <Input id="watermark-text" bind:value={watermarkText} on:input={handleTextChange} class="ml-2 p-2 border border-gray-300 rounded-md w-60" />
   </div>
 {:else if watermarkType === 'image'}
   <div class="mt-10 flex justify-center">
