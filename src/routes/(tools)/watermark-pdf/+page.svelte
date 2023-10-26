@@ -54,7 +54,7 @@
   ctx.textBaseline = 'middle';
   ctx.fillText(watermarkText, canvas.width / 2, canvas.height / 2);
 
-  const textImageSrc = canvas.toDataURL();  // Directly create the data URL here
+  const textImageSrc = canvas.toDataURL();
 
   const textImage = await pdfDoc.embedPng(textImageSrc);
   for (const page of pages) {
