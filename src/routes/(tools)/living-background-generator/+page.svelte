@@ -29,8 +29,10 @@
 	};
 
 	const removeOnClick = (e) => {
-		clrList = clrList.filter((x, y) => x !== e.target.id);
-		console.log(e.target.id);
+		clrList.splice(Number(e.target.id), 1)
+		clrList = clrList
+		// clrList = clrList.filter((x, y) => x !== e.target.id);
+		// console.log(typeof(e.target.id));
 	};
 
 	$: clrStyle = clrList.map((x) => {
@@ -244,7 +246,7 @@ $: if (output) {
 						class="absolute top-[-4px] right-0 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
 						on:click={removeOnClick}
 						bind:this={myBtn}
-						id={`${clrList[i]}`}
+						id={`${i}`}
 					>
 						<svg
 							class="cross w-[12px] h-[12px] text-gray-500"
