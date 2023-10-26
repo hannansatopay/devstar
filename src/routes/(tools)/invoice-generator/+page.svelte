@@ -349,6 +349,20 @@
 		});
 		pdfContainer.style.display = 'none';
 	}
+
+       function handleSignatureUpload(event) {
+		const signatureInput = event.target;
+		const signatureImage = document.getElementById('signatureImage');
+		if (signatureInput.files && signatureInput.files[0]) {
+			const reader = new FileReader();
+
+			reader.onload = function (e) {
+				signatureImage.src = e.target.result;
+			};
+
+			reader.readAsDataURL(signatureInput.files[0]);
+		}
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -766,6 +780,16 @@
 									</div>
 								</div>
 							</div>
+							<div class="p-8 h-full">
+								<label for="Signature">Signature:</label>
+								<input type="file" accept="image/*" id="signatureInput" on:change={handleSignatureUpload} />
+								<img
+									src=""
+									id="signatureImage"
+									alt=""
+									style="max-width: 200px; max-height: 200px;"
+								/>
+							</div>	
 						</div>
 					</div>
 					<div id="pdf-container" style="display: none;">
@@ -774,7 +798,7 @@
 				</div>
 			</div>
 		</div>
-	
+                
 </section>
 
 <style>
