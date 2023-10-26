@@ -75,7 +75,7 @@
 									<div class="color-palette">
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
 											<div class="color-box" style="background-color: violet;"></div>
-										</div>
+										  </div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
 											<div class="color-box" style="background-color: indigo;"></div>
 										</div>
@@ -270,13 +270,19 @@
 									<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-										<DropdownItem>Facebook</DropdownItem>
+										<DropdownItem>
+											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
+										</DropdownItem>
 										<DropdownDivider />
-										<DropdownItem>Instagram</DropdownItem>
+										<DropdownItem>
+											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
+										</DropdownItem>
 										<DropdownDivider />
-										<DropdownItem>Twitter</DropdownItem>
-										<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+										<DropdownItem>
+											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
+										</DropdownItem>
 									</Dropdown>
+									
 								</div>
 							</div>
 						</div>
@@ -826,7 +832,7 @@
         .icon .dropdown-content a {
             padding: 12px 16px;
             text-decoration: none;
-            display: block;0
+            display: block;
             cursor: pointer;
         }
 
