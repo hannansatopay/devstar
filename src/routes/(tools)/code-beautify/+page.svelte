@@ -785,12 +785,13 @@
 		</Button>	
 		<Button
 		color="blue"
+		size="5px"
 		class="ml-1"
 		data-text-area-type="output"
 		on:click={indentxml}
 		on:click={findSize}
 		>
-		<label for="indentation">Select Indentation:</label>
+		<label for="indentation">Select Indentation</label>
   		<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
 		</Button>
 	{/if}
