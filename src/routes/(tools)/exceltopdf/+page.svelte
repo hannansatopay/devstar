@@ -8,8 +8,8 @@
 	
 	const showToast = () => {
     const toast = toasts.add({
-      title: 'Uploaded',
-      description: 'Excel Added',
+      title: 'Converted',
+      description: 'Excel to PDF',
       duration: 3000, 
       placement: 'bottom-right',
       type: 'info',

@@ -95,22 +95,16 @@ export let tools = {
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
-    'exceltopdf': {
-        name: 'exceltopdf',
+    'EXCELtoPDF': {
+        name: 'EXCEL-to-PDF',
         icon: 'files',
-        link: '/exceltopdf',
-        description:"The decryption route in our PDF toolkit website allows authorized users to securely unlock password-protected PDF files"
+        link: '/EXCELtoPDF',
+        description:"Convert yout Excel file to PDF"
     },
     'watermark-pdf': {
         name: 'watermark-pdf',
         icon: 'files',
         link: '/watermark-pdf',
-        description:"Add Text or Image as a watermark to the PDF document"
-    },
-    'Unlock-Pdf': {
-        name: 'Unlock-Pdf',
-        icon: 'files',
-        link: '/Unlock-Pdf',
         description:"Add Text or Image as a watermark to the PDF document"
     },
 };

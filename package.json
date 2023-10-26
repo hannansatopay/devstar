@@ -71,6 +71,7 @@
 		"multicoin-address-validator": "^0.5.12",
 		"pdf-lib": "^1.17.1",
 		"pdf.js": "^0.1.0",
+		"pptxgenjs": "^3.12.0",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-polyfill": "^0.0.1",
