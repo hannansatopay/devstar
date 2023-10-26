@@ -73,7 +73,7 @@
 								<img src="/color-palatte.png" alt="Your  Description" />
 								<div class="dropdown-content">
 									<div class="color-palette">
-										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .color-box').style.backgroundColor = 'violet'">
+										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
 											<div class="color-box" style="background-color: violet;"></div>
 										  </div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
