@@ -133,24 +133,23 @@
 
 	let output;
 
-    let isPaused = false;
+	let isPaused = false;
 
 	$: if (output) {
 		if (gradientType === 'linear') {
-            isPaused = true;
+			isPaused = true;
 			if (clrList.length > 1) {
 				output.style.setProperty(
 					'background-image',
 					`linear-gradient(${angle}deg, ${clrList.join(', ')})`
-                    );
-                output.style.setProperty('background-size', `400% 400%`);
+				);
+				output.style.setProperty('background-size', `400% 400%`);
 			} else {
 				bgGradient = `background-color: ${clrList};`;
 			}
 		} else if (gradientType === 'angular') {
 			if (clrList.length > 1) {
-
-                isPaused = false;
+				isPaused = false;
 
 				output.style.setProperty(
 					'background-image',
@@ -160,21 +159,37 @@
 
 				let angle = 0;
 
-			    setInterval(() => {
-                        angle += 1;
-                    angle %= 360;
+				setInterval(() => {
+					angle += 1;
+					angle %= 360;
 					output.style.setProperty('--angle', `${angle}deg`);
 				}, 10);
 			} else {
 				bgGradient = `background-color: ${clrList};`;
 			}
 		} else {
-            isPaused = true;
-            if (clrList.length > 1) {
+			isPaused = true;
+			if (clrList.length > 1) {
 				output.style.setProperty(
 					'background-image',
-					`radial-gradient(ellipse ${angle}% ${angle}% at center, ${clrList.join(', ')})`
+					`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')})`
 				);
+
+				let zoom = 0;
+				let threshold = false
+
+				setInterval(() => {
+					if(!threshold) {
+						zoom += 1;
+						if(zoom === 360) threshold = true
+					}
+					else {
+						zoom -= 1;
+						if(zoom === 0) threshold = false
+					}
+					
+					output.style.setProperty('--zoom', `${zoom}%`);
+				}, 10);
 			} else {
 				bgGradient = `background-color: ${clrList};`;
 			}
@@ -357,6 +372,7 @@
 
 	#output {
 		--angle: 0deg;
+		--zoom: 1;
 	}
 
 	.output {
