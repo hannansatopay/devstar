@@ -365,13 +365,13 @@
       <!-- for get a padding  -->
       <br /><br />
       {#if backFile }
-      <h3 class = "h2">Select File(1)</h3>
+      <h3 class = "h2">Select File({selectedImage.length})  <button class="deleteFile" on:click={deleteFile}>Delete</button></h3>
      
       {#each selectedImage as file }
       <div class="backshowfile">
         <p class="fileName">{file.name}</p>
         <p class="filekb">{(file.size/1024).toFixed(1)} Kb</p>
-        <button class="deleteFile" on:click={deleteFile}>Delete</button>
+       
       </div>
     {/each}
 
@@ -1133,22 +1133,7 @@ margin-bottom: 50px;
     font-size: 20px;
   }
 
-  /* Change the link color on hover */
-  .Choose_file1 :hover {
-    height: 50px;
-    width: 100px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* align-content: flex-end; */
-    background-color: #000000;
-    border-radius: 8px;
-    /* box-shadow: 0px 20px 50px grey  ; */
-
-    /* object-fit: ; */
-    font-size: 20px;
-  }
+ 
 
   .Choose_file {
     height: 50px;
@@ -1166,22 +1151,7 @@ margin-bottom: 50px;
     font-size: 20px;
   }
 
-  /* Change the link color on hover */
-  .Choose_file :hover {
-    height: 50px;
-    width: 200px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* align-content: flex-end; */
-    background-color: #000000;
-    border-radius: 8px;
-    /* box-shadow: 0px 20px 50px grey  ; */
-
-    /* object-fit: ; */
-    font-size: 20px;
-  }
+  
 
   ul {
     margin: 0;
@@ -1307,6 +1277,7 @@ margin-bottom: 50px;
     align-items: center;
     justify-content: center;
     display: flex;
+    margin-bottom: 10px;
     
   }
   
