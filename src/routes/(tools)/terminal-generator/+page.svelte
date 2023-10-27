@@ -969,8 +969,8 @@
 		.container-bg {
 			position: relative;
 			z-index: 0;
-			width: 100px;
-			height: 100px;
+			width: 40px;
+			height: 40px;
 			/* Add any other styles you want for .container-bg */
 		}
 
