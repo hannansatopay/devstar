@@ -461,6 +461,14 @@
 		color: white;
 	}
 
+	.container-bg {
+			position: relative;
+			z-index: 0;
+			width: 40px;
+			height: 40px;
+			/* Add any other styles you want for .container-bg */
+		}
+
 	body {
     	font-family: Arial, sans-serif; /* Default font family */
 	}
@@ -966,13 +974,7 @@
 			/* You can customize it to change the appearance */
 		}
 
-		.container-bg {
-			position: relative;
-			z-index: 0;
-			width: 40px;
-			height: 40px;
-			/* Add any other styles you want for .container-bg */
-		}
+		
 
 </style>
 
