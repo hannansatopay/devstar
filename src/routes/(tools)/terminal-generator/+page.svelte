@@ -727,8 +727,8 @@
 	}
 
 	.container-bg {
-  padding: 10px;
-}
+		padding: 0px;
+	}
 
 	.container-bg .white {
 		background: #fff;
