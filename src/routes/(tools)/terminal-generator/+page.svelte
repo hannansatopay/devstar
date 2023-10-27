@@ -217,12 +217,12 @@
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellowgreen'">
 											<div class="color-box" style="background-color: yellowgreen;"></div>
 										</div>
-										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'khaki'">
+										<div class="container-bg" style="background-color: white;">
 											<div class="color-box" style="background-color: khaki;"></div>
-										</div>
-										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'sienna'">
+										  </div>
+										  <div class="container-bg" style="background-color: white;">
 											<div class="color-box" style="background-color: sienna;"></div>
-										</div>
+										  </div>
 										
 
 										
@@ -460,13 +460,6 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
-	}
-
-	.container-bg {
-		position: relative;
-		z-index: 0;
-		width: 40px;
-		height: 40px;
 	}
 
 	body {
@@ -734,12 +727,8 @@
 	}
 
 	.container-bg {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		left: 0px;
-	}
+  padding: 10px;
+}
 
 	.container-bg .white {
 		background: #fff;
