@@ -1,4 +1,7 @@
-<script lang='ts'></script>
+<script lang='ts'>
+	import { blank_object } from "svelte/internal";
+
+</script>
 
 
 <html lang='en'>
@@ -10,14 +13,21 @@
   <meta charset = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
      body {
       /*background: linear-gradient(to left, white 5%, #000099 80%);*/
       color: white;
-      display: block;
-      
-      padding: auto;
-      margin: auto;
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      margin: 0;
+      overflow-y: auto;
       font-family: lucida console;
     }
 
@@ -25,7 +35,7 @@
   font-family: sans-serif;
   font-weight: bold;
   font-size: 24px;
-  margin-left: 825px;
+  
 }
 .animate-charcter
 {
@@ -66,7 +76,7 @@
   border-radius: 32px;
   padding: 10px;
   font-size: 16px;
-  margin-left: 600px;
+  
 }
 
 input:focus {
@@ -91,8 +101,7 @@ input:hover {
 }
 p {
   justify-content: center ;
-  margin-left: 450px;
-  margin-bottom: 50px;
+  
 }
 p:hover {
 color: powderblue;
@@ -172,8 +181,8 @@ color: powderblue;
 }
     #speed-test-results ul {
       list-style-type: circle;
-
-      display: block;
+      color:black;
+      display: flex / 3;
       border: none;
       border-radius: 32px;
       padding: 10px;
@@ -208,7 +217,7 @@ color: powderblue;
     /* Add CSS for the result cards */
 /* Add CSS for the result cards */
 .result-card {
-  background: linear-gradient(90deg, rgba(24,17,136,1) 0%, rgba(0,0,1,1) 20%, rgba(2,5,70,1) 89%);
+  background: rgba(128, 128, 128, 0.5);/*linear-gradient(90deg, rgba(24,17,136,1) 0%, rgba(0,0,1,1) 20%, rgba(2,5,70,1) 89%)*/
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   padding: 16px;
@@ -218,7 +227,7 @@ color: powderblue;
 }
 
 .result-card:hover {
-  background: linear-gradient(90deg, rgba(66,8,18,1) 2%, rgba(0,0,1,1) 56%, rgba(41,5,12,1) 95%); /* Darken the background on hover */
+  background: rgba(255, 0, 0, 0.6);/*linear-gradient(90deg, rgba(66,8,18,1) 2%, rgba(0,0,1,1) 56%, rgba(41,5,12,1) 95%);*/ /* Darken the background on hover */
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4); /* Add a stronger shadow on hover */
 }
 
@@ -278,7 +287,43 @@ color: powderblue;
       height: 50px;
       animation: spin 2s linear infinite;
     }
-    
+    @media (max-width: 768px) {
+  h3 {
+    margin-left: 0;
+  }
+
+  input#urlInput {
+    margin-left: 0;
+  }
+
+  .input-container {
+    flex-direction: column;
+  }
+}
+.colorful-line {
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(to right, 
+        green 0%, 
+        green 70%, 
+        orange 70%, 
+        orange 85%, 
+        red 85%, 
+        red 100%
+      );
+      border-radius: 4px;
+    }
+
+    .score-label {
+      text-align: center;
+      font-weight: bold;
+    }
+    #screenshot {
+      max-width: 50%; /* Takes up half of the screen width */
+      display: none; /* Initially hide the screenshot */
+      margin: 0 auto; /* Center-align the screenshot */
+      border: 1px solid #ccc;
+    }
   </style>
 </head>
 <body>
@@ -296,27 +341,45 @@ color: powderblue;
    <div class="loading-container" id="loadingContainer">
     <div class="loading-circle"></div>
   </div>
-  
+  <div id="overall-performance" style="display: none;">
+    <p>Overall Performance Score: <span id="overall-score"></span></p>
+  </div>
+  <img id="screenshot" alt="Website Screenshot">
   
 </body>
 <script lang='ts'>
 
-function startSpeedTest() {
+async function startSpeedTest() {
+
   // Show the loading circle
   const loadingContainer = document.getElementById('loadingContainer');
-      loadingContainer.style.display = 'flex';
+  loadingContainer.style.display = 'flex';
   // Perform the speed test and display the results.
-
+  
   // Get the URL from the input field.
   const url = document.querySelector('input[type="text"]').value;
-
-
+   
   // Make a request to the PageSpeed Insights API to get the speed test results.
   fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`)
     .then(response => response.json())
     .then(results => {
-       // Hide the loading circle
-       loadingContainer.style.display = 'none';
+      // Hide the loading circle
+      loadingContainer.style.display = 'none';
+      
+      // Display the overall performance score
+      const overallScoreElement = document.getElementById('overall-score');
+      const performanceScore = results.lighthouseResult.categories.performance.score * 100;
+      overallScoreElement.textContent = performanceScore.toFixed(2) + '%';
+
+      // Apply color based on the percentage
+      if (performanceScore >= 90) {
+        overallScoreElement.style.color = 'green';
+      } else if (performanceScore >= 50) {
+        overallScoreElement.style.color = 'yellow';
+      } else {
+        overallScoreElement.style.color = 'red';
+      }
+      
       // Display the speed test results in the results div.
       const speedTestResults = document.querySelector('#speed-test-results');
       speedTestResults.innerHTML = ''; // Clear existing results
@@ -327,7 +390,17 @@ function startSpeedTest() {
         speedTestResults.appendChild(item);
       });
     });
+    const screenshotUrl = `https://api.microlink.io/?url=${url}&screenshot=true&embed=screenshot.url`;
+      await displayScreenshot(screenshotUrl);
 }
+async function displayScreenshot(screenshotUrl) {
+      const screenshot = document.getElementById('screenshot');
+      const response = await fetch(screenshotUrl);
+      const blob = await response.blob();
+      screenshot.src = URL.createObjectURL(blob);
+      screenshot.style.display = 'flex';
+    }
+
 
 
 function convertJSONToHTML(jsonResults) {
@@ -369,7 +442,7 @@ function resetForm() {
   const urlInput = document.getElementById('urlInput');
   urlInput.value = '';
 }
-/*No Copyrights please - - by Priyant*/
+
 </script>
 
 </html>

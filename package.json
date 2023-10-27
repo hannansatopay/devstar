@@ -62,13 +62,16 @@
 	},
 	"dependencies": {
 		"@bytemd/plugin-gfm": "^1.21.0",
+		"@microlink/mql": "^0.11.4",
 		"@sveltejs/adapter-node": "^1.3.1",
 		"@sveltejs/adapter-vercel": "^3.0.3",
 		"bytemd": "^1.21.0",
 		"colorthief": "^2.2.0",
 		"countries-list": "^2.6.1",
 		"downloadjs": "^1.4.7",
+		"express": "^4.18.2",
 		"multicoin-address-validator": "^0.5.12",
+		"puppeteer": "^21.4.1",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0"
