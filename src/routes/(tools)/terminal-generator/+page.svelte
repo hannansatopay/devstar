@@ -313,7 +313,7 @@
 								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 							</Dropdown>
 							</Dropdown>
-							</Dropdown>x
+							</Dropdown>
 						</div>
 					</div>
 				</div>
