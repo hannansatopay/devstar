@@ -31,12 +31,14 @@
   }, {});
 
   function translate() {
-    if (isMorse(inputText)) {
-      outputText = morseToText(inputText);
+    const translationDirection = document.getElementById('translationDirection').value;
+
+    if (translationDirection === 'morseToText') {
+        outputText = morseToText(inputText);
     } else {
-      outputText = textToMorse(inputText);
+        outputText = textToMorse(inputText);
     }
-  }
+}
 
   function isMorse(input) {
     // Heuristic to detect if the input is Morse code
@@ -104,6 +106,10 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+      <select id="translationDirection" class="rounded-lg overflow-hidden text-gray-200 dark:bg-gray-600 border border-gray-200">
+        <option value="textToMorse">Text to Morse</option>
+        <option value="morseToText">Morse to Text</option>
+    </select>
 			<div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
@@ -120,6 +126,7 @@
 			</div>
 
 			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
+        
 				<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
 					<Button color="blue" on:click={copyText}>Copy</Button>
 					<Button color="blue" on:click={downloadText}>Download as txt</Button>
