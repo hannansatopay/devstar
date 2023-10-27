@@ -65,6 +65,13 @@ export let tools = {
         link: '/advice-generator',
         description: "The Advice Generator is a valuable tool that provides developers with inspirational and practical advice to overcome challenges and improve their work. By generating random advice snippets, this tool helps developers find guidance and inspiration. Access a wealth of advice easily with this tool and elevate your mindset."
     },
+    'email-validator': {
+        name: 'Email Validator',
+        icon: 'message-captions',
+        link: '/email-validator',
+        description: "An email validator tool is a valuable utility that checks the validity of email addresses. It verifies whether an email address conforms to the correct format, ensuring it contains the @ symbol, a valid domain, and adheres to character constraints. Email validators help prevent invalid or potentially harmful email submissions in web forms, enhance data accuracy, and ensure efficient communication by filtering out improperly formatted or non-existent email addresses."
+    },
+
     'sample-files': {
         name: 'Sample Files',
         icon: 'files',
