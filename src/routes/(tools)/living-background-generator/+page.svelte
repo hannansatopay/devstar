@@ -27,9 +27,9 @@
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
 
 	// Define reactive variables to check the currently selected gradient type
-	$: isLinear = gradientType === 'linear';
-	$: isAngular = gradientType === 'angular';
-	$: isRadial = gradientType === 'radial';
+	let isLinear = true;
+	let isAngular = false;
+	let isRadial = false;
 
 	const pushArr = () => {
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
@@ -48,6 +48,20 @@
 
 	const setGradientType = (type) => {
 		gradientType = type;
+
+		if (type === 'linear') {
+			isLinear = true;
+			isAngular = false;
+			isRadial = false;
+		} else if (type === 'angular') {
+			isLinear = false;
+			isAngular = true;
+			isRadial = false;
+		} else if (type === 'radial') {
+			isLinear = false;
+			isAngular = false;
+			isRadial = true;
+		}
 	};
 
 	$: if (output) {
@@ -311,25 +325,30 @@
 				</div>
 				<br />
 
-				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
-				<Range
-					bind:value={angle}
-					min="0"
-					max="360"
-					on:change={() => {
-						console.log(angle);
-					}}
-				/>
-				<br />
-				<Label class="mt-3">DURATION&nbsp;&nbsp;&nbsp;{speed}s</Label>
-				<Range
-					bind:value={speed}
-					min="1"
-					max="20"
-					on:change={() => {
-						console.log(speed);
-					}}
-				/>
+				{#if isLinear}
+					<!-- Angle input -->
+					<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
+					<Range
+						bind:value={angle}
+						min="0"
+						max="360"
+						on:change={() => {
+							console.log(angle);
+						}}
+					/>
+					<br />
+
+					<!-- Duration input -->
+					<Label class="mt-3">DURATION&nbsp;&nbsp;&nbsp;{speed}s</Label>
+					<Range
+						bind:value={speed}
+						min="1"
+						max="20"
+						on:change={() => {
+							console.log(speed);
+						}}
+					/>
+				{/if}
 			</div>
 
 			<div
@@ -420,10 +439,6 @@
 
 	.cross {
 		pointer-events: none;
-	}
-
-	.output {
-		background-position: 400% 400%;
 	}
 
 	/* Add a class for glowing effect when selected */
