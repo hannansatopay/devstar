@@ -368,10 +368,10 @@
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
+	<div class="py-5 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card px items-center mx-auto max-w-screen-xl lg:grid rounded-lg">
 			<hr />
-			<div id="invoice" class="w-full p-4 bg-white shadow sm:p-6 md:p-8 rounded-lg">
+			<div id="invoice" class="w-full p-4 bg-white shadow sm:p-8 md:p-8 rounded-lg">
 				<div class="sticky-outer-wrapper">
 					<div class="sticky-inner-wrapper">
 						<div class="flow-root">
@@ -418,17 +418,17 @@
 				</div>
 				<br />
 				<div
-					class="box1 block max-w p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700"
+					class="box1 block max-w p-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700"
 				>
 					<form>
 						<label for="invoice_header" />
 						<input type="text" bind:value={invoice} placeholder="Invoice Header" required /><br
-						/><br />
-						<label for="logo">Logo:</label>
+						/><br>
+						<label class="text-xl font-bold" for="logo">Logo:</label>
 						<input
 							accept="image/*"
 							on:change={handleFileChange}
-							class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+							class="block w-1/4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
 							aria-describedby="user_avatar_help"
 							id="user_avatar"
 							type="file"
@@ -437,15 +437,16 @@
 							A logo of your company to be display over invoice.
 						</div>
 					</form>
-					<div class="invoice-container invoice-detail-body">
+					<div class="invoice-container invoice-detail-body py-8">
 						<div class="lg:flex lg:space-x-4">
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900">From</h1>
+								<h1 class="text-2xl font-bold text-gray-900">From</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
-										<label for="invoice-company-name" class="dark:text-gray-900">Name:</label>
+										<label for="invoice-company-name" class="dark:text-gray-900 text-xl">Name:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={businessName}
 											id="invoice-company-name"
@@ -453,8 +454,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="invoice-company-email" class="text-gray-900">Email:</label>
+										<label for="invoice-company-email" class="text-gray-900 text-xl">Email:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="email"
 											bind:value={businessEmail}
 											id="invoice-company-email"
@@ -463,8 +465,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="invoice-company-address" class=" text-gray-900">Address:</label>
+										<label for="invoice-company-address" class=" text-gray-900 text-xl">Address:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={businessAddress}
 											id="invoice-company-address"
@@ -473,8 +476,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="invoice-company-phone" class="text-gray-900">Phone:</label>
+										<label for="invoice-company-phone" class="text-gray-900 text-xl">Phone:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={businessPhone}
 											id="invoice-company-phone"
@@ -485,9 +489,10 @@
 										<label
 											for="invoice-company-business-number"
 											title="Business Number"
-											class="text-gray-900">Business Number:</label
+											class="text-gray-900 text-xl">Business Number:</label
 										>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={businessNumber}
 											id="invoice-company-business-number"
@@ -501,8 +506,9 @@
 									{/if}
 									{#if showAdditionalDetails}
 										<div class="input-with-label">
-											<label for="invoice-company-website" class="text-gray-900">Website:</label>
+											<label for="invoice-company-website" class="text-gray-900 text-xl">Website:</label>
 											<input
+											class="w-full rounded text-xl"
 												type="text"
 												bind:value={businessWebsite}
 												id="invoice-company-website"
@@ -510,8 +516,9 @@
 											/>
 										</div>
 										<div class="input-with-label">
-											<label for="invoice-company-owner" class="text-gray-900">Owner:</label>
+											<label for="invoice-company-owner" class="text-gray-900 text-xl">Owner:</label>
 											<input
+											class="w-full rounded text-xl"
 												type="text"
 												bind:value={businessOwner}
 												id="invoice-company-owner"
@@ -523,12 +530,13 @@
 							</div>
 							<br />
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900">To</h1>
+								<h1 class="text-2xl font-bold text-gray-900">To</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
-										<label for="client-name" class="dark:text-gray-900">Name:</label>
+										<label for="client-name" class="dark:text-gray-900 text-xl">Name:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={ClientName}
 											id="invoice-company-name"
@@ -536,8 +544,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="client-email" class="text-gray-900">Email:</label>
+										<label for="client-email" class="text-gray-900 text-xl">Email:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="email"
 											bind:value={ClientEmail}
 											id="invoice-company-email"
@@ -545,8 +554,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="client-address" class=" text-gray-900">Address:</label>
+										<label for="client-address" class=" text-gray-900 text-xl">Address:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="text"
 											bind:value={ClientAddress}
 											id="invoice-company-address"
@@ -555,8 +565,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="client-phone" class="text-gray-900">Phone:</label>
+										<label for="client-phone" class="text-gray-900 text-xl">Phone:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="tel"
 											bind:value={ClientPhone}
 											id="invoice-company-phone"
@@ -564,10 +575,11 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="client-number" title="Mobile Number" class="text-gray-900"
+										<label for="client-number" title="Mobile Number" class="text-gray-900 text-xl"
 											>Mobile:</label
 										>
 										<input
+										class="w-full rounded text-xl"
 											type="tel"
 											bind:value={ClientNumber}
 											id="invoice-company-business-number"
@@ -575,8 +587,9 @@
 										/>
 									</div>
 									<div class="input-with-label">
-										<label for="client-fax" title="Fax Number" class="text-gray-900">Fax:</label>
+										<label for="client-fax" title="Fax Number" class="text-gray-900 text-xl">Fax:</label>
 										<input
+										class="w-full rounded text-xl"
 											type="tel"
 											bind:value={ClientFax}
 											id="invoice-company-business-number"
@@ -594,17 +607,17 @@
 						<!-- <div class="card"> -->
 						<div class="Invoice-Receipt w-full m-5 py-5">
 							<div class="w-1/2">
-								<div class="mb-4 flex justify-between items-center">
+								<div class="mb-4 flex justify-between items-center text-xl">
 									<label class="mr-5" for="invoice_id">Number</label>
 									<input
 										type="text"
 										name="number"
 										placeholder="INV0001"
 										required
-										class="w-4/5 font-bold text-lg px-3 py-2 border rounded-lg"
+										class="w-4/5 font-bold text-lg px-3 py-2 border rounded-lg text-xl"
 									/>
 								</div>
-								<div class="mb-4 flex justify-between items-center">
+								<div class="mb-4 flex justify-between items-center text-xl">
 									<label class="mr-5" for="invoice_id">Date</label>
 									<input
 										type="date"
@@ -614,7 +627,7 @@
 										class="w-4/5 px-3 py-2 border rounded-lg"
 									/>
 								</div>
-								<div class="mb-4 flex justify-between items-center">
+								<div class="mb-4 flex justify-between items-center text-xl">
 									<label class="mr-5" for="term">Terms</label>
 									<select
 										name="terms"
@@ -645,9 +658,8 @@
 										<option selected value="365 Days">365 Days</option>
 									</select>
 								</div>
-								<div>
 									{#if showDueInput}
-										<div class="mb-4 flex justify-between items-center">
+										<div class="mb-4 flex justify-between items-center text-xl">
 											<label class="mr-5" for="due">Due</label>
 											<input
 												type="date"
@@ -659,7 +671,6 @@
 										</div>
 									{/if}
 								</div>
-							</div>
 						</div>
 
 						<hr class="border-t border-gray-400" />
@@ -668,11 +679,11 @@
 								<thead class="mb-7">
 									<tr class="w-full h-10">
 										<th class="w-10" />
-										<th class="text-start w-2/5">Description</th>
-										<th class="text-end w-1/6 px-3">Rate</th>
-										<th class="text-end w-1/6 px-3">Quantity</th>
-										<th class="text-center w-fit">Amount</th>
-										<th class="text-center w-fit">Tax(%)</th>
+										<th class="text-start w-2/5 text-xl">Description</th>
+										<th class="text-end w-1/6 px-3 text-xl">Rate</th>
+										<th class="text-end w-1/6 px-3 text-xl">Quantity</th>
+										<th class="text-center w-fit text-xl">Amount</th>
+										<th class="text-center w-fit text-xl">Tax(%)</th>
 									</tr>
 									<tr>
 										<td class="border-t border-black" colspan="6">
@@ -692,7 +703,7 @@
 												</td>
 												<td>
 													<input
-														class="w-full rounded"
+														class="w-full rounded text-xl"
 														type="text"
 														min="0"
 														placeholder="Item Description"
@@ -701,7 +712,7 @@
 												</td>
 												<td class="px-2">
 													<input
-														class="w-full text-end rounded"
+														class="w-full text-end rounded text-xl"
 														type="number"
 														min="0"
 														placeholder="0.00"
@@ -711,7 +722,7 @@
 												</td>
 												<td class="px-1">
 													<input
-														class="w-full rounded text-end"
+														class="w-full rounded text-end text-xl"
 														type="number"
 														min="0"
 														bind:value={inputSet.quantity}
@@ -725,7 +736,7 @@
 												</td>
 												<td class="text-center">
 													<input
-														class="w-16 text-center text-l rounded"
+														class="w-16 text-center text-l rounded text-xl"
 														type="number"
 														min="0"
 														bind:value={inputSet.taxRate}
@@ -736,7 +747,7 @@
 											<tr>
 												<td colspan="6">
 													<textarea
-														class="w-2/5 ml-16 rounded h-36 text-start pt-2 resize-none"
+														class="w-2/5 ml-16 rounded h-36 text-start pt-2 resize-none text-xl"
 														placeholder="Additional Details"
 														bind:value={inputSet.additionalInfo}
 													/>
@@ -762,26 +773,26 @@
 						<div
 							class="gap-12 items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg lg:grid lg:grid-cols-2"
 						>
-							<div class="p-8 h-full" />
-							<div class="p-8 h-full">
+							<div class="p-8 " />
+							
 								<div class="w-1/2 text-gray-700">
-									<div class="flex justify-between p-1 invoice-summary-label">
+									<div class="flex justify-between p-1 invoice-summary-label text-xl">
 										Subtotal: <span class="price">₹{subtotal.toFixed(2)}</span>
 									</div>
-									<div class="flex justify-between p-1 invoice-summary-label">
+									<div class="flex justify-between p-1 invoice-summary-label text-xl">
 										Tax: <span class="price">₹{tax.toFixed(2)}</span>
 									</div>
-									<div class="flex justify-between p-1 invoice-summary-label">
+									<div class="flex justify-between p-1 invoice-summary-label text-xl">
 										Total: <span class="price">₹{total.toFixed(2)}</span>
 									</div>
-									<div class="flex justify-between font-bold text-lg p-1 invoice-summary-label">
+									<div class="flex justify-between font-bold text-lg p-1 invoice-summary-label text-xl">
 										Balance due: <span class="price">₹{balanceDue.toFixed(2)}</span>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="p-8 h-full">
-							<label class="text-xl font-bold" for="Signature">Signature</label>
+						
+						<div class="p-3 h-full py-12">
+							<label class="text-2xl font-bold" for="Signature">Signature</label>
 							<input
 								type="file"
 								class="hidden"
@@ -794,6 +805,9 @@
 								class=" cursor-pointer border rounded-lg px-2 font-bold text-white bg-gray-600 text-3xl"
 								>+</label
 							>
+							<div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">
+								Signature to be display over invoice.
+							</div>
 							<img src="" id="signatureImage" alt="" style="max-width: 200px; max-height: 200px;" />
 						</div>
 					</div>
