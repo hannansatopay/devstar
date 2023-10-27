@@ -106,5 +106,11 @@ export let tools = {
         icon: 'text-size', 
         link: '/text-truncator',
         description: 'The "Text Truncation Tool" allows users to truncate text based on their choice of either "Start" or "End". Users can input text into a textarea, select the truncation location (either the beginning or the end of the text) using a dropdown menu, and the tool will automatically display the truncated text based on their selection. This tool is useful for quickly shortening text for various purposes, such as creating summaries or previews of longer text content.'
+    },
+    'string-abbreviator': {
+        name: 'String Abbreviator',
+        icon: 'text-size', 
+        link: '/string-abbreviator',
+        description: 'This tool is a simple text manipulation utility that allows you to abbreviate a given text string. It takes an input text, processes it to generate an abbreviated version, and provides options to copy the abbreviated text to the clipboard or download it as a text file or PDF. Whether you want to create compact acronyms or condense text for concise communication, this tool streamlines the process of text abbreviation while offering convenient options for sharing and storing the result.'
     }
 }
