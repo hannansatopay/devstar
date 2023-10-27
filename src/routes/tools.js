@@ -137,4 +137,10 @@ export let tools = {
         link: '/merge-PDF',
         description:"Merge 2 PDF's"
     },
+    'Unlock-Pdf': {
+        name: 'Unlock-Pdf',
+        icon: 'angle-right',
+        link: '/Unlock-Pdf',
+        description:"Unlock Pdf using password"
+    },
 };
