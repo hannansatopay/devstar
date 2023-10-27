@@ -140,6 +140,16 @@
                 name: 'Munsif Satopay',
                 githubId: 'munsifsatopay'
             }]
+        },
+        {
+            name: 'Terminal Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }, {
+                name: 'Sahil Balia',
+                githubId: 'sahilbalia'
+            },
         }
     ];
 </script>
