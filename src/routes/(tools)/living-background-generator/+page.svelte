@@ -22,44 +22,110 @@
 	let angle = 90;
 	let speed = 7;
 	let myBtn;
+	let output: HTMLElement;
+
 	$: gradientSpeed = `animation-duration: ${speed}s;`;
+
+	// Define reactive variables to check the currently selected gradient type
+	$: isLinear = gradientType === 'linear';
+	$: isAngular = gradientType === 'angular';
+	$: isRadial = gradientType === 'radial';
 
 	const pushArr = () => {
 		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
 	};
 
 	const removeOnClick = (e) => {
-		clrList.splice(Number(e.target.id), 1)
-		clrList = clrList
-		// clrList = clrList.filter((x, y) => x !== e.target.id);
-		// console.log(typeof(e.target.id));
+		clrList.splice(Number(e.target.id), 1);
+		clrList = clrList;
 	};
 
 	$: clrStyle = clrList.map((x) => {
 		return `background: ${x};`;
 	});
 
+	let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
+
+	const setGradientType = (type) => {
+		gradientType = type;
+	};
+
+	$: if (output) {
+		if (gradientType === 'linear') {
+			if (clrList.length > 1) {
+				output.style.setProperty(
+					'background-image',
+					`linear-gradient(${angle}deg, ${clrList.join(', ')})`
+				);
+				output.style.setProperty('background-size', `400% 400%`);
+			} else {
+				bgGradient = `background-color: ${clrList};`;
+			}
+		} else if (gradientType === 'angular') {
+			if (clrList.length > 1) {
+				output.style.setProperty(
+					'background-image',
+					`conic-gradient(from var(--angle), ${clrList.join(', ')}`
+				);
+
+				let angle = 0;
+
+				const animateAngle = () => {
+					angle += 1;
+					angle %= 360;
+					output.style.setProperty('--angle', `${angle}deg`);
+					requestAnimationFrame(animateAngle);
+				};
+
+				requestAnimationFrame(animateAngle);
+			} else {
+				bgGradient = `background-color: ${clrList};`;
+			}
+		} else {
+			if (clrList.length > 1) {
+				output.style.setProperty(
+					'background-image',
+					`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')}`
+				);
+
+				let zoom = 100;
+				let zoomDirection = 1;
+
+				const animateZoom = () => {
+					if (zoom >= 200) {
+						zoomDirection = -1;
+					} else if (zoom <= 20) {
+						zoomDirection = 1;
+					}
+
+					zoom += zoomDirection;
+					output.style.setProperty('--zoom', `${zoom}%`);
+					requestAnimationFrame(animateZoom);
+				};
+
+				requestAnimationFrame(animateZoom);
+			} else {
+				bgGradient = `background-color: ${clrList};`;
+			}
+		}
+	}
+
 	$: bgGradient =
-		clrList.length > 1
-			? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
+		gradientType === 'linear'
+			? clrList.length > 1
+				? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
+				: `background-color: ${clrList};`
+			: gradientType === 'angular'
+			? clrList.length > 1
+				? `background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});`
+				: `background-color: ${clrList};`
+			: gradientType === 'radial'
+			? clrList.length > 1
+				? `background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
+						', '
+				  )});`
+				: `background-color: ${clrList};`
 			: `background-color: ${clrList};`;
-
-			let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
-
-const setGradientType = (type) => {
-	gradientType = type;
-};
-
-
-    // let angle = 270;
-
-    // let speed = 7;
-
-    // $: gradientSpeed = `animation-duration: ${speed}s;`;
-
-    // let colorInput;
-    // let alphaSlider;
-    // let colorDisplay;
 
 	const updateColorDisplay = () => {
 		const selectedColor = colorInput.value;
@@ -82,83 +148,13 @@ const setGradientType = (type) => {
 		return color;
 	};
 
-	// Define reactive variables to check the currently selected gradient type
-	$: isLinear = gradientType === 'linear';
-	$: isAngular = gradientType === 'angular';
-	$: isRadial = gradientType === 'radial';
-
-	let output;
-
-let isPaused = false;
-
-$: if (output) {
-	if (gradientType === 'linear') {
-		isPaused = true;
-		if (clrList.length > 1) {
-			output.style.setProperty(
-				'background-image',
-				`linear-gradient(${angle}deg, ${clrList.join(', ')})`
-			);
-			output.style.setProperty('background-size', `400% 400%`);
-		} else {
-			bgGradient = `background-color: ${clrList};`;
-		}
-	} else if (gradientType === 'angular') {
-		if (clrList.length > 1) {
-			isPaused = false;
-
-			output.style.setProperty(
-				'background-image',
-				`conic-gradient(from var(--angle), ${clrList.join(', ')})`
-			);
-			output.style.setProperty('background-size', `100% 100%`);
-
-			let angle = 0;
-
-			setInterval(() => {
-				angle += 1;
-				angle %= 360;
-				output.style.setProperty('--angle', `${angle}deg`);
-			}, 10);
-		} else {
-			bgGradient = `background-color: ${clrList};`;
-		}
-	} else {
-		isPaused = true;
-		if (clrList.length > 1) {
-			output.style.setProperty(
-				'background-image',
-				`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')})`
-			);
-
-			let zoom = 0;
-			let threshold = false
-
-			setInterval(() => {
-				if(!threshold) {
-					zoom += 1;
-					if(zoom === 360) threshold = true
-				}
-				else {
-					zoom -= 1;
-					if(zoom === 0) threshold = false
-				}
-				
-				output.style.setProperty('--zoom', `${zoom}%`);
-			}, 10);
-		} else {
-			bgGradient = `background-color: ${clrList};`;
-		}
-	}
-}
-
 	// Define a reactive variable for the generated CSS code
 	$: {
 		if (gradientType === 'linear') {
 			css = `
           .animated-background {
-			${bgGradient}
-			background-size: 400% 400%;
+            ${bgGradient}
+            background-size: 400% 400%;
             animation: gradient ${speed}s ease infinite;
           }
   
@@ -173,44 +169,40 @@ $: if (output) {
               background-position: 0% 50%;
             }
           }
+
         `;
 		} else if (gradientType === 'angular') {
 			css = `
           .animated-background {
-			${bgGradient}
-			background-size: 400% 400%;
+            ${bgGradient}
             animation: gradient ${speed}s ease infinite;
           }
   
           @keyframes gradient {
             0% {
-              background-position: 0% 50%;
-            }
-            50% {
-              background-position: 100% 50%;
+              transform: rotate(0deg);
             }
             100% {
-              background-position: 0% 50%;
+              transform: rotate(360deg);
             }
           }
         `;
 		} else if (gradientType === 'radial') {
 			css = `
           .animated-background {
-			${bgGradient}
-			background-size: 400% 400%;
+            ${bgGradient}
             animation: gradient ${speed}s ease infinite;
           }
   
           @keyframes gradient {
             0% {
-              background-position: 0% 50%;
+              transform: scale(1);
             }
             50% {
-              background-position: 100% 50%;
+              transform: scale(1.2);
             }
             100% {
-              background-position: 0% 50%;
+              transform: scale(1);
             }
           }
         `;
@@ -227,8 +219,6 @@ $: if (output) {
 <Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
-	<br />
-	<hr />
 	<br />
 	<hr />
 
@@ -294,7 +284,7 @@ $: if (output) {
 					<!-- Add the gradient type buttons -->
 					<div class="m-4 flex justify-center items-center space-x-4">
 						<button
-							class="w-40 p-4 rounded-lg transition-transform transform hover:scale-105"
+							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
 							class:opacity-50={!isLinear}
 							class:glow={isLinear}
 							on:click={() => setGradientType('linear')}
@@ -302,7 +292,7 @@ $: if (output) {
 							Linear Gradient
 						</button>
 						<button
-							class="w-40 p-4 rounded-lg transition-transform transform hover:scale-105"
+							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
 							class:opacity-50={!isAngular}
 							class:glow={isAngular}
 							on:click={() => setGradientType('angular')}
@@ -310,7 +300,7 @@ $: if (output) {
 							Angular Gradient
 						</button>
 						<button
-							class="w-40 p-4 rounded-lg transition-transform transform hover:scale-105"
+							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
 							class:opacity-50={!isRadial}
 							class:glow={isRadial}
 							on:click={() => setGradientType('radial')}
@@ -319,6 +309,7 @@ $: if (output) {
 						</button>
 					</div>
 				</div>
+				<br />
 
 				<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
 				<Range
@@ -343,10 +334,19 @@ $: if (output) {
 
 			<div
 				class="p-8 h-full flex rounded-lg relative output"
-				id="output"
 				bind:this={output}
-				style={gradientSpeed}
-			/>
+				style={bgGradient + gradientSpeed}
+			>
+				{#if gradientType === 'linear'}
+					<div class="linear" />
+				{/if}
+				{#if gradientType === 'angular'}
+					<div class="angular" />
+				{/if}
+				{#if gradientType === 'radial'}
+					<div class="radial" />
+				{/if}
+			</div>
 		</div>
 		<br />
 
@@ -361,13 +361,13 @@ $: if (output) {
 </section>
 
 <style>
-	/* Add a hover effect to your buttons */
 	button {
 		background-color: #2f4550;
 		color: #b8dbd9;
 		transition: background-color 0.3s ease;
 		cursor: pointer;
 	}
+
 	:is(.dark button) {
 		background-color: #b8dbd9;
 		color: #2f4550;
@@ -418,31 +418,12 @@ $: if (output) {
 		min-height: 300px;
 	}
 
-	#output {
-		--angle: 0deg;
-		--zoom: 1;
-	}
-
-	/* Define animations for different gradient types */
-	.output {
-		background-size: 400% 400%;
-		animation: gradient 15s ease infinite;
-	}
-
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-
 	.cross {
 		pointer-events: none;
+	}
+
+	.output {
+		background-position: 400% 400%;
 	}
 
 	/* Add a class for glowing effect when selected */
