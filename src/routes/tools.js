@@ -476,4 +476,10 @@ export let tools = {
         description: 
 		"A punctuation remover tool removes punctuation marks (such as commas, periods, exclamation points, and more) from a given text."
 	},
+	'morsecode-translator':{
+        name: 'MorseCode Translator',
+        link: '/morsecode-translator',
+        description: 
+		"A Morse code translator is a tool or program that converts Morse Code into Text or vice versa, allowing communication through a series of dots and dashes or letters."
+	},
 };
