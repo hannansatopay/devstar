@@ -36,15 +36,25 @@
 	
 						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 							<div slot="header" class="p-3">
-								<Search size="md" />
+							  <Search size="md" />
 							</div>
+<<<<<<< HEAD
 							<DropdownItem>Roboto</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Open Sans</DropdownItem>
+						<DropdownDivider />
+						<DropdownItem>Lato</DropdownItem>
+						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+					</Dropdown>
+=======
+							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Open Sans</DropdownItem>
+							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem>Lato</DropdownItem>
+							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-						</Dropdown>
+						  </Dropdown>
+>>>>>>> 23b8c8e46332067c0014f36f185c1b31964ea5c7
 					</div>
 				<div class="language">
 					<span>Language</span>
@@ -75,7 +85,7 @@
 									<div class="color-palette">
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
 											<div class="color-box" style="background-color: violet;"></div>
-										</div>
+										  </div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
 											<div class="color-box" style="background-color: indigo;"></div>
 										</div>
@@ -270,13 +280,19 @@
 									<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-										<DropdownItem>Facebook</DropdownItem>
+										<DropdownItem>
+											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
+										</DropdownItem>
 										<DropdownDivider />
-										<DropdownItem>Instagram</DropdownItem>
+										<DropdownItem>
+											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
+										</DropdownItem>
 										<DropdownDivider />
-										<DropdownItem>Twitter</DropdownItem>
-										<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+										<DropdownItem>
+											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
+										</DropdownItem>
 									</Dropdown>
+									
 								</div>
 							</div>
 						</div>
@@ -381,6 +397,30 @@
 
 <style>
 
+
+	@font-face {
+	font-family: 'Roboto';
+	src: url('/fonts/roboto.woff2') format('woff2'),
+		url('/fonts/roboto.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
+
+	@font-face {
+	font-family: 'Open Sans';
+	src: url('/fonts/open-sans.woff2') format('woff2'),
+		url('/fonts/open-sans.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
+
+	@font-face {
+	font-family: 'Lato';
+	src: url('/fonts/lato.woff2') format('woff2'),
+		url('/fonts/lato.woff') format('woff');
+	/* Add additional font formats if necessary */
+	/* Specify the correct path to the font files based on your project structure */
+	}
 	
 	.toolbar-second-row {
 		/* display: flex;
@@ -424,10 +464,28 @@
 	}
 
 	body {
-    font-family: Arial, sans-serif; /* Default font family */
-    }
+<<<<<<< HEAD
+    	font-family: Arial, sans-serif; /* Default font family */
+	}
 
-	
+	/* Apply the custom fonts to the components using a class */
+	.custom-font {
+		font-family: 'CustomBodyFont', sans-serif;
+	}
+
+	/* Define specific fonts for the DropdownItem and DropdownDivider components */
+	.custom-font DropdownItem {
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.custom-font DropdownDivider {
+		font-family: 'Open Sans', sans-serif;
+	}
+=======
+    font-family: Arial, sans-serif; /* Default font family */
+}
+
+>>>>>>> 23b8c8e46332067c0014f36f185c1b31964ea5c7
 
 	.theme-selector {
 		margin: 10px;
@@ -537,8 +595,8 @@
 	}
 
 	.icon img {
-		width: 30px;
-		height: 26px;
+		width: 28px;
+		height: 28px;
 		object-fit: cover;
 	}
 
@@ -567,7 +625,7 @@
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
 		width: 800px;
-		height: calc(100% - 4rem); /* Assuming 4rem is the height of your toolbar, adjust as needed */
+		height: 400px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
 		display: flex;
 		/* flex-direction: column; */
 		margin: 0 auto;
@@ -621,8 +679,8 @@
 		position: relative;
 		min-width: 400px;
 		max-width: 700px;
-		width: auto;
-		height: auto;
+		width: 750px;
+		height: 800px;
 
 		padding: 56px 56px;
 	}
@@ -769,9 +827,22 @@
 		background-color: darken(#98c379, 10%);
 	}
 
+	/* Include the fonts.css file if not already included */
+	@import 'path/to/fonts.css';
+
+	/* Apply custom fonts to the Dropdown component */
 	Dropdown {
-		/* z-index: 9999; */ /* Some high value to ensure it's on top of other elements */
-		/* position: relative; Ensures z-index applies */
+		font-family: 'CustomBodyFont', sans-serif;
+	}
+
+	/* Apply custom fonts to DropdownItem components */
+	DropdownItem {
+		font-family: 'Roboto', sans-serif;
+	}
+
+	/* Apply custom fonts to DropdownDivider components */
+	DropdownDivider {
+		font-family: 'Open Sans', sans-serif;
 	}
 
 	/* Style for the dropdown container */
@@ -832,7 +903,39 @@
             border: 1px solid #ccc;
         }
 
-		
+		/* Include the fonts.css file if not already included */
+		@import 'path/to/fonts.css';
+
+		/* Apply custom fonts to the components */
+		:global(.dropdown) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		:global(.dropdown-item) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		:global(.dropdown-divider) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		/* Include the fonts.css file if not already included */
+		@import 'path/to/fonts.css';
+
+		/* Apply custom fonts to DropdownItem components */
+		DropdownItem {
+			font-family: 'Roboto', sans-serif; /* Replace with your desired font family */
+		}
+
+		/* Apply custom fonts to DropdownDivider components */
+		DropdownDivider {
+			font-family: 'Open Sans', sans-serif; /* Replace with your desired font family */
+		}
+
+		/* Apply custom fonts to the entire Dropdown component if needed */
+		Dropdown {
+			font-family: 'Lato', sans-serif; /* Replace with your desired font family */
+		}
 
 </style>
 
