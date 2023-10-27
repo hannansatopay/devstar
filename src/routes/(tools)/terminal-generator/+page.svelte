@@ -298,12 +298,21 @@
 							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
 
 							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<DropdownItem>Code</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem>1 mb</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem>Export</DropdownItem>
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">Code</label>
+								<hr class="dropdown-divider">
+							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">1 mb</label>
+								<hr class="dropdown-divider">
+							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">Export</label>
+								<hr class="dropdown-divider">
+								
 								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+							</Dropdown>
+							</Dropdown>
 							</Dropdown>
 						</div>
 					</div>
@@ -919,6 +928,43 @@
 		/* Apply custom fonts to the entire Dropdown component if needed */
 		Dropdown {
 			font-family: 'Lato', sans-serif; /* Replace with your desired font family */
+		}
+
+		.export-checkbox {
+		display: none;
+	}
+
+		.dropdown-item {
+		height: auto;
+		background-color: #ffffff;
+		color: #000000;
+		min-width: inherit;
+		padding: 5px 5px;
+		padding-left: 5px;
+		border-radius: 5px;
+		font-family: Hack, monospace !important;
+		font-size: 14px;
+		line-height: 133%;
+		-webkit-font-variant-ligatures: contextual;
+		-moz-font-variant-ligatures: contextual;
+		font-variant-ligatures: contextual;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-tap-highlight-color: transparent;
+		outline: none;
+		}
+
+		.dropdown-divider {
+			border-top: 1px solid #abb2bf;
+			margin: 8px 0;
+		}
+
+		.export-checkbox:checked + .dropdown-item {
+			/* Add your export styles here */
+			/* This style will be applied when the checkbox is checked */
+			/* You can customize it to change the appearance */
 		}
 
 </style>
