@@ -75,7 +75,7 @@
 									<div class="color-palette">
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
 											<div class="color-box" style="background-color: violet;"></div>
-										</div>
+										  </div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
 											<div class="color-box" style="background-color: indigo;"></div>
 										</div>
@@ -313,12 +313,13 @@
 								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 							</Dropdown>
 							</Dropdown>
-							</Dropdown>
+							</Dropdown>x
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Terminal Area (or the Code Area) -->
+
 			<div class="terminal relative rounded-md">
 				<div class="dnd-container">
 					<div class="section">
@@ -462,12 +463,11 @@
 	}
 
 	.container-bg {
-			position: relative;
-			z-index: 0;
-			width: 750px;
-			height: 500px;
-			/* Add any other styles you want for .container-bg */
-		}
+		position: relative;
+		z-index: 0;
+		width: 40px;
+		height: 40px;
+	}
 
 	body {
     	font-family: Arial, sans-serif; /* Default font family */
@@ -973,8 +973,6 @@
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
-
-		
 
 </style>
 
