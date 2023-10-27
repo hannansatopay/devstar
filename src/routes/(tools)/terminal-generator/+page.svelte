@@ -333,7 +333,7 @@
 										<div class="CodeMirror-scroll" tabindex="-1">
 											<div
 												class="CodeMirror-sizer"
-												style="	 margin-left: 0px; margin-bottom: 0px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;"
+												style="	 margin-left: 0px; margin-bottom: 0px; margin-top: 160px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;"
 											>
 												<div style="position: relative; top: 0px;">
 													<div class="terminal-header">
@@ -362,7 +362,7 @@
 																		'&': {
 																			width: '100%',
 																			maxWidth: '100%',
-																			height: '250px',
+																			height: '300px',
 																			borderRadius: '0px',
 																			margin: '0 auto'
 																		}
@@ -728,6 +728,12 @@
 
 	.container-bg {
 		padding: 0px;
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	    width: 700px;
+		height: 600px;
 	}
 
 	.container-bg .white {
