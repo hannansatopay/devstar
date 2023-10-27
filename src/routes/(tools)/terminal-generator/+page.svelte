@@ -298,13 +298,22 @@
 							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
 
 							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<DropdownItem>Code</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem>1 mb</DropdownItem>
-								<DropdownDivider />
-								<DropdownItem>Export</DropdownItem>
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">Code</label>
+								<hr class="dropdown-divider">
+							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">1 mb</label>
+								<hr class="dropdown-divider">
+							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
+								<label for="exportCheckbox" class="dropdown-item">Export</label>
+								<hr class="dropdown-divider">
+								
 								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 							</Dropdown>
+							</Dropdown>
+							</Dropdown>x
 						</div>
 					</div>
 				</div>
@@ -454,9 +463,22 @@
 	}
 
 	body {
-    font-family: Arial, sans-serif; /* Default font family */
-}
+    	font-family: Arial, sans-serif; /* Default font family */
+	}
 
+	/* Apply the custom fonts to the components using a class */
+	.custom-font {
+		font-family: 'CustomBodyFont', sans-serif;
+	}
+
+	/* Define specific fonts for the DropdownItem and DropdownDivider components */
+	.custom-font DropdownItem {
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.custom-font DropdownDivider {
+		font-family: 'Open Sans', sans-serif;
+	}
 
 	.theme-selector {
 		margin: 10px;
@@ -798,9 +820,22 @@
 		background-color: darken(#98c379, 10%);
 	}
 
+	/* Include the fonts.css file if not already included */
+	@import 'path/to/fonts.css';
+
+	/* Apply custom fonts to the Dropdown component */
 	Dropdown {
-		/* z-index: 9999; */ /* Some high value to ensure it's on top of other elements */
-		/* position: relative; Ensures z-index applies */
+		font-family: 'CustomBodyFont', sans-serif;
+	}
+
+	/* Apply custom fonts to DropdownItem components */
+	DropdownItem {
+		font-family: 'Roboto', sans-serif;
+	}
+
+	/* Apply custom fonts to DropdownDivider components */
+	DropdownDivider {
+		font-family: 'Open Sans', sans-serif;
 	}
 
 	/* Style for the dropdown container */
@@ -861,7 +896,76 @@
             border: 1px solid #ccc;
         }
 
-		
+		/* Include the fonts.css file if not already included */
+		@import 'path/to/fonts.css';
+
+		/* Apply custom fonts to the components */
+		:global(.dropdown) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		:global(.dropdown-item) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		:global(.dropdown-divider) {
+		font-family: 'CustomBodyFont', sans-serif;
+		}
+
+		/* Include the fonts.css file if not already included */
+		@import 'path/to/fonts.css';
+
+		/* Apply custom fonts to DropdownItem components */
+		DropdownItem {
+			font-family: 'Roboto', sans-serif; /* Replace with your desired font family */
+		}
+
+		/* Apply custom fonts to DropdownDivider components */
+		DropdownDivider {
+			font-family: 'Open Sans', sans-serif; /* Replace with your desired font family */
+		}
+
+		/* Apply custom fonts to the entire Dropdown component if needed */
+		Dropdown {
+			font-family: 'Lato', sans-serif; /* Replace with your desired font family */
+		}
+
+		.export-checkbox {
+		display: none;
+	}
+
+		.dropdown-item {
+		height: auto;
+		background-color: #ffffff;
+		color: #000000;
+		min-width: inherit;
+		padding: 5px 5px;
+		padding-left: 5px;
+		border-radius: 5px;
+		font-family: Hack, monospace !important;
+		font-size: 14px;
+		line-height: 133%;
+		-webkit-font-variant-ligatures: contextual;
+		-moz-font-variant-ligatures: contextual;
+		font-variant-ligatures: contextual;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		-webkit-tap-highlight-color: transparent;
+		outline: none;
+		}
+
+		.dropdown-divider {
+			border-top: 1px solid #abb2bf;
+			margin: 8px 0;
+		}
+
+		.export-checkbox:checked + .dropdown-item {
+			/* Add your export styles here */
+			/* This style will be applied when the checkbox is checked */
+			/* You can customize it to change the appearance */
+		}
 
 </style>
 
