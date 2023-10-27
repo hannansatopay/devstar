@@ -362,7 +362,7 @@
 																		'&': {
 																			width: '100%',
 																			maxWidth: '100%',
-																			height: '260px',
+																			height: '280px',
 																			borderRadius: '0px',
 																			margin: '0 auto'
 																		}
@@ -614,8 +614,8 @@
 		height: 100%;
 		max-width: 800px;
 		margin-top: auto;
-		margin-left: auto;
 		margin-bottom: auto;
+		margin-left: auto;
 		max-width: auto;
 	}
 
@@ -626,6 +626,11 @@
 		display: flex;
 		/* flex-direction: column; */
 		margin: auto;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: auto;
+		margin-right: auto;
+
 	}
 
 	.bg {
