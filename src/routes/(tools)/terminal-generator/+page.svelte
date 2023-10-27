@@ -613,15 +613,19 @@
 		width: 100%;
 		height: 100%;
 		max-width: 800px;
+		margin-top: auto;
+		margin-left: auto;
+		margin-bottom: auto;
+		max-width: auto;
 	}
 
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
-		width: 800px;
-		height: 400px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
+		width: 785px;
+		height: 420px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
 		display: flex;
 		/* flex-direction: column; */
-		margin: 0 auto;
+		margin: auto;
 	}
 
 	.bg {
@@ -674,7 +678,6 @@
 		max-width: 700px;
 		width: 750px;
 		height: 800px;
-
 		padding: 56px 56px;
 	}
 
