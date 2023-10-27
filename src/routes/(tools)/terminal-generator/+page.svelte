@@ -38,15 +38,6 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-<<<<<<< HEAD
-							<DropdownItem>Roboto</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Open Sans</DropdownItem>
-						<DropdownDivider />
-						<DropdownItem>Lato</DropdownItem>
-						<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-					</Dropdown>
-=======
 							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
 							<DropdownDivider />
 							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
@@ -54,7 +45,6 @@
 							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
->>>>>>> 23b8c8e46332067c0014f36f185c1b31964ea5c7
 					</div>
 				<div class="language">
 					<span>Language</span>
@@ -464,7 +454,6 @@
 	}
 
 	body {
-<<<<<<< HEAD
     	font-family: Arial, sans-serif; /* Default font family */
 	}
 
@@ -481,11 +470,6 @@
 	.custom-font DropdownDivider {
 		font-family: 'Open Sans', sans-serif;
 	}
-=======
-    font-family: Arial, sans-serif; /* Default font family */
-}
-
->>>>>>> 23b8c8e46332067c0014f36f185c1b31964ea5c7
 
 	.theme-selector {
 		margin: 10px;
