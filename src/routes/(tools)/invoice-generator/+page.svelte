@@ -350,7 +350,7 @@
 		pdfContainer.style.display = 'none';
 	}
 
-       function handleSignatureUpload(event) {
+	function handleSignatureUpload(event) {
 		const signatureInput = event.target;
 		const signatureImage = document.getElementById('signatureImage');
 		if (signatureInput.files && signatureInput.files[0]) {
@@ -407,9 +407,9 @@
 									title="Email the Invoice to your client"
 								>
 									<span
-									class="px-5 py-2.5 text-base my-2 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-not-allowed"
+										class="px-5 py-2.5 text-base my-2 font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-not-allowed"
 									>
-											Email Invoice
+										Email Invoice
 									</span>
 								</button>
 							</div>
@@ -440,7 +440,7 @@
 					<div class="invoice-container invoice-detail-body">
 						<div class="lg:flex lg:space-x-4">
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900 headR">From</h1>
+								<h1 class="text-3xl text-gray-900">From</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
@@ -523,7 +523,7 @@
 							</div>
 							<br />
 							<div class="lg:w-1/2">
-								<h1 class="text-3xl text-gray-900 headR">To</h1>
+								<h1 class="text-3xl text-gray-900">To</h1>
 								<br />
 								<form>
 									<div class="input-with-label">
@@ -592,213 +592,218 @@
 
 					<div class="mx-auto max-w-screen-xl lg:px-12">
 						<!-- <div class="card"> -->
-							<div class="Invoice-Receipt w-full m-5 py-5">
-								<div class="w-1/2">
-									<div class="mb-4 flex justify-between items-center">
-										<label class="mr-5" for="invoice_id">Number</label>
-										<input
-											type="text"
-											name="number"
-											placeholder="INV0001"
-											required
-											class="w-4/5 font-bold text-lg px-3 py-2 border rounded-lg"
-										/>
-									</div>
-									<div class="mb-4 flex justify-between items-center">
-										<label class="mr-5" for="invoice_id">Date</label>
-										<input
-											type="date"
-											name="date"
-											bind:value={currentDate}
-											required
-											class="w-4/5 px-3 py-2 border rounded-lg"
-										/>
-									</div>
-									<div class="mb-4 flex justify-between items-center">
-										<label class="mr-5" for="term">Terms</label>
-										<select
-											name="terms"
-											id="terms"
-											bind:value={selectedOption}
-											on:change={onOptionChange}
-											class="w-4/5 px-3 py-2 border rounded-lg"
-										>
-											<option value="None">None</option>
-											<option value="Custom">Custom</option>
-											<option value="Due On Receipt">Due On Receipt</option>
-											<option value="Next Day">Next Day</option>
-											<option value="2 Days">2 Days</option>
-											<option value="3 Days">3 Days</option>
-											<option value="4 Days">4 Days</option>
-											<option value="5 Days">5 Days</option>
-											<option value="6 Days">6 Days</option>
-											<option value="7 Days">7 Days</option>
-											<option value="10 Days">10 Days</option>
-											<option value="14 Days">14 Days</option>
-											<option value="21 Days">21 Days</option>
-											<option value="30 Days">30 Days</option>
-											<option value="45 Days">45 Days</option>
-											<option value="60 Days">60 Days</option>
-											<option value="90 Days">90 Days</option>
-											<option value="120 Days">120 Days</option>
-											<option value="180 Days">180 Days</option>
-											<option selected value="365 Days">365 Days</option>
-										</select>
-									</div>
-									<div>
-										{#if showDueInput}
-											<div class="mb-4 flex justify-between items-center">
-												<label class="mr-5" for="due">Due</label>
-												<input
-													type="date"
-													bind:value={dueDate}
-													name="due"
-													id="due"
-													class="w-4/5 px-3 py-2 border rounded-lg"
-												/>
-											</div>
-										{/if}
-									</div>
+						<div class="Invoice-Receipt w-full m-5 py-5">
+							<div class="w-1/2">
+								<div class="mb-4 flex justify-between items-center">
+									<label class="mr-5" for="invoice_id">Number</label>
+									<input
+										type="text"
+										name="number"
+										placeholder="INV0001"
+										required
+										class="w-4/5 font-bold text-lg px-3 py-2 border rounded-lg"
+									/>
+								</div>
+								<div class="mb-4 flex justify-between items-center">
+									<label class="mr-5" for="invoice_id">Date</label>
+									<input
+										type="date"
+										name="date"
+										bind:value={currentDate}
+										required
+										class="w-4/5 px-3 py-2 border rounded-lg"
+									/>
+								</div>
+								<div class="mb-4 flex justify-between items-center">
+									<label class="mr-5" for="term">Terms</label>
+									<select
+										name="terms"
+										id="terms"
+										bind:value={selectedOption}
+										on:change={onOptionChange}
+										class="w-4/5 px-3 py-2 border rounded-lg"
+									>
+										<option value="None">None</option>
+										<option value="Custom">Custom</option>
+										<option value="Due On Receipt">Due On Receipt</option>
+										<option value="Next Day">Next Day</option>
+										<option value="2 Days">2 Days</option>
+										<option value="3 Days">3 Days</option>
+										<option value="4 Days">4 Days</option>
+										<option value="5 Days">5 Days</option>
+										<option value="6 Days">6 Days</option>
+										<option value="7 Days">7 Days</option>
+										<option value="10 Days">10 Days</option>
+										<option value="14 Days">14 Days</option>
+										<option value="21 Days">21 Days</option>
+										<option value="30 Days">30 Days</option>
+										<option value="45 Days">45 Days</option>
+										<option value="60 Days">60 Days</option>
+										<option value="90 Days">90 Days</option>
+										<option value="120 Days">120 Days</option>
+										<option value="180 Days">180 Days</option>
+										<option selected value="365 Days">365 Days</option>
+									</select>
+								</div>
+								<div>
+									{#if showDueInput}
+										<div class="mb-4 flex justify-between items-center">
+											<label class="mr-5" for="due">Due</label>
+											<input
+												type="date"
+												bind:value={dueDate}
+												name="due"
+												id="due"
+												class="w-4/5 px-3 py-2 border rounded-lg"
+											/>
+										</div>
+									{/if}
 								</div>
 							</div>
+						</div>
 
-							<hr class="border-t border-gray-400" />
-							<div id="invoice">
-								<table class="w-full">
-									<thead class="mb-7">
-										<tr class="w-full h-10">
-											<th class="w-10" />
-											<th class="text-start w-2/5">Description</th>
-											<th class="text-end w-1/6 px-3">Rate</th>
-											<th class="text-end w-1/6 px-3">Quantity</th>
-											<th class="text-center w-fit">Amount</th>
-											<th class="text-center w-fit">Tax(%)</th>
-										</tr>
-										<tr>
-											<td class="border-t border-black" colspan="6">
-												<hr />
-											</td>
-										</tr>
-									</thead>
-									<tbody>
-										{#each inputSets as inputSet}
-											{#if showFirstPair || index > 0}
+						<hr class="border-t border-gray-400" />
+						<div id="invoice">
+							<table class="w-full">
+								<thead class="mb-7">
+									<tr class="w-full h-10">
+										<th class="w-10" />
+										<th class="text-start w-2/5">Description</th>
+										<th class="text-end w-1/6 px-3">Rate</th>
+										<th class="text-end w-1/6 px-3">Quantity</th>
+										<th class="text-center w-fit">Amount</th>
+										<th class="text-center w-fit">Tax(%)</th>
+									</tr>
+									<tr>
+										<td class="border-t border-black" colspan="6">
+											<hr />
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									{#each inputSets as inputSet}
+										{#if showFirstPair || index > 0}
+											<tr>
+												<td>
+													<button
+														class="w-10 h-10 font-bold border text-xl bg-gray-400 rounded-lg m-3"
+														on:click={() => deleteInputSet(inputSet.id)}>X</button
+													>
+												</td>
+												<td>
+													<input
+														class="w-full rounded"
+														type="text"
+														min="0"
+														placeholder="Item Description"
+														bind:value={inputSet.item}
+													/>
+												</td>
+												<td class="px-2">
+													<input
+														class="w-full text-end rounded"
+														type="number"
+														min="0"
+														placeholder="0.00"
+														bind:value={inputSet.rate}
+														on:change={updateTotals}
+													/>
+												</td>
+												<td class="px-1">
+													<input
+														class="w-full rounded text-end"
+														type="number"
+														min="0"
+														bind:value={inputSet.quantity}
+														on:change={updateTotals}
+													/>
+												</td>
+												<td>
+													<p class="flex justify-center text-2xl">
+														₹{inputSet.quantity * inputSet.rate}
+													</p>
+												</td>
+												<td class="text-center">
+													<input
+														class="w-16 text-center text-l rounded"
+														type="number"
+														min="0"
+														bind:value={inputSet.taxRate}
+														on:change={updateTotals}
+													/>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="6">
+													<textarea
+														class="w-2/5 ml-16 rounded h-36 text-start pt-2 resize-none"
+														placeholder="Additional Details"
+														bind:value={inputSet.additionalInfo}
+													/>
+												</td>
+											</tr>
+											{#if index !== inputSets.length - 1}
 												<tr>
-													<td>
-														<button
-															class="w-10 h-10 font-bold border text-xl bg-gray-400 rounded-lg m-3"
-															on:click={() => deleteInputSet(inputSet.id)}>X</button
-														>
-													</td>
-													<td>
-														<input
-															class="w-full rounded"
-															type="text"
-															min="0"
-															placeholder="Item Description"
-															bind:value={inputSet.item}
-														/>
-													</td>
-													<td class="px-2">
-														<input
-															class="w-full text-end rounded"
-															type="number"
-															min="0"
-															placeholder="0.00"
-															bind:value={inputSet.rate}
-															on:change={updateTotals}
-														/>
-													</td>
-													<td class="px-1">
-														<input
-															class="w-full rounded text-end"
-															type="number"
-															min="0"
-															bind:value={inputSet.quantity}
-															on:change={updateTotals}
-														/>
-													</td>
-													<td>
-														<p class="flex justify-center text-2xl">
-															₹{inputSet.quantity * inputSet.rate}
-														</p>
-													</td>
-													<td class="text-center">
-														<input
-															class="w-16 text-center text-l rounded"
-															type="number"
-															min="0"
-															bind:value={inputSet.taxRate}
-															on:change={updateTotals}
-														/>
+													<td class="py-3" colspan="6">
+														<hr />
 													</td>
 												</tr>
-												<tr>
-													<td colspan="6">
-														<textarea
-															class="w-2/5 ml-16 rounded h-36 text-start pt-2 resize-none"
-															placeholder="Additional Details"
-															bind:value={inputSet.additionalInfo}
-														/>
-													</td>
-												</tr>
-												{#if index !== inputSets.length - 1}
-													<tr>
-														<td class="py-3" colspan="6">
-															<hr />
-														</td>
-													</tr>
-												{/if}
 											{/if}
-										{/each}
-									</tbody>
-								</table>
-							</div>
-							<button
-								class="w-10 h-10 border font-bold text-3xl text-white bg-gray-600 rounded-lg shadow-lg m-3"
-								on:click={addInputSet}>+</button
-							>
-							<hr class="py-5" />
-							<div
-								class="gap-12 items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg lg:grid lg:grid-cols-2"
-							>
-								<div class="p-8 h-full" />
-								<div class="p-8 h-full">
-									<div class="w-1/2 text-gray-700">
-										<div class="flex justify-between p-1 invoice-summary-label">
-											Subtotal: <span class="price">₹{subtotal.toFixed(2)}</span>
-										</div>
-										<div class="flex justify-between p-1 invoice-summary-label">
-											Tax: <span class="price">₹{tax.toFixed(2)}</span>
-										</div>
-										<div class="flex justify-between p-1 invoice-summary-label">
-											Total: <span class="price">₹{total.toFixed(2)}</span>
-										</div>
-										<div class="flex justify-between font-bold text-lg p-1 invoice-summary-label">
-											Balance due: <span class="price">₹{balanceDue.toFixed(2)}</span>
-										</div>
+										{/if}
+									{/each}
+								</tbody>
+							</table>
+						</div>
+						<button
+							class="w-10 h-10 border font-bold text-3xl text-white bg-gray-600 rounded-lg shadow-lg m-3"
+							on:click={addInputSet}>+</button
+						>
+						<hr class="py-5" />
+						<div
+							class="gap-12 items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg lg:grid lg:grid-cols-2"
+						>
+							<div class="p-8 h-full" />
+							<div class="p-8 h-full">
+								<div class="w-1/2 text-gray-700">
+									<div class="flex justify-between p-1 invoice-summary-label">
+										Subtotal: <span class="price">₹{subtotal.toFixed(2)}</span>
+									</div>
+									<div class="flex justify-between p-1 invoice-summary-label">
+										Tax: <span class="price">₹{tax.toFixed(2)}</span>
+									</div>
+									<div class="flex justify-between p-1 invoice-summary-label">
+										Total: <span class="price">₹{total.toFixed(2)}</span>
+									</div>
+									<div class="flex justify-between font-bold text-lg p-1 invoice-summary-label">
+										Balance due: <span class="price">₹{balanceDue.toFixed(2)}</span>
 									</div>
 								</div>
 							</div>
-							<div class="p-8 h-full">
-								<label for="Signature">Signature:</label>
-								<input type="file" accept="image/*" id="signatureInput" on:change={handleSignatureUpload} />
-								<img
-									src=""
-									id="signatureImage"
-									alt=""
-									style="max-width: 200px; max-height: 200px;"
-								/>
-							</div>	
+						</div>
+						<div class="p-8 h-full">
+							<label class="text-xl font-bold" for="Signature">Signature</label>
+							<input
+								type="file"
+								class="hidden"
+								accept="image/*"
+								id="signatureInput"
+								on:change={handleSignatureUpload}
+							/>
+							<label
+								for="signatureInput"
+								class=" cursor-pointer border rounded-lg px-2 font-bold text-white bg-gray-600 text-3xl"
+								>+</label
+							>
+							<img src="" id="signatureImage" alt="" style="max-width: 200px; max-height: 200px;" />
 						</div>
 					</div>
-					<div id="pdf-container" style="display: none;">
-						<!-- PDF content will be displayed here -->
-					</div>
+				</div>
+				<div id="pdf-container" style="display: none;">
+					<!-- PDF content will be displayed here -->
 				</div>
 			</div>
 		</div>
-                
+	</div>
 </section>
 
 <style>
@@ -809,6 +814,9 @@
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
 	}
+	/* .invoice-detail-body {
+		padding: 10px 10px 10px 10px;
+	} */
 	.input-with-label label {
 		/* display: inline-block; */
 		font-weight: 500;
@@ -831,61 +839,61 @@
 		text-decoration: underline;
 		cursor: pointer;
 	}
-  .invoice-detail-body form {
-    padding-left: 14%;
-    margin: 0 auto;
-  }
-  .invoice-detail-body div div .headR{
-    padding-left: 14%;
-    margin: 0 auto;
-    padding-top: 4%;
-  }
-  .input-with-label {
-    overflow: hidden;
-    min-width: 769;
-  }
-  .input-with-label label {
-    display: inline-block;
-    font-weight: 500;
-    margin-bottom: 8px;
-    white-space: normal;
-    word-wrap: "break-word";
-    width: 5%;
-  }
-  .input-with-label input {
-    width: 50%;
-    height: 5%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 16px;
-    margin-left: 15%;
-  }
-  
-  .show-details-link {
-    color: #007bff;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  ::-webkit-input-placeholder{
-    font-size: 75% !important;
-  }
-  @media screen and (max-width:768px) {
-    .input-with-label label{
-      display: none;
-    }
-    .input-with-label input {
-      margin-left: 0%;
-      width: 40%;
-    }
-    ::-webkit-input-placeholder{
-      font-size: 75% !important;
-    }
-  }
-  .Invoice-Receipt div div {
-	width: 50%;
-  }
-  .Invoice-Receipt div div input, select{
-	width: 65%;
-  }
+	.invoice-detail-body form {
+		padding-left: 14%;
+		margin: 0 auto;
+	}
+	.invoice-detail-body div div .headR {
+		padding-left: 14%;
+		margin: 0 auto;
+	}
+	.input-with-label {
+		overflow: hidden;
+		min-width: 769;
+	}
+	.input-with-label label {
+		display: inline-block;
+		font-weight: 500;
+		margin-bottom: 8px;
+		white-space: normal;
+		word-wrap: 'break-word';
+		width: 5%;
+	}
+	.input-with-label input {
+		width: 50%;
+		height: 5%;
+		padding: 8px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		margin-bottom: 16px;
+		margin-left: 15%;
+	}
+
+	.show-details-link {
+		color: #007bff;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	::-webkit-input-placeholder {
+		font-size: 75% !important;
+	}
+	@media screen and (max-width: 768px) {
+		.input-with-label label {
+			display: none;
+		}
+		.input-with-label input {
+			margin-left: 0%;
+			width: 40%;
+		}
+		::-webkit-input-placeholder {
+			font-size: 75% !important;
+		}
+	}
+	.Invoice-Receipt div div {
+		width: 50%;
+	}
+	.Invoice-Receipt div div input,
+	select {
+		width: 65%;
+	}
 </style>
