@@ -1,5 +1,4 @@
 <script lang='ts'>
-	import { blank_object } from "svelte/internal";
 
 </script>
 
@@ -11,7 +10,9 @@
   <link rel="preload" href="https://www.google.com">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
   <meta charset = "UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet">
   <style>
     * {
   margin: 0;
@@ -99,10 +100,6 @@ input:hover {
       font-size: 16px;
       transition: background 0.3s ease;
 }
-p {
-  justify-content: center ;
-  
-}
 p:hover {
 color: powderblue;
 }
@@ -154,11 +151,11 @@ color: powderblue;
       content: center;
     }
     p {
-      font-family: sans-serif;
+      font-family: 'Agbalumo', sans-serif;
+      text-align: center;
       font-size: 22px;
-      color: pink;
+      color: grey;
     }
-
     a {
       color: black;
       text-decoration: none;
@@ -327,8 +324,8 @@ color: powderblue;
   </style>
 </head>
 <body>
-  <p> This is an awesome web page, where users can find the speed of the different website/pages on a click!<br> Especially a motivating and an hands-on experience website for cybersecurity professionals too!! <br>Moreover, very fast paced and perfect results web page!<br> And, please note: Do use https:// or http:// or else website wouldn't work!</p>
   <h3 class='animate-charcter'><i>Web Page Speed Test</i></h3>
+  <p> This is an awesome web page, where users can find the speed of the different website/pages on a click!<br> Especially a motivating and an hands-on experience website for cybersecurity professionals too!! <br>Moreover, very fast paced and perfect results web page!</p>
   <input type="text" placeholder="https://www.ex.com/" id='urlInput'>
   <span id="error" class="error-message"></span>
   <div id='cont'>
@@ -341,8 +338,8 @@ color: powderblue;
    <div class="loading-container" id="loadingContainer">
     <div class="loading-circle"></div>
   </div>
-  <div id="overall-performance" style="display: none;">
-    <p>Overall Performance Score: <span id="overall-score"></span></p>
+  <div class="ip" id="overall-performance" style="display: flex;">
+    <p><span id="overall-score"></span></p>
   </div>
   <img id="screenshot" alt="Website Screenshot">
   
@@ -350,15 +347,17 @@ color: powderblue;
 <script lang='ts'>
 
 async function startSpeedTest() {
-
+  
   // Show the loading circle
   const loadingContainer = document.getElementById('loadingContainer');
   loadingContainer.style.display = 'flex';
   // Perform the speed test and display the results.
   
   // Get the URL from the input field.
-  const url = document.querySelector('input[type="text"]').value;
-   
+  var url = document.querySelector('input[type="text"]').value;
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+			url = 'http://' + url;
+  }
   // Make a request to the PageSpeed Insights API to get the speed test results.
   fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`)
     .then(response => response.json())
@@ -383,7 +382,7 @@ async function startSpeedTest() {
       // Display the speed test results in the results div.
       const speedTestResults = document.querySelector('#speed-test-results');
       speedTestResults.innerHTML = ''; // Clear existing results
-
+      
       // Convert JSON to HTML and append to the results div.
       const htmlResults = convertJSONToHTML(results.lighthouseResult.audits);
       htmlResults.forEach(item => {
