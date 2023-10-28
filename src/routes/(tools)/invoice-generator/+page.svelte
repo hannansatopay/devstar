@@ -418,9 +418,9 @@
 				</div>
 				<br />
 				<div
-					class="box1 block max-w p-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700"
+					class="box1 block max-w p-9 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700"
 				>
-					<form>
+					<!-- <form> -->
 						<label for="invoice_header" />
 						<input type="text" bind:value={invoice} placeholder="Invoice Header" required /><br
 						/><br>
@@ -436,13 +436,14 @@
 						<div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">
 							A logo of your company to be display over invoice.
 						</div>
-					</form>
-					<div class="invoice-container invoice-detail-body py-8">
+					
+					<div class="invoice-container invoice-detail-body py-10">
 						<div class="lg:flex lg:space-x-4">
 							<div class="lg:w-1/2">
-								<h1 class="text-2xl font-bold text-gray-900">From</h1>
-								<br />
 								<form>
+								<h1 class=" text-2xl font-bold text-gray-900">From</h1>
+								<br />
+								
 									<div class="input-with-label">
 										<label for="invoice-company-name" class="dark:text-gray-900 text-xl">Name:</label>
 										<input
@@ -530,9 +531,9 @@
 							</div>
 							<br />
 							<div class="lg:w-1/2">
+								<form>
 								<h1 class="text-2xl font-bold text-gray-900">To</h1>
 								<br />
-								<form>
 									<div class="input-with-label">
 										<label for="client-name" class="dark:text-gray-900 text-xl">Name:</label>
 										<input
@@ -773,7 +774,7 @@
 						<div
 							class="gap-12 items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg lg:grid lg:grid-cols-2"
 						>
-							<div class="p-8 " />
+							<div class="p-3" />
 							
 								<div class="w-1/2 text-gray-700">
 									<div class="flex justify-between p-1 invoice-summary-label text-xl">
