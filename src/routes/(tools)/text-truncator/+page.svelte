@@ -1,13 +1,16 @@
 <script lang="ts">
+
 	import { Button } from 'flowbite-svelte';
 	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
 
 	export let data;
+
 	let text = '';
 	let direction = 'end';
 	let limit = 10;
 	let output = '';
+
 	function updateTruncatedText() {
 		if (limit <= 0) {
 			output = '';
@@ -21,6 +24,7 @@
 			output = text;
 		}
 	}
+
 	function onDirectionChange(event) {
 		direction = event.target.value;
 		updateTruncatedText();
@@ -43,7 +47,7 @@
 
 	function downloadText() {
 		if (output.length > 0) {
-			var filename = 'text-truncator-output.txt';
+			var filename = 'devstar_output.txt';
 			var blob = new Blob([output], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
 
@@ -62,9 +66,10 @@
 		if (output.length > 0) {
 			const doc = new jsPDF();
 			doc.text(output, 20, 20);
-			doc.save('text-truncator-output.pdf');
+			doc.save('devstar_output.pdf');
 		}
 	}
+
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -72,88 +77,57 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<label for="direction" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-				>Truncate from:</label
-			>
-			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-				<select
-					id="direction"
-					bind:value={direction}
-					on:change={onDirectionChange}
-					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-				>
-					<option value="end">End</option>
-					<option value="start">Start</option>
-				</select>
-			</div>
-			<br />
-			<div>
-				<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-					>Number of Characters:</label
-				>
+
+			<div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
+
+				<div>
+					<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+						Number of Characters:
+					</label >
+					<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+						<input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						type="number" bind:value={limit} on:input={updateTruncatedText}/>
+					</div>
+				</div>
+
+				<div>
+					<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+						Truncate from:
+					</label>
+					<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+						<select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						bind:value={direction} on:change={onDirectionChange}>
+							<option value="end">End</option>
+							<option value="start">Start</option>
+						</select>
+					</div>
+				</div>	
+
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<input
-						type="number"
-						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						bind:value={limit}
-						on:input={updateTruncatedText}
-					/>
-				</div>
-			</div>
-
-			<div
-				class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden"
-				id="boxarea"
-			>
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-					<textarea
-						bind:value={text}
-						placeholder="Enter Text"
-						id="textbox"
-						rows="8"
-						class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						on:input={updateTruncatedText}
-					/>
+					<textarea class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					placeholder="Enter Text" rows="8" bind:value={text} on:input={updateTruncatedText}/>
 				</div>
 
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<textarea
-						readonly
-						placeholder="Result"
-						id="textbox"
-						rows="8"
-						class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						bind:value={output}
-					/>
+				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+					<textarea class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					readonly placeholder="Result" rows="8" bind:value={output}/>
 				</div>
+
 			</div>
 
-			<div id="buttonArea">
-				<Button color="blue" on:click={copyText}>Copy</Button>
-				<Button color="blue" on:click={downloadText}>Download as txt</Button>
-				<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
+				<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
+					<Button color="blue" on:click={copyText}>Copy</Button>
+					<Button color="blue" on:click={downloadText}>Download as txt</Button>
+					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+				</div>	
 			</div>
+
 		</div>
 	</div>
 </section>
 
 <style>
-	#textbox {
-		resize: none;
-	}
-
-	#boxarea {
-		margin-top: 20px;
-		gap: 20px;
-	}
-
-	#buttonArea {
-		margin-top: 30px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 30px; /* Adjust the gap between buttons as needed */
-	}
 
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
@@ -162,4 +136,5 @@
 	:is(.dark .card) {
 		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
 	}
+	
 </style>

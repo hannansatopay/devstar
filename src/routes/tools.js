@@ -283,10 +283,10 @@ export let tools = {
         description: 
 		"Refine your content effortlessly with our Strip HTML Tags Tool. Input any text containing HTML markup, and watch as it instantly removes all HTML tags, leaving you with clean, readable text. Perfect for writers, editors, and developers dealing with web content, ensuring seamless integration across various platforms. Say goodbye to cluttered code and hello to polished, tag-free content. Streamline your text processing tasks, enhancing readability and user experience. Start stripping HTML tags with ease, transforming your content into its purest, most accessible form."
 	},
-	'string-extraction': {
+	'substring-extractor': {
 		name: 'Substring Extractor',
 		icon: 'code',
-		link: '/string-extraction',
+		link: '/substring-extractor',
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
