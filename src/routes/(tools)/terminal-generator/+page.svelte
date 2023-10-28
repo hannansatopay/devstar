@@ -38,8 +38,11 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<DropdownItem>Consolas</DropdownItem>
-							<DropdownDivider />
+							<Dropdown>
+								<DropdownItem>Consolas</DropdownItem>
+								<DropdownDivider />
+								<DropdownItem>Dropdown 2</DropdownItem>
+							  </Dropdown>
 
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
@@ -436,23 +439,6 @@
 		z-index: 2;
 	}
 
-	body {
-    	font-family: Arial, sans-serif; /* Default font family */
-	}
-
-	/* Apply the custom fonts to the components using a class */
-	.custom-font {
-		font-family: 'CustomBodyFont', sans-serif;
-	}
-
-	/* Define specific fonts for the DropdownItem and DropdownDivider components */
-	.custom-font DropdownItem {
-		font-family: 'Roboto', sans-serif;
-	}
-
-	.custom-font DropdownDivider {
-		font-family: 'Open Sans', sans-serif;
-	}
 
 	.theme-selector {
 		margin: 10px;
