@@ -39,82 +39,46 @@
 							  <Search size="md" />
 							</div>
 							<div class="container">
-								<label>
-									<input type="radio" name="theme" value="light" checked>
-									Light Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="dark">
-									Dark Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="dracula">
-									Dracula Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Solarized">
-									Solarized Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Solarized">
-									Solarized Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="One Dark Pro">
-									One Dark Pro Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Monokai">
-									Monokai Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Nord">
-									Nord Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Material Theme">
-									Material Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Night Owl">
-									Night Owl Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Ayu Mirage">
-									Ayu Mirage Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Palenight">
-									Palenight Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Duotone Dark">
-									Duotone Dark Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Cobalt2">
-									Cobalt2 Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Oceanic Next">
-									Oceanic Next Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Shades of Purple">
-									Shades of Purple Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Nord">
-									Nord Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Gruvbox">
-									Gruvbox Theme
-								</label>
-								<label>
-									<input type="radio" name="theme" value="Tokyo Night">
-									Tokyo Night Theme
-								</label>
+								<div id="container">
+								</div>
+								<input type="radio" name="theme" id="light" checked>
+								<label for="light">Light Theme</label>
+								<input type="radio" name="theme" id="dark">
+								<label for="dark">Dark Theme</label>
+								<input type="radio" name="theme" id="dracula" checked>
+								<label for="light">Dracula Theme</label>
+								<input type="radio" name="theme" id="solarized" checked>
+								<label for="light">Solarized Theme</label>
+								<input type="radio" name="theme" id="One Dark Pro" checked>
+								<label for="One Dark Pro">One Dark Pro Theme</label>
+								<input type="radio" name="theme" id="Monokai" checked>
+								<label for="Monokai">Monokai Theme</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Nord Theme</label>
+								<input type="radio" name="theme" id="Material Theme" checked>
+								<label for="light">Material Theme</label>
+								<input type="radio" name="theme" id="Night Owl" checked>
+								<label for="Night Owl">Night Owl Theme</label>
+								<input type="radio" name="theme" id="Ayu Mirage" checked>
+								<label for="Ayu Mirage">Ayu Mirage Theme</label>
+								<input type="radio" name="theme" id="Palenight" checked>
+								<label for="Palenight">Palenight Theme</label>
+								<input type="radio" name="theme" id="Duotone Dark" checked>
+								<label for="Duotone Dark">Duotone Dark Theme</label>
+								<input type="radio" name="theme" id="Cobalt2" checked>
+								<label for="Cobalt2">Cobalt2 Theme</label>
+								<input type="radio" name="theme" id="Oceanic Next" checked>
+								<label for="Oceanic Next">Oceanic Next Theme</label>
+								<input type="radio" name="theme" id="Shades of Purple" checked>
+								<label for="Shades of Purple">Shades of Purple Theme</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Shades of Purple Theme</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Shades of Purple">Shades of Purple Theme</label>
+								<input type="radio" name="theme" id="Gruvbox" checked>
+								<label for="Gruvbox">Gruvbox Theme</label>
+								<input type="radio" name="theme" id="Tokyo Night" checked>
+								<label for="Tokyo Night">Tokyo Night Theme</label>
 							</div>
 						
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
@@ -512,67 +476,47 @@
 		z-index: 2;
 	}
 
-	:root {
-            --background-color-light: #f4f4f4;
-            --background-color-dark: #333;
-            --text-color-light: #333;
-            --text-color-dark: #f4f4f4;
-            --dracula-background: #282a36;
-            --dracula-foreground: #f8f8f2;
-        }
-
-        body {
+	body {
             font-family: Arial, sans-serif;
-            background-color: var(--background-color-light);
-            color: var(--text-color-light);
             transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Dracula Theme */
-        body.dracula {
-            background-color: var(--dracula-background);
-            color: var(--dracula-foreground);
-        }
-
-        .container {
+        #container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
+        /* Light Theme Styles */
+        #light:checked ~ #container {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Dark Theme Styles */
+        #dark:checked ~ #container {
+            background-color: #333;
+            color: #f4f4f4;
         }
 
         input[type="radio"] {
             display: none;
         }
 
-        input[type="radio"] + label {
+        label {
+            display: block;
             cursor: pointer;
+            margin-bottom: 10px;
             padding: 5px 10px;
-            background-color: var(--background-color-light);
-            color: var(--text-color-light);
+            background-color: #ddd;
             border: 1px solid #ccc;
             border-radius: 4px;
-            margin-right: 10px;
         }
 
         input[type="radio"] + label:hover {
-            background-color: #ddd;
+            background-color: #eee;
         }
 
-        input[type="radio"]:checked + label {
-            background-color: var(--background-color-dark);
-            color: var(--text-color-dark);
-        }
-
-        /* Dracula Theme Styles */
-        input[type="radio"].dracula:checked + label {
-            background-color: var(--dracula-background);
-            color: var(--dracula-foreground);
-        }
 
 	.language {
 		display: flex;
