@@ -63,8 +63,8 @@
 	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
-	// let spaceoption = 4;
-	// let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	let spaceoption = 4;
+	let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	function formatXML() {
 		let inputXML = inputTextAreaContent;
@@ -95,6 +95,7 @@
 		}
 	}
 
+	//Validate function for json, html and xml
 	function validateJSON() {
 		try {
 			let inputJSON = inputTextAreaContent;
@@ -102,6 +103,40 @@
 			alert('Valid JSON');
 		} catch (error: any) {
 			alert('Invalid JSON input: ' + error.message);
+		}
+	}
+
+	function validateXML() {
+		try {
+			let inputXML = inputTextAreaContent;
+			const parser = new DOMParser();
+			parser.parseFromString(inputXML, 'text/xml');
+			alert('Valid XML');
+		} catch (error) {
+			alert('Invalid XML input');
+		}
+	}
+
+	function validateHTML() {
+		try {
+			let inputHTML = inputTextAreaContent;
+			const parser = new DOMParser();
+			parser.parseFromString(inputHTML, 'text/html');
+			alert('Valid HTML');
+		} catch (error) {
+			alert('Invalid HTML input');
+		}
+	}
+
+	function validateContent() {
+		if (toolType === 'JSON') {
+			validateJSON();
+		} else if (toolType === 'XML') {
+			validateXML();
+		} else if (toolType === 'HTML') {
+			validateHTML();
+		} else {
+			alert('Validation is only available for JSON, XML, and HTML.');
 		}
 	}
 
@@ -325,57 +360,55 @@
 	}
 
 	function convertXML2JSON() {
-    const inputXML = inputTextAreaContent; 
-    if (!inputXML) {
-        console.error('Input XML is empty.');
-        outputTextAreaContent = '';
-        return;
-    }
+		const inputXML = inputTextAreaContent;
+		if (!inputXML) {
+			console.error('Input XML is empty.');
+			outputTextAreaContent = '';
+			return;
+		}
 
-    const parser = new DOMParser();
-    let xmlDoc;
-    try {
-        xmlDoc = parser.parseFromString(inputXML, 'text/xml');
-    } catch (error) {
-        console.error('Error while parsing XML:', error);
-        outputTextAreaContent = '';
-        return;
-    }
+		const parser = new DOMParser();
+		let xmlDoc;
+		try {
+			xmlDoc = parser.parseFromString(inputXML, 'text/xml');
+		} catch (error) {
+			console.error('Error while parsing XML:', error);
+			outputTextAreaContent = '';
+			return;
+		}
 
-    if (!xmlDoc || !xmlDoc.documentElement) {
-        console.error('Invalid XML format.');
-        outputTextAreaContent = '';
-        return;
-    }
+		if (!xmlDoc || !xmlDoc.documentElement) {
+			console.error('Invalid XML format.');
+			outputTextAreaContent = '';
+			return;
+		}
 
-    const result = {};
-    const rootElement = xmlDoc.documentElement;
-    if (rootElement.children.length === 0) {
-        result[rootElement.tagName] = rootElement.textContent.trim();
-    } else {
-        const data = [];
-        const children = rootElement.children;
+		const result = {};
+		const rootElement = xmlDoc.documentElement;
+		if (rootElement.children.length === 0) {
+			result[rootElement.tagName] = rootElement.textContent.trim();
+		} else {
+			const data = [];
+			const children = rootElement.children;
 
-        for (let i = 0; i < children.length; i++) {
-            const child = children[i];
-            const item = {};
-            const subChildren = child.children;
+			for (let i = 0; i < children.length; i++) {
+				const child = children[i];
+				const item = {};
+				const subChildren = child.children;
 
-            for (let j = 0; j < subChildren.length; j++) {
-                const subChild = subChildren[j];
-                item[subChild.tagName] = subChild.textContent.trim();
-            }
+				for (let j = 0; j < subChildren.length; j++) {
+					const subChild = subChildren[j];
+					item[subChild.tagName] = subChild.textContent.trim();
+				}
 
-            data.push(item);
-        }
+				data.push(item);
+			}
 
-        result[rootElement.tagName] = { [children[0].tagName]: data };
-    }
+			result[rootElement.tagName] = { [children[0].tagName]: data };
+		}
 
-    outputTextAreaContent = JSON.stringify(result, null, 4);
-}
-
-
+		outputTextAreaContent = JSON.stringify(result, null, 4);
+	}
 
 	function convertJSON2CSV() {}
 
@@ -669,7 +702,7 @@
 					<button
 						type="button"
 						class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-						on:click={validateJSON}
+						on:click={validateContent}
 					>
 						<CheckSolid size="sm" />
 						<span class="sr-only"
