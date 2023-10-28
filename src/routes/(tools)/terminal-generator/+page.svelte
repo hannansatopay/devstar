@@ -38,9 +38,11 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<DropdownItem>Consolas</DropdownItem>
+							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
 							<DropdownDivider />
-							
+							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
+							<DropdownDivider />
+							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
@@ -393,31 +395,6 @@
 </section>
 
 <style>
-
-
-	@font-face {
-	font-family: 'Roboto';
-	src: url('/fonts/roboto.woff2') format('woff2'),
-		url('/fonts/roboto.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
-
-	@font-face {
-	font-family: 'Open Sans';
-	src: url('/fonts/open-sans.woff2') format('woff2'),
-		url('/fonts/open-sans.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
-
-	@font-face {
-	font-family: 'Lato';
-	src: url('/fonts/lato.woff2') format('woff2'),
-		url('/fonts/lato.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
 	
 	.toolbar-second-row {
 		/* display: flex;
@@ -460,9 +437,6 @@
 		color: white;
 		z-index: 2;
 	}
-
-	.cm-editor.cm-focused { outline: 2px solid cyan }
-	.cm-editor .cm-content { font-family: "Consolas" }
 
 	body {
     	font-family: Arial, sans-serif; /* Default font family */
@@ -977,18 +951,6 @@
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
-
-		.cm-editor {
-            outline: 2px solid transparent;
-        }
-        
-        .cm-editor.cm-focused {
-            outline: 2px solid cyan;
-        }
-        
-        .cm-editor .cm-content {
-            font-family: "Consolas";
-        }
 
 </style>
 
