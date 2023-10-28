@@ -217,6 +217,7 @@
 	</div>
 </section>
 
+<!-- CSS Styling -->
 <style>
 	.canvas-container {
       position: relative;
