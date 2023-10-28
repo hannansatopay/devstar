@@ -38,11 +38,9 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
+							<DropdownItem>Consolas</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
-							<DropdownDivider />
-							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
+							
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
@@ -462,6 +460,9 @@
 		color: white;
 		z-index: 2;
 	}
+
+	.cm-editor.cm-focused { outline: 2px solid cyan }
+	.cm-editor .cm-content { font-family: "Consolas" }
 
 	body {
     	font-family: Arial, sans-serif; /* Default font family */
@@ -976,6 +977,18 @@
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
+
+		.cm-editor {
+            outline: 2px solid transparent;
+        }
+        
+        .cm-editor.cm-focused {
+            outline: 2px solid cyan;
+        }
+        
+        .cm-editor .cm-content {
+            font-family: "Consolas";
+        }
 
 </style>
 
