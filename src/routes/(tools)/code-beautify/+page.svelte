@@ -271,19 +271,58 @@
 	}
 
 	function convert() {
-		if (toolType === 'CONVERT') {
-			if (convertTypeOne === 'CSV') {
-				if (convertTypeTwo === 'JSON') convertCSV2JSON();
-				else if (convertTypeTwo === 'XML') convertCSV2XML();
-			} else if (convertTypeOne === 'XML') {
-				if (convertTypeTwo === 'JSON') convertXML2JSON();
-				else if (convertTypeTwo === 'CSV') convertCSV2XML();
-			} else if (convertTypeOne === 'JSON') {
-				if (convertTypeTwo === 'CSV') convertJSON2CSV();
-				else if (convertTypeTwo === 'XML') convertJSON2XML();
-			}
-		}
-	}
+        if (toolType === 'CONVERT') {
+            if (convertTypeOne === 'CSV') {
+                if (convertTypeTwo === 'JSON') convertCSV2JSON();
+                else if (convertTypeTwo === 'XML') convertCSV2XML();
+            } else if (convertTypeOne === 'XML') {
+                if (convertTypeTwo === 'JSON') convertXML2JSON();
+                else if (convertTypeTwo === 'CSV') convertXML2CSV();
+            } else if (convertTypeOne === 'JSON') {
+                if (convertTypeTwo === 'CSV') convertJSON2CSV();
+                else if (convertTypeTwo === 'XML') convertJSON2XML();
+            }
+        }
+    }
+    function convertXML2CSV() {
+    const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
+    if (!inputXML) {
+        console.error('Input XML is empty.');
+        outputTextAreaContent = '';
+        return;
+    }
+    const parser = new DOMParser();
+    let xmlDoc;
+    try {
+        xmlDoc = parser.parseFromString(inputXML, 'text/xml');
+    } catch (error) {
+        console.error('Error while parsing XML:', error);
+        outputTextAreaContent = '';
+        return;
+    }
+    if (!xmlDoc || !xmlDoc.documentElement) {
+        console.error('Invalid XML format.');
+        outputTextAreaContent = '';
+        return;
+    }
+    const rows = xmlDoc.documentElement.children;
+    if (!rows || rows.length === 0) {
+        console.error('No row elements found in the XML.');
+        outputTextAreaContent = '';
+        return;
+    }
+    const headers = Object.keys(rows[0].children)
+        .map((key) => rows[0].children[key].tagName)
+        .join(',');
+    let csvContent = headers + '\n';
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const values = Object.keys(row.children).map((key) => row.children[key].textContent.trim());
+        const rowContent = values.join(',');
+        csvContent += rowContent + '\n';
+    }
+    outputTextAreaContent = csvContent;
+}
 
 	function convertCSV2JSON() {
 		const inputCSV = inputTextAreaContent;
