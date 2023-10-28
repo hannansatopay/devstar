@@ -460,6 +460,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	body {
@@ -511,6 +512,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 1;
 	}
 
 	#style-editor-button.jsx {
@@ -538,6 +540,7 @@
 		display: -ms-flexbox;
 		display: flex;
 		height: 40px;
+		z-index: 1;
 	}
 	.export-menu {
 		position: relative;
@@ -570,6 +573,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	.export {
@@ -585,6 +589,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	.icon img {
@@ -890,6 +895,7 @@
             display: flex;
             flex-wrap: wrap;
 			height: 200px;
+			z-index: 2;
         }
 
         .color-palette .color-box {
