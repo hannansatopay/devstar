@@ -41,44 +41,46 @@
 							<div class="container">
 								<div id="container">
 								</div>
+								
+								<div class="CodeMirror cm-s-base16-dark CodeMirror-wrap">
 								<input type="radio" name="theme" id="light" checked>
-								<label for="light">Light Theme</label>
+								<label for="light">Light</label>
 								<input type="radio" name="theme" id="dark">
-								<label for="dark">Dark Theme</label>
+								<label for="dark">Dark</label>
 								<input type="radio" name="theme" id="dracula" checked>
-								<label for="light">Dracula Theme</label>
+								<label for="light">Dracula</label>
 								<input type="radio" name="theme" id="solarized" checked>
-								<label for="light">Solarized Theme</label>
+								<label for="light">Solarized</label>
 								<input type="radio" name="theme" id="One Dark Pro" checked>
-								<label for="One Dark Pro">One Dark Pro Theme</label>
+								<label for="One Dark Pro">One Dark Pro</label>
 								<input type="radio" name="theme" id="Monokai" checked>
-								<label for="Monokai">Monokai Theme</label>
+								<label for="Monokai">Monokai</label>
 								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Nord">Nord Theme</label>
+								<label for="Nord">Nord</label>
 								<input type="radio" name="theme" id="Material Theme" checked>
-								<label for="light">Material Theme</label>
+								<label for="light">Material</label>
 								<input type="radio" name="theme" id="Night Owl" checked>
-								<label for="Night Owl">Night Owl Theme</label>
+								<label for="Night Owl">Night Owl</label>
 								<input type="radio" name="theme" id="Ayu Mirage" checked>
-								<label for="Ayu Mirage">Ayu Mirage Theme</label>
+								<label for="Ayu Mirage">Ayu Mirage</label>
 								<input type="radio" name="theme" id="Palenight" checked>
-								<label for="Palenight">Palenight Theme</label>
+								<label for="Palenight">Palenight</label>
 								<input type="radio" name="theme" id="Duotone Dark" checked>
-								<label for="Duotone Dark">Duotone Dark Theme</label>
+								<label for="Duotone Dark">Duotone Dark</label>
 								<input type="radio" name="theme" id="Cobalt2" checked>
-								<label for="Cobalt2">Cobalt2 Theme</label>
+								<label for="Cobalt2">Cobalt2</label>
 								<input type="radio" name="theme" id="Oceanic Next" checked>
-								<label for="Oceanic Next">Oceanic Next Theme</label>
+								<label for="Oceanic Next">Oceanic Next</label>
 								<input type="radio" name="theme" id="Shades of Purple" checked>
-								<label for="Shades of Purple">Shades of Purple Theme</label>
+								<label for="Shades of Purple">Shades of Purple</label>
 								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Nord">Shades of Purple Theme</label>
+								<label for="Nord">Shades of Purple</label>
 								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Shades of Purple">Shades of Purple Theme</label>
+								<label for="Nord">Nord</label>
 								<input type="radio" name="theme" id="Gruvbox" checked>
-								<label for="Gruvbox">Gruvbox Theme</label>
+								<label for="Gruvbox">Gruvbox</label>
 								<input type="radio" name="theme" id="Tokyo Night" checked>
-								<label for="Tokyo Night">Tokyo Night Theme</label>
+								<label for="Tokyo Night">Tokyo Night</label>
 							</div>
 						
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
@@ -488,15 +490,15 @@
         }
 
         /* Light Theme Styles */
-        #light:checked ~ #container {
-            background-color: #f4f4f4;
-            color: #333;
+        #light:checked ~ .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
+            background-color: #121212;
+            border: 2px solid white;
         }
 
         /* Dark Theme Styles */
-        #dark:checked ~ #container {
+        #dark:checked ~ .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
             background-color: #333;
-            color: #f4f4f4;
+            border: 2px solid white;
         }
 
         input[type="radio"] {
@@ -515,6 +517,10 @@
 
         input[type="radio"] + label:hover {
             background-color: #eee;
+        }
+
+        .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
+            /* Styles for your code editor container */
         }
 
 
@@ -632,16 +638,13 @@
 	}
 
 	.editor {
-		background-color: #121212;
-		border: white 2px solid;
-		width: 100%;
-		height: 100%;
-		max-width: 800px;
-		margin-top: auto;
-		margin-bottom: auto;
-		margin-left: auto;
-		max-width: auto;
-	}
+            background-color: #121212;
+            border: 2px solid white;
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
 
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
