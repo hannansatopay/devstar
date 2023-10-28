@@ -16,30 +16,21 @@
 	let index = 1;
 	let selectedCell = null;
 	
-	function downloadSheet() {
-		const tableRows = document.querySelectorAll('tbody tr');
+	function downloadSheet(fileExt) {
+		const tableData = document.querySelector("table");
 
-		let row_Data = Array.from(tableRows).map((row) => {
-			const cells = row.querySelectorAll('td');
-			return Array.from(cells).map((cell) => cell.textContent || '');
-		});
+		// creating workbook object
+		const tableWbObj = XLSX.utils.table_to_book(tableData, { sheet: "Sheet 1" });
 
-		const data = row_Data.map((row) => row.join(',')).join('\n');
-		const blob = new Blob([data], { type: 'text/csv' });
-		const url = window.URL.createObjectURL(blob);
-		const a = document.createElement('a');
-		a.href = url;
+		// pushing our table content inside the workbook along with file metadata
+		XLSX.write(tableWbObj, { bookType: fileExt, bookSST: true, type: "base64" });
 
 		// for giving unique name to files
 		var uniqueNum = Math.random().toString(9).substr(2,3);
 		var uniqueStr = Math.random().toString(36).substr(2);
-		a.download = `Spreadsheet_${uniqueNum + uniqueStr}.csv`;
-
-		document.body.appendChild(a);
-		a.click();
-		window.URL.revokeObjectURL(url);
-		document.body.removeChild(a);
-		return;
+		
+		// creating file on user's machine i.e. triggering download
+		XLSX.writeFile(tableWbObj, `Spreadsheet_${uniqueNum + uniqueStr}.` + fileExt);
 	}
 
 	// create logic:
@@ -99,38 +90,15 @@
 	}
 
 	function uploadAddRow() {
-		// This functionality is causing a bug
-		// if (selectedCell) {
-		// const rowIndex = selectedCell.parentNode.rowIndex;
-		// rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
-		// numRows++;
-		// } else {
-
-		// If selectedCell is not set, add a row at the end
 		rowData.push(Array(numCols).fill(''));
 		numRows++;
-		// }
 	}
 
 	function uploadAddColumn() {
-		// This is causing a bug
-		// if (selectedCell) {
-		// const colIndex = selectedCell.cellIndex;
-		// rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
-		// numCols++;
-		// } else {
-
-		// If selectedCell is not set, add a column at the end
 		rowData.forEach(row => row.push(''));
 		numCols++;
-		// }
 	}
 
-	// function selectCell(event) {
-	// 	selectedCell = event.target;
-	// }
-
-	// Functions by Umer:
 	function deleteRow() {
 		if (numRows > 1) 
 			numRows--;
@@ -161,7 +129,10 @@
 		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
-				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownItem class="flex justify-center items-center">Download Sheet<ChevronRight /></DropdownItem>
+				<Dropdown placement="right-start">
+					<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>.CSV</b></DropdownItem>
+				</Dropdown>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>

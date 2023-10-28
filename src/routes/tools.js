@@ -115,15 +115,13 @@ export let tools = {
 		name: 'Random Data Generator (βeta)',
 		icon: 'files', // Pending Icon Update
 		link: '/random-data-generator',
-		description:
-			'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+		description:'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
 	},
 	'file-converter': {
 		name: 'File Converter',
 		icon: 'files',
 		link: '/file-converter',
-		description:
-			'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
+		description:'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
 	  },
     'neumorphism-generator': {
         name: 'Neumorphism Generator',
