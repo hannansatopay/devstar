@@ -202,14 +202,16 @@
               background-position: 0% 50%;
             }
           }
-
         `;
+
+		js='//None';
+		
 		} else if (gradientType === 'angular') {
 			css = `
 				.living-background {
 					position: fixed;
 					height: 100vh;
-					widht: 100vw;
+					width: 100vw;
 					z-index: -1;
 					--angle: 0deg;
             		background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});
@@ -224,7 +226,7 @@
 					angle += 1;
 					angle %= 360;
 				` +
-				'livingBackground.style.setProperty(var(--angle), `${angle}deg`);' +
+				'livingBackground.style.setProperty("--angle", `${angle}deg`);' +
 				`
 					requestAnimationFrame(animateAngle);
 				};
@@ -235,12 +237,12 @@
 			.living-background {
 					position: fixed;
 					height: 100vh;
-					widht: 100vw;
+					width: 100vw;
 					z-index: -1;
 					--zoom: 0%;
             		background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
 									', '
-								)};
+								)});
 					background-size: 100% 100%;
     		}`;
 
@@ -270,18 +272,10 @@
 	}
 
 	// Output Tabs Logic
-
 	let outputTab = 'CSS';
 
 	const displayTab = (tab) => {
 		outputTab = tab;
-		console.log(tab);
-	};
-
-	// Function to copy the CSS code to the clipboard
-	const copyFunction = () => {
-		navigator.clipboard.writeText(css);
-		alert('Copied the styles');
 	};
 </script>
 
@@ -432,15 +426,17 @@
 			<pre class="whitespace-pre-line p-4">
 				{#if outputTab === 'HTML'}
 					{html}
-				{/if}
-				{#if outputTab === 'CSS'}
+					<Copy text={html} />
+					{/if}
+					{#if outputTab === 'CSS'}
 					{css}
-				{/if}
-				{#if outputTab === 'JS'}
+					<Copy text={css} />
+					{/if}
+					{#if outputTab === 'JS'}
 					{js}
+					<Copy text={js} />
 				{/if}
 			</pre>
-			<Copy text={css} on:click={copyFunction} />
 		</div>
 	</div>
 </section>
