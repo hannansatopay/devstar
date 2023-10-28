@@ -87,7 +87,7 @@
 		try {
 			let inputJSON = inputTextAreaContent;
 			let parsedJSON = JSON.parse(inputJSON);
-			let formattedJSON = JSON.stringify(parsedJSON, null, 4);
+			let formattedJSON = JSON.stringify(parsedJSON, null, spaceoption);
 			outputTextAreaContent = formattedJSON;
 		} catch (error) {
 			let formattedJSON = 'Invalid JSON';
@@ -204,6 +204,15 @@
 		inputTextAreaContent = samplejson;
 	}
 
+	function sampleCSV() {
+		let samplecsv =
+			'phone,os,price,storage\n' +
+			'iPhone 15 Pro Max,IOS,$1299,256GB\n' +
+			'Pixel 8 Pro,Android,$899,256GB\n' +
+			'Samsung 23 Ultra,Android,$1199,256GB';
+		inputTextAreaContent = samplecsv;
+	}
+
 	function findLineColumnIndex(event: any) {
 		const textAreaType = event.target.getAttribute('data-text-area-type');
 
@@ -303,61 +312,63 @@
 		else if (toolType === 'JSON') sampleJSON();
 		else if (toolType === 'HTML') sampleHTML();
 		else if (convertTypeOne == 'JSON') sampleJSON();
+		else if (convertTypeOne == 'XML') sampleXML();
+		else if (convertTypeOne == 'CSV') sampleCSV();
 	}
 
 	function convert() {
-        if (toolType === 'CONVERT') {
-            if (convertTypeOne === 'CSV') {
-                if (convertTypeTwo === 'JSON') convertCSV2JSON();
-                else if (convertTypeTwo === 'XML') convertCSV2XML();
-            } else if (convertTypeOne === 'XML') {
-                if (convertTypeTwo === 'JSON') convertXML2JSON();
-                else if (convertTypeTwo === 'CSV') convertXML2CSV();
-            } else if (convertTypeOne === 'JSON') {
-                if (convertTypeTwo === 'CSV') convertJSON2CSV();
-                else if (convertTypeTwo === 'XML') convertJSON2XML();
-            }
-        }
-    }
-    function convertXML2CSV() {
-    const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
-    if (!inputXML) {
-        console.error('Input XML is empty.');
-        outputTextAreaContent = '';
-        return;
-    }
-    const parser = new DOMParser();
-    let xmlDoc;
-    try {
-        xmlDoc = parser.parseFromString(inputXML, 'text/xml');
-    } catch (error) {
-        console.error('Error while parsing XML:', error);
-        outputTextAreaContent = '';
-        return;
-    }
-    if (!xmlDoc || !xmlDoc.documentElement) {
-        console.error('Invalid XML format.');
-        outputTextAreaContent = '';
-        return;
-    }
-    const rows = xmlDoc.documentElement.children;
-    if (!rows || rows.length === 0) {
-        console.error('No row elements found in the XML.');
-        outputTextAreaContent = '';
-        return;
-    }
-    const headers = Object.keys(rows[0].children)
-        .map((key) => rows[0].children[key].tagName)
-        .join(',');
-    let csvContent = headers + '\n';
-    for (let i = 0; i < rows.length; i++) {
-        const row = rows[i];
-        const values = Object.keys(row.children).map((key) => row.children[key].textContent.trim());
-        const rowContent = values.join(',');
-        csvContent += rowContent + '\n';
-    }
-    outputTextAreaContent = csvContent;
-}
+		if (toolType === 'CONVERT') {
+			if (convertTypeOne === 'CSV') {
+				if (convertTypeTwo === 'JSON') convertCSV2JSON();
+				else if (convertTypeTwo === 'XML') convertCSV2XML();
+			} else if (convertTypeOne === 'XML') {
+				if (convertTypeTwo === 'JSON') convertXML2JSON();
+				else if (convertTypeTwo === 'CSV') convertXML2CSV();
+			} else if (convertTypeOne === 'JSON') {
+				if (convertTypeTwo === 'CSV') convertJSON2CSV();
+				else if (convertTypeTwo === 'XML') convertJSON2XML();
+			}
+		}
+	}
+	function convertXML2CSV() {
+		const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
+		if (!inputXML) {
+			console.error('Input XML is empty.');
+			outputTextAreaContent = '';
+			return;
+		}
+		const parser = new DOMParser();
+		let xmlDoc;
+		try {
+			xmlDoc = parser.parseFromString(inputXML, 'text/xml');
+		} catch (error) {
+			console.error('Error while parsing XML:', error);
+			outputTextAreaContent = '';
+			return;
+		}
+		if (!xmlDoc || !xmlDoc.documentElement) {
+			console.error('Invalid XML format.');
+			outputTextAreaContent = '';
+			return;
+		}
+		const rows = xmlDoc.documentElement.children;
+		if (!rows || rows.length === 0) {
+			console.error('No row elements found in the XML.');
+			outputTextAreaContent = '';
+			return;
+		}
+		const headers = Object.keys(rows[0].children)
+			.map((key) => rows[0].children[key].tagName)
+			.join(',');
+		let csvContent = headers + '\n';
+		for (let i = 0; i < rows.length; i++) {
+			const row = rows[i];
+			const values = Object.keys(row.children).map((key) => row.children[key].textContent.trim());
+			const rowContent = values.join(',');
+			csvContent += rowContent + '\n';
+		}
+		outputTextAreaContent = csvContent;
+	}
 
 	function convertCSV2JSON() {
 		const inputCSV = inputTextAreaContent;
@@ -377,7 +388,7 @@
 			jsonArray.push(jsonObject);
 		}
 
-		outputTextAreaContent = JSON.stringify(jsonArray, null, 4);
+		outputTextAreaContent = JSON.stringify(jsonArray, null, spaceoption);
 	}
 
 	function convertCSV2XML() {
@@ -446,10 +457,58 @@
 			result[rootElement.tagName] = { [children[0].tagName]: data };
 		}
 
-		outputTextAreaContent = JSON.stringify(result, null, 4);
+		outputTextAreaContent = JSON.stringify(result, null, spaceoption);
 	}
 
-	function convertJSON2CSV() {}
+	function flattenJSON(jsonObj, prefix = '') {
+		let flat = {};
+		for (const key in jsonObj) {
+			if (typeof jsonObj[key] === 'object') {
+				if (Array.isArray(jsonObj[key])) {
+					jsonObj[key].forEach((item, index) => {
+						const nested = flattenJSON(item, prefix + key + index + '.');
+						flat = { ...flat, ...nested };
+					});
+				} else {
+					const nested = flattenJSON(jsonObj[key], prefix + key + '.');
+					flat = { ...flat, ...nested };
+				}
+			} else {
+				flat[prefix + key] = jsonObj[key];
+			}
+		}
+		return flat;
+	}
+
+	function convertJSON2CSV() {
+		const jsonInput = inputTextAreaContent;
+		let jsonObject;
+		try {
+			jsonObject = JSON.parse(jsonInput);
+		} catch (error) {
+			outputTextAreaContent = `Input is empty.`;
+			return;
+		}
+		if (Array.isArray(jsonObject)) {
+			if (jsonObject.length > 0) {
+				const flatData = jsonObject.map((row) => flattenJSON(row));
+				const keys = Object.keys(flatData[0]);
+				const csv = [keys.join(',')]
+					.concat(flatData.map((row) => keys.map((key) => row[key]).join(',')))
+					.join('\n');
+				outputTextAreaContent = csv;
+			} else {
+				outputTextAreaContent = 'Error: The JSON array is empty.';
+			}
+		} else if (typeof jsonObject === 'object') {
+			const flatObject = flattenJSON(jsonObject);
+			const keys = Object.keys(flatObject);
+			const csv = [keys.join(','), keys.map((key) => flatObject[key]).join(',')].join('\n');
+			outputTextAreaContent = csv;
+		} else {
+			outputTextAreaContent = 'Error';
+		}
+	}
 
 	//json to xml
 	function jsonToXml(jsonObject: Record<string, any>): string {
@@ -560,6 +619,12 @@
 	const handleSwitch = () => {
 		[convertTypeOne, convertTypeTwo] = [convertTypeTwo, convertTypeOne];
 	};
+
+	$: {
+		if (toolType && convertTypeOne) {
+			clearContent();
+		}
+	}
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -832,7 +897,7 @@
 						{/if}
 					</Tooltip>
 
-					<!-- <label for="dropdown" class="text-white">Space:</label>
+					<label for="dropdown" class="text-white">Space:</label>
 					<select
 						id="dropdown"
 						class="text-white rounded cursor-pointer dark:bg-gray-700 dark:border-gray-600"
@@ -841,7 +906,7 @@
 						{#each Tabs as option (option)}
 							<option value={option}>{option} Tabs</option>
 						{/each}
-					</select> -->
+					</select>
 				</div>
 			</div>
 			<button
