@@ -316,10 +316,12 @@
 				</div>
 
 				<div class="my-8">
-					<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
-					<br />
-					<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
-					<br />
+					<div class = "row-1">
+					 <button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
+					 <br />
+					 <button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
+					 <br />
+					</div>
 
 					<!-- Add the gradient type buttons -->
 					<div class="m-4 flex justify-center items-center space-x-4">
@@ -490,8 +492,17 @@
 		box-shadow: 0 0 20px rgb(255, 255, 255);
 	}
 
+	.row-1{
+		display:inline-flex;
+	}
+
 	@media only screen and (max-width: 700px) {
 		pre,
+
+		.row-1{
+			display: block;
+		}
+
 		button {
 			font-size: 2vh;
 		}
