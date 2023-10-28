@@ -72,6 +72,7 @@
 					`linear-gradient(${angle}deg, ${clrList.join(', ')})`
 				);
 				output.style.setProperty('background-size', `400% 400%`);
+				output.style.setProperty('animation-duration', `${speed}s`);
 			} else {
 				bgGradient = `background-color: ${clrList};`;
 			}
@@ -80,8 +81,8 @@
 				output.style.setProperty(
 					'background-image',
 					`conic-gradient(from var(--angle), ${clrList.join(', ')}`
-					);
-					
+				);
+
 				output.style.setProperty('background-size', `100% 100%`);
 				let angle = 0;
 
@@ -102,6 +103,8 @@
 					'background-image',
 					`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')}`
 				);
+
+				output.style.setProperty('background-size', `100% 100%`);
 
 				let zoom = 100;
 				let zoomDirection = 1;
@@ -167,7 +170,7 @@
 	$: {
 		if (gradientType === 'linear') {
 			css = `
-          .animated-background {
+          	.animated-background {
             ${bgGradient}
             background-size: 400% 400%;
             animation: gradient ${speed}s ease infinite;
@@ -187,40 +190,62 @@
 
         `;
 		} else if (gradientType === 'angular') {
-			css = `
-          .animated-background {
-            ${bgGradient}
-            animation: gradient ${speed}s ease infinite;
-          }
-  
-          @keyframes gradient {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        `;
+			css =
+				`
+			<b>CSS:</b>
+				.animated-background {
+					--angle: 0deg;
+            		background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});
+					background-size: 100% 100%;
+    			}
+			
+			<b>JS:</b>
+				
+				const output = document.getElementById('output');
+				let angle = 0;
+
+				const animateAngle = () => {
+					angle += 1;
+					angle %= 360;
+				` +
+				'output.style.setProperty(var(--angle), `${angle}deg`);' +
+				`
+					requestAnimationFrame(animateAngle);
+				};
+				
+				requestAnimationFrame(animateAngle);`;
 		} else if (gradientType === 'radial') {
-			css = `
-          .animated-background {
-            ${bgGradient}
-            animation: gradient ${speed}s ease infinite;
-          }
-  
-          @keyframes gradient {
-            0% {
-              transform: scale(1);
-            }
-            50% {
-              transform: scale(1.2);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-        `;
+			css =
+				`
+			<b>CSS:</b>
+			.animated-background {
+					--zoom: 0%;
+            		background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
+									', '
+								)};
+					background-size: 100% 100%;
+    		}
+
+			<b>JS:</b>
+			let zoom = 100;
+				let zoomDirection = 1;
+
+			const animateZoom = () => {
+				if (zoom >= 200) {
+					zoomDirection = -1;
+				} else if (zoom <= 20) {
+					zoomDirection = 1;
+				}
+				zoom += zoomDirection;
+			
+				` +
+			'output.style.setProperty("--zoom", `${zoom}%`);' +
+			`
+			requestAnimationFrame(animateZoom);
+			};
+
+			requestAnimationFrame(animateZoom);
+			`;
 		}
 	}
 
@@ -352,11 +377,7 @@
 				{/if}
 			</div>
 
-			<div
-				class="p-8 h-full flex rounded-lg relative output"
-				bind:this={output}
-				style={bgGradient + gradientSpeed}
-			>
+			<div class="p-8 h-full flex rounded-lg relative output" bind:this={output}>
 				{#if gradientType === 'linear'}
 					<div class="linear" />
 				{/if}
@@ -381,9 +402,9 @@
 </section>
 
 <style>
+	/* Styles for output screen */
 	.output {
 		background-image: linear-gradient(90deg, #000000, #bb2d6f, #fd9d1d, #fcf437);
-		/* background-size: 400% 400%; */
 		animation: gradient 7s ease infinite;
 	}
 
