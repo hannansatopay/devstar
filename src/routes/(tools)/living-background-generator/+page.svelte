@@ -80,8 +80,9 @@
 				output.style.setProperty(
 					'background-image',
 					`conic-gradient(from var(--angle), ${clrList.join(', ')}`
-				);
-
+					);
+					
+				output.style.setProperty('background-size', `100% 100%`);
 				let angle = 0;
 
 				const animateAngle = () => {
@@ -380,6 +381,24 @@
 </section>
 
 <style>
+	.output {
+		background-image: linear-gradient(90deg, #000000, #bb2d6f, #fd9d1d, #fcf437);
+		/* background-size: 400% 400%; */
+		animation: gradient 7s ease infinite;
+	}
+
+	@keyframes gradient {
+		0% {
+			background-position: 0% 50%;
+		}
+		50% {
+			background-position: 100% 50%;
+		}
+		100% {
+			background-position: 0% 50%;
+		}
+	}
+
 	button {
 		background-color: #2f4550;
 		color: #b8dbd9;
