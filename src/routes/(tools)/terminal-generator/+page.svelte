@@ -358,6 +358,9 @@
 						  <label for="copyImageCheckbox" class="dropdown-item" on:click={copyImageToClipboard}>Copy Code Image</label>
 						  <hr class="dropdown-divider">
 						  
+						  <input type="checkbox" id="copyURLCheckbox" class="export-checkbox">
+                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyURLToClipboard}>Copy URL</label>
+                          <hr class="dropdown-divider">
 						  <!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
 					  </div>
@@ -1102,7 +1105,7 @@ const exportToImage = async () => {
   }
 };
 
-// Function to copy the text content to the clipboard
+// Function to copy the text content to the clipboard-SHRISTI
 const copyTextToClipboard = () => {
   const element = document.querySelector('.section');
 
@@ -1123,32 +1126,50 @@ const copyTextToClipboard = () => {
   }
 };
 
-// Function to copy the image to the clipboard
-const copyImageToClipboard = async () => {
-  const element = document.querySelector('.dnd-container') as HTMLElement;
 
-  if (element) {
-    try {
-      const canvas = await html2canvas(element);
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const clipboardItems = [new ClipboardItem({ "image/png": blob })];
-          navigator.clipboard.write(clipboardItems).then(() => {
-            alert('Code image copied to clipboard');
-          }).catch((error) => {
-            console.error('Unable to copy code image: ', error);
-          });
-        } else {
-          console.error('Failed to convert canvas to blob.');
-        }
-      }, 'image/png');
-    } catch (error) {
-      console.error('Failed to copy image to clipboard: ', error);
+
+//shristi 
+  // Function to copy the image to the clipboard-SHRISTI
+  const copyImageToClipboard = async () => {
+    const element = document.querySelector('.dnd-container') as HTMLElement;
+
+    if (element) {
+      try {
+        const canvas = await html2canvas(element);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+            navigator.clipboard.write(clipboardItems).then(() => {
+              alert('Code image copied to clipboard');
+            }).catch((error) => {
+              console.error('Unable to copy code image: ', error);
+            });
+          } else {
+            console.error('Failed to convert canvas to blob.');
+          }
+        }, 'image/png');
+      } catch (error) {
+        console.error('Failed to copy image to clipboard: ', error);
+      }
+    } else {
+      console.error('Element not found.');
     }
-  } else {
-    console.error('Element not found.');
-  }
-};
+  };
+
+//  COPY URL TO CLIPBOARD-SHRISTI
+  const copyURLToClipboard = () => {
+    const currentURL = window.location.href;
+
+    if (currentURL) {
+      navigator.clipboard.writeText(currentURL).then(() => {
+        alert('URL copied to clipboard');
+      }).catch((error) => {
+        console.error('Unable to copy URL: ', error);
+      });
+    } else {
+      console.error('URL not found.');
+    }
+  };
 
 
 
