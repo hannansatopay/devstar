@@ -74,7 +74,8 @@
 				output.style.setProperty('background-size', `400% 400%`);
 				output.style.setProperty('animation-duration', `${speed}s`);
 			} else {
-				bgGradient = `background-color: ${clrList};`;
+				output.style.setProperty('background-image', `none`);
+				output.style.setProperty('background-color', `${clrList}`);
 			}
 		} else if (gradientType === 'angular') {
 			if (clrList.length > 1) {
@@ -95,7 +96,8 @@
 
 				requestAnimationFrame(animateAngle);
 			} else {
-				bgGradient = `background-color: ${clrList};`;
+				output.style.setProperty('background-image', `none`);
+				output.style.setProperty('background-color', `${clrList}`);
 			}
 		} else {
 			if (clrList.length > 1) {
@@ -123,7 +125,8 @@
 
 				requestAnimationFrame(animateZoom);
 			} else {
-				bgGradient = `background-color: ${clrList};`;
+				output.style.setProperty('background-image', `none`);
+				output.style.setProperty('background-color', `${clrList}`);
 			}
 		}
 	}
@@ -167,10 +170,22 @@
 	};
 
 	// Define a reactive variable for the generated CSS code
+
+	let html = `
+		<div class="living-background" id="living-background">
+			<h1>Living Background Generator</h1>
+		</div>`;
+
+	let js = '';
+
 	$: {
 		if (gradientType === 'linear') {
 			css = `
-          	.animated-background {
+          	.living-background {
+			position: fixed;
+			height: 100vh;
+			widht: 100vw;
+			z-index: -1;
             ${bgGradient}
             background-size: 400% 400%;
             animation: gradient ${speed}s ease infinite;
@@ -190,45 +205,50 @@
 
         `;
 		} else if (gradientType === 'angular') {
-			css =
-				`
-			<b>CSS:</b>
-				.animated-background {
+			css = `
+				.living-background {
+					position: fixed;
+					height: 100vh;
+					widht: 100vw;
+					z-index: -1;
 					--angle: 0deg;
             		background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});
 					background-size: 100% 100%;
-    			}
-			
-			<b>JS:</b>
-				
-				const output = document.getElementById('output');
+    			}`;
+
+			js =
+				`const livingBackground = document.getElementById('living-background');
 				let angle = 0;
 
 				const animateAngle = () => {
 					angle += 1;
 					angle %= 360;
 				` +
-				'output.style.setProperty(var(--angle), `${angle}deg`);' +
+				'livingBackground.style.setProperty(var(--angle), `${angle}deg`);' +
 				`
 					requestAnimationFrame(animateAngle);
 				};
 				
 				requestAnimationFrame(animateAngle);`;
 		} else if (gradientType === 'radial') {
-			css =
-				`
-			<b>CSS:</b>
-			.animated-background {
+			css = `
+			.living-background {
+					position: fixed;
+					height: 100vh;
+					widht: 100vw;
+					z-index: -1;
 					--zoom: 0%;
             		background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
 									', '
 								)};
 					background-size: 100% 100%;
-    		}
+    		}`;
 
-			<b>JS:</b>
-			let zoom = 100;
-				let zoomDirection = 1;
+			js =
+			`let zoom = 100;
+			let zoomDirection = 1;
+
+			const livingBackground = document.getElementById('living-background');
 
 			const animateZoom = () => {
 				if (zoom >= 200) {
@@ -239,8 +259,8 @@
 				zoom += zoomDirection;
 			
 				` +
-			'output.style.setProperty("--zoom", `${zoom}%`);' +
-			`
+				'livingBackground.style.setProperty("--zoom", `${zoom}%`);' +
+				`
 			requestAnimationFrame(animateZoom);
 			};
 
@@ -248,6 +268,15 @@
 			`;
 		}
 	}
+
+	// Output Tabs Logic
+
+	let outputTab = 'CSS';
+
+	const displayTab = (tab) => {
+		outputTab = tab;
+		console.log(tab);
+	};
 
 	// Function to copy the CSS code to the clipboard
 	const copyFunction = () => {
@@ -397,7 +426,22 @@
 		<div
 			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
 		>
-			<pre class="whitespace-pre-line p-4">{@html css}</pre>
+			<div class="tab-buttons">
+				<button on:click={() => displayTab('HTML')}>HTML</button>
+				<button on:click={() => displayTab('CSS')}>CSS</button>
+				<button on:click={() => displayTab('JS')}>JS</button>
+			</div>
+			<pre class="whitespace-pre-line p-4">
+				{#if outputTab === 'HTML'}
+					{html}
+				{/if}
+				{#if outputTab === 'CSS'}
+					{css}
+				{/if}
+				{#if outputTab === 'JS'}
+					{js}
+				{/if}
+			</pre>
 			<Copy text={css} on:click={copyFunction} />
 		</div>
 	</div>
@@ -506,5 +550,20 @@
 		button {
 			font-size: 2vh;
 		}
+	}
+
+	.tab-buttons {
+		/* position: absolute;
+		top: 0;
+		left: 0; */
+
+		padding: 0.4rem;
+	}
+
+	.tab-buttons button {
+		padding: 0.2rem;
+		border-radius: 0.2rem;
+		font-weight: bold;
+		border: 1px solid black;
 	}
 </style>
