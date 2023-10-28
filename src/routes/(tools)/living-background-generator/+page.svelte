@@ -204,8 +204,7 @@
           }
         `;
 
-		js='//None';
-		
+			js = '//None';
 		} else if (gradientType === 'angular') {
 			css = `
 				.living-background {
@@ -247,7 +246,7 @@
     		}`;
 
 			js =
-			`let zoom = 100;
+				`let zoom = 100;
 			let zoomDirection = 1;
 
 			const livingBackground = document.getElementById('living-background');
@@ -289,7 +288,6 @@
 		class="color-div py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-12 items-center content-center"
 	>
 		<!-- The color div part -->
-
 		<div
 			class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 2xl:grid-cols-14 gap-2 justify-center items-center"
 		>
@@ -339,11 +337,13 @@
 				</div>
 
 				<div class="my-8">
-					<div class = "row-1">
-					 <button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
-					 <br />
-					 <button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}> Random Colors </button>
-					 <br />
+					<div class="row-1">
+						<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
+						<br />
+						<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}>
+							Random Colors
+						</button>
+						<br />
 					</div>
 
 					<!-- Add the gradient type buttons -->
@@ -429,11 +429,11 @@
 				{#if outputTab === 'HTML'}
 					{html}
 					<Copy text={html} />
-					{/if}
+				{/if}
 					{#if outputTab === 'CSS'}
 					{css}
 					<Copy text={css} />
-					{/if}
+				{/if}
 					{#if outputTab === 'JS'}
 					{js}
 					<Copy text={js} />
@@ -532,27 +532,23 @@
 		box-shadow: 0 0 20px rgb(255, 255, 255);
 	}
 
-	.row-1{
-		display:inline-flex;
+	.row-1 {
+		display: inline-flex;
 	}
 
 	@media only screen and (max-width: 700px) {
 		pre,
-
-		.row-1{
+		.row-1 {
 			display: block;
 		}
 
+		pre,
 		button {
-			font-size: 2vh;
+			font-size: 2.2vh;
 		}
 	}
 
 	.tab-buttons {
-		/* position: absolute;
-		top: 0;
-		left: 0; */
-
 		padding: 0.4rem;
 	}
 
