@@ -38,11 +38,9 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
+							<DropdownItem>Consolas</DropdownItem>
 							<DropdownDivider />
-							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
-							<DropdownDivider />
-							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
+
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
