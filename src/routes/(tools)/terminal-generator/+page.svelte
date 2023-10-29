@@ -380,10 +380,10 @@
 			<!-- Terminal Area (or the Code Area) -->
 
 			<div class="terminal relative rounded-md div-white">
-    <div class="dnd-container">
+    <div class="dnd-container div-violet">
         <div class="section">
             <div class="export-container">
-                <div class="container">
+                <div class="container div-green">
                     <div class="react-codemirror2 CodeMirror__container window-theme__none">
                         <div class="CodeMirror cm-s-base16-dark CodeMirror-wrap" translate="no">
                             <div class="CodeMirror-scrollbar-filler"></div>
@@ -769,6 +769,7 @@
 		z-index: 6;
 		display: none;
 		outline: 0;
+		height: 700px;
 	}
 
 	.CodeMirror-gutter-filler,
