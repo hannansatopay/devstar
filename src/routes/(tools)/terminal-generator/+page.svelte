@@ -332,29 +332,39 @@
 							<img src="/Texttospeech.png" alt="Your  Description" />
 						</Button>
 					</div> -->
-						<div class="export ml-auto">
-							<span>Export</span>
-							<span class="ml-auto" />
-							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">Code</label>
-								<hr class="dropdown-divider">
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">1 mb</label>
-								<hr class="dropdown-divider">
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">Export</label>
-								<hr class="dropdown-divider">
-								
-								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-							</Dropdown>
-							</Dropdown>
-							</Dropdown>
-						</div>
+					<div class="export ml-auto export-container">
+						<span>Export</span>
+						<span class="ml-auto"></span>
+						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+					  
+						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+						  <!-- <input type="checkbox" id="exportCheckbox" class="export-checkbox">
+						  <label for="exportCheckbox" class="dropdown-item">Code</label>
+						  <hr class="dropdown-divider"> -->
+					  
+						  <input type="checkbox" id="exportImageCheckbox" class="export-checkbox">
+						  <label for="exportImageCheckbox" class="dropdown-item" on:click={exportToImage}>Export as Image</label>
+						  <hr class="dropdown-divider">
+					  
+						  <!-- <input type="checkbox" id="exportSVGCheckbox" class="export-checkbox">
+						  <label for="exportSVGCheckbox" class="dropdown-item" on:click={exportToSVG}>Export as SVG</label>
+						  <hr class="dropdown-divider"> -->
+					  
+						  <input type="checkbox" id="copyTextCheckbox" class="export-checkbox">
+						  <label for="copyTextCheckbox" class="dropdown-item" on:click={copyTextToClipboard}>Copy Code Text</label>
+						  <hr class="dropdown-divider">
+					  
+						  <input type="checkbox" id="copyImageCheckbox" class="export-checkbox">
+						  <label for="copyImageCheckbox" class="dropdown-item" on:click={copyImageToClipboard}>Copy Code Image</label>
+						  <hr class="dropdown-divider">
+						  
+						  <input type="checkbox" id="copyURLCheckbox" class="export-checkbox">
+                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyURLToClipboard}>Copy URL</label>
+                          <hr class="dropdown-divider">
+						  <!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+						</Dropdown>
+					  </div>
+					  
 					</div>
 				</div>
 			</div>
@@ -1033,6 +1043,7 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { oneDark } from '@codemirror/theme-one-dark';
+	
 
 	export let data;
 
@@ -1069,5 +1080,97 @@
 	// 		}
 	// 	}
 	// }
+
+	
+// shristi
+	import html2canvas from 'html2canvas';
+
+// Function to export the content as an image
+const exportToImage = async () => {
+  const element = document.querySelector('.section') as HTMLElement;
+
+  if (element) {
+    try {
+      const canvas = await html2canvas(element);
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'code.png';
+      link.click();
+    } catch (error) {
+      console.error('Failed to export as image: ', error);
+    }
+  } else {
+    console.error('Element not found.');
+  }
+};
+
+// Function to copy the text content to the clipboard-SHRISTI
+// const copyTextToClipboard = () => {
+//   const element = document.querySelector('.section');
+
+//   if (element) {
+//     const text = element.textContent;
+
+//     if (text !== null && text.trim() !== '') {
+//       navigator.clipboard.writeText(text).then(() => {
+//         alert('Code copied to clipboard');
+//       }).catch((error) => {
+//         console.error('Unable to copy code: ', error);
+//       });
+//     } else {
+//       console.error('Element text is empty.');
+//     }
+//   } else {
+//     console.error('Element not found.');
+//   }
+// };
+
+
+
+//shristi 
+  // Function to copy the image to the clipboard-SHRISTI
+  const copyImageToClipboard = async () => {
+    const element = document.querySelector('.dnd-container') as HTMLElement;
+
+    if (element) {
+      try {
+        const canvas = await html2canvas(element);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+            navigator.clipboard.write(clipboardItems).then(() => {
+              alert('Code image copied to clipboard');
+            }).catch((error) => {
+              console.error('Unable to copy code image: ', error);
+            });
+          } else {
+            console.error('Failed to convert canvas to blob.');
+          }
+        }, 'image/png');
+      } catch (error) {
+        console.error('Failed to copy image to clipboard: ', error);
+      }
+    } else {
+      console.error('Element not found.');
+    }
+  };
+
+//  COPY URL TO CLIPBOARD-SHRISTI
+//   const copyURLToClipboard = () => {
+//     const currentURL = window.location.href;
+
+//     if (currentURL) {
+//       navigator.clipboard.writeText(currentURL).then(() => {
+//         alert('URL copied to clipboard');
+//       }).catch((error) => {
+//         console.error('Unable to copy URL: ', error);
+//       });
+//     } else {
+//       console.error('URL not found.');
+//     }
+//   };
+
+
 
 </script>
