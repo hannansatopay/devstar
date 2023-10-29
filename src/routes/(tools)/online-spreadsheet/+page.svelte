@@ -47,11 +47,11 @@
 	function handleFileChange(event) {
 		const file = event.target.files[0];
 		if (file) {
-			parseExcel(file);
+			parseSheet(file);
 		}
   	}
 
-  	function parseExcel(file) {
+  	function parseSheet(file) {
 		const reader = new FileReader();
 
 		reader.onloadend = (e) => {
@@ -174,6 +174,7 @@
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
 				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
