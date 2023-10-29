@@ -80,10 +80,10 @@
 
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
 				<select bind:value={criteria} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-						<option value="alphabetically">Sort Alphabetically</option>
-						<option value="length">Sort by length</option>
-						<option value="reverse">Sort Reverse</option>
-						<option value="random">Sort Random</option>
+					<option value="alphabetically">Sort Alphabetically</option>
+					<option value="length">Sort by length</option>
+					<option value="reverse">Sort Reverse</option>
+					<option value="random">Sort Random</option>
 				</select>
 			</div>
 

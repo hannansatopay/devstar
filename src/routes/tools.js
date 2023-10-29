@@ -192,6 +192,12 @@ export let tools = {
 		description:
 		"Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content."
 	},
+	'morsecode-translator':{
+        name: 'Morse Code Translator',
+        link: '/morsecode-translator',
+        description: 
+		"Unlock the world of Morse code with our Morse Code Translator. Seamlessly convert your text into Morse code and vice versa, bridging the gap between traditional and digital communication. Input your text, and watch as it transforms into the iconic dots and dashes, or input Morse code and witness it translated back into readable text. Ideal for enthusiasts, learners, and communication hobbyists, our translator simplifies Morse code encoding and decoding tasks. Enjoy the thrill of decoding secret messages or encode your own, all with the ease of a few clicks. Dive into the art of Morse code effortlessly with our Morse Code Translator."
+	},
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
 		icon: 'code',
@@ -205,6 +211,12 @@ export let tools = {
 		link: '/palindrome-generator',
 		description:
 		'Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony.'
+	},
+	'punctuation-remover':{
+        name: 'Punctuation Remover',
+        link: '/punctuation-remover',
+        description: 
+		"Simplify your text effortlessly with our Punctuation Remover tool. Say goodbye to commas, periods, quotes, and more, streamlining your content to its purest form. Perfect for data processing, text analysis, or improving readability, our tool swiftly eliminates all punctuation marks, allowing your words to flow seamlessly. Enjoy clean and polished text without the distractions of punctuation, enhancing the clarity of your message. Start refining your content with our Punctuation Remover, ensuring your words shine without any interruptions."
 	},
 	'random-line-picker':{
         name: 'Random Line Picker',
@@ -269,6 +281,12 @@ export let tools = {
 		description:
 		"Streamline your data with our Sorting Tool, offering diverse options for efficient organization. Sort text alphabetically for orderly lists, arrange by length for readability, shuffle randomly for variety, or reverse order for a fresh perspective. Simplify your tasks with precision and flexibility."
 	},
+	'string-abbreviator':{
+        name: 'String Abbreviator',
+        link: '/string-abbreviator',
+        description: 
+		"Condense your lengthy text effortlessly with our String Abbreviator. Input your text, and watch as it transforms into a concise and abbreviated version while retaining essential meaning. Perfect for reducing long sentences, titles, or descriptions into shorter, impactful phrases. Ideal for social media posts, headlines, or summaries, our Abbreviator ensures your message remains clear and engaging, even in limited character spaces. Simplify your text without losing substance, enhancing your communication with precision and brevity. Start abbreviating your strings with ease, ensuring your words pack a powerful punch."
+	},
 	'string-length-calculator': {
 		name: 'String Length Calculator',
 		icon: 'code',
@@ -289,6 +307,13 @@ export let tools = {
 		link: '/substring-extractor',
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
+	},
+	'text-analyzer':{
+        name: 'Text Analyzer',
+		icon: 'code',
+        link: '/text-analyzer',
+        description: 
+		"Explore the depths of your text with our Text Analyzer – a comprehensive tool empowering you to dissect and understand your content thoroughly. Dive into detailed analysis, including character count, word count, sentence count, and paragraph count, offering insights into your text's structure. Identify the most common characters and words, unraveling patterns in your content. Delve into character frequency and word frequency, shedding light on the usage of specific elements. Calculate the average word length for precision in your writing style. Estimate reading time, ensuring your content aligns with your audience's attention span. Elevate your text analysis effortlessly, gaining valuable insights with our Text Analyzer, perfect for writers, editors, and content creators aiming for depth and clarity in their work."
 	},
 	'text-editor':{
         name: 'Text Editor',
@@ -470,22 +495,4 @@ export let tools = {
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
     },
-	'punctuation-remover':{
-        name: 'Punctuation Remover',
-        link: '/punctuation-remover',
-        description: 
-		"A punctuation remover tool removes punctuation marks (such as commas, periods, exclamation points, and more) from a given text."
-	},
-	'morsecode-translator':{
-        name: 'MorseCode Translator',
-        link: '/morsecode-translator',
-        description: 
-		"A Morse code translator is a tool or program that converts Morse Code into Text or vice versa, allowing communication through a series of dots and dashes or letters."
-	},
-	'string-abbreviator':{
-        name: 'String Abbreviator',
-        link: '/string-abbreviator',
-        description: 
-		"This tool is a simple text manipulation utility that allows you to abbreviate a given text string. It takes an input text, processes it to generate an abbreviated version, and provides options to copy the abbreviated text to the clipboard or download it as a text file or PDF. Whether you want to create compact acronyms or condense text for concise communication, this tool streamlines the process of text abbreviation while offering convenient options for sharing and storing the result."
-	},
 };
