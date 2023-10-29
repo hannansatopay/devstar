@@ -1469,25 +1469,25 @@ const exportToImage = async () => {
 };
 
 // Function to copy the text content to the clipboard-SHRISTI
-// const copyTextToClipboard = () => {
-//   const element = document.querySelector('.section');
+ const copyTextToClipboard = () => {
+   const element = document.querySelector('.section');
 
-//   if (element) {
-//     const text = element.textContent;
+   if (element) {
+     const text = element.textContent;
 
-//     if (text !== null && text.trim() !== '') {
-//       navigator.clipboard.writeText(text).then(() => {
-//         alert('Code copied to clipboard');
-//       }).catch((error) => {
-//         console.error('Unable to copy code: ', error);
-//       });
-//     } else {
-//       console.error('Element text is empty.');
-//     }
-//   } else {
-//     console.error('Element not found.');
-//   }
-// };
+     if (text !== null && text.trim() !== '') {
+       navigator.clipboard.writeText(text).then(() => {
+         alert('Code copied to clipboard');
+       }).catch((error) => {
+         console.error('Unable to copy code: ', error);
+       });
+     } else {
+    console.error('Element text is empty.');
+     }
+   } else {
+     console.error('Element not found.');
+   }
+ };
 
 
 
@@ -1497,6 +1497,7 @@ const exportToImage = async () => {
     const element = document.querySelector('.dnd-container') as HTMLElement;
 
   const copyImageToClipboard = async () => {
+
     const element = document.querySelector('.dnd-container') as HTMLElement;
 
   const copyUrlToClipboard = async () => {
@@ -1526,19 +1527,19 @@ const exportToImage = async () => {
   };
 
 //  COPY URL TO CLIPBOARD-SHRISTI
-//   const copyURLToClipboard = () => {
-//     const currentURL = window.location.href;
+   const copyURLToClipboard = () => {
+     const currentURL = window.location.href;
 
-//     if (currentURL) {
-//       navigator.clipboard.writeText(currentURL).then(() => {
-//         alert('URL copied to clipboard');
-//       }).catch((error) => {
-//         console.error('Unable to copy URL: ', error);
-//       });
-//     } else {
-//       console.error('URL not found.');
-//     }
-//   };
+     if (currentURL) {
+       navigator.clipboard.writeText(currentURL).then(() => {
+         alert('URL copied to clipboard');
+       }).catch((error) => {
+         console.error('Unable to copy URL: ', error);
+       });
+     } else {
+       console.error('URL not found.');
+     }
+   };
 
 
 
