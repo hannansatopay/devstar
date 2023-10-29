@@ -142,6 +142,8 @@
 	function handleSubmit() {
 		convertToPDF(1);
 	}
+	let logo_image;
+	let Logo_fileinput;
 	async function handleFileChange(event) {
 		selectedImage = event.target.files[0];
 		let reader = new FileReader();
@@ -186,29 +188,31 @@
 			);
 			doc.addImage(URL.createObjectURL(imageBlob), 'JPEG', 150, 40, 40, 40);
 			doc.setFont(undefined, 'bold');
-			doc.text(170, 95, 'INVOICE');
-			doc.text(170, 107, 'DATE');
+			doc.text(174, 95, 'INVOICE');
+			doc.text(180, 107, 'DATE');
 			doc.text(170, 119, 'DUE DATE');
 			doc.text(170, 131, 'BALANCE');
 			doc.setFont(undefined, 'normal');
-			doc.text(170, 100, invoiceNo);
+			doc.text(175, 100, invoiceNo);
 			doc.text(170, 112, currentDate);
 			doc.text(170, 124, dueDate);
-			doc.text(170, 136, '$'+balanceDue.toString());
+			let balen = balanceDue.toString().length;
+			doc.text(210-(balen + 21)-(balen*2), 136, '$'+balanceDue.toString());
 		} else {
 			const imgData =
 				'https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/df/8a/8f/df8a8fab-91e6-7781-529d-bf4ca601b64f/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.jpeg/256x256bb.jpg';
 			// doc.addImage(imgData, 'JPEG', 150, 40, 40, 40);
 			doc.setFont(undefined, 'bold');
-			doc.text(170, 40, 'INVOICE');
-			doc.text(170, 52, 'DATE');
+			doc.text(174, 40, 'INVOICE');
+			doc.text(180, 52, 'DATE');
 			doc.text(170, 64, 'DUE DATE');
 			doc.text(170, 76, 'BALANCE');
 			doc.setFont(undefined, 'normal');
-			doc.text(170, 45, invoiceNo);
+			doc.text(175, 45, invoiceNo);
 			doc.text(170, 57, currentDate);
 			doc.text(170, 69, dueDate);
-			doc.text(170, 81, '$'+balanceDue.toString());
+			let balen = balanceDue.toString().length;
+			doc.text(210-(balen + 21)-(balen*2), 81, '$'+balanceDue.toString());
 		}
 		if (
 			ClientAddress.length != 0 ||
@@ -219,7 +223,7 @@
 			ClientPhone.length != 0
 		) {
 			doc.setLineDashPattern([1, 1], 0);
-			if (y >= 80) doc.line(20, (y += 10), 160, y);
+			if (y >= 80) doc.line(20, (y += 10), 150, y);
 			else doc.line(20, (y += 10), 140, y);
 			doc.setLineDashPattern();
 			doc.text(20, (y += 10), 'BILL TO');
@@ -245,7 +249,7 @@
 		if (y < 80) {
 			y = 80;
 		}
-		if(selectedImage){
+		if(selectedImage && y<136){
 			y = 136;
 		}
 		doc.setTextColor(0, 0, 0);
@@ -503,24 +507,53 @@
 				<div
 					class="box1 block max-w p-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700"
 				>
-					<form class="lg:flex justify-between">
-						<div class="w-1/2 pr-4">
-						  <label for="invoice_header" class="text-xl font-bold">Invoice</label>
-						  <input type="text" bind:value={invoice} placeholder="Invoice Header" required class="mt-1 p-2 block  text-sm text-gray-900 border border-gray-300  focus:outline-none focus:ring focus:ring-indigo-200" />
-						</div><br>
-						<div class="w-1/2">
-						  <label for="logo" class="text-xl font-bold">Logo</label>
-						  <input
-							accept="image/*"
-							on:change={handleFileChange}
-							class="mt-1 block text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-							type="file"
-						  />
-						  <div class="mt-1 text-sm text-gray-500 dark:text-gray-300">
-							A logo of your company to be display over invoice.
-						  </div>
+					<div class="invoice-detail-title content-block">
+						<div class="invoice-title">
+							
+								<label for="invoice_header" />
+								<input type="text" bind:value={invoice} placeholder="Invoice Header" required />
+							
 						</div>
-					  </form>
+						<div class="logo lg:flex justify-between">
+							<div
+								class="chan w-1/2 pr-4"
+								on:click={() => {
+									Logo_fileinput.click();
+								}}
+							/>
+							<input
+								style="display:none"
+								type="file"
+								accept="image/*"
+								on:change={handleFileChange}
+								bind:this={Logo_fileinput}
+							/>
+							{#if selectedImage}
+								<img
+									class="logo_image"
+									src={logo_image}
+									alt=""
+									on:click={() => {
+										Logo_fileinput.click();
+									}}
+								/>
+							{:else}
+								<img
+									class="logo_image"
+									src="logoUpload.png"
+									alt=""
+									on:click={() => {
+										Logo_fileinput.click();
+									}}
+								/>
+							{/if}
+
+							<div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">
+								Click to upload
+							</div>
+						</div>
+					</div>
+
 					<div class="invoice-container invoice-detail-body py-8">
 						<div class="lg:flex lg:space-x-4">
 							<div class="lg:w-1/2">
@@ -825,7 +858,7 @@
 												</td>
 												<td>
 													<p class="flex justify-center text-2xl">
-														₹{inputSet.quantity * inputSet.rate}
+														${inputSet.quantity * inputSet.rate}
 													</p>
 												</td>
 												<td class="text-center">
@@ -871,18 +904,18 @@
 
 							<div class="w-1/2 text-gray-700">
 								<div class="flex justify-between p-1 invoice-summary-label text-xl">
-									Subtotal: <span class="price">₹{subtotal.toFixed(2)}</span>
+									Subtotal: <span class="price">${subtotal.toFixed(2)}</span>
 								</div>
 								<div class="flex justify-between p-1 invoice-summary-label text-xl">
-									Tax: <span class="price">₹{tax.toFixed(2)}</span>
+									Tax: <span class="price">${tax.toFixed(2)}</span>
 								</div>
 								<div class="flex justify-between p-1 invoice-summary-label text-xl">
-									Total: <span class="price">₹{total.toFixed(2)}</span>
+									Total: <span class="price">${total.toFixed(2)}</span>
 								</div>
 								<div
 									class="flex justify-between font-bold text-lg p-1 invoice-summary-label text-xl"
 								>
-									Balance due: <span class="price">₹{balanceDue.toFixed(2)}</span>
+									Balance due: <span class="price">${balanceDue.toFixed(2)}</span>
 								</div>
 							</div>
 						</div>
