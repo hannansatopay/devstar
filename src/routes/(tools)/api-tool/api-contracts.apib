@@ -1,0 +1,100 @@
+FORMAT: 1A
+
+# My Svelte API
+
+This API allows you to perform various requests.
+
+# Group Requests
+
+## Request Management [/request]
+
+### Perform a GET Request [GET]
+
+Perform a GET request to retrieve data from a specified URL.
+
++ Attributes
+    + method: `GET`
+    + url: (string) - The URL to send the GET request to
+
++ Request
+    + Headers
+        + Authorization: `Basic base64_encoded_credentials`
+
++ Response 200 (application/json)
+    + Attributes
+        + responseData: (string) - The response data
+    + Body
+
+            {
+                "data": "Response Data from GET request"
+            }
+
+### Perform a POST Request [POST]
+
+Perform a POST request to send data to a specified URL.
+
++ Attributes
+    + method: `POST`
+    + url: (string) - The URL to send the POST request to
+
++ Request
+    + Headers
+        + Content-Type: application/json
+        + Authorization: `Basic base64_encoded_credentials`
+    + Body
+
+            {
+                "data": "Request Data for POST"
+            }
+
++ Response 201 (application/json)
+    + Attributes
+        + responseData: (string) - The response data
+    + Body
+
+            {
+                "data": "Response Data from POST request"
+            }
+
+### Perform a PUT Request [PUT]
+
+Perform a PUT request to update data at a specified URL.
+
++ Attributes
+    + method: `PUT`
+    + url: (string) - The URL to send the PUT request to
+
++ Request
+    + Headers
+        + Content-Type: application/json
+        + Authorization: `Basic base64_encoded_credentials`
+    + Body
+
+            {
+                "data": "Request Data for PUT"
+            }
+
++ Response 200 (application/json)
+    + Attributes
+        + responseData: (string) - The response data
+    + Body
+
+            {
+                "data": "Response Data from PUT request"
+            }
+
+### Perform a DELETE Request [DELETE]
+
+Perform a DELETE request to remove data from a specified URL.
+
++ Attributes
+    + method: `DELETE`
+    + url: (string) - The URL to send the DELETE request to
+
++ Request
+    + Headers
+        + Authorization: `Basic base64_encoded_credentials`
+
++ Response 204 (application/json)
+    + Attributes
+        + responseData: (string) - The response data
