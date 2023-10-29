@@ -9,15 +9,14 @@
 	let showUploadSection = false;
 	let showCreateSection = false;
 	let fileInput;
-
 	let rowData = [];
 	let numRows = 8;
 	let numCols = 13;
-	let index = 1;
 	let selectedCell = null;
 	
+	// download logic:
 	function downloadSheet(fileExt) {
-		const tableData = document.querySelector("table");
+		const tableData = document.querySelector("tbody");
 
 		// creating workbook object
 		const tableWbObj = XLSX.utils.table_to_book(tableData, { sheet: "Sheet 1" });
@@ -33,6 +32,7 @@
 		XLSX.writeFile(tableWbObj, `Spreadsheet_${uniqueNum + uniqueStr}.` + fileExt);
 	}
 
+
 	// create logic:
 	function createAddRow() {
 		numRows++;
@@ -42,48 +42,35 @@
 		numCols++;
 	};
 
-	function getColumnName(index) {
-		if (index < 26) {
-			// A to Z
-			return String.fromCharCode(65 + index);
-		} else {
-			// After Z, A1, A2, A3...
-			let firstChar = String.fromCharCode(65 + Math.floor(index / 26) - 1);
-			let secondChar = String.fromCharCode(65 + (index % 26));
-			return `${firstChar}${secondChar}`;
-		};
-	};
 
 	// upload logic:
-	
 	function handleFileChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-      parseExcel(file);
-    }
+		const file = event.target.files[0];
+		if (file) {
+			parseExcel(file);
+		}
   	}
 
   	function parseExcel(file) {
 		const reader = new FileReader();
 
 		reader.onloadend = (e) => {
-		const data = new Uint8Array(e.target.result);
-		const workbook = XLSX.read(data, { type: 'array' });
-		const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-		const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+			const data = new Uint8Array(e.target.result);
+			const workbook = XLSX.read(data, { type: 'array' });
+			const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+			const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-		// Set numRows and numCols based on parsed data
-		numRows = jsonData.length;
-		numCols = Math.max(...jsonData.map(row => row.length));
+			// Set numRows and numCols based on parsed data
+			numRows = jsonData.length;
+			numCols = Math.max(...jsonData.map(row => row.length));
 
-		// Initialize rowData with parsed data
-		rowData = jsonData.map(row => {
-			const emptyCells = Array(numCols - row.length).fill('');
-			return row.concat(emptyCells);
-		});
+			// Initialize rowData with parsed data
+			rowData = jsonData.map(row => {
+				const emptyCells = Array(numCols - row.length).fill('');
+				return row.concat(emptyCells);
+			});
 
-		// showUploadSection = true;
-		showUploadSection = !showUploadSection;
+			showUploadSection = !showUploadSection;
 		};
 
 		reader.readAsArrayBuffer(file);
@@ -98,6 +85,20 @@
 		rowData.forEach(row => row.push(''));
 		numCols++;
 	}
+
+	// Common Functions for Upload and Create Sections
+
+	function getColumnName(index) {
+		if (index < 26) {
+			// A to Z
+			return String.fromCharCode(65 + index);
+		} else {
+			// After Z, AA, AB, AC...
+			let firstChar = String.fromCharCode(65 + Math.floor(index / 26) - 1);
+			let secondChar = String.fromCharCode(65 + (index % 26));
+			return `${firstChar}${secondChar}`;
+		};
+	};
 
 	function deleteRow() {
 		if (numRows > 1) 
@@ -114,35 +115,29 @@
 		rowData = Array.from({ length: numRows }, () => Array(numCols).fill(''));
 	});
 </script>
+
 <Intro heading={data.meta.title} description={data.meta.description} />
+
 <section class="bg-white dark:bg-gray-900">
 	{#if !showCreateSection && !showUploadSection}
 		<div class="flex justify-center items-center section-button mt-2 mb-4 mr-4 ml-4"> <!--Two buttons added from flowbite-svelte-->
-			<Button size="xl" outline color="blue" class="mr-2" on:click={()=>{
-				fileInput.click();}}>Upload Your Spreadsheet<br />(.xlsx)</Button>
+			<!-- Upload Button -->
+			<Button size="xl" outline color="blue" class="mr-2 p-6" on:click={()=>{ fileInput.click() }}><b>Upload Your Spreadsheet</b></Button>
 			<input id="sheetuploader" type="file" class="hidden" accept=".xlsx" bind:this={fileInput} on:change={handleFileChange} />
-			<GradientButton size="xl" color="blue" class="ml-2" on:click={()=>{showCreateSection = !showCreateSection}}>Create New Spreadsheet<br />(.csv)</GradientButton>
+
+			<!-- Create Button -->
+			<GradientButton size="xl" color="blue" class="ml-2 p-6" on:click={()=>{showCreateSection = !showCreateSection}}><b>Create New Spreadsheet</b></GradientButton>
 		</div>
 
 	{:else if showUploadSection}
-
 		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
-				<DropdownItem class="flex justify-center items-center">Download Sheet<ChevronRight /></DropdownItem>
-				<Dropdown placement="right-start">
-					<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>.CSV</b></DropdownItem>
-				</Dropdown>
+				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
 				<DropdownDivider />
-				<!-- For Future Implementation if needed-->
-				<!-- 
-				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
-				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
-				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				-->
 				<DropdownItem on:click={uploadAddColumn}>Add Column</DropdownItem>
 				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
@@ -165,7 +160,7 @@
 					<tr>
 					  <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
 					  {#each Array(numCols) as _, colIndex}
-						<td contenteditable="true" class="content" >{rowData[rowIndex][colIndex]}</td>
+						<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
 					  {/each}
 					</tr>
 				  {/each}
@@ -178,17 +173,11 @@
 		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
-				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
 				<DropdownDivider />
-				<!-- For Future Implementation if needed-->
-				<!-- 
-				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
-				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
-				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				-->
 				<DropdownItem on:click={createAddColumn}>Add Column</DropdownItem>
 				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
