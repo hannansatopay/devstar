@@ -134,6 +134,7 @@
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
 				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
