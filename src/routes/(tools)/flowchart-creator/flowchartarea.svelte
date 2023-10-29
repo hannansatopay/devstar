@@ -1,20 +1,22 @@
 <!-- src/routes/FlowchartArea.svelte -->
 <script>
-  import { onMount } from 'svelte';
-  import { selectedTool } from './toolstore'; // Adjust the path to your store file
+  import { onMount, afterUpdate } from 'svelte';
+  import { selectedTool, selectedColor } from './toolstore'; // Adjust the path to your store file
 
+  export let context;
   let canvas;
-  let context;
   let isDrawing = false;
   let textEditing = false;
   let tempText = '';
   let editText = '';
   let shapes = [];
   let startX, startY, endX, endY;
+  let canvasPosition = { top: 0, left: 0 };
 
   onMount(() => {
     canvas = document.querySelector('.drawing-area canvas');
     context = canvas.getContext('2d');
+    updateCanvasPosition(); 
 
     canvas.addEventListener('mousedown', handleMouseDown);
     canvas.addEventListener('mousemove', handleMouseMove);
@@ -31,6 +33,14 @@
       startX = event.clientX - canvas.getBoundingClientRect().left;
       startY = event.clientY - canvas.getBoundingClientRect().top;
     }
+  }
+
+  function updateCanvasPosition() {
+    const canvasRect = canvas.getBoundingClientRect();
+    canvasPosition = {
+      top: canvasRect.top,
+      left: canvasRect.left,
+    };
   }
 
   function handleMouseMove(event) {
@@ -81,28 +91,28 @@
     // Check the selected tool and draw the new shape accordingly
     switch ($selectedTool) {
       case 'rectangle':
-        drawRectangle(startX, startY, endX, endY, 'black');
+        drawRectangle(startX, startY, endX, endY, $selectedColor);
         break;
       case 'square':
-        drawSquare(startX, startY, endX, endY, 'black');
+        drawSquare(startX, startY, endX, endY, $selectedColor);
         break;
       case 'circle':
-        drawCircle(startX, startY, endX, endY, 'black');
+        drawCircle(startX, startY, endX, endY, $selectedColor);
         break;
       case 'triangle':
-        drawTriangle(startX, startY, endX, endY, 'black');
+        drawTriangle(startX, startY, endX, endY, $selectedColor);
         break;
       case 'oval':
-        drawOval(startX, startY, endX, endY, 'black');
+        drawOval(startX, startY, endX, endY, $selectedColor);
         break;
       case 'diamond':
-        drawDiamond(startX, startY, endX, endY, 'black');
+        drawDiamond(startX, startY, endX, endY, $selectedColor);
         break;
       case 'arrow':
-        drawArrow(startX, startY, endX, endY, 'black');
+        drawArrow(startX, startY, endX, endY, $selectedColor);
         break;
       case 'parallelogram':
-        drawParallelogram(startX, startY, endX, endY, 'black');
+        drawParallelogram(startX, startY, endX, endY, $selectedColor);
         break;
       case 'text':
         break;
@@ -148,13 +158,6 @@
     }
   }
 
-  function handleTextBlur() {
-    if (textEditing) {
-      addText(startX, startY, editText);
-      textEditing = false;
-    }
-  }
-
   function drawRectangle(x1, y1, x2, y2, color) {
     context.beginPath();
     context.rect(x1, y1, x2 - x1, y2 - y1);
@@ -164,7 +167,7 @@
   }
   function addRectangle(x1, y1, x2, y2) {
     const rectangleData = {
-      type: 'rectangle',x1,y1,x2,y2,color: 'black',
+      type: 'rectangle',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(rectangleData);
     console.log('Added Rectangle:', rectangleData);
@@ -173,12 +176,11 @@
 
   function addSquare(x1, y1, x2, y2) {
   const squareData = {
-    type: 'square',x1,y1,x2,y2,color: 'black',
+    type: 'square',x1,y1,x2,y2,color: $selectedColor,
   };
   shapes.push(squareData);
   console.log('Added Square:', squareData);
   } 
-
   function drawSquare(x1, y1, x2, y2, color) {
     const sideLength = Math.min(Math.abs(x2 - x1), Math.abs(y2 - y1));
     context.beginPath();
@@ -203,7 +205,7 @@
     const centerY = (y1 + y2) / 2;
     const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) / 2;
     const circleData = {
-      type: 'circle',x1,y1,x2,y2,color: 'black',
+      type: 'circle',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(circleData);
     console.log('Added Circle:', circleData);
@@ -229,7 +231,7 @@
   }
   function addTriangle(x1, y1, x2, y2) {
   const triangleData = {
-    type: 'triangle',x1,y1,x2,y2,color: 'black',
+    type: 'triangle',x1,y1,x2,y2,color: $selectedColor,
   };
   shapes.push(triangleData);
   console.log('Added Triangle:', triangleData);
@@ -251,7 +253,7 @@
   }
   function addOval(x1, y1, x2, y2) {
     const ovalData = {
-      type: 'oval',x1,y1,x2,y2,color: 'black',
+      type: 'oval',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(ovalData);
     console.log('Added Oval:', ovalData);
@@ -263,7 +265,7 @@
     const width = Math.abs(x2 - x1);
     const height = Math.abs(y2 - y1);
     const diamondData = {
-      type: 'diamond',x1,y1,x2,y2,color: 'black',
+      type: 'diamond',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(diamondData);
     console.log('Added Diamond:', diamondData);
@@ -286,7 +288,7 @@
 
   function addArrow(x1, y1, x2, y2) {
     const arrowData = {
-      type: 'arrow',x1,y1,x2,y2,color: 'black',
+      type: 'arrow',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(arrowData);
     console.log('Added Arrow:', arrowData);
@@ -311,36 +313,33 @@
 
   function addParallelogram(x1, y1, x2, y2) {
     const parallelogramData = {
-      type: 'parallelogram',x1,y1,x2,y2,color: 'black',
+      type: 'parallelogram',x1,y1,x2,y2,color: $selectedColor,
     };
     shapes.push(parallelogramData);
     console.log('Added Parallelogram:', parallelogramData);
   }
   function drawParallelogram(x1, y1, x2, y2, color) {
-  context.beginPath();
-  const centerX = (x1 + x2) / 2;
-  const centerY = (y1 + y2) / 2;
-  const width = Math.abs(x2 - x1);
-  const height = Math.abs(y2 - y1);
-  const topX = centerX - width / 2;
-  const topY = centerY - height / 2;
-  const bottomX = centerX + width / 2;
-  const bottomY = centerY + height / 2;
-  const leftTopX = topX - width / 4;
-  const rightTopX = topX + width / 4;
-  
-  context.moveTo(leftTopX, bottomY);
-  context.lineTo(rightTopX, topY);
-  context.lineTo(bottomX, topY);
-  context.lineTo(bottomX - width / 2, bottomY);
-  context.closePath();
-  context.strokeStyle = color;
-  context.lineWidth = 2;
-  context.stroke();
-}
-
-
-
+    context.beginPath();
+    const centerX = (x1 + x2) / 2;
+    const centerY = (y1 + y2) / 2;
+    const width = Math.abs(x2 - x1);
+    const height = Math.abs(y2 - y1);
+    const topX = centerX - width / 2;
+    const topY = centerY - height / 2;
+    const bottomX = centerX + width / 2;
+    const bottomY = centerY + height / 2;
+    const leftTopX = topX - width / 4;
+    const rightTopX = topX + width / 4;
+    
+    context.moveTo(leftTopX, bottomY);
+    context.lineTo(rightTopX, topY);
+    context.lineTo(bottomX, topY);
+    context.lineTo(bottomX - width / 2, bottomY);
+    context.closePath();
+    context.strokeStyle = color;
+    context.lineWidth = 2;
+    context.stroke();
+  }
 
   function addText(x, y, text) {
     const textData = {
@@ -356,10 +355,30 @@
       handleTextBlur();
     }
   }
+  function handleTextBlur() {
+    if (textEditing) {
+      addText(startX, startY, editText);
+      textEditing = false;
+    }
+  }
   function drawText(x, y, text) {
     context.font = '14px Arial';
-    context.fillStyle = 'black';
+    context.fillStyle = $selectedColor;
     context.fillText(text, x, y);
+  }
+  window.addEventListener('export-request', exportCanvas);
+  function exportCanvas() {
+    const url = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'flowchart.png';
+
+    const clickEvent = new MouseEvent('click', {
+      view: window,
+      bubbles: false,
+      cancelable: true,
+    });
+    link.dispatchEvent(clickEvent);
   }
 </script>
 
@@ -371,7 +390,7 @@
   <input
     type="text"
     bind:value={tempText}
-    style="position: absolute; left: {startX}px; top: {startY}px; z-index: 2; outline: none;"
+    style="position: absolute; left: {canvasPosition.left+startX}px; top: {canvasPosition.top+startY}px; z-index: 2; outline: none;"
     on:blur={handleTextBlur}
     on:keydown={handleTextKeyDown}
   />
