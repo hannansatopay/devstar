@@ -9,7 +9,7 @@ export let fileFormats = {
 	},
 	video: {
         name: 'Video Formats',
-		outputFormat: ['3g2', '3gp', 'amv', 'asf', 'avi', 'dvd', 'm4v', 'mov', 'mp4', 'mpeg', 'mpg', 'ogv', 'webm', 'wmv']
+		outputFormat: ['3g2', '3gp', 'amv', 'asf', 'avi', 'dvd', 'm4v','mp3', 'mov', 'mp4', 'mpeg', 'mpg', 'ogv', 'webm', 'wmv']
 	}
 };
 
