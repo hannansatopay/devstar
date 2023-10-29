@@ -1106,19 +1106,19 @@ const exportToImage = async () => {
 };
 
 // Function to copy the text content to the clipboard-SHRISTI
-// const copyTextToClipboard = () => {
-//   const element = document.querySelector('.section');
+ const copyTextToClipboard = () => {
+   const element = document.querySelector('.section');
 
-//   if (element) {
-//     const text = element.textContent;
+   if (element) {
+     const text = element.textContent;
 
-//     if (text !== null && text.trim() !== '') {
-//       navigator.clipboard.writeText(text).then(() => {
-//         alert('Code copied to clipboard');
-//       }).catch((error) => {
-//         console.error('Unable to copy code: ', error);
-//       });
-//     } else {
+     if (text !== null && text.trim() !== '') {
+       navigator.clipboard.writeText(text).then(() => {
+         alert('Code copied to clipboard');
+       }).catch((error) => {
+         console.error('Unable to copy code: ', error);
+       });
+     } else {
 //       console.error('Element text is empty.');
 //     }
 //   } else {
@@ -1130,31 +1130,31 @@ const exportToImage = async () => {
 
 //shristi 
   // Function to copy the image to the clipboard-SHRISTI
-  const copyImageToClipboard = async () => {
-    const element = document.querySelector('.dnd-container') as HTMLElement;
+//   const copyImageToClipboard = async () => {
+//     const element = document.querySelector('.dnd-container') as HTMLElement;
 
-    if (element) {
-      try {
-        const canvas = await html2canvas(element);
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const clipboardItems = [new ClipboardItem({ "image/png": blob })];
-            navigator.clipboard.write(clipboardItems).then(() => {
-              alert('Code image copied to clipboard');
-            }).catch((error) => {
-              console.error('Unable to copy code image: ', error);
-            });
-          } else {
-            console.error('Failed to convert canvas to blob.');
-          }
-        }, 'image/png');
-      } catch (error) {
-        console.error('Failed to copy image to clipboard: ', error);
-      }
-    } else {
-      console.error('Element not found.');
-    }
-  };
+//     if (element) {
+//       try {
+//         const canvas = await html2canvas(element);
+//         canvas.toBlob((blob) => {
+//           if (blob) {
+//             const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+//             navigator.clipboard.write(clipboardItems).then(() => {
+//               alert('Code image copied to clipboard');
+//             }).catch((error) => {
+//               console.error('Unable to copy code image: ', error);
+//             });
+//           } else {
+//             console.error('Failed to convert canvas to blob.');
+//           }
+//         }, 'image/png');
+//       } catch (error) {
+//         console.error('Failed to copy image to clipboard: ', error);
+//       }
+//     } else {
+//       console.error('Element not found.');
+//     }
+//   };
 
 //  COPY URL TO CLIPBOARD-SHRISTI
 //   const copyURLToClipboard = () => {
