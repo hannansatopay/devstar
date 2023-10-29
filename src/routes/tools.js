@@ -1,3 +1,4 @@
+// @ts-nocheck
 export let tools = {
 	'password-generator': {
 		name: 'Password Generator',
@@ -279,6 +280,13 @@ export let tools = {
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
+	'svg-animator': {
+		name: 'SVG Animator',
+		icon: 'code',
+		link: '/svg-animator',
+		description:
+		"SVG Animator is a versatile and user-friendly web-based tool designed for creating captivating and dynamic animations with Scalable Vector Graphics (SVG). This powerful application empowers designers, developers, and creatives to bring life to their web content, logos, icons, and illustrations, making them visually engaging and interactive."
+	},
 	'text-editor':{
         name: 'Text Editor',
 		icon: 'code',
@@ -546,6 +554,15 @@ export let tools = {
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
 
+
+    'svg-animator': {
+        name: 'SVG Animator',
+        icon: 'film-simple',
+        link: '/svg-animator',
+        description: "TSVG Animator is a dynamic and versatile software tool or programming library designed to create captivating animations within Scalable Vector Graphics (SVG) files. SVG is an XML-based vector image format widely used for its scalability and compatibility with web applications, making it an ideal choice for creating interactive, lightweight animations for websites, mobile apps, and more."
+    },
+};
+  
     'Simple Interest': {
         name: 'Simple Interest',
         icon: 'spider-web',
