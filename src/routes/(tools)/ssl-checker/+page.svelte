@@ -138,20 +138,13 @@
 
 <section class="flex flex-col items-center justify-center">
 	<div class="container mx-auto p-2.5 max-w-xl">
-		<h1 class="text-3xl sm:text-4xl font-semibold text-blue-400 mb-12 mt-8">SSL Checker</h1>
+		<h1 class="text-3xl sm:text-4xl font-semibold text-blue-500 mb-12 mt-8 text-center">
+			SSL Checker
+		</h1>
 		<div class="bg-white p-8 rounded-lg shadow-md mb-4">
 			<div class="mb-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-				<input
-					bind:value={hostname}
-					placeholder="Enter Server Hostname"
-					class="p-3 w-full sm:w-2/3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition duration-150"
-				/>
-				<button
-					on:click={handleCheckSSL}
-					class="w-full sm:w-1/3 bg-black text-white font-semibold p-3 rounded-lg hover:bg-gray-800 transition duration-150"
-				>
-					Check SSL
-				</button>
+				<input bind:value={hostname} placeholder="Enter Server Hostname" class="input" />
+				<button on:click={handleCheckSSL} class="button sm:w-1/3">Check SSL</button>
 			</div>
 			{#if error}
 				<div class="text-red-600 mb-6 font-medium">{error}</div>
@@ -173,8 +166,9 @@
 								> days
 							</p>
 							<p class="text-sm">
-								Hostname is correctly listed in the certificate:
-								<span class="font-semibold">{isHostnameListed() ? 'Yes' : 'No'}</span>
+								Hostname is correctly listed in the certificate: <span class="font-semibold"
+									>{isHostnameListed() ? 'Yes' : 'No'}</span
+								>
 							</p>
 						</div>
 					</div>
@@ -185,33 +179,27 @@
 							<Timeline.Item bullet={LockClosed} title={`Chain ${index + 1}`}>
 								<Text color="dimmed" size="sm">
 									{#if chainItem.commonName}
-										<strong>Common Name:</strong>
-										{chainItem.commonName} <br />
+										<strong>Common Name:</strong> {chainItem.commonName} <br />
 									{/if}
 									{#if chainItem.organization}
-										<strong>Organization:</strong>
-										{chainItem.organization} <br />
+										<strong>Organization:</strong> {chainItem.organization} <br />
 									{/if}
 									{#if chainItem.location}
-										<strong>Location:</strong>
-										{chainItem.location} <br />
+										<strong>Location:</strong> {chainItem.location} <br />
 									{/if}
 									{#if chainItem.validFrom && chainItem.validTo}
 										<strong>Valid From:</strong>
-										{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}
-										<br />
+										{formatCertDate(chainItem.validFrom)} to {formatCertDate(chainItem.validTo)}<br
+										/>
 									{/if}
 									{#if chainItem.serialNumber}
-										<strong>Serial Number:</strong>
-										{chainItem.serialNumber} <br />
+										<strong>Serial Number:</strong> {chainItem.serialNumber} <br />
 									{/if}
 									{#if chainItem.signatureAlgorithm}
-										<strong>Signature Algorithm:</strong>
-										{chainItem.signatureAlgorithm} <br />
+										<strong>Signature Algorithm:</strong> {chainItem.signatureAlgorithm} <br />
 									{/if}
 									{#if chainItem.issuer}
-										<strong>Issuer:</strong>
-										{chainItem.issuer}
+										<strong>Issuer:</strong> {chainItem.issuer}
 									{/if}
 								</Text>
 							</Timeline.Item>
@@ -220,5 +208,30 @@
 				</div>
 			{/if}
 		</div>
+		<div class="my-8 bg-white p-8 rounded-lg shadow-md">
+			<h2 class="text-2xl font-semibold mb-4 text-blue-400">Issue a Certificate</h2>
+			<p class="text-gray-700 mb-4">
+				Don't have an SSL certificate or need to renew? Provide the required details below to issue
+				a new one.
+			</p>
+			<button on:click={() => (location.href = 'issue-cert')} class="button"
+				>Create Certificate</button
+			>
+		</div>
 	</div>
 </section>
+
+<style>
+	.button {
+		@apply w-full bg-black text-white font-semibold p-3 rounded-lg transition duration-150;
+	}
+	.button:hover {
+		@apply bg-gray-800;
+	}
+	.input {
+		@apply p-3 w-full border border-gray-300 rounded-lg transition duration-150;
+	}
+	.input:focus {
+		@apply outline-none border-blue-500;
+	}
+</style>
