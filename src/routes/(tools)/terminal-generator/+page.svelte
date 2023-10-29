@@ -41,48 +41,57 @@
 							<div class="container">
 								<div id="container">
 								</div>
-								
-								<div class="CodeMirror cm-s-base16-dark CodeMirror-wrap">
-								<input type="radio" name="theme" id="light" checked>
-								<label for="light">Light</label>
-								<input type="radio" name="theme" id="dark">
-								<label for="dark">Dark</label>
-								<input type="radio" name="theme" id="dracula" checked>
-								<label for="light">Dracula</label>
-								<input type="radio" name="theme" id="solarized" checked>
-								<label for="light">Solarized</label>
-								<input type="radio" name="theme" id="One Dark Pro" checked>
-								<label for="One Dark Pro">One Dark Pro</label>
-								<input type="radio" name="theme" id="Monokai" checked>
-								<label for="Monokai">Monokai</label>
-								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Nord">Nord</label>
-								<input type="radio" name="theme" id="Material Theme" checked>
-								<label for="light">Material</label>
-								<input type="radio" name="theme" id="Night Owl" checked>
-								<label for="Night Owl">Night Owl</label>
-								<input type="radio" name="theme" id="Ayu Mirage" checked>
-								<label for="Ayu Mirage">Ayu Mirage</label>
-								<input type="radio" name="theme" id="Palenight" checked>
-								<label for="Palenight">Palenight</label>
-								<input type="radio" name="theme" id="Duotone Dark" checked>
-								<label for="Duotone Dark">Duotone Dark</label>
-								<input type="radio" name="theme" id="Cobalt2" checked>
-								<label for="Cobalt2">Cobalt2</label>
-								<input type="radio" name="theme" id="Oceanic Next" checked>
-								<label for="Oceanic Next">Oceanic Next</label>
-								<input type="radio" name="theme" id="Shades of Purple" checked>
-								<label for="Shades of Purple">Shades of Purple</label>
-								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Nord">Shades of Purple</label>
-								<input type="radio" name="theme" id="Nord" checked>
-								<label for="Nord">Nord</label>
-								<input type="radio" name="theme" id="Gruvbox" checked>
-								<label for="Gruvbox">Gruvbox</label>
-								<input type="radio" name="theme" id="Tokyo Night" checked>
-								<label for="Tokyo Night">Tokyo Night</label>
-							</div>
-						
+								<div class="div-violet">Violet</div>
+								<div class="div-indigo">Indigo</div>
+								<div class="div-blue">Blue</div>
+								<div class="div-green">Green</div>
+								<div class="div-yellow">Yellow</div>
+								<div class="div-orange">Orange</div>
+								<div class="div-red">Red</div>
+								<div class="div-white">White</div>
+								<div class="div-black">Black</div>
+								<div class="div-gray">Gray</div>
+								<div class="div-brown">Brown</div>
+								<div class="div-pink">Pink</div>
+								<div class="div-purple">Purple</div>
+								<div class="div-cyan">Cyan</div>
+								<div class="div-magenta">Magenta</div>
+								<div class="div-lime">Lime</div>
+								<div class="div-teal">Teal</div>
+								<div class="div-olive">Olive</div>
+								<div class="div-navy">Navy</div>
+								<div class="div-maroon">Maroon</div>
+								<div class="div-aqua">Aqua</div>
+								<div class="div-chartreuse">Chartreuse</div>
+								<div class="div-crimson">Crimson</div>
+								<div class="div-darkblue">Darkblue</div>
+								<div class="div-darkcyan">Darkcyan</div>
+								<div class="div-darkgoldenrod">Darkgoldenrod</div>
+								<div class="div-darkgray">Darkgray</div>
+								<div class="div-darkgreen">Darkgreen</div>
+								<div class="div-darkkhaki">Darkkhaki</div>
+								<div class="div-darkmagenta">Darkmagenta</div>
+								<div class="div-darkolivegreen">Darkolivegreen</div>
+								<div class="div-darkorange">Darkorange</div>
+								<div class="div-darkorchid">Darkorchid</div>
+								<div class="div-darkred">Darkred</div>
+								<div class="div-darkseagreen">Darkseagreen</div>
+								<div class="div-darkslateblue">Darkslateblue</div>
+								<div class="div-darkslategray">Darkslategray</div>
+								<div class="div-darkturquoise">Darkturquoise</div>
+								<div class="div-darkviolet">Darkviolet</div>
+								<div class="div-deeppink">Deeppink</div>
+								<div class="div-deepskyblue">Deepskyblue</div>
+								<div class="div-dimgray">Dimgray</div>
+								<div class="div-dodgerblue">Dodgerblue</div>
+								<div class="div-firebrick">Firebrick</div>
+								<div class="div-silver">Silver</div>
+								<div class="div-plum">Plum</div>
+								<div class="div-coral">Coral</div>
+								<div class="div-yellowgreen">Yellowgreen</div>
+								<div class="div-khaki">Khaki</div>
+								<div class="div-sienna">Sienna</div>
+
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
@@ -370,23 +379,19 @@
 			</div>
 			<!-- Terminal Area (or the Code Area) -->
 
-			<div class="terminal relative rounded-md">
-				<div class="dnd-container">
-					<div class="section">
-						<div class="export-container">
-							<div class="container">
-								<!-- <div class="Windows Controls"></div> -->
-								<div class="react-codemirror2 CodeMirror__container window-theme__none">
-									<div class="CodeMirror cm-s-base16-dark CodeMirror-wrap" translate="no">
-										<div class="CodeMirror-scrollbar-filler" />
-										<div class="CodeMirror-gutter-filler" />
-										<div class="CodeMirror-scroll" tabindex="-1">
-											<div
-												class="CodeMirror-sizer"
-												style="	 margin-left: 0px; margin-bottom: 0px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;"
-											>
-												<div style="position: relative; top: 0px;">
-													<div class="terminal-header">
+			<div class="terminal relative rounded-md div-white">
+    <div class="dnd-container">
+        <div class="section">
+            <div class="export-container">
+                <div class="container">
+                    <div class="react-codemirror2 CodeMirror__container window-theme__none">
+                        <div class="CodeMirror cm-s-base16-dark CodeMirror-wrap" translate="no">
+                            <div class="CodeMirror-scrollbar-filler"></div>
+                            <div class="CodeMirror-gutter-filler"></div>
+                            <div class="CodeMirror-scroll" tabindex="-1">
+                                <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;">
+                                    <div style="position: relative; top: 0px;">
+                                        <div class="terminal-header div-orange">
 														<!-- <span class="mr-auto ml-2"></span> -->
 														<!-- <button class="close-btn bg-red-500 rounded-full w-4 h-4 mr-1" /> -->
 														<button class="close-btn" />
@@ -861,24 +866,6 @@
 		background-color: darken(#98c379, 10%);
 	}
 
-	/* Include the fonts.css file if not already included */
-	@import 'path/to/fonts.css';
-
-	/* Apply custom fonts to the Dropdown component */
-	Dropdown {
-		font-family: 'CustomBodyFont', sans-serif;
-	}
-
-	/* Apply custom fonts to DropdownItem components */
-	DropdownItem {
-		font-family: 'Roboto', sans-serif;
-	}
-
-	/* Apply custom fonts to DropdownDivider components */
-	DropdownDivider {
-		font-family: 'Open Sans', sans-serif;
-	}
-
 	/* Style for the dropdown container */
 	.icon {
             position: relative;
@@ -936,40 +923,6 @@
             margin: 5px;
             cursor: pointer;
             border: 1px solid #ccc;
-        }
-
-		/* Include the fonts.css file if not already included */
-		@import 'path/to/fonts.css';
-
-		/* Apply custom fonts to the components */
-		:global(.dropdown) {
-		font-family: 'CustomBodyFont', sans-serif;
-		}
-
-		:global(.dropdown-item) {
-		font-family: 'CustomBodyFont', sans-serif;
-		}
-
-		:global(.dropdown-divider) {
-		font-family: 'CustomBodyFont', sans-serif;
-		}
-
-		/* Include the fonts.css file if not already included */
-		@import 'path/to/fonts.css';
-
-		/* Apply custom fonts to DropdownItem components */
-		DropdownItem {
-			font-family: 'Roboto', sans-serif; /* Replace with your desired font family */
-		}
-
-		/* Apply custom fonts to DropdownDivider components */
-		DropdownDivider {
-			font-family: 'Open Sans', sans-serif; /* Replace with your desired font family */
-		}
-
-		/* Apply custom fonts to the entire Dropdown component if needed */
-		Dropdown {
-			font-family: 'Lato', sans-serif; /* Replace with your desired font family */
 		}
 
 		.export-checkbox {
@@ -1008,6 +961,458 @@
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
+
+		/* Define different classes for each div with different background colors */
+		.div-violet {
+        	background-color: violet;
+        	color: white;
+        	padding: 10px;
+        	border-radius: 5px;
+        	font-size: 18px;
+        	text-align: center;
+    	}
+
+		.div-indigo {
+			background-color: indigo;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-blue {
+			background-color: blue;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-green {
+			background-color: green;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-yellow {
+			background-color: yellow;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-orange {
+			background-color: orange;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-red {
+			background-color: red;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-white {
+			background-color: white;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-black {
+			background-color: black;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-gray {
+			background-color: gray;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-brown{
+			background-color: brown;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-pink {
+			background-color: pink;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-purple{
+			background-color: purple;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-cyan{
+			background-color: cyan;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-magenta {
+			background-color: magenta;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-lime {
+			background-color: lime;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-teal {
+			background-color: teal;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-olive {
+			background-color: olive;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-navy {
+			background-color: navy;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+		
+		.div-maroon {
+			background-color: maroon;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+		
+		.div-aqua {
+			background-color: aqua;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-chartreuse {
+			background-color: chartreuse;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-crimson {
+			background-color: crimson;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+	    .div-darkblue {
+			background-color: darkblue;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkcyan {
+			background-color: darkcyan;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkgoldenrod {
+			background-color: darkgoldenrod;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkgray {
+			background-color: darkgray;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkgreen {
+			background-color: darkgreen;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkkhaki {
+			background-color: darkkhaki;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkmagenta {
+			background-color: darkmagenta;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkolivegreen {
+			background-color: darkolivegreen;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+        .div-darkorange {
+			background-color: darkorange;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-darkorchid {
+			background-color: darkorchid;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkred {
+			background-color: darkred;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkseagreen {
+			background-color: darkseagreen;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkslateblue {
+			background-color: darkslateblue;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkslategray {
+			background-color: darkslategray;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkturquoise {
+			background-color: darkturquoise;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-darkviolet {
+			background-color: darkviolet;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-deeppink {
+			background-color: deeppink;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-deepskyblue {
+			background-color: deepskyblue;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-dimgray {
+			background-color: dimgray;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-dodgerblue {
+			background-color: dodgerblue;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;	
+		}
+
+		.div-firebrick {
+			background-color: firebrick;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;		
+		}
+
+		.div-silver {
+			background-color: silver;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;		
+		}
+
+		.div-plum {
+			background-color: plum;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;		
+		}
+
+		.div-coral {
+			background-color: coral;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;		
+		}
+
+		.div-yellowgreen {
+			background-color: yellowgreen;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;		
+		}
+
+		.div-khaki {
+			background-color: khaki;
+			color: black;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
+		.div-sienna {
+			background-color: sienna;
+			color: white;
+			padding: 10px;
+			border-radius: 5px;
+			font-size: 18px;
+			text-align: center;
+		}
+
 
 </style>
 
