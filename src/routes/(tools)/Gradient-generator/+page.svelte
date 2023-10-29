@@ -42,7 +42,6 @@
       }
     }
 
-
  function generateRandomGradient() {
   const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
   const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
@@ -74,7 +73,6 @@ const copyCode = async () => {
   const hexColor1 = gradientColors[0];
   const hexColor2 = gradientColors[1];
   
-  // Function to convert hex color to RGB
   function hexToRgb(hex) {
     hex = hex.replace(/^#/, '');
     const bigint = parseInt(hex, 16);
