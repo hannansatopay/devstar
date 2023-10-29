@@ -100,5 +100,11 @@ export let tools = {
         icon: 'files', // Pending Icon Update
         link: '/random-data-generator',
         description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+     'business-card-generator': {
+        name: 'Business-Card-Generator',
+        icon: 'files', // Pending Icon Update
+        link: '/business-card-generator',
+        description: 'The Business card is used to create business cards in minutes'
     }
 }
