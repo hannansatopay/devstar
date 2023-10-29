@@ -13,6 +13,8 @@
 	let numRows = 8;
 	let numCols = 13;
 	let selectedCell = null;
+	let fileName = "";
+	
 	
 	// download logic:
 	function downloadSheet(fileExt) {
@@ -25,12 +27,17 @@
 		XLSX.write(tableWbObj, { bookType: fileExt, bookSST: true, type: "base64" });
 
 		// for giving unique name to files
-		var uniqueNum = Math.random().toString(9).substr(2,3);
-		var uniqueStr = Math.random().toString(36).substr(2);
+		var uniqueNum = Math.floor(100 + Math.random() * 900);
+		var uniqueStr = Math.random().toString(36).substr(2, 4);
 		
-		// creating file on user's machine i.e. triggering download
-		XLSX.writeFile(tableWbObj, `Spreadsheet_${uniqueNum + uniqueStr}.` + fileExt);
-	}
+		if (showUploadSection) {
+			// creating file on user's machine i.e. triggering download from Upload Section
+			XLSX.writeFile(tableWbObj, `${fileName}_${uniqueNum + uniqueStr}.` + fileExt);
+		} else {
+			// creating file on user's machine i.e. triggering download from Create Section
+			XLSX.writeFile(tableWbObj, `Spreadsheet_${uniqueNum + uniqueStr}.` + fileExt);
+		}
+	};
 
 
 	// create logic:
@@ -46,11 +53,15 @@
 	// upload logic:
 	function handleFileChange(event) {
 		const file = event.target.files[0];
-		const fileName = fileInput.value;
+		let RawFileName = fileInput.value;
+
+		// Saving filename without extension for future use in global variable
+		let fileNameTemp = file.name;
+		fileName = fileNameTemp.replace(/\.[^/.]+$/, "");
 
 		if (file) {
 			// get file extension
-			var inputFileExt = fileName.split(".").pop().toLowerCase();
+			var inputFileExt = RawFileName.split(".").pop().toLowerCase();
 
 			// list of allowed file extensions
 			var allowedExts = ["csv", "xlsx", "xls"];
@@ -65,7 +76,7 @@
 		} else {
             alert('No File Selected');
         }
-  	}
+  	};
 
   	function parseSheet(file) {
 		const reader = new FileReader();
@@ -90,17 +101,17 @@
 		};
 
 		reader.readAsArrayBuffer(file);
-	}
+	};
 
 	function uploadAddRow() {
 		rowData.push(Array(numCols).fill(''));
 		numRows++;
-	}
+	};
 
 	function uploadAddColumn() {
 		rowData.forEach(row => row.push(''));
 		numCols++;
-	}
+	};
 
 	// Common Functions for Upload and Create Sections
 
@@ -119,12 +130,12 @@
 	function deleteRow() {
 		if (numRows > 1) 
 			numRows--;
-	}
+	};
 
 	function deleteColumn() {
 		if (numCols > 1) 
 			numCols--;
-	}
+	};
 
 	onMount(() => {
 		// Initialize rowData with empty strings
