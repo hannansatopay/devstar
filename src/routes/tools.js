@@ -482,4 +482,10 @@ export let tools = {
         description: 
 		"A Morse code translator is a tool or program that converts Morse Code into Text or vice versa, allowing communication through a series of dots and dashes or letters."
 	},
+	'string-abbreviator':{
+        name: 'String Abbreviator',
+        link: '/string-abbreviator',
+        description: 
+		"This tool is a simple text manipulation utility that allows you to abbreviate a given text string. It takes an input text, processes it to generate an abbreviated version, and provides options to copy the abbreviated text to the clipboard or download it as a text file or PDF. Whether you want to create compact acronyms or condense text for concise communication, this tool streamlines the process of text abbreviation while offering convenient options for sharing and storing the result."
+	},
 };
