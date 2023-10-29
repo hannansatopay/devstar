@@ -1505,45 +1505,45 @@
 	import html2canvas from 'html2canvas';
 
 // Function to export the content as an image
-const exportToImage = async () => {
-  const element = document.querySelector('.section') as HTMLElement;
+// const exportToImage = async () => {
+//   const element = document.querySelector('.section') as HTMLElement;
 
-  if (element) {
-    try {
-      const canvas = await html2canvas(element);
-      const image = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = 'code.png';
-      link.click();
-    } catch (error) {
-      console.error('Failed to export as image: ', error);
-    }
-  } else {
-    console.error('Element not found.');
-  }
-};
+//   if (element) {
+//     try {
+//       const canvas = await html2canvas(element);
+//       const image = canvas.toDataURL('image/png');
+//       const link = document.createElement('a');
+//       link.href = image;
+//       link.download = 'code.png';
+//       link.click();
+//     } catch (error) {
+//       console.error('Failed to export as image: ', error);
+//     }
+//   } else {
+//     console.error('Element not found.');
+//   }
+// };
 
-// // Function to copy the text content to the clipboard-SHRISTI
-//  const copyTextToClipboard = () => {
-//    const element = document.querySelector('.section');
+// Function to copy the text content to the clipboard-SHRISTI
+ const copyTextToClipboard = () => {
+   const element = document.querySelector('.section');
 
-//    if (element) {
-//      const text = element.textContent;
+   if (element) {
+     const text = element.textContent;
 
-//      if (text !== null && text.trim() !== '') {
-//        navigator.clipboard.writeText(text).then(() => {
-//          alert('Code copied to clipboard');
-//        }).catch((error) => {
-//          console.error('Unable to copy code: ', error);
-//        });
-//      } else {
-//     console.error('Element text is empty.');
-//      }
-//    } else {
-//      console.error('Element not found.');
-//    }
-//  };
+     if (text !== null && text.trim() !== '') {
+       navigator.clipboard.writeText(text).then(() => {
+         alert('Code copied to clipboard');
+       }).catch((error) => {
+         console.error('Unable to copy code: ', error);
+       });
+     } else {
+    console.error('Element text is empty.');
+     }
+   } else {
+     console.error('Element not found.');
+   }
+ };
 
 
 
