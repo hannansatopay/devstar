@@ -365,7 +365,7 @@
 						  <hr class="dropdown-divider">
 						  
 						  <input type="checkbox" id="copyURLCheckbox" class="export-checkbox">
-                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyURLToClipboard}>Copy URL</label>
+                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyUrlToClipboard}>Copy URL</label>
                           <hr class="dropdown-divider">
 						  <!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
@@ -1493,7 +1493,13 @@ const exportToImage = async () => {
 
 //shristi 
   // Function to copy the image to the clipboard-SHRISTI
+  const copyTextToClipboard = async () => {
+    const element = document.querySelector('.dnd-container') as HTMLElement;
+
   const copyImageToClipboard = async () => {
+    const element = document.querySelector('.dnd-container') as HTMLElement;
+
+  const copyUrlToClipboard = async () => {
     const element = document.querySelector('.dnd-container') as HTMLElement;
 
     if (element) {
