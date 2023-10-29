@@ -145,6 +145,13 @@ export let tools = {
         description: 
 		"Easily modify your text lines by adding custom prefixes and suffixes with our Prefix and Suffix Adder Tool. Input your text, specify the desired prefix and suffix, and watch as it instantly modifies each line according to your preferences. Perfect for formatting lists, coding snippets, or creating structured data. Empower your text editing tasks with this convenient tool, ensuring consistent formatting in various contexts."
     },
+	'ascii-encode-decode': {
+        name: 'ASCII Encoder & Decoder',
+		icon: 'code',
+        link: '/ascii-encode-decode',
+        description:
+		"Dive into the fundamentals of digital text with our ASCII Encoder and Decoder Tool. Encode your text into ASCII, translating characters into numerical codes for digital representation. Input your content, and witness it transform into a series of digits, ideal for computer systems and data transmission. Alternatively, decode ASCII back into readable text effortlessly, bridging the gap between numeric codes and human-readable characters. Perfect for programmers, developers, and tech enthusiasts, our tool simplifies the encoding and decoding of ASCII characters, ensuring seamless integration into digital environments and data processing tasks." 
+    },
 	'base64-encode-decode': {
         name: 'Base64 Encoder & Decoder',
 		icon: 'code',
@@ -344,6 +351,13 @@ export let tools = {
         link: '/text-truncator',
         description:
 		"Refine your text effortlessly with our Text Truncator Tool. Tailor your text to specific lengths, ensuring concise and polished communication. Input your text, set the desired character limit, and watch as it trims down your content while preserving its essence. Ideal for writers, marketers, and social media enthusiasts striving for impactful, concise messaging. Whether you're crafting tweets, headlines, or product descriptions, our tool helps you maintain clarity within space constraints. Simplify lengthy texts without losing their meaning, optimizing readability and engagement. Start truncating text with precision, transforming your content into concise, impactful messages that resonate with your audience." 
+	},
+	'unicode-encode-decode':{
+        name: 'Unicode Encoder & Decoder',
+		icon: 'code',
+        link: '/unicode-encode-decode',
+        description:
+		"Explore the vast world of characters with our Unicode Encoder and Decoder Tool. Encode your text into Unicode, representing various languages and symbols with precision. Input your content, and watch as it transforms into a universal digital language, ideal for internationalization and data representation. Conversely, decode Unicode back into readable text effortlessly, bridging linguistic gaps and ensuring seamless communication. Perfect for developers, linguists, and global businesses, our tool simplifies the encoding and decoding of Unicode characters, fostering cross-cultural understanding and smooth digital interactions."
 	},
 	'upside-down-text': {
 		name: 'Upside Down Text Generator',
