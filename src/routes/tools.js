@@ -136,6 +136,8 @@ export let tools = {
 		description:
 			'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
 	},
+
+	// String Utility Tools Start
 	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
 		icon: 'code',
@@ -163,6 +165,13 @@ export let tools = {
 		link: '/case-converter',
 		description:
 		"Effortlessly convert text between uppercase, lowercase, title case, or sentence case with our Case Converter Tool. Input your text, select the desired conversion type, and witness your text transform instantly. Ideal for writers, editors, and programmers, our tool streamlines text formatting tasks. Ensure uniformity in your documents, coding projects, and communications. Enhance readability and professionalism by converting text to your preferred case style."
+	},
+	'email-validator': {
+        name: 'Email Validator',
+		icon: 'code',
+        link: '/email-validator',
+        description: 
+		"Ensure accurate communication with our Email Validator, a robust tool designed to validate email addresses swiftly and efficiently. Input an email address, and our validator meticulously checks its format, domain validity, and existence, ensuring you're sending messages to genuine recipients. Perfect for marketers, businesses, and developers, our tool minimizes bounce rates, enhances email deliverability, and maintains your sender reputation. Safeguard your communication channels from invalid or suspicious addresses, ensuring your emails reach the right audience every time. Enhance your email outreach with our reliable Email Validator, your key to seamless and reliable online correspondence."
 	},
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
@@ -357,6 +366,8 @@ export let tools = {
         description: 
 		"Analyze your text effortlessly with our Word Counter Tool. Input your text, and instantly get accurate word counts, helping you understand the text's length and complexity. Ideal for writers, students, and researchers monitoring word limits or analyzing textual content. Enhance your writing and editing tasks with this reliable tool, gaining valuable insights into your text."
 	},
+	// String Utility Tools End
+
     'online-spreadsheet': {
         name: 'Online Spreadsheet',
         icon: 'code',
