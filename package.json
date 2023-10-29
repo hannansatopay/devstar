@@ -65,9 +65,11 @@
 		"bytemd": "^1.21.0",
 		"colorthief": "^2.2.0",
 		"countries-list": "^2.6.1",
+		"flowbite-svelte-icons": "^0.4.4",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
+		"svelte-fullscreen": "^2.0.0",
 		"svelte-tags-input": "^5.0.0"
 	}
 }

@@ -24,28 +24,23 @@
       {
         gradientCode = `Linear-gradient(${gradientrotation}deg, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
       }
-      
       else if (gradienttype === 'Radial')
       {
         gradientCode = `Radial-gradient(at center, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
       }
-
       else if (gradienttype === 'Conic')
       {
         gradientCode = `conic-gradient(${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
       }
-
       else if (gradienttype === 'Repeating-linear-gradient')
       {
         gradientCode = `repeating-linear-gradient(to right, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
       }
-
       else if (gradienttype === 'Repeating-radial-gradient')
       {
         gradientCode = `repeating-radial-gradient(circle, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
       }
     }
-
 
  function generateRandomGradient() {
   const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
@@ -78,7 +73,6 @@ const copyCode = async () => {
   const hexColor1 = gradientColors[0];
   const hexColor2 = gradientColors[1];
   
-  // Function to convert hex color to RGB
   function hexToRgb(hex) {
     hex = hex.replace(/^#/, '');
     const bigint = parseInt(hex, 16);
@@ -112,7 +106,7 @@ const copyCode = async () => {
       <!-- Gradient Type Selector -->
       <div class="mt-4">
         <Label for="gradientType" class="text-gray-700 dark:text-gray-400">Gradient Type:</Label>
-        <select bind:value={gradienttype} class="text-gray-900 bg-white text-center w-full col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+        <select bind:value={gradienttype} on:click={updateGradient} class="text-gray-900 bg-white text-center w-full col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
         {gradienttype}
         {#each Types as type}
           <option>{type}</option>
@@ -138,7 +132,7 @@ const copyCode = async () => {
       <!-- Rotation -->
       <div class="flex-grow-1 space-x-2">
         <Label class="text-gray-700 dark:text-gray-400">Rotation:</Label>
-          <select bind:value={gradientrotation} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+          <select bind:value={gradientrotation} on:click={updateGradient} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
             {#each Rotations as Rotation,index}
                 <option>{Rotation}</option>
             {/each}
@@ -148,7 +142,7 @@ const copyCode = async () => {
       <!-- Position -->
       <div class="flex-grow-1 space-x-2">
         <Label class="text-gray-700 dark:text-gray-400">Position:</Label>
-        <select bind:value={gradientper} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+        <select bind:value={gradientper} on:click={updateGradient} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
           {#each percentages as percentage}
             <option>{percentage}</option>
             {/each}
@@ -161,7 +155,7 @@ const copyCode = async () => {
         <button
           type="button"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2"
-          on:click={generateGradient}
+          on:click={updateGradient}
         >
         Generate Gradient
         </button>
