@@ -117,19 +117,19 @@ export let tools = {
         name: 'Add Page Numbers to PDF',
         icon: 'angle-right',
         link: '/page-number-in-pdf',
-        description:"Add Page number at position..."
+        description:"Add Page number at top and bottom positions to right side of page"
     },
     'PDFtoEXCEL': {
         name: 'PDF-to-EXCEL',
         icon: 'files',
         link: '/PDFtoEXCEL',
-        description:"Convert yout PDF file to EXCEL"
+        description:"Convert your PDF file to EXCEL"
     },
     'Split-PDF': {
         name: 'Split-PDF',
         icon: 'angle-right',
         link: '/Split-PDF',
-        description:"Split your PDF file"
+        description:"Separate one page or a whole set for easy conversion into independent PDF files."
     },
     'merge-PDF': {
         name: 'Merge-PDFs',
