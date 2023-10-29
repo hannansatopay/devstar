@@ -99,3 +99,7 @@
 		"xml-formatter": "^3.5.0"
 	}
 }
+"scripts": {
+	"dev": "vite",
+	"build": "vite build"
+  }
