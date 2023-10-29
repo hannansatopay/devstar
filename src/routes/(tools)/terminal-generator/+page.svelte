@@ -38,9 +38,12 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-								<div class="div-violet">Violet</div>
-								<div class="div-indigo">Indigo</div>
-								<div class="div-blue">Blue</div>
+							<input type="radio" name="color" id="violet" class="color-radio">
+								<label for="violet" class="color-option div-violet">Violet</label>
+								<input type="radio" name="color" id="indigo" class="color-radio">
+								<label for="indigo" class="color-option div-indigo">Indigo</label>
+								<input type="radio" name="color" id="blue" class="color-radio">
+								<label for="blue" class="color-option div-blue">Blue</label>
 								<div class="div-green">Green</div>
 								<div class="div-yellow">Yellow</div>
 								<div class="div-orange">Orange</div>
@@ -657,20 +660,20 @@
             max-width: 800px;
 			height: 500px;
             margin: auto;
-        }
+    }
 
 	.terminal {
-  /* flex-grow: 1; Let the terminal consume all remaining vertical space */
-  width: 753px;
-  height: 460px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
-  display: flex;
-  /* flex-direction: column; */
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
+	  	/* flex-grow: 1; Let the terminal consume all remaining vertical space */
+		width: 753px;
+  		height: 460px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
+  		display: flex;
+  		/* flex-direction: column; */
+  		margin: auto;
+  		margin-top: 20px;
+  		margin-bottom: 20px;
+  		margin-left: auto;
+  		margin-right: auto;
+	}
 
 	.bg {
 		background-color: #121212;
@@ -958,6 +961,19 @@
 			/* Add your export styles here */
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
+		}
+
+		.color-radio {
+			display: none;
+		}
+
+		.color-option {
+			cursor: pointer;
+		}
+
+		.color-radio:checked + .color-option {
+				background-color: #fff; /* Change the background color to white when checked */
+				color: #000; /* Change the text color to black when checked */
 		}
 
 		/* Define different classes for each div with different background colors */
