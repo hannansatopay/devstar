@@ -37,7 +37,7 @@
       <Fileupload id="with_helper" class="mb-2" on:change={handleFileUpload} />
        <div class="flex justify-center">
      </div>
-        <Helper>SVG, PNG, JPG or GIF (MAX. 800x400px).</Helper>
+        <Helper>SVG, PNG, JPG or GIF (MAX. 10000x5000px).</Helper>
 		
       
         <div style="height:80vh">
