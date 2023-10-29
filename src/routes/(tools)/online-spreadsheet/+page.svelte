@@ -65,9 +65,9 @@
 			numCols = Math.max(...jsonData.map(row => row.length));
 
 			// Initialize rowData with parsed data
-			rowData = jsonData.map(row => {
-				const emptyCells = Array(numCols - row.length).fill('');
-				return row.concat(emptyCells);
+			rowData = jsonData.map(dataRow => {
+				const emptyCells = Array(numCols - dataRow.length).fill('');
+				return dataRow.concat(emptyCells);
 			});
 
 			showUploadSection = !showUploadSection;
@@ -135,6 +135,7 @@
 			<Dropdown placement="right-start">
 				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
 				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xls")}}>Download <b>XLS</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
