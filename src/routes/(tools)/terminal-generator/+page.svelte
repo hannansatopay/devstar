@@ -24,7 +24,7 @@
 <section class="bg-custom-white dark:bg-gray-900">
 	<div class="page py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="editor min-h-[35rem] md:w-4/5 lg:w-full rounded-lg mx-auto flex flex-col p-2">
-			<div class="container-bg" style="height: 100px; width: 100px; margin-top: 20px;"></div>
+			<div class="container-bg" style="height: 0px; width: 0px; margin-top: 0px;"></div>
 			<!-- Toolbar Section  -->
 			<div class="toolbar flex flex-wrap justify-between mb-4">
 				<!-- Themes & Languages Dropdown -->
@@ -38,11 +38,51 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<DropdownItem style="font-family: Roboto;">Roboto</DropdownItem>
-							<DropdownDivider />
-							<DropdownItem style="font-family: 'Open Sans';">Open Sans</DropdownItem>
-							<DropdownDivider />
-							<DropdownItem style="font-family: Lato;">Lato</DropdownItem>
+							<div class="container">
+								<div id="container">
+								</div>
+								
+								<div class="CodeMirror cm-s-base16-dark CodeMirror-wrap">
+								<input type="radio" name="theme" id="light" checked>
+								<label for="light">Light</label>
+								<input type="radio" name="theme" id="dark">
+								<label for="dark">Dark</label>
+								<input type="radio" name="theme" id="dracula" checked>
+								<label for="light">Dracula</label>
+								<input type="radio" name="theme" id="solarized" checked>
+								<label for="light">Solarized</label>
+								<input type="radio" name="theme" id="One Dark Pro" checked>
+								<label for="One Dark Pro">One Dark Pro</label>
+								<input type="radio" name="theme" id="Monokai" checked>
+								<label for="Monokai">Monokai</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Nord</label>
+								<input type="radio" name="theme" id="Material Theme" checked>
+								<label for="light">Material</label>
+								<input type="radio" name="theme" id="Night Owl" checked>
+								<label for="Night Owl">Night Owl</label>
+								<input type="radio" name="theme" id="Ayu Mirage" checked>
+								<label for="Ayu Mirage">Ayu Mirage</label>
+								<input type="radio" name="theme" id="Palenight" checked>
+								<label for="Palenight">Palenight</label>
+								<input type="radio" name="theme" id="Duotone Dark" checked>
+								<label for="Duotone Dark">Duotone Dark</label>
+								<input type="radio" name="theme" id="Cobalt2" checked>
+								<label for="Cobalt2">Cobalt2</label>
+								<input type="radio" name="theme" id="Oceanic Next" checked>
+								<label for="Oceanic Next">Oceanic Next</label>
+								<input type="radio" name="theme" id="Shades of Purple" checked>
+								<label for="Shades of Purple">Shades of Purple</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Shades of Purple</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Nord</label>
+								<input type="radio" name="theme" id="Gruvbox" checked>
+								<label for="Gruvbox">Gruvbox</label>
+								<input type="radio" name="theme" id="Tokyo Night" checked>
+								<label for="Tokyo Night">Tokyo Night</label>
+							</div>
+						
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
@@ -217,12 +257,12 @@
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'yellowgreen'">
 											<div class="color-box" style="background-color: yellowgreen;"></div>
 										</div>
-										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'khaki'">
+										<div class="container-bg" style="background-color: white;">
 											<div class="color-box" style="background-color: khaki;"></div>
-										</div>
-										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'sienna'">
+										  </div>
+										  <div class="container-bg" style="background-color: white;">
 											<div class="color-box" style="background-color: sienna;"></div>
-										</div>
+										  </div>
 										
 
 										
@@ -271,15 +311,15 @@
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 										<DropdownItem>
-											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
+											<a href="https://www.facebook.com/share?url">Share on Facebook</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
+											<a href="https://www.instagram.com/share?url">Share on Instagram</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
+											<a href="https://twitter.com/share?url">Share on Twitter</a>
 										</DropdownItem>
 									</Dropdown>
 									
@@ -292,30 +332,39 @@
 							<img src="/Texttospeech.png" alt="Your  Description" />
 						</Button>
 					</div> -->
-						<div class="export ml-auto">
-							<span>Export</span>
-							<span class="ml-auto" />
-							<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
-
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">Code</label>
-								<hr class="dropdown-divider">
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">1 mb</label>
-								<hr class="dropdown-divider">
-							<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
-								<input type="checkbox" id="exportCheckbox" class="export-checkbox">
-								<label for="exportCheckbox" class="dropdown-item">Export</label>
-								<hr class="dropdown-divider">
-								
-								<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
-							</Dropdown>
-							</Dropdown>
-							</Dropdown>
-
-						</div>
+					<div class="export ml-auto export-container">
+						<span>Export</span>
+						<span class="ml-auto"></span>
+						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
+					  
+						<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
+						  <!-- <input type="checkbox" id="exportCheckbox" class="export-checkbox">
+						  <label for="exportCheckbox" class="dropdown-item">Code</label>
+						  <hr class="dropdown-divider"> -->
+					  
+						  <input type="checkbox" id="exportImageCheckbox" class="export-checkbox">
+						  <label for="exportImageCheckbox" class="dropdown-item" on:click={exportToImage}>Export as Image</label>
+						  <hr class="dropdown-divider">
+					  
+						  <!-- <input type="checkbox" id="exportSVGCheckbox" class="export-checkbox">
+						  <label for="exportSVGCheckbox" class="dropdown-item" on:click={exportToSVG}>Export as SVG</label>
+						  <hr class="dropdown-divider"> -->
+					  
+						  <input type="checkbox" id="copyTextCheckbox" class="export-checkbox">
+						  <label for="copyTextCheckbox" class="dropdown-item" on:click={copyTextToClipboard}>Copy Code Text</label>
+						  <hr class="dropdown-divider">
+					  
+						  <input type="checkbox" id="copyImageCheckbox" class="export-checkbox">
+						  <label for="copyImageCheckbox" class="dropdown-item" on:click={copyImageToClipboard}>Copy Code Image</label>
+						  <hr class="dropdown-divider">
+						  
+						  <input type="checkbox" id="copyURLCheckbox" class="export-checkbox">
+                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyURLToClipboard}>Copy URL</label>
+                          <hr class="dropdown-divider">
+						  <!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
+						</Dropdown>
+					  </div>
+					  
 					</div>
 				</div>
 			</div>
@@ -363,7 +412,7 @@
 																		'&': {
 																			width: '100%',
 																			maxWidth: '100%',
-																			height: '250px',
+																			height: '280px',
 																			borderRadius: '0px',
 																			margin: '0 auto'
 																		}
@@ -396,31 +445,6 @@
 </section>
 
 <style>
-
-
-	@font-face {
-	font-family: 'Roboto';
-	src: url('/fonts/roboto.woff2') format('woff2'),
-		url('/fonts/roboto.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
-
-	@font-face {
-	font-family: 'Open Sans';
-	src: url('/fonts/open-sans.woff2') format('woff2'),
-		url('/fonts/open-sans.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
-
-	@font-face {
-	font-family: 'Lato';
-	src: url('/fonts/lato.woff2') format('woff2'),
-		url('/fonts/lato.woff') format('woff');
-	/* Add additional font formats if necessary */
-	/* Specify the correct path to the font files based on your project structure */
-	}
 	
 	.toolbar-second-row {
 		/* display: flex;
@@ -461,43 +485,54 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	body {
-    	font-family: Arial, sans-serif; /* Default font family */
-	}
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-	/* Apply the custom fonts to the components using a class */
-	.custom-font {
-		font-family: 'CustomBodyFont', sans-serif;
-	}
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-	/* Define specific fonts for the DropdownItem and DropdownDivider components */
-	.custom-font DropdownItem {
-		font-family: 'Roboto', sans-serif;
-	}
+        /* Light Theme Styles */
+        #light:checked ~ .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
+            background-color: #121212;
+            border: 2px solid white;
+        }
 
-	.custom-font DropdownDivider {
-		font-family: 'Open Sans', sans-serif;
-	}
+        /* Dark Theme Styles */
+        #dark:checked ~ .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
+            background-color: #333;
+            border: 2px solid white;
+        }
 
-	.theme-selector {
-		margin: 10px;
-	}
+        input[type="radio"] {
+            display: none;
+        }
 
-	.theme-button {
-		cursor: pointer;
-		padding: 5px 10px;
-		margin: 5px;
-		border: none;
-		background-color: #333;
-		color: #fff;
-		border-radius: 5px;
-	}
+        label {
+            display: block;
+            cursor: pointer;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-	.theme-button:hover {
-		background-color: #555;
-	}
+        input[type="radio"] + label:hover {
+            background-color: #eee;
+        }
+
+        .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
+            /* Styles for your code editor container */
+        }
+
 
 	.language {
 		display: flex;
@@ -512,6 +547,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 1;
 	}
 
 	#style-editor-button.jsx {
@@ -539,6 +575,7 @@
 		display: -ms-flexbox;
 		display: flex;
 		height: 40px;
+		z-index: 1;
 	}
 	.export-menu {
 		position: relative;
@@ -571,6 +608,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	.export {
@@ -586,6 +624,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
+		z-index: 2;
 	}
 
 	.icon img {
@@ -609,20 +648,26 @@
 	}
 
 	.editor {
-		background-color: #121212;
-		border: white 2px solid;
-		width: 100%;
-		height: 100%;
-		max-width: 800px;
-	}
+            background-color: #121212;
+            border: 2px solid white;
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
 
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
-		width: 800px;
-		height: 400px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
+		width: 785px;
+		height: 420px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
 		display: flex;
 		/* flex-direction: column; */
-		margin: 0 auto;
+		margin: auto;
+		margin-top: auto;
+		margin-bottom: auto;
+		margin-left: auto;
+		margin-right: auto;
+
 	}
 
 	.bg {
@@ -675,7 +720,6 @@
 		max-width: 700px;
 		width: 750px;
 		height: 800px;
-
 		padding: 56px 56px;
 	}
 
@@ -728,11 +772,7 @@
 	}
 
 	.container-bg {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-		bottom: 0px;
-		left: 0px;
+		padding: 0px;
 	}
 
 	.container-bg .white {
@@ -887,6 +927,7 @@
             display: flex;
             flex-wrap: wrap;
 			height: 200px;
+			z-index: 2;
         }
 
         .color-palette .color-box {
@@ -1002,6 +1043,7 @@
 	import CodeMirror from 'svelte-codemirror-editor';
 	import { javascript } from '@codemirror/lang-javascript';
 	import { oneDark } from '@codemirror/theme-one-dark';
+	
 
 	export let data;
 
@@ -1038,5 +1080,97 @@
 	// 		}
 	// 	}
 	// }
+
+	
+// shristi
+	import html2canvas from 'html2canvas';
+
+// Function to export the content as an image
+const exportToImage = async () => {
+  const element = document.querySelector('.section') as HTMLElement;
+
+  if (element) {
+    try {
+      const canvas = await html2canvas(element);
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'code.png';
+      link.click();
+    } catch (error) {
+      console.error('Failed to export as image: ', error);
+    }
+  } else {
+    console.error('Element not found.');
+  }
+};
+
+// Function to copy the text content to the clipboard-SHRISTI
+// const copyTextToClipboard = () => {
+//   const element = document.querySelector('.section');
+
+//   if (element) {
+//     const text = element.textContent;
+
+//     if (text !== null && text.trim() !== '') {
+//       navigator.clipboard.writeText(text).then(() => {
+//         alert('Code copied to clipboard');
+//       }).catch((error) => {
+//         console.error('Unable to copy code: ', error);
+//       });
+//     } else {
+//       console.error('Element text is empty.');
+//     }
+//   } else {
+//     console.error('Element not found.');
+//   }
+// };
+
+
+
+//shristi 
+  // Function to copy the image to the clipboard-SHRISTI
+  const copyImageToClipboard = async () => {
+    const element = document.querySelector('.dnd-container') as HTMLElement;
+
+    if (element) {
+      try {
+        const canvas = await html2canvas(element);
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+            navigator.clipboard.write(clipboardItems).then(() => {
+              alert('Code image copied to clipboard');
+            }).catch((error) => {
+              console.error('Unable to copy code image: ', error);
+            });
+          } else {
+            console.error('Failed to convert canvas to blob.');
+          }
+        }, 'image/png');
+      } catch (error) {
+        console.error('Failed to copy image to clipboard: ', error);
+      }
+    } else {
+      console.error('Element not found.');
+    }
+  };
+
+//  COPY URL TO CLIPBOARD-SHRISTI
+//   const copyURLToClipboard = () => {
+//     const currentURL = window.location.href;
+
+//     if (currentURL) {
+//       navigator.clipboard.writeText(currentURL).then(() => {
+//         alert('URL copied to clipboard');
+//       }).catch((error) => {
+//         console.error('Unable to copy URL: ', error);
+//       });
+//     } else {
+//       console.error('URL not found.');
+//     }
+//   };
+
+
 
 </script>
