@@ -279,6 +279,13 @@ export let tools = {
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
+	'svg-animator': {
+		name: 'SVG Animator',
+		icon: 'code',
+		link: '/svg-animator',
+		description:
+		"SVG Animator is a versatile and user-friendly web-based tool designed for creating captivating and dynamic animations with Scalable Vector Graphics (SVG). This powerful application empowers designers, developers, and creatives to bring life to their web content, logos, icons, and illustrations, making them visually engaging and interactive."
+	},
 	'text-editor':{
         name: 'Text Editor',
 		icon: 'code',
