@@ -3,15 +3,13 @@ export let tools = {
 		name: 'Neumorphism Generator',
 		icon: 'layer-group',
 		link: '/neumorphism-generator',
-		description:
-			'The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease.'
+		description:'The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease.'
 	},
 	'password-generator': {
 		name: 'Password Generator',
 		icon: 'key',
 		link: '/password-generator',
-		description:
-			'The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool.'
+		description: 'The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool.'
 	},
 	'image-color-picker': {
 		name: 'Image Color Picker',
@@ -123,18 +121,6 @@ export let tools = {
 		link: '/file-converter',
 		description:'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
 	  },
-    'neumorphism-generator': {
-        name: 'Neumorphism Generator',
-        icon: 'layer-group',
-        link: '/neumorphism-generator',
-        description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
-    },
-    'password-generator': {
-        name: 'Password Generator',
-        icon: 'key',
-        link: '/password-generator',
-        description: "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool."
-    },
     'image-color-picker': {
         name: 'Image Color Picker',
         icon: 'palette',
