@@ -1505,24 +1505,24 @@
 	import html2canvas from 'html2canvas';
 
 // Function to export the content as an image
-// const exportToImage = async () => {
-//   const element = document.querySelector('.section') as HTMLElement;
+const exportToImage = async () => {
+  const element = document.querySelector('.section') as HTMLElement;
 
-//   if (element) {
-//     try {
-//       const canvas = await html2canvas(element);
-//       const image = canvas.toDataURL('image/png');
-//       const link = document.createElement('a');
-//       link.href = image;
-//       link.download = 'code.png';
-//       link.click();
-//     } catch (error) {
-//       console.error('Failed to export as image: ', error);
-//     }
-//   } else {
-//     console.error('Element not found.');
-//   }
-// };
+  if (element) {
+    try {
+      const canvas = await html2canvas(element);
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'code.png';
+      link.click();
+    } catch (error) {
+      console.error('Failed to export as image: ', error);
+    }
+  } else {
+    console.error('Element not found.');
+  }
+};
 
 // Function to copy the text content to the clipboard-SHRISTI
  const copyTextToClipboard = () => {
@@ -1547,48 +1547,48 @@
 
 
 
-// //shristi 
-//   // Function to copy the image to the clipboard-SHRISTI
-//   const copyImageToClipboard = async () => {
-//      const element = document.querySelector('.dnd-container') as HTMLElement;
+//shristi 
+  // Function to copy the image to the clipboard-SHRISTI
+  const copyImageToClipboard = async () => {
+     const element = document.querySelector('.dnd-container') as HTMLElement;
 
-//      if (element) {
-//        try {
-//          const canvas = await html2canvas(element);
-//          canvas.toBlob((blob) => {
-//            if (blob) {
-//              const clipboardItems = [new ClipboardItem({ "image/png": blob })];
-//              navigator.clipboard.write(clipboardItems).then(() => {
-//                alert('Code image copied to clipboard');
-//              }).catch((error) => {
-//                console.error('Unable to copy code image: ', error);
-//              });
-//            } else {
-//              console.error('Failed to convert canvas to blob.');
-//            }
-//          }, 'image/png');
-//        } catch (error) {
-//          console.error('Failed to copy image to clipboard: ', error);
-//        }
-//      } else {
-//        console.error('Element not found.');
-//      }
-//    };
+     if (element) {
+       try {
+         const canvas = await html2canvas(element);
+         canvas.toBlob((blob) => {
+           if (blob) {
+             const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+             navigator.clipboard.write(clipboardItems).then(() => {
+               alert('Code image copied to clipboard');
+             }).catch((error) => {
+               console.error('Unable to copy code image: ', error);
+             });
+           } else {
+             console.error('Failed to convert canvas to blob.');
+           }
+         }, 'image/png');
+       } catch (error) {
+         console.error('Failed to copy image to clipboard: ', error);
+       }
+     } else {
+       console.error('Element not found.');
+     }
+   };
 
-// //  COPY URL TO CLIPBOARD-SHRISTI
-//    const copyURLToClipboard = () => {
-//      const currentURL = window.location.href;
+//  COPY URL TO CLIPBOARD-SHRISTI
+   const copyURLToClipboard = () => {
+     const currentURL = window.location.href;
 
-//      if (currentURL) {
-//        navigator.clipboard.writeText(currentURL).then(() => {
-//          alert('URL copied to clipboard');
-//        }).catch((error) => {
-//          console.error('Unable to copy URL: ', error);
-//        });
-//      } else {
-//        console.error('URL not found.');
-//      }
-//    };
+     if (currentURL) {
+       navigator.clipboard.writeText(currentURL).then(() => {
+         alert('URL copied to clipboard');
+       }).catch((error) => {
+         console.error('Unable to copy URL: ', error);
+       });
+     } else {
+       console.error('URL not found.');
+     }
+   };
 
 
 
