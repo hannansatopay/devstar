@@ -38,8 +38,7 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<div class="container">
-								<div id="container">
+							<div class="terminal">
 								</div>
 								<div class="div-violet">Violet</div>
 								<div class="div-indigo">Indigo</div>
@@ -672,7 +671,6 @@
 		margin-bottom: auto;
 		margin-left: auto;
 		margin-right: auto;
-
 	}
 
 	.bg {
