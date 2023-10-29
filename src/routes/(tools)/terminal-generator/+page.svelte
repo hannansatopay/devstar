@@ -380,10 +380,10 @@
 			<!-- Terminal Area (or the Code Area) -->
 
 			<div class="terminal relative rounded-md div-white">
-    <div class="dnd-container div-violet">
+    <div class="dnd-container">
         <div class="section">
             <div class="export-container">
-                <div class="container div-green">
+                <div class="container">
                     <div class="react-codemirror2 CodeMirror__container window-theme__none">
                         <div class="CodeMirror cm-s-base16-dark CodeMirror-wrap" translate="no">
                             <div class="CodeMirror-scrollbar-filler"></div>
@@ -663,8 +663,8 @@
 
 	.terminal {
 		/* flex-grow: 1; Let the terminal consume all remaining vertical space */
-		width: 785px;
-		height: 420px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
+		width: 753px;
+		height: 460px; /* Assuming 4rem is the height of your toolbar, adjust as needed */
 		display: flex;
 		/* flex-direction: column; */
 		margin: auto;
@@ -769,7 +769,6 @@
 		z-index: 6;
 		display: none;
 		outline: 0;
-		height: 700px;
 	}
 
 	.CodeMirror-gutter-filler,
