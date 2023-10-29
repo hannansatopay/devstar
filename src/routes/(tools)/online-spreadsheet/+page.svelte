@@ -46,9 +46,25 @@
 	// upload logic:
 	function handleFileChange(event) {
 		const file = event.target.files[0];
+		const fileName = fileInput.value;
+
 		if (file) {
-			parseSheet(file);
-		}
+			// get file extension
+			var inputFileExt = fileName.split(".").pop().toLowerCase();
+
+			// list of allowed file extensions
+			var allowedExts = ["csv", "xlsx", "xls"];
+
+			if (allowedExts.includes(inputFileExt)) {
+                parseSheet(file);
+            } else {
+                alert('Invalid File Extension: ' + inputFileExt);
+                // Reset the input field
+				fileInput.value = '';
+            }
+		} else {
+            alert('No File Selected');
+        }
   	}
 
   	function parseSheet(file) {
