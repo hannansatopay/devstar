@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <style>
+      body {
+  margin: 0;
+  line-height: normal;
+}
+
+:root {
+  /* fonts */
+  --font-dm-serif-display: "DM Serif Display";
+  --font-playfair-display: "Playfair Display";
+
+  /* font sizes */
+  --font-size-xs: 12px;
+
+  /* Colors */
+  --color-gray: #012531;
+  --color-burlywood-100: #dcb86f;
+  --color-burlywood-200: #dcb76d;
+
+  /* Gaps */
+  --gap-mini: 15px;
+
+  /* Border radiuses */
+  --br-xl: 20px;
+}
+
+/* back css */
+.back12-child {
+  position: absolute;
+  top: calc(50% - 74px);
+  left: calc(50% - 67px);
+  border-right: 1px solid var(--color-burlywood-100);
+  box-sizing: border-box;
+  width: 1px;
+  height: 147px;
+}
+.logo-icon {
+  position: absolute;
+  top: calc(50% - 20.5px);
+  left: 9px;
+  width: 66.67px;
+  height: 39.24px;
+  object-fit: cover;
+}
+.james-bond,
+.product-manager {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 157px;
+  flex-shrink: 0;
+}
+.james-bond {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 600;
+  font-family: inherit;
+  height: 24px;
+}
+.product-manager {
+  font-size: 13px;
+  height: 15px;
+}
+.nameposition {
+  position: absolute;
+  top: 27px;
+  left: 105px;
+  width: 181px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2px;
+  font-size: 20px;
+  font-family: var(--font-playfair-display);
+}
+.div,
+.icon {
+  position: relative;
+}
+.icon {
+  width: 17.14px;
+  height: 17.14px;
+  object-fit: cover;
+}
+.div {
+  display: flex;
+  align-items: center;
+  width: 162px;
+  height: 9px;
+  flex-shrink: 0;
+}
+.logocontact {
+  position: absolute;
+  top: 84px;
+  left: 105px;
+  width: 181px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+}
+.logocontact,
+.logoemail,
+.yccein {
+  display: flex;
+  align-items: center;
+}
+.yccein {
+  position: relative;
+  width: 108px;
+  height: 14px;
+  flex-shrink: 0;
+}
+.logoemail {
+  position: absolute;
+  top: 108px;
+  left: 105px;
+  width: 181px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+}
+.nagpurmaharashtraindia {
+  flex: 1;
+  position: relative;
+}
+.logolocation {
+  position: absolute;
+  top: 132px;
+  left: 105px;
+  width: 181px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+}
+.httpswwwgooglecom {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 162px;
+  height: 11px;
+  flex-shrink: 0;
+}
+.logowebsite {
+  position: absolute;
+  top: 156px;
+  left: 105px;
+  width: 181px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+}
+.back12 {
+  position: relative;
+  border-radius: var(--br-xl);
+  background-color: var(--color-gray);
+  border: 1px solid var(--color-burlywood-100);
+  box-sizing: border-box;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--font-size-xs);
+  color: var(--color-burlywood-200);
+  font-family: var(--font-dm-serif-display);
+}
+@media screen and (max-width: 1200px) {
+  .back12 {
+    max-width: 1050px;
+    max-height: 600px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .back12 {
+    opacity: 0;
+  }
+  .back12.animate {
+    animation: 1s ease 0s 1 normal forwards slit-in-vertical;
+  }
+  @keyframes slit-in-vertical {
+    0% {
+      transform: translateZ(-800px) rotateY(90deg);
+      opacity: 0;
+    }
+    54% {
+      transform: translateZ(-160px) rotateY(87deg);
+      opacity: 1;
+    }
+    to {
+      transform: translateZ(0) rotateY(0);
+    }
+  }
+}
+
+/* front css */
+.company-name,
+.tagline {
+  position: absolute;
+  left: calc(50% - 71px);
+  display: inline-block;
+  width: 141.71px;
+}
+.company-name {
+  top: 84px;
+  font-size: 28.5px;
+  font-weight: 600;
+  text-align: left;
+  height: 31.71px;
+}
+.tagline {
+  top: 118px;
+  font-weight: 500;
+  height: 12.86px;
+}
+.logo-icon1 {
+  position: absolute;
+  top: 43px;
+  left: calc(50% - 33px);
+  width: 66.67px;
+  height: 39.24px;
+  object-fit: cover;
+}
+.website {
+  position: absolute;
+  bottom: 21.14px;
+  left: calc(50% - 71px);
+  display: inline-block;
+  width: 141.71px;
+  height: 12.86px;
+}
+.front12 {
+  position: relative;
+  border-radius: var(--br-xl);
+  background-color: var(--color-gray);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-burlywood-100);
+  box-sizing: border-box;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-burlywood-200);
+  font-family: var(--font-playfair-display);
+}
+
+    </style>
+    <!-- Include Google Fonts styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair Display:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM Serif Display:wght@400&display=swap" />
+  </head>
+  <body>
+
+    <!-- front -->
+    <div class="front12" id="front1Container">
+      <div class="company-name">COMPANY</div>
+      <div class="tagline">Slogan Slogan here</div>
+      <img class="logo-icon1" alt="" src="./public/logo1@2x.png" />
+      <div class="website">Https://www.google.com</div>
+    </div>
+
+    <!-- back -->
+    <div class="back12" id="back1Container" style="display: none;" data-animate-on-scroll>
+      <div class="back12-child"></div>
+      <img class="logo-icon" alt="" src="./public/logo@2x.png" />
+      <div class="nameposition">
+        <div class="james-bond">James Bond</div>
+        <div class="product-manager">Product Manager</div>
+      </div>
+      <div class="logocontact">
+        <img class="icon" alt="" src="./public/5-1@2x.png" />
+        <div class="div">+91 12345 67890</div>
+      </div>
+      <div class="logoemail">
+        <img class="icon" alt="" src="./public/6-1@2x.png" />
+        <div class="div">20010997@ycce.in</div>
+      </div>
+      <div class="logolocation">
+        <img class="icon" alt="" src="./public/8-1@2x.png" />
+        <div class="div">Nagpur,Maharashtra,India</div>
+      </div>
+      <div class="logowebsite">
+        <img class="icon" alt="" src="./public/7-1@2x.png" />
+        <div class="div">https://www.google.com</div>
+      </div>
+    </div>
+
+    <script>
+      var front1Container = document.getElementById("front1Container");
+      var back1Container = document.getElementById("back1Container");
+
+      if (front1Container && back1Container) {
+        front1Container.addEventListener("click", function (e) {
+          front1Container.style.display = "none"; // Hide the front1Container
+          back1Container.style.display = "block"; // Show the back1Container
+        });
+
+        back1Container.addEventListener("click", function (e) {
+          front1Container.style.display = "block"; // Hide the front1Container
+          back1Container.style.display = "none"; // Show the back1Container
+        });
+    
+    
+    }
+
+
+      var scrollAnimElements = document.querySelectorAll("[data-animate-on-scroll]");
+      var observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting || entry.intersectionRatio > 0) {
+              const targetElement = entry.target;
+              targetElement.classList.add("animate");
+              observer.unobserve(targetElement);
+            }
+          }
+        },
+        {
+          threshold: 0.15,
+        }
+      );
+
+      for (let i = 0; i < scrollAnimElements.length; i++) {
+        observer.observe(scrollAnimElements[i]);
+      }
+    </script>
+  </body>
+</html>

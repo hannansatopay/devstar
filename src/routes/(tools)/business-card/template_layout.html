@@ -1,0 +1,212 @@
+<main>
+    <div class="body">
+        <div class="template">
+            <div class="item" id="item1">
+                <div class="item1-info">
+                    <a href="" style="text-decoration: none; color: black;">Create Template</a>
+                    </p>
+                </div>
+            </div>
+            <div class="item" >
+                <img src="Card-Editor/assets/card3.png">
+                <a href="Card-Editor/template-card3/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card4.png">
+                <a href="Card-Editor/template-card4/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card5.png">
+                <a href="Card-Editor/template-card-5/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card9.png">
+                <a href="Card-Editor/template-card-9/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card11.png">
+                <a href="Card-Editor/template-card11/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card12.png">
+                <a href="Card-Editor/template-card12/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+            <div class="item">
+                <img src="Card-Editor/assets/card17.png">
+                <a href="Card-Editor/template-card17/src/App.svelte"><button class="view-button">View</button></a>
+            </div>
+        </div>
+</main>
+<style>
+    * {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .nav {
+        width: 100%;
+        height: 368px;
+        background-image: linear-gradient(rgb(0, 0, 0), rgb(88, 88, 88));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .nav1 h1 {
+        font-size: 3.2rem;
+        font-weight: 500;
+        font-family: sans-serif;
+        text-align: center;
+        color: white;
+        margin: 0px 0px 8px;
+    }
+    .nav2 h1 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        font-family: sans-serif;
+        text-align: center;
+        color: #D0D0D0;
+        margin: 16px 0px;
+    }
+    .body {
+        width: 100%;
+        /* height: 100vh; */
+        background-color: #F4F4F4;
+        padding: 48px 0px 0px;
+    }
+    .search {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        border: 1px solid rgb(208 208 208);
+        padding: 16px 24px;
+        margin: 0px 32px;
+        background-color: rgb(239 239 239);
+    }
+    .search1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 20px;
+    }
+    .search2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 20px;
+    }
+    button {
+        background-color: #F21B3F;
+        color: white;
+        border: none;
+        border-radius: 0.25rem;
+        font-size: 14px;
+        font-weight: 700;
+        width: 90px;
+        height: 48px;
+    }
+    .search1 label {
+        margin-right: 20px;
+        color: #5E5E5E;
+        font-size: 16px;
+        font-weight: 550;
+        font-family: sans-serif;
+    }
+    .search2 label {
+        margin-right: 20px;
+        color: #5E5E5E;
+        font-size: 16px;
+        font-weight: 550;
+        font-family: sans-serif;
+    }
+    .search1 input {
+        padding: 12px;
+        width: 324px;
+        height: 48px;
+        border: 1px solid rgb(208 208 208);
+        font-family: sans-serif;
+    }
+    .search2 input {
+        padding: 12px;
+        width: 324px;
+        height: 48px;
+        border: 1px solid rgb(208 208 208);
+        font-family: sans-serif;
+    }
+    .template {
+        padding: 32px 32px 16px 32px;
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2rem;
+        place-items: center;
+    }
+    .item {
+        width: 100%;
+        height: 200px;
+        /* border: 1px solid black; */
+        /* border-radius: 0.25rem; */
+        position: relative;
+        overflow: hidden;
+    }
+    .item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 transparent;
+    }
+    #item1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        border: 1.7px dashed rgb(208 208 208);
+        background-color: white;
+    }
+    #item1:hover {
+        background-color: #F4F4F4;
+    }
+    .item1-info{
+        font-size: 14px;
+        color: black;
+    }
+    .item1-info-head {
+        margin-bottom: 8px;
+        font-weight: 550;
+    }
+    .item1-info-para input {
+        display: none;
+    }
+    .item1-info-para label {
+        color: blue;
+    }
+    .template img {
+        width: 100%;
+        height: 100%;
+    }
+    .view-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+    .item:hover .view-button {
+        opacity: 1;
+    }
+    .item:hover img {
+        filter: blur(3px);
+    }
+</style>
