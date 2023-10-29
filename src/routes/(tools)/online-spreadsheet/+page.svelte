@@ -176,6 +176,7 @@
 			<Dropdown placement="right-start">
 				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
 				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xls")}}>Download <b>XLS</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
 				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
