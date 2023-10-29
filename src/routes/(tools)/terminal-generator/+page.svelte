@@ -38,59 +38,55 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<input type="radio" name="color" id="violet" class="color-radio">
-								<label for="violet" class="color-option div-violet">Violet</label>
-								<input type="radio" name="color" id="indigo" class="color-radio">
-								<label for="indigo" class="color-option div-indigo">Indigo</label>
-								<input type="radio" name="color" id="blue" class="color-radio">
-								<label for="blue" class="color-option div-blue">Blue</label>
-								<div class="div-green">Green</div>
-								<div class="div-yellow">Yellow</div>
-								<div class="div-orange">Orange</div>
-								<div class="div-red">Red</div>
-								<div class="div-white">White</div>
-								<div class="div-black">Black</div>
-								<div class="div-gray">Gray</div>
-								<div class="div-brown">Brown</div>
-								<div class="div-pink">Pink</div>
-								<div class="div-purple">Purple</div>
-								<div class="div-cyan">Cyan</div>
-								<div class="div-magenta">Magenta</div>
-								<div class="div-lime">Lime</div>
-								<div class="div-teal">Teal</div>
-								<div class="div-olive">Olive</div>
-								<div class="div-navy">Navy</div>
-								<div class="div-maroon">Maroon</div>
-								<div class="div-aqua">Aqua</div>
-								<div class="div-chartreuse">Chartreuse</div>
-								<div class="div-crimson">Crimson</div>
-								<div class="div-darkblue">Darkblue</div>
-								<div class="div-darkcyan">Darkcyan</div>
-								<div class="div-darkgoldenrod">Darkgoldenrod</div>
-								<div class="div-darkgray">Darkgray</div>
-								<div class="div-darkgreen">Darkgreen</div>
-								<div class="div-darkkhaki">Darkkhaki</div>
-								<div class="div-darkmagenta">Darkmagenta</div>
-								<div class="div-darkolivegreen">Darkolivegreen</div>
-								<div class="div-darkorange">Darkorange</div>
-								<div class="div-darkorchid">Darkorchid</div>
-								<div class="div-darkred">Darkred</div>
-								<div class="div-darkseagreen">Darkseagreen</div>
-								<div class="div-darkslateblue">Darkslateblue</div>
-								<div class="div-darkslategray">Darkslategray</div>
-								<div class="div-darkturquoise">Darkturquoise</div>
-								<div class="div-darkviolet">Darkviolet</div>
-								<div class="div-deeppink">Deeppink</div>
-								<div class="div-deepskyblue">Deepskyblue</div>
-								<div class="div-dimgray">Dimgray</div>
-								<div class="div-dodgerblue">Dodgerblue</div>
-								<div class="div-firebrick">Firebrick</div>
-								<div class="div-silver">Silver</div>
-								<div class="div-plum">Plum</div>
-								<div class="div-coral">Coral</div>
-								<div class="div-yellowgreen">Yellowgreen</div>
-								<div class="div-khaki">Khaki</div>
-								<div class="div-sienna">Sienna</div>
+								<div class="div-violet" onclick="document.querySelector('.terminal').style.backgroundColor = 'violet'">Violet</div>
+								<div class="div-indigo" onclick="document.querySelector('.terminal').style.backgroundColor = 'indigo'">Indigo</div>
+								<div class="div-blue" onclick="document.querySelector('.terminal').style.backgroundColor = 'blue'">Blue</div>
+								<div class="div-green" onclick="document.querySelector('.terminal').style.backgroundColor = 'green'">Green</div>
+								<div class="div-yellow" onclick="document.querySelector('.terminal').style.backgroundColor = 'yellow'">Yellow</div>
+								<div class="div-orange" onclick="document.querySelector('.terminal').style.backgroundColor = 'orange'">Orange</div>
+								<div class="div-red" onclick="document.querySelector('.terminal').style.backgroundColor = 'red'">Red</div>
+								<div class="div-white" onclick="document.querySelector('.terminal').style.backgroundColor = 'white'">White</div>
+								<div class="div-black" onclick="document.querySelector('.terminal').style.backgroundColor = 'black'">Black</div>
+								<div class="div-gray" onclick="document.querySelector('.terminal').style.backgroundColor = 'gray'">Gray</div>
+								<div class="div-brown" onclick="document.querySelector('.terminal').style.backgroundColor = 'brown'">Brown</div>
+								<div class="div-pink" onclick="document.querySelector('.terminal').style.backgroundColor = 'pink'">Pink</div>
+								<div class="div-purple" onclick="document.querySelector('.terminal').style.backgroundColor = 'purple'">Purple</div>
+								<div class="div-cyan" onclick="document.querySelector('.terminal').style.backgroundColor = 'cyan'">Cyan</div>
+								<div class="div-magenta" onclick="document.querySelector('.terminal').style.backgroundColor = 'magenta'">Magenta</div>
+								<div class="div-lime" onclick="document.querySelector('.terminal').style.backgroundColor = 'lime'">Lime</div>
+								<div class="div-teal" onclick="document.querySelector('.terminal').style.backgroundColor = 'teal'">Teal</div>
+								<div class="div-olive" onclick="document.querySelector('.terminal').style.backgroundColor = 'olive'">Olive</div>
+								<div class="div-navy" onclick="document.querySelector('.terminal').style.backgroundColor = 'navy'">Navy</div>
+								<div class="div-maroon" onclick="document.querySelector('.terminal').style.backgroundColor = 'maroon'">Maroon</div>
+								<div class="div-aqua" onclick="document.querySelector('.terminal').style.backgroundColor = 'aqua'">Aqua</div>
+								<div class="div-chartreuse" onclick="document.querySelector('.terminal').style.backgroundColor = 'chartreuse'">Chartreuse</div>
+								<div class="div-crimson" onclick="document.querySelector('.terminal').style.backgroundColor = 'crimson'">Crimson</div>
+								<div class="div-darkcyan" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkcyan'">Darkcyan</div>
+								<div class="div-darkgoldenrod" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkgoldenrod'">Darkgoldenrod</div>
+								<div class="div-darkgray" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkgray'">Darkgray</div>
+								<div class="div-darkgreen" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkgreen'">Darkgreen</div>
+								<div class="div-darkkhaki" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkkhaki'">Darkkhaki</div>
+								<div class="div-darkmagenta" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkmagenta'">Darkmagenta</div>
+								<div class="div-darkolivegreen" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkolivegreen'">Darkolivegreen</div>
+								<div class="div-darkorange" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkorange'">Darkorange</div>
+								<div class="div-darkorchid" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkorchid'">Darkorchid</div>
+								<div class="div-darkred" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkred'">Darkred</div>
+								<div class="div-darkseagreen" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkseagreen'">Darkseagreen</div>
+								<div class="div-darkslateblue" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkslateblue'">Darkslateblue</div>
+								<div class="div-darkslategray" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkslategray'">Darkslategray</div>
+								<div class="div-darkturquoise" onclick="document.querySelector('.terminal').style.backgroundColor = 'darkturquoise'">Darkturquoise</div>
+								<div class="div-darkviolet" onclick="document.querySelector('.terminal').style.backgroundColor = darkviolet'">Darkviolet</div>
+								<div class="div-deeppink" onclick="document.querySelector('.terminal').style.backgroundColor = 'deeppink'">Deeppink</div>
+								<div class="div-deepskyblue" onclick="document.querySelector('.terminal').style.backgroundColor = 'deepskyblue'">Deepskyblue</div>
+								<div class="div-dimgray" onclick="document.querySelector('.terminal').style.backgroundColor = 'dimgray'">dimgrayDimgray</div>
+								<div class="div-dodgerblue" onclick="document.querySelector('.terminal').style.backgroundColor = 'dodgerblue'">Dodgerblue</div>
+								<div class="div-firebrick" onclick="document.querySelector('.terminal').style.backgroundColor = 'firebrick'">Firebrick</div>
+								<div class="div-silver" onclick="document.querySelector('.terminal').style.backgroundColor = 'silver'">Silver</div>
+								<div class="div-plum" onclick="document.querySelector('.terminal').style.backgroundColor = 'plum'">Plum</div>
+								<div class="div-coral" onclick="document.querySelector('.terminal').style.backgroundColor = 'coral'">Coral</div>
+								<div class="div-yellowgreen" onclick="document.querySelector('.terminal').style.backgroundColor = 'yellowgreen'">Yellowgreen</div>
+								<div class="div-khaki" onclick="document.querySelector('.terminal').style.backgroundColor = 'khaki'">Khaki</div>
+								<div class="div-sienna" onclick="document.querySelector('.terminal').style.backgroundColor = 'sienna'">Sienna</div>
 
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
@@ -673,7 +669,7 @@
   		margin-bottom: 20px;
   		margin-left: auto;
   		margin-right: auto;
-	}
+}
 
 	.bg {
 		background-color: #121212;
@@ -783,7 +779,7 @@
 	.container-bg .white {
 		background: #fff;
 		position: absolute;
-		top: 0px;
+		top:0px;
 		right: 0px;
 		bottom: 0px;
 		left: 0px;
@@ -807,7 +803,7 @@
 		right: 0px;
 		bottom: 0px;
 		left: 0px;
-		height: 500px;
+		height: 440px;
 	}
 
 	.handler {
