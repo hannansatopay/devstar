@@ -38,57 +38,51 @@
 							<div slot="header" class="p-3">
 							  <Search size="md" />
 							</div>
-							<div class="div-violet">Violet</div>
-							<div class="div-indigo">Indigo</div>
-							<div class="div-blue">Blue</div>
-							<div class="div-green">Green</div>
-							<div class="div-yellow">Yellow</div>
-							<div class="div-orange">Orange</div>
-							<div class="div-red">Red</div>
-							<div class="div-white">White</div>
-							<div class="div-black">Black</div>
-							<div class="div-gray">Gray</div>
-							<div class="div-brown">Brown</div>
-							<div class="div-pink">Pink</div>
-							<div class="div-purple">Purple</div>
-							<div class="div-cyan">Cyan</div>
-							<div class="div-magenta">Magenta</div>
-							<div class="div-lime">Lime</div>
-							<div class="div-teal">Teal</div>
-							<div class="div-olive">Olive</div>
-							<div class="div-maroon">Maroon</div>
-							<div class="div-navy">Navy</div>
-							<div class="div-aqua">Aqua</div>
-							<div class="div-chartreuse">Chartreuse</div>
-							<div class="div-crimson">Crimson</div>
-							<div class="div-darkblue">Darkblue</div>
-							<div class="div-darkcyan">Darkcyan</div>
-							<div class="div-darkgoldenrod">Darkgoldenrod</div>
-							<div class="div-darkgray">Darkgray</div>
-							<div class="div-darkgreen">Darkgreen</div>
-							<div class="div-darkkhaki">Darkkhaki</div>
-							<div class="div-magenta">Magenta</div>
-							<div class="div-darkolivegreen">Darkolivegreen</div>
-							<div class="div-darkorange">Darkorange</div>
-							<div class="div-darkorchid">Darkorchid</div>
-							<div class="div-darkred">Darkred</div>
-							<div class="div-darkseagreen">Darkseagreen</div>
-							<div class="div-darkseablue">Darkslateblue</div>
-							<div class="div-darkslategray">Darkslategray</div>
-							<div class="div-darkturquoise">Darkturquoise</div>
-							<div class="div-darkviolet">Darkviolet</div>
-							<div class="div-deeppink">Deeppink</div>
-							<div class="div-deepskyblue">Deepskyblue</div>
-							<div class="div-dimgray">Dimgray</div>
-							<div class="div-dodgerblue">Dodgerblue</div>
-							<div class="div-firebrick">Firebrick</div>
-							<div class="div-silver">Silver</div>
-							<div class="div-plum">Plum</div>
-							<div class="div-coral">Coral</div>
-							<div class="div-yellowgreen">Yellowgreen</div>
-							<div class="div-khaki">Khaki</div>
-							<div class="div-sienna">Sienna</div>
-							
+							<div class="container">
+								<div id="container">
+								</div>
+								
+								<div class="CodeMirror cm-s-base16-dark CodeMirror-wrap">
+								<input type="radio" name="theme" id="light" checked>
+								<label for="light">Light</label>
+								<input type="radio" name="theme" id="dark">
+								<label for="dark">Dark</label>
+								<input type="radio" name="theme" id="dracula" checked>
+								<label for="light">Dracula</label>
+								<input type="radio" name="theme" id="solarized" checked>
+								<label for="light">Solarized</label>
+								<input type="radio" name="theme" id="One Dark Pro" checked>
+								<label for="One Dark Pro">One Dark Pro</label>
+								<input type="radio" name="theme" id="Monokai" checked>
+								<label for="Monokai">Monokai</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Nord</label>
+								<input type="radio" name="theme" id="Material Theme" checked>
+								<label for="light">Material</label>
+								<input type="radio" name="theme" id="Night Owl" checked>
+								<label for="Night Owl">Night Owl</label>
+								<input type="radio" name="theme" id="Ayu Mirage" checked>
+								<label for="Ayu Mirage">Ayu Mirage</label>
+								<input type="radio" name="theme" id="Palenight" checked>
+								<label for="Palenight">Palenight</label>
+								<input type="radio" name="theme" id="Duotone Dark" checked>
+								<label for="Duotone Dark">Duotone Dark</label>
+								<input type="radio" name="theme" id="Cobalt2" checked>
+								<label for="Cobalt2">Cobalt2</label>
+								<input type="radio" name="theme" id="Oceanic Next" checked>
+								<label for="Oceanic Next">Oceanic Next</label>
+								<input type="radio" name="theme" id="Shades of Purple" checked>
+								<label for="Shades of Purple">Shades of Purple</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Shades of Purple</label>
+								<input type="radio" name="theme" id="Nord" checked>
+								<label for="Nord">Nord</label>
+								<input type="radio" name="theme" id="Gruvbox" checked>
+								<label for="Gruvbox">Gruvbox</label>
+								<input type="radio" name="theme" id="Tokyo Night" checked>
+								<label for="Tokyo Night">Tokyo Night</label>
+							</div>
+						
 							<!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						  </Dropdown>
 					</div>
@@ -121,7 +115,7 @@
 									<div class="color-palette">
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'violet'">
 											<div class="color-box" style="background-color: violet;"></div>
-										</div>
+										  </div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'indigo'">
 											<div class="color-box" style="background-color: indigo;"></div>
 										</div>
@@ -231,7 +225,7 @@
 											<div class="color-box" style="background-color: darkslategray;"></div>
 										</div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkturquoise'">
-											<div class="color-box" style="background-color: darkturquoise;"></div>
+											<div class="color-box" style="background-color: dark turquoise;"></div>
 										</div>
 										<div class="container-bg" style="background-color: white;" onclick="document.querySelector('.container-bg .bg').style.backgroundColor = 'darkviolet'">
 											<div class="color-box" style="background-color: darkviolet;"></div>
@@ -317,15 +311,15 @@
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 										<DropdownItem>
-											<a href="https://www.facebook.com/share?url">Share on Facebook</a>
+											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://www.instagram.com/share?url">Share on Instagram</a>
+											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://twitter.com/share?url">Share on Twitter</a>
+											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
 										</DropdownItem>
 									</Dropdown>
 									
@@ -365,7 +359,7 @@
 						  <hr class="dropdown-divider">
 						  
 						  <input type="checkbox" id="copyURLCheckbox" class="export-checkbox">
-                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyUrlToClipboard}>Copy URL</label>
+                          <label for="copyURLCheckbox" class="dropdown-item" on:click={copyURLToClipboard}>Copy URL</label>
                           <hr class="dropdown-divider">
 						  <!-- <DropdownItem slot="footer">Separated link</DropdownItem> -->
 						</Dropdown>
@@ -393,57 +387,6 @@
 											>
 												<div style="position: relative; top: 0px;">
 													<div class="terminal-header">
-														<!-- HTML elements with different background colors -->
-														<div class="div-violet"></div>
-														<div class="div-indigo"></div>
-														<div class="div-blue"></div>
-														<div class="div-green"></div>
-														<div class="div-yellow"></div>
-														<div class="div-orange"></div>
-														<div class="div-red"></div>
-														<div class="div-white"></div>
-														<div class="div-black"></div>
-														<div class="div-gray"></div>
-														<div class="div-brown"></div>
-														<div class="div-pink"></div>
-														<div class="div-purple"></div>
-														<div class="div-cyan"></div>
-														<div class="div-magenta"></div>
-														<div class="div-lime"></div>
-														<div class="div-teal"></div>
-														<div class="div-olive"></div>
-														<div class="div-navy"></div>
-														<div class="div-maroon"></div>
-														<div class="div-aqua"></div>
-														<div class="div-chartreuse"></div>
-														<div class="div-crimson"></div>
-														<div class="div-darkblue"></div>
-														<div class="div-darkcyan"></div>
-														<div class="div-darkgoldenrod"></div>
-														<div class="div-darkgray"></div>
-														<div class="div-darkgreen"></div>
-														<div class="div-darkkhaki"></div>
-														<div class="div-darkmagenta"></div>
-														<div class="div-darkolivegreen"></div>
-														<div class="div-darkorange"></div>
-														<div class="div-darkorchid"></div>
-														<div class="div-darkred"></div>
-														<div class="div-darkseagreen"></div>
-														<div class="div-darkslateblue"></div>
-														<div class="div-darkslategray"></div>
-														<div class="div-darkturquoise"></div>
-														<div class="div-darkviolet"></div>
-														<div class="div-deeppink"></div>
-														<div class="div-deepskyblue"></div>
-														<div class="div-dimgray"></div>
-														<div class="div-dodgerblue"></div>
-														<div class="div-firebrick"></div>
-														<div class="div-silver"></div>
-														<div class="div-plum"></div>
-														<div class="div-coral"></div>
-														<div class="div-yellowgreen"></div>
-														<div class="div-khaki"></div>
-														<div class="div-sienna"></div>
 														<!-- <span class="mr-auto ml-2"></span> -->
 														<!-- <button class="close-btn bg-red-500 rounded-full w-4 h-4 mr-1" /> -->
 														<button class="close-btn" />
@@ -1066,312 +1009,6 @@
 			/* You can customize it to change the appearance */
 		}
 
-		/* Define different classes for each div with different background colors */
-		.div-violet {
-			width: auto;
-			height: auto;
-			background-color: violet;
-		}
-
-		.div-indigo {
-			width: auto;
-			height: auto;
-			background-color: indigo;
-		}
-
-		.div-blue {
-			width: auto;
-			height: auto;
-			background-color: blue;
-		}
-
-		.div-green {
-			width: auto;
-			height: auto;
-			background-color: green;
-		}
-
-		.div-yellow {
-			width: auto;
-			height: auto;
-			background-color: yellow;
-		}
-
-		.div-orange {
-			width: auto;
-			height: auto;
-			background-color: orange;
-		}
-
-		.div-red {
-			width: auto;
-			height: auto;
-			background-color: red;
-		}
-
-		.div-white {
-			width: auto;
-			height: auto;
-			background-color: white;
-		}
-
-		.div-black {
-			width: auto;
-			height: auto;
-			background-color: black;
-		}
-
-		.div-gray {
-			width: auto;
-			height: auto;
-			background-color: gray;
-		}
-
-		.div-brown {
-			width: auto;
-			height: auto;
-			background-color: brown;
-		}
-
-		.div-pink {
-			width: auto;
-			height: auto;
-			background-color: pink;
-		}
-
-		.div-purple {
-			width: auto;
-			height: auto;
-			background-color: purple;
-		}
-
-		.div-cyan {
-			width: auto;
-			height: auto;
-			background-color: cyan;
-		}
-
-		.div-magenta {
-			width: auto;
-			height: auto;
-			background-color: magenta;
-		}
-
-		.div-lime {
-			width: auto;
-			height: auto;
-			background-color: lime;
-		}
-
-		.div-teal {
-			width: auto;
-			height: auto;
-			background-color: teal;
-		}
-
-		.div-olive {
-			width: auto;
-			height: auto;
-			background-color: olive;
-		}
-
-		.div-navy {
-			width: auto;
-			height: auto;
-			background-color: navy;
-		}
-
-		.div-maroon {
-			width: auto;
-			height: auto;
-			background-color: maroon;
-		}
-
-		.div-aqua {
-			width: auto;
-			height: auto;
-			background-color: aqua;
-		}
-
-		.div-chartreuse {
-			width: auto;
-			height: auto;
-			background-color: chartreuse;
-		}
-
-		.div-crimson {
-			width: auto;
-			height: auto;
-			background-color: crimson;
-		}
-
-		.div-darkblue {
-			width: auto;
-			height: auto;
-			background-color: darkblue;
-		}
-
-		.div-darkcyan {
-			width: auto;
-			height: auto;
-			background-color: darkcyan;
-		}
-
-		.div-darkgoldenrod {
-			width: auto;
-			height: auto;
-			background-color: darkgoldenrod;
-		}
-
-		.div-darkgray {
-			width: auto;
-			height: auto;
-			background-color: darkgray;
-		}
-
-		.div-darkgreen {
-			width: auto;
-			height: auto;
-			background-color: darkgreen;
-		}
-
-		.div-darkkhaki {
-			width: auto;
-			height: auto;
-			background-color: darkkhaki;
-		}
-
-		.div-darkmagenta {
-			width: auto;
-			height: auto;
-			background-color: darkmagenta;
-		}
-
-		.div-darkolivegreen {
-			width: auto;
-			height: auto;
-			background-color: darkolivegreen;
-		}
-
-		.div-darkorange {
-			width: auto;
-			height: auto;
-			background-color: darkorange;
-		}
-
-		.div-darkorchid {
-			width: auto;
-			height: auto;
-			background-color: darkorchid;
-		}
-
-		.div-darkred {
-			width: auto;
-			height: auto;
-			background-color: darkred;
-		}
-
-		.div-darkseagreen {
-			width: auto;
-			height: auto;
-			background-color: darkseagreen;
-		}
-
-		.div-darkslateblue {
-			width: auto;
-			height: auto;
-			background-color: darkslateblue;
-		}
-
-		.div-darkslategray {
-			width: auto;
-			height: auto;
-			background-color: darkslategray;
-		}
-
-		.div-darkturquoise {
-			width: auto;
-			height: auto;
-			background-color: darkturquoise;
-		}
-
-		.div-darkviolet {
-			width: auto;
-			height: auto;
-			background-color: darkviolet;
-		}
-
-		.div-deeppink {
-			width: auto;
-			height: auto;
-			background-color: deeppink;
-		}
-
-		.div-deepskyblue {
-			width: auto;
-			height: auto;
-			background-color: deepskyblue;
-		}
-
-		.div-dimgray {
-			width: auto;
-			height: auto;
-			background-color: dimgray;
-		}
-
-		.div-dodgerblue {
-			width: auto;
-			height: auto;
-			background-color: dodgerblue;
-		}
-
-		.div-firebrick {
-			width: auto;
-			height: auto;
-			background-color: firebrick;
-		}
-
-		.div-silver {
-			width: auto;
-			height: auto;
-			background-color: silver;
-		}
-
-		.div-plum {
-			width: auto;
-			height: auto;
-			background-color: plum;
-		}
-
-		.div-coral {
-			width: auto;
-			height: auto;
-			background-color: coral;
-		}
-
-		.div-yellowgreen {
-			width: auto;
-			height: auto;
-			background-color: yellowgreen;
-		}
-
-		.div-khaki {
-			width: auto;
-			height: auto;
-			background-color: khaki;
-		}
-
-		.div-sienna {
-			width: auto;
-			height: auto;
-			background-color: sienna;
-		}
-
-
-
-
-
-
 </style>
 
 <script lang="ts">
@@ -1493,38 +1130,31 @@ const exportToImage = async () => {
 
 //shristi 
   // Function to copy the image to the clipboard-SHRISTI
-  const copyTextToClipboard = async () => {
-    const element = document.querySelector('.dnd-container') as HTMLElement;
-
   const copyImageToClipboard = async () => {
+     const element = document.querySelector('.dnd-container') as HTMLElement;
 
-    const element = document.querySelector('.dnd-container') as HTMLElement;
-
-  const copyUrlToClipboard = async () => {
-    const element = document.querySelector('.dnd-container') as HTMLElement;
-
-    if (element) {
-      try {
-        const canvas = await html2canvas(element);
-        canvas.toBlob((blob) => {
-          if (blob) {
-            const clipboardItems = [new ClipboardItem({ "image/png": blob })];
-            navigator.clipboard.write(clipboardItems).then(() => {
-              alert('Code image copied to clipboard');
-            }).catch((error) => {
-              console.error('Unable to copy code image: ', error);
-            });
-          } else {
-            console.error('Failed to convert canvas to blob.');
-          }
-        }, 'image/png');
-      } catch (error) {
-        console.error('Failed to copy image to clipboard: ', error);
-      }
-    } else {
-      console.error('Element not found.');
-    }
-  };
+     if (element) {
+       try {
+         const canvas = await html2canvas(element);
+         canvas.toBlob((blob) => {
+           if (blob) {
+             const clipboardItems = [new ClipboardItem({ "image/png": blob })];
+             navigator.clipboard.write(clipboardItems).then(() => {
+               alert('Code image copied to clipboard');
+             }).catch((error) => {
+               console.error('Unable to copy code image: ', error);
+             });
+           } else {
+             console.error('Failed to convert canvas to blob.');
+           }
+         }, 'image/png');
+       } catch (error) {
+         console.error('Failed to copy image to clipboard: ', error);
+       }
+     } else {
+       console.error('Element not found.');
+     }
+   };
 
 //  COPY URL TO CLIPBOARD-SHRISTI
    const copyURLToClipboard = () => {
