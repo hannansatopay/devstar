@@ -1,53 +1,54 @@
 <script lang="ts">
-
     import { Button } from 'flowbite-svelte';
     import jsPDF from 'jspdf';
     import Intro from '$lib/Intro.svelte';
 
     export let data;
+    let inputText = '';
+    let strlength = '';
+  
     
-    var output;
-  
-    function removeExtraSpaces(input) {
-      output = input.target.value.replace(/\s+/g, ' ').trim();
+	function calculateLength() {
+        strlength=inputText.length.toString();
+	}
+
+    function copyText() {
+        if (inputText.length > 0) {
+            var textarea = document.createElement("textarea");
+            textarea.value = `InputText:  ${inputText}\nLength: ${strlength}`;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
     }
-  
-	function copyText() {
-		if (output.length > 0) {
-			var textarea = document.createElement("textarea");
-			textarea.value = output;
-			document.body.appendChild(textarea);
-			textarea.select();
-			document.execCommand("copy");
-			document.body.removeChild(textarea);
-		}
-	}
+    function downloadText() {
+    if (strlength.length > 0) {
+        const combinedText=`InputText: ${inputText}\n\nLength: ${strlength}`;
+        const textBlob= new Blob([combinedText], { type: 'text/plain' });
+    
 
-	function downloadText() {
-		if (output.length > 0) {
-			var filename = "devstar_output.txt";
-			var blob = new Blob([output], { type: 'text/plain' });
-			var url = window.URL.createObjectURL(blob);
-			
-			var a = document.createElement('a');
-			a.href = url;
-			a.download = filename;
-			document.body.appendChild(a);
-			a.click();
-			
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
-		}
-	}
-  
+        const anchor = document.createElement('a');
+        anchor.href = URL.createObjectURL(textBlob);
+       
+
+        anchor.download = 'devstar_output.txt';
+        anchor.click();
+
+        URL.revokeObjectURL(anchor.href);
+    }
+}
+
 	function downloadPDF() {
-		if (output.length > 0) {
-			const doc = new jsPDF();
-			doc.text(output, 20, 20);
-			doc.save('devstar_output.pdf');
-		}
-	}
-
+        if (strlength.length > 0) {
+            const pdf = new jsPDF();
+            pdf.text("InputText:", 10, 10);
+            pdf.text(inputText, 40, 10); 
+            pdf.text("Length:", 10, 20);
+            pdf.text(strlength, 30, 20); 
+            pdf.save("devstar_output.pdf"); 
+        }
+    }
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -59,11 +60,11 @@
             <div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
                     <textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    on:input={removeExtraSpaces}/>
+                    bind:value={inputText} on:input={calculateLength}/>
                 </div>
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-                    <textarea placeholder="Result" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    bind:value={output}/>
+                    <textarea readonly placeholder="Result" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    bind:value={strlength}/>
                 </div>
             </div>
 
@@ -74,12 +75,12 @@
 					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
 				</div>	
 			</div>
-            
+
         </div>
     </div>
 </section>
 
-<style>    
+<style>  
 
     .card {
         box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;

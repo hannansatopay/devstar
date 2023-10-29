@@ -283,10 +283,10 @@ export let tools = {
         description: 
 		"Refine your content effortlessly with our Strip HTML Tags Tool. Input any text containing HTML markup, and watch as it instantly removes all HTML tags, leaving you with clean, readable text. Perfect for writers, editors, and developers dealing with web content, ensuring seamless integration across various platforms. Say goodbye to cluttered code and hello to polished, tag-free content. Streamline your text processing tasks, enhancing readability and user experience. Start stripping HTML tags with ease, transforming your content into its purest, most accessible form."
 	},
-	'string-extraction': {
+	'substring-extractor': {
 		name: 'Substring Extractor',
 		icon: 'code',
-		link: '/string-extraction',
+		link: '/substring-extractor',
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
@@ -481,5 +481,11 @@ export let tools = {
         link: '/morsecode-translator',
         description: 
 		"A Morse code translator is a tool or program that converts Morse Code into Text or vice versa, allowing communication through a series of dots and dashes or letters."
+	},
+	'string-abbreviator':{
+        name: 'String Abbreviator',
+        link: '/string-abbreviator',
+        description: 
+		"This tool is a simple text manipulation utility that allows you to abbreviate a given text string. It takes an input text, processes it to generate an abbreviated version, and provides options to copy the abbreviated text to the clipboard or download it as a text file or PDF. Whether you want to create compact acronyms or condense text for concise communication, this tool streamlines the process of text abbreviation while offering convenient options for sharing and storing the result."
 	},
 };

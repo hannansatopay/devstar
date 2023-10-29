@@ -5,48 +5,47 @@
     import Intro from '$lib/Intro.svelte';
 
     export let data;
-    
-    var output;
-  
-    function removeExtraSpaces(input) {
-      output = input.target.value.replace(/\s+/g, ' ').trim();
+
+    var output = 0;
+
+    function countWords(input) {
+        const words = input.target.value.split(" ").filter(word => word !== "");
+        output = words.length;
+    }
+
+    function copyText() {
+        if (output > 0) {
+            var textarea = document.createElement("textarea");
+            textarea.value = output;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+    }
+
+    function downloadText() {
+        if (output > 0) {
+            var filename = "devstar_output.txt";
+            var blob = new Blob([output], { type: 'text/plain' });
+            var url = window.URL.createObjectURL(blob);
+            
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
     }
   
-	function copyText() {
-		if (output.length > 0) {
-			var textarea = document.createElement("textarea");
-			textarea.value = output;
-			document.body.appendChild(textarea);
-			textarea.select();
-			document.execCommand("copy");
-			document.body.removeChild(textarea);
-		}
-	}
-
-	function downloadText() {
-		if (output.length > 0) {
-			var filename = "devstar_output.txt";
-			var blob = new Blob([output], { type: 'text/plain' });
-			var url = window.URL.createObjectURL(blob);
-			
-			var a = document.createElement('a');
-			a.href = url;
-			a.download = filename;
-			document.body.appendChild(a);
-			a.click();
-			
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
-		}
-	}
-  
-	function downloadPDF() {
-		if (output.length > 0) {
-			const doc = new jsPDF();
-			doc.text(output, 20, 20);
-			doc.save('devstar_output.pdf');
-		}
-	}
+    function downloadPDF() {
+        const doc = new jsPDF();
+        doc.text(output.toString(), 20, 20);
+        doc.save('devstar_output.pdf');
+    }
 
 </script>
 
@@ -59,10 +58,10 @@
             <div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
                     <textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    on:input={removeExtraSpaces}/>
+                    on:input={countWords}/>
                 </div>
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-                    <textarea placeholder="Result" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <textarea placeholder="Word Count" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     bind:value={output}/>
                 </div>
             </div>
