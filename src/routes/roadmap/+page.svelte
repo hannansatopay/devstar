@@ -140,7 +140,6 @@
                 name: 'Munsif Satopay',
                 githubId: 'munsifsatopay'
             }]
-
         },
         {
             name: 'Currency Calculator',
@@ -177,7 +176,17 @@
                 githubId: 'harshitkandpal'
             }]
         },
-    ]
+        {
+            name: 'Terminal Generator',
+            contributors: [{
+                name: 'Hannan Satopay',
+                githubId: 'hannansatopay'
+            }, {
+                name: 'Sahil Balia',
+                githubId: 'sahilbalia'
+            },
+        }
+    ];
 </script>
 <section class="bg-white dark:bg-gray-900 p-3 sm:p-5">
     <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
