@@ -21,6 +21,8 @@
 	import xmlFormat from 'xml-formatter';
 	import prettify from 'html-prettify';
 	import xml2js from 'xml2js';
+	import jsBeautify from 'js-beautify';
+	
 
 	export let data;
 
@@ -82,6 +84,11 @@
 		let formattedHTML = prettify(inputHTML);
 		outputTextAreaContent = formattedHTML;
 	}
+	function formatjs() {
+		let inputJS = inputTextAreaContent;
+		let formattedJS = jsBeautify(inputJS);
+		outputTextAreaContent = formattedJS;
+	}
 
 	function formatJSON() {
 		try {
@@ -127,6 +134,8 @@
 			alert('Invalid HTML input');
 		}
 	}
+
+
 
 	function validateContent() {
 		if (toolType === 'JSON') {
@@ -174,6 +183,13 @@
 		outputTextAreaContent = minifiedHTML;
 	}
 
+	function minifyJS() {
+		let inputJS = inputTextAreaContent;
+		let minifiedJS = inputJS.replace(/>\s+</g, '><').trim();
+		outputTextAreaContent = minifiedJS;
+	}
+
+
 	function sampleHTML() {
 		let samplehtml = `<div>
 		<h1>Hello, World!</h1>
@@ -203,6 +219,18 @@
 }  `;
 		inputTextAreaContent = samplejson;
 	}
+
+	function sampleJS() {
+		let samplejs = ` <script>
+		function addNumbers(a, b) {return a + b;}console.log('this is just and sample code')
+const number1 = 5;
+const number2 = 7;
+const sum = addNumbers(number1, number2);
+
+    </script >`;
+		inputTextAreaContent = samplejs;
+	}
+
 
 	function sampleCSV() {
 		let samplecsv =
@@ -299,18 +327,21 @@
 		if (toolType === 'XML') formatXML();
 		else if (toolType === 'JSON') formatJSON();
 		else if (toolType === 'HTML') formatHTML();
+		else if (toolType === 'JS') formatjs();
 	}
 
 	function minify() {
 		if (toolType === 'XML') minifyXML();
 		else if (toolType === 'JSON') minifyJSON();
 		else if (toolType === 'HTML') minifyHTML();
+		else if (toolType === 'JS') minifyJS();
 	}
 
 	function sampleCode() {
 		if (toolType === 'XML') sampleXML();
 		else if (toolType === 'JSON') sampleJSON();
 		else if (toolType === 'HTML') sampleHTML();
+		else if (toolType === 'JS') sampleJS();
 		else if (convertTypeOne == 'JSON') sampleJSON();
 		else if (convertTypeOne == 'XML') sampleXML();
 		else if (convertTypeOne == 'CSV') sampleCSV();
@@ -550,7 +581,12 @@
 			fileExtension = 'html';
 			fileName = 'output.html';
 			fileType = 'text/html';
-		} else {
+		} else if (toolType === 'JS') {
+			fileExtension = 'js';
+			fileName = 'output.js';
+			fileType = 'text/js';
+		} 
+		else {
 			fileExtension = 'txt';
 			fileName = 'output.txt';
 			fileType = 'text/plain';
@@ -666,6 +702,12 @@
 								toolsDropdownOpen = false;
 								toolType = 'HTML';
 							}}>HTML Formatter</DropdownItem
+						>
+						<DropdownItem
+							on:click={() => {
+								toolsDropdownOpen = false;
+								toolType ='JS';
+							}}>JS Formatter</DropdownItem
 						>
 						<DropdownItem
 							on:click={() => {
