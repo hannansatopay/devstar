@@ -193,7 +193,11 @@
 						<tr>
 							<td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
 							{#each Array(numCols) as _, colIndex}
-								<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
+								{#if typeof rowData[rowIndex][colIndex] !== "undefined"}
+									<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
+								{:else}
+									<td contenteditable="true" class="content" />
+								{/if}
 							{/each}
 						</tr>
 					{/each}
