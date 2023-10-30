@@ -191,43 +191,56 @@
 	}
 
 	function sampleHTML() {
-		let samplehtml = `<div>
-		<h1>Hello, World!</h1>
-		<p>This is a sample HTML content.</p>
-</div>`;
+		let samplehtml = `<!DOCTYPE html>
+<html>
+  <head>
+    <title>Largest companies by market cap — US Stock Market</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+	<h1>Employees :</h1>
+	<h2>ID : 1</h2>
+	<h3>First Name : Tom</h3>
+	<h4>Last Name : Cruise</h4>
+  </body>
+</html>`;
 		inputTextAreaContent = samplehtml;
 	}
 
 	function sampleXML() {
-		let samplehtml = `<?xml version="1.0" encoding="UTF-8"?>
-		<book>
-		<name>A Song of Ice and Fire</name>
-		<author>George R. R. Martin</author>
-		<language>English</language>
-		<genre>Epic fantasy</genre>
-</book>`;
+		let samplehtml = `<?xml version="1.0" encoding="UTF-8" ?>
+<employees>
+	<employee>
+		<id>1</id>
+		<firstName>Tom</firstName>
+		<lastName>Cruise</lastName>
+	</employee>
+</employees>`;
 		inputTextAreaContent = samplehtml;
 	}
 
 	function sampleJSON() {
-		let samplejson = `{  
-    "employee": {  
-        "name":       "Sam",   
-        "salary":      56000,   
-        "married":    true  
-    }  
-}  `;
+		let samplejson = `{
+  "employees": {
+    "employee": [
+      {
+        "id": "1",
+        "firstName": "Tom",
+        "lastName": "Cruise"
+      }
+    ]
+  }
+}`;
 		inputTextAreaContent = samplejson;
 	}
 
 	function sampleJS() {
-		let samplejs = ` <script>
-		function addNumbers(a, b) {return a + b;}console.log('this is just and sample code')
-const number1 = 5;
-const number2 = 7;
-const sum = addNumbers(number1, number2);
-
-    </script >`;
+		let samplejs = `<script>
+	function addNumbers(a, b) {return a + b;}console.log('this is just and sample code')
+	const number1 = 5;
+	const number2 = 7;
+	const sum = addNumbers(number1, number2);
+</script >`;
 		inputTextAreaContent = samplejs;
 	}
 
