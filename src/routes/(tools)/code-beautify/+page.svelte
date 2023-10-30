@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Label, Tooltip, Button, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { Label, Tooltip, Button, Dropdown, DropdownItem, Select } from 'flowbite-svelte';
 
 	import {
 		FolderOpenSolid,
@@ -65,13 +65,18 @@
 	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
-	let spaceoption = 4;
-	let Tabs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	
+	let tabs = 1;
+	let tabsList = [
+		{ value: 1, name: 'Tab Size: 1' },
+		{ value: 2, name: 'Tab Size: 2' },
+		{ value: 3, name: 'Tab Size: 3' }
+	];
 
 	function formatXML() {
 		let inputXML = inputTextAreaContent;
 		let formattedXML = xmlFormat(inputXML, {
-			indentation: '  ',
+			indentation: '    '.repeat(tabs),
 			filter: (node) => node.type !== 'Comment',
 			collapseContent: true,
 			lineSeparator: '\n'
@@ -81,12 +86,20 @@
 
 	function formatHTML() {
 		let inputHTML = inputTextAreaContent;
-		let formattedHTML = prettify(inputHTML);
+		const prettifyOptions = {
+			char: ' ',
+			count: 4 * tabs
+  		};
+		let formattedHTML = prettify(inputHTML, prettifyOptions);
 		outputTextAreaContent = formattedHTML;
 	}
 	function formatjs() {
 		let inputJS = inputTextAreaContent;
-		let formattedJS = jsBeautify(inputJS);
+		let beautifyOptions = {
+    		"indent_size": tabs,
+    		"indent_char": "    ",
+		};
+		let formattedJS = jsBeautify(inputJS, beautifyOptions);
 		outputTextAreaContent = formattedJS;
 	}
 
@@ -94,7 +107,7 @@
 		try {
 			let inputJSON = inputTextAreaContent;
 			let parsedJSON = JSON.parse(inputJSON);
-			let formattedJSON = JSON.stringify(parsedJSON, null, spaceoption);
+			let formattedJSON = JSON.stringify(parsedJSON, null, 4 * tabs);
 			outputTextAreaContent = formattedJSON;
 		} catch (error) {
 			let formattedJSON = 'Invalid JSON';
@@ -152,7 +165,7 @@
 	//xml indent
 	function indentxml() {
 		const spaces = ' '.repeat(parseInt(indentation.value));
-		const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${spaces}`);
+		const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${4 * tabs}`);
 		outputTextAreaContent = indentedXml;
 	}
 
@@ -235,12 +248,11 @@
 	}
 
 	function sampleJS() {
-		let samplejs = `<script>
-	function addNumbers(a, b) {return a + b;}console.log('this is just and sample code')
-	const number1 = 5;
-	const number2 = 7;
-	const sum = addNumbers(number1, number2);
-</script >`;
+		let samplejs = `function addNumbers(a, b) {return a + b;};
+console.log('this is just and sample code');
+const number1 = 5;
+const number2 = 7;
+const sum = addNumbers(number1, number2);`;
 		inputTextAreaContent = samplejs;
 	}
 
@@ -374,6 +386,7 @@
 			}
 		}
 	}
+
 	function convertXML2CSV() {
 		const inputXML = inputTextAreaContent; // Assuming inputTextAreaContent is a string
 		if (!inputXML) {
@@ -432,7 +445,7 @@
 			jsonArray.push(jsonObject);
 		}
 
-		outputTextAreaContent = JSON.stringify(jsonArray, null, spaceoption);
+		outputTextAreaContent = JSON.stringify(jsonArray, null, 4 * tabs);
 	}
 
 	function convertCSV2XML() {
@@ -501,7 +514,7 @@
 			result[rootElement.tagName] = { [children[0].tagName]: data };
 		}
 
-		outputTextAreaContent = JSON.stringify(result, null, spaceoption);
+		outputTextAreaContent = JSON.stringify(result, null, 4 * tabs);
 	}
 
 	function flattenJSON(jsonObj, prefix = '') {
@@ -952,7 +965,7 @@
 						{/if}
 					</Tooltip>
 
-					<label for="dropdown" class="text-white">Space:</label>
+					<!-- <label for="dropdown" class="text-white">Space:</label>
 					<select
 						id="dropdown"
 						class="text-white rounded cursor-pointer dark:bg-gray-700 dark:border-gray-600"
@@ -961,7 +974,7 @@
 						{#each Tabs as option (option)}
 							<option value={option}>{option} Tabs</option>
 						{/each}
-					</select>
+					</select> -->
 				</div>
 			</div>
 			<button
@@ -1026,7 +1039,7 @@
 			on:click={findSize}
 			>Minify
 		</Button>
-		<Button
+		<!-- <Button
 			color="blue"
 			size="5px"
 			class="ml-1"
@@ -1036,7 +1049,7 @@
 		>
 			<label for="indentation">Select Indentation</label>
 			<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
-		</Button>
+		</Button> -->
 	{/if}
 
 	<div
@@ -1167,11 +1180,12 @@
 			</div>
 		</div>
 		<div
-			class="px-4 py-1 text-sm bg-gray-100 dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
+			class="px-4 py-1 text-sm dark:bg-gray-700 rounded-b-lg text-gray-700 dark:text-gray-200 flex justify-start divide-x divide-gray-700 dark:divide-gray-400"
 		>
 			<p class="pr-4 pl-2">Ln : {outputTextAreaLnIndex}</p>
 			<p class="px-4">Col : {outputTextAreaColIndex}</p>
 			<p class="px-4">Size : {outputTextAreaSize} B</p>
+			<p class="px-4"><Select class="py-0 w-32 pr-0 text-gray-700 dark:text-gray-200" items={tabsList} bind:value={tabs} on:change={format} /></p>
 		</div>
 	</div>
 </div>
