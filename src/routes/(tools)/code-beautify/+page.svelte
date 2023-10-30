@@ -185,7 +185,8 @@
 
 	function minifyJS() {
 		let inputJS = inputTextAreaContent;
-		let minifiedJS = inputJS.replace(/>\s+</g, '><').trim();
+		let codeWithoutComments = inputJS.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
+  		let minifiedJS = codeWithoutComments.replace(/\s+/g, ' ').trim();
 		outputTextAreaContent = minifiedJS;
 	}
 
