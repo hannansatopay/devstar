@@ -209,7 +209,7 @@ export let tools = {
         name: 'Online Spreadsheet',
         icon: 'files',
         link: '/online-spreadsheet',
-        description: "Unlock your potential with our Online Spreadsheet Editor which supports XLSX, XLS, and CSV Spreadsheets seamlessly. Simplify Data Management, work with different Spreadsheet formats effortlessly and boost productivity. Say goodbye to File Conversions and hello to a streamlined process, all within a Single platform. Focus on creating exceptional Web Solutions, free from unnecessary complexities. Get Started with this Game-changing Spreadsheet Editor; Make your Development Projects efficient and enjoyable today!"
+        description: "Attention Devs, The Online Spreadsheet Editor is here! Simplify Data Management, Work with Different Spreadsheet Formats Effortlessly and Boost Productivity. Say Goodbye to File Conversions and Hello to a Streamlined Process as We support XLSX, XLS, and CSV Spreadsheets Seamlessly. So, Focus on Creating Exceptional Web Solutions, Free from Unnecessary Complexities. And Get Started with this Game-Changing Online Spreadsheet Editor to Make your Development Projects Efficient and Enjoyable Today!"
     },
     'student-loan-calculator': {
         name: 'Student Loan Calculator',
