@@ -1,71 +1,86 @@
 {
-	"name": "terminal-generator-svelte-project",
-	"private": true,
-	"type": "module",
+	"name": "flowbite-svelte-starter",
+	"version": "0.1.3",
+	"description": "Flowbite-Svelte starter kit",
+	"author": {
+		"name": "Shinichi Okada",
+		"email": "connect@codewithshin.com",
+		"url": "https://blog.codewithshin.com"
+	},
+	"bugs": "https://github.com/shinokada/flowbite-svelte-starter/issues",
+	"homepage": "https://github.com/shinokada/flowbite-svelte-starter",
+	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"lint": "concurrently -c \"#c596c7\",\"#676778\",\"#4b32c3\",\"#fafafa\" --kill-others-on-fail \"npm:lint:*\"",
-		"lint:prettier": "prettier --check . \"src/**/*.{svelte,ts,scss,css,html}\"",
-		"lint:svelte-check": "svelte-check --fail-on-warnings --ignore build,package",
-		"lint:eslint": "eslint --ext=js,ts,svelte --max-warnings=0 src",
-		"lint:stylelint": "stylelint \"src/**/*.{css,scss,svelte}\"",
-		"format": "eslint --ext=js,ts,svelte --fix src  && stylelint --fix \"src/**/*.{css,scss,svelte}\" && prettier --write . \"src/**/*.{svelte,ts,scss,css,html}\"",
-		"prepare": "husky install"
-	},
-	"lint-staged": {
-		"*.{ts,svelte}": [
-			"svelte-check --fail-on-warnings"
-		],
-		"*.{ts,svelte,js,cjs,mjs}": [
-			"eslint --max-warnings 0 --no-ignore"
-		],
-		"*.{ts,js,svelte,css,scss,json,html}": [
-			"prettier --check"
-		]
-	},
-	"engines": {
-		"node": ">=18"
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-static": "^2.0.3",
-		"@sveltejs/kit": "^1.27.1",
-		"@typescript-eslint/eslint-plugin": "^6.9.0",
-		"@typescript-eslint/parser": "^6.9.0",
-		"concurrently": "^8.2.2",
-		"eslint": "^8.52.0",
-		"eslint-config-airbnb-base": "^15.0.0",
-		"eslint-config-airbnb-typescript": "^17.1.0",
-		"eslint-config-prettier": "^9.0.0",
-		"eslint-config-triple": "^1.1.3",
-		"eslint-import-resolver-typescript": "^3.6.1",
-		"eslint-plugin-import": "^2.29.0",
-		"eslint-plugin-only-warn": "^1.1.0",
-		"eslint-plugin-svelte": "^2.34.0",
-		"husky": "^8.0.3",
-		"lint-staged": "^15.0.2",
+		"@faker-js/faker": "^8.0.2",
+		"@sveltejs/adapter-auto": "2.0.0",
+		"@sveltejs/adapter-node": "^1.3.1",
+		"@sveltejs/kit": "^1.25.2",
+		"@types/multicoin-address-validator": "^0.5.0",
+		"@typescript-eslint/eslint-plugin": "^5.52.0",
+		"@typescript-eslint/parser": "^5.52.0",
+		"autoprefixer": "^10.4.13",
+		"eslint": "^8.34.0",
+		"eslint-config-prettier": "^8.6.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"flowbite": "^1.7.0",
+		"flowbite-svelte": "^0.39.3",
+		"flowbite-svelte-blocks": "^0.3.9",
+		"flowbite-svelte-icons": "^0.4.4",
 		"postcss": "^8.4.31",
-		"postcss-html": "^1.5.0",
-		"postcss-preset-env": "^9.2.0",
-		"prettier": "^3.0.3",
-		"prettier-plugin-svelte": "^3.0.3",
-		"sass": "^1.69.5",
-		"stylelint": "^15.11.0",
-		"stylelint-config-clean-order": "^5.2.0",
-		"stylelint-config-standard-scss": "^11.0.0",
-		"stylelint-prettier": "^4.0.2",
-		"svelte": "^4.2.2",
-		"svelte-check": "^3.5.2",
-		"typescript": "^5.2.2",
-		"vite": "^4.5.0"
+		"prettier": "^2.8.4",
+		"prettier-plugin-svelte": "^2.9.0",
+		"svelte": "^3.59.2",
+		"svelte-awesome-color-picker": "^2.4.1",
+		"svelte-check": "^2.10.3",
+		"svelte-heros": "^2.6.0",
+		"tailwindcss": "^3.2.7",
+		"tslib": "^2.5.0",
+		"typescript": "~4.7.4",
+		"vite": "^4.1.5",
+		"vitest": "^0.28.5"
+	},
+	"type": "module",
+	"keywords": [
+		"svelte",
+		"sveltekit",
+		"flowbite",
+		"flowbite-svelte",
+		"tailwindcss"
+	],
+	"engines": {
+		"npm": ">=7.0.0",
+		"node": ">=16.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shinokada/flowbite-svelte-starter.git"
 	},
 	"dependencies": {
+		"@bytemd/plugin-gfm": "^1.21.0",
+		"@codemirror/lang-javascript": "^6.2.1",
+		"@codemirror/theme-one-dark": "^6.1.2",
+		"@fontsource/lato": "^5.0.16",
+		"@fontsource/roboto": "^5.0.8",
 		"@sveltejs/adapter-node": "^1.3.1",
-		"autoprefixer": "^10.4.16",
-		"postcss-cli": "^10.1.0",
-		"tailwindcss": "^3.3.5",
-		"vite-plugin-iso-import": "^1.0.0",
-		"vitest": "^0.34.6"
+		"@sveltejs/adapter-vercel": "^3.0.3",
+		"@types/codemirror": "^5.60.10",
+		"axios": "^1.5.1",
+		"bytemd": "^1.21.0",
+		"colorthief": "^2.2.0",
+		"countries-list": "^2.6.1",
+		"downloadjs": "^1.4.7",
+		"multicoin-address-validator": "^0.5.12",
+		"qr-code-styling": "^1.6.0-rc.1",
+		"svelte-codemirror-editor": "^1.1.0",
+		"svelte-datepicker": "^1.0.0",
+		"svelte-tags-input": "^5.0.0",
+		"svelte-transition": "^0.0.10"
 	}
 }
