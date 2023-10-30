@@ -53,15 +53,14 @@
 	// upload logic:
 	function handleFileChange(event) {
 		const file = event.target.files[0];
-		let RawFileName = fileInput.value;
 
 		// Saving filename without extension for future use in global variable
-		let fileNameTemp = file.name;
-		fileName = fileNameTemp.replace(/\.[^/.]+$/, "");
+		let fileNameWithExt = file.name;
+		fileName = fileNameWithExt.replace(/\.[^/.]+$/, "");
 
 		if (file) {
 			// get file extension
-			var inputFileExt = RawFileName.split(".").pop().toLowerCase();
+			var inputFileExt = fileNameWithExt.split(".").pop().toLowerCase();
 
 			// list of allowed file extensions
 			var allowedExts = ["csv", "xlsx", "xls"];
@@ -79,9 +78,9 @@
   	};
 
   	function parseSheet(file) {
-		const reader = new FileReader();
+		const sheetReader = new FileReader();
 
-		reader.onloadend = (e) => {
+		sheetReader.onloadend = (e) => {
 			const data = new Uint8Array(e.target.result);
 			const workbook = XLSX.read(data, { type: 'array' });
 			const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -100,7 +99,7 @@
 			showUploadSection = !showUploadSection;
 		};
 
-		reader.readAsArrayBuffer(file);
+		sheetReader.readAsArrayBuffer(file);
 	};
 
 	function uploadAddRow() {
