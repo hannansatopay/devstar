@@ -13,7 +13,7 @@
 		ExpandSolid,
 		ChevronDownSolid,
 		ArrowRightSolid,
-		CotateSolid
+		CompressSolid
 	} from 'flowbite-svelte-icons';
 
 	import Intro from '$lib/Intro.svelte';
@@ -26,19 +26,9 @@
 
 	export let data;
 
-	// possible types :
-	// JSON
-	// XML
-	// HTML
-	// CSV
-	// JS
-	// SQL
-
 	let toolType = 'JSON';
 	let convertTypeOne = 'CSV';
 	let convertTypeTwo = 'JSON';
-
-	// let toggle = true;
 
 	let converterList: any = {
 		JSON: ['XML', 'CSV'],
@@ -65,6 +55,8 @@
 	let outputTextAreaColIndex = 0;
 	let inputTextArea: HTMLTextAreaElement;
 	let outputTextArea: HTMLTextAreaElement;
+	let maximiseInputTextAreaToggle = false;
+	let maximiseOutputTextAreaToggle = false;
 	
 	let tabs = 1;
 	let tabsList = [
@@ -115,7 +107,6 @@
 		}
 	}
 
-	//Validate function for json, html and xml
 	function validateJSON() {
 		try {
 			let inputJSON = inputTextAreaContent;
@@ -148,8 +139,6 @@
 		}
 	}
 
-
-
 	function validateContent() {
 		if (toolType === 'JSON') {
 			validateJSON();
@@ -160,13 +149,6 @@
 		} else {
 			alert('Validation is only available for JSON, XML, and HTML.');
 		}
-	}
-
-	//xml indent
-	function indentxml() {
-		const spaces = ' '.repeat(parseInt(indentation.value));
-		const indentedXml = inputTextAreaContent.replace(/\n/g, `\n${4 * tabs}`);
-		outputTextAreaContent = indentedXml;
 	}
 
 	function minifyXML() {
@@ -256,7 +238,6 @@ const sum = addNumbers(number1, number2);`;
 		inputTextAreaContent = samplejs;
 	}
 
-
 	function sampleCSV() {
 		let samplecsv =
 			'phone,os,price,storage\n' +
@@ -292,25 +273,32 @@ const sum = addNumbers(number1, number2);`;
 		}
 	}
 
-	// Full screen
-	function handleMaximizeInput() {
-		const textEditor = document.getElementById('inputTextEditor');
-		if (textEditor) {
-			if (!document.fullscreenElement) {
-				textEditor.requestFullscreen();
-			} else {
-				document.exitFullscreen();
+	function handleMaximiseScreen(event: any) {
+		const textAreaType = event.currentTarget.getAttribute('data-text-area-type');
+		let inputEditorWindow: any = document.getElementById("input-editor-window");
+		let outputEditorWindow: any = document.getElementById("output-editor-window");
+		
+		if (textAreaType === 'input') {
+			if (maximiseInputTextAreaToggle === false) {
+				maximiseInputTextAreaToggle = true;
+				outputEditorWindow.style.display = "none";
+				inputTextArea.style.height = "60vh";
 			}
-		}
-	}
-
-	function handleMaximizeOutput() {
-		const textEditor = document.getElementById('outputTextEditor');
-		if (textEditor) {
-			if (!document.fullscreenElement) {
-				textEditor.requestFullscreen();
-			} else {
-				document.exitFullscreen();
+			else {
+				maximiseInputTextAreaToggle = false;
+				outputEditorWindow.style.display = "block";
+				inputTextArea.style.height = "25vh";
+			}
+		} else if (textAreaType === 'output') {
+			if (maximiseOutputTextAreaToggle === false) {
+				maximiseOutputTextAreaToggle = true;
+				inputEditorWindow.style.display = "none";
+				outputTextArea.style.height = "60vh";
+			}
+			else {
+				maximiseOutputTextAreaToggle = false;
+				inputEditorWindow.style.display = "block";
+				outputTextArea.style.height = "25vh";
 			}
 		}
 	}
@@ -677,11 +665,6 @@ const sum = addNumbers(number1, number2);`;
 		}
 	};
 
-	// switch button
-	const handleSwitch = () => {
-		[convertTypeOne, convertTypeTwo] = [convertTypeTwo, convertTypeOne];
-	};
-
 	$: {
 		if (toolType && convertTypeOne) {
 			clearContent();
@@ -689,58 +672,51 @@ const sum = addNumbers(number1, number2);`;
 	}
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
+{ #if maximiseInputTextAreaToggle == false && maximiseOutputTextAreaToggle == false }
+	<Intro heading={data.meta.title} description={data.meta.description} />
+{ /if }
 
-<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div
-		class="w-full mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
-	>
+<div class="py-8 px-40 mx-auto">
+	<div id="input-editor-window" class="mb-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
 					<Button
 						outline
 						color="light"
-						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
-					>
+						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">
 						{#if toolType === 'CONVERT'}
 							Converter
 						{:else}
 							{toolType} Formatter
 						{/if}
-						<ChevronDownSolid size="xs" class="ml-2" /></Button
-					>
+						<ChevronDownSolid size="xs" class="ml-2" /></Button>
 					<Dropdown bind:open={toolsDropdownOpen} class="w-40 h-48 overflow-y-auto">
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
 								toolType = 'JSON';
-							}}>JSON Formatter</DropdownItem
-						>
+							}}>JSON Formatter</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
 								toolType = 'XML';
-							}}>XML Formatter</DropdownItem
-						>
+							}}>XML Formatter</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
 								toolType = 'HTML';
-							}}>HTML Formatter</DropdownItem
-						>
+							}}>HTML Formatter</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
 								toolType ='JS';
-							}}>JS Formatter</DropdownItem
-						>
+							}}>JS Formatter</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
 								toolType = 'CONVERT';
-							}}>Converter</DropdownItem
-						>
+							}}>Converter</DropdownItem>
 					</Dropdown>
 
 					{#if toolType === 'CONVERT'}
@@ -748,33 +724,28 @@ const sum = addNumbers(number1, number2);`;
 							outline
 							color="light"
 							class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
-							>{convertTypeOne}<ChevronDownSolid size="xs" class="ml-2" /></Button
-						>
+							>{convertTypeOne}<ChevronDownSolid size="xs" class="ml-2" /></Button>
 						<Dropdown bind:open={converterOneDropdownOpen}>
 							<DropdownItem
 								on:click={() => {
 									converterOneDropdownOpen = false;
 									convertTypeOne = 'JSON';
-								}}>JSON</DropdownItem
-							>
+								}}>JSON</DropdownItem>
 							<DropdownItem
 								on:click={() => {
 									converterOneDropdownOpen = false;
 									convertTypeOne = 'XML';
-								}}>XML</DropdownItem
-							>
+								}}>XML</DropdownItem>
 							<DropdownItem
 								on:click={() => {
 									converterOneDropdownOpen = false;
 									convertTypeOne = 'CSV';
-								}}>CSV</DropdownItem
-							>
+								}}>CSV</DropdownItem>
 						</Dropdown>
 
 						<button
 							type="button"
-							class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-						>
+							class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600">
 							<ArrowRightSolid size="sm" />
 							<span class="sr-only">Converts to</span>
 						</button>
@@ -796,16 +767,6 @@ const sum = addNumbers(number1, number2);`;
 								>
 							{/each}
 						</Dropdown>
-
-						<button
-							type="button"
-							class="p-2 text-gray-700 rounded cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-							on:click={handleSwitch}
-						>
-							<CotateSolid size="sm" />
-							<span class="sr-only">Switch</span>
-						</button>
-						<Tooltip color="blue" arrow={false}>Switch</Tooltip>
 					{/if}
 				</div>
 				<div class="flex items-center space-x-1 sm:pr-4 sm:pl-4">
@@ -964,28 +925,27 @@ const sum = addNumbers(number1, number2);`;
 							{toolType}
 						{/if}
 					</Tooltip>
-
-					<!-- <label for="dropdown" class="text-white">Space:</label>
-					<select
-						id="dropdown"
-						class="text-white rounded cursor-pointer dark:bg-gray-700 dark:border-gray-600"
-						bind:value={spaceoption}
-					>
-						{#each Tabs as option (option)}
-							<option value={option}>{option} Tabs</option>
-						{/each}
-					</select> -->
 				</div>
 			</div>
 			<button
 				type="button"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-				on:click={handleMaximizeInput}
-			>
-				<ExpandSolid size="sm" />
+				data-text-area-type="input"
+				on:click={handleMaximiseScreen}
+			>	
+				{ #if maximiseInputTextAreaToggle === false }
+					<ExpandSolid size="sm" />
+				{ :else }
+					<CompressSolid size="sm" />
+				{ /if }
 				<span class="sr-only">Full screen input</span>
 			</button>
-			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
+			<Tooltip color="blue" arrow={false}>
+				{ #if maximiseInputTextAreaToggle === false }
+					Maximise
+				{ :else }
+					Minimise
+				{ /if }</Tooltip>
 		</div>
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Editor</Label>
@@ -1013,7 +973,7 @@ const sum = addNumbers(number1, number2);`;
 		</div>
 	</div>
 
-	{#if toolType === 'CONVERT'}
+	{ #if toolType === 'CONVERT' }
 		<Button
 			color="blue"
 			class="ml-1"
@@ -1022,39 +982,28 @@ const sum = addNumbers(number1, number2);`;
 			on:click={findSize}
 			>Convert
 		</Button>
-	{:else}
-		<Button
-			color="blue"
-			class="mr-1"
-			data-text-area-type="output"
-			on:click={format}
-			on:click={findSize}
-			>Beautify
-		</Button>
-		<Button
-			color="blue"
-			class="ml-1"
-			data-text-area-type="output"
-			on:click={minify}
-			on:click={findSize}
-			>Minify
-		</Button>
-		<!-- <Button
-			color="blue"
-			size="5px"
-			class="ml-1"
-			data-text-area-type="output"
-			on:click={indentxml}
-			on:click={findSize}
-		>
-			<label for="indentation">Select Indentation</label>
-			<select id="indentation"><option>2</option><option>4</option><option>8</option></select>
-		</Button> -->
-	{/if}
+	{ :else }
+		{ #if maximiseOutputTextAreaToggle === false }
+			<Button
+				color="blue"
+				class="mr-1"
+				data-text-area-type="output"
+				on:click={format}
+				on:click={findSize}
+				>Beautify
+			</Button>
+			<Button
+				color="blue"
+				class="ml-1"
+				data-text-area-type="output"
+				on:click={minify}
+				on:click={findSize}
+				>Minify
+			</Button>
+		{ /if }
+	{ /if }
 
-	<div
-		class="w-full mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600"
-	>
+	<div id="output-editor-window" class="mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
 				<div class="flex items-center space-x-1 sm:pr-4">
@@ -1155,12 +1104,23 @@ const sum = addNumbers(number1, number2);`;
 			<button
 				type="button"
 				class="p-2 text-gray-700 rounded cursor-pointer sm:ml-auto hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600"
-				on:click={handleMaximizeOutput}
+				data-text-area-type="output"
+				on:click={handleMaximiseScreen}
 			>
+			{ #if maximiseOutputTextAreaToggle === false }
 				<ExpandSolid size="sm" />
+			{ :else }
+				<CompressSolid size="sm" />
+			{ /if }
 				<span class="sr-only">Full screen output</span>
 			</button>
-			<Tooltip color="blue" arrow={false}>Full Screen</Tooltip>
+			<Tooltip color="blue" arrow={false}>
+				{ #if maximiseOutputTextAreaToggle === false }
+					Maximise
+				{ :else }
+					Minimise
+				{ /if }
+			</Tooltip>
 		</div>
 		<div class="px-4 py-2 bg-white dark:bg-gray-800">
 			<Label for="editor" class="sr-only">Code Output</Label>
