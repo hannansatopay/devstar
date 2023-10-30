@@ -68,10 +68,12 @@
 		"countries-list": "^2.6.1",
 		"flowbite-svelte-icons": "^0.4.4",
 		"html-prettify": "^1.0.7",
+		"js-beautify": "^1.14.9",
 		"multicoin-address-validator": "^0.5.12",
 		"qr-code-styling": "^1.6.0-rc.1",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-tags-input": "^5.0.0",
+		"validatorjs": "^3.22.1",
 		"xml-formatter": "^3.5.0",
 		"xml2js": "^0.6.2"
 	}
