@@ -38,7 +38,7 @@
 	let convertTypeOne = 'CSV';
 	let convertTypeTwo = 'JSON';
 
-	let toggle = true;
+	// let toggle = true;
 
 	let converterList: any = {
 		JSON: ['XML', 'CSV'],
@@ -188,7 +188,6 @@
 		let minifiedJS = inputJS.replace(/>\s+</g, '><').trim();
 		outputTextAreaContent = minifiedJS;
 	}
-
 
 	function sampleHTML() {
 		let samplehtml = `<div>
@@ -684,7 +683,7 @@ const sum = addNumbers(number1, number2);
 						{/if}
 						<ChevronDownSolid size="xs" class="ml-2" /></Button
 					>
-					<Dropdown bind:open={toolsDropdownOpen}>
+					<Dropdown bind:open={toolsDropdownOpen} class="w-40 h-48 overflow-y-auto">
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
