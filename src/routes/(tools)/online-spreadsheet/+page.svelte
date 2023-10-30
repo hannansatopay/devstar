@@ -96,7 +96,12 @@
 				return dataRow.concat(emptyCells);
 			});
 
-			showUploadSection = !showUploadSection;
+			if (numRows !== 0 && numCols !== 0) {
+				showUploadSection = !showUploadSection;
+			} else {
+				alert("Empty File Selected");
+			}
+			
 		};
 
 		sheetReader.readAsArrayBuffer(file);
@@ -176,24 +181,24 @@
 		<div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
 			<table>
 				<thead>
-				  <tr>
-					<th class="describers" />
-					{#each Array(numCols) as _, i}
-					  <th class="content describers">{getColumnName(i)}</th>
-					{/each}
-				  </tr>
+					<tr>
+						<th class="describers" />
+						{#each Array(numCols) as _, i}
+							<th class="content describers">{getColumnName(i)}</th>
+						{/each}
+					</tr>
 				</thead>
 				<tbody>
-				  {#each Array(numRows) as _, rowIndex}
-					<tr>
-					  <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
-					  {#each Array(numCols) as _, colIndex}
-						<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
-					  {/each}
-					</tr>
-				  {/each}
+					{#each Array(numRows) as _, rowIndex}
+						<tr>
+							<td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
+							{#each Array(numCols) as _, colIndex}
+								<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
+							{/each}
+						</tr>
+					{/each}
 				</tbody>
-			  </table>
+			</table>
 		</div>
 
 	{:else if showCreateSection}
