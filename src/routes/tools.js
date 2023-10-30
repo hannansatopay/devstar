@@ -355,12 +355,6 @@ export let tools = {
         link: '/chart-generator-ex',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
     },
-    'terminal-generator': {
-        name: 'Terminal Generator',
-        icon: 'code',
-        link: '/terminal-generator',
-        description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
-    },
     'living-background-generator': {
         name: 'Living Background Generator',
         icon: 'code',
@@ -481,5 +475,11 @@ export let tools = {
         icon: 'code',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
+    },
+    'terminal-generator': {
+        name: 'Terminal Generator',
+        icon: 'terminal-generator',
+        link: '/terminal.png',
+        description: 'A terminal generator tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles. There are different applications of this tool in creating a terminal.'
     }
-};
+}
