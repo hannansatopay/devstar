@@ -14,10 +14,6 @@
   <main>
 	<nav class="navbar">
 	  <img src="content-sharing-tool-logo.png" alt="Content Sharing Tool" class="logo" />
-	  <div class="auth-buttons">
-		<button class="btn">Login</button>
-		<button class="btn">Sign Up</button>
-	  </div>
 	</nav>
 	<section class="content-section">
 	  <h2>Paste your content here</h2>
@@ -65,7 +61,7 @@
   
 	.btn {
 	  background-color: #fff;
-	  color: #333;
+	  color: #363535;
 	  padding: 0.5rem 1rem;
 	  border: none;
 	  border-radius: 5px;
@@ -77,7 +73,7 @@
 	}
   
 	.content-box {
-	  background-color: #f5f5f5;
+	  background-color: #bde7ea;
 	  padding: 1rem;
 	  border-radius: 5px;
 	}
@@ -86,7 +82,7 @@
 	  width: 100%;
 	  min-height: 150px;
 	  padding: 0.5rem;
-	  border: 1px solid #ccc;
+	  border: 1px solid #c099ae;
 	  border-radius: 5px;
 	  margin: 1rem 0;
 	}
@@ -105,7 +101,7 @@
 	}
   
 	.share-btn {
-	  background-color: #007bff;
+	  background-color: #2c2b2b;
 	  color: white;
 	  padding: 0.5rem 1rem;
 	  border: none;
