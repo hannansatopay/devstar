@@ -387,7 +387,7 @@
                             <div class="CodeMirror-scroll" tabindex="-1">
                                 <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;">
                                     <div style="position: relative; top: 0px;">
-                                        <div class="terminal-header div-orange">
+                                        <div class="terminal-header div-deepskyblue">
 														<!-- <span class="mr-auto ml-2"></span> -->
 														<!-- <button class="close-btn bg-red-500 rounded-full w-4 h-4 mr-1" /> -->
 														<button class="close-btn" />
