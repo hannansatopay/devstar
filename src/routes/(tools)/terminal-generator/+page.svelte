@@ -316,15 +316,15 @@
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 										<DropdownItem>
-											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
+											<a href="https://www.facebook.com">Share on Facebook</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
+											<a href="https://www.instagram.com">Share on Instagram</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
+											<a href="https://twitter.com">Share on Twitter</a>
 										</DropdownItem>
 									</Dropdown>
 									
