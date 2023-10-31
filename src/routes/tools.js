@@ -466,6 +466,16 @@ export let tools = {
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
     },
+ 
+	'bulk-image-resize':{
+		name:'Bulk Image Resize',
+		icon:'folder-image',
+		link:'/bulk-image-resize',
+		description:" bulk image resize tool"
+		
+	},
+ 
+ 
     'terminal-generator': {
         name: 'Terminal Generator',
         icon: 'terminal-generator',
@@ -477,5 +487,7 @@ export let tools = {
         icon: 'currency-dollar',
         link:'/cash-back-or-low-interest-calculator',
         description:'Auto manufacturers may offer either a cash back rebate or a low interest rate with a car purchase. Very often, these offers are mutually exclusive. Use the calculator to find out which of the two is the better offer.'
-    }
-}
+    },
+  
+};
+ 
