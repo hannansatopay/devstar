@@ -337,7 +337,7 @@
 							<img src="/Texttospeech.png" alt="Your  Description" />
 						</Button>
 					</div> -->
-					<div class="export ml-auto export-container">
+					<div class="export ml-auto export-container z-index: 2">
 						<span>Export</span>
 						<span class="ml-auto"></span>
 						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
@@ -532,6 +532,7 @@
 
         .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
             /* Styles for your code editor container */
+			text-align:left;
         }
 
 
@@ -548,7 +549,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
-		z-index: 1;
+		z-index: 2;
 	}
 
 	#style-editor-button.jsx {
@@ -625,7 +626,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
-		z-index: 2;
+		/* z-index: 5; */
 	}
 
 	.icon img {
@@ -711,6 +712,7 @@
 		align-items: center;
 		overflow: hidden;
 		max-width: 100%;
+		
 	}
 
 	/* @media (max-width: 768px) */
@@ -955,6 +957,7 @@
 
 		.export-checkbox:checked + .dropdown-item {
 			/* Add your export styles here */
+			z-index: 3;
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
@@ -1334,7 +1337,7 @@
 		}
 
 		.div-deepskyblue {
-			background-color: deepskyblue;
+			background-color: #282c34;
 			color: black;
 			padding: 10px;
 			border-radius: 5px;
@@ -1502,7 +1505,7 @@
 
 // Function to export the content as an image
 const exportToImage = async () => {
-  const element = document.querySelector('.section') as HTMLElement;
+  const element = documecdnt.querySelector('.section') as HTMLElement;
 
   if (element) {
     try {
