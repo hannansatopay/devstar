@@ -77,6 +77,12 @@ export let tools = {
         description: 
 		"Unlock the world of Morse code with our Morse Code Translator. Seamlessly convert your text into Morse code and vice versa, bridging the gap between traditional and digital communication. Input your text, and watch as it transforms into the iconic dots and dashes, or input Morse code and witness it translated back into readable text. Ideal for enthusiasts, learners, and communication hobbyists, our translator simplifies Morse code encoding and decoding tasks. Enjoy the thrill of decoding secret messages or encode your own, all with the ease of a few clicks. Dive into the art of Morse code effortlessly with our Morse Code Translator."
 	},
+	'number-to-words':{
+        name: 'NumToWords',
+        link: '/number-to-words',
+        description: 
+		"NumToWords is your go-to tool for converting numbers into words, especially useful for rendering numerical amounts as text."
+	},
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
 		icon: 'code',
