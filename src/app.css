@@ -145,3 +145,6 @@
 .icon-dollar:before {
   content: "\e913";
 }
+.icon-terminal:before {
+  content: "\e905";
+}
