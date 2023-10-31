@@ -97,8 +97,80 @@ export let tools = {
     },
     'terminal-generator': {
         name: 'Terminal Generator',
-        icon: 'terminal',
+        icon: 'laptop-mobile',
         link: '/terminal-generator',
-        description: "A dynamic tool designed to enhance the appearance of your source code in terminal environments. It leverages a wide array of customizable terminal themes to breathe fresh aesthetics into your code, making reading and debugging an enjoyable experience. Whether you desire a minimalist look, neon retro, or something entirely unique, it's flexibility ensures your terminal mirrors your style."
+        description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
+    },
+    'living-background-generator': {
+        name: 'Living Background Generator(βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/living-background-generator',
+        description: 'The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.'
+    },
+    'text-to-speech-&-speech-recognition': {
+        name: 'Text to Speech & Speech Recognition',
+        icon: 'tts',
+        link: '/text-to-speech-&-speech-recognition',
+        description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
+    },
+    'currency-calculator':{
+        name: 'Currency Calculator',
+        icon: 'arrow-right-arrow-left',
+        link:'/currency-calculator',
+        description:'The Currency Calculator is a valuable tool that can help you to convert one currency to another using the latest exchange rates.'
+    },
+    'webspeedtest': {
+        name: 'WebPage SpeedTester',
+        icon: 'spider-web',
+        link: '/webspeedtest',
+        description: "A web page speed test that's as swift as the Bard's quill, revealing your site's performance with poetic skill.<br> Elevate your web page's performance with our swift and accurate web page speed test. Discover your site's strengths and weaknesses, and make informed decisions to improve user experience and boost conversions. Very useful for all users."
+    },
+    'regex-tool': {
+        name: 'Regex Tool',
+        icon: 'regex-tool',
+        link: '/regex-tool',
+        description: "Regular expressions are the Swiss Army knife of text manipulation, a powerful tool for both the timid and the fearless."
+    },
+    'annuity-payout-calculator': {
+        name: 'Annuity Payout Calculator',
+        icon: 'arrow-right-arrow-left',
+        link: '/annuity-payout-calculator',
+        description: "This calculator can estimate the annuity payout amount for a fixed payout length or estimate the length that an annuity can last if supplied a fixed payout amount. Please use our Annuity Calculator to estimate the end balance of an annuity for the accumulation phase."
+    },
+    'compound': {
+        name: 'compound calculator',
+        icon: 'spider-web',
+        link: '/compound',
+        description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'color-palette-gen': {
+        name: 'Color Palette Generator',
+        icon: 'palette',
+        link: '/color-palette-gen',
+        description: "abc"
+    },
+    'random-data-generator': {
+        name: 'Random Data Generator (βeta)',
+        icon: 'files', // Pending Icon Update
+        link: '/random-data-generator',
+        description: 'The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.'
+    },
+    'who-is': {
+        name: 'Whois Lookup',
+        icon: 'whois',
+        link: '/who-is',
+        description: ""
+    },
+    'ssl-checker': {
+        name: 'SSL Checker',
+        icon: 'lock',
+        link: '/ssl-checker',
+        description: "The SSL Checker tool is a convenient way for developers to verify the SSL certificate of a website. This tool provides essential information about the SSL certificate, including its validity, issuer, and expiration date. Ensure the security of your website by integrating this SSL checker into your development workflow."
+    },
+    'flowchart-creator': {
+        name: 'Flowchart Creator',
+        icon: 'files', // Pending Icon Update
+        link: '/flowchart-creator',
+        description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
     }
 };
