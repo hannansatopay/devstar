@@ -1,41 +1,46 @@
 <script lang="ts">
-
+	
 	import { Button } from 'flowbite-svelte';
 	import jsPDF from 'jspdf';
 	import Intro from '$lib/Intro.svelte';
 
 	export let data;
-
-	var criteria;
-
+	
+	export const caseConversionOptions = [
+		'Unicode Encoder',
+		'Unicode Decoder',
+		
+	];
+	
 	var output;
 
-	function sortLines(input) {
+	var selectedOption;
 
-		var lines = input.target.value.split('\n').filter(line => line.trim() !== '');
 
-		switch (criteria) {
-			case 'alphabetically':
-				lines.sort((a, b) => a.localeCompare(b));
+	function switchcase(input) {
+		switch (selectedOption) {
+
+			case "Unicode Encoder":
+				output = input.target.value
+					.split("")
+					.map((char) => char.charCodeAt(0))
+					.map((code)=>`U#+${code.toString(16)}`)
+					.join(" ");
 				break;
-			case 'length':
-				lines.sort((a, b) => a.length - b.length);
-				break;
-			case 'reverse':
-				lines.sort((a, b) => b.localeCompare(a));
-				break;
-			case 'random':
-				for (let i = lines.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[lines[i], lines[j]] = [lines[j], lines[i]];
-				}
-				break;
+
+			case "Unicode Decoder":
+				output = input.target.value
+					.split(" ")
+					.map((code) => String.fromCodePoint(parseInt(code.slice(3), 16)))
+					.join("");
+		  		break;
+
 			default:
-				return 'Invalid criteria';
+				output = input.target.value;
+				break;
 		}
-		output = lines.join('\n');
 	}
-
+  
 	function copyText() {
 		if (output.length > 0) {
 			var textarea = document.createElement("textarea");
@@ -69,7 +74,7 @@
 		doc.text(output, 20, 20);
 		doc.save('devstar_output.pdf');
 	}
-
+	
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -79,23 +84,23 @@
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
 
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-				<select bind:value={criteria} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					<option value="alphabetically">Sort Alphabetically</option>
-					<option value="length">Sort by length</option>
-					<option value="reverse">Sort Reverse</option>
-					<option value="random">Sort Random</option>
-				</select>
+				<select bind:value={selectedOption}
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+					{#each caseConversionOptions as option}
+					<option value={option}>{option}</option>
+					{/each}
+				</select>	
 			</div>
-
+						
 			<div class="mt-4 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
-
+				
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={sortLines}/>
+					<textarea placeholder="Enter Text" id="input-textarea-id" rows="8" name="message" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					on:input={switchcase}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Result" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					<textarea readOnly rows="8" placeholder="Result" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					bind:value={output}/>
 				</div>
 

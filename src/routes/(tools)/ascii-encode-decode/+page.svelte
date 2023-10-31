@@ -6,34 +6,37 @@
 
 	export let data;
 
-	var criteria;
+	var reqfunc;
 
 	var output;
 
-	function sortLines(input) {
-
-		var lines = input.target.value.split('\n').filter(line => line.trim() !== '');
-
-		switch (criteria) {
-			case 'alphabetically':
-				lines.sort((a, b) => a.localeCompare(b));
-				break;
-			case 'length':
-				lines.sort((a, b) => a.length - b.length);
-				break;
-			case 'reverse':
-				lines.sort((a, b) => b.localeCompare(a));
-				break;
-			case 'random':
-				for (let i = lines.length - 1; i > 0; i--) {
-					const j = Math.floor(Math.random() * (i + 1));
-					[lines[i], lines[j]] = [lines[j], lines[i]];
-				}
-				break;
-			default:
-				return 'Invalid criteria';
+	function asciiEncode(str) {
+		let encodedStr = "";
+		for (let i = 0; i < str.length; i++) {
+			let asciiCode = str.charCodeAt(i);
+			encodedStr += asciiCode + " ";
 		}
-		output = lines.join('\n');
+		return encodedStr.trim();
+	}
+
+	function asciiDecode(str) {
+		let decodedStr = "";
+		let asciiCodes = str.split(" ");
+		for (let i = 0; i < asciiCodes.length; i++) {
+			let asciiCode = parseInt(asciiCodes[i]);
+			decodedStr += String.fromCharCode(asciiCode);
+		}
+		return decodedStr;
+	}
+
+
+	function encodedecode(input){
+		if (reqfunc=="encode") {
+			output = asciiEncode(input.target.value);
+		}
+		else if (reqfunc=="decode") {
+			output = asciiDecode(input.target.value);
+		}
 	}
 
 	function copyText() {
@@ -79,11 +82,9 @@
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
 
 			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-				<select bind:value={criteria} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					<option value="alphabetically">Sort Alphabetically</option>
-					<option value="length">Sort by length</option>
-					<option value="reverse">Sort Reverse</option>
-					<option value="random">Sort Random</option>
+				<select bind:value={reqfunc} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+						<option value="encode">ASCII Encode</option>
+						<option value="decode">ASCII Decode</option>
 				</select>
 			</div>
 
@@ -91,7 +92,7 @@
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
 					<textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={sortLines}/>
+					on:input={encodedecode}/>
 				</div>
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
