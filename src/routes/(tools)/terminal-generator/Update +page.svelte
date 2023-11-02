@@ -316,15 +316,15 @@
 
 									<Dropdown class="overflow-y-auto px-3 pb-3 text-sm h-44">
 										<DropdownItem>
-											<a href="https://www.facebook.com/share?url=YOUR_FACEBOOK_URL">Share on Facebook</a>
+											<a href="https://www.facebook.com">Share on Facebook</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://www.instagram.com/share?url=YOUR_INSTAGRAM_URL">Share on Instagram</a>
+											<a href="https://www.instagram.com">Share on Instagram</a>
 										</DropdownItem>
 										<DropdownDivider />
 										<DropdownItem>
-											<a href="https://twitter.com/share?url=YOUR_TWITTER_URL">Share on Twitter</a>
+											<a href="https://twitter.com">Share on Twitter</a>
 										</DropdownItem>
 									</Dropdown>
 									
@@ -337,7 +337,7 @@
 							<img src="/Texttospeech.png" alt="Your  Description" />
 						</Button>
 					</div> -->
-					<div class="export ml-auto export-container">
+					<div class="export ml-auto export-container z-index: 2">
 						<span>Export</span>
 						<span class="ml-auto"></span>
 						<ChevronDownSolid class="w-3 h-3 text-white dark:text-white" />
@@ -387,7 +387,7 @@
                             <div class="CodeMirror-scroll" tabindex="-1">
                                 <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: px; min-height: 27px; padding-right: 0px; padding-bottom: 0px;">
                                     <div style="position: relative; top: 0px;">
-                                        <div class="terminal-header div-orange">
+                                        <div class="terminal-header div-deepskyblue">
 														<!-- <span class="mr-auto ml-2"></span> -->
 														<!-- <button class="close-btn bg-red-500 rounded-full w-4 h-4 mr-1" /> -->
 														<button class="close-btn" />
@@ -532,6 +532,7 @@
 
         .CodeMirror.cm-s-base16-dark.CodeMirror-wrap {
             /* Styles for your code editor container */
+			text-align:left;
         }
 
 
@@ -548,7 +549,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
-		z-index: 1;
+		z-index: 2;
 	}
 
 	#style-editor-button.jsx {
@@ -625,7 +626,7 @@
 		border-radius: 10px;
 		font-size: 15px;
 		color: white;
-		z-index: 2;
+		/* z-index: 5; */
 	}
 
 	.icon img {
@@ -711,6 +712,7 @@
 		align-items: center;
 		overflow: hidden;
 		max-width: 100%;
+		
 	}
 
 	/* @media (max-width: 768px) */
@@ -955,6 +957,7 @@
 
 		.export-checkbox:checked + .dropdown-item {
 			/* Add your export styles here */
+			z-index: 3;
 			/* This style will be applied when the checkbox is checked */
 			/* You can customize it to change the appearance */
 		}
@@ -1334,7 +1337,7 @@
 		}
 
 		.div-deepskyblue {
-			background-color: deepskyblue;
+			background-color: #282c34;
 			color: black;
 			padding: 10px;
 			border-radius: 5px;
@@ -1502,7 +1505,7 @@
 
 // Function to export the content as an image
 const exportToImage = async () => {
-  const element = document.querySelector('.section') as HTMLElement;
+  const element = documecdnt.querySelector('.section') as HTMLElement;
 
   if (element) {
     try {
