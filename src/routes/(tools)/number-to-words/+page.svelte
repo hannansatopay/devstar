@@ -20,12 +20,12 @@
     function updateOutput(result) {
       output = result;
     
-      setTimeout(clearOutput, 3000);
+      setTimeout(clearOutput, 4000);
     }
     function updateInput(value) {
             input = value;
     
-            setTimeout(clearInput, 3000);
+            setTimeout(clearInput, 4000);
         }
       
         function Convert() {

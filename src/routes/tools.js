@@ -207,6 +207,13 @@ export let tools = {
         description: 
 		"Experience simplicity and functionality with our Text Editor – a user-friendly tool akin to a digital notepad. Input and edit text effortlessly, and choose from options to copy your content, download it as a plain text file, or generate a PDF document. Ideal for quick notes, drafts, or document creation on the go. Enjoy the convenience of basic text editing paired with essential export options, allowing you to save your work instantly or share it seamlessly. Embrace hassle-free text editing and effortless document management with our straightforward Text Editor."
 	},
+	'text-extractor':{
+        name: 'Text Extractor',
+        link: '/text-extractor',
+        description: 
+		"The Text Extractor is a powerful tool that simplifies the process of extracting text from images. Upload your image, and it quickly converts the visual content into readable text, making it easy to access and use the information you need."
+	},
+
 	'text-reversal':{
         name: 'Text Reversal',
 		icon: 'code',
