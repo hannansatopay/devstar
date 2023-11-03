@@ -1088,6 +1088,9 @@ const sum = addNumbers(number1, number2);`;
 		</Button>	
 	{ /if }
 
+	{ #if toolType === 'VIEWER'}
+		<h1>This is view.</h1>
+	{ :else }
 	<div id="output-editor-window" class="mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
@@ -1245,4 +1248,5 @@ const sum = addNumbers(number1, number2);`;
 			<p class="px-4"><Select class="py-0 w-32 pr-0 text-gray-700 dark:text-gray-200" items={tabsList} bind:value={tabs} on:change={format} /></p>
 		</div>
 	</div>
+	{ /if }
 </div>
