@@ -26,7 +26,9 @@
 
 	export let data;
 
-	let toolType = 'JSON';
+	let toolType = 'FORMATTER';
+	let formatType = 'JSON';
+	let viewType = 'JSON';
 	let convertTypeOne = 'CSV';
 	let convertTypeTwo = 'JSON';
 
@@ -36,11 +38,32 @@
 		CSV: ['XML', 'JSON']
 	};
 
-	$: inputTextAreaPlaceholder = toolType === 'CONVERT' ? convertTypeOne : toolType;
-	$: outputTextAreaPlaceholder = toolType === 'CONVERT' ? convertTypeTwo : toolType;
+	let inputTextAreaPlaceholder = 'JSON';
+	let outputTextAreaPlaceholder = 'JSON';
+
+	$: {
+		if (toolType === 'CONVERTER') 
+			inputTextAreaPlaceholder = convertTypeOne;
+		else if (toolType === 'FORMATTER')
+			inputTextAreaPlaceholder = formatType;
+		else if (toolType === 'VIEWER')
+			inputTextAreaPlaceholder = viewType;
+	}
+
+	$: {
+		if (toolType === 'CONVERTER') 
+			outputTextAreaPlaceholder = convertTypeOne;
+		else if (toolType === 'FORMATTER')
+			outputTextAreaPlaceholder = formatType;
+		else if (toolType === 'VIEWER')
+			outputTextAreaPlaceholder = viewType;
+	}
+
 	$: convertTypeTwo = converterList[convertTypeOne][0];
 
 	let toolsDropdownOpen = false;
+	let formatterDropdownOpen = false;
+	let viewerDropdownOpen = false;
 	let converterOneDropdownOpen = false;
 	let converterTwoDropdownOpen = false;
 
@@ -85,6 +108,7 @@
 		let formattedHTML = prettify(inputHTML, prettifyOptions);
 		outputTextAreaContent = formattedHTML;
 	}
+
 	function formatjs() {
 		let inputJS = inputTextAreaContent;
 		let beautifyOptions = {
@@ -337,41 +361,39 @@ const sum = addNumbers(number1, number2);`;
 	}
 
 	function format() {
-		if (toolType === 'XML') formatXML();
-		else if (toolType === 'JSON') formatJSON();
-		else if (toolType === 'HTML') formatHTML();
-		else if (toolType === 'JS') formatjs();
+		if (formatType === 'XML') formatXML();
+		else if (formatType === 'JSON') formatJSON();
+		else if (formatType === 'HTML') formatHTML();
+		else if (formatType === 'JS') formatjs();
 	}
 
 	function minify() {
-		if (toolType === 'XML') minifyXML();
-		else if (toolType === 'JSON') minifyJSON();
-		else if (toolType === 'HTML') minifyHTML();
-		else if (toolType === 'JS') minifyJS();
+		if (formatType === 'XML') minifyXML();
+		else if (formatType === 'JSON') minifyJSON();
+		else if (formatType === 'HTML') minifyHTML();
+		else if (formatType === 'JS') minifyJS();
 	}
 
 	function sampleCode() {
-		if (toolType === 'XML') sampleXML();
-		else if (toolType === 'JSON') sampleJSON();
-		else if (toolType === 'HTML') sampleHTML();
-		else if (toolType === 'JS') sampleJS();
+		if (formatType === 'XML') sampleXML();
+		else if (formatType === 'JSON') sampleJSON();
+		else if (formatType === 'HTML') sampleHTML();
+		else if (formatType === 'JS') sampleJS();
 		else if (convertTypeOne == 'JSON') sampleJSON();
 		else if (convertTypeOne == 'XML') sampleXML();
 		else if (convertTypeOne == 'CSV') sampleCSV();
 	}
 
 	function convert() {
-		if (toolType === 'CONVERT') {
-			if (convertTypeOne === 'CSV') {
-				if (convertTypeTwo === 'JSON') convertCSV2JSON();
-				else if (convertTypeTwo === 'XML') convertCSV2XML();
-			} else if (convertTypeOne === 'XML') {
-				if (convertTypeTwo === 'JSON') convertXML2JSON();
-				else if (convertTypeTwo === 'CSV') convertXML2CSV();
-			} else if (convertTypeOne === 'JSON') {
-				if (convertTypeTwo === 'CSV') convertJSON2CSV();
-				else if (convertTypeTwo === 'XML') convertJSON2XML();
-			}
+		if (convertTypeOne === 'CSV') {
+			if (convertTypeTwo === 'JSON') convertCSV2JSON();
+			else if (convertTypeTwo === 'XML') convertCSV2XML();
+		} else if (convertTypeOne === 'XML') {
+			if (convertTypeTwo === 'JSON') convertXML2JSON();
+			else if (convertTypeTwo === 'CSV') convertXML2CSV();
+		} else if (convertTypeOne === 'JSON') {
+			if (convertTypeTwo === 'CSV') convertJSON2CSV();
+			else if (convertTypeTwo === 'XML') convertJSON2XML();
 		}
 	}
 
@@ -555,7 +577,6 @@ const sum = addNumbers(number1, number2);`;
 		}
 	}
 
-	//json to xml
 	function jsonToXml(jsonObject: Record<string, any>): string {
 		const builder = new xml2js.Builder();
 		return builder.buildObject(jsonObject);
@@ -570,13 +591,13 @@ const sum = addNumbers(number1, number2);`;
 		}
 	}
 
-	// delete functionality
+	function view() {}
+
 	const clearContent = () => {
 		inputTextAreaContent = '';
 		outputTextAreaContent = '';
 	};
 
-	// download functionality
 	const downloadFile = () => {
 		const element = document.createElement('a');
 		let fileExtension;
@@ -614,7 +635,6 @@ const sum = addNumbers(number1, number2);`;
 		document.body.removeChild(element);
 	};
 
-	// file upload
 	const handleFileUpload = (event) => {
 		const file = event.target.files[0];
 		const reader = new FileReader();
@@ -625,12 +645,10 @@ const sum = addNumbers(number1, number2);`;
 		reader.readAsText(file);
 	};
 
-	// print functionality
 	const printContent = () => {
 		window.print();
 	};
 
-	// url upload
 	const handleURLUpload = async (event) => {
 		try {
 			let url = prompt('Please Enter URL : ');
@@ -646,7 +664,6 @@ const sum = addNumbers(number1, number2);`;
 		}
 	};
 
-	// copy to clipboard
 	const handleCopyClipboard = async (event) => {
 		const textAreaType = event.currentTarget.getAttribute('data-text-area-type');
 		let textCopied = '';
@@ -685,41 +702,33 @@ const sum = addNumbers(number1, number2);`;
 						outline
 						color="light"
 						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin">
-						{#if toolType === 'CONVERT'}
+						{#if toolType === 'CONVERTER'}
 							Converter
-						{:else}
-							{toolType} Formatter
+						{:else if toolType === 'FORMATTER'}
+							Formatter
+						{:else if toolType === 'VIEWER'}
+							Viewer
 						{/if}
 						<ChevronDownSolid size="xs" class="ml-2" /></Button>
-					<Dropdown bind:open={toolsDropdownOpen} class="w-40 h-48 overflow-y-auto">
+					<Dropdown bind:open={toolsDropdownOpen}>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
-								toolType = 'JSON';
-							}}>JSON Formatter</DropdownItem>
+								toolType = 'FORMATTER';
+							}}>Formatter</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
-								toolType = 'XML';
-							}}>XML Formatter</DropdownItem>
+								toolType = 'VIEWER';
+							}}>Viewer</DropdownItem>
 						<DropdownItem
 							on:click={() => {
 								toolsDropdownOpen = false;
-								toolType = 'HTML';
-							}}>HTML Formatter</DropdownItem>
-						<DropdownItem
-							on:click={() => {
-								toolsDropdownOpen = false;
-								toolType ='JS';
-							}}>JS Formatter</DropdownItem>
-						<DropdownItem
-							on:click={() => {
-								toolsDropdownOpen = false;
-								toolType = 'CONVERT';
+								toolType = 'CONVERTER';
 							}}>Converter</DropdownItem>
 					</Dropdown>
 
-					{#if toolType === 'CONVERT'}
+					{#if toolType === 'CONVERTER'}
 						<Button
 							outline
 							color="light"
@@ -767,6 +776,57 @@ const sum = addNumbers(number1, number2);`;
 								>
 							{/each}
 						</Dropdown>
+					{ :else if toolType === 'FORMATTER'}
+						<Button
+						outline
+						color="light"
+						class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+						>{formatType}<ChevronDownSolid size="xs" class="ml-2" /></Button>
+							<Dropdown bind:open={formatterDropdownOpen}>
+								<DropdownItem
+									on:click={() => {
+										formatterDropdownOpen = false;
+										formatType = 'JSON';
+									}}>JSON</DropdownItem>
+								<DropdownItem
+									on:click={() => {
+										formatterDropdownOpen = false;
+										formatType = 'XML';
+									}}>XML</DropdownItem>
+								<DropdownItem
+									on:click={() => {
+										formatterDropdownOpen = false;
+										formatType = 'HTML';
+									}}>HTML</DropdownItem>
+								<DropdownItem
+									on:click={() => {
+										formatterDropdownOpen = false;
+										formatType = 'JS';
+									}}>JavaScript</DropdownItem>
+							</Dropdown>
+						{ :else if toolType === 'VIEWER'}
+							<Button
+							outline
+							color="light"
+							class="text-gray-700 cursor-pointer hover:text-blue-800 hover:bg-gray-300 dark:text-gray-200 dark:hover:text-white dark:hover:bg-gray-600 px-3 py-1 rounded text-md font-thin"
+							>{viewType}<ChevronDownSolid size="xs" class="ml-2" /></Button>
+						<Dropdown bind:open={viewerDropdownOpen}>
+							<DropdownItem
+								on:click={() => {
+									viewerDropdownOpen = false;
+									viewType = 'JSON';
+								}}>JSON</DropdownItem>
+							<DropdownItem
+								on:click={() => {
+									viewerDropdownOpen = false;
+									viewType = 'XML';
+								}}>XML</DropdownItem>
+							<DropdownItem
+								on:click={() => {
+									viewerDropdownOpen = false;
+									viewType = 'HTML';
+								}}>HTML</DropdownItem>
+						</Dropdown>
 					{/if}
 				</div>
 				<div class="flex items-center space-x-1 sm:pr-4 sm:pl-4">
@@ -780,20 +840,24 @@ const sum = addNumbers(number1, number2);`;
 						Sample
 						<span class="sr-only"
 							>Sample
-							{#if toolType === 'CONVERT'}
+							{#if toolType === 'CONVERTER'}
 								{convertTypeOne}
-							{:else}
-								{toolType}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 							Data</span
 						>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Sample
-						{#if toolType === 'CONVERT'}
-							{convertTypeOne}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 						Data</Tooltip
 					>
@@ -840,19 +904,23 @@ const sum = addNumbers(number1, number2);`;
 						<CheckSolid size="sm" />
 						<span class="sr-only"
 							>Validate
-							{#if toolType === 'CONVERT'}
+							{#if toolType === 'CONVERTER'}
 								{convertTypeOne}
-							{:else}
-								{toolType}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Validate
-						{#if toolType === 'CONVERT'}
-							{convertTypeOne}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 
@@ -864,19 +932,23 @@ const sum = addNumbers(number1, number2);`;
 						<PrintSolid size="sm" />
 						<span class="sr-only"
 							>Print
-							{#if toolType === 'CONVERT'}
+							{#if toolType === 'CONVERTER'}
 								{convertTypeOne}
-							{:else}
-								{toolType}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Print
-						{#if toolType === 'CONVERT'}
-							{convertTypeOne}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 
@@ -910,19 +982,23 @@ const sum = addNumbers(number1, number2);`;
 						<DownloadSolid size="sm" />
 						<span class="sr-only"
 							>Download
-							{#if toolType === 'CONVERT'}
+							{#if toolType === 'CONVERTER'}
 								{convertTypeOne}
-							{:else}
-								{toolType}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Download
-						{#if toolType === 'CONVERT'}
-							{convertTypeOne}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 				</div>
@@ -973,7 +1049,7 @@ const sum = addNumbers(number1, number2);`;
 		</div>
 	</div>
 
-	{ #if toolType === 'CONVERT' }
+	{ #if toolType === 'CONVERTER' }
 		<Button
 			color="blue"
 			class="ml-1"
@@ -982,7 +1058,7 @@ const sum = addNumbers(number1, number2);`;
 			on:click={findSize}
 			>Convert
 		</Button>
-	{ :else }
+	{ :else if toolType === 'FORMATTER' }
 		{ #if maximiseOutputTextAreaToggle === false }
 			<Button
 				color="blue"
@@ -1001,8 +1077,20 @@ const sum = addNumbers(number1, number2);`;
 				>Minify
 			</Button>
 		{ /if }
+	{ :else if toolType === 'VIEWER' }
+		<Button
+		color="blue"
+		class="ml-1"
+		data-text-area-type="output"
+		on:click={view}
+		on:click={findSize}
+		>View
+		</Button>	
 	{ /if }
 
+	{ #if toolType === 'VIEWER'}
+		<h1>This is view.</h1>
+	{ :else }
 	<div id="output-editor-window" class="mt-4 border border-gray-400 rounded-lg bg-gray-100 dark:bg-gray-700 dark:border-gray-600">
 		<div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
 			<div class="flex flex-wrap items-center divide-gray-700 sm:divide-x dark:divide-gray-400">
@@ -1026,19 +1114,23 @@ const sum = addNumbers(number1, number2);`;
 						<PrintSolid size="sm" />
 						<span class="sr-only"
 							>Print
-							{#if toolType === 'CONVERT'}
-								{convertTypeTwo}
-							{:else}
-								{toolType}
+							{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Print
-						{#if toolType === 'CONVERT'}
-							{convertTypeTwo}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 
@@ -1049,19 +1141,23 @@ const sum = addNumbers(number1, number2);`;
 						<TrashBinSolid size="sm" />
 						<span class="sr-only"
 							>Delete
-							{#if toolType === 'CONVERT'}
-								{convertTypeTwo}
-							{:else}
-								{toolType}
+							{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Delete
-						{#if toolType === 'CONVERT'}
-							{convertTypeTwo}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 
@@ -1084,19 +1180,23 @@ const sum = addNumbers(number1, number2);`;
 						<DownloadSolid size="sm" />
 						<span class="sr-only"
 							>Download
-							{#if toolType === 'CONVERT'}
-								{convertTypeTwo}
-							{:else}
-								{toolType}
+							{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+							{:else if toolType === 'FORMATTER'}
+								{formatType}
+							{:else if toolType === 'VIEWER'}
+								{viewType}
 							{/if}
 						</span>
 					</button>
 					<Tooltip color="blue" arrow={false}
 						>Download
-						{#if toolType === 'CONVERT'}
-							{convertTypeTwo}
-						{:else}
-							{toolType}
+						{#if toolType === 'CONVERTER'}
+								{convertTypeOne}
+						{:else if toolType === 'FORMATTER'}
+							{formatType}
+						{:else if toolType === 'VIEWER'}
+							{viewType}
 						{/if}
 					</Tooltip>
 				</div>
@@ -1148,4 +1248,5 @@ const sum = addNumbers(number1, number2);`;
 			<p class="px-4"><Select class="py-0 w-32 pr-0 text-gray-700 dark:text-gray-200" items={tabsList} bind:value={tabs} on:change={format} /></p>
 		</div>
 	</div>
+	{ /if }
 </div>
