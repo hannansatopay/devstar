@@ -36,6 +36,14 @@ export let tools = {
 		description:
 		"Effortlessly convert text between uppercase, lowercase, title case, or sentence case with our Case Converter Tool. Input your text, select the desired conversion type, and witness your text transform instantly. Ideal for writers, editors, and programmers, our tool streamlines text formatting tasks. Ensure uniformity in your documents, coding projects, and communications. Enhance readability and professionalism by converting text to your preferred case style."
 	},
+	'currency-converter':{
+        name: 'Currency Converter',
+		icon: 'code',
+        link: '/currency-converter',
+        description: 
+		"Currency Converter: Effortlessly switch between global currencies such as USD, INR, GBP, and EUR, ensuring seamless financial transactions."
+
+	},
 	'email-validator': {
         name: 'Email Validator',
 		icon: 'code',
@@ -64,6 +72,7 @@ export let tools = {
         description: 
 		"Bridge the gap between human language and machine code effortlessly with our Hex to Text and Text to Hex Converter Tool. Input hexadecimal data, and convert it into readable text or input text and convert it into hexadecimal representation. Perfect for developers, cybersecurity experts, and tech enthusiasts dealing with binary data. Ensure seamless data conversion and integration into your projects."
 	},
+	
 	'lorem-ipsum-generator': {
 		name: 'Lorem Ipsum Generator',
 		icon: 'code',
