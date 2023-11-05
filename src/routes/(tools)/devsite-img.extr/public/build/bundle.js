@@ -104,6 +104,23 @@ var app = (function () {
     function set_current_component(component) {
         current_component = component;
     }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error('Function called outside component initialization');
+        return current_component;
+    }
+    /**
+     * The `onMount` function schedules a callback to run as soon as the component has been mounted to the DOM.
+     * It must be called during the component's initialisation (but doesn't need to live *inside* the component;
+     * it can be called from an external module).
+     *
+     * `onMount` does not run inside a [server-side component](/docs#run-time-server-side-component-api).
+     *
+     * https://svelte.dev/docs#run-time-svelte-onmount
+     */
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
 
     const dirty_components = [];
     const binding_callbacks = [];
@@ -441,241 +458,11 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
-    function get_each_context_1(ctx, list, i) {
-    	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
-    	return child_ctx;
-    }
-
-    // (312:4) {#if error}
-    function create_if_block_2(ctx) {
-    	let p;
-    	let t0;
-    	let t1;
-
-    	const block = {
-    		c: function create() {
-    			p = element("p");
-    			t0 = text("Error: ");
-    			t1 = text(/*error*/ ctx[3]);
-    			set_style(p, "color", "red");
-    			add_location(p, file, 312, 5, 8538);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, p, anchor);
-    			append_dev(p, t0);
-    			append_dev(p, t1);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*error*/ 8) set_data_dev(t1, /*error*/ ctx[3]);
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(p);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_2.name,
-    		type: "if",
-    		source: "(312:4) {#if error}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (458:6) {#if imgUrls.length > 0}
-    function create_if_block_1(ctx) {
-    	let each_1_anchor;
-    	let each_value_1 = /*imgUrls*/ ctx[1];
-    	validate_each_argument(each_value_1);
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value_1.length; i += 1) {
-    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
-    	}
-
-    	const block = {
-    		c: function create() {
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			each_1_anchor = empty();
-    		},
-    		m: function mount(target, anchor) {
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				if (each_blocks[i]) {
-    					each_blocks[i].m(target, anchor);
-    				}
-    			}
-
-    			insert_dev(target, each_1_anchor, anchor);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*copyImageUrl, imgUrls*/ 2) {
-    				each_value_1 = /*imgUrls*/ ctx[1];
-    				validate_each_argument(each_value_1);
-    				let i;
-
-    				for (i = 0; i < each_value_1.length; i += 1) {
-    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(child_ctx, dirty);
-    					} else {
-    						each_blocks[i] = create_each_block_1(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-
-    				each_blocks.length = each_value_1.length;
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			destroy_each(each_blocks, detaching);
-    			if (detaching) detach_dev(each_1_anchor);
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_1.name,
-    		type: "if",
-    		source: "(458:6) {#if imgUrls.length > 0}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (459:7) {#each imgUrls as imgUrl}
-    function create_each_block_1(ctx) {
-    	let div8;
-    	let div1;
-    	let img;
-    	let img_src_value;
-    	let t0;
-    	let div0;
-    	let t2;
-    	let div7;
-    	let div3;
-    	let div2;
-    	let t4;
-    	let div5;
-    	let div4;
-    	let t6;
-    	let div6;
-    	let button;
-    	let t8;
-    	let mounted;
-    	let dispose;
-
-    	const block = {
-    		c: function create() {
-    			div8 = element("div");
-    			div1 = element("div");
-    			img = element("img");
-    			t0 = space();
-    			div0 = element("div");
-    			div0.textContent = "Image_name";
-    			t2 = space();
-    			div7 = element("div");
-    			div3 = element("div");
-    			div2 = element("div");
-    			div2.textContent = "980 KB";
-    			t4 = space();
-    			div5 = element("div");
-    			div4 = element("div");
-    			div4.textContent = "ICO";
-    			t6 = space();
-    			div6 = element("div");
-    			button = element("button");
-    			button.textContent = "Copy Image URL";
-    			t8 = space();
-    			attr_dev(img, "class", "rectangle svelte-oqoyk");
-    			if (!src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[7])) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "image1");
-    			attr_dev(img, "id", "imageToCopy");
-    			add_location(img, file, 468, 10, 13159);
-    			attr_dev(div0, "class", "text-wrapper-14 svelte-oqoyk");
-    			add_location(div0, file, 474, 10, 13298);
-    			attr_dev(div1, "class", "frame-2 svelte-oqoyk");
-    			add_location(div1, file, 467, 9, 13126);
-    			attr_dev(div2, "class", "text-wrapper-15 svelte-oqoyk");
-    			add_location(div2, file, 480, 11, 13465);
-    			attr_dev(div3, "class", "file-size svelte-oqoyk");
-    			add_location(div3, file, 479, 10, 13429);
-    			attr_dev(div4, "class", "text-wrapper-4 svelte-oqoyk");
-    			add_location(div4, file, 485, 11, 13600);
-    			attr_dev(div5, "class", "image-type svelte-oqoyk");
-    			add_location(div5, file, 484, 10, 13563);
-    			add_location(button, file, 490, 11, 13728);
-    			attr_dev(div6, "class", "frame-4 svelte-oqoyk");
-    			add_location(div6, file, 489, 10, 13694);
-    			attr_dev(div7, "class", "frame-3 svelte-oqoyk");
-    			add_location(div7, file, 478, 9, 13396);
-    			attr_dev(div8, "class", "image-frame-vertical svelte-oqoyk");
-    			attr_dev(div8, "data-selected", "false");
-    			add_location(div8, file, 463, 8, 13029);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div8, anchor);
-    			append_dev(div8, div1);
-    			append_dev(div1, img);
-    			append_dev(div1, t0);
-    			append_dev(div1, div0);
-    			append_dev(div8, t2);
-    			append_dev(div8, div7);
-    			append_dev(div7, div3);
-    			append_dev(div3, div2);
-    			append_dev(div7, t4);
-    			append_dev(div7, div5);
-    			append_dev(div5, div4);
-    			append_dev(div7, t6);
-    			append_dev(div7, div6);
-    			append_dev(div6, button);
-    			append_dev(div8, t8);
-
-    			if (!mounted) {
-    				dispose = listen_dev(button, "click", copyImageUrl, false, false, false, false);
-    				mounted = true;
-    			}
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*imgUrls*/ 2 && !src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[7])) {
-    				attr_dev(img, "src", img_src_value);
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div8);
-    			mounted = false;
-    			dispose();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_each_block_1.name,
-    		type: "each",
-    		source: "(459:7) {#each imgUrls as imgUrl}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (511:9) {#if imgUrls.length > 0}
+    // (469:6) {#if imgUrls.length > 0}
     function create_if_block(ctx) {
     	let each_1_anchor;
     	let each_value = /*imgUrls*/ ctx[1];
@@ -738,139 +525,112 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(511:9) {#if imgUrls.length > 0}",
+    		source: "(469:6) {#if imgUrls.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (512:10) {#each imgUrls as imgUrl}
+    // (470:7) {#each imgUrls as imgUrl}
     function create_each_block(ctx) {
-    	let div3;
-    	let div0;
-    	let t0;
-    	let div2;
+    	let div8;
     	let div1;
-    	let t2;
-    	let div5;
     	let img;
     	let img_src_value;
-    	let img_alt_value;
-    	let t3;
-    	let div4;
-    	let t5;
-    	let div12;
-    	let div10;
+    	let t0;
+    	let div0;
+    	let t2;
     	let div7;
+    	let div3;
+    	let div2;
+    	let t4;
+    	let div5;
+    	let div4;
+    	let t6;
     	let div6;
-    	let t7;
-    	let div9;
-    	let div8;
-    	let t9;
-    	let div11;
     	let button0;
-    	let t11;
+    	let t8;
     	let button1;
-    	let t13;
+    	let t10;
     	let mounted;
     	let dispose;
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[6](/*imgUrl*/ ctx[7]);
+    		return /*click_handler*/ ctx[5](/*imgUrl*/ ctx[11]);
     	}
 
     	const block = {
     		c: function create() {
-    			div3 = element("div");
-    			div0 = element("div");
-    			t0 = space();
-    			div2 = element("div");
-    			div1 = element("div");
-    			div1.textContent = "1600 x 1200";
-    			t2 = space();
-    			div5 = element("div");
-    			img = element("img");
-    			t3 = space();
-    			div4 = element("div");
-    			div4.textContent = "Image_name";
-    			t5 = space();
-    			div12 = element("div");
-    			div10 = element("div");
-    			div7 = element("div");
-    			div6 = element("div");
-    			div6.textContent = "ICO";
-    			t7 = space();
-    			div9 = element("div");
     			div8 = element("div");
-    			div8.textContent = "980 KB";
-    			t9 = space();
-    			div11 = element("div");
+    			div1 = element("div");
+    			img = element("img");
+    			t0 = space();
+    			div0 = element("div");
+    			div0.textContent = "Image_name";
+    			t2 = space();
+    			div7 = element("div");
+    			div3 = element("div");
+    			div2 = element("div");
+    			div2.textContent = "980 KB";
+    			t4 = space();
+    			div5 = element("div");
+    			div4 = element("div");
+    			div4.textContent = "ICO";
+    			t6 = space();
+    			div6 = element("div");
     			button0 = element("button");
     			button0.textContent = "Copy Image URL";
-    			t11 = space();
+    			t8 = space();
     			button1 = element("button");
     			button1.textContent = "Download";
-    			t13 = space();
-    			attr_dev(div0, "class", "select svelte-oqoyk");
-    			add_location(div0, file, 516, 12, 14425);
-    			attr_dev(div1, "class", "text-wrapper svelte-oqoyk");
-    			add_location(div1, file, 518, 13, 14499);
-    			attr_dev(div2, "class", "image-dim svelte-oqoyk");
-    			add_location(div2, file, 517, 12, 14461);
-    			attr_dev(div3, "class", "size-select svelte-oqoyk");
-    			attr_dev(div3, "data-selected", "false");
-    			add_location(div3, file, 512, 11, 14325);
-    			attr_dev(img, "class", "rectangle svelte-oqoyk");
-    			if (!src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[7])) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*imgUrl*/ ctx[7]);
-    			add_location(img, file, 524, 12, 14663);
-    			attr_dev(div4, "class", "div svelte-oqoyk");
-    			add_location(div4, file, 529, 12, 14783);
-    			attr_dev(div5, "class", "image-main svelte-oqoyk");
-    			add_location(div5, file, 523, 11, 14625);
-    			attr_dev(div6, "class", "text-wrapper-2 svelte-oqoyk");
-    			add_location(div6, file, 536, 14, 14995);
-    			attr_dev(div7, "class", "div-wrapper svelte-oqoyk");
-    			add_location(div7, file, 535, 13, 14954);
-    			attr_dev(div8, "class", "text-wrapper-3 svelte-oqoyk");
-    			add_location(div8, file, 543, 14, 15172);
-    			attr_dev(div9, "class", "file-size svelte-oqoyk");
-    			add_location(div9, file, 542, 13, 15133);
-    			attr_dev(div10, "class", "image-type svelte-oqoyk");
-    			add_location(div10, file, 534, 12, 14915);
-    			add_location(button0, file, 551, 13, 15366);
-    			add_location(button1, file, 555, 13, 15482);
-    			attr_dev(div11, "class", "frame svelte-oqoyk");
-    			add_location(div11, file, 550, 12, 15332);
-    			attr_dev(div12, "class", "image-tail svelte-oqoyk");
-    			add_location(div12, file, 533, 11, 14877);
+    			t10 = space();
+    			attr_dev(img, "class", "rectangle svelte-18gi4ei");
+    			if (!src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[11])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "image1");
+    			attr_dev(img, "id", "imageToCopy");
+    			add_location(img, file, 475, 10, 12725);
+    			attr_dev(div0, "class", "text-wrapper-14 svelte-18gi4ei");
+    			add_location(div0, file, 481, 10, 12858);
+    			attr_dev(div1, "class", "frame-2 svelte-18gi4ei");
+    			add_location(div1, file, 474, 9, 12693);
+    			attr_dev(div2, "class", "text-wrapper-15 svelte-18gi4ei");
+    			add_location(div2, file, 487, 11, 13019);
+    			attr_dev(div3, "class", "file-size svelte-18gi4ei");
+    			add_location(div3, file, 486, 10, 12984);
+    			attr_dev(div4, "class", "text-wrapper-4 svelte-18gi4ei");
+    			add_location(div4, file, 492, 11, 13149);
+    			attr_dev(div5, "class", "image-type svelte-18gi4ei");
+    			add_location(div5, file, 491, 10, 13113);
+    			add_location(button0, file, 497, 11, 13272);
+    			add_location(button1, file, 500, 11, 13364);
+    			attr_dev(div6, "class", "frame-4 svelte-18gi4ei");
+    			add_location(div6, file, 496, 10, 13239);
+    			attr_dev(div7, "class", "frame-3 svelte-18gi4ei");
+    			add_location(div7, file, 485, 9, 12952);
+    			attr_dev(div8, "class", "image-frame-vertical svelte-18gi4ei");
+    			attr_dev(div8, "data-selected", "false");
+    			add_location(div8, file, 470, 8, 12600);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div0);
-    			append_dev(div3, t0);
+    			insert_dev(target, div8, anchor);
+    			append_dev(div8, div1);
+    			append_dev(div1, img);
+    			append_dev(div1, t0);
+    			append_dev(div1, div0);
+    			append_dev(div8, t2);
+    			append_dev(div8, div7);
+    			append_dev(div7, div3);
     			append_dev(div3, div2);
-    			append_dev(div2, div1);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, div5, anchor);
-    			append_dev(div5, img);
-    			append_dev(div5, t3);
+    			append_dev(div7, t4);
+    			append_dev(div7, div5);
     			append_dev(div5, div4);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, div12, anchor);
-    			append_dev(div12, div10);
-    			append_dev(div10, div7);
+    			append_dev(div7, t6);
     			append_dev(div7, div6);
-    			append_dev(div10, t7);
-    			append_dev(div10, div9);
-    			append_dev(div9, div8);
-    			append_dev(div12, t9);
-    			append_dev(div12, div11);
-    			append_dev(div11, button0);
-    			append_dev(div11, t11);
-    			append_dev(div11, button1);
-    			append_dev(div12, t13);
+    			append_dev(div6, button0);
+    			append_dev(div6, t8);
+    			append_dev(div6, button1);
+    			append_dev(div8, t10);
 
     			if (!mounted) {
     				dispose = [
@@ -884,20 +644,12 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*imgUrls*/ 2 && !src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[7])) {
+    			if (dirty & /*imgUrls*/ 2 && !src_url_equal(img.src, img_src_value = /*imgUrl*/ ctx[11])) {
     				attr_dev(img, "src", img_src_value);
-    			}
-
-    			if (dirty & /*imgUrls*/ 2 && img_alt_value !== (img_alt_value = /*imgUrl*/ ctx[7])) {
-    				attr_dev(img, "alt", img_alt_value);
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div3);
-    			if (detaching) detach_dev(t2);
-    			if (detaching) detach_dev(div5);
-    			if (detaching) detach_dev(t5);
-    			if (detaching) detach_dev(div12);
+    			if (detaching) detach_dev(div8);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -907,7 +659,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(512:10) {#each imgUrls as imgUrl}",
+    		source: "(470:7) {#each imgUrls as imgUrl}",
     		ctx
     	});
 
@@ -915,497 +667,740 @@ var app = (function () {
     }
 
     function create_fragment(ctx) {
-    	let div3;
-    	let div1;
-    	let div0;
+    	let link0;
+    	let t0;
+    	let link1;
     	let t1;
-    	let div2;
-    	let button0;
-    	let a0;
-    	let t3;
-    	let button1;
-    	let a1;
-    	let t5;
-    	let div42;
-    	let div41;
-    	let div8;
-    	let div7;
-    	let div4;
+    	let nav;
+    	let img0;
+    	let img0_src_value;
+    	let t2;
     	let span1;
     	let span0;
-    	let t7;
+    	let t4;
     	let br0;
-    	let t8;
+    	let br1;
+    	let t5;
     	let span3;
     	let span2;
-    	let t10;
-    	let div6;
-    	let div5;
-    	let input;
+    	let t7;
+    	let div0;
+    	let ul0;
+    	let li0;
+    	let a0;
+    	let t9;
+    	let li1;
+    	let a1;
     	let t11;
-    	let button2;
-    	let t12_value = (/*loading*/ ctx[2] ? "Scraping..." : "Scrape Images") + "";
-    	let t12;
+    	let li2;
+    	let a2;
     	let t13;
+    	let ul1;
+    	let li3;
+    	let a3;
+    	let span4;
     	let t14;
-    	let div40;
-    	let div33;
-    	let div32;
-    	let div12;
-    	let br1;
-    	let br2;
-    	let br3;
     	let t15;
-    	let div10;
-    	let div9;
-    	let label;
+    	let li4;
+    	let a4;
+    	let span5;
+    	let t16;
     	let t17;
-    	let div11;
-    	let select;
-    	let option0;
-    	let option1;
-    	let option2;
-    	let option3;
-    	let option4;
-    	let option5;
-    	let option6;
-    	let option7;
-    	let option8;
-    	let option9;
-    	let option10;
-    	let t29;
-    	let div25;
-    	let div13;
-    	let t31;
-    	let div24;
-    	let div15;
-    	let div14;
-    	let t33;
-    	let div17;
-    	let div16;
-    	let t35;
+    	let div4;
+    	let div3;
+    	let div2;
+    	let div1;
+    	let input;
+    	let t18;
+    	let button0;
+    	let t19_value = (/*loading*/ ctx[2] ? "Scraping..." : "Scrape Images") + "";
+    	let t19;
+    	let t20;
+    	let div20;
     	let div19;
     	let div18;
+    	let div17;
+    	let div13;
+    	let div12;
+    	let div11;
+    	let div6;
+    	let img1;
+    	let img1_src_value;
+    	let t21;
+    	let div5;
+    	let button1;
+    	let t23;
+    	let div8;
+    	let img2;
+    	let img2_src_value;
+    	let t24;
+    	let div7;
+    	let button2;
+    	let t26;
+    	let div10;
+    	let div9;
+    	let button3;
+    	let t28;
+    	let br2;
+    	let t29;
+    	let div16;
+    	let div14;
+    	let p0;
+    	let span6;
+    	let t31;
+    	let span7;
+    	let t32;
+    	let t33;
+    	let div15;
+    	let t34;
+    	let br3;
+    	let t35;
+    	let br4;
+    	let t36;
+    	let br5;
     	let t37;
-    	let div21;
-    	let div20;
+    	let section0;
+    	let h1;
     	let t39;
-    	let div23;
-    	let div22;
+    	let br6;
+    	let t40;
+    	let div24;
+    	let div21;
+    	let img3;
+    	let img3_src_value;
     	let t41;
-    	let div30;
-    	let div26;
+    	let h30;
     	let t43;
-    	let div28;
-    	let div27;
+    	let h50;
     	let t45;
-    	let div29;
-    	let t47;
-    	let div31;
+    	let div22;
+    	let img4;
+    	let img4_src_value;
+    	let t46;
+    	let h31;
     	let t48;
-    	let div39;
-    	let div34;
-    	let t49;
-    	let div38;
-    	let div37;
-    	let div36;
-    	let div35;
+    	let h51;
+    	let t50;
+    	let div23;
+    	let img5;
+    	let img5_src_value;
+    	let t51;
+    	let h32;
+    	let t53;
+    	let h52;
+    	let t55;
+    	let hr0;
+    	let t56;
+    	let section1;
+    	let h2;
+    	let t58;
+    	let br7;
+    	let t59;
+    	let div25;
+    	let h33;
+    	let t61;
+    	let p1;
+    	let t63;
+    	let div26;
+    	let h34;
+    	let t65;
+    	let p2;
+    	let t67;
+    	let section2;
+    	let hr1;
+    	let t68;
+    	let h35;
+    	let t70;
+    	let h40;
+    	let t72;
+    	let p3;
+    	let t74;
+    	let br8;
+    	let t75;
+    	let section3;
+    	let h36;
+    	let p4;
+    	let h41;
+    	let a5;
+    	let t78;
+    	let a6;
+    	let t80;
+    	let p5;
+    	let t82;
+    	let p6;
     	let mounted;
     	let dispose;
-    	let if_block0 = /*error*/ ctx[3] && create_if_block_2(ctx);
-    	let if_block1 = /*imgUrls*/ ctx[1].length > 0 && create_if_block_1(ctx);
-    	let if_block2 = /*imgUrls*/ ctx[1].length > 0 && create_if_block(ctx);
+    	let if_block = /*imgUrls*/ ctx[1].length > 0 && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
-    			div3 = element("div");
-    			div1 = element("div");
-    			div0 = element("div");
-    			div0.textContent = "Image Extractor";
+    			link0 = element("link");
+    			t0 = space();
+    			link1 = element("link");
     			t1 = space();
-    			div2 = element("div");
-    			button0 = element("button");
-    			a0 = element("a");
-    			a0.textContent = "Login";
-    			t3 = space();
-    			button1 = element("button");
-    			a1 = element("a");
-    			a1.textContent = "Sign up";
-    			t5 = space();
-    			div42 = element("div");
-    			div41 = element("div");
-    			div8 = element("div");
-    			div7 = element("div");
-    			div4 = element("div");
+    			nav = element("nav");
+    			img0 = element("img");
+    			t2 = space();
     			span1 = element("span");
     			span0 = element("span");
     			span0.textContent = "Extract Image";
-    			t7 = space();
+    			t4 = space();
     			br0 = element("br");
-    			t8 = space();
+    			br1 = element("br");
+    			t5 = space();
     			span3 = element("span");
     			span2 = element("span");
     			span2.textContent = "from any public website!";
-    			t10 = space();
-    			div6 = element("div");
-    			div5 = element("div");
-    			input = element("input");
+    			t7 = space();
+    			div0 = element("div");
+    			ul0 = element("ul");
+    			li0 = element("li");
+    			a0 = element("a");
+    			a0.textContent = "Home";
+    			t9 = space();
+    			li1 = element("li");
+    			a1 = element("a");
+    			a1.textContent = "About us";
     			t11 = space();
-    			button2 = element("button");
-    			t12 = text(t12_value);
+    			li2 = element("li");
+    			a2 = element("a");
+    			a2.textContent = "Help Center";
     			t13 = space();
-    			if (if_block0) if_block0.c();
-    			t14 = space();
-    			div40 = element("div");
-    			div33 = element("div");
-    			div32 = element("div");
-    			div12 = element("div");
-    			br1 = element("br");
-    			br2 = element("br");
-    			br3 = element("br");
+    			ul1 = element("ul");
+    			li3 = element("li");
+    			a3 = element("a");
+    			span4 = element("span");
+    			t14 = text(" Sign Up");
     			t15 = space();
-    			div10 = element("div");
-    			div9 = element("div");
-    			label = element("label");
-    			label.textContent = "Sort By:";
+    			li4 = element("li");
+    			a4 = element("a");
+    			span5 = element("span");
+    			t16 = text(" Login");
     			t17 = space();
-    			div11 = element("div");
-    			select = element("select");
-    			option0 = element("option");
-    			option0.textContent = "Default";
-    			option1 = element("option");
-    			option1.textContent = "Image Size (Smallest to Largest)";
-    			option2 = element("option");
-    			option2.textContent = "Image Size (Largest to Smallest)";
-    			option3 = element("option");
-    			option3.textContent = "File Size (Smallest to Largest)";
-    			option4 = element("option");
-    			option4.textContent = "File Size (Largest to Smallest)";
-    			option5 = element("option");
-    			option5.textContent = "Image Width (Smallest to Largest)";
-    			option6 = element("option");
-    			option6.textContent = "Image Width (Largest to Smallest)";
-    			option7 = element("option");
-    			option7.textContent = "Image Height (Smallest to Largest)";
-    			option8 = element("option");
-    			option8.textContent = "Image Height (Largest to Smallest)";
-    			option9 = element("option");
-    			option9.textContent = "Image Name (A to Z)";
-    			option10 = element("option");
-    			option10.textContent = "Image Name (Z to A)";
-    			t29 = space();
-    			div25 = element("div");
-    			div13 = element("div");
-    			div13.textContent = "Filter images by type";
-    			t31 = space();
-    			div24 = element("div");
-    			div15 = element("div");
-    			div14 = element("div");
-    			div14.textContent = "ICO (1)";
-    			t33 = space();
-    			div17 = element("div");
-    			div16 = element("div");
-    			div16.textContent = "PNG (1)";
-    			t35 = space();
+    			div4 = element("div");
+    			div3 = element("div");
+    			div2 = element("div");
+    			div1 = element("div");
+    			input = element("input");
+    			t18 = space();
+    			button0 = element("button");
+    			t19 = text(t19_value);
+    			t20 = space();
+    			div20 = element("div");
     			div19 = element("div");
     			div18 = element("div");
-    			div18.textContent = "SVG (1)";
+    			div17 = element("div");
+    			div13 = element("div");
+    			div12 = element("div");
+    			div11 = element("div");
+    			div6 = element("div");
+    			img1 = element("img");
+    			t21 = space();
+    			div5 = element("div");
+    			button1 = element("button");
+    			button1.textContent = "Select All";
+    			t23 = space();
+    			div8 = element("div");
+    			img2 = element("img");
+    			t24 = space();
+    			div7 = element("div");
+    			button2 = element("button");
+    			button2.textContent = "Deselect All";
+    			t26 = space();
+    			div10 = element("div");
+    			div9 = element("div");
+    			button3 = element("button");
+    			button3.textContent = "Download Selected";
+    			t28 = space();
+    			br2 = element("br");
+    			t29 = space();
+    			div16 = element("div");
+    			div14 = element("div");
+    			p0 = element("p");
+    			span6 = element("span");
+    			span6.textContent = "Showing images from";
+    			t31 = space();
+    			span7 = element("span");
+    			t32 = text(/*url*/ ctx[0]);
+    			t33 = space();
+    			div15 = element("div");
+    			if (if_block) if_block.c();
+    			t34 = space();
+    			br3 = element("br");
+    			t35 = space();
+    			br4 = element("br");
+    			t36 = space();
+    			br5 = element("br");
     			t37 = space();
-    			div21 = element("div");
-    			div20 = element("div");
-    			div20.textContent = "JPEG (1)";
+    			section0 = element("section");
+    			h1 = element("h1");
+    			h1.textContent = "Why Choose Us?";
     			t39 = space();
-    			div23 = element("div");
-    			div22 = element("div");
-    			div22.textContent = "GIF (1)";
+    			br6 = element("br");
+    			t40 = space();
+    			div24 = element("div");
+    			div21 = element("div");
+    			img3 = element("img");
     			t41 = space();
-    			div30 = element("div");
-    			div26 = element("div");
-    			div26.textContent = "Search for images";
+    			h30 = element("h3");
+    			h30.textContent = "Efficiency";
     			t43 = space();
-    			div28 = element("div");
-    			div27 = element("div");
-    			div27.textContent = "Type to Search....";
+    			h50 = element("h5");
+    			h50.textContent = "Save time and effort with our automated image extraction process.";
     			t45 = space();
-    			div29 = element("div");
-    			div29.textContent = "Download";
-    			t47 = space();
-    			div31 = element("div");
+    			div22 = element("div");
+    			img4 = element("img");
+    			t46 = space();
+    			h31 = element("h3");
+    			h31.textContent = "User-Friendly";
     			t48 = space();
-    			div39 = element("div");
-    			div34 = element("div");
-    			if (if_block1) if_block1.c();
-    			t49 = space();
-    			div38 = element("div");
-    			div37 = element("div");
-    			div36 = element("div");
-    			div35 = element("div");
-    			if (if_block2) if_block2.c();
-    			attr_dev(div0, "class", "text-wrapper svelte-oqoyk");
-    			add_location(div0, file, 261, 2, 7164);
-    			attr_dev(div1, "class", "image-extractor svelte-oqoyk");
-    			add_location(div1, file, 259, 1, 7069);
-    			attr_dev(a0, "class", "button-2 svelte-oqoyk");
-    			attr_dev(a0, "href", "/#");
-    			add_location(a0, file, 276, 4, 7600);
-    			attr_dev(button0, "class", "button-wrapper-2 svelte-oqoyk");
-    			add_location(button0, file, 275, 2, 7562);
-    			attr_dev(a1, "class", "button-2 svelte-oqoyk");
-    			attr_dev(a1, "href", "/#");
-    			add_location(a1, file, 279, 4, 7694);
-    			attr_dev(button1, "class", "button-wrapper-2 svelte-oqoyk");
-    			add_location(button1, file, 278, 2, 7656);
-    			attr_dev(div2, "class", "login svelte-oqoyk");
-    			add_location(div2, file, 274, 1, 7539);
-    			attr_dev(div3, "class", "header svelte-oqoyk");
-    			add_location(div3, file, 258, 0, 7046);
-    			add_location(span0, file, 288, 29, 7935);
-    			attr_dev(span1, "class", "home-text svelte-oqoyk");
-    			add_location(span1, file, 288, 5, 7911);
-    			add_location(br0, file, 289, 5, 7975);
-    			add_location(span2, file, 291, 7, 8022);
-    			attr_dev(span3, "class", "home-text02 svelte-oqoyk");
-    			add_location(span3, file, 290, 5, 7988);
-    			attr_dev(div4, "class", "home-heading");
-    			add_location(div4, file, 287, 4, 7878);
-    			attr_dev(input, "class", "home-text04 svelte-oqoyk");
+    			h51 = element("h5");
+    			h51.textContent = "Our intuitive interface makes the process accessible to all.";
+    			t50 = space();
+    			div23 = element("div");
+    			img5 = element("img");
+    			t51 = space();
+    			h32 = element("h3");
+    			h32.textContent = "Volunteer";
+    			t53 = space();
+    			h52 = element("h5");
+    			h52.textContent = "Tailor your image extraction settings to suit your needs.";
+    			t55 = space();
+    			hr0 = element("hr");
+    			t56 = space();
+    			section1 = element("section");
+    			h2 = element("h2");
+    			h2.textContent = "Frequently Asked Questions:";
+    			t58 = space();
+    			br7 = element("br");
+    			t59 = space();
+    			div25 = element("div");
+    			h33 = element("h3");
+    			h33.textContent = "Can I download multiple images at once?";
+    			t61 = space();
+    			p1 = element("p");
+    			p1.textContent = "Of course, you can select them by clicking the images and then use the \"Download selected\" button on the left to download all selected images in a ZIP file. This can take some time depending on how many images you selected. Note that there is a chance that some images cannot be downloaded and won't be included in the ZIP file.";
+    			t63 = space();
+    			div26 = element("div");
+    			h34 = element("h3");
+    			h34.textContent = "Why might the extraction process not work?";
+    			t65 = space();
+    			p2 = element("p");
+    			p2.textContent = "There are several reasons why the extraction might fail. The website you entered might not be publicly accessible or it might be protected by a login. Very slow or large websites might also cause issues. Additionally, if there are a lot of people using our website at the same time, it can cause performance issues on our side. In this case, you should try again later or try a different website. We are continuously working on improving the performance of our service.";
+    			t67 = space();
+    			section2 = element("section");
+    			hr1 = element("hr");
+    			t68 = space();
+    			h35 = element("h3");
+    			h35.textContent = "About Us";
+    			t70 = space();
+    			h40 = element("h4");
+    			h40.textContent = "VisualHarbor: Your Gateway to Seamless Image Extraction !";
+    			t72 = space();
+    			p3 = element("p");
+    			p3.textContent = "Welcome to VisualHarbor, where the art of visual storytelling meets efficiency. Our passion drives our mission – to transform the landscape of image gathering on the web for individuals, designers, content creators, and researchers alike.\n\tBehind VisualHarbor is a dedicated team of professionals committed to simplifying the process of image extraction. We recognize the potency of visuals in communication, creativity, and knowledge sharing. Therefore, our goal is clear: to empower you with tools that effortlessly streamline the collection and utilization of images.\n\tOur platform offers a user-friendly experience, allowing you to extract images seamlessly from web pages, URLs, and online documents. It's a one-stop solution for all your visual content needs, designed to enhance your efficiency and elevate your projects, research, or creative endeavors.\n\tAt VisualHarbor, we understand the value of your time and energy. Our commitment is to help you save both, enabling you to focus on what truly matters – whether it's crafting exceptional projects, conducting groundbreaking research, or unleashing your creative genius.\n\tEmbark on this visual journey with us, and together, let's paint the digital world with vibrant expressions, one extracted image at a time. VisualHarbor – where visuals meet simplicity and creativity knows no bounds.";
+    			t74 = space();
+    			br8 = element("br");
+    			t75 = space();
+    			section3 = element("section");
+    			h36 = element("h3");
+    			h36.textContent = "Contact Us";
+    			p4 = element("p");
+    			h41 = element("h4");
+    			a5 = element("a");
+    			a5.textContent = "dvstrimgextractor@gmail.com";
+    			t78 = space();
+    			a6 = element("a");
+    			a6.textContent = "+91 12345678910";
+    			t80 = space();
+    			p5 = element("p");
+    			p5.textContent = "Designed By: dvstr-image-extractor";
+    			t82 = space();
+    			p6 = element("p");
+    			p6.textContent = "Some images used under license from Shutterstock, Google. © 2023 Pawsome. All rights reserved.";
+    			attr_dev(link0, "rel", "stylesheet");
+    			attr_dev(link0, "href", "https://use.fontawesome.com/releases/v5.5.0/css/all.css");
+    			attr_dev(link0, "integrity", "sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU");
+    			attr_dev(link0, "crossorigin", "anonymous");
+    			add_location(link0, file, 276, 0, 7173);
+    			attr_dev(link1, "rel", "stylesheet");
+    			attr_dev(link1, "href", "https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css");
+    			add_location(link1, file, 277, 0, 7368);
+    			set_style(img0, "height", "100px");
+    			set_style(img0, "width", "100px");
+    			attr_dev(img0, "class", "image");
+    			if (!src_url_equal(img0.src, img0_src_value = "img/image.png")) attr_dev(img0, "src", img0_src_value);
+    			attr_dev(img0, "alt", "1");
+    			add_location(img0, file, 281, 1, 7534);
+    			add_location(span0, file, 283, 62, 7681);
+    			set_style(span1, "color", "black");
+    			set_style(span1, "margin-left", "30px");
+    			attr_dev(span1, "class", "home-text svelte-18gi4ei");
+    			add_location(span1, file, 283, 1, 7620);
+    			add_location(br0, file, 284, 1, 7716);
+    			add_location(br1, file, 284, 7, 7722);
+    			add_location(span2, file, 287, 3, 7813);
+    			attr_dev(span3, "class", "home-text02 svelte-18gi4ei");
+    			set_style(span3, "color", "black");
+    			set_style(span3, "margin-top", "80px");
+    			set_style(span3, "margin-left", "10px");
+    			add_location(span3, file, 286, 1, 7730);
+    			attr_dev(a0, "class", "nav-link");
+    			attr_dev(a0, "href", "/");
+    			add_location(a0, file, 292, 8, 8010);
+    			attr_dev(li0, "class", "nav-item active");
+    			add_location(li0, file, 291, 6, 7973);
+    			attr_dev(a1, "class", "nav-link");
+    			attr_dev(a1, "href", "#aboutus");
+    			add_location(a1, file, 295, 8, 8096);
+    			attr_dev(li1, "class", "nav-item");
+    			add_location(li1, file, 294, 6, 8066);
+    			attr_dev(a2, "class", "nav-link");
+    			attr_dev(a2, "href", "#faq");
+    			add_location(a2, file, 298, 8, 8193);
+    			attr_dev(li2, "class", "nav-item");
+    			add_location(li2, file, 297, 6, 8163);
+    			attr_dev(ul0, "class", "navbar-nav");
+    			set_style(ul0, "font-size", "20px");
+    			add_location(ul0, file, 290, 4, 7920);
+    			attr_dev(span4, "class", "fas fa-user");
+    			add_location(span4, file, 304, 37, 8369);
+    			attr_dev(a3, "class", "nav-link");
+    			attr_dev(a3, "href", "#");
+    			add_location(a3, file, 304, 8, 8340);
+    			attr_dev(li3, "class", "nav-item");
+    			add_location(li3, file, 303, 6, 8310);
+    			attr_dev(span5, "class", "fas fa-sign-in-alt");
+    			add_location(span5, file, 307, 37, 8492);
+    			attr_dev(a4, "class", "nav-link");
+    			attr_dev(a4, "href", "#");
+    			add_location(a4, file, 307, 8, 8463);
+    			attr_dev(li4, "class", "nav-item");
+    			add_location(li4, file, 306, 6, 8433);
+    			attr_dev(ul1, "class", "nav navbar-nav ml-auto");
+    			add_location(ul1, file, 302, 4, 8268);
+    			attr_dev(div0, "id", "navb");
+    			attr_dev(div0, "class", "navbar-collapse collapse hide");
+    			add_location(div0, file, 289, 2, 7862);
+    			attr_dev(nav, "class", "navbar navbar-expand-md navbar-light bg-light");
+    			add_location(nav, file, 280, 0, 7473);
+    			set_style(input, "color", "white");
+    			set_style(input, "font-size", "20px");
+    			attr_dev(input, "class", "home-text05 svelte-18gi4ei");
     			attr_dev(input, "placeholder", "Enter any URL");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "id", "url");
-    			add_location(input, file, 296, 6, 8159);
-    			set_style(button2, "color", "black");
-    			button2.disabled = /*loading*/ ctx[2];
-    			attr_dev(button2, "class", "home-button svelte-oqoyk");
-    			add_location(button2, file, 303, 6, 8309);
-    			attr_dev(div5, "class", "home-urlbar svelte-oqoyk");
-    			add_location(div5, file, 295, 5, 8126);
-    			attr_dev(div6, "class", "home-searchbar svelte-oqoyk");
-    			add_location(div6, file, 294, 4, 8091);
-    			attr_dev(div7, "class", "home-frame14 svelte-oqoyk");
-    			add_location(div7, file, 286, 3, 7846);
-    			attr_dev(div8, "class", "home-container");
-    			add_location(div8, file, 285, 2, 7813);
-    			add_location(br1, file, 328, 6, 8845);
-    			add_location(br2, file, 328, 10, 8849);
-    			add_location(br3, file, 328, 14, 8853);
-    			attr_dev(label, "for", "sortOptions");
-    			add_location(label, file, 332, 8, 8935);
-    			attr_dev(div9, "class", "text-wrapper svelte-oqoyk");
-    			add_location(div9, file, 331, 7, 8899);
-    			attr_dev(div10, "class", "sort-head svelte-oqoyk");
-    			add_location(div10, file, 329, 6, 8865);
-    			option0.__value = "default";
-    			option0.value = option0.__value;
-    			add_location(option0, file, 342, 8, 9264);
-    			option1.__value = "sizeAsc";
-    			option1.value = option1.__value;
-    			add_location(option1, file, 343, 8, 9314);
-    			option2.__value = "sizeDesc";
-    			option2.value = option2.__value;
-    			add_location(option2, file, 346, 8, 9410);
-    			option3.__value = "fileSizeAsc";
-    			option3.value = option3.__value;
-    			add_location(option3, file, 349, 8, 9507);
-    			option4.__value = "fileSizeDesc";
-    			option4.value = option4.__value;
-    			add_location(option4, file, 352, 8, 9606);
-    			option5.__value = "widthAsc";
-    			option5.value = option5.__value;
-    			add_location(option5, file, 355, 8, 9706);
-    			option6.__value = "widthDesc";
-    			option6.value = option6.__value;
-    			add_location(option6, file, 358, 8, 9804);
-    			option7.__value = "heightAsc";
-    			option7.value = option7.__value;
-    			add_location(option7, file, 361, 8, 9903);
-    			option8.__value = "heightDesc";
-    			option8.value = option8.__value;
-    			add_location(option8, file, 364, 8, 10003);
-    			option9.__value = "nameAsc";
-    			option9.value = option9.__value;
-    			add_location(option9, file, 367, 8, 10104);
-    			option10.__value = "nameDesc";
-    			option10.value = option10.__value;
-    			add_location(option10, file, 370, 8, 10187);
-    			attr_dev(select, "id", "sortOptions");
-    			add_location(select, file, 341, 7, 9204);
-    			attr_dev(div11, "class", "sort-menu svelte-oqoyk");
-    			add_location(div11, file, 340, 6, 9172);
-    			attr_dev(div12, "class", "sort svelte-oqoyk");
-    			add_location(div12, file, 327, 5, 8819);
-    			attr_dev(div13, "class", "text-wrapper-3 svelte-oqoyk");
-    			add_location(div13, file, 377, 6, 10341);
-    			attr_dev(div14, "class", "text-wrapper-4 svelte-oqoyk");
-    			add_location(div14, file, 380, 8, 10479);
-    			attr_dev(div15, "class", "image-type-filter svelte-oqoyk");
-    			add_location(div15, file, 379, 7, 10438);
-    			attr_dev(div16, "class", "text-wrapper-5 svelte-oqoyk");
-    			add_location(div16, file, 383, 8, 10579);
-    			attr_dev(div17, "class", "div-wrapper svelte-oqoyk");
-    			add_location(div17, file, 382, 7, 10544);
-    			attr_dev(div18, "class", "text-wrapper-6 svelte-oqoyk");
-    			add_location(div18, file, 386, 8, 10687);
-    			attr_dev(div19, "class", "image-type-filter-2 svelte-oqoyk");
-    			add_location(div19, file, 385, 7, 10644);
-    			attr_dev(div20, "class", "text-wrapper-7 svelte-oqoyk");
-    			add_location(div20, file, 389, 8, 10795);
-    			attr_dev(div21, "class", "image-type-filter-3 svelte-oqoyk");
-    			add_location(div21, file, 388, 7, 10752);
-    			attr_dev(div22, "class", "text-wrapper-8 svelte-oqoyk");
-    			add_location(div22, file, 392, 8, 10904);
-    			attr_dev(div23, "class", "image-type-filter-4 svelte-oqoyk");
-    			add_location(div23, file, 391, 7, 10861);
-    			attr_dev(div24, "class", "filter-menu svelte-oqoyk");
-    			add_location(div24, file, 378, 6, 10404);
-    			attr_dev(div25, "class", "filter svelte-oqoyk");
-    			add_location(div25, file, 376, 5, 10313);
-    			attr_dev(div26, "class", "text-wrapper-9 svelte-oqoyk");
-    			add_location(div26, file, 397, 6, 11022);
-    			attr_dev(div27, "class", "enter-any-URL svelte-oqoyk");
-    			add_location(div27, file, 399, 7, 11111);
-    			attr_dev(div28, "class", "url-bar svelte-oqoyk");
-    			add_location(div28, file, 398, 6, 11081);
-    			attr_dev(div29, "class", "text-wrapper-10 svelte-oqoyk");
-    			add_location(div29, file, 401, 6, 11184);
-    			attr_dev(div30, "class", "search svelte-oqoyk");
-    			add_location(div30, file, 396, 5, 10994);
-    			attr_dev(div31, "class", "download-buttons svelte-oqoyk");
-    			add_location(div31, file, 403, 5, 11247);
-    			attr_dev(div32, "class", "side-bar-sort svelte-oqoyk");
-    			add_location(div32, file, 326, 4, 8785);
-    			attr_dev(div33, "class", "main-res-frame-2 svelte-oqoyk");
-    			attr_dev(div33, "id", "resultsContainer");
-    			set_style(div33, "display", "none");
-    			add_location(div33, file, 320, 3, 8679);
-    			attr_dev(div34, "class", "horizontal svelte-oqoyk");
-    			add_location(div34, file, 456, 5, 12824);
-    			attr_dev(div35, "class", "property-hover svelte-oqoyk");
-    			add_location(div35, file, 509, 8, 14212);
-    			attr_dev(div36, "class", "image-frame svelte-oqoyk");
-    			add_location(div36, file, 508, 7, 14177);
-    			attr_dev(div37, "class", "box svelte-oqoyk");
-    			add_location(div37, file, 507, 6, 14151);
-    			attr_dev(div38, "class", "vertical");
-    			set_style(div38, "display", "none");
-    			add_location(div38, file, 506, 5, 14098);
-    			attr_dev(div39, "class", "res-frame svelte-oqoyk");
-    			add_location(div39, file, 446, 4, 12446);
-    			attr_dev(div40, "class", "main-res-frame svelte-oqoyk");
-    			add_location(div40, file, 319, 2, 8646);
-    			attr_dev(div41, "class", "div svelte-oqoyk");
-    			add_location(div41, file, 284, 1, 7792);
-    			attr_dev(div42, "class", "res-load svelte-oqoyk");
-    			add_location(div42, file, 283, 0, 7767);
+    			add_location(input, file, 323, 5, 8760);
+    			button0.disabled = /*loading*/ ctx[2];
+    			attr_dev(button0, "class", "home-button svelte-18gi4ei");
+    			set_style(button0, "margin-left", "380px");
+    			add_location(button0, file, 330, 5, 8932);
+    			attr_dev(div1, "class", "home-urlbar svelte-18gi4ei");
+    			set_style(div1, "margin-left", "300px");
+    			set_style(div1, "margin-top", "200px");
+    			add_location(div1, file, 322, 4, 8683);
+    			attr_dev(div2, "class", "home-searchbar svelte-18gi4ei");
+    			add_location(div2, file, 321, 3, 8650);
+    			attr_dev(div3, "class", "home-container");
+    			add_location(div3, file, 319, 2, 8614);
+    			attr_dev(div4, "class", "header svelte-18gi4ei");
+    			add_location(div4, file, 317, 1, 8589);
+    			attr_dev(img1, "class", "img svelte-18gi4ei");
+    			if (!src_url_equal(img1.src, img1_src_value = "img/check-circle.jpg")) attr_dev(img1, "src", img1_src_value);
+    			attr_dev(img1, "alt", "a");
+    			add_location(img1, file, 425, 8, 11490);
+    			add_location(button1, file, 431, 9, 11627);
+    			attr_dev(div5, "class", "text-wrapper-11 svelte-18gi4ei");
+    			add_location(div5, file, 430, 8, 11588);
+    			attr_dev(div6, "class", "white-button svelte-18gi4ei");
+    			add_location(div6, file, 424, 7, 11455);
+    			attr_dev(img2, "class", "img svelte-18gi4ei");
+    			if (!src_url_equal(img2.src, img2_src_value = "img/radio-button-unchecked.jpg")) attr_dev(img2, "src", img2_src_value);
+    			attr_dev(img2, "alt", "h");
+    			add_location(img2, file, 437, 8, 11768);
+    			add_location(button2, file, 443, 9, 11915);
+    			attr_dev(div7, "class", "text-wrapper-11 svelte-18gi4ei");
+    			add_location(div7, file, 442, 8, 11876);
+    			attr_dev(div8, "class", "white-button svelte-18gi4ei");
+    			add_location(div8, file, 436, 7, 11733);
+    			set_style(button3, "color", "green");
+    			add_location(button3, file, 451, 8, 12105);
+    			attr_dev(div9, "class", "text-wrapper-11 svelte-18gi4ei");
+    			add_location(div9, file, 450, 7, 12067);
+    			attr_dev(div10, "class", "white-button svelte-18gi4ei");
+    			add_location(div10, file, 448, 7, 12025);
+    			attr_dev(div11, "class", "select-deselect svelte-18gi4ei");
+    			add_location(div11, file, 423, 6, 11418);
+    			attr_dev(div12, "class", "download-buttons svelte-18gi4ei");
+    			add_location(div12, file, 422, 5, 11381);
+    			attr_dev(div13, "class", "side-bar-sort svelte-18gi4ei");
+    			add_location(div13, file, 357, 4, 9372);
+    			add_location(br2, file, 459, 4, 12267);
+    			attr_dev(span6, "class", "span svelte-18gi4ei");
+    			add_location(span6, file, 463, 7, 12378);
+    			attr_dev(span7, "class", "text-wrapper-13 svelte-18gi4ei");
+    			add_location(span7, file, 464, 7, 12432);
+    			attr_dev(p0, "class", "showing-images-from svelte-18gi4ei");
+    			add_location(p0, file, 462, 6, 12339);
+    			attr_dev(div14, "class", "result-header svelte-18gi4ei");
+    			add_location(div14, file, 461, 5, 12305);
+    			attr_dev(div15, "class", "horizontal svelte-18gi4ei");
+    			add_location(div15, file, 467, 5, 12503);
+    			attr_dev(div16, "class", "res-frame svelte-18gi4ei");
+    			add_location(div16, file, 460, 4, 12276);
+    			attr_dev(div17, "class", "main-res-frame-2 svelte-18gi4ei");
+    			attr_dev(div17, "id", "resultsContainer");
+    			set_style(div17, "display", "none");
+    			add_location(div17, file, 352, 3, 9276);
+    			attr_dev(div18, "class", "main-res-frame svelte-18gi4ei");
+    			add_location(div18, file, 351, 2, 9244);
+    			attr_dev(div19, "class", "div svelte-18gi4ei");
+    			add_location(div19, file, 348, 1, 9218);
+    			attr_dev(div20, "class", "res-load svelte-18gi4ei");
+    			add_location(div20, file, 347, 0, 9194);
+    			add_location(br3, file, 518, 0, 13654);
+    			add_location(br4, file, 519, 0, 13659);
+    			add_location(br5, file, 520, 0, 13664);
+    			attr_dev(h1, "class", "svelte-18gi4ei");
+    			add_location(h1, file, 522, 1, 13697);
+    			add_location(br6, file, 523, 1, 13722);
+    			if (!src_url_equal(img3.src, img3_src_value = "img/1_serv.png")) attr_dev(img3, "src", img3_src_value);
+    			attr_dev(img3, "alt", "Service Image 1");
+    			attr_dev(img3, "class", "svelte-18gi4ei");
+    			add_location(img3, file, 526, 2, 13779);
+    			attr_dev(h30, "class", "svelte-18gi4ei");
+    			add_location(h30, file, 527, 2, 13830);
+    			attr_dev(h50, "class", "svelte-18gi4ei");
+    			add_location(h50, file, 529, 2, 13854);
+    			attr_dev(div21, "class", "services-col svelte-18gi4ei");
+    			add_location(div21, file, 525, 3, 13750);
+    			if (!src_url_equal(img4.src, img4_src_value = "img/2_serv.png")) attr_dev(img4, "src", img4_src_value);
+    			attr_dev(img4, "alt", "Service Image 2");
+    			attr_dev(img4, "class", "svelte-18gi4ei");
+    			add_location(img4, file, 532, 2, 13971);
+    			attr_dev(h31, "class", "svelte-18gi4ei");
+    			add_location(h31, file, 533, 2, 14022);
+    			attr_dev(h51, "class", "svelte-18gi4ei");
+    			add_location(h51, file, 535, 2, 14048);
+    			attr_dev(div22, "class", "services-col svelte-18gi4ei");
+    			add_location(div22, file, 531, 3, 13942);
+    			if (!src_url_equal(img5.src, img5_src_value = "img/3_serv.png")) attr_dev(img5, "src", img5_src_value);
+    			attr_dev(img5, "alt", "Service Image 3");
+    			attr_dev(img5, "class", "svelte-18gi4ei");
+    			add_location(img5, file, 538, 2, 14160);
+    			attr_dev(h32, "class", "svelte-18gi4ei");
+    			add_location(h32, file, 539, 2, 14211);
+    			attr_dev(h52, "class", "svelte-18gi4ei");
+    			add_location(h52, file, 540, 2, 14232);
+    			attr_dev(div23, "class", "services-col svelte-18gi4ei");
+    			add_location(div23, file, 537, 3, 14131);
+    			attr_dev(div24, "class", "row svelte-18gi4ei");
+    			add_location(div24, file, 524, 2, 13729);
+    			attr_dev(section0, "class", "services svelte-18gi4ei");
+    			add_location(section0, file, 521, 0, 13669);
+    			add_location(hr0, file, 545, 2, 14336);
+    			add_location(h2, file, 548, 1, 14380);
+    			add_location(br7, file, 549, 1, 14418);
+    			add_location(h33, file, 553, 1, 14433);
+    			add_location(p1, file, 554, 1, 14483);
+    			add_location(div25, file, 552, 1, 14426);
+    			add_location(h34, file, 561, 1, 14843);
+    			add_location(p2, file, 562, 1, 14896);
+    			add_location(div26, file, 560, 1, 14836);
+    			attr_dev(section1, "class", "FAQ");
+    			attr_dev(section1, "id", "faq");
+    			add_location(section1, file, 547, 2, 14348);
+    			add_location(hr1, file, 571, 1, 15435);
+    			add_location(h35, file, 572, 1, 15441);
+    			attr_dev(h40, "class", "svelte-18gi4ei");
+    			add_location(h40, file, 573, 1, 15460);
+    			attr_dev(section2, "class", "aboutus svelte-18gi4ei");
+    			add_location(section2, file, 570, 2, 15407);
+    			add_location(p3, file, 575, 2, 15542);
+    			add_location(br8, file, 582, 2, 16906);
+    			attr_dev(h36, "class", "svelte-18gi4ei");
+    			add_location(h36, file, 584, 1, 16951);
+    			add_location(p4, file, 584, 20, 16970);
+    			attr_dev(a5, "href", "mailto:dvstrimgextractor@gmail.com");
+    			add_location(a5, file, 586, 5, 16980);
+    			attr_dev(a6, "href", "tel:+9112345678910");
+    			add_location(a6, file, 587, 2, 17060);
+    			add_location(h41, file, 586, 1, 16976);
+    			add_location(p5, file, 588, 1, 17115);
+    			add_location(p6, file, 589, 0, 17157);
+    			attr_dev(section3, "class", "footer svelte-18gi4ei");
+    			attr_dev(section3, "id", "aboutus");
+    			add_location(section3, file, 583, 2, 16913);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div1);
-    			append_dev(div1, div0);
-    			append_dev(div3, t1);
-    			append_dev(div3, div2);
-    			append_dev(div2, button0);
-    			append_dev(button0, a0);
-    			append_dev(div2, t3);
-    			append_dev(div2, button1);
-    			append_dev(button1, a1);
-    			insert_dev(target, t5, anchor);
-    			insert_dev(target, div42, anchor);
-    			append_dev(div42, div41);
-    			append_dev(div41, div8);
-    			append_dev(div8, div7);
-    			append_dev(div7, div4);
-    			append_dev(div4, span1);
+    			insert_dev(target, link0, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, link1, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, nav, anchor);
+    			append_dev(nav, img0);
+    			append_dev(nav, t2);
+    			append_dev(nav, span1);
     			append_dev(span1, span0);
-    			append_dev(div4, t7);
-    			append_dev(div4, br0);
-    			append_dev(div4, t8);
-    			append_dev(div4, span3);
+    			append_dev(nav, t4);
+    			append_dev(nav, br0);
+    			append_dev(nav, br1);
+    			append_dev(nav, t5);
+    			append_dev(nav, span3);
     			append_dev(span3, span2);
-    			append_dev(div7, t10);
-    			append_dev(div7, div6);
-    			append_dev(div6, div5);
-    			append_dev(div5, input);
+    			append_dev(nav, t7);
+    			append_dev(nav, div0);
+    			append_dev(div0, ul0);
+    			append_dev(ul0, li0);
+    			append_dev(li0, a0);
+    			append_dev(ul0, t9);
+    			append_dev(ul0, li1);
+    			append_dev(li1, a1);
+    			append_dev(ul0, t11);
+    			append_dev(ul0, li2);
+    			append_dev(li2, a2);
+    			append_dev(div0, t13);
+    			append_dev(div0, ul1);
+    			append_dev(ul1, li3);
+    			append_dev(li3, a3);
+    			append_dev(a3, span4);
+    			append_dev(a3, t14);
+    			append_dev(ul1, t15);
+    			append_dev(ul1, li4);
+    			append_dev(li4, a4);
+    			append_dev(a4, span5);
+    			append_dev(a4, t16);
+    			insert_dev(target, t17, anchor);
+    			insert_dev(target, div4, anchor);
+    			append_dev(div4, div3);
+    			append_dev(div3, div2);
+    			append_dev(div2, div1);
+    			append_dev(div1, input);
     			set_input_value(input, /*url*/ ctx[0]);
-    			append_dev(div5, t11);
-    			append_dev(div5, button2);
-    			append_dev(button2, t12);
-    			append_dev(div5, t13);
-    			if (if_block0) if_block0.m(div5, null);
-    			append_dev(div41, t14);
-    			append_dev(div41, div40);
-    			append_dev(div40, div33);
-    			append_dev(div33, div32);
-    			append_dev(div32, div12);
-    			append_dev(div12, br1);
-    			append_dev(div12, br2);
-    			append_dev(div12, br3);
-    			append_dev(div12, t15);
-    			append_dev(div12, div10);
-    			append_dev(div10, div9);
-    			append_dev(div9, label);
-    			append_dev(div12, t17);
-    			append_dev(div12, div11);
-    			append_dev(div11, select);
-    			append_dev(select, option0);
-    			append_dev(select, option1);
-    			append_dev(select, option2);
-    			append_dev(select, option3);
-    			append_dev(select, option4);
-    			append_dev(select, option5);
-    			append_dev(select, option6);
-    			append_dev(select, option7);
-    			append_dev(select, option8);
-    			append_dev(select, option9);
-    			append_dev(select, option10);
-    			append_dev(div32, t29);
-    			append_dev(div32, div25);
-    			append_dev(div25, div13);
-    			append_dev(div25, t31);
-    			append_dev(div25, div24);
-    			append_dev(div24, div15);
-    			append_dev(div15, div14);
-    			append_dev(div24, t33);
-    			append_dev(div24, div17);
-    			append_dev(div17, div16);
-    			append_dev(div24, t35);
-    			append_dev(div24, div19);
+    			append_dev(div1, t18);
+    			append_dev(div1, button0);
+    			append_dev(button0, t19);
+    			insert_dev(target, t20, anchor);
+    			insert_dev(target, div20, anchor);
+    			append_dev(div20, div19);
     			append_dev(div19, div18);
-    			append_dev(div24, t37);
+    			append_dev(div18, div17);
+    			append_dev(div17, div13);
+    			append_dev(div13, div12);
+    			append_dev(div12, div11);
+    			append_dev(div11, div6);
+    			append_dev(div6, img1);
+    			append_dev(div6, t21);
+    			append_dev(div6, div5);
+    			append_dev(div5, button1);
+    			append_dev(div11, t23);
+    			append_dev(div11, div8);
+    			append_dev(div8, img2);
+    			append_dev(div8, t24);
+    			append_dev(div8, div7);
+    			append_dev(div7, button2);
+    			append_dev(div11, t26);
+    			append_dev(div11, div10);
+    			append_dev(div10, div9);
+    			append_dev(div9, button3);
+    			append_dev(div17, t28);
+    			append_dev(div17, br2);
+    			append_dev(div17, t29);
+    			append_dev(div17, div16);
+    			append_dev(div16, div14);
+    			append_dev(div14, p0);
+    			append_dev(p0, span6);
+    			append_dev(p0, t31);
+    			append_dev(p0, span7);
+    			append_dev(span7, t32);
+    			append_dev(div16, t33);
+    			append_dev(div16, div15);
+    			if (if_block) if_block.m(div15, null);
+    			insert_dev(target, t34, anchor);
+    			insert_dev(target, br3, anchor);
+    			insert_dev(target, t35, anchor);
+    			insert_dev(target, br4, anchor);
+    			insert_dev(target, t36, anchor);
+    			insert_dev(target, br5, anchor);
+    			insert_dev(target, t37, anchor);
+    			insert_dev(target, section0, anchor);
+    			append_dev(section0, h1);
+    			append_dev(section0, t39);
+    			append_dev(section0, br6);
+    			append_dev(section0, t40);
+    			append_dev(section0, div24);
     			append_dev(div24, div21);
-    			append_dev(div21, div20);
-    			append_dev(div24, t39);
+    			append_dev(div21, img3);
+    			append_dev(div21, t41);
+    			append_dev(div21, h30);
+    			append_dev(div21, t43);
+    			append_dev(div21, h50);
+    			append_dev(div24, t45);
+    			append_dev(div24, div22);
+    			append_dev(div22, img4);
+    			append_dev(div22, t46);
+    			append_dev(div22, h31);
+    			append_dev(div22, t48);
+    			append_dev(div22, h51);
+    			append_dev(div24, t50);
     			append_dev(div24, div23);
-    			append_dev(div23, div22);
-    			append_dev(div32, t41);
-    			append_dev(div32, div30);
-    			append_dev(div30, div26);
-    			append_dev(div30, t43);
-    			append_dev(div30, div28);
-    			append_dev(div28, div27);
-    			append_dev(div30, t45);
-    			append_dev(div30, div29);
-    			append_dev(div32, t47);
-    			append_dev(div32, div31);
-    			append_dev(div40, t48);
-    			append_dev(div40, div39);
-    			append_dev(div39, div34);
-    			if (if_block1) if_block1.m(div34, null);
-    			append_dev(div39, t49);
-    			append_dev(div39, div38);
-    			append_dev(div38, div37);
-    			append_dev(div37, div36);
-    			append_dev(div36, div35);
-    			if (if_block2) if_block2.m(div35, null);
+    			append_dev(div23, img5);
+    			append_dev(div23, t51);
+    			append_dev(div23, h32);
+    			append_dev(div23, t53);
+    			append_dev(div23, h52);
+    			insert_dev(target, t55, anchor);
+    			insert_dev(target, hr0, anchor);
+    			insert_dev(target, t56, anchor);
+    			insert_dev(target, section1, anchor);
+    			append_dev(section1, h2);
+    			append_dev(section1, t58);
+    			append_dev(section1, br7);
+    			append_dev(section1, t59);
+    			append_dev(section1, div25);
+    			append_dev(div25, h33);
+    			append_dev(div25, t61);
+    			append_dev(div25, p1);
+    			append_dev(section1, t63);
+    			append_dev(section1, div26);
+    			append_dev(div26, h34);
+    			append_dev(div26, t65);
+    			append_dev(div26, p2);
+    			insert_dev(target, t67, anchor);
+    			insert_dev(target, section2, anchor);
+    			append_dev(section2, hr1);
+    			append_dev(section2, t68);
+    			append_dev(section2, h35);
+    			append_dev(section2, t70);
+    			append_dev(section2, h40);
+    			insert_dev(target, t72, anchor);
+    			insert_dev(target, p3, anchor);
+    			insert_dev(target, t74, anchor);
+    			insert_dev(target, br8, anchor);
+    			insert_dev(target, t75, anchor);
+    			insert_dev(target, section3, anchor);
+    			append_dev(section3, h36);
+    			append_dev(section3, p4);
+    			append_dev(section3, h41);
+    			append_dev(h41, a5);
+    			append_dev(h41, t78);
+    			append_dev(h41, a6);
+    			append_dev(section3, t80);
+    			append_dev(section3, p5);
+    			append_dev(section3, t82);
+    			append_dev(section3, p6);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[5]),
-    					listen_dev(button2, "click", /*scrape*/ ctx[4], false, false, false, false),
-    					listen_dev(button2, "click", showResults, false, false, false, false),
-    					listen_dev(select, "change", applyFilters, false, false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[4]),
+    					listen_dev(button0, "click", /*scrape*/ ctx[3], false, false, false, false),
+    					listen_dev(button0, "click", showResults, false, false, false, false),
+    					listen_dev(button1, "click", selectAll, false, false, false, false),
+    					listen_dev(button2, "click", deselectAll, false, false, false, false),
+    					listen_dev(button3, "click", downloadAll, false, false, false, false)
     				];
 
     				mounted = true;
@@ -1416,60 +1411,60 @@ var app = (function () {
     				set_input_value(input, /*url*/ ctx[0]);
     			}
 
-    			if (dirty & /*loading*/ 4 && t12_value !== (t12_value = (/*loading*/ ctx[2] ? "Scraping..." : "Scrape Images") + "")) set_data_dev(t12, t12_value);
+    			if (dirty & /*loading*/ 4 && t19_value !== (t19_value = (/*loading*/ ctx[2] ? "Scraping..." : "Scrape Images") + "")) set_data_dev(t19, t19_value);
 
     			if (dirty & /*loading*/ 4) {
-    				prop_dev(button2, "disabled", /*loading*/ ctx[2]);
+    				prop_dev(button0, "disabled", /*loading*/ ctx[2]);
     			}
 
-    			if (/*error*/ ctx[3]) {
-    				if (if_block0) {
-    					if_block0.p(ctx, dirty);
-    				} else {
-    					if_block0 = create_if_block_2(ctx);
-    					if_block0.c();
-    					if_block0.m(div5, null);
-    				}
-    			} else if (if_block0) {
-    				if_block0.d(1);
-    				if_block0 = null;
-    			}
+    			if (dirty & /*url*/ 1) set_data_dev(t32, /*url*/ ctx[0]);
 
     			if (/*imgUrls*/ ctx[1].length > 0) {
-    				if (if_block1) {
-    					if_block1.p(ctx, dirty);
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_1(ctx);
-    					if_block1.c();
-    					if_block1.m(div34, null);
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					if_block.m(div15, null);
     				}
-    			} else if (if_block1) {
-    				if_block1.d(1);
-    				if_block1 = null;
-    			}
-
-    			if (/*imgUrls*/ ctx[1].length > 0) {
-    				if (if_block2) {
-    					if_block2.p(ctx, dirty);
-    				} else {
-    					if_block2 = create_if_block(ctx);
-    					if_block2.c();
-    					if_block2.m(div35, null);
-    				}
-    			} else if (if_block2) {
-    				if_block2.d(1);
-    				if_block2 = null;
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div3);
-    			if (detaching) detach_dev(t5);
-    			if (detaching) detach_dev(div42);
-    			if (if_block0) if_block0.d();
-    			if (if_block1) if_block1.d();
-    			if (if_block2) if_block2.d();
+    			if (detaching) detach_dev(link0);
+    			if (detaching) detach_dev(t0);
+    			if (detaching) detach_dev(link1);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(nav);
+    			if (detaching) detach_dev(t17);
+    			if (detaching) detach_dev(div4);
+    			if (detaching) detach_dev(t20);
+    			if (detaching) detach_dev(div20);
+    			if (if_block) if_block.d();
+    			if (detaching) detach_dev(t34);
+    			if (detaching) detach_dev(br3);
+    			if (detaching) detach_dev(t35);
+    			if (detaching) detach_dev(br4);
+    			if (detaching) detach_dev(t36);
+    			if (detaching) detach_dev(br5);
+    			if (detaching) detach_dev(t37);
+    			if (detaching) detach_dev(section0);
+    			if (detaching) detach_dev(t55);
+    			if (detaching) detach_dev(hr0);
+    			if (detaching) detach_dev(t56);
+    			if (detaching) detach_dev(section1);
+    			if (detaching) detach_dev(t67);
+    			if (detaching) detach_dev(section2);
+    			if (detaching) detach_dev(t72);
+    			if (detaching) detach_dev(p3);
+    			if (detaching) detach_dev(t74);
+    			if (detaching) detach_dev(br8);
+    			if (detaching) detach_dev(t75);
+    			if (detaching) detach_dev(section3);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -1490,101 +1485,9 @@ var app = (function () {
     	var urlInput = document.getElementById("url").value;
 
     	if (urlInput) {
-    		// Assuming the 'mainresframe-container' is the div you want to display
     		var resultsContainer = document.getElementById("resultsContainer");
-
     		resultsContainer.style.display = "block";
-    	} // Hide other elements if needed
-    	// ...
-    }
-
-    // function toggleImageOrientation() {
-    // 	const horizontalImage = document.querySelector(".horizontal");
-    // 	const verticalImage = document.querySelector(".vertical");
-    // 	if (horizontalImage.style.display === "block") {
-    // 		horizontalImage.style.display = "none";
-    // 		verticalImage.style.display = "block";
-    // 	} else {
-    // 		horizontalImage.style.display = "block";
-    // 		verticalImage.style.display = "none";
-    // 	}
-    // }
-    function applyFilters() {
-    	const imageType = document.getElementById("imageType").value;
-    	const sortOption = document.getElementById("sortOptions").value;
-    	const images = document.querySelectorAll(".horizontal .image-frame-vertical .frame-2 img");
-
-    	images.forEach(image => {
-    		let shouldDisplay = true;
-
-    		// Check image type
-    		if (imageType !== "all") {
-    			const fileType = image.src.split(".").pop().toLowerCase();
-
-    			if (fileType !== imageType) {
-    				shouldDisplay = false;
-    			}
-    		}
-
-    		image.style.display = shouldDisplay ? "inline-block" : "none";
-    	});
-
-    	// Sorting options
-    	switch (sortOption) {
-    		case "sizeAsc":
-    			sortImagesBySize(images, true);
-    			break;
-    		case "sizeDesc":
-    			sortImagesBySize(images, false);
-    			break;
-    		case "fileSizeAsc":
-    			sortImagesByFileSize(images, true);
-    			break;
-    		case "fileSizeDesc":
-    			sortImagesByFileSize(images, false);
-    			break;
-    		case "widthAsc":
-    			sortImagesByDimension(images, "width", true);
-    			break;
-    		case "widthDesc":
-    			sortImagesByDimension(images, "width", false);
-    			break;
-    		case "heightAsc":
-    			sortImagesByDimension(images, "height", true);
-    			break;
-    		case "heightDesc":
-    			sortImagesByDimension(images, "height", false);
-    			break;
-    		case "nameAsc":
-    			sortImagesByName(images, true);
-    			break;
-    		case "nameDesc":
-    			sortImagesByName(images, false);
-    			break;
     	}
-
-    	// Hide the download button for non-visible images
-    	images.forEach(image => {
-    		const imageItem = image.closest(".image-frame-vertical");
-
-    		if (imageItem) {
-    			imageItem.querySelector("button").style.display = image.style.display;
-    		}
-    	});
-
-    	// Add click event listener to toggle selection
-    	images.forEach(image => {
-    		image.addEventListener("click", () => {
-    			
-    		}); // toggleSelection(image);
-    	});
-
-    	// Add click event listener to toggle selection
-    	images.forEach(image => {
-    		image.addEventListener("click", () => {
-    			console.log("Image clicked:", image.src);
-    		}); // toggleSelection(image);
-    	});
     }
 
     function sortImagesBySize(images, ascending) {
@@ -1624,12 +1527,18 @@ var app = (function () {
     }
 
     function downloadImage(imageSrc, fileName) {
-    	const link = document.createElement("a");
-    	link.href = imageSrc;
-    	link.download = fileName;
-    	document.body.appendChild(link);
-    	link.click();
-    	document.body.removeChild(link);
+    	fetch(imageSrc).then(response => response.blob()).then(blob => {
+    		const url = window.URL.createObjectURL(blob);
+    		const a = document.createElement("a");
+    		a.href = url;
+    		a.download = fileName;
+    		document.body.appendChild(a);
+    		a.click();
+    		window.URL.revokeObjectURL(url);
+    		document.body.removeChild(a);
+    	}).catch(error => {
+    		console.error("Error downloading image:", error);
+    	});
     }
 
     function selectAll() {
@@ -1648,6 +1557,20 @@ var app = (function () {
     		image.setAttribute("data-selected", "false");
     		image.style.border = "1px solid #ccc";
     	});
+    }
+
+    function downloadSelectedImages() {
+    	const selectedImages = document.querySelectorAll(".horizontal .image-frame-vertical .frame-2 img[data-selected='true']");
+
+    	selectedImages.forEach(image => {
+    		const imageSrc = image.src;
+    		const fileName = "image_" + Date.now();
+    		downloadImage(imageSrc, fileName);
+    	});
+    }
+
+    function downloadAll() {
+    	downloadSelectedImages();
     }
 
     function copyImageUrl() {
@@ -1675,12 +1598,13 @@ var app = (function () {
     	validate_slots('App', slots, []);
     	let url = "";
     	let imgUrls = [];
+    	let allImgUrls = [];
     	let loading = false;
     	let error = null;
 
-    	const scrape = async () => {
+    	async function scrape() {
     		$$invalidate(2, loading = true);
-    		$$invalidate(3, error = null);
+    		error = null;
 
     		try {
     			const response = await fetch("http://localhost:5000/api/scrape", {
@@ -1693,8 +1617,9 @@ var app = (function () {
 
     			if (data.success) {
     				$$invalidate(1, imgUrls = data.imgUrls);
+    				allImgUrls = data.imgUrls;
     			} else {
-    				$$invalidate(3, error = data.error);
+    				error = data.error;
     			}
     		} catch(error) {
     			console.error("Error:", error);
@@ -1702,7 +1627,89 @@ var app = (function () {
     		} finally {
     			$$invalidate(2, loading = false);
     		}
-    	};
+    	}
+
+    	function filterImages(imageType) {
+    		if (imageType === "all") {
+    			$$invalidate(1, imgUrls = allImgUrls);
+    		} else {
+    			$$invalidate(1, imgUrls = allImgUrls.filter(imgUrl => imgUrl.toLowerCase().endsWith(`.${imageType}`)));
+    		}
+
+    		applyFilters();
+    	}
+
+    	function countImages(imageType) {
+    		return imgUrls.filter(imgUrl => imgUrl.toLowerCase().endsWith(`.${imageType}`)).length;
+    	}
+
+    	function applyFilters() {
+    		const imageType = document.getElementById("imageType").value;
+    		const sortOption = document.getElementById("sortOptions").value;
+    		const imagesContainer = document.querySelector(".horizontal");
+    		let filteredImages = allImgUrls;
+
+    		if (imageType !== "all") {
+    			filteredImages = allImgUrls.filter(imgUrl => imgUrl.toLowerCase().endsWith(`.${imageType}`));
+    		}
+
+    		// Sorting options
+    		switch (sortOption) {
+    			case "sizeAsc":
+    				sortImagesBySize(images, true);
+    				break;
+    			case "sizeDesc":
+    				sortImagesBySize(images, false);
+    				break;
+    			case "fileSizeAsc":
+    				sortImagesByFileSize(images, true);
+    				break;
+    			case "fileSizeDesc":
+    				sortImagesByFileSize(images, false);
+    				break;
+    			case "widthAsc":
+    				sortImagesByDimension(images, "width", true);
+    				break;
+    			case "widthDesc":
+    				sortImagesByDimension(images, "width", false);
+    				break;
+    			case "heightAsc":
+    				sortImagesByDimension(images, "height", true);
+    				break;
+    			case "heightDesc":
+    				sortImagesByDimension(images, "height", false);
+    				break;
+    			case "nameAsc":
+    				sortImagesByName(images, true);
+    				break;
+    			case "nameDesc":
+    				sortImagesByName(images, false);
+    				break;
+    		}
+
+    		imagesContainer.innerHTML = "";
+
+    		// Hide the download button for non-visible images
+    		filteredImages.forEach(imgUrl => {
+    			const imageItem = document.createElement("div");
+    			imageItem.className = "image-frame-vertical";
+    			imageItem.dataset.selected = "false";
+    			imageItem.innerHTML = ``;
+    			imagesContainer.appendChild(imageItem);
+    		});
+
+    		// Add click event listener to toggle selection
+    		imagesContainer.querySelectorAll(".image-frame-vertical img").forEach(image => {
+    			image.addEventListener("click", () => {
+    				toggleSelection(image);
+    			});
+    		});
+    	}
+
+    	// Initialize the component by scraping on mount
+    	onMount(() => {
+    		scrape();
+    	});
 
     	const writable_props = [];
 
@@ -1715,14 +1722,18 @@ var app = (function () {
     		$$invalidate(0, url);
     	}
 
-    	const click_handler = imgUrl => downloadImage({ imgUrl }, { imgUrl });
+    	const click_handler = imgUrl => downloadImage(imgUrl, "image.jpg");
 
     	$$self.$capture_state = () => ({
+    		onMount,
     		url,
     		imgUrls,
+    		allImgUrls,
     		loading,
     		error,
     		scrape,
+    		filterImages,
+    		countImages,
     		showResults,
     		applyFilters,
     		sortImagesBySize,
@@ -1732,6 +1743,8 @@ var app = (function () {
     		downloadImage,
     		selectAll,
     		deselectAll,
+    		downloadSelectedImages,
+    		downloadAll,
     		copyImageUrl,
     		copyToClipboard
     	});
@@ -1739,15 +1752,16 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('url' in $$props) $$invalidate(0, url = $$props.url);
     		if ('imgUrls' in $$props) $$invalidate(1, imgUrls = $$props.imgUrls);
+    		if ('allImgUrls' in $$props) allImgUrls = $$props.allImgUrls;
     		if ('loading' in $$props) $$invalidate(2, loading = $$props.loading);
-    		if ('error' in $$props) $$invalidate(3, error = $$props.error);
+    		if ('error' in $$props) error = $$props.error;
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [url, imgUrls, loading, error, scrape, input_input_handler, click_handler];
+    	return [url, imgUrls, loading, scrape, input_input_handler, click_handler];
     }
 
     class App extends SvelteComponentDev {

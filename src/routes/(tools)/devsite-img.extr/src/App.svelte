@@ -1,10 +1,13 @@
 <script>
+	import { onMount } from "svelte";
+
 	let url = "";
 	let imgUrls = [];
+	let allImgUrls = []; 
 	let loading = false;
 	let error = null;
 
-	const scrape = async () => {
+	async function scrape() {
 		loading = true;
 		error = null;
 
@@ -20,6 +23,7 @@
 			const data = await response.json();
 			if (data.success) {
 				imgUrls = data.imgUrls;
+				allImgUrls = data.imgUrls; 
 			} else {
 				error = data.error;
 			}
@@ -29,54 +33,45 @@
 		} finally {
 			loading = false;
 		}
-	};
+	}
+
+	function filterImages(imageType) {
+		if (imageType === "all") {
+			imgUrls = allImgUrls;
+		} else {
+			imgUrls = allImgUrls.filter((imgUrl) =>
+				imgUrl.toLowerCase().endsWith(`.${imageType}`)
+			);
+		}
+		applyFilters();
+	}
+
+	function countImages(imageType) {
+		return imgUrls.filter((imgUrl) =>
+			imgUrl.toLowerCase().endsWith(`.${imageType}`)
+		).length;
+	}
 
 	function showResults() {
 		var urlInput = document.getElementById("url").value;
 		if (urlInput) {
-			// Assuming the 'mainresframe-container' is the div you want to display
 			var resultsContainer = document.getElementById("resultsContainer");
 			resultsContainer.style.display = "block";
-
-			// Hide other elements if needed
-			// ...
 		}
 	}
 
-	// function toggleImageOrientation() {
-	// 	const horizontalImage = document.querySelector(".horizontal");
-	// 	const verticalImage = document.querySelector(".vertical");
-
-	// 	if (horizontalImage.style.display === "block") {
-	// 		horizontalImage.style.display = "none";
-	// 		verticalImage.style.display = "block";
-	// 	} else {
-	// 		horizontalImage.style.display = "block";
-	// 		verticalImage.style.display = "none";
-	// 	}
-	// }
 
 	function applyFilters() {
 		const imageType = document.getElementById("imageType").value;
 		const sortOption = document.getElementById("sortOptions").value;
-		const images = document.querySelectorAll(
-			".horizontal .image-frame-vertical .frame-2 img"
-		);
+		const imagesContainer = document.querySelector(".horizontal");
 
-		images.forEach((image) => {
-			let shouldDisplay = true;
-
-			// Check image type
-			if (imageType !== "all") {
-				const fileType = image.src.split(".").pop().toLowerCase();
-				if (fileType !== imageType) {
-					shouldDisplay = false;
-				}
-			}
-
-			image.style.display = shouldDisplay ? "inline-block" : "none";
-		});
-
+		let filteredImages = allImgUrls;
+		if (imageType !== "all") {
+			filteredImages = allImgUrls.filter((imgUrl) =>
+				imgUrl.toLowerCase().endsWith(`.${imageType}`)
+			);
+		}
 		// Sorting options
 		switch (sortOption) {
 			case "sizeAsc":
@@ -112,28 +107,24 @@
 			default:
 				break;
 		}
+		imagesContainer.innerHTML = "";
 		// Hide the download button for non-visible images
-		images.forEach((image) => {
-			const imageItem = image.closest(".image-frame-vertical");
-			if (imageItem) {
-				imageItem.querySelector("button").style.display =
-					image.style.display;
-			}
+		filteredImages.forEach((imgUrl) => {
+			const imageItem = document.createElement("div");
+			imageItem.className = "image-frame-vertical";
+			imageItem.dataset.selected = "false";
+			imageItem.innerHTML = ``;
+			imagesContainer.appendChild(imageItem);
 		});
 
 		// Add click event listener to toggle selection
-		images.forEach((image) => {
-			image.addEventListener("click", () => {
-				// toggleSelection(image);
+		imagesContainer
+			.querySelectorAll(".image-frame-vertical img")
+			.forEach((image) => {
+				image.addEventListener("click", () => {
+					toggleSelection(image);
+				});
 			});
-		});
-		// Add click event listener to toggle selection
-		images.forEach((image) => {
-			image.addEventListener("click", () => {
-				console.log("Image clicked:", image.src);
-				// toggleSelection(image);
-			});
-		});
 	}
 
 	function sortImagesBySize(images, ascending) {
@@ -207,14 +198,25 @@
 	}
 
 	function downloadImage(imageSrc, fileName) {
-		const link = document.createElement("a");
-		link.href = imageSrc;
-		link.download = fileName;
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
+		fetch(imageSrc)
+			.then((response) => response.blob())
+			.then((blob) => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement("a");
+				a.href = url;
+				a.download = fileName;
+				document.body.appendChild(a);
+				a.click();
+				window.URL.revokeObjectURL(url);
+				document.body.removeChild(a);
+			})
+			.catch((error) => {
+				console.error("Error downloading image:", error);
+			});
 	}
+	
 
+	
 	function selectAll() {
 		const images = document.querySelectorAll(
 			".horizontal .image-frame-vertical .frame-2 img"
@@ -234,7 +236,20 @@
 			image.style.border = "1px solid #ccc";
 		});
 	}
+	
+	function downloadSelectedImages() {
+    const selectedImages = document.querySelectorAll(".horizontal .image-frame-vertical .frame-2 img[data-selected='true']");
 
+    selectedImages.forEach((image) => {
+        const imageSrc = image.src;
+        const fileName = "image_" + Date.now(); 
+        downloadImage(imageSrc, fileName);
+    });
+}
+
+function downloadAll() {
+    downloadSelectedImages();
+}
 	function copyImageUrl() {
 		var image = document.getElementById("imageToCopy");
 
@@ -245,7 +260,7 @@
 			alert("Image URL copied to clipboard: " + imageUrl);
 		}
 	}
-
+	
 	function copyToClipboard(text) {
 		var textarea = document.createElement("textarea");
 		textarea.value = text;
@@ -254,90 +269,104 @@
 		document.execCommand("copy");
 		document.body.removeChild(textarea);
 	}
+	// Initialize the component by scraping on mount
+	onMount(() => {
+		scrape();
+	});
 </script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
-<div class="header">
-	<div class="image-extractor">
-		<!-- <img class="image" src="img/image.png" alt="1" /> -->
-		<div class="text-wrapper">Image Extractor</div>
+	 
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+	<img style="height:100px;width:100px" class="image" src="img/image.png" alt="1" />
+	
+	<span style="color:black;margin-left:30px;"class="home-text"><span>Extract Image</span></span>
+	<br /><br>
+	
+	<span class="home-text02" style="color:black;margin-top:80px;margin-left:10px;"
+		><span>from any public website!</span></span
+	>
+  <div id="navb" class="navbar-collapse collapse hide">
+    <ul class="navbar-nav"style="font-size:20px;">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#aboutus">About us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#faq">Help Center</a>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#"><span class="fas fa-user"></span> Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"><span class="fas fa-sign-in-alt"></span> Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+		
+
+	<div class="header">
+	
+		<div class="home-container">
+			
+			<div class="home-searchbar">
+				<div class="home-urlbar" style="margin-left: 300px; margin-top:200px;">
+					<input style="color:white;font-size:20px;"
+						class="home-text05"
+						placeholder="Enter any URL"
+						type="text"
+						id="url"
+						bind:value={url}
+					/>
+					<button
+				on:click={scrape}
+				disabled={loading}
+				on:click={showResults}
+				class="home-button"
+				style="margin-left: 380px;"
+			>
+				{loading ? "Scraping..." : "Scrape Images"}
+			</button>
+				</div>
+			</div>
+			
+		</div>
+
 	</div>
-	<!-- <div class="nav-bar">
-		<button class="button-3"
-			><a class="button-2" href="/#">Home</a></button
-		>
-		<button class="button-3"
-			><a class="button-2" href="#aboutus">About us</a></button
-		>
-		<button class="button-3"
-			><a class="button-2" href="#faq">Help Center</a></button
-		>
-	</div> -->
-	<div class="login">
-		<button class="button-wrapper-2"
-			><a class="button-2" href="/#">Login</a></button
-		>
-		<button class="button-wrapper-2"
-			><a class="button-2" href="/#">Sign up</a></button
-		>
-	</div>
-</div>
+<!-- </div> -->
+
 <div class="res-load">
 	<div class="div">
-		<div class="home-container">
-			<div class="home-frame14">
-				<div class="home-heading">
-					<span class="home-text"><span>Extract Image</span></span>
-					<br />
-					<span class="home-text02"
-						><span>from any public website!</span></span
-					>
-				</div>
-				<div class="home-searchbar">
-					<div class="home-urlbar">
-						<input
-							class="home-text04"
-							placeholder="Enter any URL"
-							type="text"
-							id="url"
-							bind:value={url}
-						/>
-						<button style="color: black;"
-					on:click={scrape}
-					disabled={loading}
-					on:click={showResults}
-					class="home-button"
-				>
-					{loading ? "Scraping..." : "Scrape Images"}
-				</button>
-				{#if error}
-					<p style="color: red;">Error: {error}</p>
-				{/if}
-					</div>
-				</div>
-				
-			</div>
-		</div>
+		
+		
 		<div class="main-res-frame">
 			<div
 				class="main-res-frame-2"
 				id="resultsContainer"
 				style="display: none;"
 			>
-			
 				<div class="side-bar-sort">
-					<div class="sort">
-						<br><br><br>
+					<!-- <div class="sort">
 						<div class="sort-head">
-
 							<div class="text-wrapper">
 								<label for="sortOptions">Sort By:</label>
-							</div>
+							</div> -->
 							<!-- <div class="sort-size">
 								<div class="big-small">
 									<div class="big-small-2">Big -> Small</div>
 								</div>
 							</div> -->
-						</div>
+						<!-- </div>
 						<div class="sort-menu">
 							<select id="sortOptions" on:change={applyFilters}>
 								<option value="default">Default</option>
@@ -372,53 +401,43 @@
 									>Image Name (Z to A)</option
 								>
 							</select>
-						</div>
-					</div>
-					<div class="filter">
+						</div> -->
+					<!-- </div> -->
+					<!-- <div class="filter">
 						<div class="text-wrapper-3">Filter images by type</div>
 						<div class="filter-menu">
-							<div class="image-type-filter">
-								<div class="text-wrapper-4">ICO (1)</div>
-							</div>
-							<div class="div-wrapper">
-								<div class="text-wrapper-5">PNG (1)</div>
-							</div>
-							<div class="image-type-filter-2">
-								<div class="text-wrapper-6">SVG (1)</div>
-							</div>
-							<div class="image-type-filter-3">
-								<div class="text-wrapper-7">JPEG (1)</div>
-							</div>
-							<div class="image-type-filter-4">
-								<div class="text-wrapper-8">GIF (1)</div>
-							</div>
+							<select id="imageType" on:change={filterImages}>
+								<option value="all">All Images</option>
+								<option value="ico"
+									>ICO ({countImages("ico")})</option
+								>
+								<option value="png"
+									>PNG ({countImages("png")})</option
+								>
+								<option value="jpg"
+									>JPG ({countImages("jpg")})</option
+								>
+							</select>
 						</div>
-					</div>
-					<div class="search">
-						<div class="text-wrapper-9">Search for images</div>
-						<div class="url-bar">
-							<div class="enter-any-URL">Type to Search....</div>
-						</div>
-						<div class="text-wrapper-10">Download</div>
-					</div>
+					</div> -->
 					<div class="download-buttons">
-						<!-- <div class="select-deselect">
-							 <div class="white-button">
+						<div class="select-deselect">
+							<div class="white-button">
 								<img
 									class="img"
-									src="img/check-circle.png"
+									src="img/check-circle.jpg"
 									alt="a"
 								/>
 								<div class="text-wrapper-11">
 									<button on:click={selectAll}
 										>Select All</button
 									>
-								</div> -->
-							<!-- </div>  -->
-							<!-- <div class="white-button">
+								</div>
+							</div>
+							<div class="white-button">
 								<img
 									class="img"
-									src="img/radio-button-unchecked.png"
+									src="img/radio-button-unchecked.jpg"
 									alt="h"
 								/>
 								<div class="text-wrapper-11">
@@ -426,41 +445,29 @@
 										>Deselect All</button
 									>
 								</div>
-							</div> -->
-						<!-- </div>  -->
-						<!-- <div class="white-button-2">
-							 <img
-								class="img"
-								src="img/content-paste.png"
-								alt="k"
-							/> -->
-							<!-- <div class="copy-selected-urls">
-								Copy selected&nbsp;&nbsp;URLs
+							</div>
+							<div class="white-button">
+							
+							<div class="text-wrapper-11">
+								<button style="color:green;" on:click={downloadAll}>Download Selected</button>
+							</div>
+							
 							</div>
 						</div>
-						<div class="white-button-3"> -->
-							<!-- <img class="img" src="img/download-3.png" alt="j" /> -->
-							<!-- <div class="text-wrapper-12">Download Selected</div> -->
-						</div>
-					</div> 
+						
+					</div>
 				</div>
+				<br>
 				<div class="res-frame">
-					<!-- <div class="result-header">
+					<div class="result-header">
 						<p class="showing-images-from">
 							<span class="span">Showing images from </span>
-							<span class="text-wrapper-13">dribble.com</span> -->
-						<!-- </p>  -->
-						<!-- <button on:click={toggleImageOrientation}
-							>Toggle Image Orientation</button
-						> -->
-					<!-- </div>  -->
+							<span class="text-wrapper-13">{url}</span>
+						</p>
+					</div>
 					<div class="horizontal">
 						{#if imgUrls.length > 0}
 							{#each imgUrls as imgUrl}
-								<!-- <li>
-									<a href={imgUrl} target="_blank">{imgUrl}</a
-									>
-								</li> -->
 								<div
 									class="image-frame-vertical"
 									data-selected="false"
@@ -491,156 +498,99 @@
 											<button on:click={copyImageUrl}
 												>Copy Image URL</button
 											>
-											<!-- <button
+											<button
 												on:click={() =>
 													downloadImage(
-														{ imgUrl },
-														{ imgUrl }
+														imgUrl,
+														"image.jpg"
 													)}>Download</button
-											> -->
+											>
 										</div>
 									</div>
 								</div>
 							{/each}
 						{/if}
 					</div>
-					<div class="vertical" style="display: none;">
-						<div class="box">
-							<div class="image-frame">
-								<div class="property-hover">
-									{#if imgUrls.length > 0}
-										{#each imgUrls as imgUrl}
-											<div
-												class="size-select"
-												data-selected="false"
-											>
-												<div class="select" />
-												<div class="image-dim">
-													<div class="text-wrapper">
-														1600 x 1200
-													</div>
-												</div>
-											</div>
-											<div class="image-main">
-												<img
-													class="rectangle"
-													src={imgUrl}
-													alt={imgUrl}
-												/>
-												<div class="div">
-													Image_name
-												</div>
-											</div>
-											<div class="image-tail">
-												<div class="image-type">
-													<div class="div-wrapper">
-														<div
-															class="text-wrapper-2"
-														>
-															ICO
-														</div>
-													</div>
-													<div class="file-size">
-														<div
-															class="text-wrapper-3"
-														>
-															980 KB
-														</div>
-													</div>
-												</div>
-												<div class="frame">
-													<button
-														on:click={copyImageUrl}
-														>Copy Image URL</button
-													>
-													<button
-														on:click={() =>
-															downloadImage(
-																{ imgUrl },
-																{ imgUrl }
-															)}>Download</button
-													>
-												</div>
-											</div>
-										{/each}
-									{/if}
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
-			<!-- <div class="faq">
-				<div class="faq-header">
-					<div class="text-wrapper-16">
-						Frequently asked questions
-					</div>
-					<p class="if-you-can-t-find">
-						<span class="text-wrapper-17"
-							>If you can’t find what you’re looking for, write us
-							a message and we&#39;ll get back to you.</span
-						>
-					</p>
-				</div>
-				<div class="faq-frame">
-					<div class="text-wrapper-18">What is extract.pics?</div>
-					<div class="lorem-ipsum-dolor">
-						<p class="p">
-							Lorem ipsum dolor sit amet consectetur. Orci
-							consequat congue orci etiam mattis aliquam tincidunt
-							felis porttitor. Tortor turpis aliquam ullamcorper
-							nam erat consequat. Et amet pellentesque turpis eget
-							ac justo eu gravida. Sed sodales feugiat mauris
-							aliquam blandit justo bibendum proin. Pretium risus
-							quis varius vestibulum sed leo cras morbi. Cras
-							lectus ut mattis ligula pretium lacus commodo.
-							Ullamcorper nam consequat morbi eros lorem sit. Et
-							ullamcorper consequat sit nunc eget quam. Lacus
-							massa magna scelerisque ac interdum.
-						</p>
-					</div>
-				</div>
-				<div class="faq-frame">
-					<div class="text-wrapper-18">What is extract.pics?</div>
-					<div class="lorem-ipsum-dolor">
-						<p class="p">
-							Lorem ipsum dolor sit amet consectetur. Orci
-							consequat congue orci etiam mattis aliquam tincidunt
-							felis porttitor. Tortor turpis aliquam ullamcorper
-							nam erat consequat. Et amet pellentesque turpis eget
-							ac justo eu gravida. Sed sodales feugiat mauris
-							aliquam blandit justo bibendum proin. Pretium risus
-							quis varius vestibulum sed leo cras morbi. Cras
-							lectus ut mattis ligula pretium lacus commodo.
-							Ullamcorper nam consequat morbi eros lorem sit. Et
-							ullamcorper consequat sit nunc eget quam. Lacus
-							massa magna scelerisque ac interdum.
-						</p>
-					</div>
-				</div>
-			</div>
-			<footer class="footer">
-				<div class="frame-7">
-					<img class="img-2" src="img/copyright.png" alt="" /> -->
-					<!-- <div class="text-wrapper-19">image-extract</div> -->
-				<!-- </div>
-				<div class="frame-8">
-					<div class="text-wrapper-20">Status</div>
-					<div class="text-wrapper-21">Changelog</div>
-					<div class="text-wrapper-19">Documentation</div>
-					<div class="text-wrapper-19">Privacy and Cookie</div>
-					<div class="text-wrapper-19">Terms of service</div>
-				</div> -->
-			<!-- </footer> -->
-		 </div> 
-	</div> 
-<!-- </div> -->
+		</div>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<section class="services">
+	<h1>Why Choose Us?</h1>
+	<br>
+	 <div class="row">
+	  <div class="services-col">
+		<img src="img/1_serv.png" alt="Service Image 1">
+		<h3>Efficiency</h3>
+	
+		<h5>Save time and effort with our automated image extraction process.</h5>
+	  </div>
+	  <div class="services-col">
+		<img src="img/2_serv.png" alt="Service Image 2">
+		<h3>User-Friendly</h3>
+
+		<h5>Our intuitive interface makes the process accessible to all.</h5>
+	  </div>
+	  <div class="services-col">
+		<img src="img/3_serv.png" alt="Service Image 3">
+		<h3>Volunteer</h3>
+		<h5>Tailor your image extraction settings to suit your needs.</h5>
+	  </div>
+	 </div>
+  </section>
+  
+  <hr />
+  
+  <section class="FAQ" id="faq">
+	<h2>Frequently Asked Questions:</h2>
+	<br>
+
+
+	<div>
+	<h3>Can I download multiple images at once?</h3>
+	<p>
+	  Of course, you can select them by clicking the images and then use the "Download selected" button on the left to download all selected images in a ZIP file. This can take some time depending on how many images you selected. Note that there is a chance that some images cannot be downloaded and won't be included in the ZIP file.
+	</p>
+	</div>
+
+
+	<div>
+	<h3>Why might the extraction process not work?</h3>
+	<p>
+	  There are several reasons why the extraction might fail. The website you entered might not be publicly accessible or it might be protected by a login. Very slow or large websites might also cause issues. Additionally, if there are a lot of people using our website at the same time, it can cause performance issues on our side. In this case, you should try again later or try a different website. We are continuously working on improving the performance of our service.
+	</p>
+	</div>
+
+
+  </section>
+  
+  <section class="aboutus" >
+	<hr>
+	<h3>About Us</h3>
+	<h4>VisualHarbor: Your Gateway to Seamless Image Extraction !</h4>
+  </section>
+  <p>
+	Welcome to VisualHarbor, where the art of visual storytelling meets efficiency. Our passion drives our mission – to transform the landscape of image gathering on the web for individuals, designers, content creators, and researchers alike.
+	Behind VisualHarbor is a dedicated team of professionals committed to simplifying the process of image extraction. We recognize the potency of visuals in communication, creativity, and knowledge sharing. Therefore, our goal is clear: to empower you with tools that effortlessly streamline the collection and utilization of images.
+	Our platform offers a user-friendly experience, allowing you to extract images seamlessly from web pages, URLs, and online documents. It's a one-stop solution for all your visual content needs, designed to enhance your efficiency and elevate your projects, research, or creative endeavors.
+	At VisualHarbor, we understand the value of your time and energy. Our commitment is to help you save both, enabling you to focus on what truly matters – whether it's crafting exceptional projects, conducting groundbreaking research, or unleashing your creative genius.
+	Embark on this visual journey with us, and together, let's paint the digital world with vibrant expressions, one extracted image at a time. VisualHarbor – where visuals meet simplicity and creativity knows no bounds.
+  </p>
+  <br>
+  <section class="footer"id="aboutus">
+	<h3>Contact Us</h3><p>
+
+	<h4><a href="mailto:dvstrimgextractor@gmail.com">dvstrimgextractor@gmail.com</a> 
+		<a href="tel:+9112345678910">+91 12345678910</a></h4>
+	<p>Designed By: dvstr-image-extractor</p>
+<p>Some images used under license from Shutterstock, Google. &copy; 2023 Pawsome. All rights reserved.</p>
+  </section>
 
 <style>
-	body
-	{
-		background-color: #6debf3;
-	}
 	.header {
 		display: flex;
 		width: 1300px;
@@ -664,7 +614,7 @@
 		position: relative;
 		width: fit-content;
 		margin-top: -1px;
-		font-family: "Jost-Medium", Helvetica;
+		font-family: "Jost-Medium", sans-serif;
 		font-weight: 500;
 		color: #282445;
 		font-size: 30px;
@@ -673,6 +623,7 @@
 	}
 
 	.header .nav-bar {
+		margin-top:30px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -681,10 +632,129 @@
 		flex: 1;
 		flex-grow: 1;
 	}
+	/*-------------Services----------------*/
+.services {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.services h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.home-text05
+{background-color: #ffffff00;
+	border: 0;
+	
+
+}
+
+input {border:0;outline:0;}
+input:focus {outline:none!important;}
+
+.services-col {
+  flex-basis: 300px; /* Adjust this value to control the width of each card */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.services-col img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image retains its aspect ratio */
+}
+
+.services-col h3 {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.services-col h5 {
+  font-size: 16px;
+  color: #211f1f;
+}
+
+.services-col a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  display: block;
+}
+
+.services-col a:hover {
+  color: #ff6b6b;
+}
+
+
+/*--------footer------------*/
+.aboutus{
+  width: 100%;
+  text-align: center;
+
+
+}
+.aboutus h4{
+  margin-top: 10px;
+  font-weight: 600;
+
+}
+.footer{
+  background-color: #3cd9b7;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+
+ 
+}
+.footer h3{
+  color: #000000;
+}
+/* .footer img{
+  padding: 15px 15px ;
+  height: 40px;
+  width: 40px;
+}
+.footer h5{
+  color: #000000;
+}
+.footer h6{
+  color: #000000;
+}
+.footer credit p{
+  color: #000000;
+}
+.footer copyright p{
+  color: #000000;
+}
+.socialLinks :hover{
+zoom: 150%;
+}
+.credit{
+  color:#000000;
+}
+.copyright{
+  color:#000000;
+}
+.mail{
+  color:#000000;
+} */
+
 
 	.header .login {
-		/* border-radius: 2px;
-		border-color: black; */
+		margin-top:30px;
 		justify-content: flex-end;
 		gap: 12px;
 		flex: 1;
@@ -693,7 +763,7 @@
 		height: 40px;
 		align-items: center;
 		position: relative;
-		 }
+	}
 
 	.header .button-wrapper-2 {
 		width: 100px;
@@ -708,16 +778,13 @@
 		position: relative;
 		all: unset;
 		box-sizing: border-box;
-		border: 2px solid black; 
-    	border-radius: 5px; 
-    	padding: 8px 12px;
 	}
 
 	.header .button-2 {
 		position: relative;
 		width: fit-content;
-		margin-top: -5.5px;
-		margin-bottom: -3.5px;
+		/* margin-top: -5.5px;
+		margin-bottom: -5.5px; */
 		font-family: "Jost-Medium", Helvetica;
 		font-weight: 500;
 		color: #f5f0f3;
@@ -729,7 +796,7 @@
 	}
 
 	.home-frame14 {
-		gap: 8px;
+		gap: 100px;
 		top: 100px;
 		width: 1350px;
 		display: flex;
@@ -739,13 +806,13 @@
 	}
 
 	.home-text {
-		color: rgb(0, 0, 0);
+	
 		height: auto;
-		font-size: 70px;
+		font-size: 40px;
 		font-style: Medium;
 		text-align: left;
-		font-family: Jost;
-		font-weight: 500;
+		font-family: Arial, Helvetica, sans-serif;
+		font-weight: 400;
 		line-height: normal;
 		font-stretch: normal;
 		text-decoration: none;
@@ -757,30 +824,33 @@
 		font-size: 20px;
 		font-style: Bold;
 		text-align: left;
-		font-family: Bitter;
+		font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 		font-weight: 700;
 		line-height: normal;
 		font-stretch: normal;
 		text-decoration: none;
+		
 	}
 
 	.home-searchbar {
-		/* gap: 43px; */
+		gap: 500px;
 		display: flex;
 		align-items: center;
 		flex-direction: column;
 	}
 
+	
+
 	.home-urlbar {
 		gap: 10px;
-		width: auto;
+		width: 600px;
 		display: flex;
 		padding: 10px;
 		align-items: center;
 		flex-shrink: 0;
-		border-color: rgba(245, 240, 243, 1);
+		border-color: rgb(255, 255, 255);
 		border-style: solid;
-		border-width: 2px;
+		border-width: 1px;
 		border-radius: 10px;
 	}
 
@@ -793,18 +863,15 @@
 	}
 
 	.home-button {
-		/* gap: 10px; */
+		gap: 10px;
 		width: 106px;
 		display: flex;
-		/* padding: 10px; */
+		padding: 10px;
 		align-items: center;
 		flex-shrink: 0;
 		border-radius: 25px;
-		/* justify-content: center; */
-		/* background-color: rgba(85, 83, 99, 1); */
-		margin-top: 0;
-		padding-top: 0;
-		margin-left: auto;
+		justify-content: center;
+		background-color: rgb(255, 255, 255);
 	}
 
 	.home-text06 {
@@ -821,24 +888,27 @@
 	}
 
 	.res-load {
-		background-color: transparent;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		position: relative;
-		/* background-image: url("./background.jpg"); */
-		background-color: #6debf3;
-		background-size: cover;
-		height: 100%;
-	}
-
-	.res-load .div {
-		/* background-image: url(./background.jpg); */
-		background-color: #6debf3;
-		height: 100%;
 		
 		/* background-size: cover; */
-		/* position: relative; */
+	}
+	.header {
+   background-image: url(img/background.jpg);
+    min-height: 120vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    
+  }
+	.res-load .div {
+		background-color: transparent;
+		background-size: cover;
+		position: relative;
 	}
 
 	.res-load .main-res-frame {
@@ -846,9 +916,9 @@
 		flex-direction: column;
 		width: 1300px;
 		align-items: flex-start;
-		gap: 2px;
+		gap: 100px;
 		position: relative;
-		top: 22px;
+		top: 152px;
 		left: 0;
 	}
 
@@ -865,8 +935,6 @@
 	.res-load .side-bar-sort {
 		display: flex;
 		flex-direction: column;
-		width: 520px;
-		height: 615px;
 		align-items: flex-start;
 		gap: 31px;
 		padding: 0px 10px;
@@ -1249,7 +1317,7 @@
 		margin-top: -1px;
 		font-family: "Jost-Bold", Helvetica;
 		font-weight: 700;
-		color: #282445;
+		/* color: #282445; */
 		font-size: 20px;
 		letter-spacing: 0;
 		line-height: normal;
@@ -1257,7 +1325,7 @@
 
 	.res-load .white-button-2 {
 		padding: 5px 15px;
-		background-color: #f5f0f3;
+		background-color: #ff029a;
 		border-radius: 5px;
 		display: inline-flex;
 		align-items: center;
@@ -1265,7 +1333,7 @@
 		gap: 10px;
 		position: relative;
 		flex: 0 0 auto;
-		box-shadow: 0px 4px 4px #00000040;
+		box-shadow: 0px 0px 0px #00000040;
 	}
 
 	.res-load .copy-selected-urls {
@@ -1281,17 +1349,15 @@
 	}
 
 	.res-load .white-button-3 {
-		padding: 10px 20px;
-		min-width: 120px;
-		background-color: #282445;
-		border-radius: 20px;
+		/* padding: 10px 15px; */
+		background-color: #00ff2af8;
+		border-radius: 10px;
 		display: inline-flex;
-		align-items: center;
 		justify-content: center;
-		gap: 10px;
+		/* gap: 10px; */
 		position: relative;
 		flex: 0 0 auto;
-		box-shadow: 0px 4px 4px #00000040;
+		box-shadow: 0px 0px 0px #00000040;
 	}
 
 	.res-load .text-wrapper-12 {
@@ -1333,7 +1399,7 @@
 		margin-top: -1px;
 		font-family: "Jost-Regular", Helvetica;
 		font-weight: 400;
-		color:black;
+		color: #000000;
 		font-size: 18px;
 		letter-spacing: 0;
 		line-height: normal;
@@ -1342,7 +1408,7 @@
 	.res-load .span {
 		font-family: "Jost-Regular", Helvetica;
 		font-weight: 400;
-		color: #ffffff;
+		color: #000000;
 		font-size: 18px;
 		letter-spacing: 0;
 	}
@@ -1591,7 +1657,6 @@
 		position: relative;
 		flex: 1;
 		flex-grow: 1;
-		color: #1c1b1f;
 	}
 
 	.res-load .text-wrapper-20 {
