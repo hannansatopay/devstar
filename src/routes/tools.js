@@ -36,14 +36,6 @@ export let tools = {
 		description:
 		"Effortlessly convert text between uppercase, lowercase, title case, or sentence case with our Case Converter Tool. Input your text, select the desired conversion type, and witness your text transform instantly. Ideal for writers, editors, and programmers, our tool streamlines text formatting tasks. Ensure uniformity in your documents, coding projects, and communications. Enhance readability and professionalism by converting text to your preferred case style."
 	},
-	'currency-converter':{
-        name: 'Currency Converter',
-		icon: 'code',
-        link: '/currency-converter',
-        description: 
-		"Currency Converter: Effortlessly switch between global currencies such as USD, INR, GBP, and EUR, ensuring seamless financial transactions."
-
-	},
 	'email-validator': {
         name: 'Email Validator',
 		icon: 'code',
@@ -87,10 +79,10 @@ export let tools = {
 		"Unlock the world of Morse code with our Morse Code Translator. Seamlessly convert your text into Morse code and vice versa, bridging the gap between traditional and digital communication. Input your text, and watch as it transforms into the iconic dots and dashes, or input Morse code and witness it translated back into readable text. Ideal for enthusiasts, learners, and communication hobbyists, our translator simplifies Morse code encoding and decoding tasks. Enjoy the thrill of decoding secret messages or encode your own, all with the ease of a few clicks. Dive into the art of Morse code effortlessly with our Morse Code Translator."
 	},
 	'number-to-words':{
-        name: 'NumToWords',
+        name: 'Numeral to Text Converter',
         link: '/number-to-words',
         description: 
-		"NumToWords is your go-to tool for converting numbers into words, especially useful for rendering numerical amounts as text."
+		"Unravel the power of numerical language with our Numerals to Text Converter. Input numeric figures, and watch as they seamlessly transform into written words, offering a human-readable representation of numbers. Perfect for converting financial data, invoices, or mathematical values into textual format, our tool simplifies the process of translating numbers into words. Whether you're crafting official documents, generating invoices, or enhancing readability in reports, our converter ensures precision and clarity. Elevate your numerical data into comprehensible language effortlessly with our Numerals to Text Converter, designed to bridge the gap between digits and human understanding."
 	},
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
@@ -216,13 +208,6 @@ export let tools = {
         description: 
 		"Experience simplicity and functionality with our Text Editor – a user-friendly tool akin to a digital notepad. Input and edit text effortlessly, and choose from options to copy your content, download it as a plain text file, or generate a PDF document. Ideal for quick notes, drafts, or document creation on the go. Enjoy the convenience of basic text editing paired with essential export options, allowing you to save your work instantly or share it seamlessly. Embrace hassle-free text editing and effortless document management with our straightforward Text Editor."
 	},
-	'text-extractor':{
-        name: 'Text Extractor',
-        link: '/text-extractor',
-        description: 
-		"The Text Extractor is a powerful tool that simplifies the process of extracting text from images. Upload your image, and it quickly converts the visual content into readable text, making it easy to access and use the information you need."
-	},
-
 	'text-reversal':{
         name: 'Text Reversal',
 		icon: 'code',
