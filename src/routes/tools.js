@@ -51,6 +51,11 @@ export let tools = {
         description: 
 		"Ensure accurate communication with our Email Validator, a robust tool designed to validate email addresses swiftly and efficiently. Input an email address, and our validator meticulously checks its format, domain validity, and existence, ensuring you're sending messages to genuine recipients. Perfect for marketers, businesses, and developers, our tool minimizes bounce rates, enhances email deliverability, and maintains your sender reputation. Safeguard your communication channels from invalid or suspicious addresses, ensuring your emails reach the right audience every time. Enhance your email outreach with our reliable Email Validator, your key to seamless and reliable online correspondence."
 	},
+	'current-converter': {
+		name : 'Current Converter'
+		link : '/current-converter'
+		description : "xyz"
+	},
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
 		icon: 'code',
