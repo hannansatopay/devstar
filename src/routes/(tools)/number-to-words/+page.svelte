@@ -18,27 +18,40 @@
     
     function updateOutput(result) {
 		output = result;
-		setTimeout(clearOutput, 4000);
+		setTimeout(clearOutput, 6000);
     }
 
     function updateInput(value) {
 		input = value;
-		setTimeout(clearInput, 4000);
+		setTimeout(clearInput, 5000);
 	}
       
 	function Convert() {
-		const userInput = input.replace(/,/g, '').trim();
-		let result = '';
+    const userInput = input.replace(/,/g, '').trim();
+    let result = '';
 
-		if (!isNaN(userInput)) {
-			result = toWords(userInput, false);
-		} else {
-			result = "Input is not a valid number.";
-		}
-		
-		updateOutput(result);
-		updateInput(userInput);
-	}
+    if (!isNaN(userInput)) {
+        const parts = userInput.split('.');
+        let wholePart = parts[0];
+        let fractionalPart = parts[1] || '';
+
+        if (wholePart.includes('.')) {
+            result = "Input is not a valid number.";
+        } else {
+            result = toWords(wholePart, false);
+
+            if (fractionalPart !== '0') {
+                result += ` point ${toWords(fractionalPart, false)}`;
+            }
+        }
+    } else {
+        result = "Input is not a valid number.";
+    }
+
+    updateOutput(result);
+    updateInput(userInput);
+}
+
        
 	function isFinite(userInput) {
 		return !(typeof userInput !== 'number' || userInput !== userInput || userInput === Infinity || userInput === -Infinity);
@@ -203,7 +216,7 @@
 			<div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
 
 				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					<textarea placeholder="Enter a number upto 10 digits" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					bind:value={input}></textarea>
 				</div>
 
