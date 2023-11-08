@@ -64,7 +64,12 @@ export let tools = {
         description: 
 		"Bridge the gap between human language and machine code effortlessly with our Hex to Text and Text to Hex Converter Tool. Input hexadecimal data, and convert it into readable text or input text and convert it into hexadecimal representation. Perfect for developers, cybersecurity experts, and tech enthusiasts dealing with binary data. Ensure seamless data conversion and integration into your projects."
 	},
-	
+	'image-text-extractor':{
+        name: 'Image Text Extractor',
+        link: '/image-text-extractor',
+        description: 
+		"Unlock the textual content hidden within images with our Image Text Extractor. Utilizing advanced optical character recognition (OCR) technology, our tool effortlessly extracts text from images, making printed or handwritten content accessible and editable. Simply upload your image, and watch as the tool accurately identifies and converts text into digital format. Ideal for digitizing documents, extracting quotes, or enhancing accessibility, our Image Text Extractor simplifies the process of converting visual information into editable text. Empower your data extraction tasks with our efficient and precise tool, ensuring valuable textual content is readily available for your digital endeavors."
+	},
 	'lorem-ipsum-generator': {
 		name: 'Lorem Ipsum Generator',
 		icon: 'code',
