@@ -124,7 +124,7 @@ export let tools = {
         icon: 'charts',
         link: '/chart-generator-ex',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
-    }
+    },
     'terminal-generator': {
         name: 'Terminal Generator',
         icon: 'laptop-mobile',
