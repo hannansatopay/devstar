@@ -9,38 +9,36 @@
 	let showUploadSection = false;
 	let showCreateSection = false;
 	let fileInput;
-
 	let rowData = [];
 	let numRows = 8;
 	let numCols = 13;
-	let index = 1;
 	let selectedCell = null;
+	let fileName = "";
 	
-	function downloadSheet() {
-		const tableRows = document.querySelectorAll('tbody tr');
+	
+	// download logic:
+	function downloadSheet(fileExt) {
+		const tableData = document.querySelector("tbody");
 
-		let row_Data = Array.from(tableRows).map((row) => {
-			const cells = row.querySelectorAll('td');
-			return Array.from(cells).map((cell) => cell.textContent || '');
-		});
+		// creating workbook object
+		const tableWbObj = XLSX.utils.table_to_book(tableData, { sheet: "Sheet 1" });
 
-		const data = row_Data.map((row) => row.join(',')).join('\n');
-		const blob = new Blob([data], { type: 'text/csv' });
-		const url = window.URL.createObjectURL(blob);
-		const a = document.createElement('a');
-		a.href = url;
+		// pushing our table content inside the workbook along with file metadata
+		XLSX.write(tableWbObj, { bookType: fileExt, bookSST: true, type: "base64" });
 
 		// for giving unique name to files
-		var uniqueNum = Math.random().toString(9).substr(2,3);
-		var uniqueStr = Math.random().toString(36).substr(2);
-		a.download = `Spreadsheet_${uniqueNum + uniqueStr}.csv`;
+		var uniqueNum = Math.floor(100 + Math.random() * 900);
+		var uniqueStr = Math.random().toString(36).substr(2, 4);
+		
+		if (showUploadSection) {
+			// creating file on user's machine i.e. triggering download from Upload Section
+			XLSX.writeFile(tableWbObj, `${fileName}_${uniqueNum + uniqueStr}.` + fileExt);
+		} else {
+			// creating file on user's machine i.e. triggering download from Create Section
+			XLSX.writeFile(tableWbObj, `Spreadsheet_${uniqueNum + uniqueStr}.` + fileExt);
+		}
+	};
 
-		document.body.appendChild(a);
-		a.click();
-		window.URL.revokeObjectURL(url);
-		document.body.removeChild(a);
-		return;
-	}
 
 	// create logic:
 	function createAddRow() {
@@ -51,112 +49,130 @@
 		numCols++;
 	};
 
+
+	// upload logic:
+	function handleFileChange(event) {
+		const file = event.target.files[0];
+
+		// Saving filename without extension for future use in global variable
+		let fileNameWithExt = file.name;
+		fileName = fileNameWithExt.replace(/\.[^/.]+$/, "");
+
+		if (file) {
+			// get file extension
+			var inputFileExt = fileNameWithExt.split(".").pop().toLowerCase();
+
+			// list of allowed file extensions
+			var allowedExts = ["csv", "xlsx", "xls"];
+
+			if (allowedExts.includes(inputFileExt)) {
+                parseSheet(file);
+            } else {
+                alert('Invalid File Extension: ' + inputFileExt);
+                // Reset the input field
+				fileInput.value = '';
+            }
+		} else {
+            alert('No File Selected');
+        }
+  	};
+
+  	function parseSheet(file) {
+		const sheetReader = new FileReader();
+
+		sheetReader.onloadend = (e) => {
+			const data = new Uint8Array(e.target.result);
+			const workbook = XLSX.read(data, { type: 'array' });
+			const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+			const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+
+			// Set numRows and numCols based on parsed data
+			numRows = jsonData.length;
+			numCols = Math.max(...jsonData.map(row => row.length));
+
+			// Initialize rowData with parsed data
+			rowData = jsonData.map(dataRow => {
+				const emptyCells = Array(numCols - dataRow.length).fill('');
+				return dataRow.concat(emptyCells);
+			});
+
+			if (numRows !== 0 && numCols !== 0) {
+				showUploadSection = !showUploadSection;
+			} else {
+				alert("Empty File Selected");
+			}
+			
+		};
+
+		sheetReader.readAsArrayBuffer(file);
+	};
+
+	function uploadAddRow() {
+		rowData.push(Array(numCols).fill(''));
+		numRows++;
+	};
+
+	function uploadAddColumn() {
+		rowData.forEach(row => row.push(''));
+		numCols++;
+	};
+
+	// Common Functions for Upload and Create Sections
+
 	function getColumnName(index) {
 		if (index < 26) {
 			// A to Z
 			return String.fromCharCode(65 + index);
 		} else {
-			// After Z, A1, A2, A3...
+			// After Z, AA, AB, AC...
 			let firstChar = String.fromCharCode(65 + Math.floor(index / 26) - 1);
 			let secondChar = String.fromCharCode(65 + (index % 26));
 			return `${firstChar}${secondChar}`;
 		};
 	};
 
-	// upload logic:
-	
-	function handleFileChange(event) {
-    const file = event.target.files[0];
-    if (file) {
-      parseExcel(file);
-    }
-  	}
+	function deleteRow() {
+		if (numRows > 1) 
+			numRows--;
+	};
 
-  	function parseExcel(file) {
-		const reader = new FileReader();
-
-		reader.onloadend = (e) => {
-		const data = new Uint8Array(e.target.result);
-		const workbook = XLSX.read(data, { type: 'array' });
-		const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-		const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
-
-		// Set numRows and numCols based on parsed data
-		numRows = jsonData.length;
-		numCols = Math.max(...jsonData.map(row => row.length));
-
-		// Initialize rowData with parsed data
-		rowData = jsonData.map(row => {
-			const emptyCells = Array(numCols - row.length).fill('');
-			return row.concat(emptyCells);
-		});
-
-		// showUploadSection = true;
-		showUploadSection = !showUploadSection;
-		};
-
-		reader.readAsArrayBuffer(file);
-	}
-
-	function uploadAddRow() {
-		if (selectedCell) {
-		const rowIndex = selectedCell.parentNode.rowIndex;
-		rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
-		numRows++;
-		} else {
-		// If selectedCell is not set, add a row at the end
-		rowData.push(Array(numCols).fill(''));
-		numRows++;
-		}
-	}
-
-	function uploadAddColumn() {
-			if (selectedCell) {
-			const colIndex = selectedCell.cellIndex;
-			rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
-			numCols++;
-			} else {
-			// If selectedCell is not set, add a column at the end
-			rowData.forEach(row => row.push(''));
-			numCols++;
-			}
-		}
-
-	function selectCell(event) {
-		selectedCell = event.target;
-	}
+	function deleteColumn() {
+		if (numCols > 1) 
+			numCols--;
+	};
 
 	onMount(() => {
 		// Initialize rowData with empty strings
 		rowData = Array.from({ length: numRows }, () => Array(numCols).fill(''));
 	});
-
 </script>
+
 <Intro heading={data.meta.title} description={data.meta.description} />
+
 <section class="bg-white dark:bg-gray-900">
 	{#if !showCreateSection && !showUploadSection}
 		<div class="flex justify-center items-center section-button mt-2 mb-4 mr-4 ml-4"> <!--Two buttons added from flowbite-svelte-->
-			<Button size="xl" outline color="blue" class="mr-2" on:click={()=>{
-				fileInput.click();}}>Upload Your Spreadsheet<br />(.xlsx)</Button>
-			<input id="sheetuploader" type="file" class="hidden" accept=".xlsx" bind:this={fileInput} on:change={handleFileChange} />
-			<GradientButton size="xl" color="blue" class="ml-2" on:click={()=>{showCreateSection = !showCreateSection}}>Create New Spreadsheet<br />(.csv)</GradientButton>
+			<!-- Upload Button -->
+			<Button size="xl" outline color="blue" class="mr-2 p-6" on:click={()=>{ fileInput.click() }}><b>Upload Your Spreadsheet</b></Button>
+			<input id="sheetuploader" type="file" class="hidden" accept=".csv, .xlsx, .xls" bind:this={fileInput} on:change={handleFileChange} />
+
+			<!-- Create Button -->
+			<GradientButton size="xl" color="blue" class="ml-2 p-6" on:click={()=>{showCreateSection = !showCreateSection}}><b>Create New Spreadsheet</b></GradientButton>
 		</div>
 
 	{:else if showUploadSection}
-
 		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
-				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xls")}}>Download <b>XLS</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
-				<!-- For Future Implementation if needed-->
-				<!-- 
-				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
-				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
-				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				-->
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<DropdownItem on:click={uploadAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showUploadSection = false; selectedCell = null; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
@@ -165,24 +181,28 @@
 		<div class="w-100 h-100 ml-4 mr-4 mb-4 scrollable-container">
 			<table>
 				<thead>
-				  <tr>
-					<th class="describers" />
-					{#each Array(numCols) as _, i}
-					  <th class="content describers">{getColumnName(i)}</th>
-					{/each}
-				  </tr>
+					<tr>
+						<th class="describers" />
+						{#each Array(numCols) as _, i}
+							<th class="content describers">{getColumnName(i)}</th>
+						{/each}
+					</tr>
 				</thead>
 				<tbody>
-				  {#each Array(numRows) as _, rowIndex}
-					<tr>
-					  <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
-					  {#each Array(numCols) as _, colIndex}
-						<td contenteditable="true" class="content" on:click={selectCell}>{rowData[rowIndex][colIndex]}</td>
-					  {/each}
-					</tr>
-				  {/each}
+					{#each Array(numRows) as _, rowIndex}
+						<tr>
+							<td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
+							{#each Array(numCols) as _, colIndex}
+								{#if typeof rowData[rowIndex][colIndex] !== "undefined"}
+									<td contenteditable="true" class="content">{rowData[rowIndex][colIndex]}</td>
+								{:else}
+									<td contenteditable="true" class="content" />
+								{/if}
+							{/each}
+						</tr>
+					{/each}
 				</tbody>
-			  </table>
+			</table>
 		</div>
 
 	{:else if showCreateSection}
@@ -190,16 +210,15 @@
 		<div class="flex justify-start mt-4 ml-6 mr-4 mb-4">
 			<GradientButton size="md" outline color="blue">Menu<ChevronRight /></GradientButton>
 			<Dropdown placement="right-start">
-				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("csv")}}>Download <b>CSV</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xlsx")}}>Download <b>XLSX</b></DropdownItem>
+				<DropdownItem on:click={() => {downloadSheet("xls")}}>Download <b>XLS</b></DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
-				<!-- For Future Implementation if needed-->
-				<!-- 
-				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
-				<Button size="xl" outline color="blue" class="mb-4"><u>Underline</u></Button>
-				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
-				-->
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<DropdownItem on:click={createAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showCreateSection = false; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
@@ -254,7 +273,6 @@
 		width: 125px;
 		overflow-x: auto;
 		white-space: nowrap;
-
 	}
 
 	.row-numbering {
