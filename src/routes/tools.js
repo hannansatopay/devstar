@@ -205,8 +205,6 @@ export let tools = {
         icon: 'spider-web',
         link: '/robots-txt-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
-		description:
-			'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
     },
     'neumorphism-generator': {
         name: 'Neumorphism Generator',
@@ -214,7 +212,6 @@ export let tools = {
         link: '/neumorphism-generator',
         description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
     },
-
 	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
 		icon: 'code',
