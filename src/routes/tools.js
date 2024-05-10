@@ -435,7 +435,8 @@ export let tools = {
         name: 'compound calculator',
         icon: 'code',
         link: '/compound',
-=======
+		description: ''
+	},
     'amortiztion-calculator': {
         name: 'amortiztion-calculator',
         icon: 'spider-web',
@@ -447,7 +448,7 @@ export let tools = {
         icon: 'spider-web',
         link: '/discount-calculator',
         description: "The term discount can be used to refer to many forms of reduction in the price of a good or service. The two most common types of discounts are discounts in which you get a percent off."
-
+	},
     'password-generator': {
         name: 'Password Generator',
         icon: 'key',
@@ -561,7 +562,6 @@ export let tools = {
         link: '/svg-animator',
         description: "TSVG Animator is a dynamic and versatile software tool or programming library designed to create captivating animations within Scalable Vector Graphics (SVG) files. SVG is an XML-based vector image format widely used for its scalability and compatibility with web applications, making it an ideal choice for creating interactive, lightweight animations for websites, mobile apps, and more."
     },
-};
   
     'Simple Interest': {
         name: 'Simple Interest',

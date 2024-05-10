@@ -91,7 +91,6 @@
     </style>
 </svelte:head>
 <script>
-	import { COLOR } from './../../.svelte-kit/ambient.d.ts';
       import Switch from './Switch.svelte'
       let sliderValue;
     let input;
