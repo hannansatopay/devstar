@@ -1,4 +1,6 @@
 <script>
+	import JSZip from 'jszip';
+	
 	// this variable store a images
 	let selectedImage = [];
 
