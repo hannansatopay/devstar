@@ -1,17 +1,21 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true,
-	}
-	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
-	//
-	// If you want to overwrite includes/excludes, make sure to copy over the relevant includes/excludes
-	// from the referenced tsconfig.json - TypeScript does not merge them in
-}
+	  "allowJs": true,
+	  "checkJs": true,
+	  "esModuleInterop": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "resolveJsonModule": true,
+	  "skipLibCheck": true,
+	  "sourceMap": true,
+	  "strict": true,
+	  "ignoreDeprecations": ["importsNotUsedAsValues"],
+	  "outDir": "./dist" // Change the output directory to where you want the JavaScript files to be generated
+	},
+	// Include paths to your source files
+	"include": [
+	  "src/**/*.ts",  // Update the path to match your project structure
+	  "src/**/*.js",  // Include JavaScript files if needed
+	  "src/**/*.svelte"  // Include Svelte files if needed
+	]
+  }
