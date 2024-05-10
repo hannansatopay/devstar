@@ -481,5 +481,11 @@ export let tools = {
         icon: 'code',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
-    }
+    },
+	'online-api': {
+		name: 'Online API',
+        icon: 'code',
+        link: '/online-api',
+        description: ""
+    },
 };
