@@ -124,6 +124,7 @@ export let tools = {
         link: '/neumorphism-generator',
         description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
     },
+
 	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
 		icon: 'code',
@@ -357,7 +358,7 @@ export let tools = {
     },
     'terminal-generator': {
         name: 'Terminal Generator',
-        icon: 'code',
+        icon: 'laptop-mobile',
         link: '/terminal-generator',
         description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
     },
@@ -378,6 +379,30 @@ export let tools = {
         icon: 'code',
         link:'/currency-calculator',
         description:'The Currency Calculator is a valuable tool that can help you to convert one currency to another using the latest exchange rates.'
+    },
+    'age-calculator':{
+        name: 'Age Calculator',
+        icon: 'code',
+        link:'/age-calculator',
+        description:'The Age Calculator can determine the age or interval between two dates. The calculated age will be displayed in years, months, weeks, days, hours, minutes, and seconds.'
+    },
+    'dice-roller':{
+        name: 'Dice Roller',
+        icon: 'code',
+        link:'/dice-roller',
+        description:' '
+    },
+    'tip-calculator':{
+        name: 'Tip Calculator',
+        icon: 'code',
+        link:'/tip-calculator',
+        description:'The Tip Calculator calculates tip amount for various percentages of the cost of the service, and also provides a total amount that includes the tip.'
+    },
+    'permutation-and-combination-calculator':{
+        name: 'Permutation and Combination Calculator',
+        icon: 'code',
+        link:'/permutation-and-combination-calculator',
+        description:'Permutations and combinations are part of a branch of mathematics called combinatorics, which involves studying finite, discrete structures. Permutations are specific selections of elements within a set where the order in which the elements are arranged is important, while combinations involve the selection of elements without regard for order'
     },
     'webspeedtest': {
         name: 'WebPage SpeedTester',
@@ -419,7 +444,7 @@ export let tools = {
         name: 'Whois Lookup',
         icon: 'code',
         link: '/who-is',
-        description: ""
+        description: "A Whois lookup is a query or search that provides information about a domain name or an IP address. It typically reveals details about the entity or organization that registered the domain, contact information of the domain owner, domain registration and expiration dates, and sometimes technical information like name servers. Whois lookups are commonly used to identify the owner of a website or IP address, check the availability of domain names, or investigate potential issues related to a particular online resource. This information can be useful for legal, technical, or administrative purposes on the internet."
     },
     'ssl-checker': {
         name: 'SSL Checker',
@@ -446,30 +471,43 @@ export let tools = {
         description: 
 		"Analyze your text effortlessly with our Word Counter Tool. Input your text, and instantly get accurate word counts, helping you understand the text's length and complexity. Ideal for writers, students, and researchers monitoring word limits or analyzing textual content. Enhance your writing and editing tasks with this reliable tool, gaining valuable insights into your text."
 	},
-    'line-sorter': {
-        name: 'String Sorter',
-		icon: 'code',
-        link: '/line-sorter',
-        description: 'Line Sorter – the magical tool that transforms chaos into order with a single click! Whether you want to arrange your words alphabetically for a touch of elegance, unveil a secret message through reversal, bring the excitement of randomness into your text, or even sort words by their unique lengths.Experience the art of line sorting!'
-    }, 
-    'string-truncator': {
-        name: 'String Truncator',
-		icon: 'code',
-        link: '/string-truncator',
-        description: 'Easily shorten your text with our String Truncator Tool. Specify a character limit, and it will trim your content. Ideal for concise social media posts and emails'
+    'amortiztion-calculator': {
+        name: 'amortiztion-calculator',
+        icon: 'spider-web',
+        link: '/amortiztion-calculator',
+        description: "There are two general definitions of amortization. The first is the systematic repayment of a loan over time. The second is used in the context of business accounting and is the act of spreading the cost of an expensive and long-lived item over many periods. The two are explained in more detail in the sections below."
     },
-    'bmi': {
+	'discount-calculator': {
+        name: 'discount-calculator',
+        icon: 'spider-web',
+        link: '/discount-calculator',
+        description: "The term discount can be used to refer to many forms of reduction in the price of a good or service. The two most common types of discounts are discounts in which you get a percent off."
+	},
+    'rent-calculator': {
+        name: 'Rent Calculator',
+        icon: 'arrow-right-arrow-left',
+        link: '/rent-calculator',
+        description: "The Rent Calculator is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
+    },
+    'BMI': {
         name: 'BMI',
-        icon: 'code',
-        link: '/bmi',
+        icon: 'spider-web',
+        link: '/random-image-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
-    'simple-interest': {
+    'Simple Interest': {
         name: 'Simple Interest',
-        icon: 'code',
-        link: '/simple-interest',
+        icon: 'spider-web',
+        link: '/unit-converter',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
+
+    'invoice-generator': {
+        name: 'Invoice Generator',
+        icon: 'files',
+        link: '/invoice-generator',
+        description: "The small invoice module is a compact and efficient solution for generating invoices with ease. This single-page tool simplifies the invoicing process, allowing you to quickly input client information, itemize products or services, calculate totals, and generate professional invoices. Whether you're a small business owner or a freelancer, this module provides a straightforward and time-saving way to create and manage your invoices. Streamline your invoicing tasks and keep your finances in order effortlessly."
+},
     'basic-photo-editor': {
         name: 'Basic Photo Editor',
         icon: 'code',
@@ -488,4 +526,23 @@ export let tools = {
         link: '/online-api',
         description: ""
     },
-};
+	'fake-data-generator': {
+        name: 'Fake Data Generator',
+        icon: 'code',
+        link: '/fake-data-generator',
+        description: ""
+  },
+    'terminal-generator': {
+        name: 'Terminal Generator',
+        icon: 'terminal-generator',
+        link: '/terminal.png',
+        description: 'A terminal generator tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles. There are different applications of this tool in creating a terminal.'
+	},
+    'cash-back-or-low-interest-calculator':{
+        name: 'Cash Back or Low Interest Calculator',
+        icon: 'currency-dollar',
+        link:'/cash-back-or-low-interest-calculator',
+        description:'Auto manufacturers may offer either a cash back rebate or a low interest rate with a car purchase. Very often, these offers are mutually exclusive. Use the calculator to find out which of the two is the better offer.'
+
+    }
+}
