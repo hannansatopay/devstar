@@ -99,38 +99,52 @@
 	}
 
 	function uploadAddRow() {
-		if (selectedCell) {
-		const rowIndex = selectedCell.parentNode.rowIndex;
-		rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
-		numRows++;
-		} else {
+		// This functionality is causing a bug
+		// if (selectedCell) {
+		// const rowIndex = selectedCell.parentNode.rowIndex;
+		// rowData.splice(rowIndex + 1, 0, Array(numCols).fill(''));
+		// numRows++;
+		// } else {
+
 		// If selectedCell is not set, add a row at the end
 		rowData.push(Array(numCols).fill(''));
 		numRows++;
-		}
+		// }
 	}
 
 	function uploadAddColumn() {
-			if (selectedCell) {
-			const colIndex = selectedCell.cellIndex;
-			rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
-			numCols++;
-			} else {
-			// If selectedCell is not set, add a column at the end
-			rowData.forEach(row => row.push(''));
-			numCols++;
-			}
-		}
+		// This is causing a bug
+		// if (selectedCell) {
+		// const colIndex = selectedCell.cellIndex;
+		// rowData.forEach(row => row.splice(colIndex + 1, 0, ''));
+		// numCols++;
+		// } else {
 
-	function selectCell(event) {
-		selectedCell = event.target;
+		// If selectedCell is not set, add a column at the end
+		rowData.forEach(row => row.push(''));
+		numCols++;
+		// }
+	}
+
+	// function selectCell(event) {
+	// 	selectedCell = event.target;
+	// }
+
+	// Functions by Umer:
+	function deleteRow() {
+		if (numRows > 1) 
+			numRows--;
+	}
+
+	function deleteColumn() {
+		if (numCols > 1) 
+			numCols--;
 	}
 
 	onMount(() => {
 		// Initialize rowData with empty strings
 		rowData = Array.from({ length: numRows }, () => Array(numCols).fill(''));
 	});
-
 </script>
 <Intro heading={data.meta.title} description={data.meta.description} />
 <section class="bg-white dark:bg-gray-900">
@@ -150,6 +164,8 @@
 				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={uploadAddRow}>Add Row</DropdownItem>
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
@@ -157,6 +173,7 @@
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
 				-->
 				<DropdownItem on:click={uploadAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showUploadSection = false; selectedCell = null; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
@@ -177,7 +194,7 @@
 					<tr>
 					  <td class="row-numbering describers"><b>{rowIndex + 1}</b></td>
 					  {#each Array(numCols) as _, colIndex}
-						<td contenteditable="true" class="content" on:click={selectCell}>{rowData[rowIndex][colIndex]}</td>
+						<td contenteditable="true" class="content" >{rowData[rowIndex][colIndex]}</td>
 					  {/each}
 					</tr>
 				  {/each}
@@ -193,6 +210,8 @@
 				<DropdownItem on:click={downloadSheet}>Download Sheet</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={createAddRow}>Add Row</DropdownItem>
+				<DropdownItem on:click={deleteRow}>Delete Row</DropdownItem>
+				<DropdownDivider />
 				<!-- For Future Implementation if needed-->
 				<!-- 
 				<Button size="xl" color="blue" class="mb-4"><b>Bold</b></Button>
@@ -200,6 +219,7 @@
 				<Button size="xl" color="blue" class="mb-4"><i>Italic</i></Button>
 				-->
 				<DropdownItem on:click={createAddColumn}>Add Column</DropdownItem>
+				<DropdownItem on:click={deleteColumn}>Delete Column</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem on:click={() => {showCreateSection = false; rowData = []; numRows=8; numCols=13;}}>Exit Editor</DropdownItem>
 			</Dropdown>
@@ -254,7 +274,6 @@
 		width: 125px;
 		overflow-x: auto;
 		white-space: nowrap;
-
 	}
 
 	.row-numbering {

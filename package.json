@@ -93,6 +93,8 @@
 		"svelte-datepicker": "^1.0.0",
 		"svelte-filepond": "^0.2.0",
 		"svelte-tags-input": "^5.0.0",
+		"xlsx": "^0.18.5",
+		"svelte-transition": "^0.0.10"
 		"svelte-transition": "^0.0.10",
 		"xlsx": "^0.18.5",
 		"xml-formatter": "^3.5.0"

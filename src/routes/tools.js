@@ -356,6 +356,12 @@ export let tools = {
         link: '/chart-generator-ex',
         description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
     },
+    'terminal-generator': {
+        name: 'Terminal Generator',
+        icon: 'laptop-mobile',
+        link: '/terminal-generator',
+        description: "A Terminal Generator Tool allows users to create custom images of terminal sessions. By inputting command-line code, users get a stylized representation of a terminal window. This is ideal for documentation, blogs, and social media shares, offering customization like themes, fonts, and OS styles."
+    },
     'living-background-generator': {
         name: 'Living Background Generator',
         icon: 'code',
@@ -368,7 +374,6 @@ export let tools = {
         link: '/text-to-speech-&-speech-recognition',
         description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
     },
-
     'currency-calculator':{
         name: 'Currency Calculator',
         icon: 'code',
