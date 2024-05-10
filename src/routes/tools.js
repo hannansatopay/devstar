@@ -481,5 +481,11 @@ export let tools = {
         icon: 'code',
         link: '/code-beautify',
         description: "Transform messy code into clean, readable scripts effortlessly with our intuitive online code beautifier. Enhance your code's aesthetics today!"
+    },
+	'fake-data-generator': {
+        name: 'Fake Data Generator',
+        icon: 'code',
+        link: '/fake-data-generator',
+        description: ""
     }
 };
