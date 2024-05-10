@@ -421,6 +421,50 @@ export let tools = {
         name: 'compound calculator',
         icon: 'code',
         link: '/compound',
+        description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'color-palette-gen': {
+        name: 'Color Palette Generator',
+        icon: 'code',
+        link: '/color-palette-gen',
+        description: "abc"
+    },
+    'chart-generator': {
+        name: 'Chart generator',
+        icon: 'code',
+        link: '/chart-generator',
+        description: "Our chart generator tool empowers you to transform raw data into compelling visual insights. Customize, analyze, and share dynamic charts effortlessly, enhancing your data-driven decision-making process."
+    },
+    'who-is': {
+        name: 'Whois Lookup',
+        icon: 'code',
+        link: '/who-is',
+        description: "A Whois lookup is a query or search that provides information about a domain name or an IP address. It typically reveals details about the entity or organization that registered the domain, contact information of the domain owner, domain registration and expiration dates, and sometimes technical information like name servers. Whois lookups are commonly used to identify the owner of a website or IP address, check the availability of domain names, or investigate potential issues related to a particular online resource. This information can be useful for legal, technical, or administrative purposes on the internet."
+    },
+    'ssl-checker': {
+        name: 'SSL Checker',
+        icon: 'code',
+        link: '/ssl-checker',
+        description: "The SSL Checker tool is a convenient way for developers to verify the SSL certificate of a website. This tool provides essential information about the SSL certificate, including its validity, issuer, and expiration date. Ensure the security of your website by integrating this SSL checker into your development workflow."
+    },
+    'flowchart-creator': {
+        name: 'Flowchart Creator',
+        icon: 'code',
+        link: '/flowchart-creator',
+        description: 'The Flow Chart Creator module is designed to automate the creation of visual flowcharts, diagrams, and process maps. It streamlines the process of converting textual or logical information into easy-to-understand visual representations. Users can input data, define relationships, and choose from various shapes and connectors to generate professional-looking flowcharts, enhancing communication and decision-making in a visual format.'
+    },
+    'Gradient-generator': {
+        name: 'Gradient Generator',
+        icon: 'code',
+        link: '/Gradient-generator',
+        description: "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output"
+    },
+	'word-counter':{
+        name: 'Word Counter',
+		icon: 'code',
+        link: '/word-counter',
+        description: 
+		"Analyze your text effortlessly with our Word Counter Tool. Input your text, and instantly get accurate word counts, helping you understand the text's length and complexity. Ideal for writers, students, and researchers monitoring word limits or analyzing textual content. Enhance your writing and editing tasks with this reliable tool, gaining valuable insights into your text."
 	},
     'amortiztion-calculator': {
         name: 'amortiztion-calculator',
@@ -434,8 +478,6 @@ export let tools = {
         link: '/discount-calculator',
         description: "The term discount can be used to refer to many forms of reduction in the price of a good or service. The two most common types of discounts are discounts in which you get a percent off."
 	},
-    
-    
     'rent-calculator': {
         name: 'Rent Calculator',
         icon: 'arrow-right-arrow-left',
