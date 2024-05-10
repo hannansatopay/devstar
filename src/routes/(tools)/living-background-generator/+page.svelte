@@ -425,7 +425,7 @@
 				<button on:click={() => displayTab('CSS')}>CSS</button>
 				<button on:click={() => displayTab('JS')}>JS</button>
 			</div>
-			<pre class="whitespace-pre-line p-4">
+			<pre class="whitespace-pre-line p-2">
 				{#if outputTab === 'HTML'}
 					{html}
 					<Copy text={html} />
