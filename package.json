@@ -105,7 +105,6 @@
 		"svelte-codemirror-editor": "^1.1.0",
 		"svelte-datepicker": "^1.0.0",
 		"svelte-filepond": "^0.2.0",
-		"svelte-tags-input": "^5.0.0",
 		"svelte-transition": "^0.0.10",
 		"xlsx": "^0.18.5",
 		"xml-formatter": "^3.5.0",
@@ -114,6 +113,8 @@
 		"postcss-cli": "^10.1.0",
 		"tailwindcss": "^3.3.5",
 		"vite-plugin-iso-import": "^1.0.0",
-		"vitest": "^0.34.6"
+		"vitest": "^0.34.6",
+		"svelte-fullscreen": "^2.0.0",
+		"svelte-tags-input": "^5.0.0"
 	}
 }
