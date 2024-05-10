@@ -366,7 +366,7 @@
     context.fillStyle = $selectedColor;
     context.fillText(text, x, y);
   }
-  window.addEventListener('export-request', exportCanvas);
+  // window.addEventListener('export-request', exportCanvas);
   function exportCanvas() {
     const url = canvas.toDataURL('image/png');
     const link = document.createElement('a');
