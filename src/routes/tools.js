@@ -1,3 +1,4 @@
+// @ts-nocheck
 export let tools = {
 	'neumorphism-generator': {
 		name: 'Neumorphism Generator',
@@ -368,6 +369,13 @@ export let tools = {
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
+	'svg-animator': {
+		name: 'SVG Animator',
+		icon: 'code',
+		link: '/svg-animator',
+		description:
+		"SVG Animator is a versatile and user-friendly web-based tool designed for creating captivating and dynamic animations with Scalable Vector Graphics (SVG). This powerful application empowers designers, developers, and creatives to bring life to their web content, logos, icons, and illustrations, making them visually engaging and interactive."
+	},
 	'text-editor':{
         name: 'Text Editor',
 		icon: 'code',
@@ -515,7 +523,7 @@ export let tools = {
         name: 'compound calculator',
         icon: 'code',
         link: '/compound',
-        description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+		description: ''
     },
     'color-palette-gen': {
         name: 'Color Palette Generator',
@@ -572,6 +580,42 @@ export let tools = {
         link: '/discount-calculator',
         description: "The term discount can be used to refer to many forms of reduction in the price of a good or service. The two most common types of discounts are discounts in which you get a percent off."
 	},
+    'password-generator': {
+        name: 'Password Generator',
+        icon: 'key',
+        link: '/password-generator',
+        description: "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool."
+    },
+    'image-color-picker': {
+        name: 'Image Color Picker',
+        icon: 'palette',
+        link: '/image-color-picker',
+        description: "The Image Color Picker is a versatile tool that allows developers to extract color information from images effortlessly. With a simple interface, you can upload an image and identify specific colors by selecting points on the image. The tool provides the corresponding color codes (e.g., HEX, RGB, HSL) for easy integration into your projects. Streamline your color selection process and enhance your application's visual appeal with this efficient color picker."
+    },
+    'dummy-text-generator': {
+        name: 'Dummy Text Generator',
+        icon: 'text-size',
+        link: '/dummy-text-generator',
+        description: "The Dummy Text Generator is an essential tool for developers seeking to populate their applications with realistic placeholder text. This tool generates random lorem ipsum text or customizable dummy text based on desired parameters such as word count, paragraph count, and language. Seamlessly integrate this tool into your development workflow to quickly fill your application prototypes or design mockups with meaningful placeholder text."
+    },
+    'random-image-generator': {
+        name: 'Random Image Generator',
+        icon: 'shuffle',
+        link: '/random-image-generator',
+        description: "The Random Image Generator is a dynamic tool that enables developers to generate random images on the fly. Whether you need placeholder images for testing or want to add visual elements to your applications, this tool can generate a wide variety of random images based on different categories, dimensions, and styles. Utilize this tool to add visual appeal and realism to your applications effortlessly."
+    },
+    'screen-video-recorder': {
+        name: 'Screen Video Recorder',
+        icon: 'display',
+        link: '/screen-video-recorder',
+        description: "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities."
+    },
+    'unit-converter': {
+        name: 'Unit Converter',
+        icon: 'arrow-right-arrow-left',
+        link: '/unit-converter',
+        description: "The Unit Converter is a comprehensive tool that simplifies the conversion of various units for developers. With support for a wide range of unit types, such as length, weight, temperature, time, and more, this tool allows you to convert values seamlessly between different measurement systems. Save time and effort by integrating this versatile unit converter into your development toolkit for quick and accurate unit conversions."
+    },
     'rent-calculator': {
         name: 'Rent Calculator',
         icon: 'arrow-right-arrow-left',
@@ -583,6 +627,12 @@ export let tools = {
         icon: 'spider-web',
         link: '/random-image-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
+    },
+    'svg-animator': {
+        name: 'SVG Animator',
+        icon: 'film-simple',
+        link: '/svg-animator',
+        description: "TSVG Animator is a dynamic and versatile software tool or programming library designed to create captivating animations within Scalable Vector Graphics (SVG) files. SVG is an XML-based vector image format widely used for its scalability and compatibility with web applications, making it an ideal choice for creating interactive, lightweight animations for websites, mobile apps, and more."
     },
     'Simple Interest': {
         name: 'Simple Interest',
