@@ -180,7 +180,7 @@
 	
 	{#if errorMessage}
 		<p>{errorMessage}</p>
-		<!-- Display error message if there is an error -->
+		<!-- Display the error message if there is an error -->
 	{/if}
 
 	
