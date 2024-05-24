@@ -21,7 +21,7 @@
 
 	function downloadText() {
 		if (output.length > 0) {
-			var filename = "DevStar.txt";
+			var filename = "devstar_output.txt";
 			var blob = new Blob([output], { type: 'text/plain' });
 			var url = window.URL.createObjectURL(blob);
 			
@@ -40,7 +40,7 @@
 		if (output.length > 0) {
 			const doc = new jsPDF();
 			doc.text(output, 20, 20);
-			doc.save('DevStaroutput.pdf');
+			doc.save('devstar_output.pdf');
 		}
 	}
 
@@ -52,38 +52,28 @@
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
 
-			<form>
-				<div class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600" id="container">
-					<div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
-						<label for="comment" class="sr-only">Your comment</label>
-						<textarea id="comment" rows="8" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" 
-						placeholder="Enter Text..." required bind:value={output}></textarea>
-					</div>
-					<div class="flex items-center justify-center px-3 py-2 border-t dark:border-gray-600" id="buttonarea">
+			<div class="w-full border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+				
+				<div class="px-4 py-2 bg-white rounded-t-lg dark:bg-gray-800">
+					<textarea id="comment" rows="8" class="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" 
+					placeholder="Enter Text..." required bind:value={output}></textarea>
+				</div>
+
+				<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
+					<div class="m-2 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
 						<Button color="blue" on:click={copyText}>Copy</Button>
 						<Button color="blue" on:click={downloadText}>Download as txt</Button>
 						<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
-					</div>
-				</div>
-			 </form>
+					</div>	
+				</div>	
+							
+			</div>
 
 		</div>
 	</div>
 </section>
 
 <style>	
-
-	#container{
-		margin:0px ;
-	}
-
-	#buttonarea {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 30px; /* Adjust the gap between buttons as needed */
-		margin: 0px;
-	}
 
 	.card {
 		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;

@@ -1,52 +1,53 @@
 <script lang="ts">
-
     import { Button } from 'flowbite-svelte';
     import jsPDF from 'jspdf';
     import Intro from '$lib/Intro.svelte';
 
     export let data;
 
-    var output = 0;
+    var output;
 
-    function countWords(input) {
-        const words = input.target.value.split(" ").filter(word => word !== "");
-        output = words.length;
+    function generateOutput(input) {
+        const words = input.target.value.split(' ');
+        const abbreviation = words.map(word => word[0].toUpperCase()).join('');
+        output = abbreviation;
     }
 
     function copyText() {
-        if (output > 0) {
-            var textarea = document.createElement("textarea");
+        if (output.length > 0) {
+            var textarea = document.createElement('textarea');
             textarea.value = output;
             document.body.appendChild(textarea);
             textarea.select();
-            document.execCommand("copy");
+            document.execCommand('copy');
             document.body.removeChild(textarea);
         }
     }
 
     function downloadText() {
-        if (output > 0) {
-            var filename = "devstar_output.txt";
+        if (output.length > 0) {
+            var filename = 'devstar_output.txt';
             var blob = new Blob([output], { type: 'text/plain' });
             var url = window.URL.createObjectURL(blob);
-            
+
             var a = document.createElement('a');
             a.href = url;
             a.download = filename;
             document.body.appendChild(a);
             a.click();
-            
+
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
         }
     }
-  
-    function downloadPDF() {
-        const doc = new jsPDF();
-        doc.text(output.toString(), 20, 20);
-        doc.save('devstar_output.pdf');
-    }
 
+    function downloadPDF() {
+        if (output.length > 0) {
+            const doc = new jsPDF();
+            doc.text(output, 20, 20);
+            doc.save('devstar_output.pdf');
+        }
+    }
 </script>
 
 <Intro heading={data.meta.title} description={data.meta.description} />
@@ -56,14 +57,17 @@
         <div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
 
             <div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
+
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
                     <textarea placeholder="Enter Text" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    on:input={countWords}/>
+                    on:input={generateOutput}/>
                 </div>
+
                 <div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-                    <textarea placeholder="Word Count" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <textarea placeholder="Abbreviation" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     bind:value={output}/>
                 </div>
+
             </div>
 
 			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
@@ -73,12 +77,12 @@
 					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
 				</div>	
 			</div>
-            
+
         </div>
     </div>
 </section>
 
-<style>    
+<style>
 
     .card {
         box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;

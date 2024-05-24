@@ -25,7 +25,7 @@
     doc.text(`Input Text: ${inputText}`, 20, 20);
     doc.text(`Search String: ${searchStr}`, 20, 30);
     doc.text(`Occurrences: ${occurrences}`, 20, 40);
-    doc.save('Occurrence-counter.pdf');
+    doc.save('devstar_output.pdf');
   }
 
   function copyText() {
@@ -41,7 +41,7 @@
 
   function downloadText() {
     if (inputText.length > 0) {
-      var filename = "DevStarPalindrome.txt";
+      var filename = "devstar_output.txt";
       var content = `Input Text: ${inputText}\nSearch String: ${searchStr}\nOccurrences: ${occurrences}`;
 
       var blob = new Blob([content], { type: 'text/plain' });
@@ -65,32 +65,30 @@
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
 		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
-			<div class="mt-3 gap-2 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
+			<div class="gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden" id="boxarea">
 
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-					<textarea placeholder="Search String" id="textbox" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+					<textarea placeholder="Search String" rows="1" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           on:input={countOccurrences} bind:value={searchStr}/>
 				</div>
 
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<textarea id="textbox" rows="1" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >Occurrences: {occurrences}</textarea>
+				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+					<textarea rows="1" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >Occurrences: {occurrences}</textarea>
         </div>
 
 			</div>
 
-      <div class="inputbox">
-
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea1">
-					<textarea placeholder="Search String" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={countOccurrences} bind:value={inputText}/>
-				</div>
-      
+      <div class="mt-4 rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
+        <textarea placeholder="Search String" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        on:input={countOccurrences} bind:value={inputText}/>
       </div>
 
-			<div id="buttonArea">
-				<Button color="blue" on:click={copyText}>Copy</Button>
-				<Button color="blue" on:click={downloadText}>Download as txt</Button>
-				<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
+				<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
+					<Button color="blue" on:click={copyText}>Copy</Button>
+					<Button color="blue" on:click={downloadText}>Download as txt</Button>
+					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
+				</div>	
 			</div>
 
 		</div>
@@ -99,32 +97,12 @@
   
 <style>
 
-  .inputbox{
-    margin-top: 20px;
-  }
-
-  #textbox{
-    resize: none;
-  }
-
-  #boxarea{
-    gap:20px;
-  }
-
   .card {
     box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
   }
 
   :is(.dark .card) {
     box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-  }
-  
-  #buttonArea {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px; /* Adjust the gap between buttons as needed */
   }
 
 </style>

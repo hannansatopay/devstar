@@ -219,6 +219,13 @@ export let tools = {
         description: 
 		"Easily modify your text lines by adding custom prefixes and suffixes with our Prefix and Suffix Adder Tool. Input your text, specify the desired prefix and suffix, and watch as it instantly modifies each line according to your preferences. Perfect for formatting lists, coding snippets, or creating structured data. Empower your text editing tasks with this convenient tool, ensuring consistent formatting in various contexts."
     },
+	'ascii-encode-decode': {
+        name: 'ASCII Encoder & Decoder',
+		icon: 'code',
+        link: '/ascii-encode-decode',
+        description:
+		"Dive into the fundamentals of digital text with our ASCII Encoder and Decoder Tool. Encode your text into ASCII, translating characters into numerical codes for digital representation. Input your content, and witness it transform into a series of digits, ideal for computer systems and data transmission. Alternatively, decode ASCII back into readable text effortlessly, bridging the gap between numeric codes and human-readable characters. Perfect for programmers, developers, and tech enthusiasts, our tool simplifies the encoding and decoding of ASCII characters, ensuring seamless integration into digital environments and data processing tasks." 
+    },
 	'base64-encode-decode': {
         name: 'Base64 Encoder & Decoder',
 		icon: 'code',
@@ -239,6 +246,13 @@ export let tools = {
 		link: '/case-converter',
 		description:
 		"Effortlessly convert text between uppercase, lowercase, title case, or sentence case with our Case Converter Tool. Input your text, select the desired conversion type, and witness your text transform instantly. Ideal for writers, editors, and programmers, our tool streamlines text formatting tasks. Ensure uniformity in your documents, coding projects, and communications. Enhance readability and professionalism by converting text to your preferred case style."
+	},
+	'email-validator': {
+        name: 'Email Validator',
+		icon: 'code',
+        link: '/email-validator',
+        description: 
+		"Ensure accurate communication with our Email Validator, a robust tool designed to validate email addresses swiftly and efficiently. Input an email address, and our validator meticulously checks its format, domain validity, and existence, ensuring you're sending messages to genuine recipients. Perfect for marketers, businesses, and developers, our tool minimizes bounce rates, enhances email deliverability, and maintains your sender reputation. Safeguard your communication channels from invalid or suspicious addresses, ensuring your emails reach the right audience every time. Enhance your email outreach with our reliable Email Validator, your key to seamless and reliable online correspondence."
 	},
 	'escape-unescape-text': {
         name: 'Escape & Unescape Text',
@@ -261,12 +275,30 @@ export let tools = {
         description: 
 		"Bridge the gap between human language and machine code effortlessly with our Hex to Text and Text to Hex Converter Tool. Input hexadecimal data, and convert it into readable text or input text and convert it into hexadecimal representation. Perfect for developers, cybersecurity experts, and tech enthusiasts dealing with binary data. Ensure seamless data conversion and integration into your projects."
 	},
+	'image-text-extractor':{
+        name: 'Image Text Extractor',
+        link: '/image-text-extractor',
+        description: 
+		"Unlock the textual content hidden within images with our Image Text Extractor. Utilizing advanced optical character recognition (OCR) technology, our tool effortlessly extracts text from images, making printed or handwritten content accessible and editable. Simply upload your image, and watch as the tool accurately identifies and converts text into digital format. Ideal for digitizing documents, extracting quotes, or enhancing accessibility, our Image Text Extractor simplifies the process of converting visual information into editable text. Empower your data extraction tasks with our efficient and precise tool, ensuring valuable textual content is readily available for your digital endeavors."
+	},
 	'lorem-ipsum-generator': {
 		name: 'Lorem Ipsum Generator',
 		icon: 'code',
 		link: '/lorem-ipsum-generator',
 		description:
 		"Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content."
+	},
+	'morsecode-translator':{
+        name: 'Morse Code Translator',
+        link: '/morsecode-translator',
+        description: 
+		"Unlock the world of Morse code with our Morse Code Translator. Seamlessly convert your text into Morse code and vice versa, bridging the gap between traditional and digital communication. Input your text, and watch as it transforms into the iconic dots and dashes, or input Morse code and witness it translated back into readable text. Ideal for enthusiasts, learners, and communication hobbyists, our translator simplifies Morse code encoding and decoding tasks. Enjoy the thrill of decoding secret messages or encode your own, all with the ease of a few clicks. Dive into the art of Morse code effortlessly with our Morse Code Translator."
+	},
+	'number-to-words':{
+        name: 'Numeral to Text Converter',
+        link: '/number-to-words',
+        description: 
+		"Unravel the power of numerical language with our Numerals to Text Converter. Input numeric figures, and watch as they seamlessly transform into written words, offering a human-readable representation of numbers. Perfect for converting financial data, invoices, or mathematical values into textual format, our tool simplifies the process of translating numbers into words. Whether you're crafting official documents, generating invoices, or enhancing readability in reports, our converter ensures precision and clarity. Elevate your numerical data into comprehensible language effortlessly with our Numerals to Text Converter, designed to bridge the gap between digits and human understanding."
 	},
 	'occurrence-counter': {
 		name: 'Occurrence Counter',
@@ -281,6 +313,12 @@ export let tools = {
 		link: '/palindrome-generator',
 		description:
 		'Create captivating palindromes effortlessly with our Palindrome Generator. Input your text and watch as it transforms into flawless symmetrical words that read the same backward and forward. Perfect for language enthusiasts, poets, and puzzle lovers. Explore different lengths, styles, and tones to enhance your linguistic creativity. Start crafting mesmerizing palindromes effortlessly and let your words resonate in perfect harmony.'
+	},
+	'punctuation-remover':{
+        name: 'Punctuation Remover',
+        link: '/punctuation-remover',
+        description: 
+		"Simplify your text effortlessly with our Punctuation Remover tool. Say goodbye to commas, periods, quotes, and more, streamlining your content to its purest form. Perfect for data processing, text analysis, or improving readability, our tool swiftly eliminates all punctuation marks, allowing your words to flow seamlessly. Enjoy clean and polished text without the distractions of punctuation, enhancing the clarity of your message. Start refining your content with our Punctuation Remover, ensuring your words shine without any interruptions."
 	},
 	'random-line-picker':{
         name: 'Random Line Picker',
@@ -345,6 +383,12 @@ export let tools = {
 		description:
 		"Streamline your data with our Sorting Tool, offering diverse options for efficient organization. Sort text alphabetically for orderly lists, arrange by length for readability, shuffle randomly for variety, or reverse order for a fresh perspective. Simplify your tasks with precision and flexibility."
 	},
+	'string-abbreviator':{
+        name: 'String Abbreviator',
+        link: '/string-abbreviator',
+        description: 
+		"Condense your lengthy text effortlessly with our String Abbreviator. Input your text, and watch as it transforms into a concise and abbreviated version while retaining essential meaning. Perfect for reducing long sentences, titles, or descriptions into shorter, impactful phrases. Ideal for social media posts, headlines, or summaries, our Abbreviator ensures your message remains clear and engaging, even in limited character spaces. Simplify your text without losing substance, enhancing your communication with precision and brevity. Start abbreviating your strings with ease, ensuring your words pack a powerful punch."
+	},
 	'string-length-calculator': {
 		name: 'String Length Calculator',
 		icon: 'code',
@@ -359,10 +403,10 @@ export let tools = {
         description: 
 		"Refine your content effortlessly with our Strip HTML Tags Tool. Input any text containing HTML markup, and watch as it instantly removes all HTML tags, leaving you with clean, readable text. Perfect for writers, editors, and developers dealing with web content, ensuring seamless integration across various platforms. Say goodbye to cluttered code and hello to polished, tag-free content. Streamline your text processing tasks, enhancing readability and user experience. Start stripping HTML tags with ease, transforming your content into its purest, most accessible form."
 	},
-	'string-extraction': {
+	'substring-extractor': {
 		name: 'Substring Extractor',
 		icon: 'code',
-		link: '/string-extraction',
+		link: '/substring-extractor',
 		description:
 		"Extract specific substrings or patterns from your text with our Substring Extractor Tool. Input your text and define the target substring or regex pattern, and watch as it efficiently extracts matching content. Ideal for data extraction, text mining, or content analysis. Empower your text processing tasks by retrieving precise information from your textual data."
 	},
@@ -372,6 +416,13 @@ export let tools = {
 		link: '/svg-animator',
 		description:
 		"SVG Animator is a versatile and user-friendly web-based tool designed for creating captivating and dynamic animations with Scalable Vector Graphics (SVG). This powerful application empowers designers, developers, and creatives to bring life to their web content, logos, icons, and illustrations, making them visually engaging and interactive."
+	},
+	'text-analyzer':{
+        name: 'Text Analyzer',
+		icon: 'code',
+        link: '/text-analyzer',
+        description: 
+		"Explore the depths of your text with our Text Analyzer – a comprehensive tool empowering you to dissect and understand your content thoroughly. Dive into detailed analysis, including character count, word count, sentence count, and paragraph count, offering insights into your text's structure. Identify the most common characters and words, unraveling patterns in your content. Delve into character frequency and word frequency, shedding light on the usage of specific elements. Calculate the average word length for precision in your writing style. Estimate reading time, ensuring your content aligns with your audience's attention span. Elevate your text analysis effortlessly, gaining valuable insights with our Text Analyzer, perfect for writers, editors, and content creators aiming for depth and clarity in their work."
 	},
 	'text-editor':{
         name: 'Text Editor',
@@ -393,6 +444,13 @@ export let tools = {
         link: '/text-truncator',
         description:
 		"Refine your text effortlessly with our Text Truncator Tool. Tailor your text to specific lengths, ensuring concise and polished communication. Input your text, set the desired character limit, and watch as it trims down your content while preserving its essence. Ideal for writers, marketers, and social media enthusiasts striving for impactful, concise messaging. Whether you're crafting tweets, headlines, or product descriptions, our tool helps you maintain clarity within space constraints. Simplify lengthy texts without losing their meaning, optimizing readability and engagement. Start truncating text with precision, transforming your content into concise, impactful messages that resonate with your audience." 
+	},
+	'unicode-encode-decode':{
+        name: 'Unicode Encoder & Decoder',
+		icon: 'code',
+        link: '/unicode-encode-decode',
+        description:
+		"Explore the vast world of characters with our Unicode Encoder and Decoder Tool. Encode your text into Unicode, representing various languages and symbols with precision. Input your content, and watch as it transforms into a universal digital language, ideal for internationalization and data representation. Conversely, decode Unicode back into readable text effortlessly, bridging linguistic gaps and ensuring seamless communication. Perfect for developers, linguists, and global businesses, our tool simplifies the encoding and decoding of Unicode characters, fostering cross-cultural understanding and smooth digital interactions."
 	},
 	'upside-down-text': {
 		name: 'Upside Down Text Generator',
@@ -637,13 +695,12 @@ export let tools = {
         link: '/unit-converter',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
     },
-
     'invoice-generator': {
         name: 'Invoice Generator',
         icon: 'files',
         link: '/invoice-generator',
         description: "The small invoice module is a compact and efficient solution for generating invoices with ease. This single-page tool simplifies the invoicing process, allowing you to quickly input client information, itemize products or services, calculate totals, and generate professional invoices. Whether you're a small business owner or a freelancer, this module provides a straightforward and time-saving way to create and manage your invoices. Streamline your invoicing tasks and keep your finances in order effortlessly."
-},
+	},
     'basic-photo-editor': {
         name: 'Basic Photo Editor',
         icon: 'code',
@@ -661,7 +718,6 @@ export let tools = {
 		icon:'folder-image',
 		link:'/bulk-image-resize',
 		description:" bulk image resize tool"
-		
 	},
 	'online-api': {
 		name: 'Online API',
