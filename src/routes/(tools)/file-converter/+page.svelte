@@ -21,6 +21,8 @@
 	let inputFile, fileName='', extension='';
     let outputFile='', fileURL='';
 	let supportedFormats = fileFormats;
+    let imageSrc = '';
+    let downloadUrl = '';
 
 	const getFileFormat = (e) =>{
         outputFile='';
@@ -31,12 +33,12 @@
 			let found = false;
 			fileName = file[0];
 			extension = file[1];
+	
+			console.log('File Name:', fileName);
 			for(let format in fileFormats){
-				fileFormats[format]['outputFormat'].forEach((ext,key)=>{
+				fileFormats[format]['outputFormat'].forEach((ext)=>{
 					if(extension===ext){
 						supportedFormats = fileFormats[format];
-						console.log(supportedFormats);
-						found = true;
 					}
 				})
 			}
@@ -46,18 +48,39 @@
 		}else{
 			fileName='';
 			extension='';
+			supportedFormats = fileFormats;
 		}
 	}
 
-	const convertFormat = () => {
-		outputFile = `${fileName}.${selectedFormat}`;
-	};
+	const convertFile = async () => {
+		const input = document.getElementById('input-file') as HTMLInputElement;
+		const outputContainer = document.getElementById('output') as HTMLDivElement;
+        const downloadBtn = document.getElementById('download-btn') as HTMLAnchorElement;
+		const outputFormatSelect = document.getElementById('output-format') as HTMLSelectElement;
+		selectedFormat = outputFormatSelect.value;
 
-	const previewFile = () =>{
-		const convertedBlob = new Blob([inputFile], { type: inputFile.type });
-		convertedBlob.name = outputFile;
-		fileURL = URL.createObjectURL(convertedBlob);
-		window.open(fileURL,'_blank');
+		const file = input.files[0];
+        if (!file) return;
+			const reader = new FileReader();
+			reader.onload = async (e: any) => {
+				imageSrc = e.target.result;
+				const img = new Image();
+				img.src = imageSrc;
+				img.onload = async () => {
+					const canvas = document.createElement('canvas');
+					const ctx = canvas.getContext('2d')!;
+					canvas.width = img.width;
+					canvas.height = img.height;
+					ctx.drawImage(img, 0, 0);
+					const outputData = canvas.toDataURL(`image/${selectedFormat}`);
+					outputContainer.innerHTML = `<img src="${outputData}" alt="Converted Image">`;
+					downloadUrl = outputData;
+					downloadBtn.style.display = 'block';
+					downloadBtn.href = downloadUrl;
+					downloadBtn.download = `converted_image.${selectedFormat}`;
+				};
+			};
+			reader.readAsDataURL(file)
 	}
 
 	const downloadFile = async () => {
@@ -70,6 +93,11 @@
 		downloadLink.click();
 		document.body.removeChild(downloadLink);
 	}
+
+	const convertFormat = (event) => {
+		event.preventDefault();
+		convertFile();
+	}
 	export let data;
 </script>
 
@@ -77,17 +105,17 @@
 
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 card overflow-hidden rounded-lg">
-		<form class="gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 " on:submit|preventDefault={convertFormat}>
+		<form class="gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 " on:submit={convertFormat}>
 			<div class="p-8">
-				<Label>Input File</Label>
+				<Label for="input-file">Input File</Label>
 				<div class="flex items-center">
-					<input type="file" name="input-file" class="rounded-lg border border-gray-400 dark:border-white dark: bg-white w-full" on:change={(e)=>getFileFormat(e)} required/>
+					<input type="file" name="input-file" id = "input-file" class="rounded-lg border border-gray-400 dark:border-white dark: bg-white w-full" bind:value={inputFile} on:change={getFileFormat} required/>
 				</div>
 			</div>
 			<div class="p-8">
-				<Label>Output Format</Label>
+				<Label for="output-format">Output Format</Label>
 				<div class="flex items-center">
-					<select bind:value={selectedFormat} class="rounded-lg border border-gray-400 dark:border-white w-full" required>
+					<select id="output-format" bind:value={selectedFormat} class="rounded-lg border border-gray-400 dark:border-white w-full" required>
 					<option value="">Select Output Format</option>
 					{#if fileName===''}
 						{#each Object.keys(supportedFormats) as fileType}
@@ -125,7 +153,12 @@
 				</div>
 			</div>
 		{/if}
+		<div class="flex justify-center" id="output" />
+		<div class="flex justify-center mt-4">
+			<a id="download-btn" href="#top" class="button text-gray-900 dark:text-white mr-3" download>Download Converted Image</a>
+		</div>
 	</div>
+
 
 </section>
 
@@ -136,4 +169,21 @@
 	:is(.dark .card) {
 		box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 2px;
 	}
+	#download-btn{
+        display: none;
+    }
+    #download-btn.button {
+        display: none;
+        padding: 0.5rem 1rem;
+        background-color: #3490DC;
+        color: #fff;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+  	#download-btn.button:hover {
+    	background-color: #1D5C8F;
+  	}
 </style>
