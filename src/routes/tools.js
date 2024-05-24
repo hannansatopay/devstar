@@ -380,6 +380,7 @@ export let tools = {
     },
     'text-to-speech-&-speech-recognition': {
         name: 'Text to Speech & Speech Recognition',
+
         icon: 'code',
         link: '/text-to-speech-&-speech-recognition',
         description: "When choosing an app to transcribe speech to text and text to speech, quality is important. Our application delivers accurate text to speech and speech to text transcriptions that support multiple languages. Our transcription technology can convert speech to text and vice versa with a strong accuracy level and instantaneous result. It can produce multiple voices in multiple languages and recognize speech in multiple languages."
@@ -1043,6 +1044,7 @@ export let tools = {
     },
     'BMI': {
         name: 'BMI',
+
         icon: 'spider-web',
         link: '/random-image-generator',
         description: "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts."
@@ -1065,6 +1067,10 @@ export let tools = {
         link: '/invoice-generator',
         description: "The small invoice module is a compact and efficient solution for generating invoices with ease. This single-page tool simplifies the invoicing process, allowing you to quickly input client information, itemize products or services, calculate totals, and generate professional invoices. Whether you're a small business owner or a freelancer, this module provides a straightforward and time-saving way to create and manage your invoices. Streamline your invoicing tasks and keep your finances in order effortlessly."
 	},
+        link: '/webspeedtest',
+        description: "A web page speed test that's as swift as the Bard's quill, revealing your site's performance with poetic skill.<br> Elevate your web page's performance with our swift and accurate web page speed test. Discover your site's strengths and weaknesses, and make informed decisions to improve user experience and boost conversions. Very useful for all users."
+    },
+
     'basic-photo-editor': {
         name: 'Basic Photo Editor',
         icon: 'code',
