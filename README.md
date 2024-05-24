@@ -58,5 +58,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for ways to get started.
 
 Please adhere to this project's [Code of Conduct](docs/CODE_OF_CONDUCT.md).
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=hannansatopay/devstar&type=Date)](https://star-history.com/#hannansatopay/devstar&Date)
+
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
