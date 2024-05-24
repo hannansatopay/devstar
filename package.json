@@ -17,6 +17,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "2.0.0",
 		"@types/multicoin-address-validator": "^0.5.0",
+		"@types/ua-parser-js": "^0.7.37",
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
 		"autoprefixer": "^10.4.16",
@@ -124,6 +125,7 @@
 		"svelte-transition": "^0.0.10",
 		"tesseract.js": "^5.0.2",
 		"xlsx": "^0.18.5",
-		"xml-formatter": "^3.5.0"
+		"xml-formatter": "^3.5.0",
+		"ua-parser-js": "^1.0.36"
 	}
 }
