@@ -61,7 +61,7 @@ export let tools = {
 		description:
 			'The Image Base64 Decode tool offers developers an efficient way to decode Base64-encoded image data back into image files. This tool accepts Base64-encoded strings and converts them into their corresponding image file formats, enabling developers to handle and manipulate image data seamlessly. Simplify your image data processing workflow with this tool and ensure efficient utilization of Base64-encoded images in your applications.'
 	},
-	pomodoro: {
+	'pomodoro': {
 		name: 'Pomodoro',
 		icon: 'clock-desk',
 		link: '/pomodoro',
@@ -122,6 +122,19 @@ export let tools = {
 		link: '/file-converter',
 		description:'A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.'
 	  },
+    'favicon-generator': {
+        name: 'Favicon Generator',
+        icon: 'palette',
+        link: '/favicon-generator',
+        description: 'Generate custom favicons for your website.'
+    },
+    
+    'password-generator': {
+        name: 'Password Generator',
+        icon: 'key',
+        link: '/password-generator',
+        description: "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool."
+    },
     'image-color-picker': {
         name: 'Image Color Picker',
         icon: 'palette',
