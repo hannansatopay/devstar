@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compression Tool</title>
+    <!-- Include Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Custom Styles */
+        .container {
+            background-color: #f4f4f4;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #3490dc;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #2779bd;
+        }
+
+        .image-container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Center align the compressed image */
+        #compressed-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto mt-10">
+        <h1 class="text-3xl text-center text-gray-800">Image Compression Services</h1>
+        <div class="max-w-md mx-auto mt-8 p-6">
+            <form action="#" method="post" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="image" class="block text-gray-700 font-bold mb-2">Select an image to compress:</label>
+                    <input type="file" name="image" id="image" class="px-4 py-2 border rounded-lg w-full focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label for="compression-level" class="block text-gray-700 font-bold mb-2">Compression Level:</label>
+                    <select name="compression-level" id="compression-level" class="px-4 py-2 border rounded-lg w-full focus:outline-none focus:border-blue-500">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn-primary">Compress Image</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-8 text-center">
+            <!-- Display compressed image here -->
+            <div class="image-container">
+                <img src="#" alt="Compressed Image" id="compressed-image" style="max-width: 100%;">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

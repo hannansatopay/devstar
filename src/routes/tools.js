@@ -756,4 +756,10 @@ export let tools = {
         link:'/cash-back-or-low-interest-calculator',
         description:'Auto manufacturers may offer either a cash back rebate or a low interest rate with a car purchase. Very often, these offers are mutually exclusive. Use the calculator to find out which of the two is the better offer.'
     },
+	'image-comp-services': {
+        name: 'Image Compress Services',
+        icon: 'file-image',
+        link: '/image-comp-services',
+        description: "The Image Compress Service presents a user-friendly image compression utility. You can easily upload images, which are automatically resized and compressed, maintaining quality while reducing file size. It simplifies the process of preparing images for web use, making it ideal for a wide range of applications, from photography to web design."
+    }
 };
