@@ -1317,5 +1317,53 @@ export let tools = {
         icon: 'arrow-right-arrow-left',
         link: '/converter_timezone',
         description: "The Time Zone Converter can convert various time zones based on the current time as well as the user input time."
+	},
+	'EXCELtoPDF': {
+        name: 'EXCEL-to-PDF',
+        icon: 'angle-right',
+        link: '/EXCELtoPDF',
+        description:"Convert yout Excel file to PDF"
+    },
+    'watermark-pdf': {
+        name: 'watermark-pdf',
+        icon: 'angle-right',
+        link: '/watermark-pdf',
+        description:"Add Text or Image as a watermark to the PDF document"
+    },
+    'PPTtoPDF': {
+        name: 'PPTtoPDF',
+        icon: 'files',
+        link: '/PPTtoPDF',
+        description:"Convert yout PPT file to PDF"
+    },
+    'page-number-in-pdf': {
+        name: 'Add Page Numbers to PDF',
+        icon: 'angle-right',
+        link: '/page-number-in-pdf',
+        description:"Add Page number at top and bottom positions to right side of page"
+    },
+    'PDFtoEXCEL': {
+        name: 'PDF-to-EXCEL',
+        icon: 'files',
+        link: '/PDFtoEXCEL',
+        description:"Convert your PDF file to EXCEL"
+    },
+    'Split-PDF': {
+        name: 'Split-PDF',
+        icon: 'angle-right',
+        link: '/Split-PDF',
+        description:"Separate one page or a whole set for easy conversion into independent PDF files."
+    },
+    'merge-PDF': {
+        name: 'Merge-PDFs',
+        icon: 'angle-right',
+        link: '/merge-PDF',
+        description:"Merge 2 PDF's"
+    },
+    'Unlock-Pdf': {
+        name: 'Unlock-Pdf',
+        icon: 'angle-right',
+        link: '/Unlock-Pdf',
+        description:"Unlock Pdf using password"
     },
 };
