@@ -56,7 +56,6 @@
 			<NavUl {hidden}>
 				<NavLi href="/" active="{$page.url.pathname === '/'}">Home</NavLi>
 				<NavLi href="/about" active="{$page.url.pathname === '/about'}">About</NavLi>
-				<NavLi href="/roadmap" active="{$page.url.pathname === '/roadmap'}">Roadmap</NavLi>
 				<NavLi href="/contact" active="{$page.url.pathname === '/contact'}">Contact</NavLi>
 			</NavUl>
 			<div class="lg:self-center flex items-center mb-4 lg:mb-0 hidden mr-3 lg:flex">
@@ -73,9 +72,10 @@
 	<slot></slot>
 </main>
 <Footer class="rounded-none">
-	<FooterCopyright href="https://alhansat.com" by="Alhansat Solutions" target="_blank" year="{2023}/">
-	<FooterLinkGroup ulclass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-	  <FooterLink href="/terms-and-conditions">Terms &amp; Conditions</FooterLink>
-	  <FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
-	</FooterLinkGroup>
-</FooterCopyright></Footer>
+	<FooterCopyright href="https://craftlab.ai" by="Meta Craftlab" target="_blank" year={new Date().getFullYear()}>
+		<FooterLinkGroup ulclass="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
+		<FooterLink href="/terms-and-conditions">Terms &amp; Conditions</FooterLink>
+		<FooterLink href="/privacy-policy">Privacy Policy</FooterLink>
+		</FooterLinkGroup>
+	</FooterCopyright>
+</Footer>

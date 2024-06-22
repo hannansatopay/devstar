@@ -1,0 +1,8 @@
+{
+    "name": "Image Base64 Encode",
+    "description": "The Image Base64 Encode tool enables developers to convert image files into Base64-encoded strings effortlessly. By simply uploading an image file, this tool converts the image into a Base64-encoded representation, which can be easily integrated into HTML, CSS, or JavaScript code. Integrate this tool into your development workflow to efficiently handle image data and optimize its usage in various web applications.",
+    "contributors": [{
+        "name": "Hannan Satopay",
+        "githubId": "hannansatopay"
+    }]
+}

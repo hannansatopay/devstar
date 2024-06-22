@@ -1,4 +1,4 @@
-import { tools } from '../tools.js';
+import tools from '../tools.json';
 
 export async function GET() {
   const response = new Response(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
@@ -8,10 +8,6 @@ export async function GET() {
   </url>
   <url>
   <loc>https://developerstar.com/about</loc>
-  <priority>0.80</priority>
-  </url>
-  <url>
-  <loc>https://developerstar.com/roadmap</loc>
   <priority>0.80</priority>
   </url>
   <url>

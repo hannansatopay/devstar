@@ -1,0 +1,12 @@
+{
+    "name": "CSS Animator",
+    "description": "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily.",
+    "contributors": [{
+        "name": "Hannan Satopay",
+        "githubId": "hannansatopay"
+    },
+    {
+        "name": "Munsif Satopay",
+        "githubId": "munsifsatopay"
+    }]
+}

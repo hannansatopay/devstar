@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Intro from '$lib/Intro.svelte';
+	import Contributors from '$lib/Contributors.svelte';
 	import { Label, Range } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import Copy from '$lib/Copy.svelte';
@@ -442,6 +443,8 @@
 		</div>
 	</div>
 </section>
+
+<Contributors contributors={data.meta.contributors}/>
 
 <style>
 	/* Styles for output screen */

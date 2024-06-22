@@ -1,0 +1,8 @@
+{
+    "name": "Binary Text Converter",
+    "description": "Transform text into a digital language or decode binary data with our Text to Binary and Binary to Text Converter Tool. Input your text, and instantly convert it into binary code, allowing seamless integration into digital systems or secure data transmission. Conversely, input binary digits, and watch them transform back into human-readable text. Ideal for programmers, cybersecurity professionals, and tech enthusiasts, our tool simplifies data conversion tasks. Whether you're working with computer protocols, coding messages, or decoding binary files, our converter ensures accuracy and efficiency. Start converting text to binary and vice versa with ease, bridging the gap between human language and digital communication.",
+    "contributors": [{
+        "name": "Abdur Rehman Shaikh",
+        "githubId": "abdurrahmanshkh"
+    }]
+}

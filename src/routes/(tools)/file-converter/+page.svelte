@@ -27,18 +27,20 @@
 	const getFileFormat = (e) =>{
         outputFile='';
 		inputFile = e.target.files[0];
-		console.log(inputFile);
+		// console.log(inputFile);
 		if(inputFile['name'].length){
 			let file = inputFile['name'].split('.');
 			let found = false;
 			fileName = file[0];
 			extension = file[1];
 	
-			console.log('File Name:', fileName);
+			console.log('File Name:', fileName, extension);
 			for(let format in fileFormats){
 				fileFormats[format]['outputFormat'].forEach((ext)=>{
+					console.log(ext);
 					if(extension===ext){
 						supportedFormats = fileFormats[format];
+						found = true;
 					}
 				})
 			}

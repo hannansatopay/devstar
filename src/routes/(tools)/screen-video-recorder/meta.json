@@ -1,0 +1,11 @@
+{
+    "name": "Screen Video Recorder",
+    "description": "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities.",
+    "contributors": [{
+        "name": "Rifat Perween",
+        "githubId": "rifatperween"
+    },{
+        "name": "Hannan Satopay",
+        "githubId": "hannansatopay"
+    }]
+}

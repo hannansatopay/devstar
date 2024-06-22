@@ -1,7 +1,7 @@
 <script>	
 	import { Search } from 'flowbite-svelte';	
 	import { Card } from 'flowbite-svelte';	
-	export let data;	
+	export let data;
 	let query = '';	
 	$: results = Object.values(data.tools).filter((tool) => {	
 		return (tool.name.toLowerCase().includes(query.toLowerCase()) || tool.description.toLowerCase().includes(query.toLowerCase()));	
@@ -19,9 +19,7 @@
 			A Comprehensive Developer Toolkit	
 		</h1>	
 		<p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">	
-			Maximize your efficiency and productivity as a developer with our free online developer	
-			toolkit. Experience the convenience of our user-friendly platform and unlock your full	
-			potential. Our comprehensive collection of tools has got you covered!	
+			Maximize your efficiency and productivity as a developer with our free online developer	toolkit. Experience the convenience of our user-friendly platform and unlock your full potential.
 		</p>	
 		<div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">	
 			<Search bind:value={query} />	
@@ -32,11 +30,12 @@
 		{#if results.length}	
 			<div class="grid gap-2 space-y-0 grid-cols-2 lg:grid-cols-4">	
 				{#each results as tool}	
-					<Card href={tool.link} class="items-center text-center">	
-						<i class="icon-{tool.icon} mb-2 text-gray-500 dark:text-gray-400 text-4xl" />	
+					<Card href={tool.link}>	
+						<!-- <i class="icon-{tool.icon} mb-2 text-gray-500 dark:text-gray-400 text-4xl" />	 -->
 						<h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">	
 							{tool.name}	
-						</h5>	
+						</h5>
+						<p>{tool.description.length > 80 ? tool.description.substring(0, 80) + '...' : tool.description}</p>
 					</Card>	
 				{/each}	
 			</div>	

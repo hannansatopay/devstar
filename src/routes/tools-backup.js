@@ -134,7 +134,6 @@ export let tools = {
         link: '/neumorphism-generator',
         description: "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease."
     },
-
 	'add-prefix-suffix': {
         name: 'Add Prefix and Suffix',
 		icon: 'code',

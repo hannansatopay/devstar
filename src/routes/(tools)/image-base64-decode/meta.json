@@ -1,0 +1,8 @@
+{
+    "name": "Image Base64 Decode",
+    "description": "The Image Base64 Decode tool offers developers an efficient way to decode Base64-encoded image data back into image files. This tool accepts Base64-encoded strings and converts them into their corresponding image file formats, enabling developers to handle and manipulate image data seamlessly. Simplify your image data processing workflow with this tool and ensure efficient utilization of Base64-encoded images in your applications.",
+    "contributors": [{
+        "name": "Hannan Satopay",
+        "githubId": "hannansatopay"
+    }]
+}

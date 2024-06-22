@@ -97,10 +97,6 @@
 				</Label>
 			</div>
 			
-			<button on:click={calculate} class="mt-5 bg-green-500 hover-bg-green-600 text-white py-2 px-4 rounded-md">
-				Calculate
-			</button>
-			
 			<p class="mt-5 text-color text-2xl font-semibold">
                 You can withdraw 
                 <span class="text-green-500 text-3xl font-semibold">${new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format((result))}

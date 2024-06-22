@@ -42,9 +42,5 @@ Please review and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) in all you
 
 We value your feedback and welcome any suggestions or questions you may have. Feel free to join our [Community Forum](https://github.com/hannansatopay/devstar/discussions) to engage in discussions or [reach out to our team](https://developerstar.com/contact).
 
-## Roadmap
-
-To keep track of our project's progress, we maintain a roadmap. When adding or updating a feature/tool, please add your GitHub username to the roadmap file within the project.
 
 Thank you for your contribution!
-

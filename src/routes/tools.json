@@ -1,0 +1,322 @@
+{
+    "add-prefix-suffix": {
+        "name": "Add Prefix and Suffix",
+        "link": "/add-prefix-suffix",
+        "description": "Easily modify your text lines by adding custom prefixes and suffixes with our Prefix and Suffix Adder Tool. Input your text, specify the desired prefix and suffix, and watch as it instantly modifies each line according to your preferences. Perfect for formatting lists, coding snippets, or creating structured data. Empower your text editing tasks with this convenient tool, ensuring consistent formatting in various contexts.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "advice-generator": {
+        "name": "Advice Generator",
+        "link": "/advice-generator",
+        "description": "The Advice Generator is a valuable tool that provides developers with inspirational and practical advice to overcome challenges and improve their work. By generating random advice snippets, this tool helps developers find guidance and inspiration. Access a wealth of advice easily with this tool and elevate your mindset.",
+        "contributors": [
+            {
+                "name": "Rifat Perween",
+                "githubId": "rifatperween"
+            }
+        ]
+    },
+    "annuity-payout-calculator": {
+        "name": "Annuity Payout Calculator",
+        "link": "/annuity-payout-calculator",
+        "description": "This calculator can estimate the annuity payout amount for a fixed payout length or estimate the length that an annuity can last if supplied a fixed payout amount. Please use our Annuity Calculator to estimate the end balance of an annuity for the accumulation phase.",
+        "contributors": [
+            {
+                "name": "Sumit Mishra",
+                "githubId": "Sumitm6879"
+            }
+        ]
+    },
+    "api-tool": {
+        "name": "Online API Tool",
+        "link": "/api-tool",
+        "description": "Our Online API Tool is a versatile and user-friendly platform designed to simplify the process of working with APIs. Just like Postman, it provides developers and teams with powerful features for testing, documenting, and managing APIs. Whether you're building, testing, or monitoring APIs, our tool offers a comprehensive suite of tools to streamline your workflow. With an intuitive interface, collaboration features, and extensive customization options, it's the ideal choice for any development project. Elevate your API development and management experience with our Online API Tool and unlock the full potential of your APIs.",
+        "contributors": [
+            {
+                "name": "A. Amrutha Sri",
+                "githubId": "AmruthaSri852"
+            },
+            {
+                "name": "Nandini Gite",
+                "githubId": "NandiniGite"
+            }
+        ]
+    },
+    "ascii-encode-decode": {
+        "name": "ASCII Encoder & Decoder",
+        "link": "/ascii-encode-decode",
+        "description": "Dive into the fundamentals of digital text with our ASCII Encoder and Decoder Tool. Encode your text into ASCII, translating characters into numerical codes for digital representation. Input your content, and witness it transform into a series of digits, ideal for computer systems and data transmission. Alternatively, decode ASCII back into readable text effortlessly, bridging the gap between numeric codes and human-readable characters. Perfect for programmers, developers, and tech enthusiasts, our tool simplifies the encoding and decoding of ASCII characters, ensuring seamless integration into digital environments and data processing tasks.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "base64-encode-decode": {
+        "name": "Base64 Encoder & Decoder",
+        "link": "/base64-encode-decode",
+        "description": "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "binary-text-converter": {
+        "name": "Binary Text Converter",
+        "link": "/binary-text-converter",
+        "description": "Transform text into a digital language or decode binary data with our Text to Binary and Binary to Text Converter Tool. Input your text, and instantly convert it into binary code, allowing seamless integration into digital systems or secure data transmission. Conversely, input binary digits, and watch them transform back into human-readable text. Ideal for programmers, cybersecurity professionals, and tech enthusiasts, our tool simplifies data conversion tasks. Whether you're working with computer protocols, coding messages, or decoding binary files, our converter ensures accuracy and efficiency. Start converting text to binary and vice versa with ease, bridging the gap between human language and digital communication.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "css-animator": {
+        "name": "CSS Animator",
+        "link": "/css-animator",
+        "description": "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            },
+            {
+                "name": "Munsif Satopay",
+                "githubId": "munsifsatopay"
+            }
+        ]
+    },
+    "device-details": {
+        "name": "Device Details",
+        "link": "/device-details",
+        "description": "The Device Details tool provides developers with essential information about user devices, including browser specifications, screen resolution, operating system details, and more. By integrating this tool into your applications, you can gather valuable insights about your users' devices, allowing you to optimize user experiences, ensure compatibility, and tailor your content or features accordingly.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "dice-roller": {
+        "name": "Dice Roller",
+        "link": "/dice-roller",
+        "description": "A simple dice roller.",
+        "contributors": [
+            {
+                "name": "Harshit Kandpal",
+                "githubId": "harshitkandpal"
+            }
+        ]
+    },
+    "file-converter": {
+        "name": "File Converter",
+        "link": "/file-converter",
+        "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
+        "contributors": [
+            {
+                "name": "Mohammad Adil",
+                "githubId": "devilzs1"
+            }
+        ]
+    },
+    "gradient-generator": {
+        "name": "Gradient Generator",
+        "link": "/gradient-generator",
+        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+        "contributors": [
+            {
+                "name": "Yash Mankar",
+                "githubId": "AraeneaCLI"
+            }
+        ]
+    },
+    "image-base64-decode": {
+        "name": "Image Base64 Decode",
+        "link": "/image-base64-decode",
+        "description": "The Image Base64 Decode tool offers developers an efficient way to decode Base64-encoded image data back into image files. This tool accepts Base64-encoded strings and converts them into their corresponding image file formats, enabling developers to handle and manipulate image data seamlessly. Simplify your image data processing workflow with this tool and ensure efficient utilization of Base64-encoded images in your applications.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "image-base64-encode": {
+        "name": "Image Base64 Encode",
+        "link": "/image-base64-encode",
+        "description": "The Image Base64 Encode tool enables developers to convert image files into Base64-encoded strings effortlessly. By simply uploading an image file, this tool converts the image into a Base64-encoded representation, which can be easily integrated into HTML, CSS, or JavaScript code. Integrate this tool into your development workflow to efficiently handle image data and optimize its usage in various web applications.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "image-color-picker": {
+        "name": "Image Color Picker",
+        "link": "/image-color-picker",
+        "description": "The Image Color Picker is a versatile tool that allows developers to extract color information from images effortlessly. With a simple interface, you can upload an image and identify specific colors by selecting points on the image. The tool provides the corresponding color codes (e.g., HEX, RGB, HSL) for easy integration into your projects. Streamline your color selection process and enhance your application's visual appeal with this efficient color picker.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "image-text-extractor": {
+        "name": "Image Text Extractor",
+        "link": "/image-text-extractor",
+        "description": "Unlock the textual content hidden within images with our Image Text Extractor. Utilizing advanced optical character recognition (OCR) technology, our tool effortlessly extracts text from images, making printed or handwritten content accessible and editable. Simply upload your image, and watch as the tool accurately identifies and converts text into digital format. Ideal for digitizing documents, extracting quotes, or enhancing accessibility, our Image Text Extractor simplifies the process of converting visual information into editable text. Empower your data extraction tasks with our efficient and precise tool, ensuring valuable textual content is readily available for your digital endeavors.",
+        "contributors": [
+            {
+                "name": "Pratik Vinayak More",
+                "githubId": "Comder101"
+            }
+        ]
+    },
+    "living-background-generator": {
+        "name": "Living Background Generator",
+        "link": "/living-background-generator",
+        "description": "The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.",
+        "contributors": [
+            {
+                "name": "RIYA KUSHWAHA",
+                "githubId": "RIYA1001"
+            },
+            {
+                "name": "Rajan Pusalkar",
+                "githubId": "Rajan232"
+            }
+        ]
+    },
+    "lorem-ipsum-generator": {
+        "name": "Lorem Ipsum Generator",
+        "link": "/lorem-ipsum-generator",
+        "description": "Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "neumorphism-generator": {
+        "name": "Neumorphism Generator",
+        "link": "/neumorphism-generator",
+        "description": "The Neumorphism Generator is a powerful tool designed for developers and designers to easily create neumorphic user interfaces. With this toolkit, you can effortlessly generate neumorphic design elements, such as buttons, cards, and input fields, by simply adjusting various parameters and styles. Enhance your applications with this intuitive tool and create visually stunning and modern user interfaces with ease.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            },
+            {
+                "name": "Abhishek Jadhav",
+                "githubId": "AbhishekJadhav2002"
+            },
+            {
+                "name": "Vikas Kushwaha",
+                "githubId": "Vikas350"
+            }
+        ]
+    },
+    "password-generator": {
+        "name": "Password Generator",
+        "link": "/password-generator",
+        "description": "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "pomodoro": {
+        "name": "Pomodoro",
+        "link": "/pomodoro",
+        "description": "The Pomodoro tool is a productivity-enhancing feature designed specifically for developers. Based on the popular Pomodoro Technique, this tool helps you manage your time effectively by breaking your work into focused intervals, typically 25 minutes long, followed by short breaks. This systematic approach aids in maintaining concentration, combating procrastination, and boosting productivity. Integrate this tool into your workflow to optimize your work habits and accomplish tasks more efficiently.",
+        "contributors": [
+            {
+                "name": "Rifat Perween",
+                "githubId": "rifatperween"
+            }
+        ]
+    },
+    "random-data-generator": {
+        "name": "Random Data Generator",
+        "link": "/random-data-generator",
+        "description": "The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.",
+        "contributors": [
+            {
+                "name": "Harshit Lakshakar",
+                "githubId": "Hst-13"
+            },
+            {
+                "name": "Shantanu Badgujar",
+                "githubId": "Shantanuz06"
+            }
+        ]
+    },
+    "random-image-generator": {
+        "name": "Random Image Generator",
+        "link": "/random-image-generator",
+        "description": "The Random Image Generator is a dynamic tool that enables developers to generate random images on the fly. Whether you need placeholder images for testing or want to add visual elements to your applications, this tool can generate a wide variety of random images based on different categories, dimensions, and styles. Utilize this tool to add visual appeal and realism to your applications effortlessly.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "robots-txt-generator": {
+        "name": "Robots.txt Generator",
+        "link": "/robots-txt-generator",
+        "description": "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "screen-video-recorder": {
+        "name": "Screen Video Recorder",
+        "link": "/screen-video-recorder",
+        "description": "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities.",
+        "contributors": [
+            {
+                "name": "Rifat Perween",
+                "githubId": "rifatperween"
+            },
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "watermark-pdf": {
+        "name": "Watermark PDF",
+        "link": "/watermark-pdf",
+        "description": "Add Text or Image as a watermark to the PDF document",
+        "contributors": []
+    },
+    "whatsapp-api-generator": {
+        "name": "WhatsApp Link Generator",
+        "link": "/whatsapp-api-generator",
+        "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
+        "contributors": [
+            {
+                "name": "Hannan Satopay",
+                "githubId": "hannansatopay"
+            }
+        ]
+    }
+}

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Button, Input } from 'flowbite-svelte';
 	import Intro from '$lib/Intro.svelte';
+	import Contributors from '$lib/Contributors.svelte';
 	import jsPDF from 'jspdf';
 	
 	export let data;
@@ -86,6 +87,8 @@
 		</div>
 	</div>
 </section>
+
+<Contributors contributors={data.meta.contributors}/>
 
 <style>
 

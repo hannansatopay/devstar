@@ -1,0 +1,8 @@
+{
+    "name": "Pomodoro",
+    "description": "The Pomodoro tool is a productivity-enhancing feature designed specifically for developers. Based on the popular Pomodoro Technique, this tool helps you manage your time effectively by breaking your work into focused intervals, typically 25 minutes long, followed by short breaks. This systematic approach aids in maintaining concentration, combating procrastination, and boosting productivity. Integrate this tool into your workflow to optimize your work habits and accomplish tasks more efficiently.",
+    "contributors": [{
+        "name": "Rifat Perween",
+        "githubId": "rifatperween"
+    }]
+}

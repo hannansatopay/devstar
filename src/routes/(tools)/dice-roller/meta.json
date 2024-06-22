@@ -1,0 +1,8 @@
+{
+    "name": "Dice Roller",
+    "description": "A simple dice roller.",
+    "contributors": [{
+        "name": "Harshit Kandpal",
+        "githubId": "harshitkandpal"
+    }]
+}
