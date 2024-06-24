@@ -1,6 +1,5 @@
 <script lang="ts">
   import { Label, Input } from 'flowbite-svelte';
-  import Intro from '$lib/Intro.svelte';
   import { PDFDocument } from 'pdf-lib';
 
   let file = null;
@@ -103,8 +102,6 @@
     }
   };
 </script>
-
-<Intro heading="Add Watermark to PDF" description="Upload a PDF to add a watermark." />
 
 <div class="flex justify-center font-sans mt-4">
   <label for="dropzone-file" class="mx-auto cursor-pointer flex w-full max-w-md flex-col items-center rounded-xl border-2 border-dashed border-blue-400 bg-white p-6 text-center">

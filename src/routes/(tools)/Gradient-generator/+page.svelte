@@ -1,8 +1,5 @@
 <script lang="ts">
-  import Intro from '$lib/Intro.svelte'
-  import { identity } from 'svelte/internal';
   import { Button, Dropdown, DropdownItem, DropdownDivider, Popover,Label, Input} from 'flowbite-svelte';
-  import ColorPicker from 'svelte-awesome-color-picker';
   import { onMount } from 'svelte';
 
   export let data;
@@ -93,9 +90,6 @@ const copyCode = async () => {
   link.click();
 }
 </script>
-
-<!-- svelte-ignore non-top-level-reactive-declaration -->
-<Intro heading={data.meta.title} description={data.meta.description}/>
 
 <div class="bg-white dark:bg-gray-900"> 
 <main class="min-h-screen flex items-center justify-center">

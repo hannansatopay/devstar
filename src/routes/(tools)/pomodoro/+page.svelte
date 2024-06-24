@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Intro from '$lib/Intro.svelte';
-
+	
 	export let data;
 
 	// start
@@ -50,7 +49,6 @@
 	}
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section>
 	<div class="bg-[#323A49] md:w-1/3 text-center p-4 rounded-lg mx-auto">

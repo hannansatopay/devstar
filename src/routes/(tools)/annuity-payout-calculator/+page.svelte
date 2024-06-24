@@ -3,7 +3,6 @@
 </svelte:head>
 <script lang="ts">
 	import { Label, Input, Select } from 'flowbite-svelte';
-	import Intro from '$lib/Intro.svelte';
 	export let data;
 	let principalAmount = 500000;
 	let rate = 6; // interest rate
@@ -62,8 +61,6 @@
 	}
 
 </script>
-
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">

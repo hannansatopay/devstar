@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Intro from '$lib/Intro.svelte';
 	import Contributors from '$lib/Contributors.svelte';
 	import { Label, Range } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
@@ -279,7 +278,6 @@
 	};
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
 	<br />
@@ -444,8 +442,6 @@
 	</div>
 </section>
 
-<Contributors contributors={data.meta.contributors}/>
-
 <style>
 	/* Styles for output screen */
 	.output {
@@ -509,15 +505,7 @@
 		color: #2f4550;
 		background: whitesmoke;
 	}
-
-	.card {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-	}
-
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-	}
-
+	
 	.h-full {
 		min-height: 300px;
 	}

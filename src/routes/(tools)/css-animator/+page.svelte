@@ -4,7 +4,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Label, Input } from 'flowbite-svelte';
-	import Intro from '$lib/Intro.svelte';
 	import Copy from '$lib/Copy.svelte';
 	export let data;
 
@@ -90,80 +89,68 @@
 	});
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
-			<div class="p-8">
-				<Label>Animation Type</Label>
-				<select on:change={calculateAnimation} bind:value={animationType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					{#each Object.keys(animationGroup) as animation}
-						<option>{animation}</option>
-					{/each}
-				</select>
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+	<div class="p-8">
+		<Label>Animation Type</Label>
+		<select on:change={calculateAnimation} bind:value={animationType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+			{#each Object.keys(animationGroup) as animation}
+				<option>{animation}</option>
+			{/each}
+		</select>
 
-				<Label class="mt-3">Animation Sub-type</Label>
-				<select on:change={calculateAnimation} bind:value={animationSubType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-					{#each animationGroup[animationType] as animation}
-						<option>{animation}</option>
-					{/each}
-				</select>
+		<Label class="mt-3">Animation Sub-type</Label>
+		<select on:change={calculateAnimation} bind:value={animationSubType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+			{#each animationGroup[animationType] as animation}
+				<option>{animation}</option>
+			{/each}
+		</select>
 
-				<Label class="mt-3">Duration</Label>
-				<Input type="number" step="0.1" bind:value={duration} on:change={calculateAnimation} />
+		<Label class="mt-3">Duration</Label>
+		<Input type="number" step="0.1" bind:value={duration} on:change={calculateAnimation} />
 
-				<Label class="mt-3">Timing Functions</Label>
-				<select on:change={calculateAnimation} disabled={timingType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={timingFunction}><optgroup label="Native"><option>linear</option><option>ease</option><option>easeIn</option><option>easeOut</option><option>easeInOut</option></optgroup><optgroup label="Penner Equations"><option>easeInQuad</option><option>easeInCubic</option><option>easeInQuart</option><option>easeInQuint</option><option>easeInSine</option><option>easeInExpo</option><option>easeInCirc</option><option>easeInBack</option><option>easeOutQuad</option><option>easeOutCubic</option><option>easeOutQuart</option><option>easeOutQuint</option><option>easeOutSine</option><option>easeOutExpo</option><option>easeOutCirc</option><option>easeOutBack</option><option>easeInOutQuad</option><option>easeInOutCubic</option><option>easeInOutQuart</option><option>easeInOutQuint</option><option>easeInOutSine</option><option>easeInOutExpo</option><option>easeInOutCirc</option><option>easeInOutBack</option></optgroup></select>
+		<Label class="mt-3">Timing Functions</Label>
+		<select on:change={calculateAnimation} disabled={timingType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={timingFunction}><optgroup label="Native"><option>linear</option><option>ease</option><option>easeIn</option><option>easeOut</option><option>easeInOut</option></optgroup><optgroup label="Penner Equations"><option>easeInQuad</option><option>easeInCubic</option><option>easeInQuart</option><option>easeInQuint</option><option>easeInSine</option><option>easeInExpo</option><option>easeInCirc</option><option>easeInBack</option><option>easeOutQuad</option><option>easeOutCubic</option><option>easeOutQuart</option><option>easeOutQuint</option><option>easeOutSine</option><option>easeOutExpo</option><option>easeOutCirc</option><option>easeOutBack</option><option>easeInOutQuad</option><option>easeInOutCubic</option><option>easeInOutQuart</option><option>easeInOutQuint</option><option>easeInOutSine</option><option>easeInOutExpo</option><option>easeInOutCirc</option><option>easeInOutBack</option></optgroup></select>
 
-				<div class="flex items-center mt-3">
-					<input bind:checked={timingType} on:change={calculateAnimation} id="timing-type" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-					<label for="timing-type" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Use steps</label>
-				</div>
-				<div class="flex mt-3 bg-gray-50 border border-gray-300 rounded-lg overflow-hidden">
-					<Input type="number" bind:value={steps} on:change={calculateAnimation} disabled={!timingType} class="border-0"/>
-					<select on:change={calculateAnimation} bind:value={stepType} disabled={!timingType} class="border border-white border-l-2 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>start</option><option>end</option></select>
-				</div>
+		<div class="flex items-center mt-3">
+			<input bind:checked={timingType} on:change={calculateAnimation} id="timing-type" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+			<label for="timing-type" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Use steps</label>
+		</div>
+		<div class="flex mt-3 bg-gray-50 border border-gray-300 rounded-lg overflow-hidden">
+			<Input type="number" bind:value={steps} on:change={calculateAnimation} disabled={!timingType} class="border-0"/>
+			<select on:change={calculateAnimation} bind:value={stepType} disabled={!timingType} class="border border-white border-l-2 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>start</option><option>end</option></select>
+		</div>
 
-				<Label class="mt-3">Delay</Label>
-				<Input type="number" step="0.1" bind:value={delay} on:change={calculateAnimation} />
+		<Label class="mt-3">Delay</Label>
+		<Input type="number" step="0.1" bind:value={delay} on:change={calculateAnimation} />
 
-				<Label class="mt-3">Iteration Count</Label>
-				<div class="flex">
-					<div>
-						<Input type="number" bind:value={iteration} on:change={calculateAnimation} disabled={infiniteIteration}/>
-					</div>
-					<div class="flex items-center ml-3">
-						<input bind:checked={infiniteIteration} on:change={calculateAnimation} id="infinite-iteration" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-						<label for="infinite-iteration" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Infinite</label>
-					</div>
-				</div>
-
-				<Label class="mt-3">Direction</Label>
-				<select on:change={calculateAnimation} bind:value={direction} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>normal</option><option>reverse</option><option>alternate</option><option>alternate-reverse</option></select>
-
-				<Label class="mt-3">Fill Mode</Label>
-				<select on:change={calculateAnimation} bind:value={fillMode} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>none</option><option>forwards</option><option>backwards</option><option>both</option></select>
+		<Label class="mt-3">Iteration Count</Label>
+		<div class="flex">
+			<div>
+				<Input type="number" bind:value={iteration} on:change={calculateAnimation} disabled={infiniteIteration}/>
 			</div>
-			<div class="p-8 h-full flex rounded-lg relative bg-gray-100">
-				<Copy text={css}/>
-				{#key animation}
-					<div class="box m-auto bg-black" style="width: 150px; height: 150px; border-radius: 4px; animation: width: 150px; height: 150px; border-radius: 4px; animation: {animation};"/>
-				{/key}
+			<div class="flex items-center ml-3">
+				<input bind:checked={infiniteIteration} on:change={calculateAnimation} id="infinite-iteration" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+				<label for="infinite-iteration" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Infinite</label>
 			</div>
 		</div>
+
+		<Label class="mt-3">Direction</Label>
+		<select on:change={calculateAnimation} bind:value={direction} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>normal</option><option>reverse</option><option>alternate</option><option>alternate-reverse</option></select>
+
+		<Label class="mt-3">Fill Mode</Label>
+		<select on:change={calculateAnimation} bind:value={fillMode} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>none</option><option>forwards</option><option>backwards</option><option>both</option></select>
 	</div>
-</section>
+	<div class="p-8 h-full flex rounded-lg relative bg-gray-100">
+		<Copy text={css}/>
+		{#key animation}
+			<div class="box m-auto bg-black" style="width: 150px; height: 150px; border-radius: 4px; animation: width: 150px; height: 150px; border-radius: 4px; animation: {animation};"/>
+		{/key}
+	</div>
+</div>
+
 <style>
 	.box {
 		border-radius: 20px;
-	}
-
-	.card {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-	}
-
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
 	}
 </style>

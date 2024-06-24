@@ -8,7 +8,7 @@
     Button,
   } from "flowbite-svelte";
   import Copy from "$lib/Copy.svelte";
-  import Intro from "$lib/Intro.svelte";
+  
   export let data;
 
 	import { onMount } from "svelte";
@@ -106,7 +106,6 @@
 	};
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
     <div class="card gap-16 items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
@@ -175,16 +174,8 @@ Eg:  {"{"}"name":"John", "age":30, "car":null{"}"} or
 </section>
 
 <style>
-  .card {
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-  }
-
-  :is(.dark .card) {
-    box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-  }
-
   pre {
     white-space: pre-wrap;
     word-wrap: break-word;
-}
+  }
 </style>

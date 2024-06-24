@@ -45,6 +45,15 @@
 	border-radius: 5px;
 }
 
+
+.card {
+	box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
+}
+
+:is(.dark .card) {
+	box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
+}
+
 @font-face {
 	font-family: 'icomoon';
 	src: url('/fonts/icomoon.eot?mpuld7');
@@ -158,5 +167,3 @@
 .icon-terminal:before {
 	content: '\e905';
 }
-@tailwind components;
-@tailwind utilities;

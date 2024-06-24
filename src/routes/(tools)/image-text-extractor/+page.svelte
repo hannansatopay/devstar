@@ -1,8 +1,7 @@
 <script lang="ts">
 
     import { Button } from 'flowbite-svelte';
-    import Intro from '$lib/Intro.svelte';
-    import jsPDF from 'jspdf';
+        import jsPDF from 'jspdf';
     import Tesseract from 'tesseract.js';
 
     export let data;
@@ -62,7 +61,6 @@
 
 </script>
   
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
@@ -92,16 +90,3 @@
         </div>
     </div>
 </section>
-
-
-<style>
-
-    .card {
-        box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-    }
-
-    :is(.dark .card) {
-        box-shadow: rgba(255, 255, 255, 0.5) 0 0 0 2px;
-    }
-
-</style>

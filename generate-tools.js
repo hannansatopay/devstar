@@ -17,6 +17,10 @@ fs.readdirSync(toolsFolder).forEach(subfolder => {
     const subfolderPath = path.join(toolsFolder, subfolder);
     const metaFilePath = path.join(subfolderPath, 'meta.json');
 
+    if (subfolder === '.blank') {
+        return; // Skip the .blank folder
+    }
+
     // Check if meta.json file exists in the subfolder
     if (fs.existsSync(metaFilePath)) {
         const metaContent = fs.readFileSync(metaFilePath, 'utf-8');

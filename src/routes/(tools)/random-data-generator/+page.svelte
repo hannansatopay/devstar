@@ -1,7 +1,6 @@
 <script lang='ts'>
     import { Label, Input, Select } from 'flowbite-svelte';
-    import Intro from '$lib/Intro.svelte';
-
+    
     export let data;
 
     import Field from "./Field.svelte";
@@ -31,7 +30,6 @@
     }
 </script>
   
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
 

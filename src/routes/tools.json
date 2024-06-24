@@ -106,17 +106,6 @@
             }
         ]
     },
-    "dice-roller": {
-        "name": "Dice Roller",
-        "link": "/dice-roller",
-        "description": "A simple dice roller.",
-        "contributors": [
-            {
-                "name": "Harshit Kandpal",
-                "githubId": "harshitkandpal"
-            }
-        ]
-    },
     "file-converter": {
         "name": "File Converter",
         "link": "/file-converter",

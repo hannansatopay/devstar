@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Label } from 'flowbite-svelte';
-	import Intro from '$lib/Intro.svelte';
-
+	
 	let fileFormats = {
 		image: {
 			name: 'Image Formats',
@@ -103,7 +102,6 @@
 	export let data;
 </script>
 
-<Intro heading={data.meta.title} description={data.meta.description} />
 
 <section class="bg-white dark:bg-gray-900">
 	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 card overflow-hidden rounded-lg">
@@ -165,12 +163,6 @@
 </section>
 
 <style>
-	.card {
-		box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 2px;
-	}
-	:is(.dark .card) {
-		box-shadow: rgba(255, 255, 255, 0.1) 0 0 0 2px;
-	}
 	#download-btn{
         display: none;
     }
