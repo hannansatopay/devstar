@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Contributors from '$lib/Contributors.svelte';
 	import { Label, Range } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import Copy from '$lib/Copy.svelte';

@@ -5,7 +5,6 @@
 	import { Input, ButtonGroup, Label, Textarea, Helper } from 'flowbite-svelte';
 	import CountrySelector from '$lib/CountrySelector.svelte';
 	import Copy from '$lib/Copy.svelte';
-	import Contributors from '$lib/Contributors.svelte';
 	export let data;
 
 	let country = '';
