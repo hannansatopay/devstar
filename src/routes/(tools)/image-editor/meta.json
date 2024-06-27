@@ -1,23 +1,31 @@
 {
-    "name": "",
-    "description":"",
+    "name": "Image Editor",
+    "description":"This tool that allows images to be edited and also converted to different graphics formats.",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Harshith",
+        "githubId": "harshith1019"
     }, {
-        "name": "",
+        "name": "Yedulla Nandavardhan Reddy",
         "githubId": ""
     },
     {
-        "name": "",
+        "name": "Chaitanya Reddy Gujjula",
         "githubId": ""
     },
     {
-        "name": "",
+        "name": "Aimaan Qureshi",
         "githubId": ""
     },
     {
-        "name": "",
+        "name": "Subitha",
+        "githubId": ""
+    },
+    {
+        "name": "AjayRaj",
+        "githubId": ""
+    },
+    {
+        "name": "Sanjana",
         "githubId": ""
     }]
 }
