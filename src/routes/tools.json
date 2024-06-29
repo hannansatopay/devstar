@@ -117,9 +117,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -288,6 +288,33 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "sql-query-builder": {
+        "name": "SQL Query Builder",
+        "link": "/sql-query-builder",
+        "description": "This AI-driven SQL query builder simplifies database interaction by allowing users to input natural language prompts instead of writing complex SQL queries manually. It enhances productivity by reducing the time and expertise required to generate queries, making database management more accessible for users with varying levels of technical proficiency. The tool also improves accuracy and reduces syntax errors commonly associated with manual query writing, thereby streamlining data retrieval and analysis processes efficiently.",
+        "contributors": [
+            {
+                "name": "Atharva Sawant",
+                "githubId": ""
+            },
+            {
+                "name": "Kalyan",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
             }
         ]
     },
