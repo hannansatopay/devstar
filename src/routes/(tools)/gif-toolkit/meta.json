@@ -1,23 +1,23 @@
 {
-    "name": "",
-    "description":"",
+    "name": "GIF-Toolkit",
+    "description":"Dozens of easy-to-use tools, enjoy live GIF previews, and swiftly turn your vision into reality",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Arya Bacchuwar",
+        "githubId": "Devil-panda"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Mukesh Madipelly",
+        "githubId": "mukeshmadipelly"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Satvik Pandey",
+        "githubId": "worldisconfusion"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Shruti Johnson",
+        "githubId": "SHRUTIJOHNSON"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Dinesh D",
+        "githubId": "dinesh-dh"
     }]
 }
