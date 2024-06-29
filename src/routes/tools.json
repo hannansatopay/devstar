@@ -117,9 +117,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -288,6 +288,33 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "virtual-mindmap": {
+        "name": "Virtual Mindmap Maker",
+        "link": "/virtual-mindmap",
+        "description": "Curate personalised mindmaps to ease your learning with effective visuals. This tool will help you in making mindmaps to store information as linked cards for easier memorisation. ",
+        "contributors": [
+            {
+                "name": "Snehal Shetye",
+                "githubId": "Snehalshetye18"
+            },
+            {
+                "name": "Purvi Passi",
+                "githubId": "pxxpassi"
+            },
+            {
+                "name": "Cheryl Lobo",
+                "githubId": "cherylobo"
+            },
+            {
+                "name": "Prachi Zodage",
+                "githubId": "PrachiZodage"
+            },
+            {
+                "name": "Aanchal Mehta",
+                "githubId": "Aanchal1902"
             }
         ]
     },
