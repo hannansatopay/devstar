@@ -117,9 +117,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -236,6 +236,33 @@
             {
                 "name": "Rifat Perween",
                 "githubId": "rifatperween"
+            }
+        ]
+    },
+    "puzzle-maker": {
+        "name": "",
+        "link": "/puzzle-maker",
+        "description": "",
+        "contributors": [
+            {
+                "name": "Mihir Joshi",
+                "githubId": "/mihirjoshi26"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
             }
         ]
     },
