@@ -19,9 +19,20 @@
 		  if ($singleLineFlag) flags += 's';
 		  if ($unicodeFlag) flags += 'u';
 		  if ($stickyFlag) flags += 'y';
-		  const regExp = new RegExp($regex, flags);
-		  const result = [...$testString.matchAll(regExp)];
-		  return result.map(match => match[0]);
+		  const regExp = new RegExp($regex, flags); 
+			if (regExp.global) {
+				const result = [...$testString.matchAll(regExp)];
+				return result.map(match => match[0]);
+			} 
+			else {
+				// Handle non-global search
+				const singleMatch = $testString.match(regExp);
+				if (singleMatch) {
+					return [singleMatch[0]]; 
+				} else {
+					return [];
+				}
+			}
 		} catch (e) {
 		  return [];
 		}
