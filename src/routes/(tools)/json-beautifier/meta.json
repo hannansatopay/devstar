@@ -1,23 +1,23 @@
 {
-    "name": "",
-    "description":"",
+    "name": "JSON Beautifier",
+    "description":"Format JSON easily view, validate and edit it",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Atharva Raut",
+        "githubId": "A7h4rv4"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Ayush Udayakumar Nair",
+        "githubId": "techgeekAyush"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Sarath Parayil",
+        "githubId": "sarathp22"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Shriya Prashant Ise",
+        "githubId": "shriya7ise"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Yusra Mukadam",
+        "githubId": "YusraMukadam"
     }]
 }
