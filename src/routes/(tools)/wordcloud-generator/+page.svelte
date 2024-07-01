@@ -38,6 +38,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 </svelte:head>
 
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg ">
 <section>
     
     <label for="words">
@@ -61,8 +62,19 @@
         {/if}
     </svg>
 </section>
-
+</div>
 <style>
+
+.card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
     section {
         font-family: 'Nunito', sans-serif;
         max-width: 800px;
