@@ -24,13 +24,13 @@
 </script>
   
 <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
-	<div class="grid grid-cols-4 gap-8 p-4">
-	  {#each tools as tool}
-		<button on:click={() => window.location.href = tool.path} class="homebutton bg-blue-700 hover:bg-blue-800 text-white p-4 rounded-lg">
-		  {tool.name}
-		</button>
-	  {/each}
-	</div>
+  <div class="grid grid-cols-4 gap-8 p-4">
+    {#each tools as tool}
+      <a href={tool.path} class="homebutton bg-blue-700 hover:bg-blue-800 text-white p-4 rounded-lg">
+        {tool.name}
+      </a>
+    {/each}
+  </div>
 </div>
   
 <style>
