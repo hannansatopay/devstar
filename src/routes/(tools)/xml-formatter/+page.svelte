@@ -20,11 +20,11 @@
             position: absolute;
             top: 56px; 
             left: 0;
-            width: 35px; 
+            width: 50px; 
             height: calc(100% - 22%); 
             border-right: 1px solid #ccc;
             text-align: right;
-            padding-right: 5px;
+            padding-right: 10px;
             padding-left: 5px; 
             color: #888;
             overflow: hidden;
@@ -39,7 +39,7 @@
         textarea {
             width: 100%;
             height: 100%;
-            padding-left: 50px; 
+            padding-left: 60px; 
             font-family: monospace;
             line-height: 1.5em; 
             resize: none;
@@ -55,25 +55,25 @@
         <div class="flex flex-col items-start w-full max-w-full p-4 bg-gray-200 rounded-lg shadow-lg">
             <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
                 <!-- First Textarea Container -->
-                <div class="flex flex-col items-start w-full md:w-1/2 bg-[#9bc400] rounded-lg p-4 textarea-container">
-                    <div class="line-numbers" id="inputLineNumbers"></div>
+                <div class="flex flex-col items-start w-full md:w-1/2 bg-gray-100 rounded-lg p-4 textarea-container">
+                    <div class="line-numbers font-bold" id="inputLineNumbers"></div>
                     <label for="inputXML" class="mb-2 text-sm font-medium text-gray-700">Input XML</label>
-                    <textarea id="inputXML" class="w-full h-64 p-3 border px-5 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
+                    <textarea id="inputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
                 </div>
 
                 <!-- Buttons between the Textareas -->
                 <div class="flex flex-row md:flex-col justify-center space-x-2 md:space-x-0 md:space-y-2">
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="loadXML();">Load</button>
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="loadXML();">Load</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
                 </div>
 
                 <!-- Second Textarea Container -->
-                <div class="flex flex-col items-start w-full md:w-1/2 bg-[#9bc400] rounded-lg p-4 textarea-container">
-                    <div class="line-numbers" id="outputLineNumbers"></div>
+                <div class="flex flex-col items-start w-full md:w-1/2 bg-gray-100 rounded-lg p-4 textarea-container">
+                    <div class="line-numbers font-bold" id="outputLineNumbers"></div>
                     <label for="outputXML" class="mb-2 text-sm font-medium text-gray-700">Output XML</label>
-                    <textarea id="outputXML" class="w-full h-64 p-3 border px-5 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
+                    <textarea id="outputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
                 </div>
             </div>
         </div>
@@ -107,6 +107,7 @@
             updateLineNumbers(outputXML, outputLineNumbers);
         });
 
+        //masum part 
         function formatXml(xml) {
             let formatted = '';
             let reg = /(>)(<)(\/*)/g;
