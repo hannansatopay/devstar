@@ -1,6 +1,6 @@
 {
     "name": "SQL Query Builder",
-    "description":"Add Text or Image as a watermark to the PDF document ",
+    "description":"The SQL AI Query Generator is a simple yet effective web application designed to help users generate SQL queries using AI.",
     "contributors": [{
         "name": "Atharva",
         "githubId": ""
