@@ -17,10 +17,10 @@
         }
         .line-numbers {
             position: absolute;
-            top: 35px; 
+            top: 56px; 
             left: 0;
             width: 35px; 
-            height: calc(100% - 40px); 
+            height: calc(100% -40%); 
             border-right: 1px solid #ccc;
             text-align: right;
             padding-right: 5px;
@@ -37,7 +37,7 @@
             padding-left: 50px; 
             font-family: monospace;
             line-height: 1.5em; 
-            resize: none;
+            
         }
     </style>
 </head>
@@ -52,27 +52,23 @@
                 <div class="flex flex-col items-start w-full md:w-1/2 bg-[#9bc400] rounded-lg p-4 textarea-container">
                     <div class="line-numbers" id="inputLineNumbers"></div>
                     <label for="inputXML" class="mb-2 text-sm font-medium text-gray-700">Input XML</label>
-                    <textarea id="inputXML" class="w-full h-64 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
+                    <textarea id="inputXML" class="w-full h-64 p-3 border px-5 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
                 </div>
 
                 <!-- Buttons between the Textareas -->
                 <div class="flex flex-row md:flex-col justify-center space-x-2 md:space-x-0 md:space-y-2">
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="transformXML();">Format</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="loadXML();">Load</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
                 </div>
 
                 <!-- Second Textarea Container -->
                 <div class="flex flex-col items-start w-full md:w-1/2 bg-[#9bc400] rounded-lg p-4 textarea-container">
                     <div class="line-numbers" id="outputLineNumbers"></div>
                     <label for="outputXML" class="mb-2 text-sm font-medium text-gray-700">Output XML</label>
-                    <textarea id="outputXML" class="w-full h-64 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
+                    <textarea id="outputXML" class="w-full h-64 p-3 border px-5 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
                 </div>
-            </div>
-
-            <!-- Bottom Buttons -->
-            <div class="flex flex-col md:flex-row items-center justify-end w-full mt-4 space-y-2 md:space-y-0 md:space-x-2">
-                <button class="px-4 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
-                <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="saveXML();">Save</button>
-                <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
             </div>
         </div>
     </div>
@@ -81,7 +77,7 @@
             const lines = textarea.value.split('\n').length;
             let numbersHtml = '';
             for (let i = 1; i <= lines; i++) {
-                numbersHtml += '<div>' + i + '</div>';
+                numbersHtml += '<div class="mr-0.5">' + i +  '</div>';
             }
             lineNumbers.innerHTML = numbersHtml;
         }
@@ -104,6 +100,42 @@
             updateLineNumbers(inputXML, inputLineNumbers);
             updateLineNumbers(outputXML, outputLineNumbers);
         });
+
+        function formatXml(xml) {
+            let formatted = '';
+            let reg = /(>)(<)(\/*)/g;
+            xml = xml.replace(reg, '$1\r\n$2$3');
+            let pad = 0;
+            xml.split('\r\n').forEach(function(node) {
+                let indent = 0;
+                if (node.match(/.+<\/\w[^>]*>$/)) {
+                    indent = 0;
+                } else if (node.match(/^<\/\w/) && pad !== 0) {
+                    pad -= 1;
+                } else if (node.match(/^<\w[^>]*[^\/]>.*$/)) {
+                    indent = 1;
+                } else {
+                    indent = 0;
+                }
+
+                let padding = '';
+                for (let i = 0; i < pad; i++) {
+                    padding += '  ';
+                }
+
+                formatted += padding + node + '\r\n';
+                pad += indent;
+            });
+
+            return formatted;
+        }
+
+        function formatXML() {
+            const inputXMLValue = document.getElementById('inputXML').value;
+            const formattedXML = formatXml(inputXMLValue);
+            document.getElementById('outputXML').value = formattedXML;
+            updateLineNumbers(document.getElementById('outputXML'), document.getElementById('outputLineNumbers'));
+        }
     </script>
 </body>
 </html>
