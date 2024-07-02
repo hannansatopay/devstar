@@ -14,30 +14,36 @@
             position: relative;
             display: flex;
             width: 100%;
+            height: 100%;
         }
         .line-numbers {
             position: absolute;
             top: 56px; 
             left: 0;
             width: 35px; 
-            height: calc(100% -40%); 
+            height: calc(100% - 22%); 
             border-right: 1px solid #ccc;
             text-align: right;
             padding-right: 5px;
-            padding-left: 10px; 
+            padding-left: 5px; 
             color: #888;
             overflow: hidden;
             font-family: monospace;
             line-height: 1.5em;
+            overflow-y: auto;
         }
         .line-numbers div {
-            height: 2.em; 
+            height: 1.5em; 
+            
         }
         textarea {
+            width: 100%;
+            height: 100%;
             padding-left: 50px; 
             font-family: monospace;
             line-height: 1.5em; 
-            
+            resize: none;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -77,7 +83,7 @@
             const lines = textarea.value.split('\n').length;
             let numbersHtml = '';
             for (let i = 1; i <= lines; i++) {
-                numbersHtml += '<div class="mr-0.5">' + i +  '</div>';
+                numbersHtml += '<div>' + i + '</div>';
             }
             lineNumbers.innerHTML = numbersHtml;
         }
