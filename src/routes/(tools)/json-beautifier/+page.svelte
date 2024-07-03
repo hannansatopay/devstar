@@ -1,29 +1,50 @@
 <script>
-  import { onMount } from "svelte";
-
   let successToast = false;
   let dangerToast = false;
   let warningToast = false;
   let isJsonValid = false;
+  let toastTimeOutms = 10000;
 
   // hide download,intend size,and format buttons.show it when JSON validated successfully
 
-  let successToastMessage = "JSON verified successfully.";
-  let dangerToastMessage = "Invalied JSON format.";
-  let warningToastMessage = "warning";
+  let successToastMessage = "";
+  let dangerToastMessage = "";
+  let warningToastMessage = "";
 
   let jsonData = "";
   let formattedJson = "";
   let intendSize = "2";
 
-  let files = null;
+  // function validate() {
+  //   isJsonValid value to true when JSON validated successfully
+  // }
 
-  function validate() {
-    // isJsonValid value to true when JSON validated successfully
-  }
-
-  function beautify(intendSize = 2) {
-    validate();
+  function format(intendSize = 2) {
+    // validate();
+    let input = jsonData.trim();
+    if (input) {
+      try {
+        const parsed = JSON.parse(input);
+        formattedJson = JSON.stringify(parsed, null, Number(intendSize));
+        successToastMessage = "JSON formatted successfully.";
+        successToast = true;
+        setTimeout(() => {
+          successToast = false;
+        }, toastTimeOutms);
+      } catch (e) {
+        dangerToastMessage = "Cannot format: Invalid JSON.";
+        dangerToast = true;
+        setTimeout(() => {
+          dangerToast = false;
+        }, toastTimeOutms);
+      }
+    } else {
+      warningToastMessage = "Please enter JSON.";
+      warningToast = true;
+      setTimeout(() => {
+        warningToast = false;
+      }, toastTimeOutms);
+    }
   }
 
   function reset() {
@@ -33,18 +54,14 @@
     files = null;
   }
 
-  onMount(() => {
-    let jsonFileUpload = document.getElementById("jsonFileUpload");
-    let jsonFileUploadButton = document.getElementById("jsonFileUploadButton");
-
-    jsonFileUploadButton.addEventListener("click", () => {
-      jsonFileUpload.click();
-    });
-
-    jsonFileUpload.addEventListener("change", () => {
-      // check file type, call validation function when file uploaded successfully and change isJsonValid value
-    });
-  });
+  const uploadJson = () => {
+    const file = document.getElementById("jsonFileUpload").files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      jsonData = e.target.result;
+    };
+    reader.readAsText(file);
+  };
 
   function downloadJson() {
     const blob = new Blob([formattedJson], { type: "application/json" });
@@ -226,11 +243,16 @@
     <!--toast ends here-->
 
     <!--
-			sample upload modal replaced by input file start here
-			currently hidden
-		-->
+			  sample upload modal replaced by input file start here
+			  currently hidden
+		  -->
 
-    <input type="file" id="jsonFileUpload" hidden />
+    <input
+      type="file"
+      id="jsonFileUpload"
+      on:change={uploadJson}
+      class="hidden"
+    />
 
     <!-- file upload ends here-->
 
@@ -238,11 +260,14 @@
 
     <div class="md:grid grid-cols-[40%,20%,40%] p-6 dark:bg-gray-900">
       <div
-        class="bg-gray-50 h-screen mt-20 border-gray-400 border-2 rounded-3xl dark:bg-gray-800 dark:border-slate-300 dark:border-1 dark:text-white"
+        class="bg-gray-50 h-screen border-gray-400 border-2 rounded-3xl dark:bg-gray-800 dark:border-slate-300 dark:border-1 dark:text-white"
       >
         <div class="px-4 py-2 my-4 flex justify-between items-center">
           <h3 class="truncate overflow-hidden">Upload Document</h3>
           <button
+            on:click={() => {
+              document.getElementById("jsonFileUpload").click();
+            }}
             class="py-2 px-4 rounded bg-blue-700 hover:bg-blue-800 font-bold text-white"
             id="jsonFileUploadButton">Upload</button
           >
@@ -252,23 +277,26 @@
           spellcheck="false"
         >
           <textarea
+            on:keypress={() => {
+              formattedJson = "";
+            }}
             placeholder="JSON here..."
-            rows="10"
-            class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            rows="25"
+            class="resize-none outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             bind:value={jsonData}
           />
         </div>
       </div>
       <div class="mx-auto place-content-center my-16 text-white">
-        <button
+        <!-- <button
           id="validateButton"
           class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 font-bold py-2 px-4 rounded-lg"
           on:click={validate}>Validate</button
-        >
+        > -->
         <!-- {#if isJsonValid} -->
         <label
           for="intend"
-          class="block my-2 mt-5 text-sm font-medium font-bold text-black dark:text-white"
+          class="block my-2 mt-5 text-sm font-bold text-black dark:text-white"
           >Select intend size:</label
         >
         <select
@@ -277,7 +305,6 @@
           value={intendSize}
           on:change={(event) => {
             intendSize = event.target.value;
-            beautify(intendSize);
           }}
         >
           <option value="2" selected><span>2 </span>Intend</option>
@@ -287,7 +314,7 @@
         <button
           id="formatButton"
           class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 font-bold py-2 px-4 rounded-lg"
-          on:click={beautify(intendSize)}>Format</button
+          on:click={format(intendSize)}>Format</button
         >
         <!-- {/if} -->
         <button
@@ -298,7 +325,7 @@
         >
       </div>
       <div
-        class="bg-gray-50 h-screen mt-20 border-gray-400 border-2 dark:border-slate-300 dark:border-1 rounded-3xl dark:bg-gray-800 dark:text-white"
+        class="bg-gray-50 h-screen border-gray-400 border-2 dark:border-slate-300 dark:border-1 rounded-3xl dark:bg-gray-800 dark:text-white"
       >
         <div class="px-4 py-2 my-4 flex justify-between items-center">
           <h3 class="truncate overflow-hidden">Download Document</h3>
@@ -314,7 +341,13 @@
           class="p-3 text-xl h-screen border-t-gray-400 border-t-2 dark:border-t-slate-300 dark:border-t-2 overflow-x-scroll"
           spellcheck="false"
         >
-          {formattedJson}
+          <textarea
+            readonly
+            placeholder="Formatted JSON here..."
+            rows="25"
+            class="resize-none outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            bind:value={formattedJson}
+          />
         </div>
       </div>
     </div>
