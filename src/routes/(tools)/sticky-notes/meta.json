@@ -1,9 +1,9 @@
 {
-    "name": "",
-    "description":"",
+    "name": "Sticky Notes",
+    "description":"Add a note for saving important messages, make a to-do list, set reminders",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Saket Prabhakar",
+        "githubId": "sabotagefrenzy"
     }, {
         "name": "",
         "githubId": ""
