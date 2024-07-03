@@ -17,10 +17,10 @@
 	import Tool16 from "./tool16/+page.svelte";
 
 	const tools = [
-	  { name: "GIF Tool 1", component: Tool1 },
-	  { name: "GIF Tool 2", component: Tool2 },
-	  { name: "GIF Tool 3", component: Tool3 },
-	  { name: "GIF Tool 4", component: Tool4 },
+	  { name: "Vertical Flip GIF", component: Tool1 },
+	  { name: "Blur GIF", component: Tool2 },
+	  { name: "Color GIF to Grayscale", component: Tool3 },
+	  { name: "Change brightness of GIF", component: Tool4 },
 	  { name: "GIF Tool 5", component: Tool5 },
 	  { name: "GIF Tool 6", component: Tool6 },
 	  { name: "GIF Tool 7", component: Tool7 },
