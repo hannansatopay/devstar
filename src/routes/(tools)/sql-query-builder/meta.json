@@ -2,10 +2,10 @@
     "name": "SQL Query Builder",
     "description":"The SQL AI Query Generator is a simple yet effective web application designed to help users generate SQL queries using AI.",
     "contributors": [{
-        "name": "Atharva",
+        "name": "Atharva Sawant",
         "githubId": ""
     }, {
-        "name": "",
+        "name": "Kalyan Sharma",
         "githubId": ""
     },
     {
