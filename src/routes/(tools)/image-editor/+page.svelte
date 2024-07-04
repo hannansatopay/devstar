@@ -1,6 +1,6 @@
 <script>
-	import Crop from './components/Crop.svelte';
-	import Filter from './components/Filter.svelte';
+	import Crop from './_components/Crop.svelte';
+	import Filter from './_components/Filter.svelte';
     let currentFeature = '';
 	let image = "https://picsum.photos/200"
     function showFeature(feature) {
