@@ -59,73 +59,75 @@
 </form>
 
 <style>
-.input-form {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  background-color: #1e1e2f;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  .input-form {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #1e1e2f;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
-.form-group {
-  margin-bottom: 15px;
-}
+  .form-group {
+    margin-bottom: 15px;
+  }
 
-.form-group label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #f0f0f0;
-}
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #f0f0f0;
+  }
 
-.form-group input,
-.form-group select {
-  width: calc(100% - 16px);
-  padding: 10px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  color: #1e1e2f;
-}
+  .form-group input,
+  .form-group select {
+    width: calc(100% - 16px);
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+    color: #1e1e2f;
+  }
 
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-  outline: none;
-}
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    outline: none;
+  }
 
-.submit-button,
-.cancel-button {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  font-size: 1.2em;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
+  .submit-button,
+  .cancel-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2em;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
 
-.submit-button {
-  background-color: #007bff;
-}
+  .submit-button {
+    background-color: #007bff;
+  }
 
-.submit-button:hover {
-  background-color: #0056b3;
-}
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
 
-.cancel-button {
-  background-color: #f44336;
-}
+  .cancel-button {
+    background-color: #f44336;
+  }
 
-.cancel-button:hover {
-  background-color: #e53935;
-} 
+  .cancel-button:hover {
+    background-color: #e53935;
+  }
 </style>

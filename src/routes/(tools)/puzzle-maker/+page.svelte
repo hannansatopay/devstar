@@ -1,6 +1,6 @@
 <script>
-  import InputForm from './InputForm.svelte';
-  import CrosswordGrid from './CrosswordGrid.svelte';
+  import InputForm from "./InputForm.svelte";
+  import CrosswordGrid from "./CrosswordGrid.svelte";
 
   let words = [];
   let wordToEdit = null;
@@ -30,7 +30,9 @@
   };
 </script>
 
-<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+<div
+  class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
+>
   <main>
     <InputForm {addWord} {editWord} {wordToEdit} />
   </main>
@@ -47,7 +49,7 @@
     max-width: 100%;
     overflow: hidden;
     border-radius: 8px;
-  }  
+  }
 
   @media (min-width: 1024px) {
     .card {
@@ -55,7 +57,8 @@
     }
   }
 
-  main, aside {
+  main,
+  aside {
     padding: 20px;
     background-color: #111827;
     border-radius: 8px;

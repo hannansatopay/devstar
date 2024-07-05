@@ -121,111 +121,111 @@
 </div>
 
 <style>
-.crossword-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .crossword-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.crossword-grid {
-  display: grid;
-  gap: 2px;
-  border: 2px solid #333;
-  padding: 10px;
-  background-color: #f0f0f0;
-  max-width: 480px;
-}
+  .crossword-grid {
+    display: grid;
+    gap: 2px;
+    border: 2px solid #333;
+    padding: 10px;
+    background-color: #f0f0f0;
+    max-width: 480px;
+  }
 
-.row {
-  display: flex;
-}
+  .row {
+    display: flex;
+  }
 
-.cell {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  font-size: 1.2em;
-  background-color: #fff;
-  transition: background-color 0.3s;
-}
+  .cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 1.2em;
+    background-color: #fff;
+    transition: background-color 0.3s;
+  }
 
-.highlight {
-  background-color: #ffd54f;
-}
+  .highlight {
+    background-color: #ffd54f;
+  }
 
-.index {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  font-size: 0.7em;
-  color: #333;
-}
+  .index {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 0.7em;
+    color: #333;
+  }
 
-.hints {
-  margin-top: 20px;
-  text-align: left;
-  max-width: 480px;
-  width: 100%;
-  background-color: #1e1e2f;
-  border-radius: 10px;
-  padding: 15px;
-  color: white;
-}
+  .hints {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 480px;
+    width: 100%;
+    background-color: #1e1e2f;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+  }
 
-.hint-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-  background-color: #2e2e3f;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
+  .hint-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    background-color: #2e2e3f;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
 
-.hint-item:hover {
-  background-color: #3e3e4f;
-}
+  .hint-item:hover {
+    background-color: #3e3e4f;
+  }
 
-.hints p {
-  margin: 0;
-  color: white;
-  font-size: 1em;
-}
+  .hints p {
+    margin: 0;
+    color: white;
+    font-size: 1em;
+  }
 
-.hint-actions {
-  display: flex;
-  gap: 10px;
-}
+  .hint-actions {
+    display: flex;
+    gap: 10px;
+  }
 
-.edit-button,
-.delete-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  color: white;
-  font-size: 0.9em;
-}
+  .edit-button,
+  .delete-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+    font-size: 0.9em;
+  }
 
-.edit-button {
-  background-color: #ff9800;
-}
+  .edit-button {
+    background-color: #ff9800;
+  }
 
-.edit-button:hover {
-  background-color: #fb8c00;
-}
+  .edit-button:hover {
+    background-color: #fb8c00;
+  }
 
-.delete-button {
-  background-color: #f44336;
-}
+  .delete-button {
+    background-color: #f44336;
+  }
 
-.delete-button:hover {
-  background-color: #e53935;
-}
+  .delete-button:hover {
+    background-color: #e53935;
+  }
 </style>
