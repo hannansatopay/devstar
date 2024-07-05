@@ -1,6 +1,6 @@
 <script>
-  import InputForm from "./InputForm.svelte";
-  import CrosswordGrid from "./CrosswordGrid.svelte";
+  import InputForm from './InputForm.svelte';
+  import CrosswordGrid from './CrosswordGrid.svelte';
 
   let words = [];
   let wordToEdit = null;
@@ -12,6 +12,10 @@
 
   const deleteWord = (index) => {
     words = words.filter((_, i) => i !== index);
+    if (editIndex === index) {
+      wordToEdit = null;
+      editIndex = null;
+    }
   };
 
   const startEdit = (index) => {
@@ -26,29 +30,42 @@
   };
 </script>
 
-<div
-  class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
->
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
   <main>
-    <h1 class="title">Crossword Puzzle Maker</h1>
     <InputForm {addWord} {editWord} {wordToEdit} />
-    <CrosswordGrid {words} {deleteWord} {startEdit} />
   </main>
+  <aside>
+    <CrosswordGrid {words} {deleteWord} {startEdit} />
+  </aside>
 </div>
 
 <style>
+  .card {
+    display: grid;
+    gap: 16px;
+    align-items: top;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+  }  
+
+  @media (min-width: 1024px) {
+    .card {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  main, aside {
+    padding: 20px;
+    background-color: #111827;
+    border-radius: 8px;
+  }
+
   main {
-    text-align: center;
-    padding: 1em;
-    max-width: 800px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+    order: 1;
   }
-  h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  .title {
-    color: white;
+
+  aside {
+    order: 2;
   }
 </style>
