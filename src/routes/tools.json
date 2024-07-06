@@ -308,6 +308,33 @@
             }
         ]
     },
+    "word-cloud generator": {
+        "name": "Word Cloud Generator",
+        "link": "/word-cloud generator",
+        "description": "",
+        "contributors": [
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "wordcloud-generator": {
         "name": "Word Cloud Generator",
         "link": "/wordcloud-generator",
@@ -318,19 +345,19 @@
                 "githubId": "JoelMathewJob"
             },
             {
-                "name": "Malay Chowdhary",
-                "githubId": "malayit123"
+                "name": "",
+                "githubId": ""
             },
             {
                 "name": "Anushka Pandey",
+                "githubId": "AnushkaPandey0415"
+            },
+            {
+                "name": "",
                 "githubId": ""
             },
             {
-                "name": "Tanya Jain",
-                "githubId": ""
-            },
-            {
-                "name": "Vaishnavi Mhamunkar",
+                "name": "",
                 "githubId": ""
             }
         ]
