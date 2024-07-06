@@ -308,33 +308,6 @@
             }
         ]
     },
-    "word-cloud generator": {
-        "name": "Word Cloud Generator",
-        "link": "/word-cloud generator",
-        "description": "",
-        "contributors": [
-            {
-                "name": "",
-                "githubId": ""
-            },
-            {
-                "name": "",
-                "githubId": ""
-            },
-            {
-                "name": "",
-                "githubId": ""
-            },
-            {
-                "name": "",
-                "githubId": ""
-            },
-            {
-                "name": "",
-                "githubId": ""
-            }
-        ]
-    },
     "wordcloud-generator": {
         "name": "Word Cloud Generator",
         "link": "/wordcloud-generator",
