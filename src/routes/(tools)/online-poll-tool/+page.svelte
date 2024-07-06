@@ -1,42 +1,83 @@
 <script>
-	import PlusIcon from "./components/Plus-icon.svelte"
-	import CrossIcon from "./components/Cross-icon.svelte"
+	import PlusIcon from "./components/Plus-icon.svelte";
+	import CrossIcon from "./components/Cross-icon.svelte";
 	import TickIcon from "./components/Tick-icon.svelte";
-</script>
+	import { goto } from '$app/navigation';
 
-<div class="outer-container">
-		<div class="inner-container">
-			<div class="question flex flex-col">
-				<label for="">Title</label>
-				<input type="text" placeholder="Type your question here">
-			</div>
-			<div class="poll-type flex flex-col">
-				<label for="">Poll type</label>
-				<div class="select-poll-type flex items-center">
-					<TickIcon />
-					<select class="w-1/2 pl-10">
-						<option selected value="Multiple-choice">Multiple choice</option>
-					</select>
-				</div>
-			</div>
-			<div class="answers flex flex-col">
-				<label for="">Answer Options</label>
-				<div class="option relative flex items-center">
-					<input type="text" class="mb-2  w-full" placeholder="Option 1">
-					<button class="absolute right-3"><CrossIcon /></button>
-				</div>
-				<div class="option relative flex items-center">
-					<input type="text" class="mb-2  w-full" placeholder="Option 1">
-					<button class="absolute right-3"><CrossIcon /></button>
-				</div>
-				<div class="add-option flex items-center gap-x-2">
-					<button class="add-option-button flex"><PlusIcon />Add option</button>
-					<p>or <button class="add-other-button">Add "Other"</button></p>
-				</div>
-			</div>
-			<button class="create-poll-button">Create poll</button>
+	let title = '';
+	let pollType = 'Multiple-choice';
+	let options = ['', ''];
+  
+	function addOption() {
+	  options = [...options, ''];
+	}
+  
+	function removeOption(index) {
+	  options.splice(index, 1);
+	  options = [...options];
+	}
+  
+	async function createPoll() {
+	  const pollData = {
+		question: title,
+		pollType: pollType,
+		options: options.filter(opt => opt.trim() !== '')
+	  };
+  
+	  try {
+		const response = await fetch('/online-poll-tool/api/create-poll', {
+		  method: 'POST',
+		  headers: {
+			'Content-Type': 'application/json'
+		  },
+		  body: JSON.stringify(pollData)
+		});
+  
+		if (!response.ok) {
+		  throw new Error('Failed to create poll');
+		}
+  
+		const { id } = await response.json();
+		goto(`/online-poll-tool/${id}`);
+	  } catch (error) {
+		console.error('Error creating poll:', error);
+	  }
+	}
+  
+	$: validOptions = options.filter(opt => opt.trim() !== '');
+  </script>
+  
+  <div class="outer-container">
+	<div class="inner-container">
+	  <div class="question flex flex-col">
+		<label for="pollTitle">Title</label>
+		<input type="text" id="pollTitle" bind:value={title} placeholder="Type your question here">
+	  </div>
+	  <div class="poll-type flex flex-col">
+		<label for="pollType">Poll type</label>
+		<div class="select-poll-type flex items-center">
+		  <TickIcon />
+		  <select id="pollType" bind:value={pollType} class="w-1/2 pl-10">
+			<option value="Multiple-choice">Multiple choice</option>
+		  </select>
 		</div>
-</div>
+	  </div>
+	  <div class="answers flex flex-col">
+		<label for="answerOptions">Answer Options</label>
+		{#each options as option, index}
+		  <div class="option relative flex items-center" key={index}>
+			<input type="text" id="answerOptions" bind:value={options[index]} class="mb-2 w-full" placeholder={`Option ${index + 1}`}>
+			<button class="absolute right-3" on:click={() => removeOption(index)}><CrossIcon /></button>
+		  </div>
+		{/each}
+		<div class="add-option flex items-center gap-x-2">
+		  <button class="add-option-button flex" on:click={addOption}><PlusIcon />Add option</button>
+		  <p>or <button class="add-other-button" on:click={() => options = [...options, 'Other']}>Add "Other"</button></p>
+		</div>
+	  </div>
+	  <button class="create-poll-button" on:click={createPoll} disabled={!title.trim() || !validOptions.length}>Create poll</button>
+	</div>
+  </div>
 
 <style>
 	.outer-container {
