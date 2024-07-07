@@ -1,23 +1,15 @@
 {
-    "name": "",
-    "description":"",
+    "name": "SVG Pattern Generator",
+    "description":"The SVG Pattern Generator is a free tool that creates customizable SVG background patterns. It offers various settings and shapes, with adjustable size, spacing, rotation, skew, and opacity. Patterns can be exported as SVG or PNG files, used anywhere, including in website code. They can also serve as templates for social media assets. Patterns can be exported as repeating backgrounds for website optimization. However, rotation and skew parameters must be set manually if required.",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Nikhil sai Sripathi",
+        "githubId": "NikhilsaiSripathi"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Ashwani Kumar Singh",
+        "githubId": "ashwani2529"
     },
     {
-        "name": "",
-        "githubId": ""
-    },
-    {
-        "name": "",
-        "githubId": ""
-    },
-    {
-        "name": "",
-        "githubId": ""
+        "name": "Dhanalakshmi C",
+        "githubId": "poojagowda00"
     }]
 }
