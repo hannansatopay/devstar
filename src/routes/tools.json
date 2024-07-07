@@ -294,7 +294,7 @@
     "sql-query-builder": {
         "name": "SQL Query Builder",
         "link": "/sql-query-builder",
-        "description": "The SQL AI Query Generator is a simple yet effective web application designed to help users generate SQL queries using AI.",
+        "description": "The SQL Query Generator is a powerful tool designed to simplify the creation of SQL queries through a user-friendly interface. This application allows users to select parameters from a left pane, such as tables, columns, and conditions. The tool then dynamically generates the corresponding SQL query, displaying it in real-time on the right side of the interface.",
         "contributors": [
             {
                 "name": "Atharva Sawant",
