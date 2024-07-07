@@ -1,6 +1,6 @@
 {
     "name": "SVG Placeholder Generator",
-    "description":"",
+    "description":"Generate svg images to use as a placeholder in your applications",
     "contributors": [{
         "name": "",
         "githubId": ""
