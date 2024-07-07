@@ -1,8 +1,11 @@
 import prisma from '../../../lib/db.js';
+import { decode } from 'base-64';
 
 export async function GET({ params }) {
+  const decryptedId = decode(params.id);
+
   const poll = await prisma.poll.findUnique({
-    where: { id: params.id }
+    where: { id: decryptedId }
   });
 
   if (!poll) {

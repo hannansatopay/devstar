@@ -1,4 +1,5 @@
 import prisma from '../../lib/db.js';
+import { encode } from 'base-64'; // Using base-64 encoding
 
 export async function POST({ request }) {
   const { question, pollType, options } = await request.json();
@@ -12,5 +13,7 @@ export async function POST({ request }) {
     }
   });
 
-  return new Response(JSON.stringify({ id: poll.id }), { status: 201 });
+  const encryptedId = encode(poll.id.toString());
+
+  return new Response(JSON.stringify({ id: encryptedId }), { status: 201 });
 }
