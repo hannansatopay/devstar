@@ -294,27 +294,27 @@
     "sql-query-builder": {
         "name": "SQL Query Builder",
         "link": "/sql-query-builder",
-        "description": "The SQL AI Query Generator is a simple yet effective web application designed to help users generate SQL queries using AI. By leveraging the powerful Hugging Face model, this application enables users to effortlessly generate precise SQL queries without needing extensive knowledge of SQL syntax. Ideal for developers and data analysts, the SQL AI Query Generator enhances productivity by automating the query generation process, allowing users to focus on data analysis and application development.",
+        "description": "The SQL AI Query Generator is a simple yet effective web application designed to help users generate SQL queries using AI.",
         "contributors": [
             {
                 "name": "Atharva Sawant",
-                "githubId": "Satharva2004"
-            },
-            {
-                "name": "Kalyan Sharma",
-                "githubId": "kalyan123s"
-            },
-            {
-                "name": "Moain khan",
-                "githubId": "Moain khan"
-            },
-            {
-                "name": "Harshitha s",
                 "githubId": ""
             },
             {
-                "name": "Harshitha s",
-                "githubId": "garretfernandezz"
+                "name": "Kalyan Sharma",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
             }
         ]
     },
