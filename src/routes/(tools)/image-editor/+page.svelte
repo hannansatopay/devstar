@@ -1,11 +1,16 @@
 <script>
 	import Crop from './_components/Crop.svelte';
 	import Filter from './_components/Filter.svelte';
+	import ImagePreview from './_components/ImagePreview.svelte';
     let currentFeature = '';
+	let imageUrl = '';
 	let image = "https://picsum.photos/200"
     function showFeature(feature) {
-        currentFeature = feature;
+		currentFeature = feature;
     }
+	function uploadImage(){
+		imageUrl = '';
+	}
 </script>
 
 <div class="container flex justify-between">
@@ -14,25 +19,12 @@
 		<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
 	  </svg><span class="font-semibold">Customize</span>
 	</button>
-	<button inputmode="file" class="flex justify-evenly items-center bg-gray-400 dark:bg-white p-2 my-3 rounded-xl">
+	<button on:click={() => showFeature('choose-random')} class="flex justify-evenly items-center bg-gray-400 dark:bg-white p-2 my-3 rounded-xl">
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 			<path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
 		  </svg><span class="font-semibold">Choose A Random Image</span>
 	</button>
 </div>
-
-<!-- <div class="flex items-center justify-center w-full">
-	<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-		<div class="flex flex-col items-center justify-center pt-5 pb-6">
-			<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-			</svg>
-			<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-			<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-		</div>
-		<input id="dropzone-file" type="file" class="hidden" />
-	</label>
-</div> -->
 
 <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:flex overflow-hidden rounded-lg">
 	<!-- Add tool here -->
@@ -64,34 +56,47 @@
 			  </svg>Stickers
 		</button>
     </div>
-    <div class="flex justify-center items-center flex-grow w-full bg-gray-200">
+    <div class="flex justify-center items-center flex-grow w-full bg-gray-200 rounded-lg">
         {#if currentFeature === 'crop'}
             <Crop image={image} />
 		{:else if currentFeature === 'filter'}
 			<Filter image={image} />
+		{:else if currentFeature === 'choose-random'}
+			<div>
+				"gvg"
+			</div>
+		{:else if currentFeature === 'upload-pic'}
+			<ImagePreview imageUrl=''/>
+		{:else}
+			<ImagePreview bind:imageUrl={imageUrl} />
         {/if}
 	</div>
 	<div class="flex lg:flex-col w-full p-4 border-gray-300 basis-1 md:flex-row md:justify-around">
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('crop')}>
+        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('fill')}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paint-bucket" viewBox="0 0 16 16">
 				<path d="M6.192 2.78c-.458-.677-.927-1.248-1.35-1.643a3 3 0 0 0-.71-.515c-.217-.104-.56-.205-.882-.02-.367.213-.427.63-.43.896-.003.304.064.664.173 1.044.196.687.556 1.528 1.035 2.402L.752 8.22c-.277.277-.269.656-.218.918.055.283.187.593.36.903.348.627.92 1.361 1.626 2.068.707.707 1.441 1.278 2.068 1.626.31.173.62.305.903.36.262.05.64.059.918-.218l5.615-5.615c.118.257.092.512.05.939-.03.292-.068.665-.073 1.176v.123h.003a1 1 0 0 0 1.993 0H14v-.057a1 1 0 0 0-.004-.117c-.055-1.25-.7-2.738-1.86-3.494a4 4 0 0 0-.211-.434c-.349-.626-.92-1.36-1.627-2.067S8.857 3.052 8.23 2.704c-.31-.172-.62-.304-.903-.36-.262-.05-.64-.058-.918.219zM4.16 1.867c.381.356.844.922 1.311 1.632l-.704.705c-.382-.727-.66-1.402-.813-1.938a3.3 3.3 0 0 1-.131-.673q.137.09.337.274m.394 3.965c.54.852 1.107 1.567 1.607 2.033a.5.5 0 1 0 .682-.732c-.453-.422-1.017-1.136-1.564-2.027l1.088-1.088q.081.181.183.365c.349.627.92 1.361 1.627 2.068.706.707 1.44 1.278 2.068 1.626q.183.103.365.183l-4.861 4.862-.068-.01c-.137-.027-.342-.104-.608-.252-.524-.292-1.186-.8-1.846-1.46s-1.168-1.32-1.46-1.846c-.147-.265-.225-.47-.251-.607l-.01-.068zm2.87-1.935a2.4 2.4 0 0 1-.241-.561c.135.033.324.11.562.241.524.292 1.186.8 1.846 1.46.45.45.83.901 1.118 1.31a3.5 3.5 0 0 0-1.066.091 11 11 0 0 1-.76-.694c-.66-.66-1.167-1.322-1.458-1.847z"/>
 			  </svg>Fill
 		</button>
-		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('finetune')}>
+		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('resize')}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-resize" viewBox="0 0 16 16">
 				<path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0"/>
 			  </svg>Resize
 		</button>
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('filter')}>
+        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('redact')}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter-square" viewBox="0 0 16 16">
 				<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
 				<path d="M6 11.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
 			  </svg>Redact
 		</button>
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('annotate')}>
+        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('frame')}>
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
 			  </svg>Frame
+		</button>
+		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => {uploadImage(), showFeature('upload-pic')}}>
+			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+			  </svg>Upload
 		</button>
     </div>
 </div>
