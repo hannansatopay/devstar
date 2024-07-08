@@ -13,9 +13,9 @@
 	const regexPatterns = {
 		email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 		date: /^\d{4}-\d{2}-\d{2}$/,
-		mobile: /^\d{10}$/,
-		url: /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/,
-		alphanumeric: /^[a-z0-9]+$/i
+		mobile: /^(?:\+?\d{1,3}[- ]?)?(\d[- ]?){9}\d$/,
+		url: /^(https?:\/\/(www\.)?|www\.)[a-zA-Z0-9]+([\-][a-zA-Z0-9]+)*(\.[a-zA-Z]{2,})?$|^(http|https)$/,
+		alphanumeric: /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/i
 	};
 
 	const matches = derived(
