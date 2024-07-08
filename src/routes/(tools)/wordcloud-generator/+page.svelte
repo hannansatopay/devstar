@@ -85,25 +85,6 @@
 </svelte:head>
 
 
-<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg ">
-<section>
-    <label for="words">
-        <h2 class="text-white m-5">Enter Words:</h2>
-        <textarea id="words" bind:value={userInput} rows="4" cols="50"></textarea>
-    </label>
-    <button on:click={generateWordCloud}>Generate Word Cloud</button>
-    <button on:click={downloadImage}>Download Image</button>
-
-    <svg id="wordCloud" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
-        {#if wordData.length > 0}
-            <g transform={`translate(${width / 2}, ${height / 2})`}>
-                {#each wordData as word}
-                    <text
-                        x={word.x}
-                        y={word.y}
-                        style="font-size: {word.size}px; fill: {cat10colors[Math.floor(Math.random() * 10)]}; transform: translate(${word.x}px, ${word.y}px) rotate(${word.rotate}deg);">
-                        {word.text}
-                    </text>
 
 <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
     <section>
