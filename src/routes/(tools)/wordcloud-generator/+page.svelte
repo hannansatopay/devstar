@@ -39,8 +39,28 @@
         wordData = words.map(word => ({
             ...word,
             x: word.x,
-            y: word.y
+            y: word.y,
+            rotate: word.rotate,
+            size: word.size,
+            text: word.text
         }));
+    };
+
+    const downloadImage = () => {
+        const svgElement = document.getElementById('wordCloud');
+        const serializer = new XMLSerializer();
+        const source = serializer.serializeToString(svgElement);
+
+        const svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'wordcloud.svg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     };
 </script>
 
@@ -64,6 +84,27 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 </svelte:head>
 
+
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg ">
+<section>
+    <label for="words">
+        <h2 class="text-white m-5">Enter Words:</h2>
+        <textarea id="words" bind:value={userInput} rows="4" cols="50"></textarea>
+    </label>
+    <button on:click={generateWordCloud}>Generate Word Cloud</button>
+    <button on:click={downloadImage}>Download Image</button>
+
+    <svg id="wordCloud" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid meet">
+        {#if wordData.length > 0}
+            <g transform={`translate(${width / 2}, ${height / 2})`}>
+                {#each wordData as word}
+                    <text
+                        x={word.x}
+                        y={word.y}
+                        style="font-size: {word.size}px; fill: {cat10colors[Math.floor(Math.random() * 10)]}; transform: translate(${word.x}px, ${word.y}px) rotate(${word.rotate}deg);">
+                        {word.text}
+                    </text>
+
 <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
     <section>
         <label for="words">
@@ -83,6 +124,7 @@
                 <option value="" disabled selected>Select an option</option>
                 {#each fontTypes as type}
                     <option value={type}>{type}</option>
+
                 {/each}
             </select>
         </label>
@@ -154,6 +196,7 @@
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        margin-right: 10px;
     }
 
     button:hover {
