@@ -117,9 +117,9 @@
             }
         ]
     },
-    "Gradient-generator": {
+    "gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/Gradient-generator",
+        "link": "/gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -266,29 +266,33 @@
         ]
     },
     "regex-tool": {
-        "name": "",
+        "name": "Regex Tool",
         "link": "/regex-tool",
         "description": "",
         "contributors": [
             {
-                "name": "",
-                "githubId": ""
+                "name": "Soham Jayakar",
+                "githubId": "SohamJayakar"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Amey Patil",
+                "githubId": "Ameypatil07"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Mohmad Danish Rehman",
+                "githubId": "dannish110"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Vijay Kalidas Pawar",
+                "githubId": "vijay-pawar-99"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },

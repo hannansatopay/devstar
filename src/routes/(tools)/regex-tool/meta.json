@@ -1,23 +1,27 @@
 {
-    "name": "",
+    "name": "Regex Tool",
     "description":"",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Soham Jayakar",
+        "githubId": "SohamJayakar"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Amey Patil",
+        "githubId": "Ameypatil07"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Mohmad Danish Rehman",
+        "githubId": "dannish110"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Darshana Jadhav",
+        "githubId": "Darshana1011"
     },
     {
-        "name": "",
-        "githubId": ""
-    }]
+        "name": "Vijay Kalidas Pawar",
+        "githubId": "vijay-pawar-99"
+    },
+{
+    "name":"Ashwani Kumar Singh",
+    "githubId":"ashwani2529"
+}]
 }
