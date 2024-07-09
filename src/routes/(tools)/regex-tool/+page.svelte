@@ -14,7 +14,7 @@
 		email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 		date: /^\d{4}-\d{2}-\d{2}$/,
 		mobile: /^(?:\+?\d{1,3}[- ]?)?(\d[- ]?){9}\d$/,
-		url: /\b(?:https?:\/\/)?(?:www\.)[a-zA-Z0-9][a-zA-Z0-9\-]*\.[a-zA-Z]{2,}\b(?:\/\S*)?|\b(?:https?:\/\/)?(?!www\.)[a-zA-Z0-9][a-zA-Z0-9\-]*\.[a-zA-Z]{2,}\b|^(http|https)$/ig,
+		url: /\b(?:https?:\/\/)?(?:www\.)[a-zA-Z0-9][a-zA-Z0-9\-]*\.[a-zA-Z]{2,}\b(?:\/\S*)?|\b(?:https?:\/\/)?(?!www\.)[a-zA-Z0-9][a-zA-Z0-9\-]*\.[a-zA-Z]{2,}\b/ig,
 		alphanumeric: /^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/i
 	};
 
