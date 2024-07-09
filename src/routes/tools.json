@@ -291,6 +291,37 @@
             }
         ]
     },
+    "sql-query-builder": {
+        "name": "SQL Query Builder",
+        "link": "/sql-query-builder",
+        "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
+        "contributors": [
+            {
+                "name": "Atharva Sawant",
+                "githubId": "Satharva2004"
+            },
+            {
+                "name": "Kalyan Sharma",
+                "githubId": "kalyan123s"
+            },
+            {
+                "name": "Harshita S",
+                "githubId": "Harshitha0066"
+            },
+            {
+                "name": "Garret Farnandez",
+                "githubId": "garretfernandezz"
+            },
+            {
+                "name": "Moain Khan",
+                "githubId": "Moainkhan"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "watermark-pdf": {
         "name": "Watermark PDF",
         "link": "/watermark-pdf",
