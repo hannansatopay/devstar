@@ -9,12 +9,14 @@
     let id = '';
     let loading = true;
     let error = false;
+    let expirationMessage = '';
 
     async function fetchPoll(id) {
         try {
             const response = await fetch(`/online-poll-tool/api/get-poll/${id}`);
             if (response.ok) {
                 poll = await response.json();
+                setExpirationMessage()
                 fetchResults(id);
             } else {
                 console.error('Failed to fetch poll:', response.statusText);
@@ -71,6 +73,19 @@
             alert('Web Share API is not supported in your browser.');
         }
     }
+
+    function setExpirationMessage() {
+        const expirationTime = new Date(poll.expirationTime);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = months[expirationTime.getMonth()];
+        const date = expirationTime.getDate();
+        let hours = expirationTime.getHours();
+        const minutes = expirationTime.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Handle midnight (0 hours) as 12
+        expirationMessage = `This poll will expire on ${month} ${date}, at ${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    }
 </script>
 
 <div class="outer-container">
@@ -89,8 +104,9 @@
                 <div class="title">
                     {#if poll}
                         <h2>{poll.question}</h2>
+                        <p class="expiration-message">{expirationMessage}</p>
                     {:else}
-                        <h2>Poll not found or error fetching data</h2>
+                        <h2>Poll not found or Poll Expired!</h2>
                     {/if}
                 </div>
 
@@ -245,6 +261,11 @@ svg path {
         color: #fff;
         width: 15px;
         height: 20px;
+    }
+    .title p {
+        font-size: 14px;
+        color: rgb(133, 133, 133);
+        margin-top: 10px;
     }
     @media(max-width: 1250px) {
 		.inner-container{

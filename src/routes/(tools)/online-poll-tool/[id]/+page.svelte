@@ -9,10 +9,11 @@
     let hasVoted = false;
     let selectedOption = '';
     let message = '';
-    let success_message = ''
+    let success_message = '';
     let showModal = false;
     let loading = true;
     let copyMessage = '';
+    let expirationMessage = '';
 
     function checkLocalStorage(id) {
         const votedStatus = localStorage.getItem(`poll_${id}_voted`);
@@ -28,9 +29,10 @@
             if (response.ok) {
                 poll = await response.json();
                 checkLocalStorage(id);
+                setExpirationMessage();
             } else {
                 console.error('Failed to fetch poll:', response.statusText);
-                message = 'Poll not found';
+                message = 'Poll not found or Poll Expired!';
             }
         } catch (error) {
             console.error('Error fetching poll:', error);
@@ -39,6 +41,20 @@
             loading = false;
         }
     }
+
+    function setExpirationMessage() {
+        const expirationTime = new Date(poll.expirationTime);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const month = months[expirationTime.getMonth()];
+        const date = expirationTime.getDate();
+        let hours = expirationTime.getHours();
+        const minutes = expirationTime.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // Handle midnight (0 hours) as 12
+        expirationMessage = `This poll will expire on ${month} ${date}, at ${hours}:${minutes < 10 ? '0' + minutes : minutes} ${ampm}`;
+    }
+
 
     onMount(() => {
         id = $page.params.id;
@@ -106,7 +122,6 @@
         }
     }
 
-
     function copyLink() {
         const link = `http://localhost:5173/online-poll-tool/${poll.id}`;
         navigator.clipboard.writeText(link).then(() => {
@@ -129,6 +144,7 @@
         <div class="outer">
             <div class="inner">
                 <h2 class="title">{poll.question}</h2>
+                <p class="expiration-message">{expirationMessage}</p>
                 <div class="choose">
                     {#each poll.options as option}
                         <div class="options">
@@ -183,7 +199,7 @@
     {:else}
         <div class="outer">
             <div class="inner">
-                <h2>Poll not found</h2>
+                <h2>Poll not found or Poll Expired!</h2>
             </div>
         </div>
     {/if}
@@ -325,6 +341,11 @@
         background-color: rgb(236, 212, 212);
         padding: 10px;
         border-radius: 5px;
+        margin-top: 10px;
+    }
+    .expiration-message {
+        font-size: 14px;
+        color: rgb(133, 133, 133);
         margin-top: 10px;
     }
 </style>
