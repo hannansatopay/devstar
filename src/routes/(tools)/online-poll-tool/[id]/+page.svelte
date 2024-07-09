@@ -278,18 +278,6 @@
     .copy-button:hover {
         background-color: rgb(110, 110, 110);
     }
-    .already-voted {
-      margin-top: 15px;
-      color: rgb(228, 9, 9);
-      font-weight: 500;
-      background-color: rgb(236, 212, 212);
-      padding: 10px;
-      border-radius: 5px;
-      display: none;
-    }
-    .already-voted.show {
-      display: block;
-    }
     .modal {
       display: flex;
       justify-content: center;
