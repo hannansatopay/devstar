@@ -117,9 +117,9 @@
             }
         ]
     },
-    "Gradient-generator": {
+    "gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/Gradient-generator",
+        "link": "/gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -295,25 +295,32 @@
         "name": "SQL Query Builder",
         "link": "/sql-query-builder",
         "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
-        "contributors": [{
-        "name": "Atharva Sawant",
-        "githubId": "Satharva2004"
-            }, {
+        "contributors": [
+            {
+                "name": "Atharva Sawant",
+                "githubId": "Satharva2004"
+            },
+            {
                 "name": "Kalyan Sharma",
                 "githubId": "kalyan123s"
             },
             {
                 "name": "Harshita S",
-                "githubId": ""
+                "githubId": "Harshitha0066"
             },
             {
                 "name": "Garret Farnandez",
-                "githubId": ""
+                "githubId": "garretfernandezz"
             },
             {
                 "name": "Moain Khan",
-                "githubId": ""
-            }]
+                "githubId": "Moainkhan"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
     },
     "watermark-pdf": {
         "name": "Watermark PDF",
