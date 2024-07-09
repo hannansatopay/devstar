@@ -6,7 +6,7 @@
 
 	let inputText = '';
 	let suffix = '';
-	let prefix = '';https://github.com/Satharva2004/devstar.git
+	let prefix = '';
 	let results='';
 
 	function downloadPDF() {
