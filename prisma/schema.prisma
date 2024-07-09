@@ -19,4 +19,5 @@ model Poll {
   pollType String
   options  String[]
   votes    String[]
+  createdAt DateTime @default(now())
 }

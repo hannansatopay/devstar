@@ -15,10 +15,13 @@ export async function GET({ params }) {
   // Encrypt poll.id again before returning
   const encryptedId = encode(poll.id.toString());
 
+  const expirationTime = new Date(new Date(poll.createdAt).getTime() + 15 * 60 * 1000);
+
   // Create a new poll object with encrypted id
   const encryptedPoll = {
     ...poll,
-    id: encryptedId
+    id: encryptedId,
+    expirationTime: expirationTime.toISOString() // Convert to ISO string for easy handling on the frontend
   };
 
   return new Response(JSON.stringify(encryptedPoll), { status: 200 });
