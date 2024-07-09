@@ -7,16 +7,18 @@
     let poll = null;
     let id = null;
     let hasVoted = false;
-    let selectedOption = ''; // Initialize selectedOption
+    let selectedOption = '';
     let message = '';
+    let success_message = ''
     let showModal = false;
     let loading = true;
+    let copyMessage = '';
 
     function checkLocalStorage(id) {
         const votedStatus = localStorage.getItem(`poll_${id}_voted`);
         if (votedStatus === 'true') {
             hasVoted = true;
-            selectedOption = localStorage.getItem(`poll_${id}_selectedOption`) || ''; // Load selected option from localStorage
+            selectedOption = localStorage.getItem(`poll_${id}_selectedOption`) || '';
         }
     }
 
@@ -59,8 +61,8 @@
                     if (response.ok) {
                         hasVoted = true;
                         localStorage.setItem(`poll_${poll.id}_voted`, 'true');
-                        localStorage.setItem(`poll_${poll.id}_selectedOption`, selectedOption); // Store selected option in localStorage
-                        message = 'Vote successful. Thank you for participating in this poll. Your vote has been counted.';
+                        localStorage.setItem(`poll_${poll.id}_selectedOption`, selectedOption);
+                        success_message = 'Vote successful. Thank you for participating in this poll. Your vote has been counted.';
                         showModal = true;
                     } else {
                         message = 'Failed to submit vote';
@@ -70,7 +72,7 @@
                     message = 'Error submitting vote';
                 }
             } else {
-                alert('Please select an option before voting.');
+                message = 'Please select an option before voting.';
             }
         }
     }
@@ -78,7 +80,7 @@
     function handleOptionChange(option) {
         if (!hasVoted) {
             selectedOption = option;
-            localStorage.setItem(`poll_${poll.id}_selectedOption`, selectedOption); // Store selected option in localStorage
+            localStorage.setItem(`poll_${poll.id}_selectedOption`, selectedOption);
         }
     }
 
@@ -90,14 +92,26 @@
         goto(`/online-poll-tool/${id}/results`);
     }
 
-    function share(platform) {
-        alert(`Sharing poll on ${platform}...`);
+    function share() {
+        const resultsUrl = `${window.location.origin}/online-poll-tool/${id}`;
+        if (navigator.share) {
+            navigator.share({
+                title: 'Online Poll Tool',
+                text: 'Check out the results of this poll!',
+                url: resultsUrl
+            })
+            .catch(error => console.log('Error sharing:', error));
+        } else {
+            alert('Web Share API is not supported in your browser.');
+        }
     }
+
 
     function copyLink() {
         const link = `http://localhost:5173/online-poll-tool/${poll.id}`;
         navigator.clipboard.writeText(link).then(() => {
-            alert('Link copied to clipboard!');
+            copyMessage = 'Link copied to clipboard!';
+            setTimeout(() => copyMessage = '', 2000);
         }).catch(err => {
             console.error('Failed to copy link:', err);
         });
@@ -114,7 +128,7 @@
     {#if poll}
         <div class="outer">
             <div class="inner">
-                <h2>{poll.question}</h2>
+                <h2 class="title">{poll.question}</h2>
                 <div class="choose">
                     {#each poll.options as option}
                         <div class="options">
@@ -125,13 +139,15 @@
                         </div>
                     {/each}
                 </div>
-                <div class="already-voted {message && message !== 'Vote successful. Thank you for participating in this poll. Your vote has been counted.' ? 'show' : ''}">
-                    {message && message !== 'Vote successful. Thank you for participating in this poll. Your vote has been counted.' ? message : ''}
-                </div>
                 <div class="button-container">
                     <button class="vote-button" on:click={handleVote}>Vote</button>
                     <button class="results-button" on:click={showResults}>Show Results</button>
+                    <button class="results-button" on:click={share}>Share</button>
                 </div>
+                <!-- Display message below the vote button -->
+                {#if message}
+                    <p class="error-message">{message}</p>
+                {/if}
             </div>
         </div>
 
@@ -144,18 +160,21 @@
                         <CopyIcon />
                     </button>
                 </div>
+                {#if copyMessage}
+                    <p class="copy-message">{copyMessage}</p>
+                {/if}
             </div>
         </div>
 
         {#if showModal}
             <div class="modal">
                 <div class="modal-content">
-                    <p>{message}</p>
+                    <p>{success_message}</p>
                     <div class="button-container">
                         <button class="modal-button" on:click={showResults}>View Results</button>
                         <button class="modal-button" on:click={() => {
-                            share('platform')
-                            copyLink()}}>Share</button>
+                            share();
+                        }}>Share</button>
                         <button class="modal-button" on:click={closeModal}>Close</button>
                     </div>
                 </div>
@@ -170,11 +189,14 @@
     {/if}
 {/if}
 
-  <style>
+<style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+    .title {
+        font-size: 20px;
     }
     .outer {
       display: flex;
@@ -209,8 +231,9 @@
       margin-right: 10px;
     }
     .options label {
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
+      color: rgb(211, 211, 211);
     }
     .button-container {
       display: flex;
@@ -252,6 +275,9 @@
         display: flex;
         align-items: center;
         }
+    .copy-button:hover {
+        background-color: rgb(110, 110, 110);
+    }
     .already-voted {
       margin-top: 15px;
       color: rgb(228, 9, 9);
@@ -274,6 +300,7 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(1px);
     }
     .modal-content {
       background-color: white;
@@ -285,7 +312,7 @@
     .modal-button {
       margin-top: 10px;
       padding: 10px 20px;
-      background-color: grey;
+      background-color: rgb(56, 124, 228);
       color: white;
       border: none;
       border-radius: 5px;
@@ -296,5 +323,20 @@
       gap: 10px;
       justify-content: center;
     }
-  </style>
-  
+    .copy-message {
+        margin-top: 10px;
+        color: rgb(209, 213, 219);
+        background-color: rgba(62, 63, 65, 0.801);
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    .error-message {
+        color: rgb(228, 9, 9);
+        font-weight: 500;
+        background-color: rgb(236, 212, 212);
+        padding: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+</style>
