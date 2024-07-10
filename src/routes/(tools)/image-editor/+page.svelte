@@ -3,7 +3,8 @@
 	import Filter from './_components/Filter.svelte';
 	import ImagePreview from './_components/ImagePreview.svelte';
     let currentFeature = '';
-	let imageUrl = '';
+	  let imageUrl = 'https://mywebsite.com/images/myphoto.jpg';
+
 	let image = "https://picsum.photos/200"
     function showFeature(feature) {
 		currentFeature = feature;
