@@ -119,7 +119,7 @@
     class="container mx-auto max-w-screen-xl flex flex-col lg:flex-row overflow-hidden rounded-lg"
 >
     <div
-        class="side bg-blue-300 w-40 shadow-xl min-h-screen top-0 left-0 bottom-0"
+        class="side bg-gray-300 w-40 shadow-xl min-h-screen top-0 left-0 bottom-0"
     >
         <button
             class="flex flex-col justify-between items-center"
@@ -262,7 +262,7 @@
         position: relative;
         background-color: white;
         max-height: 100vh;
-        background-color: blue;
+        background-color: rgb(102, 102, 121);
     }
     .side {
         position: relative;
@@ -275,7 +275,7 @@
         transform: translate(1rem, -5rem);
     }
     .input-url {
-        background-color: rgb(183, 231, 233);
+        background-color: rgb(155, 186, 187);
         color: rgb(71, 69, 69);
         padding: 10px;
         padding-right: 0;
@@ -313,6 +313,7 @@
         /* scrollbar-width: none; */
     }
     .content {
+        margin-left: 1rem;
         scroll-behavior: smooth;        
         scrollbar-width: 2rem;
         overflow-x: auto;
