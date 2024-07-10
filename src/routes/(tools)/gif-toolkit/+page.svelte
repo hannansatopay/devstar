@@ -17,7 +17,7 @@
 	import Tool16 from "./tool16/+page.svelte";
 
 	const tools = [
-	  { name: "Vertical Flip GIF", component: Tool1 },
+	  { name: "GIF to Base64", component: Tool1 },
 	  { name: "Blur GIF", component: Tool2 },
 	  { name: "Color GIF to Grayscale", component: Tool3 },
 	  { name: "Change brightness of GIF", component: Tool4 },
@@ -50,7 +50,7 @@
   {:else}
     <div>
       <svelte:component this={selectedTool}/>
-	  <button on:click={() => selectedTool = null} class="backbutton bg-gray-700 hover:bg-gray-800 text-white p-3 rounded-lg mb-4">
+	  <button on:click={() => selectedTool = null} class="backbutton bg-gray-700 hover:bg-gray-800 text-white p-3 rounded-lg mb-4 mt-8">
         Back to Tools
       </button>
     </div>

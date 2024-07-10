@@ -1,149 +1,162 @@
+<!-- GIFToBase64Converter.svelte -->
 <script>
-  import { onMount } from 'svelte';
+  let uploadedGif = null;
+  let base64String = '';
 
-  let file = null;
-  let flippedUrl = null;
-  let previewUrl = null;
-
-  async function handleFileUpload(event) {
-    const input = event.target;
-    if (input.files && input.files[0]) {
-      file = input.files[0];
-      previewUrl = URL.createObjectURL(file);
-    }
-  }
-
-  async function flipAndDownload() {
-    if (!file) return;
-
-    try {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-
-      const img = new Image();
-      img.onload = function() {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.scale(1, -1); // Flip vertically
-        ctx.drawImage(img, 0, -canvas.height, canvas.width, canvas.height);
-        flippedUrl = canvas.toDataURL('image/gif');
-
-        // Enable the download button after flipping
-        const downloadBtn = document.getElementById('downloadBtn');
-        if (downloadBtn) {
-          downloadBtn.removeAttribute('disabled');
-        }
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/gif')) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        uploadedGif = e.target.result;
+        convertToBase64();
       };
-      img.src = previewUrl;
-    } catch (error) {
-      console.error('Error flipping GIF:', error.message);
+      reader.readAsDataURL(file);
+    } else {
+      alert('Please upload a GIF file.');
     }
-  }
+  };
 
-  function downloadFlipped() {
-    if (flippedUrl) {
-      const a = document.createElement('a');
-      a.href = flippedUrl;
-      a.download = 'flipped.gif';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+  const convertToBase64 = () => {
+    if (uploadedGif) {
+      const base64 = uploadedGif.split(',')[1];
+      base64String = base64;
     }
-  }
+  };
 
-  let canvas;
-  onMount(() => {
-    canvas = document.getElementById('previewCanvas');
-  });
+  const downloadBase64 = () => {
+    const a = document.createElement('a');
+    a.href = uploadedGif;
+    a.download = 'base64_gif.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
-  $: if (previewUrl && canvas) {
-    const ctx = canvas.getContext('2d');
-    const img = new Image();
-    img.onload = function() {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    };
-    img.src = previewUrl;
-  }
+  const copyBase64 = () => {
+    navigator.clipboard.writeText(base64String)
+      .then(() => {
+        alert('Base64 text copied to clipboard.');
+      })
+      .catch(err => {
+        console.error('Unable to copy base64 text: ', err);
+      });
+  };
 </script>
 
-<style>
-  .card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    max-width: 100%;
-    overflow: hidden;
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .card img {
-    max-width: 100%;
-    max-height: 300px;
-    object-fit: contain;
-  }
-  .flex {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .btn {
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    color: #fff;
-  }
-  .btn-primary {
-    background-color: #007BFF;
-  }
-  .btn-primary:hover {
-    background-color: #0056B3;
-  }
-  .btn-secondary {
-    background-color: #28A745;
-  }
-  .btn-secondary:hover {
-    background-color: #218838;
-  }
-  .canvas-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-  }
-  canvas {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
-</style>
-
-<div class="card">
-  <div class="flex">
-    <label for="file">Upload GIF:</label>
-    <input type="file" id="file" on:change={handleFileUpload}>
-    <button class="btn btn-primary" on:click={flipAndDownload}>Flip GIF</button>
-    <button id="downloadBtn" class="btn btn-secondary" on:click={downloadFlipped} disabled={!flippedUrl}>Download Flipped GIF</button>
+<div class="container">
+  <div class="title">Convert GIF to Base64</div>
+  
+  <div class="upload-container">
+    <input type="file" accept="image/gif" on:change={handleFileUpload} id="gif-upload" style="display: none;">
+    <label for="gif-upload" class="upload-button">Upload GIF</label>
   </div>
-  {#if previewUrl}
-    <div class="canvas-container">
-      <canvas id="previewCanvas"></canvas>
-    </div>
-  {/if}
-  {#if flippedUrl}
-    <div class="flex justify-center items-center">
-      <img src={flippedUrl} alt="Flipped GIF">
-    </div>
-  {:else}
-    <div class="flex justify-center items-center">
-      <p class="text-gray-500">Upload a GIF and click 'Flip GIF' to get started!</p>
+
+  {#if uploadedGif}
+    <div class="preview-container">
+      <div class="preview">
+        <div>Uploaded GIF</div>
+        <img src={uploadedGif} alt="Uploaded GIF">
+      </div>
+
+      <div class="preview">
+        <div>Base64 String</div>
+        <textarea rows="5" readonly>{base64String}</textarea>
+        <div>
+          <button on:click={copyBase64} class="copy-button">Copy Base64 Text</button>
+          <button on:click={downloadBase64} class="download-button">Download Base64 Text</button>
+        </div>
+      </div>
     </div>
   {/if}
 </div>
+
+<style>
+  .container {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    color: white;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  .upload-container {
+    margin-bottom: 20px;
+  }
+
+  .upload-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .upload-button:hover {
+    background-color: #218838;
+  }
+
+  .preview-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  .preview {
+    width: 45%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .preview img {
+    max-width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+  .preview textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 14px;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+  .copy-button,
+  .download-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .copy-button:hover,
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+
+  .copy-button {
+    margin-right: 10px;
+  }
+</style>
