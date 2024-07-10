@@ -538,6 +538,6 @@ window.onclick = function(event) {
     }
 }
 
-export image;
+
 </script>
 </main>
