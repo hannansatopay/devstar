@@ -17,7 +17,7 @@ cron.schedule('* * * * *', async () => {
         });
 
         for (const poll of pollsToDelete) {
-            const expirationTime = new Date(poll.createdAt.getTime() + 15 * 60 * 1000);
+            const expirationTime = new Date(poll.createdAt.getTime() + 24 * 60 * 60 * 1000);
 
             if (currentTime >= expirationTime) {
                 await prisma.poll.delete({
