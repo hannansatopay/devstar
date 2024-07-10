@@ -12,6 +12,11 @@
 	function uploadImage(){
 		imageUrl = '';
 	}
+
+
+
+
+	
 </script>
 
 <div class="container flex justify-between">
@@ -58,19 +63,17 @@
 		</button>
     </div>
     <div class="flex justify-center items-center flex-grow w-full bg-gray-200 rounded-lg">
-        {#if currentFeature === 'crop'}
-            <Crop image={image} />
-		{:else if currentFeature === 'filter'}
-			<Filter image={image} />
-		{:else if currentFeature === 'choose-random'}
-			<div>
-				"gvg"
-			</div>
-		{:else if currentFeature === 'upload-pic'}
-			<ImagePreview imageUrl=''/>
-		{:else}
-			<ImagePreview bind:imageUrl={imageUrl} />
-        {/if}
+		<form id="post-form" class="container1 mx-auto p-5" method="POST" enctype="multipart/form-data">
+
+		<label for="image" class="sr-only">Upload an image</label>
+		<input  type="file" accept="image/png, image/jpg, image/jpeg" name="image" id="image" required>
+	</form>
+
+	
+	</div>
+	
+	<div  class="container text-white">
+		<canvas class="canvas-container text-white"></canvas>
 	</div>
 	<div class="flex lg:flex-col w-full p-4 border-gray-300 basis-1 md:flex-row md:justify-around">
         <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('fill')}>
@@ -103,5 +106,20 @@
 </div>
 
 <style>
+  canvas {
+        width: 100%;
+        height: auto;
+    }
+	
+    .canvas-container {
+        width: 100%;
+        max-width: 500px; /* Adjust as needed */
+        border: 1px solid #ddd;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
 </style>
