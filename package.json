@@ -32,6 +32,7 @@
 		"file-saver": "^2.0.5",
 		"gif.js": "^0.2.0",
 		"gif.js.optimized": "^1.0.1",
+		"gifshot": "^0.4.5",
 		"gifuct-js": "^2.1.2",
 		"jspdf": "^2.5.1",
 		"omggif": "^1.0.10",
