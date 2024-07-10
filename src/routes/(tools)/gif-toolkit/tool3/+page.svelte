@@ -124,6 +124,7 @@
         justify-content: space-around;
         margin-top: 20px;
         gap: 20px;
+        font-size: 18px;
     }
 
     .preview {

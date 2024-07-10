@@ -58,15 +58,14 @@
         <div>Uploaded GIF</div>
         <img src={uploadedGif} alt="Uploaded GIF">
       </div>
-
       <div class="preview">
         <div>Base64 String</div>
         <textarea rows="5" readonly>{base64String}</textarea>
-        <div>
-          <button on:click={copyBase64} class="copy-button">Copy Base64 Text</button>
-          <button on:click={downloadBase64} class="download-button">Download Base64 Text</button>
-        </div>
       </div>
+    </div>
+    <div class="bt-download">
+      <button on:click={copyBase64} class="copy-button">Copy Base64 Text</button>
+      <button on:click={downloadBase64} class="download-button">Download Base64 Text</button>
     </div>
   {/if}
 </div>
@@ -109,6 +108,7 @@
     justify-content: space-around;
     margin-top: 20px;
     gap: 20px;
+    font-size: 18px;
   }
 
   .preview {
@@ -141,7 +141,7 @@
   .copy-button,
   .download-button {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 8px 16px;
     background-color: #007bff;
     color: white;

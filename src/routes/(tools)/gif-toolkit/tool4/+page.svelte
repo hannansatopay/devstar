@@ -1,66 +1,109 @@
 <script>
-  let uploadedGif = null;
-  let contrastValue = 100;
-  let sharpenValue = 0;
+  import { saveAs } from 'file-saver';
+  import { parseGIF, decompressFrames, applyPalette } from 'gifuct-js';
+  import GIF from 'gif.js.optimized';
+
+  let gifFile;
+  let modifiedGifBlob;
+  let gifURL;
+  let originalGif;
+  let downloadLink;
+  let modifiedGifUrl;
+  let isRendering = false;
   let brightnessValue = 0;
-  let originalUrl = '';
-  let processedUrl = '';
+  let contrastValue = 0;
+  let sharpenValue = 0;
 
-  const handleFileUpload = (event) => {
+  async function handleFileUpload(event) {
     const file = event.target.files[0];
-    if (file && file.type.startsWith('image/gif')) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        uploadedGif = e.target.result;
-        updatePreview();
-      };
-      reader.readAsDataURL(file);
+    if (file && file.type === 'image/gif') {
+      gifFile = file;
+      gifURL = URL.createObjectURL(file);
+      originalGif = gifURL;
+      await processGif();
     } else {
-      alert('Please upload a GIF file.');
+      alert('Please upload a valid GIF file.');
     }
-  };
+  }
 
-  const updatePreview = () => {
-    if (uploadedGif) {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, img.width, img.height);
+  async function processGif() {
+    if (!gifFile || isRendering) return;
+    isRendering = true;
 
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        applyBrightness(imageData, brightnessValue);
+    const arrayBuffer = await gifFile.arrayBuffer();
+    const gif = parseGIF(arrayBuffer);
+    const frames = decompressFrames(gif, true);
 
-        applyContrast(imageData, contrastValue);
+    const processedFrames = await Promise.all(frames.map(frame => processFrame(frame)));
 
-        applySharpen(imageData, sharpenValue);
+    const gifCreator = new GIF({
+      workers: 2,
+      quality: 10,
+      workerScript: 'node_modules/gif.js.optimized/dist/gif.worker.js'
+    });
 
-        ctx.putImageData(imageData, 0, 0);
+    processedFrames.forEach(({ canvas, delay }) => {
+      gifCreator.addFrame(canvas, { delay });
+    });
 
-        originalUrl = uploadedGif;
-        processedUrl = canvas.toDataURL('image/gif');
-      };
-      img.src = uploadedGif;
+    gifCreator.on('finished', (blob) => {
+      modifiedGifBlob = blob;
+      modifiedGifUrl = URL.createObjectURL(blob);
+      isRendering = false;
+    });
+
+    gifCreator.render();
+  }
+
+  async function processFrame(frame) {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = frame.dims.width;
+    canvas.height = frame.dims.height;
+
+    const imageData = new ImageData(new Uint8ClampedArray(frame.patch), frame.dims.width, frame.dims.height);
+    ctx.putImageData(imageData, 0, 0);
+
+    applyBrightness(ctx, canvas, brightnessValue);
+    applyContrast(ctx, canvas, contrastValue);
+    applySharpen(ctx, canvas, sharpenValue);
+
+    return { canvas, delay: frame.delay };
+  }
+
+  function applyBrightness(ctx, canvas, brightness) {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] += 255 * (brightness / 100);
+      data[i + 1] += 255 * (brightness / 100);
+      data[i + 2] += 255 * (brightness / 100);
     }
-  };
 
-  const applyContrast = (imageData, contrast) => {
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  function applyContrast(ctx, canvas, contrast) {
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
     const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+
     for (let i = 0; i < data.length; i += 4) {
       data[i] = factor * (data[i] - 128) + 128;
       data[i + 1] = factor * (data[i + 1] - 128) + 128;
       data[i + 2] = factor * (data[i + 2] - 128) + 128;
     }
-  };
 
-  const applySharpen = (imageData, sharpen) => {
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  function applySharpen(ctx, canvas, sharpen) {
     if (sharpen === 0) return;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
-    const width = imageData.width;
-    const height = imageData.height;
+    const width = canvas.width;
+    const height = canvas.height;
     const buffer = new Uint8ClampedArray(data);
 
     const weights = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
@@ -108,66 +151,16 @@
         data[(i * width + j) * 4 + 2] = Math.min(Math.max(sumBlue / sharpen + buffer[(i * width + j) * 4 + 2], 0), 255);
       }
     }
-  };
 
-  const applyBrightness = (imageData, brightness) => {
-    const data = imageData.data;
-    for (let i = 0; i < data.length; i += 4) {
-      data[i] += 255 * (brightness / 100);
-      data[i + 1] += 255 * (brightness / 100);
-      data[i + 2] += 255 * (brightness / 100);
+    ctx.putImageData(imageData, 0, 0);
+  }
+
+  function downloadModifiedGif() {
+    if (modifiedGifBlob) {
+      saveAs(modifiedGifBlob, 'modified.gif');
     }
-  };
-
-  const downloadPreview = () => {
-    const a = document.createElement('a');
-    a.href = processedUrl;
-    a.download = 'modified.gif';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
+  }
 </script>
-
-<div class="container">
-  <div class="title">Brightness Changes GIF</div>
-  <div class="upload-container">
-    <input type="file" accept="image/gif" on:change={handleFileUpload} id="gif-upload" style="display: none;">
-    <label for="gif-upload" class="upload-button">Upload GIF</label>
-  </div>
-
-  {#if uploadedGif}
-    <div class="adjustments">
-      <div>
-        <label for="contrast">Contrast:</label>
-        <input type="range" id="contrast" min="-100" max="100" bind:value={contrastValue} on:input={updatePreview}>
-      </div>
-      <div>
-        <label for="sharpen">Sharpen:</label>
-        <input type="range" id="sharpen" min="0" max="100" bind:value={sharpenValue} on:input={updatePreview}>
-      </div>
-      <div>
-        <label for="brightness">Brightness:</label>
-        <input type="range" id="brightness" min="-100" max="100" bind:value={brightnessValue} on:input={updatePreview}>
-      </div>
-    </div>
-
-    <div class="preview-container">
-      <div class="preview">
-        <div>Original GIF</div>
-        <img src={originalUrl} alt="Original GIF">
-      </div>
-      <div class="preview">
-        <div>Processed GIF</div>
-        <img src={processedUrl} alt="Processed GIF">
-      </div>
-    </div>
-
-    <div>
-      <button class="download-button" on:click={downloadPreview}>Download Modified GIF</button>
-    </div>
-  {/if}
-</div>
 
 <style>
   .container {
@@ -202,57 +195,128 @@
     background-color: #218838;
   }
 
-  .preview-container {
+  .adjustments {
     display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
   }
 
-  .preview {
-    width: 45%;
+  .adjustments div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .adjustments label {
+    min-width: 80px;
+    font-size: 16px;
+  }
+
+  .gif-preview {
     text-align: center;
-  }
-
-  .preview img {
-    max-width: 100%;
-    height: auto;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-
-  .download-button {
-    display: inline-block;
     margin-top: 20px;
-    padding: 12px 24px;
+  }
+
+  .gif-preview table {
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+
+  .gif-preview table tr:first-child td {
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  .gif-preview table tr:first-child td h3 {
+    margin-top: 0;
+    font-size: 18px;
+  }
+
+  .gif-preview table tr td {
+    padding: 20px;
+    vertical-align: middle;
+  }
+
+  .gif-preview table tr td img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .gif-preview table tr:last-child td {
+    text-align: center;
+    padding: 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .gif-preview table tr:last-child td button {
     background-color: #007bff;
     color: white;
-    text-decoration: none;
+    padding: 12px 24px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
 
-  .download-button:hover {
+  .gif-preview table tr:last-child td button:hover {
     background-color: #0056b3;
   }
-
-  .adjustments {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-
-  .adjustments div {
-    width: 30%;
-  }
-
-  .adjustments label {
-    display: block;
-    margin-bottom: 5px;
-  }
-
-  .adjustments input[type="range"] {
-    width: 100%;
-  }
 </style>
+
+
+<div class="container">
+  <h1 class="title">GIF Manipulator</h1>
+
+  <div class="upload-container">
+    <input type="file" accept="image/gif" on:change={handleFileUpload} id="gif-upload" style="display: none;">
+    <label for="gif-upload" class="upload-button">Upload GIF</label>
+  </div>
+
+  {#if gifURL}
+    <div class="adjustments">
+      <div>
+        <label for="brightness">Brightness:</label>
+        <input type="range" id="brightness" min="-100" max="100" bind:value={brightnessValue} on:input={processGif}>
+      </div>
+      <div>
+        <label for="contrast">Contrast:</label>
+        <input type="range" id="contrast" min="-100" max="100" bind:value={contrastValue} on:input={processGif}>
+      </div>
+      <div>
+        <label for="sharpen">Sharpen:</label>
+        <input type="range" id="sharpen" min="0" max="100" bind:value={sharpenValue} on:input={processGif}>
+      </div>
+    </div>
+
+    {#if modifiedGifUrl}
+      <div class="gif-preview">
+        <table style="margin: auto;">
+          <tr>
+            <td style="text-align: center;">
+              <h3>Original GIF</h3>
+              <img src={originalGif} alt="Original GIF" style="max-width: 100%;">
+            </td>
+            <td style="text-align: center;">
+              <h3>Modified GIF</h3>
+              <img src={modifiedGifUrl} alt="Modified GIF" style="max-width: 100%;">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: center;">
+              <button on:click={downloadModifiedGif}>Download Modified GIF</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    {/if}
+  {/if}
+</div>
