@@ -67,6 +67,8 @@
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('inputXML');">Copy Input</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('outputXML');">Copy Output</button>
                 </div>
 
                 <!-- Second Textarea Container -->
@@ -142,6 +144,13 @@
             const formattedXML = formatXml(inputXMLValue);
             document.getElementById('outputXML').value = formattedXML;
             updateLineNumbers(document.getElementById('outputXML'), document.getElementById('outputLineNumbers'));
+        }
+        // Function to copy XML content
+        function copyXML(textareaId) {
+            const textarea = document.getElementById(textareaId);
+            textarea.select();
+            document.execCommand('copy');
+            alert('Copied to clipboard');
         }
     </script>
 </body>
