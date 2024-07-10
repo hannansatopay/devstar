@@ -1,33 +1,30 @@
 <script>
-    let gifFile;
-    let gifURL;
-    let canvas;
-    let context;
-    let downloadLink;
-    let originalGif;
+    import { parseGIF, decompressFrames } from 'gifuct-js';
+    import GIF from 'gif.js.optimized';
 
-    function handleFileChange(event) {
-        const file = event.target.files[0];
-        if (file && file.type === 'image/gif') {
-            gifFile = file;
-            gifURL = URL.createObjectURL(file);
-            originalGif = gifURL;
-            convertToGrayscale();
+    let originalGifUrl;
+    let gifData;
+    let frames = [];
+    let modifiedGifUrl;
+
+    const handleFileUpload = async (event) => {
+        const uploadedFile = event.target.files[0];
+        if (uploadedFile) {
+            originalGifUrl = URL.createObjectURL(uploadedFile);
+            const arrayBuffer = await uploadedFile.arrayBuffer();
+            gifData = parseGIF(arrayBuffer);
+            frames = decompressFrames(gifData, true);
+            convertFramesToGrayscale();
         }
-    }
+    };
 
-    $: if (canvas) {
-        context = canvas.getContext('2d');
-    }
+    const convertFramesToGrayscale = () => {
+        const gif = new GIF({ workers: 2, quality: 10, workerScript: 'node_modules/gif.js.optimized/dist/gif.worker.js' });
 
-    function convertToGrayscale() {
-        const img = new Image();
-        img.src = gifURL;
-        img.onload = () => {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img, 0, 0);
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        frames.forEach(frame => {
+            const canvas = createCanvasFromFrame(frame);
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < imageData.data.length; i += 4) {
                 const red = imageData.data[i];
                 const green = imageData.data[i + 1];
@@ -35,36 +32,56 @@
                 const grayscale = red * 0.3 + green * 0.59 + blue * 0.11;
                 imageData.data[i] = imageData.data[i + 1] = imageData.data[i + 2] = grayscale;
             }
-            context.putImageData(imageData, 0, 0);
-            prepareDownload();
-        };
-    }
+            ctx.putImageData(imageData, 0, 0);
+            gif.addFrame(canvas, { delay: frame.delay });
+        });
 
-    function prepareDownload() {
-        downloadLink.href = canvas.toDataURL('image/gif');
-        downloadLink.download = 'grayscale.gif';
-    }
+        gif.on('finished', (blob) => {
+            modifiedGifUrl = URL.createObjectURL(blob);
+        });
+
+        gif.render();
+    };
+
+    const createCanvasFromFrame = (frame) => {
+        const canvas = document.createElement('canvas');
+        canvas.width = frame.dims.width;
+        canvas.height = frame.dims.height;
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const imageData = new ImageData(new Uint8ClampedArray(frame.patch), frame.dims.width, frame.dims.height);
+        ctx.putImageData(imageData, 0, 0);
+        return canvas;
+    };
+
+    const downloadGif = () => {
+        if (modifiedGifUrl) {
+            const link = document.createElement('a');
+            link.href = modifiedGifUrl;
+            link.download = 'grayscale.gif';
+            link.click();
+        }
+    };
 </script>
 
 <div class="container">
     <div class="title">GIF To Grayscale</div>
     <div class="upload-container">
-        <input type="file" accept="image/gif" on:change={handleFileChange} id="gif-upload" style="display: none;">
+        <input type="file" accept="image/gif" on:change={handleFileUpload} id="gif-upload" style="display: none;">
         <label for="gif-upload" class="upload-button">Upload GIF</label>
     </div>
-    {#if gifFile}
+    {#if originalGifUrl && modifiedGifUrl}
         <div class="preview-container">
             <div class="preview">
                 <div>Original GIF</div>
-                <img src={originalGif} alt="Original GIF">
+                <img src={originalGifUrl} alt="Original GIF">
             </div>
             <div class="preview">
                 <div>Grayscale GIF</div>
-                <canvas bind:this={canvas}></canvas>
+                <img src={modifiedGifUrl} alt="Grayscale GIF">
             </div>
         </div>
         <div>
-            <a bind:this={downloadLink} class="download-button">Download Grayscale</a>
+            <a on:click={downloadGif} class="download-button">Download Grayscale</a>
         </div>
     {/if}
 </div>
