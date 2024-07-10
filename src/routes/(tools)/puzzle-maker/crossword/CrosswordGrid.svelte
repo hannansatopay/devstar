@@ -69,6 +69,13 @@
   }
 </script>
 
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css"
+  />
+</svelte:head>
+
 <div class="crossword-container">
   <div class="crossword-grid">
     {#each grid as row, rowIndex}
@@ -108,12 +115,8 @@
       <div class="hint-item">
         <p>{index + 1}. {description} ({direction})</p>
         <div class="hint-actions">
-          <button on:click={() => startEdit(index)} class="edit-button"
-            >Edit</button
-          >
-          <button on:click={() => deleteWord(index)} class="delete-button"
-            >Delete</button
-          >
+          <i class="fa-solid fa-pen-to-square edit-icon" on:click={() => startEdit(index)}></i>
+          <i class="fa-solid fa-trash delete-icon" on:click={() => deleteWord(index)}></i>
         </div>
       </div>
     {/each}
@@ -202,30 +205,30 @@
     gap: 10px;
   }
 
-  .edit-button,
-  .delete-button {
-    padding: 5px 10px;
+  .edit-icon,
+  .delete-icon {
+    padding: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     color: white;
-    font-size: 0.9em;
+    font-size: 1.2em;
   }
 
-  .edit-button {
+  .edit-icon {
     background-color: #ff9800;
   }
 
-  .edit-button:hover {
+  .edit-icon:hover {
     background-color: #fb8c00;
   }
 
-  .delete-button {
+  .delete-icon {
     background-color: #f44336;
   }
 
-  .delete-button:hover {
+  .delete-icon:hover {
     background-color: #e53935;
   }
 </style>

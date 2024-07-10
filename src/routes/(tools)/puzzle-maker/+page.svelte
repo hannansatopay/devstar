@@ -1,74 +1,92 @@
 <script>
-  import InputForm from "./InputForm.svelte";
-  import CrosswordGrid from "./CrosswordGrid.svelte";
-
-  let words = [];
-  let wordToEdit = null;
-  let editIndex = null;
-
-  const addWord = (wordObj) => {
-    words = [...words, wordObj];
-  };
-
-  const deleteWord = (index) => {
-    words = words.filter((_, i) => i !== index);
-    if (editIndex === index) {
-      wordToEdit = null;
-      editIndex = null;
-    }
-  };
-
-  const startEdit = (index) => {
-    wordToEdit = { ...words[index] };
-    editIndex = index;
-  };
-
-  const editWord = (updatedWord) => {
-    words = words.map((word, i) => (i === editIndex ? updatedWord : word));
-    wordToEdit = null;
-    editIndex = null;
-  };
+  import { Router, Route, navigate } from 'svelte-routing';
+  import CrosswordPage from './crossword/+page.svelte';
+  import WordsearchPage from './wordsearch/+page.svelte';
+  import wheeloffortune from './wheeloffortune/+page.svelte';
+  import Play from './wordsearch/Play.svelte';
 </script>
 
-<div
-  class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
->
-  <main>
-    <InputForm {addWord} {editWord} {wordToEdit} />
-  </main>
-  <aside>
-    <CrosswordGrid {words} {deleteWord} {startEdit} />
-  </aside>
+<div class="head">
+  <h2>Create, Customize, and Share unique puzzles, providing endless fun and mental challenges for puzzle enthusiasts of all ages</h2>
+</div>
+<div class="position">
+  <button on:click={() => navigate('/puzzle-maker/crossword')}>
+    <img src="src\routes\(tools)\puzzle-maker\photos\crossword.png" alt="Crossword Icon" />
+    <h2>Go to Crossword</h2>
+  </button>
+  <button on:click={() => navigate('/puzzle-maker/wordsearch')}>
+    <img src="src\routes\(tools)\puzzle-maker\photos\Wordsearch.png" alt="Wordsearch Icon" />
+    <h2>Go to Wordsearch</h2>
+  </button>
+  <button on:click={() => navigate('/puzzle-maker/wheeloffortune')}>
+    <img src="src\routes\(tools)\puzzle-maker\photos\wheel.jpeg" alt="Wheel of Fortune Icon" />
+    <h2>Go to Wheel of Fortune</h2>
+  </button>
 </div>
 
+<Router>
+  <Route path="/puzzle-maker/crossword" component={CrosswordPage} />
+  <Route path="/puzzle-maker/wordsearch" component={WordsearchPage} />
+  <Route path="/puzzle-maker/wordsearch/play" component={Play} />
+  <Route path="/puzzle-maker/wheeloffortune" component={wheeloffortune} />
+</Router>
+
 <style>
-  .card {
-    display: grid;
+  .head {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .position h2{
+    font-size: 1.4rem; /* Adjust size as needed */
+    color: #fff;
+    font-weight: 600;
+  }
+  .head h2 {
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: #fff;
+    line-height: 1.2;
+    font-weight: 600;
+    padding: 0 20px; /* Adjust padding for responsive design */
+    margin-top: -10px;
+  }
+
+  .position {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 16px;
-    align-items: top;
-    max-width: 100%;
-    overflow: hidden;
-    border-radius: 8px;
   }
 
-  @media (min-width: 1024px) {
-    .card {
-      grid-template-columns: 1fr 1fr;
-    }
+  button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: relative;
+    font-weight: 600;
+    
   }
 
-  main,
-  aside {
-    padding: 20px;
-    background-color: #111827;
-    border-radius: 8px;
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
   }
 
-  main {
-    order: 1;
+  button img {
+    width: 250px; /* Adjusted size */
+    height: 250px; /* Adjusted size */
+    margin-bottom: 8px; /* Adjust spacing if needed */
+    transition: transform 0.3s ease;
   }
 
-  aside {
-    order: 2;
+  button:hover img {
+    transform: scale(1.1);
   }
 </style>
