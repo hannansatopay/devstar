@@ -75,7 +75,7 @@
 	<form id="post-form" class="container1 mx-auto p-5" method="POST" enctype="multipart/form-data">
 
 		<label for="image" class="sr-only">Upload an image</label>
-		<input type="file" accept="image/png, image/jpg, image/jpeg" name="image" id="image" required>
+		<input type="file" accept="image/png, image/jpg, image/jpeg" name="image" id="image" class="text-white"required>
 	</form>
 
 	<div class="container">
