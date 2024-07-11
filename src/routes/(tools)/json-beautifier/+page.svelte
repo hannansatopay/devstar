@@ -77,16 +77,16 @@
 </script>
 
 <div
-  class="card items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg border-2 dark:bg-gray-900"
+  class="card items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg border-2 dark:bg-gray-900 relative"
 >
   <!-- Add tool here -->
-  <div class="bg-white relative dark:bg-gray-900" id="mainContainer">
+  <div class="bg-white dark:bg-gray-900" id="mainContainer">
     <!--toast start here-->
 
     {#if successToast}
       <div
         id="toast-success"
-        class="bg-green-500 flex items-center w-full max-w-xs p-4 mb-4 text-white rounded-lg shadow absolute top-5 left-0"
+        class="bg-green-500 flex items-center w-full max-w-xs p-4 mb-4 text-white rounded-lg shadow absolute top-0 right-0"
         role="alert"
       >
         <div
@@ -138,7 +138,7 @@
     {#if dangerToast}
       <div
         id="toast-danger"
-        class="flex items-center w-full max-w-xs p-4 mb-4 text-white rounded-lg shadow absolute top-5 left-0 bg-red-600"
+        class="flex items-center w-full max-w-xs p-4 mb-4 text-white rounded-lg shadow absolute top-0 right-0 bg-red-600"
         role="alert"
       >
         <div
@@ -191,7 +191,7 @@
     {#if warningToast}
       <div
         id="toast-warning"
-        class="flex items-center w-full max-w-xs p-4 text-white bg-orange-500 rounded-lg shadow absolute top-5 left-0"
+        class="flex items-center w-full max-w-xs p-4 text-white bg-orange-500 rounded-lg shadow absolute top-0 right-0"
         role="alert"
       >
         <div
@@ -260,20 +260,21 @@
 
     <div class="md:grid grid-cols-[40%,20%,40%] p-6 dark:bg-gray-900">
       <div
-        class="bg-gray-50 h-screen border-gray-400 border-2 rounded-3xl dark:bg-gray-800 dark:border-slate-300 dark:border-1 dark:text-white"
+        class="bg-gray-50 h-auto border-gray-400 border-2 rounded-3xl dark:bg-gray-800 dark:border-slate-300 dark:border-1 dark:text-white"
       >
         <div class="px-4 py-2 my-4 flex justify-between items-center">
-          <h3 class="truncate overflow-hidden">Upload Document</h3>
+          <h3 class="truncate overflow-hidden text-lg">Upload JSON</h3>
           <button
             on:click={() => {
               document.getElementById("jsonFileUpload").click();
+              formattedJson = "";
             }}
-            class="py-2 px-4 rounded bg-blue-700 hover:bg-blue-800 font-bold text-white"
+            class="py-2 px-4 rounded bg-blue-700 hover:bg-blue-800 text-white"
             id="jsonFileUploadButton">Upload</button
           >
         </div>
         <div
-          class="h-full text-xl p-3 border-t-gray-400 border-t-2 dark:border-t-slate-300 dark:border-t-2"
+          class="h-auto text-xl p-3 border-t-gray-400 border-t-2 dark:border-t-slate-300 dark:border-t-2"
           spellcheck="false"
         >
           <textarea
@@ -281,8 +282,8 @@
               formattedJson = "";
             }}
             placeholder="JSON here..."
-            rows="25"
-            class="resize-none outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            rows="18"
+            class="resize-none outline-none block p-2.5 w-full text-xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             bind:value={jsonData}
           />
         </div>
@@ -296,12 +297,12 @@
         <!-- {#if isJsonValid} -->
         <label
           for="intend"
-          class="block my-2 mt-5 text-sm font-bold text-black dark:text-white"
+          class="block my-2 mt-5 text-sm text-black dark:text-white"
           >Select intend size:</label
         >
         <select
           id="intend"
-          class="bg-blue-700 w-32 font-bold border border-gray-300 text-md rounded-lg block p-2.5 dark:border-gray-600 hover:bg-blue-800"
+          class="bg-blue-700 w-32 border border-gray-300 text-md rounded-lg block p-2.5 dark:border-gray-600 hover:bg-blue-800"
           value={intendSize}
           on:change={(event) => {
             intendSize = event.target.value;
@@ -313,39 +314,39 @@
         </select>
         <button
           id="formatButton"
-          class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 font-bold py-2 px-4 rounded-lg"
+          class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 py-2 px-4 rounded-lg"
           on:click={format(intendSize)}>Format</button
         >
         <!-- {/if} -->
         <button
           on:click={reset}
           id="resetButton"
-          class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 font-bold py-2 px-4 rounded-lg"
+          class="block w-32 mt-5 bg-blue-700 hover:bg-blue-800 border border-gray-300 py-2 px-4 rounded-lg"
           >Reset</button
         >
       </div>
       <div
-        class="bg-gray-50 h-screen border-gray-400 border-2 dark:border-slate-300 dark:border-1 rounded-3xl dark:bg-gray-800 dark:text-white"
+        class="bg-gray-50 h-auto border-gray-400 border-2 dark:border-slate-300 dark:border-1 rounded-3xl dark:bg-gray-800 dark:text-white"
       >
         <div class="px-4 py-2 my-4 flex justify-between items-center">
-          <h3 class="truncate overflow-hidden">Download Document</h3>
+          <h3 class="truncate overflow-hidden text-lg">Download JSON</h3>
           <!-- {#if isJsonValid} -->
           <button
             on:click={downloadJson}
-            class="py-2 px-4 rounded bg-blue-700 hover:bg-blue-800 font-bold text-white"
+            class="py-2 px-4 rounded bg-blue-700 hover:bg-blue-800 text-white"
             id="downloadButton">Download</button
           >
           <!-- {/if} -->
         </div>
         <div
-          class="p-3 text-xl h-screen border-t-gray-400 border-t-2 dark:border-t-slate-300 dark:border-t-2 overflow-x-scroll"
+          class="p-3 text-xl h-auto border-t-gray-400 border-t-2 dark:border-t-slate-300 dark:border-t-2"
           spellcheck="false"
         >
           <textarea
             readonly
             placeholder="Formatted JSON here..."
-            rows="25"
-            class="resize-none outline-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            rows="18"
+            class="resize-none outline-none block p-2.5 w-full text-xl text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             bind:value={formattedJson}
           />
         </div>
