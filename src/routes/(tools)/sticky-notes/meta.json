@@ -1,6 +1,6 @@
 {
     "name": "Sticky Notes",
-    "description":"Add a note for saving important messages, make a to-do list, set reminders",
+    "description":"Develop a Sticky Notes app featuring quick note-saving, an appealing to-do list, and reminder settings. Users can pin important notes for easy access with highlighting on the screen, while timestamps show the last update time for each note, aiding in organization.",
     "contributors": [{
         "name": "Saket Prabhakar",
         "githubId": "sabotagefrenzy"
