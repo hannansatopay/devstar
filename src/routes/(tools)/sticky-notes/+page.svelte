@@ -7,73 +7,77 @@
     let db;
 
     const openDB = () => {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(dbName, dbVersion);
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open(dbName, dbVersion);
 
-            request.onerror = (event) => {
-                console.error('Error opening database:', event.target.error);
-                reject(event.target.error);
-            };
+        request.onerror = (event) => {
+            console.error('Error opening database:', event.target.error);
+            reject(event.target.error);
+        };
 
-            request.onsuccess = (event) => {
-                db = event.target.result;
-                console.log('Database opened successfully');
-                resolve();
-            };
+        request.onsuccess = (event) => {
+            db = event.target.result;
+            console.log('Database opened successfully');
+            resolve();
+        };
 
-            request.onupgradeneeded = (event) => {
-                db = event.target.result;
-                if (!db.objectStoreNames.contains('notes')) {
-                    const store = db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
-                    store.createIndex('name', 'name', { unique: false });
-                    store.createIndex('color', 'color', { unique: false });
-                    store.createIndex('content', 'content', { unique: false });
-                }
-            };
-        });
-    };
+        request.onupgradeneeded = (event) => {
+            db = event.target.result;
+            if (!db.objectStoreNames.contains('notes')) {
+                const store = db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
+                store.createIndex('name', 'name', { unique: false });
+                store.createIndex('color', 'color', { unique: false });
+                store.createIndex('content', 'content', { unique: false });
+            }
+        };
+    });
+};
 
-  
-    const fetchNotes = async () => {
-        const transaction = db.transaction(['notes'], 'readonly');
-        const store = transaction.objectStore('notes');
-        const request = store.getAll();
-        return new Promise((resolve, reject) => {
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            request.onerror = (event) => {
-                console.error('Error fetching notes:', event.target.error);
-                reject(event.target.error);
-            };
-        });
-    };
+const fetchNotes = async () => {
+    const transaction = db.transaction(['notes'], 'readonly');
+    const store = transaction.objectStore('notes');
+    const request = store.getAll();
+    return new Promise((resolve, reject) => {
+        request.onsuccess = () => {
+            // Sort notes: pinned notes first
+            const notes = request.result;
+            const pinnedNotes = notes.filter(note => note.pinned);
+            const unpinnedNotes = notes.filter(note => !note.pinned);
+            const sortedNotes = [...pinnedNotes, ...unpinnedNotes];
 
- 
-    const saveNote = async (note) => {
-        const transaction = db.transaction(['notes'], 'readwrite');
-        const store = transaction.objectStore('notes');
-        if (note.id) {
-            note.updatedAt = new Date().toISOString();
-            store.put(note);
-        } else {
-            note.createdAt = new Date().toISOString();
-            const request = store.add(note);
-            request.onsuccess = () => {
-                note.id = request.result; 
-            };
-        }
-        return new Promise((resolve, reject) => {
-            transaction.oncomplete = () => {
-                console.log('Note saved successfully');
-                resolve();
-            };
-            transaction.onerror = (event) => {
-                console.error('Error saving note:', event.target.error);
-                reject(event.target.error);
-            };
-        });
-    };
+            resolve(sortedNotes);
+        };
+        request.onerror = (event) => {
+            console.error('Error fetching notes:', event.target.error);
+            reject(event.target.error);
+        };
+    });
+};
+
+const saveNote = async (note) => {
+    const transaction = db.transaction(['notes'], 'readwrite');
+    const store = transaction.objectStore('notes');
+    if (note.id) {
+        note.updatedAt = new Date().toISOString();
+        store.put(note);
+    } else {
+        note.createdAt = new Date().toISOString();
+        const request = store.add(note);
+        request.onsuccess = () => {
+            note.id = request.result; 
+        };
+    }
+    return new Promise((resolve, reject) => {
+        transaction.oncomplete = () => {
+            console.log('Note saved successfully');
+            resolve();
+        };
+        transaction.onerror = (event) => {
+            console.error('Error saving note:', event.target.error);
+            reject(event.target.error);
+        };
+    });
+};
 
    
     const deleteNote = async (id) => {
@@ -118,28 +122,40 @@
     
     function togglePin(id) {
     notes.update(existingNotes => {
-        const updatedNotes = existingNotes.map(note => {
+        let updatedNotes = existingNotes.map(note => {
             if (note.id === id) {
                 note.pinned = !note.pinned;
-                saveNote(note); 
+                saveNote(note);
             }
             return note;
         });
-        
+
+        // Move the pinned notes to the beginning
+        const pinnedNotes = updatedNotes.filter(note => note.pinned);
+        const unpinnedNotes = updatedNotes.filter(note => !note.pinned);
+
+        updatedNotes = [...pinnedNotes, ...unpinnedNotes];
+
         return updatedNotes;
     });
 }
 
-
 function unpinNote(id) {
     notes.update(existingNotes => {
-        const updatedNotes = existingNotes.map(note => {
+        let updatedNotes = existingNotes.map(note => {
             if (note.id === id) {
-                note.pinned = false; 
-                saveNote(note); 
+                note.pinned = false;
+                saveNote(note);
             }
             return note;
         });
+
+        // Move the pinned notes to the beginning
+        const pinnedNotes = updatedNotes.filter(note => note.pinned);
+        const unpinnedNotes = updatedNotes.filter(note => !note.pinned);
+
+        updatedNotes = [...pinnedNotes, ...unpinnedNotes];
+
         return updatedNotes;
     });
 }
@@ -188,9 +204,9 @@ function unpinNote(id) {
 </script>
 
 <div class="flex h-screen">
-    <aside class="w-64 bg-blue-400 text-white p-6 shadow-md flex flex-col items-start gap-6 rounded-lg ">
+    <aside class="w-64 bg-Gray-500 text-white p-6 shadow-md flex flex-col items-start gap-6 rounded-lg ">
         <button on:click={addNote} class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 w-full">Add Note</button>
-        <span class="text-sm font-bold text-black">Select Color:</span>
+        <span class="text-sm font-bold text-white">Select Color:</span>
         <div class="flex gap-2 mt-2">
             <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #fbd38d" on:click={() => changeColor("#fbd38d")}></button>
             <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #fca5a5" on:click={() => changeColor("#fca5a5")}></button>
@@ -253,9 +269,14 @@ function unpinNote(id) {
     </div>
 </div>
 <style>
+
+   
+    .bg-Gray-500{
+        background-color: #1c284f;
+    }
     
     .pinned-note {
-        border: 2px solid #ffcc00; 
+        border: 4px solid #ff0000; 
     }
 
   
