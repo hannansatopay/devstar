@@ -1,0 +1,24 @@
+{
+    "name": "SVG Path Visualizer",
+    "description":"The SVG Path Visualizer is a powerful tool designed to simplify the visualization and debugging of SVG path data. By inputting your SVG path code, this tool provides an immediate graphical representation of the path, allowing developers and designers to see real-time changes as they edit the path data. This tool helps in understanding complex path commands, optimizing SVG graphics, and ensuring precise design adjustments. Enhance your workflow with the SVG Path Visualizer, making it easier to create and refine scalable vector graphics with accuracy and efficiency.",
+    "contributors": [{
+        "name": "Abdur Rehman Shaikh",
+        "githubId": "abdurrahmanshkh"
+    }, {
+        "name": "Mansi Karki",
+        "githubId": "MansiKarki"
+    },
+        {
+        "name": "Priyanka Kadam",
+        "githubId": "Priyanka-Kadam427"
+    },
+    {
+        "name": "Sania Joseph",
+        "githubId": ""
+    },
+    {
+        "name": "Yathang Tupe",
+        "githubId": "Yathang007"
+    }
+]
+}
