@@ -80,6 +80,33 @@
             }
         ]
     },
+    "camera-filters": {
+        "name": "Camera Filters",
+        "link": "/camera-filters",
+        "description": "This project is a Svelte-based live camera filter application. It captures a video stream from your device's camera and applies real-time filters using a canvas element. The application includes filters like grayscale, sepia, blur, brightness, and more. Users can select filters from a dropdown menu to see their effects instantly. The video feed is processed and displayed on the canvas with the chosen filter applied. This setup provides an interactive way to experiment with live camera filters.",
+        "contributors": [
+            {
+                "name": "Shubham Pawade",
+                "githubId": "ShubhamSPawde"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "css-animator": {
         "name": "CSS Animator",
         "link": "/css-animator",
@@ -117,9 +144,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
