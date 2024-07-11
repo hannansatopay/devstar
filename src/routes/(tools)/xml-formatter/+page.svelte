@@ -176,6 +176,44 @@
             document.execCommand('copy');
             alert('Copied to clipboard');
         }
+
+		// other code
+		// Function to load XML content into input textarea
+function loadXML() {
+    // Example XML content (replace with actual loading mechanism)
+    const xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<root>\n  <child>Hello, World!</child>\n</root>';
+    document.getElementById('inputXML').value = xmlContent;
+    updateLineNumbers(document.getElementById('inputXML'), document.getElementById('inputLineNumbers'));
+}
+
+// Function to download XML content from output textarea
+function downloadXML() {
+    const outputContent = document.getElementById('outputXML').value;
+    if (outputContent.trim() === '') {
+        alert('Nothing to download. Output XML is empty.');
+        return;
+    }
+    const blob = new Blob([outputContent], { type: 'text/xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'formatted.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// Function to clear both input and output textareas
+function clearXML() {
+    document.getElementById('inputXML').value = '';
+    document.getElementById('outputXML').value = '';
+    updateLineNumbers(document.getElementById('inputXML'), document.getElementById('inputLineNumbers'));
+    updateLineNumbers(document.getElementById('outputXML'), document.getElementById('outputLineNumbers'));
+}
+
+
     </script>
+	
 </body>
 </html>
