@@ -3,14 +3,14 @@
     "description":"This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
     "contributors": [{
         "name": "David Kwasi Mensah Akyer",
-        "githubId": "114764368"
+        "githubId": "dkmakyer"
     }, {
         "name": "Tasnim Munawar Rafee",
         "githubId": "Rafee104104"
     },
     {
         "name": "Sahil Navale",
-        "githubId": ""
+        "githubId": "sahiln15"
     },
     {
         "name": "Amila Jayamaha",
@@ -18,6 +18,6 @@
     },
     {
         "name": "Aditi More",
-        "githubId": ""
+        "githubId": "8897adira"
     }]
 }
