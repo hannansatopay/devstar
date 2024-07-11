@@ -4,16 +4,10 @@
     import { faDesktop } from "@fortawesome/free-solid-svg-icons";
     import { faMobile } from "@fortawesome/free-solid-svg-icons";
 
-
-
-
     $: defaultHeight = null;
     $: defaultWidth = null;
     $: inputUrl = "";
     $: storedUrl = "";
-
-
-
 
     let clicked = {
         mobile: false,
@@ -21,11 +15,7 @@
         tablet: false,
     };
 
-
     let isButtonClicked = false;
-
-
-
 
     let mobile = [
         { "Apple iPhone 3/4/4s": { width: 320, height: 480 } },
@@ -36,10 +26,9 @@
         { "Sony Xperia Z2/Z3": { width: 360, height: 640 } },
         { "Google Pixel": { width: 411, height: 731 } },
         { "Nexus 4": { width: 384, height: 640 } },
+        { "Samsung Galaxy S8": { width: 360, height: 740 } },
+        { "OnePlus 8": { width: 412, height: 869 } },
     ];
-
-
-
 
     let desktop = [
         { "24_desktop": { width: 1920, height: 1200 } },
@@ -50,10 +39,9 @@
         { "15_notebook": { width: 1366, height: 768 } },
         { "13_notebook": { width: 1024, height: 800 } },
         { "10_notebook": { width: 1024, height: 600 } },
+        { "Apple Thunderbolt Display": { width: 2560, height: 1440 } },
+        { "Dell UltraSharp Monitor": { width: 1440, height: 900 } },
     ];
-
-
-
 
     let tablet = [
         { "Apple iPad Mini": { width: 768, height: 1024 } },
@@ -64,20 +52,12 @@
         { "Asus Eee 1000": { width: 768, height: 1024 } },
         { "Nexus 7": { width: 600, height: 960 } },
         { "Nexus 9": { width: 1024, height: 768 } },
+        { "Samsung Galaxy Tab S7": { width: 2560, height: 1600 } },
+        { "Microsoft Surface Pro": { width: 2736, height: 1824 } },
     ];
-
-
-
-
-
-
-
 
     function toggleSidebar(deviceType) {
         clicked[deviceType] = !clicked[deviceType];
-
-
-
 
         // Close other sidebars
         for (let key in clicked) {
@@ -87,24 +67,17 @@
         }
     }
 
-
-
-
     function dropDownPage(inputUrl) {
         defaultHeight = 1920;
         defaultWidth = 1080;
-
-
-
-
         storedUrl = inputUrl;
     }
+
     function selectDevice(width, height) {
         defaultWidth = width;
         defaultHeight = height;
-       
-        isButtonClicked = !isButtonClicked;
 
+        isButtonClicked = !isButtonClicked;
 
         for (let key in clicked) {
             clicked[key] = false;
@@ -112,14 +85,11 @@
     }
 </script>
 
-
-
-
 <div
     class="container mx-auto max-w-screen-xl flex flex-col lg:flex-row overflow-hidden rounded-lg"
 >
     <div
-        class="side bg-gray-300 w-40 shadow-xl min-h-screen top-0 left-0 bottom-0"
+        class="side bg-gray-400 w-40 shadow-xl min-h-screen top-0 left-0 bottom-0"
     >
         <button
             class="flex flex-col justify-between items-center"
@@ -128,18 +98,12 @@
             <FontAwesomeIcon class="w-14 h-14 py-6 px-14" icon={faMobile} />
         </button>
 
-
-
-
         <button
             class="flex flex-col justify-between items-center"
             on:click={() => toggleSidebar("desktop")}
         >
             <FontAwesomeIcon class="w-14 h-14 py-6 px-14" icon={faDesktop} />
         </button>
-
-
-
 
         <button
             class="flex flex-col justify-between items-center"
@@ -151,9 +115,6 @@
             />
         </button>
     </div>
-
-
-
 
     <main class="flex-1 py-16 w-screen">
         <div class="input-area mt-16 sticky flex flex-row items-center">
@@ -187,7 +148,8 @@
                             {#each Object.entries(device) as [key, value]}
                                 <button
                                     class="block w-full mb-4 text-left font-bold"
-                                    on:click={() => selectDevice(value.width, value.height)}
+                                    on:click={() =>
+                                        selectDevice(value.width, value.height)}
                                 >
                                     {key}<br />
                                     <p class="text-sm text-gray-500">
@@ -199,9 +161,6 @@
                     </ul>
                 </div>
             {/if}
-
-
-
 
             {#if clicked.desktop}
                 <div class="submenu">
@@ -210,7 +169,8 @@
                             {#each Object.entries(device) as [key, value]}
                                 <button
                                     class="block w-full mb-4 text-left font-bold"
-                                    on:click={() => selectDevice(value.width, value.height)}
+                                    on:click={() =>
+                                        selectDevice(value.width, value.height)}
                                 >
                                     {key}<br />
                                     <p class="text-sm text-gray-500">
@@ -223,9 +183,6 @@
                 </div>
             {/if}
 
-
-
-
             {#if clicked.tablet}
                 <div class="submenu">
                     <ul>
@@ -233,7 +190,8 @@
                             {#each Object.entries(device) as [key, value]}
                                 <button
                                     class="block w-full h-32 text-left font-bold"
-                                    on:click={() => selectDevice(value.width, value.height)}
+                                    on:click={() =>
+                                        selectDevice(value.width, value.height)}
                                 >
                                     {key}<br />
                                     <p class="text-sm text-gray-500">
@@ -249,9 +207,6 @@
     </main>
 </div>
 
-
-
-
 <style>
     * {
         box-sizing: border-box;
@@ -260,22 +215,22 @@
     }
     .container {
         position: relative;
-        background-color: white;
+        background-color: rgb(161, 157, 157);
         max-height: 100vh;
-        background-color: rgb(102, 102, 121);
+        justify-content: center;
     }
     .side {
         position: relative;
         padding-top: 15rem;
         box-shadow: 0 -1px 15px 2px rgb(0 0 0 / 0.7);
     }
-    .input-area{
+    .input-area {
         position: fixed;
         position: absolute;
-        transform: translate(1rem, -5rem);
+        transform: translate(1rem, -26rem);
     }
     .input-url {
-        background-color: rgb(155, 186, 187);
+        background-color: rgb(202, 222, 223);
         color: rgb(71, 69, 69);
         padding: 10px;
         padding-right: 0;
@@ -287,16 +242,15 @@
         position: absolute;
         top: 0;
         right: 0;
-        color: rgb(90, 80, 83);
+        color: rgb(255, 255, 255);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 10;
         width: 170px;
-        height: 44.5rem;
-        opacity: 0.9;
+        height: 55rem;
         padding-top: 0.4rem;
         border-left: 1px solid #ccc;
-        transform: translate(-59.47rem,0.01rem);
-        background-color: rgb(148, 180, 148);
+        transform: translate(-59.47rem, 0.01rem);
+        background-color: rgb(34, 34, 34);
         overflow-y: auto;
         scrollbar-width: none;
     }
@@ -304,21 +258,24 @@
         padding-left: 0.6rem;
         margin-bottom: 3rem;
         border-bottom: 1px solid rgb(255, 255, 255);
+        font-weight: 300;
     }
     main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-top: 8rem;
         margin-left: 2rem;
         overflow: auto;
         overflow-x: auto;
-        /* scrollbar-width: none; */
     }
     .content {
-        margin-left: 1rem;
-        scroll-behavior: smooth;        
+        scroll-behavior: smooth;
         scrollbar-width: 2rem;
         overflow-x: auto;
         overflow-y: auto;
-        max-height:max-content;
+        max-height: max-content;
         max-width: max-content;
     }
+    
 </style>
