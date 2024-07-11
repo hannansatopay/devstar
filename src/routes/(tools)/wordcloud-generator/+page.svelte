@@ -21,6 +21,8 @@
 
     let fontSize = 0; // Initialize to 0
     let fontType = ""; // Initialize as an empty string
+    let fontColor = '';
+    const colorNames = ["blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "yellow", "cyan"];
     const fontTypes = [
         "Arial",
         "Courier New",
@@ -211,6 +213,17 @@
                 {/each}
             </select>
         </label>
+
+        <label for="fontColor">
+            <h2 class="text-white m-5">Font Color:</h2>
+            <select id="fontColor" bind:value={fontColor}>
+                <option value="" disabled selected>Select an option</option>
+                {#each colorNames as color}
+                    <option value={color} style="color: {color};">{color}</option>
+                {/each}
+            </select>
+        </label>
+
         <label for="color-pick">
             <h2 class="text-white m-5">Background Colour:</h2>
             <input
@@ -222,6 +235,7 @@
             />
         </label>
         <button on:click={generateWordCloud}>Generate Word Cloud</button>
+        <button on:click={downloadImage}>Download</button>
 
         <svg
             id="wordCloud"
@@ -235,9 +249,9 @@
                         <text
                             x={word.x}
                             y={word.y}
-                            style="font-size: {word.size}px; fill: {cat10colors[
+                            style="font-size: {word.size}px; fill: {fontColor===''?(cat10colors[
                                 Math.floor(Math.random() * 10)
-                            ]}; transform: translate(${word.x}px, ${word.y}px) rotate({word.rotate}deg); font-family: {fontType};"
+                            ]):fontColor}; transform: translate(${word.x}px, ${word.y}px) rotate({word.rotate}deg); font-family: {fontType};"
                         >
                             {word.text}
                         </text>
@@ -266,10 +280,7 @@
         text-align: center;
     }
 
-    h1 {
-        font-size: 2em;
-        margin-bottom: 20px;
-    }
+    
 
     label {
         display: block;
