@@ -1,6 +1,6 @@
 <!-- Filter.svelte -->
 <script>
-    import { onMount, onDestroy } from 'svelte';
+   
   
     export let imageUrl; // Image URL passed as a prop
   
