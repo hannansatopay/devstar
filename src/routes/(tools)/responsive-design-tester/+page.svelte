@@ -84,7 +84,7 @@
         }
     }
 </script>
-
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden rounded-lg">
 <div
     class="container mx-auto max-w-screen-xl flex flex-col lg:flex-row overflow-hidden rounded-lg"
 >
@@ -117,7 +117,7 @@
     </div>
 
     <main class="flex-1 py-16 w-screen">
-        <div class="input-area mt-16 sticky flex flex-row items-center">
+        <div class="input-area gap-2 flex flex-row items-center">
             <input
                 type="text"
                 bind:value={inputUrl}
@@ -130,7 +130,7 @@
                 >Go</button
             >
         </div>
-        <div class="content mt-10 overflow-hidden max-h-auto">
+        <div class="content overflow-hidden">
             <object
                 type="text/html"
                 data={storedUrl}
@@ -206,6 +206,7 @@
         </div>
     </main>
 </div>
+</div>
 
 <style>
     * {
@@ -214,9 +215,10 @@
         margin: 0;
     }
     .container {
+        overflow:hidden;
         position: relative;
         background-color: rgb(161, 157, 157);
-        max-height: 100vh;
+        height: 130vh;
         justify-content: center;
     }
     .side {
@@ -225,7 +227,8 @@
         box-shadow: 0 -1px 15px 2px rgb(0 0 0 / 0.7);
     }
     .input-area {
-        position: fixed;
+        margin-top:10%;
+        /* position: fixed; */
         position: absolute;
         transform: translate(1rem, -26rem);
     }
@@ -236,12 +239,12 @@
         padding-right: 0;
         border: none;
         border-radius: 5px;
-        width: 52rem;
+        width: 40rem;
     }
     .submenu ul {
         position: absolute;
         top: 0;
-        right: 0;
+        right: -6%;
         color: rgb(255, 255, 255);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         z-index: 10;
@@ -264,18 +267,18 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 8rem;
-        margin-left: 2rem;
-        overflow: auto;
-        overflow-x: auto;
+        /* margin-top: 2rem; */
     }
     .content {
+        width:100%;
+        /* padding:10px 20px 20px 20px; */
         scroll-behavior: smooth;
-        scrollbar-width: 2rem;
+        transform:scale(0.584);
+        scrollbar-width:auto;
         overflow-x: auto;
         overflow-y: auto;
-        max-height: max-content;
-        max-width: max-content;
+       height: 800px;
+        /* max-width: 1400px; */
     }
     
 </style>
