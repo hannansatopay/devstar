@@ -1,23 +1,23 @@
 {
-    "name": "",
-    "description":"",
+    "name": "XML Formatter",
+    "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Masum Ahmed",
+        "githubId": "ri-masum"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Enamur Rabbi Ferdausi ",
+        "githubId": "EnamurFerdausi"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Nikhil Sarve",
+        "githubId": "nikhilsarve"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Akash Gaikwad",
+        "githubId": "sky-gaikwad "
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Atharva Thakur",
+        "githubId": "plantindesk"
     }]
 }

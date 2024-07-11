@@ -83,7 +83,7 @@
 
                 <!-- Buttons between the Textareas -->
                 <div class="flex flex-row md:flex-col justify-center space-x-2 md:space-x-0 md:space-y-2">
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="loadXML();">Load</button>
+					<button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="loadXMLFromFile();">Load</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
@@ -103,6 +103,8 @@
             </div>
         </div>
     </div>
+	<input type="file" id="fileInput" accept=".xml, .txt" style="display: none;">
+
     <script>
         function updateLineNumbers(textarea, lineNumbers) {
             const lines = textarea.value.split('\n').length;
@@ -177,14 +179,40 @@
             alert('Copied to clipboard');
         }
 
-		// other code
-		// Function to load XML content into input textarea
-function loadXML() {
-    // Example XML content (replace with actual loading mechanism)
-    const xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<root>\n  <child>Hello, World!</child>\n</root>';
-    document.getElementById('inputXML').value = xmlContent;
-    updateLineNumbers(document.getElementById('inputXML'), document.getElementById('inputLineNumbers'));
-}
+
+		function loadXMLFromFile() {
+        const fileInput = document.getElementById('fileInput');
+
+        // Trigger click event on fileInput when Load button is clicked
+        fileInput.click();
+    }
+
+    // Event listener wehn a file selected
+    fileInput.addEventListener('change', function() {
+        const file = fileInput.files[0];
+
+        // Check if file is selected and is of valid type (XML or text)
+        if (file && (file.type === 'text/xml' || file.type === 'text/plain')) {
+            const reader = new FileReader();
+
+            // FileReader onload event to read file content
+            reader.onload = function(event) {
+                const fileContent = event.target.result;
+
+                // Display file content in inputXML textarea
+                document.getElementById('inputXML').value = fileContent;
+
+                // Update line numbers if needed
+                updateLineNumbers(document.getElementById('inputXML'), document.getElementById('inputLineNumbers'));
+            };
+
+            // Read file as text
+            reader.readAsText(file);
+        } else {
+            alert('Please select a valid XML or text file.');
+        }
+    });
+
 
 // Function to download XML content from output textarea
 function downloadXML() {
