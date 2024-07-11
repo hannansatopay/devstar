@@ -181,13 +181,13 @@
 >
     <section>
         <label for="words">
-            <h2 class="text-white m-5">Enter Words:</h2>
+            <h2 class=" m-5 text-gray-900 dark:text-white">Enter Words:</h2>
             <textarea id="words" bind:value={userInput} rows="4" cols="50"
             ></textarea>
         </label>
 
         <label for="fontSizeRange">
-            <h2 class="text-white m-5">Font Size:</h2>
+            <h2 class="text-gray-900 dark:text-white m-5">Font Size:</h2>
             <input
                 id="fontSizeRange"
                 type="range"
@@ -205,7 +205,7 @@
         </label>
 
         <label for="fontType">
-            <h2 class="text-white m-5">Font Type:</h2>
+            <h2 class="text-gray-900 dark:text-white m-5">Font Type:</h2>
             <select id="fontType" bind:value={fontType}>
                 <option value="" disabled selected>Select an option</option>
                 {#each fontTypes as type}
@@ -215,7 +215,7 @@
         </label>
 
         <label for="fontColor">
-            <h2 class="text-white m-5">Font Color:</h2>
+            <h2 class="text-gray-900 dark:text-white m-5">Font Color:</h2>
             <select id="fontColor" bind:value={fontColor}>
                 <option value="" disabled selected>Select an option</option>
                 {#each colorNames as color}
@@ -225,7 +225,7 @@
         </label>
 
         <label for="color-pick">
-            <h2 class="text-white m-5">Background Colour:</h2>
+            <h2 class="text-gray-900 dark:text-white m-5">Background Colour:</h2>
             <input
                 class="w-20 h-20"
                 type="color"
