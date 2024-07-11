@@ -2,6 +2,7 @@
 	import Crop from './_components/Crop.svelte';
 	import Filter from './_components/Filter.svelte';
 	import ImagePreview from './_components/ImagePreview.svelte';
+	import FillRedact from './_components/FillRedact.svelte';
     let currentFeature = '';
 	let imageUrl = '';
 	let image = "https://picsum.photos/200"
@@ -56,7 +57,7 @@
 			  </svg>Stickers
 		</button>
     </div>
-    <div class="flex justify-center items-center flex-grow w-full bg-gray-200 rounded-lg">
+    <div class="flex justify-center items-center flex-grow w-full bg-inherit rounded-lg">
         {#if currentFeature === 'crop'}
             <Crop image={image} />
 		{:else if currentFeature === 'filter'}
@@ -65,6 +66,8 @@
 			<div>
 				"gvg"
 			</div>
+		{:else if currentFeature === 'fill'}
+			<FillRedact />
 		{:else if currentFeature === 'upload-pic'}
 			<ImagePreview imageUrl=''/>
 		{:else}
