@@ -45,6 +45,23 @@
             resize: none;
             overflow-y: auto;
         }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+        .copy-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #888;
+        }
+        .copy-button:hover svg {
+            fill: #555;
+        }
     </style>
 </head>
 <body class="bg-gray-400 h-screen w-full">
@@ -56,6 +73,9 @@
             <div class="flex flex-col md:flex-row w-full space-y-4 md:space-y-0 md:space-x-4">
                 <!-- First Textarea Container -->
                 <div class="flex flex-col items-start w-full md:w-1/2 bg-gray-100 rounded-lg p-4 textarea-container">
+                    <button class="copy-button" onclick="copyXML('inputXML');" title="Copy Input">
+                       <img src="https://cdn-icons-png.flaticon.com/128/54/54702.png" alt="" class="w-5">
+                    </button>
                     <div class="line-numbers font-bold" id="inputLineNumbers"></div>
                     <label for="inputXML" class="mb-2 text-sm font-medium text-gray-700">Input XML</label>
                     <textarea id="inputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
@@ -67,12 +87,15 @@
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="formatXML();">Format</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onclick="downloadXML();">Download</button>
                     <button class="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" onclick="clearXML();">Clear</button>
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('inputXML');">Copy Input</button>
-                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('outputXML');">Copy Output</button>
+                    <!-- <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('inputXML');">Copy Input</button>
+                    <button class="px-4 py-2 text-sm font-medium text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onclick="copyXML('outputXML');">Copy Output</button> -->
                 </div>
 
                 <!-- Second Textarea Container -->
                 <div class="flex flex-col items-start w-full md:w-1/2 bg-gray-100 rounded-lg p-4 textarea-container">
+                    <button class="copy-button" onclick="copyXML('outputXML');" title="Copy Output">
+                        <img src="https://cdn-icons-png.flaticon.com/128/54/54702.png" alt="" class="w-5">
+                    </button>
                     <div class="line-numbers font-bold" id="outputLineNumbers"></div>
                     <label for="outputXML" class="mb-2 text-sm font-medium text-gray-700">Output XML</label>
                     <textarea id="outputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
@@ -109,7 +132,7 @@
             updateLineNumbers(outputXML, outputLineNumbers);
         });
 
-        //masum part 
+        
         function formatXml(xml) {
             let formatted = '';
             let reg = /(>)(<)(\/*)/g;
@@ -145,10 +168,11 @@
             document.getElementById('outputXML').value = formattedXML;
             updateLineNumbers(document.getElementById('outputXML'), document.getElementById('outputLineNumbers'));
         }
-        // Function to copy XML content
+        //Function to copy XML content
         function copyXML(textareaId) {
             const textarea = document.getElementById(textareaId);
             textarea.select();
+            textarea.setSelectionRange(0, 99999); 
             document.execCommand('copy');
             alert('Copied to clipboard');
         }
