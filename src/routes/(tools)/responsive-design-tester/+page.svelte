@@ -228,7 +228,6 @@
     }
     .input-area {
         margin-top:10%;
-        /* position: fixed; */
         position: absolute;
         transform: translate(1rem, -26rem);
     }
@@ -267,18 +266,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* margin-top: 2rem; */
     }
     .content {
         width:100%;
-        /* padding:10px 20px 20px 20px; */
         scroll-behavior: smooth;
         transform:scale(0.584);
         scrollbar-width:auto;
         overflow-x: auto;
         overflow-y: auto;
        height: 800px;
-        /* max-width: 1400px; */
     }
     
 </style>
