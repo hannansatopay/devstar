@@ -21,8 +21,8 @@
 
     let fontSize = 0; // Initialize to 0
     let fontType = ""; // Initialize as an empty string
-    let fontColor = '';
-    const colorNames = ["blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "yellow", "cyan"];
+    let fontColor = 'random';
+    const colorNames = ["random","blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "yellow", "cyan"];
     const fontTypes = [
         "Arial",
         "Courier New",
@@ -249,7 +249,7 @@
                         <text
                             x={word.x}
                             y={word.y}
-                            style="font-size: {word.size}px; fill: {fontColor===''?(cat10colors[
+                            style="font-size: {word.size}px; fill: {fontColor==='random'?(cat10colors[
                                 Math.floor(Math.random() * 10)
                             ]):fontColor}; transform: translate(${word.x}px, ${word.y}px) rotate({word.rotate}deg); font-family: {fontType};"
                         >
