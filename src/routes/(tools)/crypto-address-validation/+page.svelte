@@ -112,7 +112,6 @@
     }
 
     .container {
-       
         margin: 0 auto;
         padding: 20px;
         border: 1px solid #333;
@@ -212,11 +211,12 @@
     }
 
     input {
-        padding: 10px;
+        padding: 12px;
         border: 1px solid #ccc;
         border-radius: 4px;
         margin-right: 10px;
         flex-grow: 1;
+        width:480px;
     }
 
     button {

@@ -1,23 +1,42 @@
 {
-    "name": "",
-    "description":"",
-    "contributors": [{
-        "name": "",
-        "githubId": ""
-    }, {
-        "name": "",
-        "githubId": ""
+  "name": "Crypto Address Validation",
+  "description": "Crypto Address Validator is a tool that validates addresses for multiple cryptocurrencies. It ensures the correctness of Bitcoin, Ethereum, Litecoin, Ripple, Bitcoin Cash, Cardano, Polkadot, and Dogecoin addresses. A must-have for secure crypto transactions.",
+  "contributors": [
+    {
+      "name": "Tilakshankar Sakthikumar",
+      "githubId": "tilakshankar"
     },
     {
-        "name": "",
-        "githubId": ""
+      "name": "Ketaki Vatturkar",
+      "githubId": "ketakivatturkar"
     },
     {
-        "name": "",
-        "githubId": ""
+      "name": "Nikhil Singh",
+      "githubId": "nikkhil28-29"
     },
     {
-        "name": "",
-        "githubId": ""
-    }]
+      "name": "Mayur Nikam",
+      "githubId": "MayurNikam989"
+    },
+    {
+      "name": "Mathew Jacob",
+      "githubId": "mathewjacob123"
+    },
+    {
+      "name": "Tanish Chopra",
+      "githubId": "TanishC28"
+    },
+    {
+      "name": "Sanjukta Sarkar",
+      "githubId": "Crystalite0201"
+    },
+    {
+      "name": "Pragya",
+      "githubId": "Pragya930"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
