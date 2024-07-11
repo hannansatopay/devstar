@@ -31,6 +31,7 @@
 		"jspdf": "^2.5.1",
 		"pdf-lib": "^1.17.1",
 		"svelte-awesome-color-picker": "^3.1.0",
+		"svelte-canvas": "^1.2.0",
 		"svelte-tags-input": "^6.0.0",
 		"tailwindcss": "^3.3.5",
 		"tesseract.js": "^5.0.2",
