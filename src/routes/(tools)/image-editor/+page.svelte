@@ -1,21 +1,30 @@
 <script>
-	import Crop from './_components/Crop.svelte';
+	import { goto } from '$app/navigation';
 	import Filter from './_components/Filter.svelte';
-	import ImagePreview from './_components/ImagePreview.svelte';
-    let currentFeature = '';
-	  let imageUrl = 'https://mywebsite.com/images/myphoto.jpg';
 
-	let image = "https://picsum.photos/200"
-    function showFeature(feature) {
-		currentFeature = feature;
+
+
+
+	let currentFeature = '';
+  let imageUrl = 'https://mywebsite.com/images/myphoto.jpg';
+
+  function showFeature(feature) {
+    currentFeature = feature;
+  }
+
+  function uploadImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      imageUrl = URL.createObjectURL(file);
+      currentFeature = 'image-preview';
     }
-	function uploadImage(){
-		imageUrl = '';
-	}
+  }
 
+  function goToFilterPage() {
+    goto('./_components/Filter.svelte'); // Adjust the path as per your project structure
+  }
 
-
-
+	
 	
 </script>
 
@@ -45,7 +54,7 @@
 				<path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
 			  </svg>Finetune
 		</button>
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('filter')}>
+        <button on:click={goToFilterPage} class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('filter')}>
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
 			  </svg>Filter
@@ -62,19 +71,14 @@
 			  </svg>Stickers
 		</button>
     </div>
-    <div class="flex justify-center items-center flex-grow w-full bg-gray-200 rounded-lg">
-		<form id="post-form" class="container1 mx-auto p-5" method="POST" enctype="multipart/form-data">
-
-		<label for="image" class="sr-only">Upload an image</label>
-		<input  type="file" accept="image/png, image/jpg, image/jpeg" name="image" id="image" required>
-	</form>
-
+ 
 	
-	</div>
-	
-	<div  class="container text-white">
-		<canvas class="canvas-container text-white"></canvas>
-	</div>
+	<div class="image-upload-container">
+		<input type="file" accept="image/*" on:change={uploadImage} />
+		{#if imageUrl}
+		  <img src={imageUrl} alt="Uploaded image" class="preview-image" />
+		{/if}
+	  </div>
 	<div class="flex lg:flex-col w-full p-4 border-gray-300 basis-1 md:flex-row md:justify-around">
         <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('fill')}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paint-bucket" viewBox="0 0 16 16">
@@ -106,20 +110,30 @@
 </div>
 
 <style>
-  canvas {
-        width: 100%;
-        height: auto;
-    }
-	
-    .canvas-container {
-        width: 100%;
-        max-width: 500px; /* Adjust as needed */
-        border: 1px solid #ddd;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-    }
+  
+.image-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 50%;
+    max-width: 500px; /* Adjust as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+  }
 
+  .image-upload-container input[type="file"] {
+    margin-bottom: 10px;
+  }
+
+  .preview-image {
+    max-width: 100%;
+    max-height: 400px; /* Adjust as needed */
+    border-radius: 10px;
+    object-fit: contain;
+  }
 </style>
