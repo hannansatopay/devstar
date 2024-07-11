@@ -21,7 +21,7 @@
   }
 
   function goToFilterPage() {
-    goto('./_components/Filter.svelte'); // Adjust the path as per your project structure
+    goto('/apply-filter'); // Adjust the path as per your project structure
   }
 
 	
