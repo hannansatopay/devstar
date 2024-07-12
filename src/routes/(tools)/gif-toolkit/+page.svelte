@@ -29,10 +29,10 @@
 	  { name: "GIF Boomerang Converter", component: Tool10 },
 	  { name: "Change Loop Count", component: Tool11 },
 	  { name: "GIF to Sprite Sheet", component: Tool12 },
-	  { name: "GIF Tool 13", component: Tool13 },
-	  { name: "GIF Tool 14", component: Tool14 },
-	  { name: "GIF Tool 15", component: Tool15 },
-	  { name: "GIF Tool 16", component: Tool16 },
+	  { name: "Resized GIF", component: Tool13 },
+	  { name: "Border to GIF", component: Tool14 },
+	  { name: "GIF Playback Speed", component: Tool15 },
+	  { name: "GIF Analyze", component: Tool16 },
 	];
   
 	let selectedTool = null;
