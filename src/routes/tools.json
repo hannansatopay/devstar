@@ -117,9 +117,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -158,6 +158,41 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "image-editor": {
+        "name": "Image Editor",
+        "link": "/image-editor",
+        "description": "This tool that allows images to be edited and also converted to different graphics formats.",
+        "contributors": [
+            {
+                "name": "Harshith",
+                "githubId": "harshith1019"
+            },
+            {
+                "name": "Yedulla Nandavardhan Reddy",
+                "githubId": "Nandavardhan1405"
+            },
+            {
+                "name": "Chaitanya Reddy Gujjula",
+                "githubId": "chaitugujjula00"
+            },
+            {
+                "name": "Aimaan Qureshi",
+                "githubId": "19aimann"
+            },
+            {
+                "name": "Subitha",
+                "githubId": "Subitha12"
+            },
+            {
+                "name": "AjayRaj",
+                "githubId": "ajayrajrthd"
+            },
+            {
+                "name": "Sanjana",
+                "githubId": "sanjanamutkiri"
             }
         ]
     },
