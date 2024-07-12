@@ -1,4 +1,5 @@
 <script>
+    export let image;
     let canvas;
     let ctx;
     let img = new Image();
@@ -8,21 +9,7 @@
     let isDrawing = false;
     let startX, startY;
     let currentTool = 'fill';
-
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            img.onload = function() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                imgLoaded = true;
-                saveState();
-            }
-            img.src = e.target.result;
-        }
-        reader.readAsDataURL(file);
-    }
+    let imgX, imgY, imgWidth, imgHeight;
 
     function saveState() {
         if (historyIndex < history.length - 1) {
@@ -57,34 +44,73 @@
         }
         isDrawing = true;
         const rect = canvas.getBoundingClientRect();
-        startX = event.clientX - rect.left;
-        startY = event.clientY - rect.top;
+        startX = (event.clientX - rect.left) * (canvas.width / rect.width);
+        startY = (event.clientY - rect.top) * (canvas.height / rect.height);
     }
 
     function draw(event) {
         if (!isDrawing) return;
         const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const x = (event.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (event.clientY - rect.top) * (canvas.height / rect.height);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        fitImageOnCanvas(img, ctx, canvas);
         ctx.fillStyle = currentTool === 'fill' ? 'rgba(0, 255, 0, 0.5)' : 'black';
-        ctx.fillRect(startX, startY, x - startX, y - startY);
+        drawRectangle(startX, startY, x, y);
     }
 
     function stopDrawing(event) {
         if (!isDrawing) return;
         isDrawing = false;
         const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+        const x = (event.clientX - rect.left) * (canvas.width / rect.width);
+        const y = (event.clientY - rect.top) * (canvas.height / rect.height);
         ctx.fillStyle = currentTool === 'fill' ? 'rgba(0, 255, 0, 0.5)' : 'black';
-        ctx.fillRect(startX, startY, x - startX, y - startY);
+        drawRectangle(startX, startY, x, y);
         saveState();
     }
 
-    $: if (canvas) {
+    function drawRectangle(startX, startY, endX, endY) {
+        let x = Math.min(startX, endX);
+        let y = Math.min(startY, endY);
+        let width = Math.abs(startX - endX);
+        let height = Math.abs(startY - endY);
+        if (
+            x < imgX + imgWidth &&
+            x + width > imgX &&
+            y < imgY + imgHeight &&
+            y + height > imgY
+        ) {
+            x = Math.max(x, imgX);
+            y = Math.max(y, imgY);
+            width = Math.min(width, imgX + imgWidth - x);
+            height = Math.min(height, imgY + imgHeight - y);
+            ctx.fillRect(x, y, width, height);
+        }
+    }
+
+    function fitImageOnCanvas(image, context, canvas) {
+        let ratio = Math.min(canvas.width / image.width, canvas.height / image.height);
+        imgWidth = image.width * ratio;
+        imgHeight = image.height * ratio;
+        imgX = (canvas.width - imgWidth) / 2;
+        imgY = (canvas.height - imgHeight) / 2;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, image.width, image.height, imgX, imgY, imgWidth, imgHeight);
+    }
+
+    $: if (canvas && image) {
         ctx = canvas.getContext('2d');
+        img.src = image;
+        img.onload = function() {
+            if (canvas) {
+                canvas.width = 500; // Set your desired canvas width
+                canvas.height = 500; // Set your desired canvas height
+                fitImageOnCanvas(img, ctx, canvas);
+                imgLoaded = true;
+                saveState();
+            }
+        }
     }
 </script>
 
@@ -104,39 +130,38 @@
     .buttons button {
         margin-right: 5px;
     }
-    #fill{
-    background-color: cadetblue;
-    padding:5px;
-    word-spacing:10px;
+    #fill {
+        background-color: cadetblue;
+        padding: 5px;
+        word-spacing: 10px;
     }
-    #redact{
-    background-color: cadetblue;
-    padding:5px;
-    word-spacing:10px;
+    #redact {
+        background-color: cadetblue;
+        padding: 5px;
+        word-spacing: 10px;
     }
-    #undo{
-    background-color: cadetblue;
-    padding:5px;
-    word-spacing:10px;
+    #undo {
+        background-color: cadetblue;
+        padding: 5px;
+        word-spacing: 10px;
     }
-    #save{
-    background-color: cadetblue;
-    padding:5px;
-    word-spacing:10px;
+    #save {
+        background-color: cadetblue;
+        padding: 5px;
+        word-spacing: 10px;
     }
-    canvas{
+    canvas {
         background-color: rgb(232, 217, 196);
     }
-    .editor{
-    font-size:40px;
-    margin-top:-40px;
-    color:cadetblue;
+    .editor {
+        font-size: 40px;
+        margin-top: -40px;
+        color: cadetblue;
     }
 </style>
 
 <div class="editor-container bg-inherit">
-    <input type="file" accept="image/*" on:change="{handleFileUpload}"><br><br>
-    <canvas bind:this="{canvas}" id="imageEditor" width="500" height="500"
+    <canvas bind:this="{canvas}" id="imageEditor"
         on:mousedown="{startDrawing}"
         on:mousemove="{draw}"
         on:mouseup="{stopDrawing}"

@@ -3,22 +3,37 @@
 	import Filter from './_components/Filter.svelte';
 	import ImagePreview from './_components/ImagePreview.svelte';
 	import FillRedact from './_components/FillRedact.svelte';
+	import StickerFrame from './_components/StickerFrame.svelte';
+	import ReSize from './_components/ReSize.svelte';
+  import Finetune from './_components/Finetune.svelte';
+  import Annotation from './_components/Annotation.svelte';
     let currentFeature = '';
 	let imageUrl = '';
-	let image = "https://picsum.photos/200"
+	let image = "https://picsum.photos/500/500"
     function showFeature(feature) {
 		currentFeature = feature;
+		if(feature==="choose-random"){
+			imageUrl="https://picsum.photos/500/500";
+		}
     }
 	function uploadImage(){
 		imageUrl = '';
 	}
+	function handleFileChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+            imageUrl = URL.createObjectURL(file);
+        }
+		console.log(imageUrl);
+    }
+
 </script>
 
 <div class="container flex justify-between">
 	<button class="flex justify-evenly items-center bg-gray-400 dark:bg-white p-2 my-3 rounded-xl">
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 font-bold">
-		<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-	  </svg><span class="font-semibold">Customize</span>
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+		  </svg><span class="font-semibold">Download</span>
 	</button>
 	<button on:click={() => showFeature('choose-random')} class="flex justify-evenly items-center bg-gray-400 dark:bg-white p-2 my-3 rounded-xl">
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -29,7 +44,7 @@
 
 <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:flex overflow-hidden rounded-lg">
 	<!-- Add tool here -->
-	<div class="flex lg:flex-col w-full p-4 border-b border-gray-300 basis-1 md:flex-row md:justify-around">
+	<div class="flex lg:flex-col w-full p-4 basis-1 md:flex-row md:justify-around">
         <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('crop')}>
 			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-crop" viewBox="0 0 16 16">
 				<path d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5m2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5"/>
@@ -59,19 +74,47 @@
     </div>
     <div class="flex justify-center items-center flex-grow w-full bg-inherit rounded-lg">
         {#if currentFeature === 'crop'}
-            <Crop image={image} />
+            <Crop image={imageUrl} />
 		{:else if currentFeature === 'filter'}
-			<Filter image={image} />
-		{:else if currentFeature === 'choose-random'}
-			<div>
-				"gvg"
-			</div>
+			<Filter image={imageUrl} />
 		{:else if currentFeature === 'fill'}
-			<FillRedact />
+			<FillRedact image={imageUrl}/>
+		{:else if currentFeature === 'finetune'}
+			<Finetune image={imageUrl}/>
+		{:else if currentFeature === 'annotate'}
+			<Annotation image={imageUrl}/>
 		{:else if currentFeature === 'upload-pic'}
-			<ImagePreview imageUrl=''/>
+			<div class="flex items-center justify-center w-full">
+				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+					<div class="flex flex-col items-center justify-center pt-5 pb-6">
+						<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+						</svg>
+						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+					</div>
+					<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+				</label>
+			</div>
+		{:else if currentFeature === 'choose-random'}
+			<ImagePreview image="https://picsum.photos/500/500" />
+		{:else if currentFeature === 'stickers'}
+			<StickerFrame image={imageUrl}/>
+		{:else if currentFeature === 'resize'}
+			<ReSize bind:image = {imageUrl}/>
 		{:else}
-			<ImagePreview bind:imageUrl={imageUrl} />
+			<div class="flex items-center justify-center w-full">
+				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+					<div class="flex flex-col items-center justify-center pt-5 pb-6">
+						<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+						</svg>
+						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+					</div>
+					<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+				</label>
+			</div>
         {/if}
 	</div>
 	<div class="flex lg:flex-col w-full p-4 border-gray-300 basis-1 md:flex-row md:justify-around">

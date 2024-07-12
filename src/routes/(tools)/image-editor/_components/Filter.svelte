@@ -6,13 +6,6 @@
 	<!-- Add tool here -->
 </div>
 
-
-
-<form id="post-form" class="container1 mx-auto p-5 text-white" method="POST" enctype="multipart/form-data">
-    <label for="image" class="sr-only bg-green text-white">Upload an image</label>
-    <input type="file" accept="image/png, image/jpg, image/jpeg" name="image" id="image" required>
-
-</form>
 <div id="main-container">
 <div  class="container text-white">
     <canvas class="canvas-container text-white"></canvas>
@@ -242,9 +235,10 @@ canvas {
     }
 </style>
 <script>
+    import { onMount } from 'svelte';
+    export let image;
     const canvas = document.querySelector('canvas');
     const context = canvas.getContext('2d');
-    const input = document.getElementById('image');
     const filterButton = document.getElementById('filter-button');
     const discardButton = document.getElementById('discard-button');
     const filterPanel = document.getElementById('filter-panel');
@@ -252,26 +246,21 @@ canvas {
     const backToCategoriesButton = document.getElementById('back-to-categories');
     const filtersContainer = document.getElementById('filters-container');
     const mainContainer = document.getElementById('main-container');
-let imageWidth = null;
+    let imageWidth = null;
     let imageHeight = null;
     let originalData = null;
-    const image = new Image();
-image.addEventListener('load', () => {
-        imageWidth = image.width;
-        imageHeight = image.height;
-        canvas.width = imageWidth;
-        canvas.height = imageHeight;
-        context.drawImage(image, 0, 0);
-        createFilterCategories();
+    const img = new Image();
+
+    onMount(() => {
+      canvas = document.getElementById('imageCanvas');
+      context = canvas.getContext('2d');
+      downloadLink = document.createElement('a');
+      img.crossOrigin = 'anonymous';
+      img.src = image;
+      img.onload = () => {
+        draw();
+      };
     });
-const reader = new FileReader();
-    reader.addEventListener('load', () => {
-        image.src = reader.result;
-        originalData = reader.result;
-    });
-input.addEventListener('change', () => {
-    reader.readAsDataURL(input.files[0]);
-});
 filterButton.addEventListener('click', () => {
     filterPanel.classList.add('open');
     mainContainer.classList.add('adjusted');
