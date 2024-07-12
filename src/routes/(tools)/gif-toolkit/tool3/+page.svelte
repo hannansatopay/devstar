@@ -98,6 +98,7 @@
         font-size: 24px;
         margin-bottom: 20px;
         font-weight: 600;
+        color: #ff6347;
     }
 
     .upload-container {
@@ -125,6 +126,7 @@
         margin-top: 20px;
         gap: 20px;
         font-size: 18px;
+        color: #ff6347;
     }
 
     .preview {

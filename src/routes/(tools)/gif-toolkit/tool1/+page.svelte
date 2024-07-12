@@ -1,4 +1,3 @@
-<!-- GIFToBase64Converter.svelte -->
 <script>
   let uploadedGif = null;
   let base64String = '';
@@ -82,6 +81,7 @@
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: 600;
+    color: #ff6347;
   }
 
   .upload-container {
@@ -117,6 +117,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #ff6347;
   }
 
   .preview img {

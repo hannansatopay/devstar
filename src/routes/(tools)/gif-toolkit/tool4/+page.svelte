@@ -174,6 +174,7 @@
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: 600;
+    color: #ff6347;
   }
 
   .upload-container {
@@ -211,11 +212,13 @@
   .adjustments label {
     min-width: 80px;
     font-size: 16px;
+    color: #ff6347;
   }
 
   .gif-preview {
     text-align: center;
     margin-top: 20px;
+    color: #ff6347;
   }
 
   .gif-preview table {
