@@ -1,10 +1,11 @@
 <script>
-	import { Textarea, Label, Button } from 'flowbite-svelte';
+	import { Textarea, Label, Button, Card, AccordionItem, Accordion } from 'flowbite-svelte';
 
 	let pathData = ' ';
 	let svgPath;
 	let viewBox = '0 0 100 100';
 	const padding = 10;
+	let svgPathDescription = '';
 
 	const commonPaths = {
 		'Line': 'M 10 10 L 90 90',
@@ -33,10 +34,11 @@
 		'Moon': 'M 50 25 A 30 30 0 0 0 50 75 A 20 20 0 0 1 50 25 Z',
 	};
 
-	function visualizePath() {		
+	function visualizePath() {
 		svgPath.setAttribute('d', pathData);
 		const bbox = svgPath.getBBox();
 		viewBox = `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + padding * 2} ${bbox.height + padding * 2}`;
+		describePath();
 	}
 
 	function setCommonPath(path) {
@@ -44,6 +46,46 @@
 		visualizePath();
 	}
 
+	function describePath() {
+		const commands = pathData.match(/[a-z][^a-z]*/ig);
+		if (commands) {
+			svgPathDescription = commands.map(command => {
+				const type = command.charAt(0).toUpperCase();
+				const values = command.slice(1).trim().split(/[ ,]/).map(val => parseFloat(val)).join(', ');
+				const description = getDescription(type, values);
+				return `Command: ${type}\nValues: [${values}]\nDescription: ${description}`;
+			}).join('\n\n');
+		} else {
+			svgPathDescription = '';
+		}
+	}
+
+	function getDescription(type, values) {
+		switch(type) {
+			case 'M':
+				return `Move to the starting point (${values[0]}, ${values[1]}).`;
+			case 'L':
+				return `Draw a line to the point (${values[0]}, ${values[1]}).`;
+			case 'H':
+				return `Draw a horizontal line to x = ${values[0]}.`;
+			case 'V':
+				return `Draw a vertical line to y = ${values[0]}.`;
+			case 'C':
+				return `Draw a cubic Bezier curve to the point (${values[4]}, ${values[5]}) with control points (${values[0]}, ${values[1]}) and (${values[2]}, ${values[3]}).`;
+			case 'S':
+				return `Draw a smooth cubic Bezier curve to the point (${values[2]}, ${values[3]}) with control point (${values[0]}, ${values[1]}).`;
+			case 'Q':
+				return `Draw a quadratic Bezier curve to the point (${values[2]}, ${values[3]}) with control point (${values[0]}, ${values[1]}).`;
+			case 'T':
+				return `Draw a smooth quadratic Bezier curve to the point (${values[0]}, ${values[1]}).`;
+			case 'A':
+				return `Draw an elliptical arc to the point (${values[5]}, ${values[6]}) with radii (${values[0]}, ${values[1]}), rotation ${values[2]}, large-arc-flag ${values[3]}, and sweep-flag ${values[4]}.`;
+			case 'Z':
+				return `Close the path by drawing a straight line back to the starting point.`;
+			default:
+				return `Unknown command.`;
+		}
+	}
 </script>
 
 <div class="card mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 gap-8 overflow-hidden rounded-lg p-8">
@@ -61,4 +103,14 @@
 			<path bind:this={svgPath} fill="none" stroke="gray" stroke-width="1"></path>
 		</svg>
 	</div>
+	{#if svgPathDescription.length>0}
+		<Card class="col-span-2 px-5" size="" padding="none">
+			<Accordion flush>
+				<AccordionItem>
+					<span slot="header">Explanation</span>
+					<pre class=" text-gray-700 dark:text-gray-200">{svgPathDescription}</pre>
+				</AccordionItem>
+			</Accordion>
+		</Card>
+	{/if}
 </div>
