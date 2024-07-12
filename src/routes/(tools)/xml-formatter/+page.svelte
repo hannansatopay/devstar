@@ -38,7 +38,7 @@
         }
         textarea {
             width: 100%;
-            height: 100%;
+            height: 20rem%;
             padding-left: 60px; 
             font-family: monospace;
             line-height: 1.5em; 
@@ -78,7 +78,7 @@
                     </button>
                     <div class="line-numbers font-bold" id="inputLineNumbers"></div>
                     <label for="inputXML" class="mb-2 text-sm font-medium text-gray-700">Input XML</label>
-                    <textarea id="inputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
+                    <textarea id="inputXML" class="w-full min-h-80 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your XML here..." onscroll="syncScroll(this, 'inputLineNumbers')"></textarea>
                 </div>
 
                 <!-- Buttons between the Textareas -->
@@ -98,7 +98,7 @@
                     </button>
                     <div class="line-numbers font-bold" id="outputLineNumbers"></div>
                     <label for="outputXML" class="mb-2 text-sm font-medium text-gray-700">Output XML</label>
-                    <textarea id="outputXML" class="w-full h-64 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
+                    <textarea id="outputXML" class="w-full min-h-80 p-3 border px-10 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Output will be shown here..." onscroll="syncScroll(this, 'outputLineNumbers')"></textarea>
                 </div>
             </div>
         </div>
