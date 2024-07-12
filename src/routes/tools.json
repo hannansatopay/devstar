@@ -1,15 +1,4 @@
 {
-    "Gradient-generator": {
-        "name": "Gradient Generator",
-        "link": "/Gradient-generator",
-        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
-        "contributors": [
-            {
-                "name": "Yash Mankar",
-                "githubId": "AraeneaCLI"
-            }
-        ]
-    },
     "add-prefix-suffix": {
         "name": "Add Prefix and Suffix",
         "link": "/add-prefix-suffix",
@@ -125,6 +114,17 @@
             {
                 "name": "Mohammad Adil",
                 "githubId": "devilzs1"
+            }
+        ]
+    },
+    "gradient-generator": {
+        "name": "Gradient Generator",
+        "link": "/gradient-generator",
+        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+        "contributors": [
+            {
+                "name": "Yash Mankar",
+                "githubId": "AraeneaCLI"
             }
         ]
     },
@@ -314,25 +314,28 @@
         "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
         "contributors": [
             {
-                "name": "Enamur Rabbi Ferdausi ",
-                "githubId": "EnamurFerdausi"
-            },
-            {
                 "name": "Masum Ahmed",
                 "githubId": "ri-masum"
             },
-          
+            {
+                "name": "Enamur Rabbi Ferdausi ",
+                "githubId": "EnamurFerdausi"
+            },
             {
                 "name": "Nikhil Sarve",
                 "githubId": "nikhilsarve"
             },
             {
                 "name": "Akash Gaikwad",
-                "githubId": "sky-gaikwad"
+                "githubId": "sky-gaikwad "
             },
             {
                 "name": "Atharva Thakur",
                 "githubId": "plantindesk"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     }
