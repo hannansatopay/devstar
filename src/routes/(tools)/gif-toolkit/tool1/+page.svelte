@@ -59,7 +59,7 @@
       </div>
       <div class="preview">
         <div>Base64 String</div>
-        <textarea rows="5" readonly>{base64String}</textarea>
+        <textarea rows="12" readonly>{base64String}</textarea>
       </div>
     </div>
     <div class="bt-download">
@@ -136,7 +136,8 @@
     color: black;
     border: 1px solid #ccc;
     border-radius: 4px;
-    resize: vertical;
+    resize: none;
+    overflow-x: clip;
   }
 
   .copy-button,
