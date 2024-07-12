@@ -109,27 +109,27 @@
     "document-generator": {
         "name": "Document Generator",
         "link": "/document-generator",
-        "description": "Document generator enables users to create dynamic documents with headers, paragraphs, and images. Users can customize text (font size, family, boldness, alignment) and highlight headers. Export options include PDF and DOC formats, using jsPDF and docx, with file-saver for downloads.",
+        "description": "Document generator enables users to create dynamic documents with headers , paragraphs and images .Users can customize text (font size, family , boldness , alignment) and highlight headers . Export option includes PDF and DOC formats using jsPDF and docx , with file-saver for downloads",
         "contributors": [
             {
                 "name": "Karan Rajkumar Jain",
                 "githubId": "karanjain09"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Asmita Agre",
+                "githubId": "Asmitaagre46"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Maimuna Khatoon",
+                "githubId": "maimuna01"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Vankadari Naga Pallavi",
+                "githubId": "Pallavi287"
             },
             {
-                "name": "",
-                "githubId": ""
+                "name": "Rajendra Kumar ",
+                "githubId": "rajendrakumar360"
             }
         ]
     },
