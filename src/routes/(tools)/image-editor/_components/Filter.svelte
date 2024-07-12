@@ -258,7 +258,13 @@ canvas {
       img.crossOrigin = 'anonymous';
       img.src = image;
       img.onload = () => {
-        draw();
+        img.addEventListener('load', () => {
+            imageWidth = img.width; 
+            imageHeight = img.height; 
+            canvas.width = imageWidth; 
+            canvas.height = imageHeight; 
+            context.drawImage(img, 0, 0); 
+        });
       };
     });
 filterButton.addEventListener('click', () => {

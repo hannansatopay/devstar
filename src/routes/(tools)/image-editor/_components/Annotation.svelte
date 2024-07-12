@@ -6,11 +6,10 @@
     let activeTool = 'drawLow'; // Default tool
     let drawingThickness = 'low'; // Default drawing thickness
     let drawColor = '#000000'; // Default draw color
-    let imageSrc = null; // For storing the uploaded image source
+    let imageSrc = ""; // For storing the uploaded image source
     let textColor = '#000000'; // Default text color
     let zoomLevel = 1.0; // Initial zoom level
     let shapeType = 'rectangle'; // Default shape type
-    
   let textSize = 20; // Default text size
   let textFont = 'Arial'; // Default text font
   let canvas;
@@ -261,15 +260,15 @@ function isPointInCircle(point, circle) {
     }
   
     onMount(() => {
-      const canvas = document.getElementById('annotation-canvas');
-      const ctx = canvas.getContext('2d');
-  
+      canvas = document.getElementById('annotation-canvas');
+      ctx = canvas.getContext('2d');
+      imageSrc = image;        
       function drawAnnotations() {
         if (imageSrc) {
           const img = new Image();
-          img.onload = () => {
+          imageSrc.onload = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width * zoomLevel, canvas.height * zoomLevel);
+            ctx.drawImage(imageSrc, 0, 0, canvas.width * zoomLevel, canvas.height * zoomLevel);
             annotations.forEach(annotation => {
               switch (annotation.type) {
                 case 'draw':
@@ -289,7 +288,6 @@ function isPointInCircle(point, circle) {
               }
             });
           };
-          img.src = image;
         } else {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
         }

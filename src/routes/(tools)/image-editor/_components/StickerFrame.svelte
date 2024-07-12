@@ -278,8 +278,6 @@
 </script>
 
 <div class="flex flex-col items-center bg-gray-700 p-10 rounded-lg shadow-lg">
-  <input type="file" accept="image/*" on:change={loadImage} class="mb-5 border border-gray-600 rounded"/>
-
   <div class="flex flex-row items-center space-x-2 mb-2">
     <div class="relative">
       <button 
