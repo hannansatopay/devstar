@@ -4,7 +4,7 @@
 	import ImagePreview from './_components/ImagePreview.svelte';
 	import FillRedact from './_components/FillRedact.svelte';
 	import StickerFrame from './_components/StickerFrame.svelte';
-	import ReSize from './_components/ReSize.svelte';
+	import ReSize from './_components/Resize.svelte';
   import Finetune from './_components/Finetune.svelte';
   import Annotation from './_components/Annotation.svelte';
     let currentFeature = '';

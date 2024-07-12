@@ -1,31 +1,38 @@
 {
-    "name": "Image Editor",
-    "description":"This tool that allows images to be edited and also converted to different graphics formats.",
-    "contributors": [{
-        "name": "Harshith",
-        "githubId": "harshith1019"
-    }, {
-        "name": "Yedulla Nandavardhan Reddy",
-        "githubId": "Nandavardhan1405"
+  "name": "Image Editor",
+  "description": "This tool that allows images to be edited and also converted to different graphics formats.",
+  "contributors": [
+    {
+      "name": "Harshith",
+      "githubId": "harshith1019"
     },
     {
-        "name": "Chaitanya Reddy Gujjula",
-        "githubId": "chaitugujjula00"
+      "name": "Yedulla Nandavardhan Reddy",
+      "githubId": "Nandavardhan1405"
     },
     {
-        "name": "Aimaan Qureshi",
-        "githubId": "19aimann"
+      "name": "Chaitanya Reddy Gujjula",
+      "githubId": "chaitugujjula00"
     },
     {
-        "name": "Subitha",
-        "githubId": "Subitha12"
+      "name": "Aimaan Qureshi",
+      "githubId": "19aimann"
     },
     {
-        "name": "AjayRaj",
-        "githubId": "ajayrajrthd"
+      "name": "Subitha",
+      "githubId": "Subitha12"
     },
     {
-        "name": "Sanjana",
-        "githubId": "sanjanamutkiri"
-    }]
+      "name": "AjayRaj",
+      "githubId": "ajayrajrthd"
+    },
+    {
+      "name": "Sanjana",
+      "githubId": "sanjanamutkiri"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
