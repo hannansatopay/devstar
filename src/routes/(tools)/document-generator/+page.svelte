@@ -204,6 +204,12 @@
         font-size: 16px;
         transition: background-color 0.3s ease;
     }
+    .highlightColor, .boldCheck{
+        width:20px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
     button:hover {
         background-color: #0056b3;
     }
@@ -227,8 +233,10 @@
         background-color: #bd2130;
     }
 </style>
-
-<main>
+<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden rounded-lg">
+<main style="display: flex;
+    align-items: center;
+    justify-content: center; padding:15px;">
     <div class="container">
         <h2>Create Document</h2>
 
@@ -265,11 +273,11 @@
 
                 {#if section.type === 'header'}
                     <label>Highlight Color:</label>
-                    <input type="color" bind:value={section.highlightColor} on:input={e => updateSection(index, 'highlightColor', e.target.value)} />
+                    <input class="highlightColor" type="color" bind:value={section.highlightColor} on:input={e => updateSection(index, 'highlightColor', e.target.value)} />
                 {/if}
 
                 <label>Bold:</label>
-                <input type="checkbox" bind:checked={section.bold} on:change={e => updateSection(index, 'bold', e.target.checked)} />
+                <input class="boldCheck" type="checkbox" bind:checked={section.bold} on:change={e => updateSection(index, 'bold', e.target.checked)} />
 
                 <label>Alignment:</label>
                 <select bind:value={section.alignment} on:change={e => updateSection(index, 'alignment', e.target.value)}>
@@ -295,3 +303,4 @@
         <button on:click={generateDocument}>Generate Document</button>
     </div>
 </main>
+</div>

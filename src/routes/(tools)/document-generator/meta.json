@@ -1,23 +1,30 @@
 {
-    "name": "Document Generator",
-    "description":"Document generator enables users to create dynamic documents with headers , paragraphs and images .Users can customize text (font size, family , boldness , alignment) and highlight headers . Export option includes PDF and DOC formats using jsPDF and docx , with file-saver for downloads",
-    "contributors": [{
-        "name": "Karan Rajkumar Jain",
-        "githubId": "karanjain09"
-    }, {
-        "name": "Asmita Agre",
-        "githubId": "Asmitaagre46"
+  "name": "Document Generator",
+  "description": "Document generator enables users to create dynamic documents with headers , paragraphs and images .Users can customize text (font size, family , boldness , alignment) and highlight headers . Export option includes PDF and DOC formats using jsPDF and docx , with file-saver for downloads",
+  "contributors": [
+    {
+      "name": "Karan Rajkumar Jain",
+      "githubId": "karanjain09"
     },
     {
-        "name": "Maimuna Khatoon",
-        "githubId": "maimuna01"
+      "name": "Asmita Agre",
+      "githubId": "Asmitaagre46"
     },
     {
-        "name": "Vankadari Naga Pallavi",
-        "githubId": "Pallavi287"
+      "name": "Maimuna Khatoon",
+      "githubId": "maimuna01"
     },
     {
-        "name": "Rajendra Kumar ",
-        "githubId": "rajendrakumar360"
-    }]
+      "name": "Vankadari Naga Pallavi",
+      "githubId": "Pallavi287"
+    },
+    {
+      "name": "Rajendra Kumar ",
+      "githubId": "rajendrakumar360"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
