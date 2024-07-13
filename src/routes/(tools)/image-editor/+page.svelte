@@ -83,7 +83,12 @@
 						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
 						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
 					</div>
-					<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+					{#if imageUrl}
+						<ImagePreview image={imageUrl} />
+						{:else}
+						<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+					{/if}
+					
 				</label>
 			</div>
 		{:else if currentFeature === 'choose-random'}
@@ -94,7 +99,7 @@
 			<ReSize bind:image = {imageUrl}/>
 		{:else}
 			<div class="flex items-center justify-center w-full">
-				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
 					<div class="flex flex-col items-center justify-center pt-5 pb-6">
 						<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
 							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
@@ -102,7 +107,11 @@
 						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
 						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
 					</div>
+					{#if imageUrl}
+					<ImagePreview image={imageUrl} />
+					{:else}
 					<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+			{/if}
 				</label>
 			</div>
         {/if}
@@ -123,14 +132,18 @@
 				<path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0"/>
 			  </svg>Resize
 		</button>
-		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => {uploadImage(), showFeature('upload-pic')}}>
+		<!-- <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => {uploadImage(), showFeature('upload-pic')}}>
 			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 				<path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
 			  </svg>Upload
-		</button>
+		</button> -->
     </div>
 </div>
 
 <style>
+	.card{
+		/* width:max-content; */
+		height:max-content;
+	}
 
 </style>
