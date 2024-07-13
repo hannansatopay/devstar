@@ -14,19 +14,20 @@
     };
   });
 
-	// Initial nodes
-	export let nodes = writable([
-    {
-      id: 1,
-      text: "Main Topic",
-      x: 500,
-      y: 200,
-      parentId: null,
-      color: "#ffffff",
-      locked: false,
-      lineColor: "#007BFF", // Set initial line color to blue
-    },
-  ]);
+	const initialNodes = [
+	{
+		id: 1,
+		text: "Main Topic",
+		x: 500,
+		y: 200,
+		parentId: null,
+		color: "#ffffff",
+		locked: false,
+		lineColor: "#007BFF", // Set initial line color to blue
+	},
+	];
+
+	export let nodes = writable([...initialNodes]);
 
   let nextId = 2;
   let dragNode = null;
@@ -45,6 +46,11 @@
   let showPanel = false;
   let buttonRect;
   let nodeRect;
+
+  function resetMindmap() {
+  nodes.set([...initialNodes]);
+  nextId = 2; // Reset nextId as well
+}
 
   function addNode(parentId) {
     nodes.update((n) => {
@@ -217,6 +223,7 @@
 		<h1 class=" text-blue-800 bg-gray-50 border-2 border-dashed border-gray-500 rounded-lg p-2" contenteditable bind:textContent={title}></h1>
 	</div>
 	<div class="actions">
+		<button class="text-sm font-bold bg-red" on:click={resetMindmap}>Reset</button>
 		<button class="text-sm font-bold bg-red" on:click={downloadMindmap}>Download</button>
 		<div class="zoom-controls">
 			<button on:click={zoomIn}>+</button>
