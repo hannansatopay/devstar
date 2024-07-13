@@ -1,23 +1,19 @@
 {
-    "name": "",
-    "description":"",
+    "name": "Voice-Recorder-and-Editor",
+    "description":"Voice recording and editing application",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Radha Rungta",
+        "githubId": "Radha-Rungta"
     }, {
-        "name": "",
-        "githubId": ""
+        "name": "Olive Daniel",
+        "githubId": "OliveDaniel24"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Naman Wadhawan",
+        "githubId": "NamanWadhawan"
     },
     {
-        "name": "",
-        "githubId": ""
-    },
-    {
-        "name": "",
-        "githubId": ""
+        "name": "Jatin Sihag",
+        "githubId": "jatinsihag234"
     }]
 }
