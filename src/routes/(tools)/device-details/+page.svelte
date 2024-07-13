@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-
+	console.log(data)
 	let innerWidth: any = null;
 	let innerHeight: any = null;
 	let screenWidth: any = null;

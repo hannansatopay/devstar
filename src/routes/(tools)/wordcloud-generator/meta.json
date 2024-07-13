@@ -1,23 +1,23 @@
 {
-    "name": "",
-    "description":"",
+    "name": "Word Cloud Generator",
+    "description":"The Word Cloud Generator is a dynamic tool that transforms your text into a visually appealing word cloud. By entering your desired words, you can instantly create a colorful and randomized cloud of words, where the size of each word reflects its frequency or significance. Perfect for visualizing text data, highlighting key terms, or adding a creative touch to your presentations, the Word Cloud Generator makes it easy to see the bigger picture in your words. Simply input your text, and watch your words come to life!",
     "contributors": [{
-        "name": "",
-        "githubId": ""
+        "name": "Joel Mathew Job",
+        "githubId": "JoelMathewJob"
     }, {
-        "name": "",
-        "githubId": ""
+        "name":"Tanya Jain" ,
+        "githubId": "tanya050803"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Anushka Pandey",
+        "githubId": "AnushkaPandey0415"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Malay Chowdhury",
+        "githubId": "malayit23"
     },
     {
-        "name": "",
-        "githubId": ""
+        "name": "Vaishnavi Mhamunkar",
+        "githubId": "vaish-18"
     }]
 }
