@@ -1,5 +1,12 @@
 <script>
-    import Record from "./voiceRecord/record.svelte";
+
+
+
+
+
+
+
+import Record from "./voiceRecord/record.svelte";
     import editor from "./voiceEditing/audio-trimmer/public/index.html";
 
     // Function to navigate to the record audio page
@@ -11,7 +18,6 @@
     function goToEditAudio() {
         window.location.href = '#/edit';
     }
-</script>       
 
 <main>
     <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">

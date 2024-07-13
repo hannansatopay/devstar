@@ -291,6 +291,33 @@
             }
         ]
     },
+    "voice-recorder-and-editor": {
+        "name": "",
+        "link": "/voice-recorder-and-editor",
+        "description": "",
+        "contributors": [
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "watermark-pdf": {
         "name": "Watermark PDF",
         "link": "/watermark-pdf",
