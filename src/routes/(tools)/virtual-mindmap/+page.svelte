@@ -1,29 +1,73 @@
 <script>
 	import { writable } from 'svelte/store';
 	import html2canvas from 'html2canvas';
-  
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+
 	// Initial nodes
 	export let nodes = writable([
-	  { id: 1, text: "Main Topic", x: 500, y: 100, parentId: null }
-	]);
-  
-	let nextId = 2;
-	let dragNode = null;
-	let newParent = null;
-	let title = 'MindMap';
-  
-	// Function to add a new node
-	function addNode(parentId) {
-	  nodes.update(n => {
-		const parentNode = n.find(node => node.id === parentId);
-		const newX = parentNode.x + (nextId % 2 === 0 ? -150 : 150);
-		const newY = parentNode.y + 150;
-		return [
-		  ...n,
-		  { id: nextId++, text: `Node ${nextId}`, x: newX, y: newY, parentId: parentId }
-		];
-	  });
-	}
+    {
+      id: 1,
+      text: "Main Topic",
+      x: 500,
+      y: 200,
+      parentId: null,
+      color: "#ffffff",
+      locked: false,
+      lineColor: "#007BFF", // Set initial line color to blue
+    },
+  ]);
+
+  let nextId = 2;
+  let dragNode = null;
+  let newParent = null;
+  let title = "MindMap";
+  const lineThickness = 2;
+  const directions = [
+    [-150, 0],
+    [150, 0],
+    [0, -150],
+    [0, 150],
+    [-150, 150],
+    [150, -150],
+  ];
+  let directionIndex = 0;
+  let showPanel = false;
+  let buttonRect;
+  let nodeRect;
+
+  function addNode(parentId) {
+    nodes.update((n) => {
+      const parentNode = n.find((node) => node.id === parentId);
+      const newX = parentNode.x + directions[directionIndex][0] + 75;
+      const newY = parentNode.y + directions[directionIndex][1] + 75;
+      directionIndex = (directionIndex + 1) % directions.length;
+      return [
+        ...n,
+        {
+          id: nextId++,
+          text: `Node ${nextId}`,
+          x: newX,
+          y: newY,
+          parentId: parentId,
+          color: "#ffffff",
+          locked: false,
+          lineColor: "#007BFF", // Set initial line color to blue
+        },
+      ];
+    });
+  }
+
   
 	// Function to update the text inside the node
 	function updateText(node, newText) {
@@ -44,34 +88,33 @@
 	  });
 	}
   
-	// Function to handle mouse down event for dragging
-	function handleMouseDown(event, node) {
-	  dragNode = node;
-	}
-  
-	// Function to handle mouse move event for dragging
-	function handleMouseMove(event) {
-	  if (dragNode) {
-		const container = document.querySelector('.mindmap-container');
-		const containerRect = container.getBoundingClientRect();
-  
-		let newX = event.clientX - containerRect.left - 75; // Adjust for node width
-		let newY = event.clientY - containerRect.top - 25; // Adjust for node height
-  
-		// Ensure the node stays within the container
-		newX = Math.max(0, Math.min(newX, containerRect.width - 150));
-		newY = Math.max(0, Math.min(newY, containerRect.height - 50));
-  
-		dragNode.x = newX;
-		dragNode.y = newY;
-		nodes.update(n => [...n]);
-	  }
-	}
-  
-	// Function to handle mouse up event to stop dragging
-	function handleMouseUp() {
-	  dragNode = null;
-	}
+	 function handleMouseDown(event, node) {
+    if (!node.locked) {
+      dragNode = node;
+    }
+  }
+
+  function handleMouseMove(event) {
+    if (dragNode) {
+      const container = document.querySelector('.mindmap-container-small');
+      const containerRect = container.getBoundingClientRect();
+
+      let newX = event.clientX - containerRect.left - 75;
+      let newY = event.clientY - containerRect.top - 25;
+
+      newX = Math.max(0, Math.min(newX, containerRect.width - 150));
+      newY = Math.max(0, Math.min(newY, containerRect.height - 50));
+
+      dragNode.x = newX;
+      dragNode.y = newY;
+      nodes.update(n => [...n]);
+    }
+  }
+
+  function handleMouseUp() {
+    dragNode = null;
+  }
+
   
 	// Function to set a new parent for a node
 	function setNewParent(node) {
@@ -91,10 +134,21 @@
 		newParent = null;
 	  }
 	}
+
+	function updateLineColor(node, newColor) {
+    nodes.update((n) => {
+      const targetNode = n.find((n) => n.id === node.id);
+      if (targetNode) {
+        targetNode.lineColor = newColor;
+      }
+      return [...n];
+    });
+  }
+   
   
 	// Function to download mindmap as PNG using html2canvas
 	async function downloadMindmap() {
-	  const mindmapContainer = document.querySelector('.mindmap-container');
+	  const mindmapContainer = document.querySelector('.mindmap-container-big');
 	  
 	  // Use html2canvas to capture the container as a canvas
 	  const canvas = await html2canvas(mindmapContainer);
@@ -112,10 +166,159 @@
 	  downloadLink.click();
 	  document.body.removeChild(downloadLink);
 	}
+
+	function toggleLock(node) {
+    nodes.update((n) => {
+      const targetNode = n.find((n) => n.id === node.id);
+      if (targetNode) {
+        targetNode.locked = !targetNode.locked;
+      }
+      return [...n];
+    });
+  }
+
+	let zoomLevel = 1;
+
+	function zoomIn() {
+		zoomLevel = Math.min(zoomLevel + 0.1, 2);
+	}
+
+	function zoomOut() {
+		zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+	}
+
+	function togglePanel(event, node) {
+    showPanel = !showPanel;
+    if (showPanel) {
+      buttonRect = event.target.getBoundingClientRect();
+      nodeRect = document.getElementById(`node-${node.id}`).getBoundingClientRect();
+    }
+  }
+
+  function handleClickOutside(event) {
+    if (!event.target.closest('.panel') && !event.target.closest('.more-button')) {
+      showPanel = false;
+    }
+  }
+
+  function positionPanel(panel) {
+    const panelElement = document.getElementById('options-panel');
+    if (panelElement) {
+      panelElement.style.top = `${buttonRect.bottom + window.scrollY}px`;
+      panelElement.style.left = `${buttonRect.left + window.scrollX}px`;
+    }
+  }
+
+
   </script>
   
+  <div class="header rounded-lg" style="border-width: 2px 2px 0 2px; border-color: #a0aec0; border-style: solid;">	
+	<div class="title">
+		<h1 class=" text-blue-800 bg-gray-50 border-2 border-dashed border-gray-500 rounded-lg p-2" contenteditable bind:textContent={title}></h1>
+	</div>
+	<div class="actions">
+		<button class="text-sm font-bold bg-red" on:click={downloadMindmap}>Download</button>
+		<div class="zoom-controls">
+			<button on:click={zoomIn}>+</button>
+			<button on:click={zoomOut} class="px-3">-</button>
+		</div>
+	</div>
+	
+</div>
+
+<div class="mindmap-container-big rounded-lg" style="border-width: 0 2px 2px 2px; border-color: #a0aec0; border-style: solid;">
+<div
+  class="mindmap-container-small rounded-lg"
+  style="--zoom-level: {zoomLevel};"
+  on:mousemove={handleMouseMove}
+  on:mouseup={handleMouseUp}
+>
+  <svg class="absolute w-full h-full">
+    {#each $nodes as node}
+      {#if node.parentId !== null}
+        {#each $nodes as parent}
+          {#if parent.id === node.parentId}
+            <line
+              x1={parent.x + 75}
+              y1={parent.y + 25}
+              x2={node.x + 75}
+              y2={node.y}
+              style="stroke: {node.lineColor}; stroke-width: {lineThickness}px;"
+            ></line>
+          {/if}
+        {/each}
+      {/if}
+    {/each}
+  </svg>
+  {#each $nodes as node}
+    <div
+      id={"node-" + node.id}
+      class="node"
+      style="left: {node.x}px; top: {node.y}px;"
+      on:mousedown={(e) => handleMouseDown(e, node)}
+    >
+      <textarea
+        value={node.text}
+        on:input={(e) => updateText(node, e.target.value)}
+        readonly={node.locked}
+      />
+      <div class="buttons">
+        <button on:click={() => addNode(node.id)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 .5-.5z" />
+          </svg>
+        </button>
+
+        <button class="delete-button" on:click={() => deleteNode(node.id)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6zm3-.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9.5A1.5 1.5 0 0 1 11.5 15h-7A1.5 1.5 0 0 1 3 13.5V4h-.5a1 1 0 0 1 0-2H5V1.5A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5V2h2.5a1 1 0 0 1 1 1zM6 2v1h4V2H6z"/>
+          </svg>
+        </button>
+        
+        <button on:click={(e) => togglePanel(e, node)} class="more-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-4 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm8 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </button>
+
+        {#if showPanel}
+          <div id="options-panel" class="panel" style="position: absolute; z-index: 1000 bind:this={positionPanel}">
+            <div class="panel-item">
+              <label>Change Line Color:</label>
+              <input type="color" value={node.lineColor} on:input={(e) => updateLineColor(node, e.target.value)} />
+			  <div>
+			  <button on:click={() => toggleLock(node)}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+				  {#if node.locked}
+					<path d="M4.5 7.5V4a3.5 3.5 0 1 1 7 0v3.5h1V4a4.5 4.5 0 1 0-9 0v3.5h1zm6.5-3a.5.5 0 0 1 .5.5v3h-7v-3a.5.5 0 0 1 .5-.5h6z"/>
+				  {:else}
+					<path d="M4 4v3h8V4a4 4 0 1 0-8 0zM8 1a3 3 0 0 1 3 3v3H5V4a3 3 0 0 1 3-3zm2 6.5v1H6v-1h4zm-4 2v4h4v-4H6zm2 3.5a1.5 1.5 0 0 1-1.415-1h2.83A1.5 1.5 0 0 1 8 13zm-3-4h1v1H5v-1zm6 0v1h-1v-1h1z"/>
+				  {/if}
+				</svg>
+			  </button>
+
+			  <button on:click={() => setNewParent(node)}>
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+				  <path d="M5.5 4a.5.5 0 0 1 .5.5v2.793L7.354 5.293a.5.5 0 1 1 .707.707l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .707-.707L5 7.293V4.5A.5.5 0 0 1 5.5 4zM10.5 12a.5.5 0 0 1-.5-.5v-2.793l-1.854 1.854a.5.5 0 1 1-.707-.707l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 1 1-.707.707L11 8.707V11.5a.5.5 0 0 1-.5.5z"/>
+				</svg>
+			  </button>
+			  {#if newParent && newParent.id !== node.id}
+				<button class="text-sm" on:click={() => changeParent(node.id)}>Change</button>
+			  {/if}
+			  </div>
+            </div>
+          </div>
+        {/if}
+      </div>
+    </div>
+  {/each}
+</div>
+</div>
+
+
   <style>
-	.mindmap-container {
+	.mindmap-container-big {
 	  position: relative;
 	  width: 100%;
 	  height: calc(100vh - 64px); /* Adjust height for header */
@@ -123,6 +326,36 @@
 	  overflow: auto;
 	  padding: 20px;
 	}
+	.mindmap-container-small {
+    position: relative;
+    width: 100%;
+    height: 800px;
+    overflow: auto;
+    background-color: #F8F8F8;
+    transform: scale(var(--zoom-level));
+    transform-origin: 0 0;
+    transition: transform 0.3s ease;
+  }
+	.panel {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 5px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    z-index: 10;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    font-size: 12px;
+	}
+
+	.node:hover .panel {
+		display: block;
+		opacity: 1;
+	}
+
 	.node {
 	  position: absolute;
 	  width: 150px;
@@ -138,12 +371,32 @@
 	.node:active {
 	  cursor: grabbing;
 	}
-	.node input {
-	  width: 100%;
-	  border: none;
-	  border-bottom: 2px solid #ddd;
-	  text-align: center;
-	  outline: none;
+
+	.node textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+	border-bottom: 2px solid #ddd;
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    background: transparent;
+    text-align: center;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.node .panel svg {
+		margin: 2px;
+		cursor: pointer;
+		width: 18px;
+		height: 18px;
+	}
+
+	.absolute {
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 	.node button {
 	  margin-top: 10px;
@@ -164,9 +417,7 @@
 	.node .delete-button:hover {
 	  background-color: #c82333;
 	}
-	.controls {
-	  margin: 10px;
-	}
+	
 	line {
 	  stroke: #007BFF;
 	  stroke-width: 2;
@@ -203,72 +454,28 @@
 	.header button:hover {
 	  background-color: #0056b3;
 	}
+
+	.zoom-controls button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+
+  .zoom-controls button:hover {
+    background-color: #0056b3;
+  }
+
+  .more-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .more-button svg {
+    vertical-align: middle;
+  }
   </style>
-  
-    <div class="header rounded-lg" style="border-width: 2px 2px 0 2px; border-color: #a0aec0; border-style: solid;">	
-		<div class="title">
-		<h1 class=" text-blue-800 bg-gray-50 border-2 border-dashed border-gray-500 rounded-lg p-2" contenteditable bind:textContent={title}></h1>
-		</div>
-	<div class="actions">
-	  <button class="text-sm font-bold bg-red" on:click={downloadMindmap}>Download</button>
-	</div>
-  </div>
-  
-  <div
-	class="mindmap-container rounded-lg" style="border-width: 0 2px 2px 2px; border-color: #a0aec0; border-style: solid;"
-	on:mousemove={handleMouseMove}
-	on:mouseup={handleMouseUp}
-  >
-	<svg class="absolute w-full h-full">
-	  {#each $nodes as node}
-		{#if node.parentId !== null}
-		  {#each $nodes as parent}
-			{#if parent.id === node.parentId}
-			  <line
-				x1={parent.x + 75}
-				y1={parent.y + 25}
-				x2={node.x + 75}
-				y2={node.y}
-			  ></line>
-			{/if}
-		  {/each}
-		{/if}
-	  {/each}
-	</svg>
-	{#each $nodes as node}
-	  <div
-		class="node"
-		style="left: {node.x}px; top: {node.y}px;"
-		on:mousedown={(e) => handleMouseDown(e, node)}
-	  >
-		<input 
-		  type="text" 
-		  value={node.text} 
-		  on:input={(e) => updateText(node, e.target.value)} 
-		/>
-		<div class="buttons">
-			<button on:click={() => addNode(node.id)}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-				  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-				</svg>
-			  </button>
-			  
-			<button class="delete-button" on:click={() => deleteNode(node.id)}>
-			  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-				<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6zm3-.5a.5.5 0 0 0-.5.5v6a.5.5 0 0 0 1 0V6a.5.5 0 0 0-.5-.5z"/>
-				<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9.5A1.5 1.5 0 0 1 11.5 15h-7A1.5 1.5 0 0 1 3 13.5V4h-.5a1 1 0 0 1 0-2H5V1.5A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5V2h2.5a1 1 0 0 1 1 1zM6 2v1h4V2H6z"/>
-			  </svg>
-			</button>
-			<button on:click={() => setNewParent(node)}>
-			  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-				<path d="M5.5 4a.5.5 0 0 1 .5.5v2.793L7.354 5.293a.5.5 0 1 1 .707.707l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .707-.707L5 7.293V4.5A.5.5 0 0 1 5.5 4zM10.5 12a.5.5 0 0 1-.5-.5v-2.793l-1.854 1.854a.5.5 0 1 1-.707-.707l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 1 1-.707.707L11 8.707V11.5a.5.5 0 0 1-.5.5z"/>
-			  </svg>
-			</button>
-			{#if newParent && newParent.id !== node.id}
-			  <button class="text-sm" on:click={() => changeParent(node.id)}>Change</button>
-			{/if}
-		  </div>
-	  </div>
-	{/each}
-  </div>
-  
