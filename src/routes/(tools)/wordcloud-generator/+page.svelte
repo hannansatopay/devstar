@@ -235,7 +235,7 @@
                 bind:value={color}
                 on:input={handleChange}
                 on:click={closeColorPicker}
-                class="w-full h-10 p-2 rounded"
+                class="w-1/6 h-10 rounded"
             />
         </label>
     </aside>
