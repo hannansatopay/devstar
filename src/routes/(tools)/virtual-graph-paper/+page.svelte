@@ -17,8 +17,6 @@
     let dashedStroke = false;
     let roundCorners = false;
     let cornerRadius = 50;
-    let showGrid = false; // Checkbox state for showing grid
-    let showRulers = false;
 
     let currentFreehandPoints = [];
     let controlPoint = null;
@@ -542,23 +540,6 @@
         redrawCanvas();
     }
 
-    function handleDashedStrokeToggle(event) {
-        dashedStroke = event.target.checked;
-    }
-    /*
-    function handleRoundCornersCheckbox(event) {
-        roundCorners = event.target.checked;
-    }
-    function toggleGrid() {
-        showGrid = !showGrid;
-        redrawCanvas();
-    }
-
-    function toggleRulers() {
-        showRulers = !showRulers;
-        redrawCanvas();
-    }
-    */
 </script>
 
 <div class="container mx-auto p-4 bg-slate-100 font-bold rounded-3xl shadow shadow-red-100">
@@ -651,14 +632,6 @@
                     class="bg-gray-200 p-2 rounded-md"
                 />
             {/if}
-            <label class="flex items-center">
-                <input type="checkbox" bind:checked={showGrid} class="mr-1" />
-                Show Grid
-            </label>
-            <label class="flex items-center">
-                <input type="checkbox" bind:checked={showRulers} class="mr-1" />
-                Show Rulers
-            </label>
         </div>
     </div>
     <div class="relative overflow-hidden w-full h-screen border border-black">
