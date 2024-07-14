@@ -16,7 +16,7 @@
 
   const initialNodes = [
     {
-      id: 1,
+      id: 0,
       text: "Main Topic",
       x: 500,
       y: 200,
@@ -30,7 +30,7 @@
 
   export let nodes = writable([...initialNodes]);
 
-  let nextId = 2;
+  let nextId = 1;
   let dragNode = null;
   let newParent = null;
   let title = "MindMap";
@@ -53,7 +53,7 @@
 
   function resetMindmap() {
     nodes.set([...initialNodes]);
-    nextId = 2;
+    nextId = 1;
   }
 
   function addNode(parentId) {
@@ -218,9 +218,9 @@
     // Toggle options panel visibility
     function toggleOptionsPanel(event) {
     showOptionsPanel = !showOptionsPanel;
-    if (showOptionsPanel) {
-      positionOptionsPanel();
-    }
+    // if (showOptionsPanel) {
+    //   positionOptionsPanel();
+    // }
   }
 
   // Update background color for mindmap
@@ -248,7 +248,7 @@
 
     if (optionsButton && optionsPanel) {
       const optionsButtonRect = optionsButton.getBoundingClientRect();
-      optionsPanel.style.top = `${optionsButtonRect.top + window.scrollY}px`;
+      optionsPanel.style.top = `${optionsButtonRect.top + window.scrollY+50}px`;
       optionsPanel.style.left = `${optionsButtonRect.left + window.scrollX}px`;
     }
   }
@@ -269,7 +269,10 @@
   
       <button class="options-button text-sm font-bold" on:click={(e) => toggleOptionsPanel()}>Options</button>
       {#if showOptionsPanel}
-          <div class="options-panel" id="options-panel" style="position: absolute; z-index: 1000 bind:this={positionOptionsPanel}">
+          <div class="options-panel" id="options-panel" style="margin-top:5%; position: absolute; z-index: 1000 bind:this={positionOptionsPanel}">
+            <div class="flex w-full items-end justify-end">
+            <button on:click={(e) => toggleOptionsPanel()} style="background:#dc3545;">X</button>
+            </div>
             <label>
               Background Color:
               <input type="color" value={mindmapBgColor} on:input={updateBgColor} />
@@ -278,6 +281,7 @@
               Background Image:
               <input type="file" accept="image/*" on:change={updateBgImage} />
             </label>
+            
           </div>
         {/if}
     
@@ -290,7 +294,7 @@
 <div class="mindmap-container-big rounded-lg" style="border-width: 0 2px 2px 2px; border-color: #a0aec0; border-style: solid;">
 <div
   class="mindmap-container-small rounded-lg" 
-  style="--zoom-level: {zoomLevel};  background-color: {mindmapBgColor}; background-image: {mindmapBgImage};"
+  style="--zoom-level: {zoomLevel};  background-color: {mindmapBgColor}; background-image: {mindmapBgImage}; background-size:cover; background-repeat:no-repeat;"
   on:mousemove={handleMouseMove}
   on:mouseup={handleMouseUp}
 >
