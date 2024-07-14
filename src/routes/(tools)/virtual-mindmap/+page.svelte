@@ -1,9 +1,9 @@
 <script>
-	import { writable } from 'svelte/store';
-	import html2canvas from 'html2canvas';
-	import { onMount } from 'svelte';
+  import { writable } from 'svelte/store';
+  import html2canvas from 'html2canvas';
+  import { onMount } from 'svelte';
 
-	onMount(() => {
+  onMount(() => {
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('click', handleClickOutside);
@@ -14,20 +14,21 @@
     };
   });
 
-	const initialNodes = [
-	{
-		id: 1,
-		text: "Main Topic",
-		x: 500,
-		y: 200,
-		parentId: null,
-		color: "#ffffff",
-		locked: false,
-		lineColor: "#007BFF", // Set initial line color to blue
-	},
-	];
+  const initialNodes = [
+    {
+      id: 1,
+      text: "Main Topic",
+      x: 500,
+      y: 200,
+      parentId: null,
+      color: "#ffffff",
+      locked: false,
+      lineColor: "#007BFF",
+      backgroundColor: "#ffffff",
+    },
+  ];
 
-	export let nodes = writable([...initialNodes]);
+  export let nodes = writable([...initialNodes]);
 
   let nextId = 2;
   let dragNode = null;
@@ -44,13 +45,16 @@
   ];
   let directionIndex = 0;
   let showPanel = false;
+  let showOptionsPanel = false;
   let buttonRect;
   let nodeRect;
+  let mindmapBgColor = '#f0f4f8';
+  let mindmapBgImage = '';
 
   function resetMindmap() {
-  nodes.set([...initialNodes]);
-  nextId = 2; // Reset nextId as well
-}
+    nodes.set([...initialNodes]);
+    nextId = 2;
+  }
 
   function addNode(parentId) {
     nodes.update((n) => {
@@ -68,33 +72,31 @@
           parentId: parentId,
           color: "#ffffff",
           locked: false,
-          lineColor: "#007BFF", // Set initial line color to blue
+          lineColor: "#007BFF",
+          backgroundColor: "#ffffff",
         },
       ];
     });
   }
 
-  
-	// Function to update the text inside the node
-	function updateText(node, newText) {
-	  nodes.update(n => {
-		const targetNode = n.find(n => n.id === node.id);
-		if (targetNode) {
-		  targetNode.text = newText;
-		}
-		return [...n];
-	  });
-	}
-  
-	// Function to delete a node
-	function deleteNode(nodeId) {
-	  nodes.update(n => {
-		const remainingNodes = n.filter(node => node.id !== nodeId && node.parentId !== nodeId);
-		return remainingNodes.length > 0 ? remainingNodes : n;
-	  });
-	}
-  
-	 function handleMouseDown(event, node) {
+  function updateText(node, newText) {
+    nodes.update(n => {
+      const targetNode = n.find(n => n.id === node.id);
+      if (targetNode) {
+        targetNode.text = newText;
+      }
+      return [...n];
+    });
+  }
+
+  function deleteNode(nodeId) {
+    nodes.update(n => {
+      const remainingNodes = n.filter(node => node.id !== nodeId && node.parentId !== nodeId);
+      return remainingNodes.length > 0 ? remainingNodes : n;
+    });
+  }
+
+  function handleMouseDown(event, node) {
     if (!node.locked) {
       dragNode = node;
     }
@@ -121,27 +123,24 @@
     dragNode = null;
   }
 
-  
-	// Function to set a new parent for a node
-	function setNewParent(node) {
-	  newParent = node;
-	}
-  
-	// Function to change the parent of a node
-	function changeParent(nodeId) {
-	  if (newParent) {
-		nodes.update(n => {
-		  const targetNode = n.find(node => node.id === nodeId);
-		  if (targetNode) {
-			targetNode.parentId = newParent.id;
-		  }
-		  return [...n];
-		});
-		newParent = null;
-	  }
-	}
+  function setNewParent(node) {
+    newParent = node;
+  }
 
-	function updateLineColor(node, newColor) {
+  function changeParent(nodeId) {
+    if (newParent) {
+      nodes.update(n => {
+        const targetNode = n.find(node => node.id === nodeId);
+        if (targetNode) {
+          targetNode.parentId = newParent.id;
+        }
+        return [...n];
+      });
+      newParent = null;
+    }
+  }
+
+  function updateLineColor(node, newColor) {
     nodes.update((n) => {
       const targetNode = n.find((n) => n.id === node.id);
       if (targetNode) {
@@ -150,30 +149,31 @@
       return [...n];
     });
   }
-   
-  
-	// Function to download mindmap as PNG using html2canvas
-	async function downloadMindmap() {
-	  const mindmapContainer = document.querySelector('.mindmap-container-big');
-	  
-	  // Use html2canvas to capture the container as a canvas
-	  const canvas = await html2canvas(mindmapContainer);
-  
-	  // Convert canvas to PNG image data URL
-	  const pngUrl = canvas.toDataURL('image/png');
 
-	  console.log('Current title:', title);
-  
-	  // Create a temporary download link and trigger the download
-	  const downloadLink = document.createElement('a');
-	  downloadLink.href = pngUrl;
-	  downloadLink.download = title ; // Change filename and extension as needed
-	  document.body.appendChild(downloadLink);
-	  downloadLink.click();
-	  document.body.removeChild(downloadLink);
-	}
+  function updateNodeColor(node, newColor) {
+    nodes.update((n) => {
+      const targetNode = n.find((n) => n.id === node.id);
+      if (targetNode) {
+        targetNode.backgroundColor = newColor;
+      }
+      return [...n];
+    });
+  }
 
-	function toggleLock(node) {
+  async function downloadMindmap() {
+    const mindmapContainer = document.querySelector('.mindmap-container-small');
+    const canvas = await html2canvas(mindmapContainer);
+    const pngUrl = canvas.toDataURL('image/png');
+
+    const downloadLink = document.createElement('a');
+    downloadLink.href = pngUrl;
+    downloadLink.download = title;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
+  function toggleLock(node) {
     nodes.update((n) => {
       const targetNode = n.find((n) => n.id === node.id);
       if (targetNode) {
@@ -183,17 +183,17 @@
     });
   }
 
-	let zoomLevel = 1;
+  let zoomLevel = 1;
 
-	function zoomIn() {
-		zoomLevel = Math.min(zoomLevel + 0.1, 2);
-	}
+  function zoomIn() {
+    zoomLevel = Math.min(zoomLevel + 0.1, 2);
+  }
 
-	function zoomOut() {
-		zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
-	}
+  function zoomOut() {
+    zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+  }
 
-	function togglePanel(event, node) {
+  function togglePanel(event, node) {
     showPanel = !showPanel;
     if (showPanel) {
       buttonRect = event.target.getBoundingClientRect();
@@ -214,9 +214,46 @@
       panelElement.style.left = `${buttonRect.left + window.scrollX}px`;
     }
   }
+  
+    // Toggle options panel visibility
+    function toggleOptionsPanel(event) {
+    showOptionsPanel = !showOptionsPanel;
+    if (showOptionsPanel) {
+      positionOptionsPanel();
+    }
+  }
 
+  // Update background color for mindmap
+  function updateBgColor(event) {
+    mindmapBgColor = event.target.value;
+    mindmapBgImage = '';
+  }
 
-  </script>
+  // Update background image for mindmap
+  function updateBgImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        mindmapBgImage = `url(${e.target.result})`;
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Position options panel relative to button
+  function positionOptionsPanel() {
+    const optionsButton = document.querySelector('.options-button button');
+    const optionsPanel = document.querySelector('.options-panel');
+
+    if (optionsButton && optionsPanel) {
+      const optionsButtonRect = optionsButton.getBoundingClientRect();
+      optionsPanel.style.top = `${optionsButtonRect.top + window.scrollY}px`;
+      optionsPanel.style.left = `${optionsButtonRect.left + window.scrollX}px`;
+    }
+  }
+</script>
+
   
   <div class="header rounded-lg" style="border-width: 2px 2px 0 2px; border-color: #a0aec0; border-style: solid;">	
 	<div class="title">
@@ -225,18 +262,35 @@
 	<div class="actions">
 		<button class="text-sm font-bold bg-red" on:click={resetMindmap}>Reset</button>
 		<button class="text-sm font-bold bg-red" on:click={downloadMindmap}>Download</button>
-		<div class="zoom-controls">
+		<div class="zoom-controls mt-1">
 			<button on:click={zoomIn}>+</button>
 			<button on:click={zoomOut} class="px-3">-</button>
 		</div>
-	</div>
+  
+      <button class="options-button text-sm font-bold" on:click={(e) => toggleOptionsPanel()}>Options</button>
+      {#if showOptionsPanel}
+          <div class="options-panel" id="options-panel" style="position: absolute; z-index: 1000 bind:this={positionOptionsPanel}">
+            <label>
+              Background Color:
+              <input type="color" value={mindmapBgColor} on:input={updateBgColor} />
+            </label>
+            <label>
+              Background Image:
+              <input type="file" accept="image/*" on:change={updateBgImage} />
+            </label>
+          </div>
+        {/if}
+    
+    
+    </div>
+  </div>
+    
 	
-</div>
 
 <div class="mindmap-container-big rounded-lg" style="border-width: 0 2px 2px 2px; border-color: #a0aec0; border-style: solid;">
 <div
-  class="mindmap-container-small rounded-lg"
-  style="--zoom-level: {zoomLevel};"
+  class="mindmap-container-small rounded-lg" 
+  style="--zoom-level: {zoomLevel};  background-color: {mindmapBgColor}; background-image: {mindmapBgImage};"
   on:mousemove={handleMouseMove}
   on:mouseup={handleMouseUp}
 >
@@ -258,10 +312,10 @@
     {/each}
   </svg>
   {#each $nodes as node}
-    <div
+      <div
       id={"node-" + node.id}
       class="node"
-      style="left: {node.x}px; top: {node.y}px;"
+      style="left: {node.x}px; top: {node.y}px; background-color: {node.backgroundColor};"
       on:mousedown={(e) => handleMouseDown(e, node)}
     >
       <textarea
@@ -289,33 +343,42 @@
           </svg>
         </button>
 
+        
+
         {#if showPanel}
           <div id="options-panel" class="panel" style="position: absolute; z-index: 1000 bind:this={positionPanel}">
             <div class="panel-item">
-              <label>Change Line Color:</label>
-              <input type="color" value={node.lineColor} on:input={(e) => updateLineColor(node, e.target.value)} />
-			  <div>
-			  <button on:click={() => toggleLock(node)}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
-				  {#if node.locked}
-					<path d="M4.5 7.5V4a3.5 3.5 0 1 1 7 0v3.5h1V4a4.5 4.5 0 1 0-9 0v3.5h1zm6.5-3a.5.5 0 0 1 .5.5v3h-7v-3a.5.5 0 0 1 .5-.5h6z"/>
-				  {:else}
-					<path d="M4 4v3h8V4a4 4 0 1 0-8 0zM8 1a3 3 0 0 1 3 3v3H5V4a3 3 0 0 1 3-3zm2 6.5v1H6v-1h4zm-4 2v4h4v-4H6zm2 3.5a1.5 1.5 0 0 1-1.415-1h2.83A1.5 1.5 0 0 1 8 13zm-3-4h1v1H5v-1zm6 0v1h-1v-1h1z"/>
-				  {/if}
-				</svg>
-			  </button>
-
-			  <button on:click={() => setNewParent(node)}>
-				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-				  <path d="M5.5 4a.5.5 0 0 1 .5.5v2.793L7.354 5.293a.5.5 0 1 1 .707.707l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .707-.707L5 7.293V4.5A.5.5 0 0 1 5.5 4zM10.5 12a.5.5 0 0 1-.5-.5v-2.793l-1.854 1.854a.5.5 0 1 1-.707-.707l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 1 1-.707.707L11 8.707V11.5a.5.5 0 0 1-.5.5z"/>
-				</svg>
-			  </button>
-			  {#if newParent && newParent.id !== node.id}
-				<button class="text-sm" on:click={() => changeParent(node.id)}>Change</button>
-			  {/if}
-			  </div>
+              <label>
+                Node Color:
+                <input type="color" value={node.backgroundColor} on:input={(e) => updateNodeColor($nodes.find(n => n.id === node.id), e.target.value)} />
+              </label>
+              <label>
+                Line Color:
+                <input type="color"  value={node.lineColor} on:input={(e) => updateLineColor($nodes.find(n => n.id === node.id), e.target.value)} />
+              </label>
             </div>
-          </div>
+            
+              
+			      <button on:click={() => toggleLock(node)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                {#if node.locked}
+                <path d="M4.5 7.5V4a3.5 3.5 0 1 1 7 0v3.5h1V4a4.5 4.5 0 1 0-9 0v3.5h1zm6.5-3a.5.5 0 0 1 .5.5v3h-7v-3a.5.5 0 0 1 .5-.5h6z"/>
+                {:else}
+                <path d="M4 4v3h8V4a4 4 0 1 0-8 0zM8 1a3 3 0 0 1 3 3v3H5V4a3 3 0 0 1 3-3zm2 6.5v1H6v-1h4zm-4 2v4h4v-4H6zm2 3.5a1.5 1.5 0 0 1-1.415-1h2.83A1.5 1.5 0 0 1 8 13zm-3-4h1v1H5v-1zm6 0v1h-1v-1h1z"/>
+                {/if}
+              </svg>
+			      </button>
+
+            <button on:click={() => setNewParent(node)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 4a.5.5 0 0 1 .5.5v2.793L7.354 5.293a.5.5 0 1 1 .707.707l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .707-.707L5 7.293V4.5A.5.5 0 0 1 5.5 4zM10.5 12a.5.5 0 0 1-.5-.5v-2.793l-1.854 1.854a.5.5 0 1 1-.707-.707l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 1 1-.707.707L11 8.707V11.5a.5.5 0 0 1-.5.5z"/>
+              </svg>
+            </button>
+              {#if newParent && newParent.id !== node.id}
+              <button class="text-sm" on:click={() => changeParent(node.id)}>Change</button>
+              {/if}
+			    </div>
+          
         {/if}
       </div>
     </div>
@@ -349,7 +412,8 @@
     top: 40px;
     right: 5px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc81;
+    border-radius: 0.5em;
     padding: 5px;
     z-index: 10;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -367,7 +431,7 @@
 	  position: absolute;
 	  width: 150px;
 	  padding: 10px;
-	  background-color: #ffffff;
+    background-color: #ffffff;
 	  border: 2px solid #007BFF;
 	  border-radius: 8px;
 	  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -383,11 +447,12 @@
     width: 100%;
     height: 100%;
     border: none;
-	border-bottom: 2px solid #ddd;
+	  border-bottom: 2px solid #ddd;
+    border-radius: 0.5em;
     resize: none;
     outline: none;
     overflow: hidden;
-    background: transparent;
+    background: #ffffff;
     text-align: center;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
@@ -467,7 +532,7 @@
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     margin-right: 5px;
   }
@@ -484,5 +549,31 @@
 
   .more-button svg {
     vertical-align: middle;
+  }
+
+  .options-button {
+    padding: 4px 4px;
+    background-color: #007BFF;
+	  color: rgb(255, 255, 255);
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  transition: background-color 0.2s;
+    
+  }
+  .options-panel {
+    background-color: white;
+    border: 1px solid #000000;
+    border-radius: 0.5em;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    z-index: 10;
+  }
+  .options-panel label {
+    display: block;
+    margin-bottom: 10px;
+    
   }
   </style>
