@@ -117,9 +117,9 @@
             }
         ]
     },
-    "gradient-generator": {
+    "Gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/gradient-generator",
+        "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -214,6 +214,33 @@
             {
                 "name": "Vikas Kushwaha",
                 "githubId": "Vikas350"
+            }
+        ]
+    },
+    "online-flashcard": {
+        "name": "Flashcard Generator",
+        "link": "/online-flashcard",
+        "description": "A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
+        "contributors": [
+            {
+                "name": "Linga Reddy Gari Kavyanjali",
+                "githubId": "Kavyanjali02"
+            },
+            {
+                "name": "Umeed Mujawar",
+                "githubId": "Umed24"
+            },
+            {
+                "name": "Prem Verma",
+                "githubId": "vermaprem1012"
+            },
+            {
+                "name": "Sunidhi Munshi",
+                "githubId": "Sunidhimu"
+            },
+            {
+                "name": "Laxmi Khilnani",
+                "githubId": "laxmikhilnani20"
             }
         ]
     },
