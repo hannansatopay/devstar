@@ -1,23 +1,3 @@
-## Description
-
-The virtual mindmap making tool has the following features/ options:
-1. Add note: to add new note
-2. Delete note: to delete existing note
-3. changing line colour
-4. locking the position of a node
-5. changing the links between nodes, i.e., changing parent node
-7. Zoom in / out functionality
-8. changing title of mindmap
-9. downloading the mindmap in the form of .png file
-10. resting the mindmap contents
-
-Project by:
-1. Purvi Passi
-2. Snehal Shetye
-3. Cheryl Lobo
-4. Aanchal Mehta
-5. Prachi Zodage
-
 [![Screenshot of the plaform](platform-screenshot.png)](https://developerstar.com)
 
 # Developerstar
