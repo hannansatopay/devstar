@@ -1,4 +1,15 @@
 {
+    "Gradient-generator": {
+        "name": "Gradient Generator",
+        "link": "/Gradient-generator",
+        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+        "contributors": [
+            {
+                "name": "Yash Mankar",
+                "githubId": "AraeneaCLI"
+            }
+        ]
+    },
     "add-prefix-suffix": {
         "name": "Add Prefix and Suffix",
         "link": "/add-prefix-suffix",
@@ -114,17 +125,6 @@
             {
                 "name": "Mohammad Adil",
                 "githubId": "devilzs1"
-            }
-        ]
-    },
-    "Gradient-generator": {
-        "name": "Gradient Generator",
-        "link": "/Gradient-generator",
-        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
-        "contributors": [
-            {
-                "name": "Yash Mankar",
-                "githubId": "AraeneaCLI"
             }
         ]
     },
@@ -292,29 +292,29 @@
         ]
     },
     "virtual-mindmap": {
-        "name": "Virtual Mindmap Maker",
+        "name": "",
         "link": "/virtual-mindmap",
-        "description": "Curate personalised mindmaps to ease your learning with effective visuals. This tool will help you in making mindmaps to store information as linked cards for easier memorisation. ",
+        "description": "",
         "contributors": [
             {
-                "name": "Snehal Shetye",
-                "githubId": "Snehalshetye18"
+                "name": "",
+                "githubId": ""
             },
             {
-                "name": "Purvi Passi",
-                "githubId": "pxxpassi"
+                "name": "",
+                "githubId": ""
             },
             {
-                "name": "Cheryl Lobo",
-                "githubId": "cherylobo"
+                "name": "",
+                "githubId": ""
             },
             {
-                "name": "Prachi Zodage",
-                "githubId": "PrachiZodage"
+                "name": "",
+                "githubId": ""
             },
             {
-                "name": "Aanchal Mehta",
-                "githubId": "Aanchal1902"
+                "name": "",
+                "githubId": ""
             }
         ]
     },

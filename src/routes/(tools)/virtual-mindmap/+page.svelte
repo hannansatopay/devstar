@@ -359,7 +359,8 @@
             </div>
             
               
-			      <button on:click={() => toggleLock(node)}>
+	          <button on:click={() => toggleLock(node)}>
+
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
                 {#if node.locked}
                 <path d="M4.5 7.5V4a3.5 3.5 0 1 1 7 0v3.5h1V4a4.5 4.5 0 1 0-9 0v3.5h1zm6.5-3a.5.5 0 0 1 .5.5v3h-7v-3a.5.5 0 0 1 .5-.5h6z"/>
