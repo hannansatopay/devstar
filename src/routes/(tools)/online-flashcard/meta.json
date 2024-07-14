@@ -1,23 +1,30 @@
 {
-    "name": "Flashcard Generator",
-    "description":"A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
-    "contributors": [{
-        "name": "Linga Reddy Gari Kavyanjali",
-        "githubId": "Kavyanjali02"
-    }, {
-        "name": "Umeed Mujawar",
-        "githubId": "Umed24"
+  "name": "Flashcard Generator",
+  "description": "A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
+  "contributors": [
+    {
+      "name": "Linga Reddy Gari Kavyanjali",
+      "githubId": "Kavyanjali02"
     },
     {
-        "name": "Prem Verma",
-        "githubId": "vermaprem1012"
+      "name": "Umeed Mujawar",
+      "githubId": "Umed24"
     },
     {
-        "name": "Sunidhi Munshi",
-        "githubId": "Sunidhimu"
+      "name": "Prem Verma",
+      "githubId": "vermaprem1012"
     },
     {
-        "name": "Laxmi Khilnani",
-        "githubId": "laxmikhilnani20"
-    }]
+      "name": "Sunidhi Munshi",
+      "githubId": "Sunidhimu"
+    },
+    {
+      "name": "Laxmi Khilnani",
+      "githubId": "laxmikhilnani20"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
