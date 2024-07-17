@@ -1,15 +1,22 @@
 {
-    "name": "Business Card Generator",
-    "description":"Create professional and personalized business cards effortlessly with our intuitive Business Card Generator. Design your cards with a variety of templates, fonts, and colors to suit your brand. Easily customize your details and download your ready-to-print business cards in minutes.",
-    "contributors": [{
-        "name": "Kaushal Patel",
-        "githubId": "kaushalkp-12"
-    }, {
-        "name": "Yash Patel",
-        "githubId": "Yash312002"
+  "name": "Business Card Generator",
+  "description": "Create professional and personalized business cards effortlessly with our intuitive Business Card Generator. Design your cards with a variety of templates, fonts, and colors to suit your brand. Easily customize your details and download your ready-to-print business cards in minutes.",
+  "contributors": [
+    {
+      "name": "Kaushal Patel",
+      "githubId": "kaushalkp-12"
     },
     {
-        "name": "Emmanuel Baraka",
-        "githubId": "Theemanu24"
-    }]
+      "name": "Yash Patel",
+      "githubId": "Yash312002"
+    },
+    {
+      "name": "Emmanuel Baraka",
+      "githubId": "Theemanu24"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
