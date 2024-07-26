@@ -117,9 +117,9 @@
             }
         ]
     },
-    "Gradient-generator": {
+    "gradient-generator": {
         "name": "Gradient Generator",
-        "link": "/Gradient-generator",
+        "link": "/gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
         "contributors": [
             {
@@ -291,6 +291,33 @@
             }
         ]
     },
+    "sql-converter": {
+        "name": "",
+        "link": "/sql-converter",
+        "description": "",
+        "contributors": [
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "sql-file-converter": {
         "name": "sql converter",
         "link": "/sql-file-converter",
@@ -302,7 +329,7 @@
             },
             {
                 "name": "Suryank Chavan",
-                "githubId": "SuryankChavan"
+                "githubId": "suryank05"
             },
             {
                 "name": "Akankshasarade",
@@ -310,7 +337,7 @@
             },
             {
                 "name": "Shristi Kushwaha",
-                "githubId": "ShristiKushwaha"
+                "githubId": "Shri6apr"
             },
             {
                 "name": "Aditya Gupta",
