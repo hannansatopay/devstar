@@ -10,16 +10,16 @@ const __dirname = path.dirname(__filename);
 const toolsFolder = path.join(__dirname, 'src', 'routes', '(tools)');
 
 // Initialize an empty object to hold the tools data
-let toolsData = {};
+const toolsData = {};
 
 // Read all subfolders within the tools folder
 fs.readdirSync(toolsFolder).forEach(subfolder => {
-    const subfolderPath = path.join(toolsFolder, subfolder);
-    const metaFilePath = path.join(subfolderPath, 'meta.json');
-
     if (subfolder === '.blank') {
         return; // Skip the .blank folder
     }
+
+    const subfolderPath = path.join(toolsFolder, subfolder);
+    const metaFilePath = path.join(subfolderPath, 'meta.json');
 
     // Check if meta.json file exists in the subfolder
     if (fs.existsSync(metaFilePath)) {
@@ -38,7 +38,7 @@ fs.readdirSync(toolsFolder).forEach(subfolder => {
 
 const toolsJsonFilePath = path.join(__dirname, 'src', 'routes', 'tools.json');
 
-// Write the content to tools.json file 
+// Write the content to tools.json file
 fs.writeFileSync(toolsJsonFilePath, JSON.stringify(toolsData, null, 4));
 
 console.log('tools.json file has been created successfully!');
