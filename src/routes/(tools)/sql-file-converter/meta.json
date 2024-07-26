@@ -1,0 +1,26 @@
+{
+    "name": "sql converter",
+    "description": "Converts .sql into csv, xlsx and more",
+    "contributors": [
+        {
+            "name": "Somesh Diwan",
+            "githubId": "Someshdiwan"
+        },
+        {
+            "name": "Suryank Chavan",
+            "githubId": "suryank05"
+        },
+        {
+            "name": "Akankshasarade",
+            "githubId": "Akankshasarade"
+        },
+        {
+            "name": "Shristi Kushwaha",
+            "githubId": "Shri6apr"
+        },
+        {
+            "name": "Aditya Gupta",
+            "githubId": "AdityaGupta"
+        }
+    ]
+}
