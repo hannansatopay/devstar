@@ -38,7 +38,7 @@ fs.readdirSync(toolsFolder).forEach(subfolder => {
 
 const toolsJsonFilePath = path.join(__dirname, 'src', 'routes', 'tools.json');
 
-// Write the content to tools.json file
+// Write the content to tools.json file 
 fs.writeFileSync(toolsJsonFilePath, JSON.stringify(toolsData, null, 4));
 
 console.log('tools.json file has been created successfully!');
