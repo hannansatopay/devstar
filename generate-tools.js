@@ -36,7 +36,6 @@ fs.readdirSync(toolsFolder).forEach(subfolder => {
     }
 });
 
-// Define the path for tools.json file
 const toolsJsonFilePath = path.join(__dirname, 'src', 'routes', 'tools.json');
 
 // Write the content to tools.json file
