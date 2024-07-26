@@ -151,7 +151,7 @@
 	
 		eventCountdown = `${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
 	  } else {
-		eventCountdown = "The event has passed.";
+		eventCountdown = "0";
 	  }
 	}
 	
@@ -183,19 +183,21 @@ main {
 
 
 
-.card {
+.timercard {
     background-color: var(--secondary-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 20px;
     margin: 20px;
+	height:380px;
     flex: 1;
     min-width: 300px;
+	
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
     transition: box-shadow 0.3s; /* Smooth transition for hover effect */
 }
 
-.card:hover {
+.timercard:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Deeper shadow on hover */
 }
 
@@ -218,7 +220,7 @@ main {
 
 button {
     font-size: 1.2em;
-    padding: 10px 20px;
+    padding: 10px 2px;
     border: none;
     border-radius: 5px;
     background-color: var(--primary-color);
@@ -310,20 +312,21 @@ audio {
 
 	
 	<!-- Timer 1: Counts up from zero -->
-	<div class="card">
+	<div class="card gap-6 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+	<div class="timercard">
 		<div class="timer">
 			Timer 1: {formatTime(time1)}
 		</div>
 		<div class="controls" style="margin-top:75px">
-			<button on:click={() => interval1 ? stopTimer1() : startTimer1()} style="padding:10px 95px">{interval1 ? 'Stop' : 'Start'}</button>
+			<button on:click={() => interval1 ? stopTimer1() : startTimer1()} style="padding:10px 80px">{interval1 ? 'Stop' : 'Start'}</button>
 		</div>
 		<div class="controls">
-			<button on:click={resetTimer1} style="padding:10px 95px">Reset</button>
+			<button on:click={resetTimer1} style="padding:10px 80px">Reset</button>
 		</div>
 	</div>
 
 	<!-- Timer 2: Counts down from a given time with alarm and repeat option -->
-<div class="card">
+<div class="timercard">
 	<div class="timer">
 		Timer 2: {formatTime(time2)}
 	</div>
@@ -349,7 +352,7 @@ audio {
 
 
 	<!-- Timer 3: Lap Timer -->
-	<div class="card">
+	<div class="timercard">
 		<div class="timer">
 			Lap Timer: {formatTime(lapTime)}
 		</div>
@@ -369,8 +372,8 @@ audio {
 		</div>
 	</div>
 
-	<!-- Timer 4: World Clock -->
-	<div class="card">
+	<!-- Timer 4: World Clock
+	<div class="timercard">
 		<div class="timer">
 			World Clock: {selectedCountry}
 		</div>
@@ -392,11 +395,11 @@ audio {
 				<button on:click={() => selectCountry("Tokyo, Japan")}>Tokyo, Japan</button>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Timer 5: Event Countdown Timer -->
 <!-- Timer 5: Event Countdown Timer -->
-<div class="card">
+<div class="timercard">
 	<h2 style="text-align:center;font-size:1.5em;color:#f1f1f1;margin-top:20px">Event Countdown Timer</h2>
 	<div class="controls">
 	  <input type="date" bind:value={eventDateInput} />
@@ -405,12 +408,13 @@ audio {
 	  <button on:click={setEventDate} style="padding:10px 95px">Set Event Date</button>
 	</div>
 	<div class="timer" style="font-size: 1em;">
-	  <div>Years: {eventCountdown.split(', ')[0]}</div>
-	  <div>Months: {eventCountdown.split(', ')[1]}</div>
-	  <div>Days: {eventCountdown.split(', ')[2]}</div>
-	  <div>Hours: {eventCountdown.split(', ')[3]}</div>
-	  <div>Minutes: {eventCountdown.split(', ')[4]}</div>
-	  <div>Seconds: {eventCountdown.split(', ')[5]}</div>
+	  <div>Years: {eventCountdown.split(', ')[0]===undefined?'0':eventCountdown.split(', ')[0]}</div>
+	  <div>Months: {eventCountdown.split(', ')[1]===undefined?'0':eventCountdown.split(', ')[1]}</div>
+	  <div>Days: {eventCountdown.split(', ')[2]===undefined?'0':eventCountdown.split(', ')[2]}</div>
+	  <div>Hours: {eventCountdown.split(', ')[3]===undefined?'0':eventCountdown.split(', ')[3]}</div>
+	  <div>Minutes: {eventCountdown.split(', ')[4]===undefined?'0':eventCountdown.split(', ')[4]}</div>
+	  <div>Seconds: {eventCountdown.split(', ')[5]===undefined?'0':eventCountdown.split(', ')[5]}</div>
 	</div>
+</div>
 </div>
 </main>

@@ -1,6 +1,6 @@
 {
-    "name": "Multi-timer(with alarm)",
-    "description":"https://github.com/Prajwal435/devstar",
+    "name": "Multi-timer",
+    "description":"Multi Timer with alarm mechanism",
     "contributors": [{
         "name": "Prajwal Dilip Ganar",
         "githubId": "Prajwal435"
