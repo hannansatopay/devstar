@@ -11,6 +11,7 @@
   let selectedOptions = writable({});
   let currentQuestionIndex = writable(0);
   let submissionError = writable("");
+   let submitted=false;
   let intervalId;
   let isTimeUp = writable(false);
   let usernameData;
@@ -146,6 +147,7 @@
   }
 
   function manualSubmitQuiz() {
+    submitted=true;
     const unansweredQuestions = questions.filter(
       (_, index) => !$selectedOptions[index]
     );
@@ -217,6 +219,7 @@
       {#if $currentQuestionIndex === questions.length - 1}
         <button
           on:click={manualSubmitQuiz}
+          disabled={submitted}
           class="bg-green-500 dark:bg-green-700 text-white px-4 py-2 rounded-md hover:bg-green-600 dark:hover:bg-green-800"
         >
           Submit
