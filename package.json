@@ -39,7 +39,8 @@
 		"tesseract.js": "^5.0.2",
 		"uuid": "^10.0.0",
 		"vite-plugin-iso-import": "^1.0.0",
-		"vitest": "^0.34.6"
+		"vitest": "^0.34.6",
+		"xlsx": "^0.18.5"
 	},
 	"type": "module",
 	"keywords": [

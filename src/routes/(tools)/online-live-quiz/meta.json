@@ -1,8 +1,14 @@
 {
-    "name": "Online live Quiz",
-    "description":"A quiz app where users create and share quizzes via links, with timed sessions, question display, real-time answers, and choices, and ending with a complete result summary shown as a bar graph.",
-    "contributors": [{
-        "name": "AdityaPratap Singh",
-        "githubId": "Aditya-Tomer"
-    }]
+  "name": "Online live Quiz",
+  "description": "A quiz app where users create and share quizzes via links, with timed sessions, question display, real-time answers, and choices, and ending with a complete result summary shown as a bar graph.",
+  "contributors": [
+    {
+      "name": "AdityaPratap Singh",
+      "githubId": "Aditya-Tomer"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
 }
