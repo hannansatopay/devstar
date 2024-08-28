@@ -1,5 +1,5 @@
 {
-  "name": "CODE LINTER",
+  "name": "Code Linter",
   "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
   "contributors": [
     {
