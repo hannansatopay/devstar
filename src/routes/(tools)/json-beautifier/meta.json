@@ -1,0 +1,30 @@
+{
+  "name": "JSON Beautifier",
+  "description": "JSON Beautifier help to auto format JSON and validate your JSON text. It also provides a tree view that helps to navigate your formatted JSON data.",
+  "contributors": [
+    {
+      "name": "Atharva Raut",
+      "githubId": "A7h4rv4"
+    },
+    {
+      "name": "Ayush Udayakumar Nair",
+      "githubId": "techgeekAyush"
+    },
+    {
+      "name": "Sarath Parayil",
+      "githubId": "sarathp22"
+    },
+    {
+      "name": "Shriya Prashant Ise",
+      "githubId": "shriya7ise"
+    },
+    {
+      "name": "Yusra Mukadam",
+      "githubId": "YusraMukadam"
+    },
+    {
+      "name": "Ashwani Kumar Singh",
+      "githubId": "ashwani2529"
+    }
+  ]
+}

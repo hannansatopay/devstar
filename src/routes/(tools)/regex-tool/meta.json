@@ -1,0 +1,27 @@
+{
+    "name": "Regex Tool",
+    "description":"The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+    "contributors": [{
+        "name": "Soham Jayakar",
+        "githubId": "SohamJayakar"
+    }, {
+        "name": "Amey Patil",
+        "githubId": "Ameypatil07"
+    },
+    {
+        "name": "Mohmad Danish Rehman",
+        "githubId": "dannish110"
+    },
+    {
+        "name": "Darshana Jadhav",
+        "githubId": "Darshana1011"
+    },
+    {
+        "name": "Vijay Kalidas Pawar",
+        "githubId": "vijay-pawar-99"
+    },
+{
+    "name":"Ashwani Kumar Singh",
+    "githubId":"ashwani2529"
+}]
+}
