@@ -57,7 +57,7 @@
 		"svelte-spa-router": "^4.0.1",
 		"svelte-tags-input": "^6.0.0",
 		"tesseract.js": "^5.0.2",
-		"vite-plugin-iso-import": "^1.0.0",
+		"vite-plugin-iso-import": "^1.0.0"
 		"vitest": "^0.34.6",
 		"xlsx": "^0.18.5"
 	},
