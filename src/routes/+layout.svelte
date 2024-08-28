@@ -22,8 +22,8 @@
 			content="Looking to boost your productivity and efficiency as a developer? Our free online developer toolkit has everything you need to unlock your full potential. From a user-friendly platform to a comprehensive collection of tools, we've got you covered. Experience the convenience and power of our toolkit today!"
 		/>
 	{/if}
-	<!-- <meta name="keywords" content="developer toolkit, free online, efficiency, productivity, user-friendly platform, comprehensive collection of tools, unlock your full potential"> -->
-	<!-- <meta property="og:image" content="https://example.com/toolkit.jpg"> -->
+	<meta name="keywords" content="developer toolkit, free online, efficiency, productivity, user-friendly platform, comprehensive collection of tools, unlock your full potential">
+	<meta property="og:image" content="https://example.com/toolkit.jpg"> 
 </svelte:head>
 
 <header

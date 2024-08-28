@@ -185,6 +185,27 @@
                 name: 'Sahil Balia',
                 githubId: 'sahilbalia'
             }]
+
+        },
+        {
+            name: 'Virtual MindMap Maker',
+            contributors: [{
+                name: 'Snehal Shetye',
+                githubId: 'Snehalshetye18'
+            }, {
+                name: 'Purvi Passi',
+                githubId: 'pxxpassi'
+            }, {
+                name: 'Cheryl Lobo',
+                githubId: 'cherylobo'
+            }, {
+                name: 'Aanchal Mehta',
+                githubId: 'Aanchal1902'
+            }, {
+                name: 'Prachi Zodage',
+                githubId: 'PrachiZodage'
+            }]
+
         }
     ];
 </script>
