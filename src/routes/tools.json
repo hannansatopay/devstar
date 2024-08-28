@@ -58,6 +58,33 @@
             }
         ]
     },
+    "app-store-screenshot-generator": {
+        "name": "App Store Screenshort Generator",
+        "link": "/app-store-screenshot-generator",
+        "description": "Our tool makes creating professional app store screenshots easy and efficient. With powerful features, device support, and customization options, it helps you showcase your app beautifully. Enhance your app's visual appeal and make a lasting impression.",
+        "contributors": [
+            {
+                "name": "Nilambari Mahajan",
+                "githubId": "Nilambari-Mahajan"
+            },
+            {
+                "name": "Vaibhav Dingalwar",
+                "githubId": "irrereplacable26"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "ascii-encode-decode": {
         "name": "ASCII Encoder & Decoder",
         "link": "/ascii-encode-decode",
@@ -88,6 +115,49 @@
             {
                 "name": "Abdur Rehman Shaikh",
                 "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "crypto-address-validation": {
+        "name": "Crypto Address Validation",
+        "link": "/crypto-address-validation",
+        "description": "Crypto Address Validator is a tool that validates addresses for multiple cryptocurrencies. It ensures the correctness of Bitcoin, Ethereum, Litecoin, Ripple, Bitcoin Cash, Cardano, Polkadot, and Dogecoin addresses. A must-have for secure crypto transactions.",
+        "contributors": [
+            {
+                "name": "Tilakshankar Sakthikumar",
+                "githubId": "tilakshankar"
+            },
+            {
+                "name": "Ketaki Vatturkar",
+                "githubId": "ketakivatturkar"
+            },
+            {
+                "name": "Nikhil Singh",
+                "githubId": "nikkhil28-29"
+            },
+            {
+                "name": "Mayur Nikam",
+                "githubId": "MayurNikam989"
+            },
+            {
+                "name": "Mathew Jacob",
+                "githubId": "mathewjacob123"
+            },
+            {
+                "name": "Tanish Chopra",
+                "githubId": "TanishC28"
+            },
+            {
+                "name": "Sanjukta Sarkar",
+                "githubId": "Crystalite0201"
+            },
+            {
+                "name": "Pragya",
+                "githubId": "Pragya930"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -125,6 +195,17 @@
             {
                 "name": "Mohammad Adil",
                 "githubId": "devilzs1"
+            }
+        ]
+    },
+    "Gradient-generator": {
+        "name": "Gradient Generator",
+        "link": "/Gradient-generator",
+        "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+        "contributors": [
+            {
+                "name": "Yash Mankar",
+                "githubId": "AraeneaCLI"
             }
         ]
     },
@@ -172,6 +253,33 @@
             }
         ]
     },
+    "json-beautifier": {
+        "name": "JSON Beautifier",
+        "link": "/json-beautifier",
+        "description": "Format JSON easily view, validate and edit it",
+        "contributors": [
+            {
+                "name": "Atharva Raut",
+                "githubId": "A7h4rv4"
+            },
+            {
+                "name": "Ayush Udayakumar Nair",
+                "githubId": "techgeekAyush"
+            },
+            {
+                "name": "Sarath Parayil",
+                "githubId": "sarathp22"
+            },
+            {
+                "name": "Shriya Prashant Ise",
+                "githubId": "shriya7ise"
+            },
+            {
+                "name": "Yusra Mukadam",
+                "githubId": "YusraMukadam"
+            }
+        ]
+    },
     "living-background-generator": {
         "name": "Living Background Generator",
         "link": "/living-background-generator",
@@ -198,6 +306,29 @@
             }
         ]
     },
+    "multi-timer": {
+        "name": "Multi-timer(with alarm)",
+        "link": "/multi-timer",
+        "description": "https://github.com/Prajwal435/devstar",
+        "contributors": [
+            {
+                "name": "Prajwal Dilip Ganar",
+                "githubId": "Prajwal435"
+            },
+            {
+                "name": "Akanksha Kumbhar",
+                "githubId": "Akanksha0830"
+            },
+            {
+                "name": "Yash np ",
+                "githubId": "YashMehetre"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "neumorphism-generator": {
         "name": "Neumorphism Generator",
         "link": "/neumorphism-generator",
@@ -214,6 +345,37 @@
             {
                 "name": "Vikas Kushwaha",
                 "githubId": "Vikas350"
+            }
+        ]
+    },
+    "online-flashcard": {
+        "name": "Flashcard Generator",
+        "link": "/online-flashcard",
+        "description": "A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
+        "contributors": [
+            {
+                "name": "Linga Reddy Gari Kavyanjali",
+                "githubId": "Kavyanjali02"
+            },
+            {
+                "name": "Umeed Mujawar",
+                "githubId": "Umed24"
+            },
+            {
+                "name": "Prem Verma",
+                "githubId": "vermaprem1012"
+            },
+            {
+                "name": "Sunidhi Munshi",
+                "githubId": "Sunidhimu"
+            },
+            {
+                "name": "Laxmi Khilnani",
+                "githubId": "laxmikhilnani20"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -262,6 +424,64 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "responsive-design-tester": {
+        "name": "Responsive Design Tester",
+        "link": "/responsive-design-tester",
+        "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
+        "contributors": [
+            {
+                "name": "David Kwasi Mensah Akyer",
+                "githubId": "dkmakyer"
+            },
+            {
+                "name": "Tasnim Munawar Rafee",
+                "githubId": "Rafee104104"
+            },
+            {
+                "name": "Sahil Navale",
+                "githubId": "sahiln15"
+            },
+            {
+                "name": "Amila Jayamaha",
+                "githubId": "AmilaJayamaha"
+            },
+            {
+                "name": "Aditi More",
+                "githubId": "8897adira"
+            }
+]
+    },
+    "regex-tool": {
+        "name": "Regex Tool",
+        "link": "/regex-tool",
+        "description": "",
+        "contributors": [
+            {
+                "name": "Soham Jayakar",
+                "githubId": "SohamJayakar"
+            },
+            {
+                "name": "Amey Patil",
+                "githubId": "Ameypatil07"
+            },
+            {
+                "name": "Mohmad Danish Rehman",
+                "githubId": "dannish110"
+            },
+            {
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
+            },
+            {
+                "name": "Vijay Kalidas Pawar",
+                "githubId": "vijay-pawar-99"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -316,6 +536,85 @@
                 "name": "",
                 "githubId": ""
             }
+          ]
+    },
+    "svg-path-visualizer": {
+        "name": "SVG Path Visualizer",
+        "link": "/svg-path-visualizer",
+        "description": "The SVG Path Visualizer is a powerful tool designed to simplify the visualization and debugging of SVG path data. By inputting your SVG path code, this tool provides an immediate graphical representation of the path, allowing developers and designers to see real-time changes as they edit the path data. This tool helps in understanding complex path commands, optimizing SVG graphics, and ensuring precise design adjustments. Enhance your workflow with the SVG Path Visualizer, making it easier to create and refine scalable vector graphics with accuracy and efficiency.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            },
+            {
+                "name": "Mansi Karki",
+                "githubId": "MansiKarki"
+            },
+            {
+                "name": "Priyanka Kadam",
+                "githubId": "Priyanka-Kadam427"
+            },
+            {
+                "name": "Sania Joseph",
+                "githubId": "sania-joe"
+            },
+            {
+                "name": "Yathang Tupe",
+                "githubId": "Yathang007"
+            }]
+    },
+    "virtual-graph-paper": {
+        "name": "Virtual Graph Paper",
+        "link": "/virtual-graph-paper",
+        "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
+        "contributors": [
+            {
+                "name": "Abhishek Rajput",
+                "githubId": "Abhishek-2502"
+            },
+            {
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
+            },
+            {
+                "name": "Nikhil Shukla",
+                "githubId": "Nikhil-shukla1"
+            },
+            {
+                "name": "Suzanne Sunil Nazareth",
+                "githubId": "suzannenazareth"
+            },
+            {
+                "name": "Yash Jain",
+                "githubId": "YashJain999"
+            }]
+    },
+    "sticky-notes": {
+        "name": "Sticky Notes",
+        "link": "/sticky-notes",
+        "description": "Add a note for saving important messages, make a to-do list, set reminders",
+        "contributors": [
+            {
+                "name": "Saket Prabhakar",
+                "githubId": "sabotagefrenzy"
+            },
+            {
+                "name": "Raj Patkar",
+                "githubId": "Raj-Patkar"
+            },
+            {
+                "name": "Chhaya Sharma",
+                "githubId": "ChhayaSharma21"
+            },
+            {
+                "name": "Pranjali Jibhakate",
+                "githubId": "Pranjali2410"
+            },
+            {
+                "name": "Tanuja Yadav",
+                "githubId": "tanuja1922"
+            }
         ]
     },
     "watermark-pdf": {
@@ -332,6 +631,37 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "xml-formatter": {
+        "name": "XML Formatter",
+        "link": "/xml-formatter",
+        "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
+        "contributors": [
+            {
+                "name": "Masum Ahmed",
+                "githubId": "ri-masum"
+            },
+            {
+                "name": "Enamur Rabbi Ferdausi ",
+                "githubId": "EnamurFerdausi"
+            },
+            {
+                "name": "Nikhil Sarve",
+                "githubId": "nikhilsarve"
+            },
+            {
+                "name": "Akash Gaikwad",
+                "githubId": "sky-gaikwad "
+            },
+            {
+                "name": "Atharva Thakur",
+                "githubId": "plantindesk"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     }

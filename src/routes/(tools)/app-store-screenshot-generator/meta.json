@@ -1,0 +1,34 @@
+{
+    
+        "name": "App Store Screenshort Generator",
+        "link": "/app-store-screenshot-generator",
+        "description": "Our tool makes creating professional app store screenshots easy and efficient. With powerful features, device support, and customization options, it helps you showcase your app beautifully. Enhance your app's visual appeal and make a lasting impression.",
+        "contributors": [
+            {
+                "name": "Nilambari Mahajan",
+                "githubId": "Nilambari-Mahajan"
+            },
+            {
+                "name": "Vaibhav Dingalwar",
+                "githubId": "irrereplacable26"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    ,
+    "screenshots": [
+      "https://example.com/screenshot1.png",
+      "https://example.com/screenshot2.png"
+    ]
+  }
+  
