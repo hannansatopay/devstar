@@ -252,6 +252,29 @@
             }
         ]
     },
+    "multi-timer": {
+        "name": "Multi-timer(with alarm)",
+        "link": "/multi-timer",
+        "description": "https://github.com/Prajwal435/devstar",
+        "contributors": [
+            {
+                "name": "Prajwal Dilip Ganar",
+                "githubId": "Prajwal435"
+            },
+            {
+                "name": "Akanksha Kumbhar",
+                "githubId": "Akanksha0830"
+            },
+            {
+                "name": "Yash np ",
+                "githubId": "YashMehetre"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "neumorphism-generator": {
         "name": "Neumorphism Generator",
         "link": "/neumorphism-generator",
