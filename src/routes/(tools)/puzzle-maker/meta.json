@@ -1,0 +1,30 @@
+{
+  "name": "Puzzle Maker",
+  "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
+  "contributors": [
+    {
+      "name": "Mihir Joshi",
+      "githubId": "mihirjoshi26"
+    },
+    {
+      "name": "Dharmik Satani",
+      "githubId": "DBSatani88"
+    },
+    {
+      "name": "Sonal Sonarghare",
+      "githubId": "SonalSonarghare"
+    },
+    {
+      "name": "Sourabh Singh",
+      "githubId": "SourabhSinghBhadouriya"
+    },
+    {
+      "name": "Tanvi More",
+      "githubId": "Tanvi119"
+    },
+    {
+        "name":"Ashwani Kumar Singh",
+        "githubId":"ashwani2529"
+    }
+  ]
+}

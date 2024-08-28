@@ -1,0 +1,8 @@
+-- CreateTable
+CREATE TABLE "Audio" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "filename" TEXT NOT NULL,
+    "startTime" REAL NOT NULL,
+    "endTime" REAL NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
