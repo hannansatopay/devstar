@@ -345,6 +345,33 @@
             }
         ]
     },
+    "sticky-notes": {
+        "name": "Sticky Notes",
+        "link": "/sticky-notes",
+        "description": "Add a note for saving important messages, make a to-do list, set reminders",
+        "contributors": [
+            {
+                "name": "Saket Prabhakar",
+                "githubId": "sabotagefrenzy"
+            },
+            {
+                "name": "Raj Patkar",
+                "githubId": "Raj-Patkar"
+            },
+            {
+                "name": "Chhaya Sharma",
+                "githubId": "ChhayaSharma21"
+            },
+            {
+                "name": "Pranjali Jibhakate",
+                "githubId": "Pranjali2410"
+            },
+            {
+                "name": "Tanuja Yadav",
+                "githubId": "tanuja1922"
+            }
+        ]
+    },
     "watermark-pdf": {
         "name": "Watermark PDF",
         "link": "/watermark-pdf",
