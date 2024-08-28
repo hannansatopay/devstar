@@ -199,6 +199,33 @@
             }
         ]
     },
+    "json-beautifier": {
+        "name": "JSON Beautifier",
+        "link": "/json-beautifier",
+        "description": "Format JSON easily view, validate and edit it",
+        "contributors": [
+            {
+                "name": "Atharva Raut",
+                "githubId": "A7h4rv4"
+            },
+            {
+                "name": "Ayush Udayakumar Nair",
+                "githubId": "techgeekAyush"
+            },
+            {
+                "name": "Sarath Parayil",
+                "githubId": "sarathp22"
+            },
+            {
+                "name": "Shriya Prashant Ise",
+                "githubId": "shriya7ise"
+            },
+            {
+                "name": "Yusra Mukadam",
+                "githubId": "YusraMukadam"
+            }
+        ]
+    },
     "living-background-generator": {
         "name": "Living Background Generator",
         "link": "/living-background-generator",
