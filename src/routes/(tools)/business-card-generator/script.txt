@@ -1,0 +1,329 @@
+<script>
+	import { onMount } from 'svelte';
+  
+	let templates = [
+	  {
+		id: 1,
+		fullName: 'Full Name',
+		title: 'Founder & CEO',
+		email: 'email@example.com',
+		phone: '123-456-7890',
+		logo: '',
+		slogan: 'Slogan Here',
+		bgColor: '#1a1a1a',
+		style: 'template1',
+		fontFamily: 'Arial, sans-serif',
+		fontSize: 16
+	  },
+	  {
+		id: 2,
+		fullName: 'Full Name',
+		title: 'Job Title',
+		email: 'email@example.com',
+		phone: '123-456-7890',
+		logo: '',
+		slogan: 'Slogan Here',
+		bgColor: '#2b2b2b',
+		style: 'template2',
+		fontFamily: 'Verdana, sans-serif',
+		fontSize: 16
+	  },
+	  // Add more templates with different styles
+	];
+  
+	let selectedTemplate = templates[0];
+  
+	let fullName = selectedTemplate.fullName;
+	let title = selectedTemplate.title;
+	let email = selectedTemplate.email;
+	let phone = selectedTemplate.phone;
+	let logo = selectedTemplate.logo;
+	let slogan = selectedTemplate.slogan;
+	let bgColor = selectedTemplate.bgColor;
+	let style = selectedTemplate.style;
+	let fontFamily = selectedTemplate.fontFamily;
+	let fontSize = selectedTemplate.fontSize;
+  
+	const handleDownload = () => {
+	  // Implement download functionality
+	};
+  
+	const handlePrint = () => {
+	  // Implement print functionality
+	};
+  
+	const selectTemplate = (template) => {
+	  fullName = template.fullName;
+	  title = template.title;
+	  email = template.email;
+	  phone = template.phone;
+	  logo = template.logo;
+	  slogan = template.slogan;
+	  bgColor = template.bgColor;
+	  style = template.style;
+	  fontFamily = template.fontFamily;
+	  fontSize = template.fontSize;
+	};
+  
+	const increaseFontSize = () => {
+	  fontSize += 2;
+	};
+  
+	const removeLogo = () => {
+	  logo = '';
+	};
+  
+	onMount(() => {
+	  // Initialize any required JS libraries
+	});
+  </script>
+  
+  <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+	<div class="container mx-auto max-w-screen-xl p-8">
+	  <div class="card flex gap-8">
+		<div class="card-editor flex-1 p-8 bg-gray-100 rounded-lg">
+		  <div class="editor mb-8">
+			<div class="business-card {style}" style="background-color: {bgColor}; font-family: {fontFamily}; font-size: {fontSize}px;">
+			  <div class="logo">
+				{#if logo}
+				  <img src={logo} alt="Logo" />
+				{:else}
+				  LOGO
+				{/if}
+			  </div>
+			  <div class="slogan" style="font-family: {fontFamily}; font-size: {fontSize}px;">{slogan || 'Slogan Here'}</div>
+			  <div class="full-name" style="font-family: {fontFamily}; font-size: {fontSize}px;">{fullName || 'Full Name'}</div>
+			  <div class="title" style="font-family: {fontFamily}; font-size: {fontSize}px;">{title || 'Founder & CEO'}</div>
+			  <div class="email" style="font-family: {fontFamily}; font-size: {fontSize}px;">{email || 'Email'}</div>
+			  <div class="phone" style="font-family: {fontFamily}; font-size: {fontSize}px;">{phone || 'Phone'}</div>
+			</div>
+		  </div>
+  
+		  <div class="controls mb-8">
+			<div>
+			  <label>Full Name</label>
+			  <input type="text" bind:value={fullName} />
+			</div>
+			<div>
+			  <label>Title</label>
+			  <input type="text" bind:value={title} />
+			</div>
+			<div>
+			  <label>Email</label>
+			  <input type="text" bind:value={email} />
+			</div>
+			<div>
+			  <label>Phone</label>
+			  <input type="text" bind:value={phone} />
+			</div>
+			<div>
+			  <label>Logo</label>
+			  <input type="file" on:change={(e) => logo = URL.createObjectURL(e.target.files[0])} />
+			  {#if logo}
+				<button on:click={removeLogo} class="remove-logo">Remove Logo</button>
+			  {/if}
+			</div>
+			<div>
+			  <label>Slogan</label>
+			  <input type="text" bind:value={slogan} />
+			</div>
+			<div>
+			  <label>Background Color</label>
+			  <input type="color" bind:value={bgColor} />
+			</div>
+			<div>
+			  <label>Font Family</label>
+			  <select bind:value={fontFamily}>
+				<option value="Arial, sans-serif">Arial</option>
+				<option value="Verdana, sans-serif">Verdana</option>
+				<option value="Times New Roman, serif">Times New Roman</option>
+				<option value="Georgia, serif">Georgia</option>
+				<option value="Courier New, monospace">Courier New</option>
+			  </select>
+			</div>
+			<div>
+			  <label>Font Size</label>
+			  <input type="number" bind:value={fontSize} placeholder="Enter font size in px" />
+			</div>
+			<button on:click={increaseFontSize}>Increase Font Size</button>
+		  </div>
+  
+		  <div class="actions">
+			<button on:click={handleDownload}>Download</button>
+			<button on:click={handlePrint}>Print</button>
+		  </div>
+		</div>
+  
+		<div class="template-selector p-8 bg-gray-200 rounded-lg">
+		  <label class="block mb-4">Select a Template</label>
+		  <div class="template-options grid grid-cols-1 gap-4 overflow-y-auto max-h-96">
+			{#each templates as template}
+			  <div class="template-option" on:click={() => selectTemplate(template)}>
+				<div class={template.style} style="background-color: {template.bgColor}; font-family: {template.fontFamily}; font-size: {template.fontSize}px;">
+				  <!-- Preview content here -->
+				</div>
+			  </div>
+			{/each}
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
+  <style>
+  .container {
+	display: flex;
+	justify-content: center;
+  }
+  .card {
+	display: flex;
+	width: 100%;
+	gap: 16px;
+  }
+  .card-editor {
+	flex: 1;
+  }
+  .template-selector {
+	width: 350px;
+  }
+  .template-options {
+	display: grid;
+	gap: 16px;
+	max-height: 600px;
+	overflow-y: auto;
+  }
+  .template-option {
+	cursor: pointer;
+	border: 1px solid #ccc;
+	padding: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+  }
+  .template-option div {
+	width: 100%;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+  }
+  .editor {
+	margin-bottom: 16px;
+  }
+  .business-card {
+	width: 400px;
+	height: 250px;
+	border: 1px solid #ccc;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	position: relative;
+  }
+  .controls {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 16px;
+  }
+  .controls div {
+	display: flex;
+	flex-direction: column;
+  }
+  .actions {
+	display: flex;
+	gap: 8px;
+  }
+  
+  .logo {
+	width: 100px; /* Set the desired width */
+	height: 100px; /* Set the desired height */
+	overflow: hidden; /* Hide overflow */
+	position: absolute; /* Position as needed */
+	top: 10px; /* Adjust position */
+	right: 10px; /* Adjust position */
+  }
+  
+  .logo img {
+	width: 100%; /* Make image fit the container */
+	height: auto; /* Maintain aspect ratio */
+  }
+  
+  .template1 {
+	background-image: url('b_card_1.jpg');
+	background-size: cover;
+  }
+  .template1 .full-name {
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	font-size: 18px;
+  }
+  .template1 .title {
+	position: absolute;
+	top: 80px;
+	left: 10px;
+  }
+  .template1 .email {
+	position: absolute;
+	top: 110px;
+	left: 10px;
+  }
+  .template1 .phone {
+	position: absolute;
+	top: 140px;
+	left: 10px;
+  }
+  .template1 .slogan {
+	position: absolute;
+	top: 170px;
+	left: 10px;
+  }
+  
+  .template2 {
+	background-image: url('b_card_2.jpg');
+	background-size: cover;
+  }
+  .template2 .full-name {
+	position: absolute;
+	top: 50px;
+	left: 10px;
+	font-size: 18px;
+  }
+  .template2 .title {
+	position: absolute;
+	top: 80px;
+	left: 10px;
+  }
+  .template2 .email {
+	position: absolute;
+	top: 110px;
+	left: 10px;
+  }
+  .template2 .phone {
+	position: absolute;
+	top: 140px;
+	left: 10px;
+  }
+  .template2 .slogan {
+	position: absolute;
+	top: 170px;
+	left: 10px;
+  }
+  
+  /* Add more styles for other templates */
+  .remove-logo {
+	margin-top: 5px;
+	background: red;
+	color: white;
+	border: none;
+	padding: 5px;
+	cursor: pointer;
+  }
+  </style>
+  
