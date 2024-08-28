@@ -38,6 +38,7 @@
 		"countries-list": "^3.1.0",
 		"docx": "^8.5.0",
 		"downloadjs": "^1.4.7",
+		"html2canvas": "^1.4.1",
 
 		"express": "^4.19.2",
 
@@ -49,6 +50,7 @@
 		"jspdf": "^2.5.1",
 		"jspdf-autotable": "^3.8.2",
 		"pdf-lib": "^1.17.1",
+		"qrcode": "^1.5.3",
 		"prisma": "^5.16.1",
 		"svelte-awesome-color-picker": "^3.1.0",
 		"svelte-canvas": "^1.2.0",
