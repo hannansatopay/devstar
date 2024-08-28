@@ -1,0 +1,16 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Word {
+  id          Int      @id @default(autoincrement())
+  word        String
+  description String
+  direction   String
+  createdAt   DateTime @default(now())
+}
