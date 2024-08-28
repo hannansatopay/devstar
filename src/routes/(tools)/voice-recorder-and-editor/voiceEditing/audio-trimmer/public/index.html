@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Trimmer</title>
+    <style>
+        body {
+            background-color: #001f3f;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+        }
+        #waveform {
+            margin: 20px auto;
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/regions.min.js"></script>
+</head>
+<body>
+    <h1>Audio Trimmer</h1>
+    <input type="file" id="audioFile" accept="audio/*">
+   
+    <div id="waveform"></div>
+    <div id="result"></div>
+    <br>
+    <button onclick="playPause()">Play/Pause</button>
+    <br>
+    <input type="text" id="startTime" placeholder="Start time (seconds)">
+    <input type="text" id="endTime" placeholder="End time (seconds)">
+    <br>
+    <button onclick="trimAudio()">Trim Audio</button>
+    <br>
+
+    <script>
+        let wavesurfer;
+
+        document.getElementById('audioFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    if (wavesurfer) {
+                        wavesurfer.destroy();
+                    }
+                    wavesurfer = WaveSurfer.create({
+                        container: '#waveform',
+                        waveColor: 'violet',
+                        progressColor: 'purple'
+                    
+                    });
+                    wavesurfer.load(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function playPause() {
+            if (wavesurfer) {
+                wavesurfer.playPause();
+            }
+        }
+
+        function trimAudio() {
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const audioFile = document.getElementById('audioFile').files[0];
+
+            if (!audioFile || !startTime || !endTime) {
+                alert('Please provide all inputs.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('audio', audioFile);
+            formData.append('startTime', startTime);
+            formData.append('endTime', endTime);
+
+            fetch('/trim', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'trimmed_audio.mp3';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.getElementById('result').innerText = 'Audio trimmed successfully!';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('result').innerText = 'Error trimming audio.';
+            });
+        }
+    </script>
+</body>
+</html>
