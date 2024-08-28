@@ -500,6 +500,32 @@
             }
         ]
     },
+    "virtual-graph-paper": {
+        "name": "Virtual Graph Paper",
+        "link": "/virtual-graph-paper",
+        "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
+        "contributors": [
+            {
+                "name": "Abhishek Rajput",
+                "githubId": "Abhishek-2502"
+            },
+            {
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
+            },
+            {
+                "name": "Nikhil Shukla",
+                "githubId": "Nikhil-shukla1"
+            },
+            {
+                "name": "Suzanne Sunil Nazareth",
+                "githubId": "suzannenazareth"
+            },
+            {
+                "name": "Yash Jain",
+                "githubId": "YashJain999"
+            }]
+    },
     "sticky-notes": {
         "name": "Sticky Notes",
         "link": "/sticky-notes",
