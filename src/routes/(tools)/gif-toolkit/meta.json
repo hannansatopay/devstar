@@ -1,0 +1,26 @@
+{
+    "name": "GIF-Toolkit",
+    "description":"A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
+    "contributors": [{
+        "name": "Arya Bacchuwar",
+        "githubId": "Devil-panda"
+    }, {
+        "name": "Mukesh Madipelly",
+        "githubId": "mukeshmadipelly"
+    },
+    {
+        "name": "Satvik Pandey",
+        "githubId": "worldisconfusion"
+    },
+    {
+        "name": "Shruti Johnson",
+        "githubId": "SHRUTIJOHNSON"
+    },
+    {
+        "name": "Dinesh D",
+        "githubId": "dinesh-dh"
+    },{
+        "name":"Ashwani Kumar Singh",
+        "githubId":"ashwani2529"
+    }]
+}
