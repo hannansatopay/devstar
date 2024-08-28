@@ -118,6 +118,31 @@
             }
         ]
     },
+    "camera-filters": {
+        "name": "Camera Filters",
+        "link": "/camera-filters",
+        "description": "This project is a Svelte-based live camera filter application. It captures a video stream from your device's camera and applies real-time filters using a canvas element. The application includes filters like grayscale, sepia, blur, brightness, and more. Users can select filters from a dropdown menu to see their effects instantly. The video feed is processed and displayed on the canvas with the chosen filter applied. This setup provides an interactive way to experiment with live camera filters.",
+        "contributors": [
+            {
+                "name": "Shubham Pawade",
+                "githubId": "ShubhamSPawde"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }]},
     "crypto-address-validation": {
         "name": "Crypto Address Validation",
         "link": "/crypto-address-validation",
