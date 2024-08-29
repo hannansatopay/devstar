@@ -17,7 +17,7 @@
       const storedFavorites = JSON.parse(
         localStorage.getItem("favorites") || "[]"
       );
-      isBookmarked = storedFavorites.some((fav) => fav.id === data.meta.id);
+      isBookmarked = storedFavorites.some((fav) => fav.name === data.meta.name); // Using tool name to identify bookmarks
     }
   }
 
@@ -26,15 +26,17 @@
     let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
 
     if (isBookmarked) {
-      favorites = favorites.filter((fav) => fav.id !== data.meta.id);
+      // Remove from favorites based on name
+      favorites = favorites.filter((fav) => fav.name !== data.meta.name);
       isBookmarked = false;
     } else {
+      // Add to favorites using unique name
       favorites = [
         {
-          id: data.meta.id,
           name: data.meta.title,
           description: data.meta.description,
           link: data.meta.link,
+          contributors: data.meta.contributors,
         },
         ...favorites,
       ];
@@ -48,7 +50,7 @@
   // Dispatch custom event to communicate between components
   function dispatchBookmarkEvent() {
     const event = new CustomEvent("bookmarkUpdated", {
-      detail: { id: data.meta.id, isBookmarked },
+      detail: { name: data.meta.name, isBookmarked },
     });
     window.dispatchEvent(event);
   }
