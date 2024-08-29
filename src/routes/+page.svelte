@@ -42,13 +42,30 @@
     if (isFavorited(tool.name)) {
       favorites = favorites.filter((fav) => fav.name !== tool.name);
     } else {
-      favorites = [...favorites, tool];
+      favorites = [
+        ...favorites,
+        {
+          name: tool.name,
+          link: tool.link,
+          description: tool.description,
+          contributors: tool.contributors || [],
+        },
+      ];
     }
 
     // Update favorites in localStorage only in the browser
     if (isBrowser && localStorage) {
       localStorage.setItem("favorites", JSON.stringify(favorites));
+      dispatchBookmarkEvent();
     }
+  }
+
+  // Dispatch custom event to communicate between components
+  function dispatchBookmarkEvent() {
+    const event = new CustomEvent("bookmarkUpdated", {
+      detail: { name: tool.name, isFavorited: isFavorited(tool.name) },
+    });
+    window.dispatchEvent(event);
   }
 </script>
 
