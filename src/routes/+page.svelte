@@ -56,14 +56,13 @@
     // Update favorites in localStorage only in the browser
     if (isBrowser && localStorage) {
       localStorage.setItem("favorites", JSON.stringify(favorites));
-      dispatchBookmarkEvent();
+      dispatchBookmarkEvent(tool.name, isFavorited(tool.name));
     }
   }
 
-  // Dispatch custom event to communicate between components
-  function dispatchBookmarkEvent() {
+  function dispatchBookmarkEvent(toolName, isFavorited) {
     const event = new CustomEvent("bookmarkUpdated", {
-      detail: { name: tool.name, isFavorited: isFavorited(tool.name) },
+      detail: { name: toolName, isFavorited },
     });
     window.dispatchEvent(event);
   }

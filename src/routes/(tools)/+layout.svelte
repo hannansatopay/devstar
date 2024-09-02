@@ -2,7 +2,6 @@
   import { Avatar } from "flowbite-svelte";
   export let data;
 
-  // Check if running in browser
   const isBrowser = typeof window !== "undefined";
   let isBookmarked = false;
 
@@ -11,48 +10,45 @@
     initializeBookmark();
   }
 
-  // Function to initialize bookmark state
+  // Initialize Bookmark
   function initializeBookmark() {
     if (localStorage) {
-      const storedFavorites = JSON.parse(
-        localStorage.getItem("favorites") || "[]"
-      );
-      isBookmarked = storedFavorites.some(
-        (fav) => fav.name === data.meta.title
+      const storedBookmarks =
+        JSON.parse(localStorage.getItem("favorites")) || [];
+      isBookmarked = storedBookmarks.some(
+        (bookmark) => bookmark.name === data.meta.title
       );
     }
   }
 
-  // Toggle bookmark state and update localStorage
+  // Toggle Bookmark
   function toggleBookmark() {
-    let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    if (isBrowser && localStorage) {
+      let bookmarks = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    if (isBookmarked) {
-      // Remove from favorites based on name
-      favorites = favorites.filter((fav) => fav.name !== data.meta.title);
-      isBookmarked = false;
-    } else {
-      // Add to favorites using unique name
-      favorites = [
-        {
+      if (isBookmarked) {
+        bookmarks = bookmarks.filter(
+          (bookmark) => bookmark.name !== data.meta.title
+        );
+      } else {
+        bookmarks.push({
           name: data.meta.title,
-          link: data.meta.link,
+          link: window.location.pathname,
           description: data.meta.description,
-          contributors: data.meta.contributors,
-        },
-        ...favorites,
-      ];
-      isBookmarked = true;
-    }
+          contributors: data.meta.contributors || [],
+        });
+      }
 
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    dispatchBookmarkEvent();
+      localStorage.setItem("favorites", JSON.stringify(bookmarks));
+      isBookmarked = !isBookmarked;
+      dispatchBookmarkEvent(data.meta.title, isBookmarked);
+    }
   }
 
-  // Dispatch custom event to communicate between components
-  function dispatchBookmarkEvent() {
+  // Dispatch Custom Event for Bookmark Update
+  function dispatchBookmarkEvent(toolName, isFavorited) {
     const event = new CustomEvent("bookmarkUpdated", {
-      detail: { name: data.meta.title, isBookmarked },
+      detail: { name: toolName, isFavorited },
     });
     window.dispatchEvent(event);
   }
