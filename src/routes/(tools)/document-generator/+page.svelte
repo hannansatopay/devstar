@@ -303,4 +303,3 @@
         <button on:click={generateDocument}>Generate Document</button>
     </div>
 </main>
-</div>
