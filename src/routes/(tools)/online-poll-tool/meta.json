@@ -1,0 +1,38 @@
+{
+    "name": "Online Poll Tool",
+    "description": "The Online Poll Tool simplifies the creation and management of polls, enabling users to gather feedback and insights effortlessly. It offers customizable options for poll types, answer options, and result analysis, ensuring a user-friendly experience for both creators and respondents.",
+    "contributors": [
+      {
+        "name": "Onkar Mendhapurkar",
+        "githubId": "onkar69483"
+      },
+      {
+        "name": "Bharath Sagam",
+        "githubId": "bharathsagam"
+      },
+      {
+        "name": "Prachi Patil",
+        "githubId": "prachi5791"
+      },
+      {
+        "name": "Piyush Nimbalkar",
+        "githubId": "piyush1519"
+      },
+      {
+        "name": "Atharva Jadhav",
+        "githubId": "atharva445"
+      },
+      {
+        "name": "Priyanka Gupta",
+        "githubId": "priyankag12"
+      },
+      {
+        "name": "Sarthak Chaudhari",
+        "githubId": "sarthak0205"
+      },
+      {
+        "name": "Ashwani Kumar Singh",
+        "githubId": "ashwani2529"
+      }
+    ]
+  }

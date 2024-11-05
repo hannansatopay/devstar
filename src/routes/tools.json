@@ -47,6 +47,33 @@
             }
         ]
     },
+    "app-store-screenshot-generator": {
+        "name": "App Store Screenshort Generator",
+        "link": "/app-store-screenshot-generator",
+        "description": "Our tool makes creating professional app store screenshots easy and efficient. With powerful features, device support, and customization options, it helps you showcase your app beautifully. Enhance your app's visual appeal and make a lasting impression.",
+        "contributors": [
+            {
+                "name": "Nilambari Mahajan",
+                "githubId": "Nilambari-Mahajan"
+            },
+            {
+                "name": "Vaibhav Dingalwar",
+                "githubId": "irrereplacable26"
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            },
+            {
+                "name": "",
+                "githubId": ""
+            }
+        ]
+    },
     "ascii-encode-decode": {
         "name": "ASCII Encoder & Decoder",
         "link": "/ascii-encode-decode",
@@ -77,6 +104,118 @@
             {
                 "name": "Abdur Rehman Shaikh",
                 "githubId": "abdurrahmanshkh"
+            }
+        ]
+    },
+    "business-card-generator": {
+        "name": "Business Card Generator",
+        "link": "/business-card-generator",
+        "description": "Create professional and personalized business cards effortlessly with our intuitive Business Card Generator. Design your cards with a variety of templates, fonts, and colors to suit your brand. Easily customize your details and download your ready-to-print business cards in minutes.",
+        "contributors": [
+            {
+                "name": "Kaushal Patel",
+                "githubId": "kaushalkp-12"
+            },
+            {
+                "name": "Yash Patel",
+                "githubId": "Yash312002"
+            },
+            {
+                "name": "Emmanuel Baraka",
+                "githubId": "Theemanu24"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "camera-filters": {
+        "name": "Camera Filters",
+        "link": "/camera-filters",
+        "description": "This project is a Svelte-based live camera filter application. It captures a video stream from your device's camera and applies real-time filters using a canvas element. The application includes filters like grayscale, sepia, blur, brightness, and more. Users can select filters from a dropdown menu to see their effects instantly. The video feed is processed and displayed on the canvas with the chosen filter applied. This setup provides an interactive way to experiment with live camera filters.",
+        "contributors": [
+            {
+                "name": "Shubham Pawade",
+                "githubId": "ShubhamSPawde"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "code-linter": {
+        "name": "Code Linter",
+        "link": "/code-linter",
+        "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
+        "contributors": [
+            {
+                "name": "Abhirup Mukherjee",
+                "githubId": "Abhirup2004-p"
+            },
+            {
+                "name": "Aryan Nimbalkar",
+                "githubId": "Aryan200324"
+            },
+            {
+                "name": "Atufa Akhtar",
+                "githubId": "atufaakhtar"
+            },
+            {
+                "name": "Swakshar Bora",
+                "githubId": "DastardlyKat"
+            },
+            {
+                "name": "Tanvi Panchal",
+                "githubId": "Tanvi54"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "crypto-address-validation": {
+        "name": "Crypto Address Validation",
+        "link": "/crypto-address-validation",
+        "description": "Crypto Address Validator is a tool that validates addresses for multiple cryptocurrencies. It ensures the correctness of Bitcoin, Ethereum, Litecoin, Ripple, Bitcoin Cash, Cardano, Polkadot, and Dogecoin addresses. A must-have for secure crypto transactions.",
+        "contributors": [
+            {
+                "name": "Tilakshankar Sakthikumar",
+                "githubId": "tilakshankar"
+            },
+            {
+                "name": "Ketaki Vatturkar",
+                "githubId": "ketakivatturkar"
+            },
+            {
+                "name": "Nikhil Singh",
+                "githubId": "nikkhil28-29"
+            },
+            {
+                "name": "Mayur Nikam",
+                "githubId": "MayurNikam989"
+            },
+            {
+                "name": "Mathew Jacob",
+                "githubId": "mathewjacob123"
+            },
+            {
+                "name": "Tanish Chopra",
+                "githubId": "TanishC28"
+            },
+            {
+                "name": "Sanjukta Sarkar",
+                "githubId": "Crystalite0201"
+            },
+            {
+                "name": "Pragya",
+                "githubId": "Pragya930"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -148,7 +287,38 @@
             }
         ]
     },
-    "Gradient-generator": {
+    "gif-toolkit": {
+        "name": "GIF-Toolkit",
+        "link": "/gif-toolkit",
+        "description": "A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
+        "contributors": [
+            {
+                "name": "Arya Bacchuwar",
+                "githubId": "Devil-panda"
+            },
+            {
+                "name": "Mukesh Madipelly",
+                "githubId": "mukeshmadipelly"
+            },
+            {
+                "name": "Satvik Pandey",
+                "githubId": "worldisconfusion"
+            },
+            {
+                "name": "Shruti Johnson",
+                "githubId": "SHRUTIJOHNSON"
+            },
+            {
+                "name": "Dinesh D",
+                "githubId": "dinesh-dh"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "gradient-generator": {
         "name": "Gradient Generator",
         "link": "/Gradient-generator",
         "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
@@ -192,6 +362,45 @@
             }
         ]
     },
+    "image-editor": {
+        "name": "Image Editor",
+        "link": "/image-editor",
+        "description": "This tool that allows images to be edited and also converted to different graphics formats.",
+        "contributors": [
+            {
+                "name": "Harshith",
+                "githubId": "harshith1019"
+            },
+            {
+                "name": "Yedulla Nandavardhan Reddy",
+                "githubId": "Nandavardhan1405"
+            },
+            {
+                "name": "Chaitanya Reddy Gujjula",
+                "githubId": "chaitugujjula00"
+            },
+            {
+                "name": "Aimaan Qureshi",
+                "githubId": "19aimann"
+            },
+            {
+                "name": "Subitha",
+                "githubId": "Subitha12"
+            },
+            {
+                "name": "AjayRaj",
+                "githubId": "ajayrajrthd"
+            },
+            {
+                "name": "Sanjana",
+                "githubId": "sanjanamutkiri"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "image-text-extractor": {
         "name": "Image Text Extractor",
         "link": "/image-text-extractor",
@@ -200,6 +409,37 @@
             {
                 "name": "Pratik Vinayak More",
                 "githubId": "Comder101"
+            }
+        ]
+    },
+    "json-beautifier": {
+        "name": "JSON Beautifier",
+        "link": "/json-beautifier",
+        "description": "JSON Beautifier help to auto format JSON and validate your JSON text. It also provides a tree view that helps to navigate your formatted JSON data.",
+        "contributors": [
+            {
+                "name": "Atharva Raut",
+                "githubId": "A7h4rv4"
+            },
+            {
+                "name": "Ayush Udayakumar Nair",
+                "githubId": "techgeekAyush"
+            },
+            {
+                "name": "Sarath Parayil",
+                "githubId": "sarathp22"
+            },
+            {
+                "name": "Shriya Prashant Ise",
+                "githubId": "shriya7ise"
+            },
+            {
+                "name": "Yusra Mukadam",
+                "githubId": "YusraMukadam"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -229,6 +469,29 @@
             }
         ]
     },
+    "multi-timer": {
+        "name": "Multi-timer",
+        "link": "/multi-timer",
+        "description": "Multi Timer with alarm mechanism",
+        "contributors": [
+            {
+                "name": "Prajwal Dilip Ganar",
+                "githubId": "Prajwal435"
+            },
+            {
+                "name": "Akanksha Kumbhar",
+                "githubId": "Akanksha0830"
+            },
+            {
+                "name": "Yash Mehetre",
+                "githubId": "YashMehetre"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "neumorphism-generator": {
         "name": "Neumorphism Generator",
         "link": "/neumorphism-generator",
@@ -245,6 +508,91 @@
             {
                 "name": "Vikas Kushwaha",
                 "githubId": "Vikas350"
+            }
+        ]
+    },
+    "online-flashcard": {
+        "name": "Flashcard Generator",
+        "link": "/online-flashcard",
+        "description": "A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
+        "contributors": [
+            {
+                "name": "Linga Reddy Gari Kavyanjali",
+                "githubId": "Kavyanjali02"
+            },
+            {
+                "name": "Umeed Mujawar",
+                "githubId": "Umed24"
+            },
+            {
+                "name": "Prem Verma",
+                "githubId": "vermaprem1012"
+            },
+            {
+                "name": "Sunidhi Munshi",
+                "githubId": "Sunidhimu"
+            },
+            {
+                "name": "Laxmi Khilnani",
+                "githubId": "laxmikhilnani20"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "online-live-quiz": {
+        "name": "Online live Quiz",
+        "link": "/online-live-quiz",
+        "description": "A quiz app where users create and share quizzes via links, with timed sessions, question display, real-time answers, and choices, and ending with a complete result summary shown as a bar graph.",
+        "contributors": [
+            {
+                "name": "AdityaPratap Singh",
+                "githubId": "Aditya-Tomer"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "online-poll-tool": {
+        "name": "Online Poll Tool",
+        "link": "/online-poll-tool",
+        "description": "The Online Poll Tool simplifies the creation and management of polls, enabling users to gather feedback and insights effortlessly. It offers customizable options for poll types, answer options, and result analysis, ensuring a user-friendly experience for both creators and respondents.",
+        "contributors": [
+            {
+                "name": "Onkar Mendhapurkar",
+                "githubId": "onkar69483"
+            },
+            {
+                "name": "Bharath Sagam",
+                "githubId": "bharathsagam"
+            },
+            {
+                "name": "Prachi Patil",
+                "githubId": "prachi5791"
+            },
+            {
+                "name": "Piyush Nimbalkar",
+                "githubId": "piyush1519"
+            },
+            {
+                "name": "Atharva Jadhav",
+                "githubId": "atharva445"
+            },
+            {
+                "name": "Priyanka Gupta",
+                "githubId": "priyankag12"
+            },
+            {
+                "name": "Sarthak Chaudhari",
+                "githubId": "sarthak0205"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -267,6 +615,37 @@
             {
                 "name": "Rifat Perween",
                 "githubId": "rifatperween"
+            }
+        ]
+    },
+    "puzzle-maker": {
+        "name": "Puzzle Maker",
+        "link": "/puzzle-maker",
+        "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
+        "contributors": [
+            {
+                "name": "Mihir Joshi",
+                "githubId": "mihirjoshi26"
+            },
+            {
+                "name": "Dharmik Satani",
+                "githubId": "DBSatani88"
+            },
+            {
+                "name": "Sonal Sonarghare",
+                "githubId": "SonalSonarghare"
+            },
+            {
+                "name": "Sourabh Singh",
+                "githubId": "SourabhSinghBhadouriya"
+            },
+            {
+                "name": "Tanvi More",
+                "githubId": "Tanvi119"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     },
@@ -296,6 +675,68 @@
             }
         ]
     },
+    "regex-tool": {
+        "name": "Regex Tool",
+        "link": "/regex-tool",
+        "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+        "contributors": [
+            {
+                "name": "Soham Jayakar",
+                "githubId": "SohamJayakar"
+            },
+            {
+                "name": "Amey Patil",
+                "githubId": "Ameypatil07"
+            },
+            {
+                "name": "Mohmad Danish Rehman",
+                "githubId": "dannish110"
+            },
+            {
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
+            },
+            {
+                "name": "Vijay Kalidas Pawar",
+                "githubId": "vijay-pawar-99"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "responsive-design-tester": {
+        "name": "Responsive Design Tester",
+        "link": "/responsive-design-tester",
+        "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
+        "contributors": [
+            {
+                "name": "David Kwasi Mensah Akyer",
+                "githubId": "dkmakyer"
+            },
+            {
+                "name": "Tasnim Munawar Rafee",
+                "githubId": "Rafee104104"
+            },
+            {
+                "name": "Sahil Navale",
+                "githubId": "sahiln15"
+            },
+            {
+                "name": "Amila Jayamaha",
+                "githubId": "AmilaJayamaha"
+            },
+            {
+                "name": "Aditi More",
+                "githubId": "8897adira"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
     "robots-txt-generator": {
         "name": "Robots.txt Generator",
         "link": "/robots-txt-generator",
@@ -322,6 +763,234 @@
             }
         ]
     },
+    "sql-converter": {
+        "name": "Sql Converter",
+        "link": "/sql-converter",
+        "description": "Converts .sql into csv, xlsx and more",
+        "contributors": [
+            {
+                "name": "Somesh Diwan",
+                "githubId": "Someshdiwan"
+            },
+            {
+                "name": "Suryank Chavan",
+                "githubId": "suryank05"
+            },
+            {
+                "name": "Akankshasarade",
+                "githubId": "Akankshasarade"
+            },
+            {
+                "name": "Shristi Kushwaha",
+                "githubId": "Shri6apr"
+            },
+            {
+                "name": "Aditya Gupta",
+                "githubId": "AdityaGupta"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "sql-query-builder": {
+        "name": "SQL Query Builder",
+        "link": "/sql-query-builder",
+        "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
+        "contributors": [
+            {
+                "name": "Atharva Sawant",
+                "githubId": "Satharva2004"
+            },
+            {
+                "name": "Kalyan Sharma",
+                "githubId": "kalyan123s"
+            },
+            {
+                "name": "Harshita S",
+                "githubId": "Harshitha0066"
+            },
+            {
+                "name": "Garret Farnandez",
+                "githubId": "garretfernandezz"
+            },
+            {
+                "name": "Moain Khan",
+                "githubId": "Moainkhan"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "sticky-notes": {
+        "name": "Sticky Notes",
+        "link": "/sticky-notes",
+        "description": "Develop a Sticky Notes app featuring quick note-saving, an appealing to-do list, and reminder settings. Users can pin important notes for easy access with highlighting on the screen, while timestamps show the last update time for each note, aiding in organization.",
+        "contributors": [
+            {
+                "name": "Saket Prabhakar",
+                "githubId": "sabotagefrenzy"
+            },
+            {
+                "name": "Raj Patkar",
+                "githubId": "Raj-Patkar"
+            },
+            {
+                "name": "Chhaya Sharma",
+                "githubId": "ChhayaSharma21"
+            },
+            {
+                "name": "Pranjali Jibhakate",
+                "githubId": "Pranjali2410"
+            },
+            {
+                "name": "Tanuja Yadav",
+                "githubId": "tanuja1922"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "svg-path-visualizer": {
+        "name": "SVG Path Visualizer",
+        "link": "/svg-path-visualizer",
+        "description": "The SVG Path Visualizer is a powerful tool designed to simplify the visualization and debugging of SVG path data. By inputting your SVG path code, this tool provides an immediate graphical representation of the path, allowing developers and designers to see real-time changes as they edit the path data. This tool helps in understanding complex path commands, optimizing SVG graphics, and ensuring precise design adjustments. Enhance your workflow with the SVG Path Visualizer, making it easier to create and refine scalable vector graphics with accuracy and efficiency.",
+        "contributors": [
+            {
+                "name": "Abdur Rehman Shaikh",
+                "githubId": "abdurrahmanshkh"
+            },
+            {
+                "name": "Mansi Karki",
+                "githubId": "MansiKarki"
+            },
+            {
+                "name": "Priyanka Kadam",
+                "githubId": "Priyanka-Kadam427"
+            },
+            {
+                "name": "Sania Joseph",
+                "githubId": "sania-joe"
+            },
+            {
+                "name": "Yathang Tupe",
+                "githubId": "Yathang007"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "svg-pattern-generator": {
+        "name": "SVG Pattern Generator",
+        "link": "/svg-pattern-generator",
+        "description": "The SVG Pattern Generator is a free tool that creates customizable SVG background patterns. It offers various settings and shapes, with adjustable size, spacing, rotation, skew, and opacity. Patterns can be exported as SVG or PNG files, used anywhere, including in website code. They can also serve as templates for social media assets. Patterns can be exported as repeating backgrounds for website optimization. However, rotation and skew parameters must be set manually if required.",
+        "contributors": [
+            {
+                "name": "Nikhil sai Sripathi",
+                "githubId": "NikhilsaiSripathi"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            },
+            {
+                "name": "Dhanalakshmi C",
+                "githubId": "poojagowda00"
+            }
+        ]
+    },
+    "virtual-graph-paper": {
+        "name": "Virtual Graph Paper",
+        "link": "/virtual-graph-paper",
+        "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
+        "contributors": [
+            {
+                "name": "Abhishek Rajput",
+                "githubId": "Abhishek-2502"
+            },
+            {
+                "name": "Darshana Jadhav",
+                "githubId": "Darshana1011"
+            },
+            {
+                "name": "Nikhil Shukla",
+                "githubId": "Nikhil-shukla1"
+            },
+            {
+                "name": "Suzanne Sunil Nazareth",
+                "githubId": "suzannenazareth"
+            },
+            {
+                "name": "Yash Jain",
+                "githubId": "YashJain999"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "virtual-mindmap": {
+        "name": "Virtual Mindmap Maker",
+        "link": "/virtual-mindmap",
+        "description": "Curate personalised mindmaps to ease your learning with effective visuals. This tool will help you in making mindmaps to store information as linked cards for easier memorisation. ",
+        "contributors": [
+            {
+                "name": "Snehal Shetye",
+                "githubId": "Snehalshetye18"
+            },
+            {
+                "name": "Purvi Passi",
+                "githubId": "pxxpassi"
+            },
+            {
+                "name": "Cheryl Lobo",
+                "githubId": "cherylobo"
+            },
+            {
+                "name": "Prachi Zodage",
+                "githubId": "PrachiZodage"
+            },
+            {
+                "name": "Aanchal Mehta",
+                "githubId": "Aanchal1902"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "voice-recorder-and-editor": {
+        "name": "Voice-Recorder-and-Editor",
+        "link": "/voice-recorder-and-editor",
+        "description": "Voice-Recorder-and-Editor",
+        "contributors": [
+            {
+                "name": "Radha Rungta",
+                "githubId": "Radha Rungta"
+            },
+            {
+                "name": "JatinnSihag",
+                "githubId": "jatinsihag234"
+            },
+            {
+                "name": "Olive Daniel",
+                "githubId": "OliveDaniel24"
+            },
+            {
+                "name": "Naman Wadhawan",
+                "githubId": "NamanWadhawan"
+            }
+        ]
+    },
     "watermark-pdf": {
         "name": "Watermark PDF",
         "link": "/watermark-pdf",
@@ -336,6 +1005,68 @@
             {
                 "name": "Hannan Satopay",
                 "githubId": "hannansatopay"
+            }
+        ]
+    },
+    "wordcloud-generator": {
+        "name": "Word Cloud Generator",
+        "link": "/wordcloud-generator",
+        "description": "The Word Cloud Generator is a dynamic tool that transforms your text into a visually appealing word cloud. By entering your desired words, you can instantly create a colorful and randomized cloud of words, where the size of each word reflects its frequency or significance. Perfect for visualizing text data, highlighting key terms, or adding a creative touch to your presentations, the Word Cloud Generator makes it easy to see the bigger picture in your words. Simply input your text, and watch your words come to life!",
+        "contributors": [
+            {
+                "name": "Joel Mathew Job",
+                "githubId": "JoelMathewJob"
+            },
+            {
+                "name": "Tanya Jain",
+                "githubId": "tanya050803"
+            },
+            {
+                "name": "Anushka Pandey",
+                "githubId": "AnushkaPandey0415"
+            },
+            {
+                "name": "Malay Chowdhury",
+                "githubId": "malayit23"
+            },
+            {
+                "name": "Vaishnavi Mhamunkar",
+                "githubId": "vaish-18"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
+            }
+        ]
+    },
+    "xml-formatter": {
+        "name": "XML Formatter",
+        "link": "/xml-formatter",
+        "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
+        "contributors": [
+            {
+                "name": "Masum Ahmed",
+                "githubId": "ri-masum"
+            },
+            {
+                "name": "Enamur Rabbi Ferdausi",
+                "githubId": "EnamurFerdausi"
+            },
+            {
+                "name": "Nikhil Sarve",
+                "githubId": "nikhilsarve"
+            },
+            {
+                "name": "Akash Gaikwad",
+                "githubId": "sky-gaikwad"
+            },
+            {
+                "name": "Atharva Thakur",
+                "githubId": "plantindesk"
+            },
+            {
+                "name": "Ashwani Kumar Singh",
+                "githubId": "ashwani2529"
             }
         ]
     }
