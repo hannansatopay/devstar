@@ -1,32 +1,28 @@
 <script>
-
-
-
-
-
-
-
-import Record from "./voiceRecord/record.svelte";
+    import Record from "./voiceRecord/record.svelte";
     import editor from "./voiceEditing/audio-trimmer/public/index.html";
 
     // Function to navigate to the record audio page
     function goToRecordAudio() {
-        window.location.href = '#/record';
+        window.location.href = "#/record";
     }
 
     // Function to navigate to the edit audio page
     function goToEditAudio() {
-        window.location.href = '#/edit';
+        window.location.href = "#/edit";
     }
+</script>
 
 <main>
-    <div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
+    <div
+        class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
+    >
         <div class="hero">
             <video autoplay loop muted playsinline class="back-video">
-                <source src="/bg_v.mp4" type="video/mp4" alt="video"/>
+                <source src="/bg_v.mp4" type="video/mp4" alt="video" />
             </video>
             <nav>
-                <img src="\logo1.png" class="logo" alt="logo"/>
+                <img src="\logo1.png" class="logo" alt="logo" />
                 <ul>
                     <li><a href="Record">Record Audio</a></li>
                     <li><a href="editor">Edit Audio</a></li>
@@ -46,7 +42,7 @@ import Record from "./voiceRecord/record.svelte";
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
     }
     main {
         width: 100%;
@@ -70,7 +66,10 @@ import Record from "./voiceRecord/record.svelte";
     .hero {
         width: 90%;
         height: 100vh;
-        background-image: linear-gradient(rgba(11, 2, 116, 0.3), rgba(128, 128, 128, 0.54));
+        background-image: linear-gradient(
+            rgba(11, 2, 116, 0.3),
+            rgba(128, 128, 128, 0.54)
+        );
         position: relative;
         padding: 0 5%;
         display: flex;
@@ -107,7 +106,7 @@ import Record from "./voiceRecord/record.svelte";
         transition: color 0.3s;
     }
     nav ul li a:hover {
-        color: #9D9CE9;
+        color: #9d9ce9;
         background-color: rgba(255, 255, 255, 0.1);
         padding: 5px 10px;
         border-radius: 5px;
@@ -125,7 +124,7 @@ import Record from "./voiceRecord/record.svelte";
     }
     .content h1 {
         font-size: 100px;
-        color: #9D9CE9;
+        color: #9d9ce9;
         font-weight: 600;
         transition: 0.5s;
     }
@@ -136,7 +135,7 @@ import Record from "./voiceRecord/record.svelte";
     .content h2 {
         text-decoration: none;
         display: inline-block;
-        color: #FFFFFF;
+        color: #ffffff;
         font-size: 24px;
         padding: 14px 70px;
         margin-top: 20px;
@@ -151,16 +150,16 @@ import Record from "./voiceRecord/record.svelte";
         transform: translate(-50%, -50%);
         z-index: -1;
     }
-    @media(min-aspect-ratio: 16/9) {
+    @media (min-aspect-ratio: 16/9) {
         .back-video {
             width: 100%;
             height: auto;
         }
     }
-    @media(max-aspect-ratio: 16/9) {
+    @media (max-aspect-ratio: 16/9) {
         .back-video {
             width: auto;
             height: 100%;
         }
     }
- </style>
+</style>

@@ -446,7 +446,7 @@
     "living-background-generator": {
         "name": "Living Background Generator",
         "link": "/living-background-generator",
-        "description": "The Gradient Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.",
+        "description": "The Living Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.",
         "contributors": [
             {
                 "name": "RIYA KUSHWAHA",
