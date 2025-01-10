@@ -43,12 +43,14 @@
   }
 
   // Filter tools based on search query
-  $: results = Object.values(data.tools).filter((tool) => {
-    return (
-      tool.name.toLowerCase().includes(query.toLowerCase()) ||
-      tool.description.toLowerCase().includes(query.toLowerCase())
-    );
-  });
+  $: filteredTools = query.trim()
+    ? data.tools.categories.reduce((acc, category) => {
+        const matchedTools = category.tools.filter((tool) =>
+          tool.name.toLowerCase().includes(query.toLowerCase()),
+        );
+        return [...acc, ...matchedTools];
+      }, [])
+    : [];
 
   // Function to initialize favorites from localStorage
   function initializeFavorites() {
@@ -100,11 +102,6 @@
 <section
   class="bg-white dark:bg-gray-900 py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12"
 >
-  <!-- <a href="#" class="inline-flex justify-between items-center py-1 px-1 pr-4 mb-7 text-sm text-gray-700 bg-gray-100 rounded-full dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">	
-			<span class="text-xs bg-blue-600 rounded-full text-white px-4 py-1.5 mr-3">New</span>	
-			<span class="text-sm font-medium">Phase-I launched! Explore the story</span>	
-			<i class="icon-angle-right ml-2" />	
-		</a> -->
   <h1
     class="my-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 lg:text-6xl dark:text-white"
   >
@@ -132,8 +129,6 @@
     >
       Favorites
     </h3>
-
-    <!-- Responsive container for two rows with proper alignment -->
     <div
       class="grid grid-rows-2 gap-y-4 px-4 overflow-x-auto scrollbar-modern scrollbar-thumb-gray-400 scrollbar-track-gray-200 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800"
     >
@@ -212,50 +207,79 @@
   </section>
 {/if}
 
-<!-- All Tools Section -->
-<section class="bg-white dark:bg-gray-900 py-16 px-4 mx-auto max-w-screen-xl">
-  <h3
-    class="mb-4 text-xl font-extrabold tracking-tight leading-none text-gray-900 lg:text-3xl dark:text-white"
-  >
-    All Tools
-  </h3>
-  {#if results.length}
-    <div class="grid gap-4 space-y-0 grid-cols-2 lg:grid-cols-4">
-      {#each results as tool}
+<!-- Categories Section -->
+{#if query.trim() && filteredTools.length > 0}
+  <section class="bg-white dark:bg-gray-900 py-10 px-4 mx-auto max-w-screen-xl">
+    <h3
+      class="mb-4 text-xl lg:text-3xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
+    >
+      All Tools
+    </h3>
+    <div class="grid gap-2 space-y-0 grid-cols-2 lg:grid-cols-4">
+      {#each filteredTools as tool}
         <Card href={tool.link}>
-          <!-- <i class="icon-{tool.icon} mb-2 text-gray-500 dark:text-gray-400 text-4xl" />	 -->
           <h5
             class="text-base lg:text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
           >
             {tool.name}
           </h5>
           <p class="text-sm lg:text-lg">
-            {tool.description.length > 80
-              ? tool.description.substring(0, 80) + "..."
-              : tool.description}
+            {tool.description && tool.description.length > 60
+              ? tool.description.substring(0, 60) + "..."
+              : tool.description || "No description available"}
           </p>
         </Card>
       {/each}
     </div>
-  {:else}
-    <div class="mx-auto max-w-screen-xl">
-      <div class="mx-auto max-w-screen-sm text-center">
-        <p
-          class="mb-4 text-2xl tracking-tight font-bold text-gray-900 lg:text-4xl dark:text-white"
-        >
-          No Results Found
-        </p>
-        <p
-          class="mb-4 text-base lg:text-xl font-light text-gray-500 dark:text-gray-400"
-        >
-          We couldn't find any matching tool
-        </p>
-        <a
-          href="/contact"
-          class="font-medium text-xs lg:text-base px-5 py-2.5 text-center my-4 text-gray-500 dark:text-gray-400 underline"
-          >Request this tool</a
-        >
+  </section>
+{:else if query.trim() && filteredTools.length === 0}
+  <section
+    class="bg-white dark:bg-gray-900 py-10 px-4 mx-auto max-w-screen-xl text-center"
+  >
+    <p
+      class="mb-4 text-2xl tracking-tight font-bold text-gray-900 lg:text-4xl dark:text-white"
+    >
+      No Results Found
+    </p>
+    <p
+      class="mb-4 text-base lg:text-xl font-light text-gray-500 dark:text-gray-400"
+    >
+      We couldn't find any matching tool
+    </p>
+    <a
+      href="/contact"
+      class="font-medium text-xs lg:text-base px-5 py-2.5 text-center my-4 text-gray-500 dark:text-gray-400 underline"
+    >
+      Request this tool
+    </a>
+  </section>
+{:else}
+  {#each data.tools.categories as category}
+    <section
+      class="bg-white dark:bg-gray-900 py-10 px-4 mx-auto max-w-screen-xl"
+    >
+      <h2 class="text-xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+        {category.title}
+      </h2>
+      <p class="text-base lg:text-xl mb-4 text-gray-500 dark:text-gray-400">
+        {category.details}
+      </p>
+      <div class="grid gap-2 space-y-0 grid-cols-2 lg:grid-cols-4">
+        {#each category.tools as tool}
+          <Card href={tool.link}>
+            <h5
+              class="text-base lg:text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
+            >
+              {tool.name}
+            </h5>
+            <p class="text-sm lg:text-lg">
+              {tool.description && tool.description.length > 60
+                ? tool.description.substring(0, 60) + "..."
+                : tool.description || "No description available"}
+            </p>
+          </Card>
+        {/each}
       </div>
-    </div>
-  {/if}
-</section>
+    </section>
+  {/each}
+{/if}

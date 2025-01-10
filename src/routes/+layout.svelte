@@ -22,10 +22,15 @@
 	let query = "";
 	let isSearchOpen = false;
 
-	// Filter tools based on search query
-	$: results = Object.values(data.tools).filter((tool) => {
-		return tool.name.toLowerCase().includes(query.toLowerCase());
-	});
+	// // Filter tools based on search query
+	$: filteredTools = query.trim()
+		? data.tools.categories.reduce((acc, category) => {
+				const matchedTools = category.tools.filter((tool) =>
+					tool.name.toLowerCase().includes(query.toLowerCase()),
+				);
+				return [...acc, ...matchedTools];
+			}, [])
+		: [];
 
 	function toggleSearch() {
 		isSearchOpen = !isSearchOpen;
@@ -210,14 +215,14 @@
 					>
 						Please type to search for tools.
 					</p>
-				{:else if results.length === 0}
+				{:else if filteredTools.length === 0}
 					<p
 						class="text-gray-500 dark:text-gray-400 text-xs lg:text-base"
 					>
 						No results found.
 					</p>
 				{:else}
-					{#each results as tool}
+					{#each filteredTools as tool}
 						<a
 							href={tool.link}
 							class="block p-2 text-xs lg:text-base text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
