@@ -4,28 +4,35 @@ import tools from "./tools.json";
 export async function load({ route, url }) {
   return {
     tools: tools,
-    meta: getMeta(route, url),
+    meta: getMeta(url),
   };
 }
 
 // @ts-ignore
-function getMeta(route, url) {
-  if (route.id && route.id.includes("(tools)")) {
-    // @ts-ignore
-    let tool = tools[url.pathname.replace("/", "")];
-    if (tool) {
-      return {
-        title: tool.name,
-        description: tool.description,
-        contributors: tool.contributors,
-      };
-    } else {
-      return {
-        title: "",
-        description: "",
-        contributors: [],
-      };
-    }
+function getMeta(url) {
+  // Extract tool link from the URL
+  const toolLink = url.pathname.replace("/", "");
+
+  // Search through all categories for the tool with the matching link
+  let tool = null;
+  for (const category of tools.categories) {
+    tool = category.tools.find(t => t.link.replace("/", "") === toolLink);
+    if (tool) break;
   }
-  return 0;
+
+  // Return meta data if the tool is found
+  if (tool) {
+    return {
+      title: tool.name,
+      description: tool.description,
+      contributors: tool.contributors,
+    };
+  }
+
+  // Default meta if no tool found
+  return {
+    title: "",
+    description: "",
+    contributors: [],
+  };
 }
