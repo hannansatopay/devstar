@@ -19,10 +19,22 @@
     let height = 600;
     let layout;
 
-    let fontSize = 0; // Initialize to 0
-    let fontType = ""; // Initialize as an empty string
-    let fontColor = 'random';
-    const colorNames = ["random","blue", "orange", "green", "red", "purple", "brown", "pink", "gray", "yellow", "cyan"];
+    let fontSize = 0;
+    let fontType = "";
+    let fontColor = "random";
+    const colorNames = [
+        "random",
+        "blue",
+        "orange",
+        "green",
+        "red",
+        "purple",
+        "brown",
+        "pink",
+        "gray",
+        "yellow",
+        "cyan",
+    ];
     const fontTypes = [
         "Arial",
         "Courier New",
@@ -50,12 +62,14 @@
             alert("Please select both font size and font type");
             return;
         }
-        const words = userInput
-            .split(/\s+/)
-            .map((word) => ({
-                text: word,
-                size: Math.random() * 100 + fontSize,
-            }));
+
+        const uniqueWords = [...new Set(userInput.split(/\s+/))];
+
+        const words = uniqueWords.map((word) => ({
+            text: word,
+            size: Math.random() * 100 + fontSize,
+        }));
+
         layout = cloud()
             .size([width, height])
             .words(words)
@@ -114,7 +128,6 @@
 </script>
 
 <svelte:head>
-    <title>Word Cloud Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -175,181 +188,158 @@
     />
 </svelte:head>
 
-<div class="container mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <aside class="sidebar p-4 bg-gray-800 text-white rounded-lg">
-        <h2 class="mb-5 text-lg font-semibold">Settings</h2>
+<section class="py-2">
+    <div
+        class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden rounded-lg"
+    >
+        <aside
+            class="p-8 h-full bg-gray-100 dark:bg-gray-800 text-black dark:text-white rounded-lg"
+        >
+            <h2 class="mb-5 text-base lg:text-xl font-semibold">Settings</h2>
 
-        <label for="fontSizeRange" class="block mb-4">
-            <span class="block text-sm font-medium">Font Size:</span>
-            <input
-                id="fontSizeRange"
-                type="range"
-                min="0"
-                max="100"
-                bind:value={fontSize}
-                class="w-full"
-            />
-            <input
-                id="fontSizeInput"
-                type="number"
-                min="0"
-                max="100"
-                bind:value={fontSize}
-                class="w-full mt-2 p-2 text-gray-900"
-            />
-        </label>
-
-        <label for="fontType" class="block mb-4">
-            <span class="block text-sm font-medium">Font Type:</span>
-            <select
-                id="fontType"
-                bind:value={fontType}
-                class="w-full mt-2 p-2 text-gray-900"
-            >
-                <option value="" disabled selected>Select an option</option>
-                {#each fontTypes as type}
-                    <option value={type}>{type}</option>
-                {/each}
-            </select>
-        </label>
-
-        <label for="fontColor" class="block mb-4">
-            <span class="block text-sm font-medium">Font Color:</span>
-            <select
-                id="fontColor"
-                bind:value={fontColor}
-                class="w-full mt-2 p-2 text-gray-900"
-            >
-                <option value="" disabled selected>Select an option</option>
-                {#each colorNames as color}
-                    <option value={color} style="color: {color};">{color}</option>
-                {/each}
-            </select>
-        </label>
-
-        <label for="color-pick" class="block mb-4">
-            <span class="block text-sm font-medium">Background Color:</span>
-            <input
-                id="color-pick"
-                type="color"
-                bind:value={color}
-                on:input={handleChange}
-                on:click={closeColorPicker}
-                class="w-1/6 h-10 rounded"
-            />
-        </label>
-    </aside>
-
-    <section class="main-content lg:col-span-2">
-        <div class="flex flex-col items-center">
-            <label for="words" class="w-full mb-4">
-                <span class="block text-lg font-medium text-gray-900 dark:text-white">Enter Words:</span>
-                <textarea
-                    id="words"
-                    bind:value={userInput}
-                    rows="4"
-                    cols="50"
-                    class="w-full mt-2 p-4 text-gray-900 border border-gray-300 rounded-lg"
-                ></textarea>
+            <label for="fontSizeRange" class="block mb-4">
+                <span class="block text-xs lg:text-base font-medium"
+                    >Font Size:</span
+                >
+                <input
+                    id="fontSizeRange"
+                    type="range"
+                    min="0"
+                    max="100"
+                    bind:value={fontSize}
+                    class="w-full rounded-lg my-2"
+                />
+                <input
+                    id="fontSizeInput"
+                    type="number"
+                    min="0"
+                    max="100"
+                    bind:value={fontSize}
+                    class="w-full text-xs lg:text-base p-2 text-gray-900 rounded-lg"
+                />
             </label>
 
-            <div class="flex space-x-4 mb-4">
-                <button on:click={generateWordCloud} class="btn">Generate Word Cloud</button>
-                <button on:click={downloadImage} class="btn">Download</button>
-            </div>
+            <label for="fontType" class="block mb-4">
+                <span class="block text-xs lg:text-base font-medium"
+                    >Font Type:</span
+                >
+                <select
+                    id="fontType"
+                    bind:value={fontType}
+                    class="w-full mt-2 p-2 text-xs lg:text-base text-gray-900 rounded-lg"
+                >
+                    <option value="" disabled selected>Select an option</option>
+                    {#each fontTypes as type}
+                        <option value={type} class="text-xs lg:text-base"
+                            >{type}</option
+                        >
+                    {/each}
+                </select>
+            </label>
 
-            <svg
-                id="wordCloud"
-                viewBox={`0 0 ${width} ${height}`}
-                preserveAspectRatio="xMidYMid meet"
-                style="background-color: {backgroundColor};"
-                class="w-full border border-gray-300 rounded-lg"
-            >
-                {#if wordData.length > 0}
-                    <g transform={`translate(${width / 2}, ${height / 2})`}>
-                        {#each wordData as word}
-                            <text
-                                x={word.x}
-                                y={word.y}
-                                style="font-size: {word.size}px; fill: {fontColor==='random'?(cat10colors[
-                                    Math.floor(Math.random() * 10)
-                                ]):fontColor}; transform: translate(${word.x}px, ${word.y}px) rotate({word.rotate}deg); font-family: {fontType};"
-                            >
-                                {word.text}
-                            </text>
-                        {/each}
-                    </g>
-                {/if}
-            </svg>
+            <label for="fontColor" class="block mb-4">
+                <span class="block text-xs lg:text-base font-medium"
+                    >Font Color:</span
+                >
+                <select
+                    id="fontColor"
+                    bind:value={fontColor}
+                    class="w-full mt-2 p-2 text-xs lg:text-base text-gray-900 rounded-lg"
+                >
+                    <option value="" disabled selected>Select an option</option>
+                    {#each colorNames as color}
+                        <option
+                            value={color}
+                            class="text-xs lg:text-base"
+                            style="color: {color};">{color}</option
+                        >
+                    {/each}
+                </select>
+            </label>
+
+            <label for="color-pick" class="block mb-4">
+                <span class="block text-xs lg:text-base font-medium"
+                    >Background Color:</span
+                >
+                <input
+                    id="color-pick"
+                    type="color"
+                    bind:value={color}
+                    on:input={handleChange}
+                    on:click={closeColorPicker}
+                    class="w-1/6 h-10 rounded text-xs lg:text-base"
+                />
+            </label>
+        </aside>
+
+        <div class="p-8 lg:col-span-2">
+            <div class="flex flex-col items-center">
+                <label for="words" class="w-full mb-4">
+                    <span
+                        class="block text-base lg:text-xl font-medium text-gray-900 dark:text-white"
+                        >Enter Words:</span
+                    >
+                    <textarea
+                        id="words"
+                        bind:value={userInput}
+                        rows="3"
+                        cols="50"
+                        class="w-full mt-2 p-4 text-xs lg:text-base text-gray-900 border border-gray-300 rounded-lg"
+                    ></textarea>
+                </label>
+
+                <div class="flex space-x-4 mb-4">
+                    <button
+                        on:click={generateWordCloud}
+                        class="btn text-xs lg:text-base bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 hover:dark:bg-blue-700"
+                        >Generate Word Cloud</button
+                    >
+                    <button
+                        on:click={downloadImage}
+                        class="btn text-xs lg:text-base bg-gray-500 dark:bg-gray-700 hover:bg-gray-600 hover:dark:bg-gray-800"
+                        >Download</button
+                    >
+                </div>
+
+                <svg
+                    id="wordCloud"
+                    viewBox={`0 0 ${width} ${height}`}
+                    preserveAspectRatio="xMidYMid meet"
+                    style="background-color: {backgroundColor};"
+                    class="w-full max-h-80 border border-gray-300 rounded-lg"
+                >
+                    {#if wordData.length > 0}
+                        <g transform={`translate(${width / 2}, ${height / 2})`}>
+                            {#each wordData as word}
+                                <text
+                                    x={word.x}
+                                    y={word.y}
+                                    style="font-size: {word.size}px; fill: {fontColor ===
+                                    'random'
+                                        ? cat10colors[
+                                              Math.floor(Math.random() * 10)
+                                          ]
+                                        : fontColor}; transform: translate(${word.x}px, ${word.y}px) rotate({word.rotate}deg); font-family: {fontType};"
+                                >
+                                    {word.text}
+                                </text>
+                            {/each}
+                        </g>
+                    {/if}
+                </svg>
+            </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>
 
 <style>
     .btn {
         font-size: 1em;
         padding: 10px 20px;
-        background-color: #1f77b4;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-    }
-
-    .btn:hover {
-        background-color: #155a8a;
-    }
-
-    .container {
-        max-width: 1200px;
-    }
-
-    .sidebar {
-        background-color: #1f2937;
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .sidebar h2 {
-        font-size: 1.5em;
-        margin-bottom: 20px;
-    }
-
-    .main-content {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .main-content label {
-        display: block;
-        font-size: 1em;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .main-content textarea,
-    .main-content select,
-    .main-content input[type="number"],
-    .main-content input[type="range"] {
-        width: 100%;
-        padding: 10px;
-        border: 2px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .main-content #wordCloud {
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        margin-top: 20px;
-        background-color: #f9f9f9;
-    }
-
-    .main-content text {
-        text-anchor: middle;
-        alignment-baseline: middle;
     }
 </style>

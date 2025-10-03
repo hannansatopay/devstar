@@ -18,5 +18,11 @@
             "name": "Naman Wadhawan",
             "githubId": "NamanWadhawan"
         }
+    ],
+    "packages": [
+        {
+            "name": "wavesurfer.js",
+            "version": "4.0.1"
+        }
     ]
 }

@@ -36,6 +36,10 @@
 		isSearchOpen = !isSearchOpen;
 		query = ""; // Clear the search query on toggle
 	}
+
+	function handleToolClick() {
+		isSearchOpen = false; // Close search when a tool is clicked
+	}
 </script>
 
 <svelte:head>
@@ -177,7 +181,7 @@
 		<div
 			class="fixed inset-0 bg-black bg-opacity-70 z-50"
 			on:click={toggleSearch}
-		></div>
+		/>
 
 		<!-- Search Modal -->
 		<div
@@ -225,6 +229,7 @@
 					{#each filteredTools as tool}
 						<a
 							href={tool.link}
+							on:click={handleToolClick}
 							class="block p-2 text-xs lg:text-base text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md cursor-pointer"
 						>
 							{tool.name}

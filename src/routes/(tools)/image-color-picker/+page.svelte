@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Label } from 'flowbite-svelte';
-	
+	import { onMount } from "svelte";
+	import { Label } from "flowbite-svelte";
+
 	export let data;
 
 	let fileInput;
@@ -9,15 +9,15 @@
 	let colors = [];
 
 	function drawImageOnCanvas(file) {
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas.getContext("2d");
 		canvas.width = canvas.offsetWidth;
-    	canvas.height = canvas.offsetHeight;
+		canvas.height = canvas.offsetHeight;
 
 		// Create new image element
 		const img = new Image();
 
 		// Set image source to the uploaded file
-		if (typeof file === 'string') {
+		if (typeof file === "string") {
 			img.src = file;
 		} else {
 			img.src = URL.createObjectURL(file);
@@ -26,7 +26,7 @@
 		// When image is loaded, draw it on the canvas
 		img.onload = function () {
 			// Calculate the dimensions to fit the image within the container
-			var container = document.getElementById('container');
+			var container = document.getElementById("container");
 			// Calculate the dimensions to fit the image within the container
 			var maxWidth = container.offsetWidth;
 			var imageWidth = img.width;
@@ -40,28 +40,73 @@
 			canvas.height = canvasHeight;
 
 			// Update the container's height
-			container.style.height = canvasHeight + 'px';
+			container.style.height = canvasHeight + "px";
 			ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
 			getDominantColors();
 		};
 	}
 
 	function getDominantColors() {
-		const ctx = canvas.getContext('2d');
+		const ctx = canvas.getContext("2d");
 		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 		const rgbArray = buildRgb(imageData.data);
-		colors = quantization(rgbArray, 0).map(rgbToHex);
+		// 	colors = quantization(rgbArray, 0).map(rgbToHex);
+
+		// Get initial colors
+		let dominantColors = quantization(rgbArray, 0);
+
+		// Ensure only 8 unique colors
+		const uniqueColors = [];
+		const colorMap = new Map();
+
+		for (const color of dominantColors) {
+			const hex = rgbToHex(color);
+			if (!colorMap.has(hex)) {
+				colorMap.set(hex, color);
+				uniqueColors.push(color);
+			}
+			if (uniqueColors.length === 8) break; // Limit to 8
+		}
+
+		// If duplicates dominate, adjust
+		if (uniqueColors.length < 8) {
+			while (uniqueColors.length < 8) {
+				uniqueColors.push(
+					...dominantColors.slice(0, 8 - uniqueColors.length),
+				);
+			}
+		}
+
+		colors = uniqueColors.map(rgbToHex);
 	}
 
-	function buildRgb(imageData) {
-		const rgbValues = new Array(Math.floor(imageData.length / 4));
+	// function buildRgb(imageData) {
+	// 	const rgbValues = new Array(Math.floor(imageData.length / 4));
 
-		for (let i = 0, j = 0; i < imageData.length; i += 4, j++) {
-			rgbValues[j] = {
-				r: imageData[i],
-				g: imageData[i + 1],
-				b: imageData[i + 2],
-			};
+	// 	for (let i = 0, j = 0; i < imageData.length; i += 4, j++) {
+	// 		rgbValues[j] = {
+	// 			r: imageData[i],
+	// 			g: imageData[i + 1],
+	// 			b: imageData[i + 2],
+	// 		};
+	// 	}
+
+	// 	return rgbValues;
+	// }
+
+	function buildRgb(imageData) {
+		const rgbValues = [];
+
+		for (let i = 0; i < imageData.length; i += 4) {
+			const alpha = imageData[i + 3]; // Alpha value
+			if (alpha > 0) {
+				// Ignore fully transparent pixels
+				rgbValues.push({
+					r: imageData[i],
+					g: imageData[i + 1],
+					b: imageData[i + 2],
+				});
+			}
 		}
 
 		return rgbValues;
@@ -90,26 +135,26 @@
 		const bRange = bMax - bMin;
 
 		if (rRange >= gRange && rRange >= bRange) {
-			return 'r';
+			return "r";
 		} else if (gRange >= rRange && gRange >= bRange) {
-			return 'g';
+			return "g";
 		} else {
-			return 'b';
+			return "b";
 		}
 	}
 
 	function quantization(rgbValues, depth) {
-		const MAX_DEPTH = 2;
+		const MAX_DEPTH = 3;
 
 		if (depth === MAX_DEPTH || rgbValues.length === 0) {
 			const color = rgbValues.reduce(
-			(prev, curr) => {
-				prev.r += curr.r;
-				prev.g += curr.g;
-				prev.b += curr.b;
-				return prev;
-			},
-			{ r: 0, g: 0, b: 0 }
+				(prev, curr) => {
+					prev.r += curr.r;
+					prev.g += curr.g;
+					prev.b += curr.b;
+					return prev;
+				},
+				{ r: 0, g: 0, b: 0 },
 			);
 
 			const count = rgbValues.length || 1;
@@ -120,7 +165,9 @@
 		}
 
 		const componentToSortBy = findBiggestColorRange(rgbValues);
-		rgbValues.sort((p1, p2) => p1[componentToSortBy] - p2[componentToSortBy]);
+		rgbValues.sort(
+			(p1, p2) => p1[componentToSortBy] - p2[componentToSortBy],
+		);
 
 		const mid = Math.floor(rgbValues.length / 2);
 		return [
@@ -136,19 +183,19 @@
 		var b = rgb.b;
 
 		// Convert each component to a hexadecimal string
-		var rHex = r.toString(16).padStart(2, '0');
-		var gHex = g.toString(16).padStart(2, '0');
-		var bHex = b.toString(16).padStart(2, '0');
+		var rHex = r.toString(16).padStart(2, "0");
+		var gHex = g.toString(16).padStart(2, "0");
+		var bHex = b.toString(16).padStart(2, "0");
 
 		// Combine the hexadecimal values
-		var hex = '#' + rHex + gHex + bHex;
+		var hex = "#" + rHex + gHex + bHex;
 
 		return hex;
 	}
 
 	function getContrastColor(hexColor) {
 		// Remove the leading '#' if present
-		hexColor = hexColor.replace('#', '');
+		hexColor = hexColor.replace("#", "");
 
 		// Convert the hex color to RGB
 		var r = parseInt(hexColor.substr(0, 2), 16);
@@ -159,18 +206,18 @@
 		var relativeLuminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 
 		// Determine the contrast color based on the relative luminance
-		var contrastColor = relativeLuminance > 0.5 ? '#000000' : '#ffffff';
+		var contrastColor = relativeLuminance > 0.5 ? "#000000" : "#ffffff";
 
 		return contrastColor;
 	}
 
 	function copy(e, text) {
-		e.target.innerText = 'Copied';
-		const element = document.createElement('textarea');
+		e.target.innerText = "Copied";
+		const element = document.createElement("textarea");
 		element.value = text;
 		document.body.appendChild(element);
 		element.select();
-		document.execCommand('copy');
+		document.execCommand("copy");
 		document.body.removeChild(element);
 		setTimeout(() => {
 			e.target.innerText = text;
@@ -183,47 +230,55 @@
 	}
 
 	onMount(() => {
-		drawImageOnCanvas('/quino-al-J1_1YigSUPA-unsplash.jpg');
+		drawImageOnCanvas("/quino-al-J1_1YigSUPA-unsplash.jpg");
 	});
 </script>
 
+<section class="py-2">
+	<div
+		class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
+	>
+		<div class="p-8 flex h-full flex-col justify-between">
+			<div>
+				<Label class="mb-1 text-sm lg:text-lg">Palette</Label>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-12 overflow-hidden rounded-lg">
-			<div class="p-8 col-span-5 flex h-full flex-col justify-between">
-				<div>
-					<Label class="mb-1">Palette</Label>
-					<div class="flex">
-						<div class="palette flex w-full h-10 rounded-lg overflow-hidden">
-							{#each colors as color}
-								<div on:click={(event)=>copy(event,color)} class="cursor-pointer relative flex flex-grow items-center justify-center" style="color:{getContrastColor(color)}; background: {color};">{color}</div>
-							{/each}
+				<div
+					class="palette grid grid-cols-2 md:grid-cols-4 rounded-lg overflow-hidden"
+				>
+					{#each colors as color}
+						<div
+							on:click={(event) => copy(event, color)}
+							class="p-2 cursor-pointer text-sm lg:text-lg relative flex flex-grow items-center justify-center"
+							style="color:{getContrastColor(
+								color,
+							)}; background: {color};"
+						>
+							{color}
 						</div>
-					</div>
+					{/each}
 				</div>
-
-				<button on:click={()=>fileInput.click()} type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Browse image</button>
-				<input type="file" class="hidden" accept="image/*" bind:this={fileInput} on:change={handleFileUpload}>
 			</div>
-			<div class="p-8 h-full flex rounded-lg relative justify-center items-center col-span-7 bg-gray-100">
-				<div class="canvas-container w-full" id="container">
-					<canvas bind:this={canvas} class="canvas"/>
-				</div>
+
+			<button
+				on:click={() => fileInput.click()}
+				type="button"
+				class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs lg:text-base px-5 py-2.5 my-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+				>Browse image</button
+			>
+			<input
+				type="file"
+				class="hidden"
+				accept="image/*"
+				bind:this={fileInput}
+				on:change={handleFileUpload}
+			/>
+		</div>
+		<div
+			class="p-8 h-full flex rounded-lg relative justify-center bg-gray-100"
+		>
+			<div class="w-full" id="container">
+				<canvas bind:this={canvas} class="absolute" />
 			</div>
 		</div>
 	</div>
 </section>
-
-<!-- CSS Styling -->
-<style>
-	.canvas-container {
-      position: relative;
-    }
-
-    .canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-</style>

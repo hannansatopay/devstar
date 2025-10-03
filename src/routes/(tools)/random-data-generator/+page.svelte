@@ -1,130 +1,123 @@
-<script lang='ts'>
-    import { Label, Input, Select } from 'flowbite-svelte';
-    
+<script lang="ts">
+    import { Label, Input, Select, Button } from "flowbite-svelte";
+
     export let data;
 
     import Field from "./Field.svelte";
     import { generateData } from "./generate.js";
     import { storeFE, idIncrement, dataFormats } from "./store";
-  
+
     $storeFE = [{ id: 0, name: "Field 0", type: "Word" }];
     $idIncrement = 1;
     let dataFormat = "JSON";
     let noOfRows = 10;
-  
+
     function addField() {
-      var l = $storeFE.length; // get our current items list count
-      $storeFE[l] = {
-        id: l,
-        name: `Field ${$idIncrement}`,
-        type: "Word",
-      };
-      console.log($storeFE);
-      $idIncrement++;
+        var l = $storeFE.length;
+        $storeFE[l] = {
+            id: l,
+            name: `Field ${$idIncrement}`,
+            type: "Word",
+        };
+        $idIncrement++;
     }
-  
+
     let schema = [];
     $: schema = $storeFE;
     function handleSubmit() {
-      generateData(schema, dataFormat, noOfRows);
+        generateData(schema, dataFormat, noOfRows);
     }
 </script>
-  
 
-<section class="bg-white dark:bg-gray-900">
+<section class="py-2">
+    <div
+        class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
+    >
+        <!-- First Div - Field Input and Add Field Button -->
+        <div class="p-8 mx-auto max-w-screen-xl rounded-lg">
+            <div class="mb-6">
+                <!-- Fields Section -->
+                {#each $storeFE as field}
+                    <svelte:component this={Field} id={field.id} />
+                {/each}
 
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-        <div class="card gap-8 items-center mx-auto max-w-screen-xl overflow-hidden border-2 border-gray-500 rounded-lg">
-            <div class="bar p-4 lg:grid lg:grid-cols-3 gap-2 text-black dark:text-white">
-                <p id="fieldHead">Field</p>
-                <p id="typeHead">Type</p>
-                <p id="delHead">Delete</p>
-            </div>
-
-            <hr>
-        
-            <form id="inputForm" on:submit|preventDefault={handleSubmit}>
-            {#each $storeFE as field}
-                <svelte:component this={Field} id={field.id} />
-            {/each}
-    
-            <div class="add_div">
-                <button class="add border-2 border-gray-500 text-gray-900 dark:text-white rounded-lg" on:click|preventDefault={addField}>
-                    <svg class="fill-black dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="24" width="24"
-                    ><path d="M10.85 19.15v-6h-6v-2.3h6v-6h2.3v6h6v2.3h-6v6Z" /></svg
-                    > <span>Add Field</span>
-                </button>
-            </div>
-
-            <hr>
-    
-            <div class="submission">
-                <div class="data p-8 lg:grid lg:grid-cols-2 gap-24">
-                    <div>
-                        <Label for="format">Data Format :</Label>
-                        <Select
-                        name="dataFormat"
-                        class="dataFormat"
-                        bind:value={dataFormat}
+                <!-- Add Field Button Row -->
+                <div class="flex justify-start pt-6">
+                    <button
+                        class="flex items-center px-4 py-2 text-xs lg:text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600"
+                        on:click|preventDefault={addField}
+                    >
+                        <svg
+                            class="fill-white w-5 h-5 mr-2"
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="24"
+                            width="24"
                         >
-                        {#each dataFormats as format}
-                            <option value={format}>{format}</option>
-                        {/each}
+                            <path
+                                d="M10.85 19.15v-6h-6v-2.3h6v-6h2.3v6h6v2.3h-6v6Z"
+                            />
+                        </svg>
+                        <span>Add Field</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Div - Data Format and Generate Button -->
+        <div
+            class="p-8 h-full flex rounded-lg relative bg-gray-100 dark:bg-gray-800 overflow-hidden grid grid-cols-1"
+        >
+            <form id="inputForm" on:submit|preventDefault={handleSubmit}>
+                <div class="mb-6 grid grid-cols-1 gap-4">
+                    <!-- Data Format -->
+                    <div>
+                        <Label
+                            for="dataFormat"
+                            class="block text-sm lg:text-lg font-medium text-gray-700 dark:text-white"
+                            >Data Format:</Label
+                        >
+                        <Select
+                            id="dataFormat"
+                            bind:value={dataFormat}
+                            class="text-xs lg:text-base mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        >
+                            {#each dataFormats as format}
+                                <option
+                                    value={format}
+                                    class="text-xs lg:text-base"
+                                    >{format}</option
+                                >
+                            {/each}
                         </Select>
                     </div>
+
+                    <!-- No. of Rows -->
                     <div>
-                        <Label for="rows">No. of Rows :</Label>
+                        <Label
+                            for="noOfRows"
+                            class="block text-sm lg:text-lg font-medium text-gray-700 dark:text-white"
+                            >No. of Rows:</Label
+                        >
                         <Input
-                        type="number"
-                        class="rows"
-                        min="1"
-                        max="10000"
-                        bind:value={noOfRows}
+                            id="noOfRows"
+                            type="number"
+                            min="1"
+                            max="10000"
+                            bind:value={noOfRows}
+                            class="text-xs lg:text-base mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
                         />
                     </div>
                 </div>
-                <Input class="border-2 border-gray-500 rounded-lg" id="submit" type="submit" value="GENERATE DATA" />
-            </div>
+
+                <!-- Generate Data Button -->
+                <div class="flex justify-center mt-6">
+                    <Button
+                        type="submit"
+                        class="text-sm lg:text-lg w-full max-w-xs text-white bg-green-500 rounded-lg font-semibold cursor-pointer hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600"
+                        >Generate Data
+                    </Button>
+                </div>
             </form>
         </div>
     </div>
 </section>
-
-<style>
-    .card {
-        padding: 16px;
-    }
-
-    .bar {
-        grid-template-columns: 3fr 3fr 0.3fr;
-        grid-template-areas: "fieldHead typeHead delHead";
-    }
-    #fieldHead {
-        grid-area: fieldHead;
-    }
-
-    #typeHead {
-        grid-area: typeHead;
-    }
-
-    #delHead {
-        grid-area: delHead;
-    }
-    
-    .add_div {
-        margin-top: 8px;
-        margin-bottom: 8px;
-        display: flex;
-        flex-flow: column;
-        align-items: center;
-        justify-items: flex-start;
-    }
-
-    .add {
-        padding: 8px 12px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-</style>

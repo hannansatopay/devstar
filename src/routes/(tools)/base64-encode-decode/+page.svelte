@@ -1,19 +1,16 @@
 <script lang="ts">
+	import { Button } from "flowbite-svelte";
 
-	import { Button } from 'flowbite-svelte';
-	import jsPDF from 'jspdf';
-	
 	export let data;
 
 	var reqfunc;
 
 	var output;
 
-	function encodedecode(input){
-		if (reqfunc=="encode") {
+	function encodedecode(input) {
+		if (reqfunc == "encode") {
 			output = btoa(input.target.value);
-		}
-		else if (reqfunc=="decode") {
+		} else if (reqfunc == "decode") {
 			output = atob(input.target.value);
 		}
 	}
@@ -32,65 +29,70 @@
 	function downloadText() {
 		if (output.length > 0) {
 			var filename = "devstar_output.txt";
-			var blob = new Blob([output], { type: 'text/plain' });
+			var blob = new Blob([output], { type: "text/plain" });
 			var url = window.URL.createObjectURL(blob);
-			
-			var a = document.createElement('a');
+
+			var a = document.createElement("a");
 			a.href = url;
 			a.download = filename;
 			document.body.appendChild(a);
 			a.click();
-			
+
 			window.URL.revokeObjectURL(url);
 			document.body.removeChild(a);
 		}
 	}
-  
-	function downloadPDF() {
-		const doc = new jsPDF();
-		doc.text(output, 20, 20);
-		doc.save('devstar_output.pdf');
-	}
 
+	$: placeholder =
+		reqfunc === "decode" ? "Type Base64 code here" : "Type text here";
 </script>
 
+<section class="py-2">
+	<div
+		class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
+	>
+		<div class="p-8 gap-4 grid grid-cols-1">
+			<select
+				bind:value={reqfunc}
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm lg:text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+			>
+				<option value="encode">Text to Base64 Encode</option>
+				<option value="decode">Base64 to Text Decode</option>
+			</select>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+			<div
+				class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300"
+			>
+				<textarea
+					{placeholder}
+					rows="8"
+					class="resize-none block p-2.5 w-full text-sm lg:text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+					on:input={encodedecode}
+				/>
+			</div>
+		</div>
 
-			<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-				<select bind:value={reqfunc} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-						<option value="encode">Encode</option>
-						<option value="decode">Decode</option>
-
-				</select>
+		<div
+			class="p-8 h-full flex rounded-lg relative bg-gray-100 overflow-hidden grid grid-cols-1"
+		>
+			<div class="flex space-x-2 justify-end mb-2">
+				<Button
+					class="text-xs lg:text-base text-gray-700 hover:text-white border border-blue-400 dark:border-blue-900 bg-gray-100 dark:bg-gray-100 hover:bg-blue-600 hover:dark:bg-blue-700"
+					on:click={downloadText}>Download as txt</Button
+				>
+				<Button
+					class="text-xs lg:text-base bg-green-400 dark:bg-green-500 hover:bg-green-700 hover:dark:bg-green-700 w-20"
+					on:click={copyText}>Copy</Button
+				>
 			</div>
 
-			<div class="mt-4 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden">
-
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Enter Text" id="textbox" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:input={encodedecode}/>
-				</div>
-
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<textarea placeholder="Result" id="textbox" rows="8" class="resize-none block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					bind:value={output}/>
-				</div>
-
-			</div>
-
-			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
-				<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
-					<Button color="blue" on:click={copyText}>Copy</Button>
-					<Button color="blue" on:click={downloadText}>Download as txt</Button>
-					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
-				</div>	
-			</div>
-
+			<textarea
+				readOnly
+				placeholder="Result"
+				bind:value={output}
+				rows="8"
+				class="resize-none block p-2.5 w-full text-sm lg:text-lg text-gray-900 rounded-lg border border-gray-300 dark:border-gray-600 dark:placeholder-gray-400"
+			/>
 		</div>
 	</div>
 </section>
-
