@@ -1,0 +1,15 @@
+{
+    "name": "Bionic Reading Converter",
+    "description":"Enhances texts so that the most concise parts of words are highlighted.",
+    "contributors": [{
+        "name": "Yash Jain",
+        "githubId": "YashJain999"
+    }, {
+        "name": "Shaik Shams Tabrez",
+        "githubId": "shaik-shams-tabrez"
+    },
+    {
+        "name": "Pranjal Abhishek Singh",
+        "githubId": "PranjalSingh31"
+    }]
+}

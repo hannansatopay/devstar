@@ -1,0 +1,23 @@
+{
+"name": "JWT Decoder",
+"description":"The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+"contributors": [{
+    "name": "Fazal",
+    "githubId": "Fazalparkar"
+}, {
+    "name": "Aayush",
+    "githubId": "AayushPaigwar"
+},
+{
+    "name": "Jujhar",
+    "githubId": "jujharsingh2802"
+},
+{
+    "name": "Kunal",
+    "githubId": "KUNALL0ndhe"
+},
+{
+    "name": "Hitesh",
+    "githubId": "Honeykalra22"
+}]
+}

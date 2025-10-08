@@ -1,0 +1,23 @@
+{
+    "name": "World Clock",
+    "description":"Times of World: showcases time of different countries",
+    "contributors": [{
+        "name": "ILyas Sayyed",
+        "githubId": "MrPorsche"
+    }, {
+        "name": "K Vaishnavi",
+        "githubId": "Vaishnnavikothmirkar"
+    },
+    {
+        "name": "Joel Geo Abraham",
+        "githubId": "JoelAbraham16032002"
+    },
+    {
+        "name": "Silla Mariya Roy",
+        "githubId": "Silla03"
+    },
+    {
+        "name": "Kaberi manjari Prusty",
+        "githubId": "coder-kbb"
+    }]
+}

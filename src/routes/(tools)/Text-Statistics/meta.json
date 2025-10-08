@@ -1,0 +1,23 @@
+{
+    "name": "Text Statistics",
+    "description":"The Text Statistics tool is designed to provide comprehensive analysis and insights into a given text. It helps users understand various attributes of their text by calculating and displaying the Total No. of Word count in the Text, The total number of characters in the text, The total number of sentences in the text, The total number of paragraphs in the text, The average length of words in the text, An estimate of the time it would take to read the text, The number of unique words used in the text, A table displaying the count of words based on their length (number of letters). This helps in analyzing the distribution of word lengths within the text.",
+    "contributors": [{
+        "name": "Sujit Sambhaji Lendave",
+        "githubId": "Sujit747"
+    }, {
+        "name": "Shubham Karne",
+        "githubId": "shubhamkarne11"
+    },
+    {
+        "name": "Gyan Prakash",
+        "githubId": "gyanp28"
+    },
+    {
+        "name": "Sudhanshu Marudgan",
+        "githubId": "Sudhanshu-Marudgan"
+    },
+    {
+        "name": "Anoushka Ramankulat",
+        "githubId": "Anoushka-Ramankulath"
+    }]
+}

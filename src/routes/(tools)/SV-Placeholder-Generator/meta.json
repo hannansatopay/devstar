@@ -1,0 +1,26 @@
+{
+    "name": "SVG Placeholder Generator",
+    "description":"Generate svg images to use as a placeholder in your applications",
+    "contributors": [{
+        "name": "",
+        "githubId": ""
+    }, {
+        "name": "ANKITA MISHRA",
+        "githubId": "ANKITAMISHRA29"
+    },{
+        "name": "IQRA MIYAJI",
+        "githubId": "IqraMiyaji"
+    },
+    {
+        "name": "AAKANKSH MISHRA",
+        "githubId": "Aaka22"
+    },
+    {
+        "name": "HARSHALA PATIL",
+        "githubId": "Harshala15"
+    },
+    {
+        "name": "ANUJA PATIL",
+        "githubId": "anujaappasopatil"
+    }]
+}
