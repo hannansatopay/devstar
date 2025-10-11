@@ -1,8 +1,11 @@
 {
     "name": "Base64 Encoder & Decoder",
     "description": "Experience seamless data transformation with our Base64 Encoder and Decoder tool. Whether you need to encode sensitive information or decode encoded data, our user-friendly interface simplifies the process. Input your text or encoded string, and our tool swiftly converts it to Base64 format or decodes it back to its original form. Perfect for developers, security professionals, and anyone dealing with data manipulation tasks. Explore the efficiency of Base64 encoding and decoding effortlessly, ensuring secure communication and efficient data handling. Start encoding and decoding with ease, empowering your digital endeavors.",
-    "contributors": [{
-        "name": "Abdur Rehman Shaikh",
-        "githubId": "abdurrahmanshkh"
-    }]
+    "contributors": [
+        {
+            "name": "Abdur Rehman Shaikh",
+            "githubId": "abdurrahmanshkh"
+        }
+    ],
+    "categoryTitle": "Text Conversion Tools"
 }

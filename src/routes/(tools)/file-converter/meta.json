@@ -1,8 +1,11 @@
 {
     "name": "File Converter",
     "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
-    "contributors": [{
-        "name": "Mohammad Adil",
-        "githubId": "devilzs1"
-    }]
+    "contributors": [
+        {
+            "name": "Mohammad Adil",
+            "githubId": "devilzs1"
+        }
+    ],
+    "categoryTitle": "Data and File Handling Tools"
 }

@@ -1,0 +1,44 @@
+{
+    "categories": [
+        {
+            "title": "Text Conversion Tools",
+            "details": "Convert, encode, and decode text effortlessly using tools designed for seamless data transformation and text manipulation."
+        },
+        {
+            "title": "Image and Graphic Tools",
+            "details": "Create, edit, and transform images or graphics with innovative tools to boost your creativity and productivity."
+        },
+        {
+            "title": "Content Generation and Design Tools",
+            "details": "Generate high-quality content, layouts, and designs using intuitive tools tailored for professional and creative needs."
+        },
+        {
+            "title": "Development and Testing Tools",
+            "details": "Optimize your development workflow with tools for coding, debugging, and responsive design testing."
+        },
+        {
+            "title": "Media Editing and Management Tools",
+            "details": "Manage and edit audio, video, and GIFs with tools designed for enhancing media quality and experience."
+        },
+        {
+            "title": "Time and Productivity Tools",
+            "details": "Boost your productivity and time management with tools designed to organize tasks, track time, and stay focused."
+        },
+        {
+            "title": "Interactive and Educational Tools",
+            "details": "Engage and educate with tools that create quizzes, polls, puzzles, and mindmaps for interactive learning and collaboration."
+        },
+        {
+            "title": "Data and File Handling Tools",
+            "details": "Streamline file conversions, data management, and handling processes with comprehensive tools."
+        },
+        {
+            "title": "Financial Calculators",
+            "details": "Accurately compute financial metrics, payouts, and balances with tools designed for personal and professional financial planning."
+        },
+        {
+            "title": "Specialized Utility Tools",
+            "details": "Access unique tools for niche functionalities and specific user needs in various domains."
+        }
+    ]
+}

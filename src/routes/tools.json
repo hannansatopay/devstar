@@ -49,64 +49,21 @@
                     ]
                 },
                 {
-                    "name": "Regex Tool",
-                    "link": "/regex-tool",
-                    "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+                    "name": "Bionic Reading Converter",
+                    "link": "/Bionic Reading Converter",
+                    "description": "Enhances texts so that the most concise parts of words are highlighted.",
                     "contributors": [
                         {
-                            "name": "Soham Jayakar",
-                            "githubId": "SohamJayakar"
+                            "name": "Yash Jain",
+                            "githubId": "YashJain999"
                         },
                         {
-                            "name": "Amey Patil",
-                            "githubId": "Ameypatil07"
+                            "name": "Shaik Shams Tabrez",
+                            "githubId": "shaik-shams-tabrez"
                         },
                         {
-                            "name": "Mohmad Danish Rehman",
-                            "githubId": "dannish110"
-                        },
-                        {
-                            "name": "Darshana Jadhav",
-                            "githubId": "Darshana1011"
-                        },
-                        {
-                            "name": "Vijay Kalidas Pawar",
-                            "githubId": "vijay-pawar-99"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "XML Formatter",
-                    "link": "/xml-formatter",
-                    "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
-                    "contributors": [
-                        {
-                            "name": "Masum Ahmed",
-                            "githubId": "ri-masum"
-                        },
-                        {
-                            "name": "Enamur Rabbi Ferdausi",
-                            "githubId": "EnamurFerdausi"
-                        },
-                        {
-                            "name": "Nikhil Sarve",
-                            "githubId": "nikhilsarve"
-                        },
-                        {
-                            "name": "Akash Gaikwad",
-                            "githubId": "sky-gaikwad"
-                        },
-                        {
-                            "name": "Atharva Thakur",
-                            "githubId": "plantindesk"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
+                            "name": "Pranjal Abhishek Singh",
+                            "githubId": "PranjalSingh31"
                         }
                     ]
                 },
@@ -142,6 +99,37 @@
                     ]
                 },
                 {
+                    "name": "Regex Tool",
+                    "link": "/regex-tool",
+                    "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+                    "contributors": [
+                        {
+                            "name": "Soham Jayakar",
+                            "githubId": "SohamJayakar"
+                        },
+                        {
+                            "name": "Amey Patil",
+                            "githubId": "Ameypatil07"
+                        },
+                        {
+                            "name": "Mohmad Danish Rehman",
+                            "githubId": "dannish110"
+                        },
+                        {
+                            "name": "Darshana Jadhav",
+                            "githubId": "Darshana1011"
+                        },
+                        {
+                            "name": "Vijay Kalidas Pawar",
+                            "githubId": "vijay-pawar-99"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
                     "name": "Sql Converter",
                     "link": "/sql-converter",
                     "description": "Converts .sql into csv, xlsx and more",
@@ -165,6 +153,107 @@
                         {
                             "name": "Aditya Gupta",
                             "githubId": "AdityaGupta"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Text Encryption Decryption Tool",
+                    "link": "/encryptor-decryptor",
+                    "description": "A Text Encryption Decryption Tool lets you scramble plain text into a coded message and then unscramble it back. These tools are useful for protecting sensitive information you share online.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "Sakshi",
+                            "githubId": "Sakshee-24"
+                        },
+                        {
+                            "name": "Navjeet",
+                            "githubId": "navjeet-lohan"
+                        },
+                        {
+                            "name": "Swapnil",
+                            "githubId": "swapniljoshi123"
+                        },
+                        {
+                            "name": "Ravish",
+                            "githubId": "RavishRanjancodes"
+                        },
+                        {
+                            "name": "Kaneez",
+                            "githubId": "Kaneezfatima19"
+                        },
+                        {
+                            "name": "Riya",
+                            "githubId": "riyasawant193"
+                        },
+                        {
+                            "name": "Ram",
+                            "githubId": "ryuk27"
+                        },
+                        {
+                            "name": "Aman",
+                            "githubId": "Amvic7"
+                        }
+                    ]
+                },
+                {
+                    "name": "Text Statistics",
+                    "link": "/Text-Statistics",
+                    "description": "The Text Statistics tool is designed to provide comprehensive analysis and insights into a given text. It helps users understand various attributes of their text by calculating and displaying the Total No. of Word count in the Text, The total number of characters in the text, The total number of sentences in the text, The total number of paragraphs in the text, The average length of words in the text, An estimate of the time it would take to read the text, The number of unique words used in the text, A table displaying the count of words based on their length (number of letters). This helps in analyzing the distribution of word lengths within the text.",
+                    "contributors": [
+                        {
+                            "name": "Sujit Sambhaji Lendave",
+                            "githubId": "Sujit747"
+                        },
+                        {
+                            "name": "Shubham Karne",
+                            "githubId": "shubhamkarne11"
+                        },
+                        {
+                            "name": "Gyan Prakash",
+                            "githubId": "gyanp28"
+                        },
+                        {
+                            "name": "Sudhanshu Marudgan",
+                            "githubId": "Sudhanshu-Marudgan"
+                        },
+                        {
+                            "name": "Anoushka Ramankulat",
+                            "githubId": "Anoushka-Ramankulath"
+                        }
+                    ]
+                },
+                {
+                    "name": "XML Formatter",
+                    "link": "/xml-formatter",
+                    "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
+                    "contributors": [
+                        {
+                            "name": "Masum Ahmed",
+                            "githubId": "ri-masum"
+                        },
+                        {
+                            "name": "Enamur Rabbi Ferdausi",
+                            "githubId": "EnamurFerdausi"
+                        },
+                        {
+                            "name": "Nikhil Sarve",
+                            "githubId": "nikhilsarve"
+                        },
+                        {
+                            "name": "Akash Gaikwad",
+                            "githubId": "sky-gaikwad"
+                        },
+                        {
+                            "name": "Atharva Thakur",
+                            "githubId": "plantindesk"
                         },
                         {
                             "name": "Ashwani Kumar Singh",
@@ -217,6 +306,33 @@
                         {
                             "name": "Ashwani Kumar Singh",
                             "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Custom Handwriting Font",
+                    "link": "/custom-handwriting-font",
+                    "description": "The Custom Handwriting Font Generator is a unique tool that allows you to create a personalized font from your own handwriting. Whether you want to add a personal touch to your documents, create custom greeting cards, or enhance your digital designs, this tool provides a seamless way to transform your handwriting into a digital font.",
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        },
+                        {
+                            "name": "Vaibhav Rathod",
+                            "githubId": "VR-Rathod"
+                        },
+                        {
+                            "name": "Soumili mondal",
+                            "githubId": "Soumelee"
+                        },
+                        {
+                            "name": "Prabir Kumar Majee",
+                            "githubId": "prabirkr"
+                        },
+                        {
+                            "name": "Devishree nadar",
+                            "githubId": "devishree2305"
                         }
                     ]
                 },
@@ -399,6 +515,37 @@
                     ]
                 },
                 {
+                    "name": "SVG Placeholder Generator",
+                    "link": "/SV-Placeholder-Generator",
+                    "description": "Generate svg images to use as a placeholder in your applications",
+                    "contributors": [
+                        {
+                            "name": "",
+                            "githubId": ""
+                        },
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "IQRA MIYAJI",
+                            "githubId": "IqraMiyaji"
+                        },
+                        {
+                            "name": "AAKANKSH MISHRA",
+                            "githubId": "Aaka22"
+                        },
+                        {
+                            "name": "HARSHALA PATIL",
+                            "githubId": "Harshala15"
+                        },
+                        {
+                            "name": "ANUJA PATIL",
+                            "githubId": "anujaappasopatil"
+                        }
+                    ]
+                },
+                {
                     "name": "Virtual Graph Paper",
                     "link": "/virtual-graph-paper",
                     "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
@@ -538,6 +685,72 @@
                     ]
                 },
                 {
+                    "name": "Random Word Everyday",
+                    "link": "/random-word-everyday",
+                    "description": "Welcome to Random Word Everyday, your go-to destination for discovering a new word each day and much more. This website offers a chance to expand your vocabulary daily.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "Jayant Goyal",
+                            "githubId": "jayantgoyal1502"
+                        },
+                        {
+                            "name": "M Desing Raj",
+                            "githubId": "Desing1joker"
+                        },
+                        {
+                            "name": "TANVI SONTAKKE",
+                            "githubId": "TanV-04"
+                        },
+                        {
+                            "name": "SURABHI SATAM",
+                            "githubId": "SurabhiSatam"
+                        },
+                        {
+                            "name": "HIMANI KORGAONKAR",
+                            "githubId": "Himani9922"
+                        },
+                        {
+                            "name": "Urvi Joshi",
+                            "githubId": "UrviJoshi24"
+                        }
+                    ]
+                },
+                {
+                    "name": "Realistic Tweet Generator",
+                    "link": "/realistic-tweet-generator",
+                    "description": "Create realistic mockup tweets with this cutting-edge Tweet Generator. Ideal for pranking your friends, strategizing social media content, interface designing, or studying social impacts, this tool allows you to simulate user handles, tweet content, hashtags, and engagement metrics effortlessly. Enhance your projects with authentic-looking tweets without the need for a Twitter account.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "SAUMAY JAISWAL",
+                            "githubId": "saumay3105"
+                        },
+                        {
+                            "name": "ALISHA",
+                            "githubId": "itsAlisha"
+                        },
+                        {
+                            "name": "SWASTIKA SONI",
+                            "githubId": "SwastikaSoni"
+                        },
+                        {
+                            "name": "PIYUSH KUMAR SAHU",
+                            "githubId": "FSD-Piysuh"
+                        },
+                        {
+                            "name": "BIPIN PATIL",
+                            "githubId": "bipinpatil12"
+                        }
+                    ]
+                },
+                {
                     "name": "Word Cloud Generator",
                     "link": "/wordcloud-generator",
                     "description": "The Word Cloud Generator is a dynamic tool that transforms your text into a visually appealing word cloud. By entering your desired words, you can instantly create a colorful and randomized cloud of words, where the size of each word reflects its frequency or significance. Perfect for visualizing text data, highlighting key terms, or adding a creative touch to your presentations, the Word Cloud Generator makes it easy to see the bigger picture in your words. Simply input your text, and watch your words come to life!",
@@ -574,21 +787,6 @@
             "title": "Development and Testing Tools",
             "details": "Optimize your development workflow with tools for coding, debugging, and responsive design testing.",
             "tools": [
-                {
-                    "name": "Online API Tool",
-                    "link": "/api-tool",
-                    "description": "Our Online API Tool is a versatile and user-friendly platform designed to simplify the process of working with APIs. Just like Postman, it provides developers and teams with powerful features for testing, documenting, and managing APIs. Whether you're building, testing, or monitoring APIs, our tool offers a comprehensive suite of tools to streamline your workflow. With an intuitive interface, collaboration features, and extensive customization options, it's the ideal choice for any development project. Elevate your API development and management experience with our Online API Tool and unlock the full potential of your APIs.",
-                    "contributors": [
-                        {
-                            "name": "A. Amrutha Sri",
-                            "githubId": "AmruthaSri852"
-                        },
-                        {
-                            "name": "Nandini Gite",
-                            "githubId": "NandiniGite"
-                        }
-                    ]
-                },
                 {
                     "name": "Code Linter",
                     "link": "/code-linter",
@@ -632,6 +830,48 @@
                         {
                             "name": "Munsif Satopay",
                             "githubId": "munsifsatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "JWT Decoder",
+                    "link": "/jwt-decoder",
+                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+                    "contributors": [
+                        {
+                            "name": "Fazal",
+                            "githubId": "Fazalparkar"
+                        },
+                        {
+                            "name": "Aayush",
+                            "githubId": "AayushPaigwar"
+                        },
+                        {
+                            "name": "Jujhar",
+                            "githubId": "jujharsingh2802"
+                        },
+                        {
+                            "name": "Kunal",
+                            "githubId": "KUNALL0ndhe"
+                        },
+                        {
+                            "name": "Hitesh",
+                            "githubId": "Honeykalra22"
+                        }
+                    ]
+                },
+                {
+                    "name": "Online API Tool",
+                    "link": "/api-tool",
+                    "description": "Our Online API Tool is a versatile and user-friendly platform designed to simplify the process of working with APIs. Just like Postman, it provides developers and teams with powerful features for testing, documenting, and managing APIs. Whether you're building, testing, or monitoring APIs, our tool offers a comprehensive suite of tools to streamline your workflow. With an intuitive interface, collaboration features, and extensive customization options, it's the ideal choice for any development project. Elevate your API development and management experience with our Online API Tool and unlock the full potential of your APIs.",
+                    "contributors": [
+                        {
+                            "name": "A. Amrutha Sri",
+                            "githubId": "AmruthaSri852"
+                        },
+                        {
+                            "name": "Nandini Gite",
+                            "githubId": "NandiniGite"
                         }
                     ]
                 },
@@ -782,6 +1022,33 @@
                             "githubId": "NamanWadhawan"
                         }
                     ]
+                },
+                {
+                    "name": "Youtube Thumbnail Grabber",
+                    "link": "/youtube-thumbnail-grabber",
+                    "description": "The YouTube Thumbnail Grabber is a tool for fetching and downloading thumbnails from YouTube videos based on user-specified resolutions.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "SIDDHARTH MONDAL",
+                            "githubId": "Siddharth-coder-droid"
+                        },
+                        {
+                            "name": "VARSHINI",
+                            "githubId": "varshini-coder"
+                        },
+                        {
+                            "name": "ANURAJ VENKATPURWAR",
+                            "githubId": "Anuraj4"
+                        },
+                        {
+                            "name": "VEDANT MAYEKAR",
+                            "githubId": "VedantM21"
+                        }
+                    ]
                 }
             ]
         },
@@ -789,29 +1056,6 @@
             "title": "Time and Productivity Tools",
             "details": "Boost your productivity and time management with tools designed to organize tasks, track time, and stay focused.",
             "tools": [
-                {
-                    "name": "Multi-timer",
-                    "link": "/multi-timer",
-                    "description": "Multi Timer with alarm mechanism",
-                    "contributors": [
-                        {
-                            "name": "Prajwal Dilip Ganar",
-                            "githubId": "Prajwal435"
-                        },
-                        {
-                            "name": "Akanksha Kumbhar",
-                            "githubId": "Akanksha0830"
-                        },
-                        {
-                            "name": "Yash Mehetre",
-                            "githubId": "YashMehetre"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
                 {
                     "name": "Flashcard Generator",
                     "link": "/online-flashcard",
@@ -836,6 +1080,29 @@
                         {
                             "name": "Laxmi Khilnani",
                             "githubId": "laxmikhilnani20"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Multi-timer",
+                    "link": "/multi-timer",
+                    "description": "Multi Timer with alarm mechanism",
+                    "contributors": [
+                        {
+                            "name": "Prajwal Dilip Ganar",
+                            "githubId": "Prajwal435"
+                        },
+                        {
+                            "name": "Akanksha Kumbhar",
+                            "githubId": "Akanksha0830"
+                        },
+                        {
+                            "name": "Yash Mehetre",
+                            "githubId": "YashMehetre"
                         },
                         {
                             "name": "Ashwani Kumar Singh",
@@ -884,6 +1151,33 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "World Clock",
+                    "link": "/world-clock",
+                    "description": "Times of World: showcases time of different countries",
+                    "contributors": [
+                        {
+                            "name": "ILyas Sayyed",
+                            "githubId": "MrPorsche"
+                        },
+                        {
+                            "name": "K Vaishnavi",
+                            "githubId": "Vaishnnavikothmirkar"
+                        },
+                        {
+                            "name": "Joel Geo Abraham",
+                            "githubId": "JoelAbraham16032002"
+                        },
+                        {
+                            "name": "Silla Mariya Roy",
+                            "githubId": "Silla03"
+                        },
+                        {
+                            "name": "Kaberi manjari Prusty",
+                            "githubId": "coder-kbb"
+                        }
+                    ]
                 }
             ]
         },
@@ -891,6 +1185,29 @@
             "title": "Interactive and Educational Tools",
             "details": "Engage and educate with tools that create quizzes, polls, puzzles, and mindmaps for interactive learning and collaboration.",
             "tools": [
+                {
+                    "name": "Math Toolkit",
+                    "link": "/math-toolkit",
+                    "description": "Number system converter which convert numbers into any other number system like binary,hexadecimal,etc.",
+                    "contributors": [
+                        {
+                            "name": "Prachi Kumathekar",
+                            "githubId": "02skysane"
+                        },
+                        {
+                            "name": "Anupama Patewad",
+                            "githubId": "Anupama-Patewad"
+                        },
+                        {
+                            "name": "Jayesh Jaroli",
+                            "githubId": "JayeshJaroli4917"
+                        },
+                        {
+                            "name": "Shivanshu Kumar",
+                            "githubId": "shivoham79"
+                        }
+                    ]
+                },
                 {
                     "name": "Online live Quiz",
                     "link": "/online-live-quiz",
@@ -1055,6 +1372,45 @@
                         {
                             "name": "Sumit Mishra",
                             "githubId": "Sumitm6879"
+                        }
+                    ]
+                },
+                {
+                    "name": "Finance Calculator",
+                    "link": "/finance-calculator",
+                    "description": "Optimize your financial decisions with our comprehensive suite of online financial calculators. Whether you're planning investments, converting currencies, calculating your salary after deductions, or estimating home loan payments, our user-friendly tools have you covered. Explore our ROI Calculator, Currency Converter, Salary Calculator, GST Calculator, Home Loan Calculator, TVM Calculator, and Stock Return Calculator to harness the full potential of your financial planning. Make informed decisions and secure your financial future today!",
+                    "contributors": [
+                        {
+                            "name": "Dalima Sahu",
+                            "githubId": "DALIMA07"
+                        },
+                        {
+                            "name": "Arushi Bhargava",
+                            "githubId": "Arushibhargava"
+                        },
+                        {
+                            "name": "Ayan Kamaria",
+                            "githubId": "ayan2362003"
+                        },
+                        {
+                            "name": "Noorjahan Ferdous",
+                            "githubId": "nferdous2"
+                        },
+                        {
+                            "name": "Zaid Nasim",
+                            "githubId": "Ruwais-zaid"
+                        },
+                        {
+                            "name": "Nisha Rai",
+                            "githubId": "Rai-nisha"
+                        },
+                        {
+                            "name": "Srushti Bhirud",
+                            "githubId": "Srushti309"
+                        },
+                        {
+                            "name": "Harshita Dalal",
+                            "githubId": "Harshita-Dalal"
                         }
                     ]
                 }

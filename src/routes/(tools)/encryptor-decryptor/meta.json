@@ -1,39 +1,43 @@
 {
     "name": "Text Encryption Decryption Tool",
-    "description":"A Text Encryption Decryption Tool lets you scramble plain text into a coded message and then unscramble it back. These tools are useful for protecting sensitive information you share online.",
-    "contributors": [{
-        "name": "ANKITA MISHRA",
-        "githubId": "ANKITAMISHRA29"
-    }, {
-        "name": "Sakshi",
-        "githubId": "Sakshee-24"
-    },
-    {
-        "name": "Navjeet",
-        "githubId": "navjeet-lohan"
-    },
-    {
-        "name": "Swapnil",
-        "githubId": "swapniljoshi123"
-    },
-    {
-        "name": "Ravish",
-        "githubId": "RavishRanjancodes"
-    },
-    {
-        "name": "Kaneez",
-        "githubId": "Kaneezfatima19"
-    },
-    {
-        "name": "Riya",
-        "githubId": "riyasawant193"
-    },
-    {
-        "name": "Ram",
-        "githubId": "ryuk27"
-    },
-    {
-        "name": "Aman",
-        "githubId": "Amvic7"
-    }]
+    "description": "A Text Encryption Decryption Tool lets you scramble plain text into a coded message and then unscramble it back. These tools are useful for protecting sensitive information you share online.",
+    "contributors": [
+        {
+            "name": "ANKITA MISHRA",
+            "githubId": "ANKITAMISHRA29"
+        },
+        {
+            "name": "Sakshi",
+            "githubId": "Sakshee-24"
+        },
+        {
+            "name": "Navjeet",
+            "githubId": "navjeet-lohan"
+        },
+        {
+            "name": "Swapnil",
+            "githubId": "swapniljoshi123"
+        },
+        {
+            "name": "Ravish",
+            "githubId": "RavishRanjancodes"
+        },
+        {
+            "name": "Kaneez",
+            "githubId": "Kaneezfatima19"
+        },
+        {
+            "name": "Riya",
+            "githubId": "riyasawant193"
+        },
+        {
+            "name": "Ram",
+            "githubId": "ryuk27"
+        },
+        {
+            "name": "Aman",
+            "githubId": "Amvic7"
+        }
+    ],
+    "categoryTitle": "Text Conversion Tools"
 }

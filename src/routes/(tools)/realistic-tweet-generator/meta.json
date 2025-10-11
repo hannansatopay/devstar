@@ -1,28 +1,31 @@
 {
     "name": "Realistic Tweet Generator",
-    "description":"Create realistic mockup tweets with this cutting-edge Tweet Generator. Ideal for pranking your friends, strategizing social media content, interface designing, or studying social impacts, this tool allows you to simulate user handles, tweet content, hashtags, and engagement metrics effortlessly. Enhance your projects with authentic-looking tweets without the need for a Twitter account.",
-    "contributors": [{
-        "name": "ANKITA MISHRA",
-        "githubId": "ANKITAMISHRA29"
-    },
-    {
-        "name": "SAUMAY JAISWAL",
-        "githubId": "saumay3105"
-    },
-    {
-        "name": "ALISHA",
-        "githubId": "itsAlisha"
-    },
-    {
-        "name": "SWASTIKA SONI",
-        "githubId": "SwastikaSoni"
-    },
-    {
-        "name": "PIYUSH KUMAR SAHU",
-        "githubId": "FSD-Piysuh"
-    },
-    {
-        "name": "BIPIN PATIL",
-        "githubId": "bipinpatil12"
-    }]
+    "description": "Create realistic mockup tweets with this cutting-edge Tweet Generator. Ideal for pranking your friends, strategizing social media content, interface designing, or studying social impacts, this tool allows you to simulate user handles, tweet content, hashtags, and engagement metrics effortlessly. Enhance your projects with authentic-looking tweets without the need for a Twitter account.",
+    "contributors": [
+        {
+            "name": "ANKITA MISHRA",
+            "githubId": "ANKITAMISHRA29"
+        },
+        {
+            "name": "SAUMAY JAISWAL",
+            "githubId": "saumay3105"
+        },
+        {
+            "name": "ALISHA",
+            "githubId": "itsAlisha"
+        },
+        {
+            "name": "SWASTIKA SONI",
+            "githubId": "SwastikaSoni"
+        },
+        {
+            "name": "PIYUSH KUMAR SAHU",
+            "githubId": "FSD-Piysuh"
+        },
+        {
+            "name": "BIPIN PATIL",
+            "githubId": "bipinpatil12"
+        }
+    ],
+    "categoryTitle": "Content Generation and Design Tools"
 }

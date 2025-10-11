@@ -1,8 +1,11 @@
 {
     "name": "WhatsApp Link Generator",
     "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
-    "contributors": [{
-        "name": "Hannan Satopay",
-        "githubId": "hannansatopay"
-    }]
+    "contributors": [
+        {
+            "name": "Hannan Satopay",
+            "githubId": "hannansatopay"
+        }
+    ],
+    "categoryTitle": "Specialized Utility Tools"
 }

@@ -1,8 +1,11 @@
 {
     "name": "ASCII Encoder & Decoder",
     "description": "Dive into the fundamentals of digital text with our ASCII Encoder and Decoder Tool. Encode your text into ASCII, translating characters into numerical codes for digital representation. Input your content, and witness it transform into a series of digits, ideal for computer systems and data transmission. Alternatively, decode ASCII back into readable text effortlessly, bridging the gap between numeric codes and human-readable characters. Perfect for programmers, developers, and tech enthusiasts, our tool simplifies the encoding and decoding of ASCII characters, ensuring seamless integration into digital environments and data processing tasks.",
-    "contributors": [{
-        "name": "Abdur Rehman Shaikh",
-        "githubId": "abdurrahmanshkh"
-    }]
+    "contributors": [
+        {
+            "name": "Abdur Rehman Shaikh",
+            "githubId": "abdurrahmanshkh"
+        }
+    ],
+    "categoryTitle": "Text Conversion Tools"
 }

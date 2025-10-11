@@ -1,8 +1,11 @@
 {
     "name": "Image Text Extractor",
     "description": "Unlock the textual content hidden within images with our Image Text Extractor. Utilizing advanced optical character recognition (OCR) technology, our tool effortlessly extracts text from images, making printed or handwritten content accessible and editable. Simply upload your image, and watch as the tool accurately identifies and converts text into digital format. Ideal for digitizing documents, extracting quotes, or enhancing accessibility, our Image Text Extractor simplifies the process of converting visual information into editable text. Empower your data extraction tasks with our efficient and precise tool, ensuring valuable textual content is readily available for your digital endeavors.",
-    "contributors": [{
-        "name": "Pratik Vinayak More",
-        "githubId": "Comder101"
-    }]
+    "contributors": [
+        {
+            "name": "Pratik Vinayak More",
+            "githubId": "Comder101"
+        }
+    ],
+    "categoryTitle": "Image and Graphic Tools"
 }

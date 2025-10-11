@@ -15,9 +15,13 @@ function getMeta(url) {
 
   // Search through all categories for the tool with the matching link
   let tool = null;
+  let matchedCategory = null;
   for (const category of tools.categories) {
-    tool = category.tools.find(t => t.link.replace("/", "") === toolLink);
-    if (tool) break;
+    tool = category.tools.find((t) => t.link.replace("/", "") === toolLink);
+    if (tool) {
+      matchedCategory = category;
+      break;
+    }
   }
 
   // Return meta data if the tool is found
@@ -26,6 +30,7 @@ function getMeta(url) {
       title: tool.name,
       description: tool.description,
       contributors: tool.contributors,
+      categoryTitle: matchedCategory?.title ?? "",
     };
   }
 
@@ -34,5 +39,6 @@ function getMeta(url) {
     title: "",
     description: "",
     contributors: [],
+    categoryTitle: "",
   };
 }

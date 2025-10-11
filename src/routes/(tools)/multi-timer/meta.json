@@ -1,20 +1,23 @@
 {
     "name": "Multi-timer",
-    "description":"Multi Timer with alarm mechanism",
-    "contributors": [{
-        "name": "Prajwal Dilip Ganar",
-        "githubId": "Prajwal435"
-    }, {
-        "name": "Akanksha Kumbhar",
-        "githubId": "Akanksha0830"
-    },
-    {
-        "name": "Yash Mehetre",
-        "githubId": "YashMehetre"
-    },
-    {
-        "name": "Ashwani Kumar Singh",
-        "githubId": "ashwani2529"
-    }
-]
+    "description": "Multi Timer with alarm mechanism",
+    "contributors": [
+        {
+            "name": "Prajwal Dilip Ganar",
+            "githubId": "Prajwal435"
+        },
+        {
+            "name": "Akanksha Kumbhar",
+            "githubId": "Akanksha0830"
+        },
+        {
+            "name": "Yash Mehetre",
+            "githubId": "YashMehetre"
+        },
+        {
+            "name": "Ashwani Kumar Singh",
+            "githubId": "ashwani2529"
+        }
+    ],
+    "categoryTitle": "Time and Productivity Tools"
 }

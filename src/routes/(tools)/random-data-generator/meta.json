@@ -1,11 +1,15 @@
 {
     "name": "Random Data Generator",
     "description": "The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.",
-    "contributors": [{
-        "name": "Harshit Lakshakar",
-        "githubId": "Hst-13"
-    },{
-        "name": "Shantanu Badgujar",
-        "githubId": "Shantanuz06"
-    }]
+    "contributors": [
+        {
+            "name": "Harshit Lakshakar",
+            "githubId": "Hst-13"
+        },
+        {
+            "name": "Shantanu Badgujar",
+            "githubId": "Shantanuz06"
+        }
+    ],
+    "categoryTitle": "Content Generation and Design Tools"
 }

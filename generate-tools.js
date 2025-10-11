@@ -1,45 +1,113 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// Define __dirname for ES modules
+// Resolve __dirname in ESM context
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define the folder containing the tools
-const toolsFolder = path.join(__dirname, 'src', 'routes', '(tools)');
+const toolsFolder = path.join(__dirname, "src", "routes", "(tools)");
+const categoriesConfigPath = path.join(
+    __dirname,
+    "src",
+    "lib",
+    "data",
+    "categories.json",
+);
+const toolsJsonFilePath = path.join(__dirname, "src", "routes", "tools.json");
 
-// Initialize an empty object to hold the tools data
-let toolsData = {};
+const categoriesConfig = JSON.parse(
+    fs.readFileSync(categoriesConfigPath, "utf-8"),
+).categories;
 
-// Read all subfolders within the tools folder
-fs.readdirSync(toolsFolder).forEach(subfolder => {
-    const subfolderPath = path.join(toolsFolder, subfolder);
-    const metaFilePath = path.join(subfolderPath, 'meta.json');
+function readMeta(slug) {
+    const metaFilePath = path.join(toolsFolder, slug, "meta.json");
 
-    if (subfolder === '.blank') {
-        return; // Skip the .blank folder
+    if (!fs.existsSync(metaFilePath)) {
+        throw new Error(`Missing meta.json for tool "${slug}"`);
     }
 
-    // Check if meta.json file exists in the subfolder
-    if (fs.existsSync(metaFilePath)) {
-        const metaContent = fs.readFileSync(metaFilePath, 'utf-8');
-        const metaJson = JSON.parse(metaContent);
+    try {
+        return JSON.parse(fs.readFileSync(metaFilePath, "utf-8"));
+    } catch (error) {
+        throw new Error(`Unable to parse meta.json for tool "${slug}": ${error.message}`);
+    }
+}
 
-        // Add the tool data to the toolsData object
-        toolsData[subfolder] = {
-            name: metaJson.name,
-            link: `/${subfolder}`,
-            description: metaJson.description,
-            contributors: metaJson.contributors
+function collectToolsByCategory() {
+    const categoryMap = new Map();
+    const knownCategories = new Set(categoriesConfig.map((category) => category.title));
+
+    const entries = fs.readdirSync(toolsFolder, { withFileTypes: true });
+
+    for (const entry of entries) {
+        if (!entry.isDirectory() || entry.name.startsWith(".")) {
+            continue;
+        }
+
+        const slug = entry.name;
+
+        const metaFilePath = path.join(toolsFolder, slug, "meta.json");
+
+        if (!fs.existsSync(metaFilePath)) {
+            console.warn(`Skipping "${slug}" because meta.json is missing.`);
+            continue;
+        }
+
+        const meta = readMeta(slug);
+
+        if (!meta.categoryTitle) {
+            throw new Error(`Missing "categoryTitle" in meta.json for tool "${slug}"`);
+        }
+
+        if (!knownCategories.has(meta.categoryTitle)) {
+            console.warn(
+                `Warning: category "${meta.categoryTitle}" (from "${slug}") is not defined in categories.json.`,
+            );
+        }
+
+        const toolData = {
+            name: meta.name,
+            link: `/${slug}`,
+            description: meta.description,
+            contributors: meta.contributors ?? [],
         };
+
+        if (!categoryMap.has(meta.categoryTitle)) {
+            categoryMap.set(meta.categoryTitle, []);
+        }
+
+        categoryMap.get(meta.categoryTitle).push(toolData);
     }
-});
 
-// Define the path for tools.json file
-const toolsJsonFilePath = path.join(__dirname, 'src', 'routes', 'tools.json');
+    for (const tools of categoryMap.values()) {
+        tools.sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-// Write the content to tools.json file
+    return categoryMap;
+}
+
+const categoryMap = collectToolsByCategory();
+const toolsData = {
+    categories: [
+        ...categoriesConfig.map((category) => {
+            const tools = categoryMap.get(category.title) ?? [];
+            categoryMap.delete(category.title);
+
+            return {
+                title: category.title,
+                details: category.details,
+                tools,
+            };
+        }),
+        ...Array.from(categoryMap.entries()).map(([title, tools]) => ({
+            title,
+            details: "",
+            tools,
+        })),
+    ],
+};
+
 fs.writeFileSync(toolsJsonFilePath, JSON.stringify(toolsData, null, 4));
 
-console.log('tools.json file has been created successfully!');
+console.log("tools.json file has been created successfully!");

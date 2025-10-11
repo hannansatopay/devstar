@@ -1,8 +1,11 @@
 {
     "name": "Advice Generator",
     "description": "The Advice Generator is a valuable tool that provides developers with inspirational and practical advice to overcome challenges and improve their work. By generating random advice snippets, this tool helps developers find guidance and inspiration. Access a wealth of advice easily with this tool and elevate your mindset.",
-    "contributors": [{
-        "name": "Rifat Perween",
-        "githubId": "rifatperween"
-    }]
+    "contributors": [
+        {
+            "name": "Rifat Perween",
+            "githubId": "rifatperween"
+        }
+    ],
+    "categoryTitle": "Content Generation and Design Tools"
 }

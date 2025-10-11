@@ -1,30 +1,31 @@
 {
-  "name": "Responsive Design Tester",
-  "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
-  "contributors": [
-    {
-      "name": "David Kwasi Mensah Akyer",
-      "githubId": "dkmakyer"
-    },
-    {
-      "name": "Tasnim Munawar Rafee",
-      "githubId": "Rafee104104"
-    },
-    {
-      "name": "Sahil Navale",
-      "githubId": "sahiln15"
-    },
-    {
-      "name": "Amila Jayamaha",
-      "githubId": "AmilaJayamaha"
-    },
-    {
-      "name": "Aditi More",
-      "githubId": "8897adira"
-    },
-    {
-      "name": "Ashwani Kumar Singh",
-      "githubId": "ashwani2529"
-    }
-  ]
+    "name": "Responsive Design Tester",
+    "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
+    "contributors": [
+        {
+            "name": "David Kwasi Mensah Akyer",
+            "githubId": "dkmakyer"
+        },
+        {
+            "name": "Tasnim Munawar Rafee",
+            "githubId": "Rafee104104"
+        },
+        {
+            "name": "Sahil Navale",
+            "githubId": "sahiln15"
+        },
+        {
+            "name": "Amila Jayamaha",
+            "githubId": "AmilaJayamaha"
+        },
+        {
+            "name": "Aditi More",
+            "githubId": "8897adira"
+        },
+        {
+            "name": "Ashwani Kumar Singh",
+            "githubId": "ashwani2529"
+        }
+    ],
+    "categoryTitle": "Development and Testing Tools"
 }

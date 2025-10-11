@@ -1,8 +1,11 @@
 {
     "name": "Lorem Ipsum Generator",
     "description": "Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content.",
-    "contributors": [{
-        "name": "Hannan Satopay",
-        "githubId": "hannansatopay"
-    }]
+    "contributors": [
+        {
+            "name": "Hannan Satopay",
+            "githubId": "hannansatopay"
+        }
+    ],
+    "categoryTitle": "Content Generation and Design Tools"
 }

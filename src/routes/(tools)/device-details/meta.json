@@ -1,8 +1,11 @@
 {
     "name": "Device Details",
     "description": "The Device Details tool provides developers with essential information about user devices, including browser specifications, screen resolution, operating system details, and more. By integrating this tool into your applications, you can gather valuable insights about your users' devices, allowing you to optimize user experiences, ensure compatibility, and tailor your content or features accordingly.",
-    "contributors": [{
-        "name": "Hannan Satopay",
-        "githubId": "hannansatopay"
-    }]
+    "contributors": [
+        {
+            "name": "Hannan Satopay",
+            "githubId": "hannansatopay"
+        }
+    ],
+    "categoryTitle": "Specialized Utility Tools"
 }
