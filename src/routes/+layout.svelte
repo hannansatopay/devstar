@@ -580,5 +580,10 @@
 				Privacy Policy
 			</a>
 		</li>
+		<li class="mr-4 last:mr-0 md:mr-6">
+			<a href="/contributors" class="primary-link font-medium">
+				Contributors
+			</a>
+		</li>
 	</ul>
 </footer>

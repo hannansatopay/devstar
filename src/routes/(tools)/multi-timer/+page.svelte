@@ -1,420 +1,1292 @@
-<script>
-	import { onMount } from 'svelte';
-	
-	// Timer 1: Counts up from zero
-	let time1 = 0;
-	let interval1 = null;
-	
-	function startTimer1() {
-	  if (!interval1) {
-		interval1 = setInterval(() => {
-		  time1 += 1;
-		}, 1000);
-	  }
+<script lang="ts">
+	import { onDestroy } from 'svelte';
+
+	type TimerMode = 'countdown' | 'stopwatch' | 'alarm';
+	type TimerState = 'idle' | 'running' | 'paused' | 'finished';
+
+	interface Lap {
+		id: number;
+		atMs: number;
 	}
-	
-	function stopTimer1() {
-	  clearInterval(interval1);
-	  interval1 = null;
+
+	interface Timer {
+		id: number;
+		label: string;
+		mode: TimerMode;
+		state: TimerState;
+		durationMs: number;
+		remainingMs: number;
+		elapsedMs: number;
+		autoRestart: boolean;
+		lastUpdated: number | null;
+		createdAt: Date;
+		laps: Lap[];
+		targetTimestamp: number | null;
+		alarmDate?: string;
+		alarmTime?: string;
+		alarmDisplayDate?: string;
+		alarmDisplayTime?: string;
 	}
-	
-	function resetTimer1() {
-	  stopTimer1();
-	  time1 = 0;
+
+	const TICK_MS = 250;
+	const ALARM_SOUND_URL = 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg';
+
+	const pad2 = (value: number) => String(value).padStart(2, '0');
+
+	function getDefaultAlarmOffsets() {
+		const now = new Date();
+		now.setMinutes(now.getMinutes() + 5);
+		return {
+			alarmDate: now.toISOString().slice(0, 10),
+			alarmTime: `${pad2(now.getHours())}:${pad2(now.getMinutes())}`
+		};
 	}
-	
-	// Timer 2: Counts down from a given time with alarm and repeat option
-	let time2 = 60;
-	let initialTime2 = 60;
-	let interval2 = null;
-	let repeat = false;
-	let inputTime2 = 60; // Separate variable for input
-	
-	function startTimer2() {
-	  if (!interval2) {
-		interval2 = setInterval(() => {
-		  if (time2 > 0) {
-			time2 -= 1;
-		  } else {
-			stopTimer2();
-			document.getElementById('alarm').play();
-			if (repeat) {
-			  time2 = initialTime2; // Reset to initial time
-			  startTimer2(); // Restart the timer
-			}
-		  }
-		}, 1000);
-	  }
+
+	function buildAlarmMetadata(timestamp: number) {
+		const date = new Date(timestamp);
+		return {
+			timestamp,
+			date: date.toISOString().slice(0, 10),
+			time: `${pad2(date.getHours())}:${pad2(date.getMinutes())}`,
+			displayDate: date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' }),
+			displayTime: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+		};
 	}
-	
-	function stopTimer2() {
-	  clearInterval(interval2);
-	  interval2 = null;
+
+	function computeAlarmSchedule(dateStr: string | undefined, timeStr: string | undefined, reference = Date.now()) {
+		if (!dateStr || !timeStr) {
+			throw new Error('Select both a date and time for the alarm.');
+		}
+
+		const [hoursRaw, minutesRaw] = timeStr.split(':');
+		const base = new Date(`${dateStr}T00:00:00`);
+		base.setHours(Number(hoursRaw ?? 0), Number(minutesRaw ?? 0), 0, 0);
+
+		if (Number.isNaN(base.getTime())) {
+			throw new Error('Invalid alarm date or time.');
+		}
+
+		if (base.getTime() <= reference) {
+			base.setDate(base.getDate() + 1);
+		}
+
+		return buildAlarmMetadata(base.getTime());
 	}
-	
-	function resetTimer2() {
-	  stopTimer2();
-	  time2 = initialTime2;
-	}
-	
-	function updateInitialTime2() {
-	  initialTime2 = inputTime2;
-	  time2 = inputTime2;
-	}
-	
-	// Timer 3: Lap Timer
-	let lapTime = 0;
-	let intervalLap = null;
-	let laps = [];
-	
-	function startLapTimer() {
-	  if (!intervalLap) {
-		intervalLap = setInterval(() => {
-		  lapTime += 1;
-		}, 1000);
-	  }
-	}
-	
-	function stopLapTimer() {
-	  clearInterval(intervalLap);
-	  intervalLap = null;
-	}
-	
-	function resetLapTimer() {
-	  stopLapTimer();
-	  lapTime = 0;
-	  laps = [];
-	}
-	
-	function lap() {
-	  laps = [...laps, lapTime];
-	}
-	
-	// Utility function to format time in HH:MM:SS format
-	function formatTime(time) {
-	  const seconds = time % 60;
-	  const minutes = Math.floor(time / 60) % 60;
-	  const hours = Math.floor(time / 3600);
-	  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-	}
-	
-	// Timer 4: World Clock
-	let selectedCountry = "Sydney, Australia";
-	let worldClock = {};
-	const countries = {
-	  "India": "Asia/Kolkata",
-	  "New York, USA": "America/New_York",
-	  "London, UK": "Europe/London",
-	  "Tokyo, Japan": "Asia/Tokyo",
-	  "Sydney, Australia": "Australia/Sydney"
+
+	let timers: Timer[] = [];
+	let nextId = 1;
+	let tickHandle: ReturnType<typeof setInterval>;
+
+	const defaultAlarm = getDefaultAlarmOffsets();
+
+	let form = {
+		label: '',
+		mode: 'countdown' as TimerMode,
+		hours: 0,
+		minutes: 5,
+		seconds: 0,
+		autoRestart: false,
+		alarmDate: defaultAlarm.alarmDate,
+		alarmTime: defaultAlarm.alarmTime
 	};
-	
-	function updateWorldClock() {
-	  const now = new Date();
-	  for (const [city, timezone] of Object.entries(countries)) {
-		worldClock[city] = new Date(now.toLocaleString("en-US", { timeZone: timezone }));
-	  }
+
+	let errors: string[] = [];
+	let completionSound: HTMLAudioElement | null = null;
+
+	$: runningCount = timers.filter((timer) => timer.state === 'running').length;
+	$: finishedCount = timers.filter((timer) => timer.state === 'finished').length;
+
+	function ensureAudio() {
+		if (!completionSound) {
+			completionSound = new Audio(ALARM_SOUND_URL);
+		}
+		return completionSound;
 	}
-	
-	function selectCountry(country) {
-	  selectedCountry = country;
+
+	function playChime() {
+		const audio = ensureAudio();
+		audio.currentTime = 0;
+		void audio.play().catch(() => {
+			/* autoplay restrictions */
+		});
 	}
-	
-	onMount(() => {
-	  setInterval(updateWorldClock, 1000);
-	  updateWorldClock();
+
+	function formatDuration(ms: number) {
+		const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+		const hours = Math.floor(totalSeconds / 3600);
+		const minutes = Math.floor((totalSeconds % 3600) / 60);
+		const seconds = totalSeconds % 60;
+		return [hours, minutes, seconds].map((value) => pad2(value)).join(':');
+	}
+
+	function formatDurationWithMs(ms: number) {
+		const base = formatDuration(ms);
+		const hundredths = Math.floor((ms % 1000) / 10);
+		return `${base}.${pad2(hundredths)}`;
+	}
+
+	function validateForm() {
+		const list: string[] = [];
+
+		if (form.mode === 'countdown') {
+			const total = Number(form.hours) * 3600 + Number(form.minutes) * 60 + Number(form.seconds);
+			if (total <= 0) {
+				list.push('Countdown timers require a duration greater than zero.');
+			}
+		} else if (form.mode === 'alarm') {
+			try {
+				const schedule = computeAlarmSchedule(form.alarmDate, form.alarmTime);
+				if (schedule.timestamp - Date.now() < 1000) {
+					list.push('Alarm time must be in the future.');
+				}
+			} catch (error) {
+				list.push((error as Error).message);
+			}
+		}
+
+		if (form.label.trim().length > 60) {
+			list.push('Timer name must be 60 characters or fewer.');
+		}
+
+		errors = list;
+		return list.length === 0;
+	}
+
+	function createTimer(event: Event) {
+		event.preventDefault();
+		if (!validateForm()) {
+			return;
+		}
+
+		let schedule: ReturnType<typeof computeAlarmSchedule> | null = null;
+		let durationMs = 0;
+
+		if (form.mode === 'countdown') {
+			durationMs =
+				(Number(form.hours) * 3600 + Number(form.minutes) * 60 + Number(form.seconds)) * 1000;
+		} else if (form.mode === 'alarm') {
+			schedule = computeAlarmSchedule(form.alarmDate, form.alarmTime);
+			durationMs = schedule.timestamp - Date.now();
+		}
+
+		durationMs = Math.max(0, durationMs);
+
+		const timer: Timer = {
+			id: nextId++,
+			label: form.label.trim() || `Timer ${nextId - 1}`,
+			mode: form.mode,
+			state: form.mode === 'alarm' ? 'running' : 'idle',
+			durationMs,
+			remainingMs: durationMs,
+			elapsedMs: 0,
+			autoRestart: form.autoRestart && form.mode === 'countdown',
+			lastUpdated: null,
+			createdAt: new Date(),
+			laps: [],
+			targetTimestamp: schedule?.timestamp ?? null,
+			alarmDate: schedule?.date,
+			alarmTime: schedule?.time,
+			alarmDisplayDate: schedule?.displayDate,
+			alarmDisplayTime: schedule?.displayTime
+		};
+
+		timers = [timer, ...timers];
+
+		if (form.mode === 'alarm') {
+			form = {
+				...form,
+				label: '',
+				autoRestart: false,
+				alarmDate: schedule?.date ?? form.alarmDate,
+				alarmTime: schedule?.time ?? form.alarmTime,
+				hours: form.hours,
+				minutes: form.minutes,
+				seconds: form.seconds
+			};
+		} else {
+			form = {
+				...form,
+				label: '',
+				autoRestart: form.mode === 'countdown' ? form.autoRestart : false,
+				hours: 0,
+				minutes: form.mode === 'countdown' ? 5 : 0,
+				seconds: 0
+			};
+		}
+
+		errors = [];
+	}
+
+	function updateRunningTimers() {
+		const now = Date.now();
+		let changed = false;
+
+		const updated = timers.map((timer) => {
+			if (timer.mode === 'alarm') {
+				if (timer.state !== 'running' || timer.targetTimestamp === null) {
+					return timer;
+				}
+
+				const remaining = Math.max(0, timer.targetTimestamp - now);
+				if (remaining <= 0) {
+					playChime();
+					changed = true;
+					return {
+						...timer,
+						state: 'finished',
+						remainingMs: 0,
+						targetTimestamp: null
+					};
+				}
+
+				if (remaining !== timer.remainingMs) {
+					changed = true;
+					return {
+						...timer,
+						remainingMs: remaining
+					};
+				}
+				return timer;
+			}
+
+			if (timer.state !== 'running' || timer.lastUpdated === null) {
+				return timer;
+			}
+
+			const delta = now - timer.lastUpdated;
+			if (delta <= 0) {
+				return timer;
+			}
+
+			changed = true;
+
+			if (timer.mode === 'countdown') {
+				let remaining = timer.remainingMs - delta;
+				let state: TimerState = timer.state;
+				let elapsed = timer.durationMs - Math.max(0, remaining);
+				let lastUpdated = now;
+
+				if (remaining <= 0) {
+					playChime();
+					if (timer.autoRestart && timer.durationMs > 0) {
+						remaining = timer.durationMs;
+						elapsed = 0;
+					} else {
+						remaining = 0;
+						state = 'finished';
+						lastUpdated = null;
+					}
+				}
+
+				return {
+					...timer,
+					remainingMs: remaining,
+					elapsedMs: elapsed,
+					state,
+					lastUpdated
+				};
+			}
+
+			// Stopwatch branch
+			const elapsed = timer.elapsedMs + delta;
+			return {
+				...timer,
+				elapsedMs: elapsed,
+				lastUpdated: now
+			};
+		});
+
+		if (changed) {
+			timers = updated;
+		}
+	}
+
+	function toggleTimer(id: number) {
+		updateRunningTimers();
+
+		const now = Date.now();
+		timers = timers.map((timer) => {
+			if (timer.id !== id) {
+			 return timer;
+			}
+
+			if (timer.mode === 'alarm') {
+				if (timer.state === 'running') {
+					return { ...timer, state: 'paused' };
+				}
+
+				if (timer.state === 'paused') {
+					const resumeTimestamp = now + Math.max(0, timer.remainingMs);
+					const meta = buildAlarmMetadata(resumeTimestamp);
+					return {
+						...timer,
+						state: 'running',
+						targetTimestamp: resumeTimestamp,
+						alarmDate: meta.date,
+						alarmTime: meta.time,
+						alarmDisplayDate: meta.displayDate,
+						alarmDisplayTime: meta.displayTime,
+						durationMs: Math.max(0, resumeTimestamp - Date.now()),
+						remainingMs: Math.max(0, resumeTimestamp - Date.now())
+					};
+				}
+
+				const schedule = computeAlarmSchedule(timer.alarmDate ?? form.alarmDate, timer.alarmTime ?? form.alarmTime, now);
+				return {
+					...timer,
+					state: 'running',
+					targetTimestamp: schedule.timestamp,
+					alarmDate: schedule.date,
+					alarmTime: schedule.time,
+					alarmDisplayDate: schedule.displayDate,
+					alarmDisplayTime: schedule.displayTime,
+					durationMs: Math.max(0, schedule.timestamp - Date.now()),
+					remainingMs: Math.max(0, schedule.timestamp - Date.now())
+				};
+			}
+
+			if (timer.state === 'running') {
+				return { ...timer, state: 'paused', lastUpdated: null };
+			}
+
+			if (timer.state === 'finished' && timer.mode === 'countdown') {
+				return {
+					...timer,
+					state: 'running',
+					remainingMs: timer.durationMs,
+					elapsedMs: 0,
+					lastUpdated: now
+				};
+			}
+
+			return { ...timer, state: 'running', lastUpdated: now };
+		});
+	}
+
+	function resetTimer(id: number) {
+		timers = timers.map((timer) => {
+			if (timer.id !== id) {
+				return timer;
+			}
+
+			if (timer.mode === 'alarm') {
+				const schedule = computeAlarmSchedule(timer.alarmDate ?? form.alarmDate, timer.alarmTime ?? form.alarmTime);
+				return {
+					...timer,
+					state: 'running',
+					durationMs: Math.max(0, schedule.timestamp - Date.now()),
+					remainingMs: Math.max(0, schedule.timestamp - Date.now()),
+					elapsedMs: 0,
+					lastUpdated: null,
+					laps: [],
+					targetTimestamp: schedule.timestamp,
+					alarmDate: schedule.date,
+					alarmTime: schedule.time,
+					alarmDisplayDate: schedule.displayDate,
+					alarmDisplayTime: schedule.displayTime
+				};
+			}
+
+			return {
+				...timer,
+				state: 'idle',
+				remainingMs: timer.durationMs,
+				elapsedMs: 0,
+				lastUpdated: null,
+				laps: []
+			};
+		});
+	}
+
+	function deleteTimer(id: number) {
+		timers = timers.filter((timer) => timer.id !== id);
+	}
+
+	function recordLap(id: number) {
+		updateRunningTimers();
+		timers = timers.map((timer) =>
+			timer.id === id
+				? {
+						...timer,
+						laps: [
+							...timer.laps,
+							{
+								id: timer.laps.length + 1,
+								atMs: timer.elapsedMs
+							}
+						]
+				  }
+				: timer
+		);
+	}
+
+	function toggleMode(mode: TimerMode) {
+		form.mode = mode;
+		if (mode !== 'countdown') {
+			form.autoRestart = false;
+		}
+		if (mode === 'alarm') {
+			const nextDefaults = getDefaultAlarmOffsets();
+			form.alarmDate = nextDefaults.alarmDate;
+			form.alarmTime = nextDefaults.alarmTime;
+		}
+	}
+
+	updateRunningTimers();
+	tickHandle = setInterval(updateRunningTimers, TICK_MS);
+
+	onDestroy(() => {
+		clearInterval(tickHandle);
 	});
-	
-	// Timer 5: Event Countdown Timer
-	let eventDateInput = '';
-	let eventDate = null;
-	let eventCountdown = '';
-	
-	function setEventDate() {
-	  const date = new Date(eventDateInput);
-	  if (!isNaN(date.getTime())) {
-		eventDate = date;
-	  }
-	}
-	
-	function updateEventCountdown() {
-	  const now = new Date();
-	  const timeDifference = eventDate - now;
-	
-	  if (timeDifference > 0) {
-		const years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365));
-		const months = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-		const days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-		const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-		const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-		const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-	
-		eventCountdown = `${years} years, ${months} months, ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-	  } else {
-		eventCountdown = "0";
-	  }
-	}
-	
-	onMount(() => {
-	  setInterval(updateEventCountdown, 1000);
-	});
-  </script>
-   
- 
+</script>
+
+<div class="page">
+	<div class="layout">
+		<section class="create-panel">
+			<header>
+				<h1>Multi Timer</h1>
+				<p>
+					Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat
+					completions to fit any workflow.
+				</p>
+			</header>
+
+			<form class="form" on:submit={createTimer}>
+				<div class="field">
+					<label for="timer-label">Timer name</label>
+					<input
+						id="timer-label"
+						type="text"
+						placeholder="e.g. Tea break, Pomodoro, Interval set"
+						maxlength="60"
+						bind:value={form.label}
+					/>
+				</div>
+
+				<div class="field mode-toggle">
+					<label>Mode</label>
+					<div class="mode-buttons">
+						<button
+							type="button"
+							class:active={form.mode === 'countdown'}
+							on:click={() => toggleMode('countdown')}
+						>
+							<span>Countdown</span>
+							<small>Set a target duration</small>
+						</button>
+						<button
+							type="button"
+							class:active={form.mode === 'stopwatch'}
+							on:click={() => toggleMode('stopwatch')}
+						>
+							<span>Stopwatch</span>
+							<small>Track elapsed time</small>
+						</button>
+						<button
+							type="button"
+							class:active={form.mode === 'alarm'}
+							on:click={() => toggleMode('alarm')}
+						>
+							<span>Alarm</span>
+							<small>Trigger at a specific time</small>
+						</button>
+					</div>
+				</div>
+
+				{#if form.mode === 'countdown'}
+					<div class="field time-picker">
+						<label>Duration</label>
+						<div class="time-inputs">
+							<div>
+								<span>Hours</span>
+								<input type="number" min="0" bind:value={form.hours} />
+							</div>
+							<div>
+								<span>Minutes</span>
+								<input type="number" min="0" max="59" bind:value={form.minutes} />
+							</div>
+							<div>
+								<span>Seconds</span>
+								<input type="number" min="0" max="59" bind:value={form.seconds} />
+							</div>
+						</div>
+					</div>
+
+					<div class="field checkbox">
+						<label>
+							<input type="checkbox" bind:checked={form.autoRestart} />
+							<span>Auto-restart when the countdown finishes</span>
+						</label>
+					</div>
+				{:else if form.mode === 'alarm'}
+					<div class="field alarm-picker">
+						<label>Alarm time</label>
+						<div class="alarm-inputs">
+							<label>
+								<span>Date</span>
+								<input type="date" bind:value={form.alarmDate} min={new Date().toISOString().slice(0, 10)} />
+							</label>
+							<label>
+								<span>Time</span>
+								<input type="time" bind:value={form.alarmTime} />
+							</label>
+						</div>
+						<p class="form-hint">Alarm times use your local timezone.</p>
+					</div>
+				{/if}
+
+				{#if errors.length}
+					<ul class="form-errors">
+						{#each errors as error}
+							<li>{error}</li>
+						{/each}
+					</ul>
+				{/if}
+
+				<button type="submit" class="primary-action">Create timer</button>
+
+				<div class="summary-bar">
+					<div>
+						<strong>{timers.length}</strong>
+						<span>Total timers</span>
+					</div>
+					<div>
+						<strong>{runningCount}</strong>
+						<span>Running</span>
+					</div>
+					<div>
+						<strong>{finishedCount}</strong>
+						<span>Finished</span>
+					</div>
+				</div>
+			</form>
+		</section>
+
+		<section class="timers-panel">
+			{#if timers.length === 0}
+				<div class="empty-state">
+					<h2>No timers yet</h2>
+					<p>Create your first countdown, stopwatch, or alarm using the form above.</p>
+				</div>
+			{:else}
+				<ul class="timer-list">
+					{#each timers as timer (timer.id)}
+						<li>
+							<article class={`timer-card ${timer.state}`}>
+								<header>
+									<div class="title">
+										<h3>{timer.label}</h3>
+										<span class={`mode ${timer.mode}`}>
+											{timer.mode === 'countdown' ? 'Countdown' : timer.mode === 'stopwatch' ? 'Stopwatch' : 'Alarm'}
+										</span>
+									</div>
+									<small>
+										Created {timer.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+									</small>
+								</header>
+
+								<div class="timer-display">
+									<strong>
+										{timer.mode === 'stopwatch'
+											? formatDurationWithMs(timer.elapsedMs)
+											: formatDuration(timer.remainingMs)}
+									</strong>
+									{#if timer.mode === 'countdown' && timer.durationMs > 0}
+										<div class="progress">
+											<div
+												class="bar"
+												style={`width: ${Math.max(
+													0,
+													Math.min(100, (100 * (timer.durationMs - timer.remainingMs)) / timer.durationMs)
+												)}%;`}
+											/>
+										</div>
+									{/if}
+									{#if timer.mode === 'alarm'}
+										<div class="alarm-meta">
+											<span>Scheduled for</span>
+											<div>
+												<strong>{timer.alarmDisplayTime ?? '--:--'}</strong>
+												<span>{timer.alarmDisplayDate ?? ''}</span>
+											</div>
+										</div>
+									{/if}
+								</div>
+
+								<footer>
+									<div class="controls">
+										<button type="button" on:click={() => toggleTimer(timer.id)}>
+											{timer.state === 'running'
+												? 'Pause'
+												: timer.state === 'finished'
+												? timer.mode === 'alarm'
+													? 'Rearm'
+													: 'Restart'
+												: 'Start'}
+										</button>
+										<button type="button" on:click={() => resetTimer(timer.id)} disabled={timer.state === 'idle'}>
+											Reset
+										</button>
+										<button
+											type="button"
+											on:click={() => recordLap(timer.id)}
+											disabled={timer.mode !== 'stopwatch' || timer.state !== 'running'}
+										>
+											Lap
+										</button>
+									</div>
+									<button type="button" class="delete" on:click={() => deleteTimer(timer.id)}>
+										Delete
+									</button>
+								</footer>
+
+								{#if timer.mode === 'stopwatch' && timer.laps.length}
+									<ul class="lap-list">
+										{#each timer.laps as lap}
+											<li>
+												<span>Lap {lap.id}</span>
+												<span>{formatDurationWithMs(lap.atMs)}</span>
+											</li>
+										{/each}
+									</ul>
+								{/if}
+
+								{#if timer.state === 'finished'}
+									<p class="finished-label">
+										Finished - click {timer.mode === 'alarm' ? 'rearm' : 'restart'} to run again
+									</p>
+								{/if}
+							</article>
+						</li>
+					{/each}
+				</ul>
+			{/if}
+		</section>
+	</div>
+</div>
+
 <style>
-	:root {
-    --primary-color: #4CAF50; /* green */
-    --secondary-color: #333; /* dark gray */
-    --background-color: #121212; /* dark background */
-    --text-color: #f1f1f1; /* light gray text */
-    --border-color: #444; /* darker gray */
-}
+	.page {
+		padding: clamp(1.5rem, 2vw, 2.5rem);
+		background: linear-gradient(160deg, var(--surface-light, #f8f9fc) 0%, var(--surface-light-alt, #eef0f6) 100%);
+		min-height: 100%;
+		color: #111827;
+	}
 
+	:global(.dark) .page {
+		background: linear-gradient(180deg, var(--surface-dark, #0d0e12) 0%, var(--surface-dark-alt, #12131b) 100%);
+		color: #e5e7eb;
+	}
 
-main {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1em;
-    max-width: 1200px;
-    margin: 0 auto;
-	
-}
+	.layout {
+		display: flex;
+		flex-direction: column;
+		gap: clamp(1.5rem, 2vw, 2.5rem);
+		max-width: 960px;
+		margin: 0 auto;
+	}
 
+	.create-panel {
+		display: grid;
+		gap: 1.5rem;
+		padding: clamp(1.5rem, 2vw, 2.25rem);
+		border-radius: 1.75rem;
+		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid rgba(148, 163, 184, 0.3);
+		box-shadow: 0 28px 60px -45px rgba(15, 23, 42, 0.75);
+		backdrop-filter: blur(18px);
+	}
 
+	:global(.dark) .create-panel {
+		background: rgba(17, 23, 37, 0.85);
+		border-color: rgba(99, 102, 241, 0.25);
+		box-shadow: 0 32px 70px -48px rgba(2, 6, 23, 0.85);
+	}
 
-.timercard {
-    background-color: var(--secondary-color);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-	height:380px;
-    flex: 1;
-    min-width: 300px;
-	
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
-    transition: box-shadow 0.3s; /* Smooth transition for hover effect */
-}
+	header h1 {
+		margin: 0;
+		font-size: clamp(2rem, 3vw, 2.5rem);
+		font-weight: 800;
+	}
 
-.timercard:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7); /* Deeper shadow on hover */
-}
+	header p {
+		margin: 0.5rem 0 0;
+		font-size: 0.95rem;
+		color: rgba(71, 85, 105, 0.9);
+		line-height: 1.6;
+	}
 
-.timer {
-    font-size: 2em;
-    text-align: center;
-    margin-top: 20px;
-    color: var(--text-color);
-}
+	:global(.dark) header p {
+		color: rgba(203, 213, 225, 0.75);
+	}
 
-.controls {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-}
+	.form {
+		display: grid;
+		gap: 1.25rem;
+	}
 
-.controls button, .controls input {
-    margin: 5px;
-}
+	.field {
+		display: grid;
+		gap: 0.6rem;
+	}
 
-button {
-    font-size: 1.2em;
-    padding: 10px 2px;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for color and transform */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
-}
+	label {
+		font-weight: 600;
+		font-size: 0.9rem;
+		color: rgba(55, 65, 81, 0.95);
+	}
 
-button:hover {
-    background-color: #45a049; /* Darker shade of green */
-    transform: scale(1.05); /* Slightly enlarge the button */
-}
+	:global(.dark) label {
+		color: rgba(209, 213, 219, 0.9);
+	}
 
-button:active {
-    background-color: #388e3c; /* Even darker shade of green when clicked */
-    transform: scale(0.95); /* Slightly shrink the button */
-}
+	input[type='text'],
+	input[type='number'] {
+		width: 100%;
+		padding: 0.8rem 1rem;
+		border-radius: 0.9rem;
+		border: 1px solid rgba(148, 163, 184, 0.35);
+		background: rgba(255, 255, 255, 0.95);
+		color: inherit;
+		font-size: 0.95rem;
+		transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
 
-button:focus {
-    outline: none; /* Remove the default outline */
-    box-shadow: 0 0 0 2px var(--primary-color); /* Add a focus ring */
-}
+	input[type='text']:focus,
+	input[type='number']:focus {
+		outline: none;
+		border-color: rgba(99, 102, 241, 0.6);
+		box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+		background: rgba(255, 255, 255, 0.98);
+	}
 
-input[type="number"] {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    text-align: center;
-    width: 100px;
-    background-color: #222; /* Dark background for inputs */
-    color: var(--text-color); /* Light text color */
-}
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		height: 28px;
+	}
 
-audio {
-    display: none;
-}
+	:global(.dark) input[type='text'],
+	:global(.dark) input[type='number'] {
+		background: rgba(23, 31, 47, 0.85);
+		border-color: rgba(99, 102, 241, 0.18);
+	}
 
-.lap-list {
-    margin-top: 10px;
-}
+	:global(.dark) input[type='text']:focus,
+	:global(.dark) input[type='number']:focus {
+		box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.18);
+		border-color: rgba(168, 85, 247, 0.55);
+	}
 
-.lap-list ul {
-    list-style: none;
-    padding: 0;
-}
+	.mode-buttons {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.6rem;
+	}
 
-.lap-list li {
-    background-color: var(--secondary-color);
-    border: 1px solid var(--border-color);
-    padding: 5px;
-    margin-bottom: 5px;
-    color: var(--text-color); /* Light text color */
-}
+	@media (max-width: 640px) {
+		.mode-buttons {
+			grid-template-columns: repeat(1, minmax(0, 1fr));
+		}
+	}
 
-.world-clock {
-    margin-bottom: 20px;
-    text-align: center;
-    color: var(--text-color); /* Light text color */
-}
+	.mode-buttons button {
+		border: none;
+		border-radius: 1rem;
+		padding: 0.85rem 1rem;
+		cursor: pointer;
+		background: rgba(248, 250, 252, 0.9);
+		box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+		text-align: left;
+		display: grid;
+		gap: 0.25rem;
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
 
-.world-clock-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+	.mode-buttons button span {
+		font-weight: 600;
+	}
 
-.button-row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-}
+	.mode-buttons button small {
+		font-size: 0.8rem;
+		color: rgba(71, 85, 105, 0.8);
+	}
 
-.button-row button {
-    margin: 0 5px;
-    width: 150px; /* Adjust as needed */
-}
+	.mode-buttons button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 18px 28px -25px rgba(99, 102, 241, 0.45);
+	}
 
-.timer {
-    font-size: 1.5em; /* Slightly smaller size for better alignment */
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--text-color);
-}
+	.mode-buttons button.active {
+		background: rgba(99, 102, 241, 0.92);
+		color: #ffffff;
+		box-shadow: 0 20px 32px -28px rgba(79, 70, 229, 0.55);
+	}
 
+	.mode-buttons button.active small {
+		color: rgba(226, 232, 240, 0.95);
+	}
 
+	:global(.dark) .mode-buttons button {
+		background: rgba(23, 31, 47, 0.8);
+		box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.18);
+	}
+
+	:global(.dark) .mode-buttons button small {
+		color: rgba(203, 213, 225, 0.75);
+	}
+
+	:global(.dark) .mode-buttons button.active {
+		background: rgba(168, 85, 247, 0.9);
+		box-shadow: 0 22px 34px -28px rgba(168, 85, 247, 0.55);
+	}
+
+	.time-picker .time-inputs {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.65rem;
+	}
+
+	.time-picker span {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: rgba(100, 116, 139, 0.9);
+		margin-bottom: 0.3rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	:global(.dark) .time-picker span {
+		color: rgba(148, 163, 184, 0.75);
+	}
+
+	.alarm-picker {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.alarm-inputs {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+		gap: 0.75rem;
+	}
+
+	.alarm-inputs span {
+		display: block;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: rgba(100, 116, 139, 0.9);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 0.3rem;
+	}
+
+	:global(.dark) .alarm-inputs span {
+		color: rgba(148, 163, 184, 0.75);
+	}
+
+	.form-hint {
+		margin: 0;
+		font-size: 0.8rem;
+		color: rgba(100, 116, 139, 0.8);
+	}
+
+	:global(.dark) .form-hint {
+		color: rgba(148, 163, 184, 0.7);
+	}
+
+	.checkbox label {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-weight: 500;
+	}
+
+	.checkbox input {
+		width: 18px;
+		height: 18px;
+		border-radius: 0.4rem;
+		border: 1px solid rgba(148, 163, 184, 0.4);
+	}
+
+	.form-errors {
+		margin: 0;
+		padding: 0.9rem 1rem;
+		border-radius: 0.9rem;
+		background: rgba(254, 226, 226, 0.85);
+		color: rgba(185, 28, 28, 0.95);
+		list-style: disc;
+		padding-left: 2.2rem;
+	}
+
+	.primary-action {
+		border: none;
+		border-radius: 999px;
+		padding: 0.9rem 1.8rem;
+		font-weight: 600;
+		cursor: pointer;
+		background: linear-gradient(120deg, #6366f1, #8b5cf6, #ec4899);
+		color: #fff;
+		box-shadow: 0 20px 40px -30px rgba(99, 102, 241, 0.6);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.primary-action:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 24px 48px -32px rgba(99, 102, 241, 0.7);
+	}
+
+	.summary-bar {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 0.75rem;
+		padding: 0.85rem;
+		border-radius: 1rem;
+		background: rgba(248, 250, 252, 0.85);
+		border: 1px solid rgba(148, 163, 184, 0.25);
+	}
+
+	.summary-bar div {
+		display: grid;
+		gap: 0.15rem;
+		text-align: center;
+	}
+
+	.summary-bar strong {
+		font-size: 1.2rem;
+	}
+
+	.summary-bar span {
+		font-size: 0.8rem;
+		color: rgba(100, 116, 139, 0.8);
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+	}
+
+	:global(.dark) .summary-bar {
+		background: rgba(23, 31, 47, 0.75);
+		border-color: rgba(99, 102, 241, 0.18);
+	}
+
+	:global(.dark) .summary-bar span {
+		color: rgba(148, 163, 184, 0.7);
+	}
+
+	.timers-panel {
+		padding: clamp(1.5rem, 2vw, 2rem);
+		border-radius: 1.75rem;
+		background: rgba(255, 255, 255, 0.92);
+		border: 1px solid rgba(148, 163, 184, 0.3);
+		box-shadow: 0 32px 70px -50px rgba(15, 23, 42, 0.75);
+		backdrop-filter: blur(18px);
+		min-height: 320px;
+	}
+
+	:global(.dark) .timers-panel {
+		background: rgba(17, 23, 37, 0.85);
+		border-color: rgba(99, 102, 241, 0.25);
+		box-shadow: 0 36px 80px -56px rgba(2, 6, 23, 0.85);
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 3rem 1rem;
+		color: rgba(71, 85, 105, 0.85);
+	}
+
+	.empty-state h2 {
+		margin: 0 0 0.6rem;
+		font-size: 1.4rem;
+	}
+
+	.empty-state p {
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	:global(.dark) .empty-state {
+		color: rgba(203, 213, 225, 0.75);
+	}
+
+	.timer-list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 1.5rem;
+		overflow-x: auto;
+		scrollbar-width: thin;
+		scrollbar-color: rgba(99, 102, 241, 0.4) transparent;
+		padding-bottom: 0.5rem;
+	}
+
+	.timer-list::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	.timer-list::-webkit-scrollbar-thumb {
+		background: linear-gradient(90deg, rgba(99, 102, 241, 0.6), rgba(168, 85, 247, 0.6));
+		border-radius: 999px;
+	}
+
+	.timer-list::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	.timer-list li {
+		flex: 0 0 320px;
+		display: flex;
+	}
+
+	.timer-card {
+		flex: 1 1 auto;
+		height: 100%;
+		display: grid;
+		gap: 1rem;
+		padding: 1.4rem;
+		border-radius: 1.5rem;
+		background: rgba(248, 250, 252, 0.92);
+		border: 1px solid rgba(148, 163, 184, 0.3);
+		box-shadow: 0 24px 50px -40px rgba(15, 23, 42, 0.65);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.timer-card.running {
+		border-color: rgba(99, 102, 241, 0.45);
+		box-shadow: 0 30px 55px -42px rgba(79, 70, 229, 0.5);
+		background: linear-gradient(145deg, rgba(244, 247, 255, 0.95), rgba(233, 233, 252, 0.92));
+	}
+
+	.timer-card.finished {
+		border-color: rgba(52, 211, 153, 0.4);
+		background: linear-gradient(145deg, rgba(240, 253, 244, 0.92), rgba(209, 250, 229, 0.88));
+	}
+
+	:global(.dark) .timer-card {
+		background: rgba(23, 31, 47, 0.82);
+		border-color: rgba(99, 102, 241, 0.2);
+		box-shadow: 0 30px 60px -50px rgba(2, 6, 23, 0.85);
+	}
+
+	:global(.dark) .timer-card.running {
+		border-color: rgba(168, 85, 247, 0.45);
+		box-shadow: 0 36px 70px -54px rgba(168, 85, 247, 0.5);
+		background: linear-gradient(150deg, rgba(31, 41, 55, 0.95), rgba(55, 48, 163, 0.32));
+	}
+
+	:global(.dark) .timer-card.finished {
+		border-color: rgba(16, 185, 129, 0.45);
+		background: linear-gradient(150deg, rgba(17, 24, 39, 0.94), rgba(5, 150, 105, 0.28));
+	}
+
+	header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.title {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: 1.2rem;
+		font-weight: 700;
+	}
+
+	.mode {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.3rem 0.65rem;
+		border-radius: 999px;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		font-weight: 700;
+	}
+
+	.mode.countdown {
+		background: rgba(59, 130, 246, 0.18);
+		color: rgba(37, 99, 235, 0.95);
+	}
+
+	.mode.stopwatch {
+		background: rgba(236, 72, 153, 0.18);
+		color: rgba(219, 39, 119, 0.95);
+	}
+
+	.mode.alarm {
+		background: rgba(16, 185, 129, 0.18);
+		color: rgba(22, 163, 74, 0.9);
+	}
+
+	:global(.dark) .mode.countdown {
+		background: rgba(59, 130, 246, 0.2);
+		color: rgba(96, 165, 250, 0.95);
+	}
+
+	:global(.dark) .mode.stopwatch {
+		background: rgba(236, 72, 153, 0.2);
+		color: rgba(244, 114, 182, 0.95);
+	}
+
+	:global(.dark) .mode.alarm {
+		background: rgba(16, 185, 129, 0.25);
+		color: rgba(134, 239, 172, 0.9);
+	}
+
+	.timer-display {
+		display: grid;
+		gap: 0.75rem;
+	}
+
+	.timer-display strong {
+		font-size: clamp(2rem, 3vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+
+	.progress {
+		height: 8px;
+		background: rgba(226, 232, 240, 0.8);
+		border-radius: 999px;
+		overflow: hidden;
+	}
+
+	.progress .bar {
+		height: 100%;
+		background: linear-gradient(120deg, #6366f1, #a855f7);
+		border-radius: 999px;
+		transition: width 0.2s ease;
+	}
+
+	.alarm-meta {
+		display: grid;
+		gap: 0.2rem;
+		font-size: 0.85rem;
+		color: rgba(100, 116, 139, 0.85);
+	}
+
+	.alarm-meta > div {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+	}
+
+	.alarm-meta strong {
+		font-size: 1.05rem;
+		color: rgba(79, 70, 229, 0.9);
+	}
+
+	:global(.dark) .alarm-meta {
+		color: rgba(148, 163, 184, 0.75);
+	}
+
+	:global(.dark) .alarm-meta strong {
+		color: rgba(168, 85, 247, 0.9);
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.controls button {
+		border-radius: 999px;
+		border: none;
+		padding: 0.65rem 1.25rem;
+		font-weight: 600;
+		cursor: pointer;
+		background: rgba(79, 70, 229, 0.14);
+		color: rgba(55, 48, 163, 0.95);
+		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+	}
+
+	.controls button:hover:not(:disabled) {
+		transform: translateY(-1px);
+		box-shadow: 0 12px 24px -18px rgba(79, 70, 229, 0.45);
+		background: rgba(79, 70, 229, 0.22);
+	}
+
+	.controls button:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.delete {
+		border: none;
+		background: rgba(248, 113, 113, 0.18);
+		color: rgba(220, 38, 38, 0.9);
+		border-radius: 999px;
+		padding: 0.55rem 1.1rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+
+	.delete:hover {
+		background: rgba(248, 113, 113, 0.28);
+		transform: translateY(-1px);
+	}
+
+	:global(.dark) .controls button {
+		background: rgba(168, 85, 247, 0.2);
+		color: rgba(233, 213, 255, 0.95);
+	}
+
+	:global(.dark) .delete {
+		background: rgba(248, 113, 113, 0.22);
+		color: rgba(254, 226, 226, 0.9);
+	}
+
+	.lap-list {
+		margin: 0.5rem 0 0;
+		padding: 0.75rem 0 0;
+		list-style: none;
+		border-top: 1px solid rgba(148, 163, 184, 0.25);
+		display: grid;
+		gap: 0.4rem;
+	}
+
+	.lap-list li {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 0.9rem;
+		color: rgba(71, 85, 105, 0.9);
+	}
+
+	:global(.dark) .lap-list {
+		border-color: rgba(148, 163, 184, 0.2);
+	}
+
+	:global(.dark) .lap-list li {
+		color: rgba(203, 213, 225, 0.75);
+	}
+
+	.finished-label {
+		margin: 0;
+		font-size: 0.85rem;
+		color: rgba(16, 185, 129, 0.85);
+		font-weight: 600;
+	}
+
+	:global(.dark) .finished-label {
+		color: rgba(52, 211, 153, 0.75);
+	}
 </style>
-<main>
-
-	
-	<!-- Timer 1: Counts up from zero -->
-	<div class="card gap-6 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
-	<div class="timercard">
-		<div class="timer">
-			Timer 1: {formatTime(time1)}
-		</div>
-		<div class="controls" style="margin-top:75px">
-			<button on:click={() => interval1 ? stopTimer1() : startTimer1()} style="padding:10px 80px">{interval1 ? 'Stop' : 'Start'}</button>
-		</div>
-		<div class="controls">
-			<button on:click={resetTimer1} style="padding:10px 80px">Reset</button>
-		</div>
-	</div>
-
-	<!-- Timer 2: Counts down from a given time with alarm and repeat option -->
-<div class="timercard">
-	<div class="timer">
-		Timer 2: {formatTime(time2)}
-	</div>
-	<div class="controls">
-		<input type="number" bind:value={inputTime2} on:change={updateInitialTime2} min="0" />
-	</div>
-	<div class="controls">
-		<button on:click={() => interval2 ? stopTimer2() : startTimer2()} style="padding:10px 95px">{interval2 ? 'Stop' : 'Start'}</button>
-	</div>
-	<div class="controls">
-		<button on:click={resetTimer2} style="padding:10px 95px">Reset</button>
-	</div>
-	<div class="controls" style="background-color: #f1f1f1; width:100px;margin-left:100px">
-		<label>
-			<input type="checkbox" bind:checked={repeat} />
-			Repeat
-		</label>
-	</div>
-	<div class="controls">
-		<audio id="alarm" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg" />
-	</div>
-</div>
-
-
-	<!-- Timer 3: Lap Timer -->
-	<div class="timercard">
-		<div class="timer">
-			Lap Timer: {formatTime(lapTime)}
-		</div>
-		<div class="controls" style="margin-top:75px">
-			<button on:click={() => intervalLap ? stopLapTimer() : startLapTimer()} style="padding:10px 95px">{intervalLap ? 'Stop' : 'Start'}</button>
-		</div>
-		<div class="controls">
-			<button on:click={lap} style="padding:10px 40px">Lap</button>
-			<button on:click={resetLapTimer} style="padding:10px 40px">Reset</button>
-		</div>
-		<div class="lap-list">
-			<ul>
-				{#each laps as lap, index}
-					<li>Lap {index + 1}: {formatTime(lap)}</li>
-				{/each}
-			</ul>
-		</div>
-	</div>
-
-	<!-- Timer 4: World Clock
-	<div class="timercard">
-		<div class="timer">
-			World Clock: {selectedCountry}
-		</div>
-		<div class="world-clock">
-			<div>
-				<strong>Local Time (India):</strong> {worldClock["India"] ? worldClock["India"].toLocaleTimeString() : 'Loading...'}
-			</div>
-			<div>
-				<strong>{selectedCountry}:</strong> {worldClock[selectedCountry] ? worldClock[selectedCountry].toLocaleTimeString() : 'Loading...'}
-			</div>
-		</div>
-		<div class="controls world-clock-controls">
-			<div class="button-row">
-				<button on:click={() => selectCountry("Sydney, Australia")}>Australia</button>
-				<button on:click={() => selectCountry("New York, USA")}>New York</button>
-			</div>
-			<div class="button-row">
-				<button on:click={() => selectCountry("London, UK")}>London, UK</button>
-				<button on:click={() => selectCountry("Tokyo, Japan")}>Tokyo, Japan</button>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- Timer 5: Event Countdown Timer -->
-<!-- Timer 5: Event Countdown Timer -->
-<div class="timercard">
-	<h2 style="text-align:center;font-size:1.5em;color:#f1f1f1;margin-top:20px">Event Countdown Timer</h2>
-	<div class="controls">
-	  <input type="date" bind:value={eventDateInput} />
-	</div>
-	<div class="controls">
-	  <button on:click={setEventDate} style="padding:10px 95px">Set Event Date</button>
-	</div>
-	<div class="timer" style="font-size: 1em;">
-	  <div>Years: {eventCountdown.split(', ')[0]===undefined?'0':eventCountdown.split(', ')[0]}</div>
-	  <div>Months: {eventCountdown.split(', ')[1]===undefined?'0':eventCountdown.split(', ')[1]}</div>
-	  <div>Days: {eventCountdown.split(', ')[2]===undefined?'0':eventCountdown.split(', ')[2]}</div>
-	  <div>Hours: {eventCountdown.split(', ')[3]===undefined?'0':eventCountdown.split(', ')[3]}</div>
-	  <div>Minutes: {eventCountdown.split(', ')[4]===undefined?'0':eventCountdown.split(', ')[4]}</div>
-	  <div>Seconds: {eventCountdown.split(', ')[5]===undefined?'0':eventCountdown.split(', ')[5]}</div>
-	</div>
-</div>
-</div>
-</main>

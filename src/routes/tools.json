@@ -337,6 +337,12 @@
                     ]
                 },
                 {
+                    "name": "Font Generator",
+                    "link": "/font-generator",
+                    "description": "Design a full handwriting font by drawing each character, preview it instantly, and export it as a TTF you can install anywhere.",
+                    "contributors": []
+                },
+                {
                     "name": "Gradient Generator",
                     "link": "/gradient-generator",
                     "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
@@ -876,6 +882,17 @@
                     ]
                 },
                 {
+                    "name": "Remove Unused CSS",
+                    "link": "/remove-unused-css",
+                    "description": "Removing unused CSS boosts website performance by eliminating unnecessary styles, ensuring faster loading times and better user experience.",
+                    "contributors": [
+                        {
+                            "name": "Manoj R Gupta",
+                            "githubId": "Manojgupta103"
+                        }
+                    ]
+                },
+                {
                     "name": "Responsive Design Tester",
                     "link": "/responsive-design-tester",
                     "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
@@ -1263,6 +1280,29 @@
                     ]
                 },
                 {
+                    "name": "Online Presentation Builder",
+                    "link": "/online-presentation-builder",
+                    "description": "This tool helps you create presentations online with an easy-to-use interface, allowing you to save, share, and download your work seamlessly. It ensures a smooth and efficient presentation-building experience",
+                    "contributors": [
+                        {
+                            "name": "Ramani Vemula",
+                            "githubId": "https://github.com/Ramanivemula"
+                        },
+                        {
+                            "name": "Shardul Kulkarni",
+                            "githubId": "https://github.com/shardul9320"
+                        },
+                        {
+                            "name": "Seemin Khan",
+                            "githubId": "https://github.com/SeeminKhan"
+                        },
+                        {
+                            "name": "Vrushant Mukherjee",
+                            "githubId": "https://github.com/Vrushant14"
+                        }
+                    ]
+                },
+                {
                     "name": "Puzzle Maker",
                     "link": "/puzzle-maker",
                     "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
@@ -1331,6 +1371,17 @@
             "details": "Streamline file conversions, data management, and handling processes with comprehensive tools.",
             "tools": [
                 {
+                    "name": "BMI Calculator",
+                    "link": "/Bmi",
+                    "description": "BMI Calculator: Quickly determine your Body Mass Index (BMI) with this easy-to-use tool. Input your height and weight to assess your body composition instantly.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
                     "name": "File Converter",
                     "link": "/file-converter",
                     "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
@@ -1338,17 +1389,6 @@
                         {
                             "name": "Mohammad Adil",
                             "githubId": "devilzs1"
-                        }
-                    ]
-                },
-                {
-                    "name": "Random Image Generator",
-                    "link": "/random-image-generator",
-                    "description": "The Random Image Generator is a dynamic tool that enables developers to generate random images on the fly. Whether you need placeholder images for testing or want to add visual elements to your applications, this tool can generate a wide variety of random images based on different categories, dimensions, and styles. Utilize this tool to add visual appeal and realism to your applications effortlessly.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
                         }
                     ]
                 },

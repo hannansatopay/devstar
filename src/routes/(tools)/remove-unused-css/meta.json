@@ -1,0 +1,11 @@
+{
+    "name": "Remove Unused CSS",
+    "description": "Removing unused CSS boosts website performance by eliminating unnecessary styles, ensuring faster loading times and better user experience.",
+    "contributors": [
+        {
+            "name": "Manoj R Gupta",
+            "githubId": "Manojgupta103"
+        }
+    ],
+    "categoryTitle": "Development and Testing Tools"
+}

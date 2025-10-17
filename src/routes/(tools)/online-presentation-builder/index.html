@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentation Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <input type="text" id="presentation-name" placeholder="Presentation Name"
+                onchange="changePresentationName()">
+            <button class="add-slide" onclick="addSlide()">+ Add slide</button>
+            <div class="slides-list" id="slides-list">
+                <div class="slide-item selected" onclick="selectSlide(1)" data-slide-id="1">
+                    <input class="a" type="text" value="Slide 1" onchange="changeSlideName(1)">
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="toolbar">
+                <button onclick="addText()">Text</button>
+                <select id="font-select" onchange="changeFont()">
+                    <option value="Arial">Arial</option>
+                    <option value="Calibri">Calibri</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Courier New">Courier New</option>
+                </select>
+                <input type="color" id="color-picker" onchange="changeColor()" value="#000000">
+            </div>
+            <div class="slide-editor" id="slide-editor">
+                <div class="slide-content" contenteditable="true" id="slide-1">
+                    <div class="slide-title">
+                        <h1 contenteditable="true">Title</h1>
+                        <p contenteditable="true">Subtitle</p>
+                    </div>
+                    <div class="slide-content-text" contenteditable="true">
+                        <p contenteditable="true">Content goes here. Click to edit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="side-tools">
+            <button onclick="sharePresentation()">Share</button>
+            <button onclick="downloadPresentation()">Download</button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+
+</html>

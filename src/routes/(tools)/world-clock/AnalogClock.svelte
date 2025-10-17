@@ -1,107 +1,156 @@
-<script>
-  import { onMount } from 'svelte';
-  import { timeZoneList } from './locale.js';
+<script lang="ts">
+	export let hour = 0;
+	export let minute = 0;
+	export let second = 0;
 
-  export let city = '';
-  export let country = '';
-  export let timezone = '';
+	const minuteMarks = Array.from({ length: 60 });
 
-  let canvas;
-  let selectedTimezone = timezone;
-  let currentTime = '';
-
-  onMount(() => {
-      updateClock();
-      const interval = setInterval(updateClock, 1000);
-      return () => clearInterval(interval);
-  });
-
-  function updateClock() {
-      const date = new Date(new Date().toLocaleString("en-US", { timeZone: selectedTimezone }));
-      const second = date.getSeconds();
-      const minute = date.getMinutes();
-      const hour = date.getHours();
-      currentTime = date.toLocaleTimeString('en-US', { hour12: true });
-
-      const ctx = canvas.getContext('2d');
-      const radius = canvas.height / 2;
-      ctx.translate(radius, radius);
-      drawFace(ctx, radius);
-      drawNumbers(ctx, radius);
-      drawTime(ctx, radius, hour, minute, second);
-      ctx.translate(-radius, -radius);
-  }
-
-  function drawFace(ctx, radius) {
-      ctx.beginPath();
-      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = 'black';
-      ctx.fill();
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI);
-      ctx.fillStyle = '#333';
-      ctx.fill();
-  }
-
-  function drawNumbers(ctx, radius) {
-      ctx.font = `${radius * 0.18}px arial`;
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-      ctx.fillStyle = 'white';
-      for (let num = 1; num <= 12; num++) {
-          const ang = (num * Math.PI) / 6;
-          ctx.rotate(ang);
-          ctx.translate(0, -radius * 0.85);
-          ctx.rotate(-ang);
-          ctx.fillText(num.toString(), 0, 0);
-          ctx.rotate(ang);
-          ctx.translate(0, radius * 0.85);
-          ctx.rotate(-ang);
-      }
-  }
-
-  function drawTime(ctx, radius, hour, minute, second) {
-      // Hour
-      const hourAngle = ((hour % 12) * Math.PI) / 6 + (minute * Math.PI) / (6 * 60) + (second * Math.PI) / (360 * 60);
-      drawHand(ctx, hourAngle, radius * 0.5, radius * 0.07);
-
-      // Minute
-      const minuteAngle = (minute * Math.PI) / 30 + (second * Math.PI) / (30 * 60);
-      drawHand(ctx, minuteAngle, radius * 0.8, radius * 0.05);
-
-      // Second
-      const secondAngle = (second * Math.PI) / 30;
-      drawHand(ctx, secondAngle, radius * 0.9, radius * 0.02);
-  }
-
-  function drawHand(ctx, pos, length, width) {
-      ctx.beginPath();
-      ctx.lineWidth = width;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = 'white';
-      ctx.moveTo(0, 0);
-      ctx.rotate(pos);
-      ctx.lineTo(0, -length);
-      ctx.stroke();
-      ctx.rotate(-pos);
-  }
+	$: hourDeg = ((hour % 12) + minute / 60 + second / 3600) * 30;
+	$: minuteDeg = (minute + second / 60) * 6;
+	$: secondDeg = second * 6;
 </script>
 
-<div class="analog-clock-container p-4 w-full text-2xl">
-  <canvas bind:this={canvas} width="200" height="200"></canvas>
-  <p class="show-date">{currentTime}</p>
-  <p class="country-name text-md mt-2">{city}, {country}</p>
+<div class="clock">
+	<div class="face">
+		<ul class="minutes">
+			{#each minuteMarks as _, index}
+				<li style={`transform: rotate(${index * 6}deg);`} class:strong={index % 5 === 0} />
+			{/each}
+		</ul>
+
+		<div class="hands">
+			<div class="hand hour" style={`transform: rotate(${hourDeg}deg);`} />
+			<div class="hand minute" style={`transform: rotate(${minuteDeg}deg);`} />
+			<div class="hand second" style={`transform: rotate(${secondDeg}deg);`} />
+		</div>
+	</div>
 </div>
 
 <style>
-  .analog-clock-container {
-      text-align: center;
-  }
-  canvas {
-      background: white;
-      border-radius: 50%;
-      border: 5px solid #000;
-      padding: 5px;
-  }
+	.clock {
+		width: min(160px, 42vw);
+		height: min(160px, 42vw);
+		margin: 0 auto;
+	}
+
+	.face {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		background: radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.95), rgba(241, 245, 249, 0.9));
+		border: 6px solid rgba(148, 163, 184, 0.6);
+		box-shadow:
+			inset 0 0 18px rgba(15, 23, 42, 0.18),
+			0 18px 26px -20px rgba(15, 23, 42, 0.6);
+	}
+
+	.minutes,
+	.minutes li {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.minutes {
+		position: absolute;
+		inset: 0;
+	}
+
+	.minutes li {
+		position: absolute;
+		top: 6px;
+		left: 50%;
+		width: 2px;
+		height: 12px;
+		background: rgba(148, 163, 184, 0.6);
+		transform-origin: center 74px;
+	}
+
+	.minutes li.strong {
+		width: 3px;
+		height: 18px;
+		background: rgba(79, 70, 229, 0.8);
+	}
+
+	.hands {
+		position: absolute;
+		inset: 0;
+		display: grid;
+		place-items: center;
+	}
+
+	.hand {
+		position: absolute;
+		bottom: 50%;
+		width: 4px;
+		transform-origin: bottom center;
+		border-radius: 999px;
+		background: rgba(30, 41, 59, 0.92);
+		box-shadow: 0 10px 20px -16px rgba(15, 23, 42, 0.85);
+	}
+
+	.hand.hour {
+		height: 42px;
+		background: rgba(30, 41, 59, 0.95);
+	}
+
+	.hand.minute {
+		height: 60px;
+		width: 3px;
+		background: rgba(51, 65, 85, 0.9);
+	}
+
+	.hand.second {
+		height: 66px;
+		width: 2px;
+		background: rgba(236, 72, 153, 0.9);
+		box-shadow: 0 0 8px rgba(236, 72, 153, 0.6);
+	}
+
+	.center {
+		position: absolute;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: rgba(236, 72, 153, 0.95);
+		border: 3px solid rgba(248, 250, 252, 0.95);
+		box-shadow: 0 0 12px rgba(236, 72, 153, 0.35);
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	:global(.dark) .face {
+		background: radial-gradient(circle at 30% 30%, rgba(30, 41, 59, 0.92), rgba(15, 23, 42, 0.92));
+		border-color: rgba(99, 102, 241, 0.5);
+		box-shadow:
+			inset 0 0 22px rgba(8, 11, 24, 0.65),
+			0 22px 35px -24px rgba(2, 6, 23, 0.9);
+	}
+
+	:global(.dark) .minutes li {
+		background: rgba(99, 102, 241, 0.45);
+	}
+
+	:global(.dark) .minutes li.strong {
+		background: rgba(129, 140, 248, 0.95);
+		box-shadow: 0 0 10px rgba(129, 140, 248, 0.45);
+	}
+
+	:global(.dark) .hand {
+		background: rgba(226, 232, 240, 0.95);
+		box-shadow: 0 12px 24px -18px rgba(15, 23, 42, 0.75);
+	}
+
+	:global(.dark) .hand.second {
+		background: rgba(249, 115, 22, 0.95);
+		box-shadow: 0 0 14px rgba(249, 115, 22, 0.6);
+	}
+
+	:global(.dark) .center {
+		background: rgba(249, 115, 22, 0.95);
+		border-color: rgba(15, 23, 42, 0.9);
+		box-shadow: 0 0 12px rgba(249, 115, 22, 0.65);
+	}
 </style>
