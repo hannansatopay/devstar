@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
+	import { onDestroy } from "svelte";
 
-	type TimerMode = 'countdown' | 'stopwatch' | 'alarm';
-	type TimerState = 'idle' | 'running' | 'paused' | 'finished';
+	type TimerMode = "countdown" | "stopwatch" | "alarm";
+	type TimerState = "idle" | "running" | "paused" | "finished";
 
 	interface Lap {
 		id: number;
@@ -29,16 +29,17 @@
 	}
 
 	const TICK_MS = 250;
-	const ALARM_SOUND_URL = 'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg';
+	const ALARM_SOUND_URL =
+		"https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg";
 
-	const pad2 = (value: number) => String(value).padStart(2, '0');
+	const pad2 = (value: number) => String(value).padStart(2, "0");
 
 	function getDefaultAlarmOffsets() {
 		const now = new Date();
 		now.setMinutes(now.getMinutes() + 5);
 		return {
 			alarmDate: now.toISOString().slice(0, 10),
-			alarmTime: `${pad2(now.getHours())}:${pad2(now.getMinutes())}`
+			alarmTime: `${pad2(now.getHours())}:${pad2(now.getMinutes())}`,
 		};
 	}
 
@@ -48,22 +49,33 @@
 			timestamp,
 			date: date.toISOString().slice(0, 10),
 			time: `${pad2(date.getHours())}:${pad2(date.getMinutes())}`,
-			displayDate: date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' }),
-			displayTime: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+			displayDate: date.toLocaleDateString([], {
+				weekday: "short",
+				month: "short",
+				day: "numeric",
+			}),
+			displayTime: date.toLocaleTimeString([], {
+				hour: "2-digit",
+				minute: "2-digit",
+			}),
 		};
 	}
 
-	function computeAlarmSchedule(dateStr: string | undefined, timeStr: string | undefined, reference = Date.now()) {
+	function computeAlarmSchedule(
+		dateStr: string | undefined,
+		timeStr: string | undefined,
+		reference = Date.now(),
+	) {
 		if (!dateStr || !timeStr) {
-			throw new Error('Select both a date and time for the alarm.');
+			throw new Error("Select both a date and time for the alarm.");
 		}
 
-		const [hoursRaw, minutesRaw] = timeStr.split(':');
+		const [hoursRaw, minutesRaw] = timeStr.split(":");
 		const base = new Date(`${dateStr}T00:00:00`);
 		base.setHours(Number(hoursRaw ?? 0), Number(minutesRaw ?? 0), 0, 0);
 
 		if (Number.isNaN(base.getTime())) {
-			throw new Error('Invalid alarm date or time.');
+			throw new Error("Invalid alarm date or time.");
 		}
 
 		if (base.getTime() <= reference) {
@@ -80,21 +92,25 @@
 	const defaultAlarm = getDefaultAlarmOffsets();
 
 	let form = {
-		label: '',
-		mode: 'countdown' as TimerMode,
+		label: "",
+		mode: "countdown" as TimerMode,
 		hours: 0,
 		minutes: 5,
 		seconds: 0,
 		autoRestart: false,
 		alarmDate: defaultAlarm.alarmDate,
-		alarmTime: defaultAlarm.alarmTime
+		alarmTime: defaultAlarm.alarmTime,
 	};
 
 	let errors: string[] = [];
 	let completionSound: HTMLAudioElement | null = null;
 
-	$: runningCount = timers.filter((timer) => timer.state === 'running').length;
-	$: finishedCount = timers.filter((timer) => timer.state === 'finished').length;
+	$: runningCount = timers.filter(
+		(timer) => timer.state === "running",
+	).length;
+	$: finishedCount = timers.filter(
+		(timer) => timer.state === "finished",
+	).length;
 
 	function ensureAudio() {
 		if (!completionSound) {
@@ -116,7 +132,7 @@
 		const hours = Math.floor(totalSeconds / 3600);
 		const minutes = Math.floor((totalSeconds % 3600) / 60);
 		const seconds = totalSeconds % 60;
-		return [hours, minutes, seconds].map((value) => pad2(value)).join(':');
+		return [hours, minutes, seconds].map((value) => pad2(value)).join(":");
 	}
 
 	function formatDurationWithMs(ms: number) {
@@ -128,16 +144,24 @@
 	function validateForm() {
 		const list: string[] = [];
 
-		if (form.mode === 'countdown') {
-			const total = Number(form.hours) * 3600 + Number(form.minutes) * 60 + Number(form.seconds);
+		if (form.mode === "countdown") {
+			const total =
+				Number(form.hours) * 3600 +
+				Number(form.minutes) * 60 +
+				Number(form.seconds);
 			if (total <= 0) {
-				list.push('Countdown timers require a duration greater than zero.');
+				list.push(
+					"Countdown timers require a duration greater than zero.",
+				);
 			}
-		} else if (form.mode === 'alarm') {
+		} else if (form.mode === "alarm") {
 			try {
-				const schedule = computeAlarmSchedule(form.alarmDate, form.alarmTime);
+				const schedule = computeAlarmSchedule(
+					form.alarmDate,
+					form.alarmTime,
+				);
 				if (schedule.timestamp - Date.now() < 1000) {
-					list.push('Alarm time must be in the future.');
+					list.push("Alarm time must be in the future.");
 				}
 			} catch (error) {
 				list.push((error as Error).message);
@@ -145,7 +169,7 @@
 		}
 
 		if (form.label.trim().length > 60) {
-			list.push('Timer name must be 60 characters or fewer.');
+			list.push("Timer name must be 60 characters or fewer.");
 		}
 
 		errors = list;
@@ -161,10 +185,13 @@
 		let schedule: ReturnType<typeof computeAlarmSchedule> | null = null;
 		let durationMs = 0;
 
-		if (form.mode === 'countdown') {
+		if (form.mode === "countdown") {
 			durationMs =
-				(Number(form.hours) * 3600 + Number(form.minutes) * 60 + Number(form.seconds)) * 1000;
-		} else if (form.mode === 'alarm') {
+				(Number(form.hours) * 3600 +
+					Number(form.minutes) * 60 +
+					Number(form.seconds)) *
+				1000;
+		} else if (form.mode === "alarm") {
 			schedule = computeAlarmSchedule(form.alarmDate, form.alarmTime);
 			durationMs = schedule.timestamp - Date.now();
 		}
@@ -175,11 +202,11 @@
 			id: nextId++,
 			label: form.label.trim() || `Timer ${nextId - 1}`,
 			mode: form.mode,
-			state: form.mode === 'alarm' ? 'running' : 'idle',
+			state: form.mode === "alarm" ? "running" : "idle",
 			durationMs,
 			remainingMs: durationMs,
 			elapsedMs: 0,
-			autoRestart: form.autoRestart && form.mode === 'countdown',
+			autoRestart: form.autoRestart && form.mode === "countdown",
 			lastUpdated: null,
 			createdAt: new Date(),
 			laps: [],
@@ -187,30 +214,31 @@
 			alarmDate: schedule?.date,
 			alarmTime: schedule?.time,
 			alarmDisplayDate: schedule?.displayDate,
-			alarmDisplayTime: schedule?.displayTime
+			alarmDisplayTime: schedule?.displayTime,
 		};
 
 		timers = [timer, ...timers];
 
-		if (form.mode === 'alarm') {
+		if (form.mode === "alarm") {
 			form = {
 				...form,
-				label: '',
+				label: "",
 				autoRestart: false,
 				alarmDate: schedule?.date ?? form.alarmDate,
 				alarmTime: schedule?.time ?? form.alarmTime,
 				hours: form.hours,
 				minutes: form.minutes,
-				seconds: form.seconds
+				seconds: form.seconds,
 			};
 		} else {
 			form = {
 				...form,
-				label: '',
-				autoRestart: form.mode === 'countdown' ? form.autoRestart : false,
+				label: "",
+				autoRestart:
+					form.mode === "countdown" ? form.autoRestart : false,
 				hours: 0,
-				minutes: form.mode === 'countdown' ? 5 : 0,
-				seconds: 0
+				minutes: form.mode === "countdown" ? 5 : 0,
+				seconds: 0,
 			};
 		}
 
@@ -222,8 +250,11 @@
 		let changed = false;
 
 		const updated = timers.map((timer) => {
-			if (timer.mode === 'alarm') {
-				if (timer.state !== 'running' || timer.targetTimestamp === null) {
+			if (timer.mode === "alarm") {
+				if (
+					timer.state !== "running" ||
+					timer.targetTimestamp === null
+				) {
 					return timer;
 				}
 
@@ -233,9 +264,9 @@
 					changed = true;
 					return {
 						...timer,
-						state: 'finished',
+						state: "finished",
 						remainingMs: 0,
-						targetTimestamp: null
+						targetTimestamp: null,
 					};
 				}
 
@@ -243,13 +274,13 @@
 					changed = true;
 					return {
 						...timer,
-						remainingMs: remaining
+						remainingMs: remaining,
 					};
 				}
 				return timer;
 			}
 
-			if (timer.state !== 'running' || timer.lastUpdated === null) {
+			if (timer.state !== "running" || timer.lastUpdated === null) {
 				return timer;
 			}
 
@@ -260,7 +291,7 @@
 
 			changed = true;
 
-			if (timer.mode === 'countdown') {
+			if (timer.mode === "countdown") {
 				let remaining = timer.remainingMs - delta;
 				let state: TimerState = timer.state;
 				let elapsed = timer.durationMs - Math.max(0, remaining);
@@ -273,7 +304,7 @@
 						elapsed = 0;
 					} else {
 						remaining = 0;
-						state = 'finished';
+						state = "finished";
 						lastUpdated = null;
 					}
 				}
@@ -283,7 +314,7 @@
 					remainingMs: remaining,
 					elapsedMs: elapsed,
 					state,
-					lastUpdated
+					lastUpdated,
 				};
 			}
 
@@ -292,7 +323,7 @@
 			return {
 				...timer,
 				elapsedMs: elapsed,
-				lastUpdated: now
+				lastUpdated: now,
 			};
 		});
 
@@ -307,59 +338,64 @@
 		const now = Date.now();
 		timers = timers.map((timer) => {
 			if (timer.id !== id) {
-			 return timer;
+				return timer;
 			}
 
-			if (timer.mode === 'alarm') {
-				if (timer.state === 'running') {
-					return { ...timer, state: 'paused' };
+			if (timer.mode === "alarm") {
+				if (timer.state === "running") {
+					return { ...timer, state: "paused" };
 				}
 
-				if (timer.state === 'paused') {
-					const resumeTimestamp = now + Math.max(0, timer.remainingMs);
+				if (timer.state === "paused") {
+					const resumeTimestamp =
+						now + Math.max(0, timer.remainingMs);
 					const meta = buildAlarmMetadata(resumeTimestamp);
 					return {
 						...timer,
-						state: 'running',
+						state: "running",
 						targetTimestamp: resumeTimestamp,
 						alarmDate: meta.date,
 						alarmTime: meta.time,
 						alarmDisplayDate: meta.displayDate,
 						alarmDisplayTime: meta.displayTime,
 						durationMs: Math.max(0, resumeTimestamp - Date.now()),
-						remainingMs: Math.max(0, resumeTimestamp - Date.now())
+						remainingMs: Math.max(0, resumeTimestamp - Date.now()),
 					};
 				}
 
-				const schedule = computeAlarmSchedule(timer.alarmDate ?? form.alarmDate, timer.alarmTime ?? form.alarmTime, now);
+				const schedule = computeAlarmSchedule(
+					timer.alarmDate ?? form.alarmDate,
+					timer.alarmTime ?? form.alarmTime,
+					now,
+				);
 				return {
 					...timer,
-					state: 'running',
+					state: "running",
 					targetTimestamp: schedule.timestamp,
 					alarmDate: schedule.date,
 					alarmTime: schedule.time,
 					alarmDisplayDate: schedule.displayDate,
 					alarmDisplayTime: schedule.displayTime,
 					durationMs: Math.max(0, schedule.timestamp - Date.now()),
-					remainingMs: Math.max(0, schedule.timestamp - Date.now())
+					remainingMs: Math.max(0, schedule.timestamp - Date.now()),
 				};
 			}
 
-			if (timer.state === 'running') {
-				return { ...timer, state: 'paused', lastUpdated: null };
+			if (timer.state === "running") {
+				return { ...timer, state: "paused", lastUpdated: null };
 			}
 
-			if (timer.state === 'finished' && timer.mode === 'countdown') {
+			if (timer.state === "finished" && timer.mode === "countdown") {
 				return {
 					...timer,
-					state: 'running',
+					state: "running",
 					remainingMs: timer.durationMs,
 					elapsedMs: 0,
-					lastUpdated: now
+					lastUpdated: now,
 				};
 			}
 
-			return { ...timer, state: 'running', lastUpdated: now };
+			return { ...timer, state: "running", lastUpdated: now };
 		});
 	}
 
@@ -369,11 +405,14 @@
 				return timer;
 			}
 
-			if (timer.mode === 'alarm') {
-				const schedule = computeAlarmSchedule(timer.alarmDate ?? form.alarmDate, timer.alarmTime ?? form.alarmTime);
+			if (timer.mode === "alarm") {
+				const schedule = computeAlarmSchedule(
+					timer.alarmDate ?? form.alarmDate,
+					timer.alarmTime ?? form.alarmTime,
+				);
 				return {
 					...timer,
-					state: 'running',
+					state: "running",
 					durationMs: Math.max(0, schedule.timestamp - Date.now()),
 					remainingMs: Math.max(0, schedule.timestamp - Date.now()),
 					elapsedMs: 0,
@@ -383,17 +422,17 @@
 					alarmDate: schedule.date,
 					alarmTime: schedule.time,
 					alarmDisplayDate: schedule.displayDate,
-					alarmDisplayTime: schedule.displayTime
+					alarmDisplayTime: schedule.displayTime,
 				};
 			}
 
 			return {
 				...timer,
-				state: 'idle',
+				state: "idle",
 				remainingMs: timer.durationMs,
 				elapsedMs: 0,
 				lastUpdated: null,
-				laps: []
+				laps: [],
 			};
 		});
 	}
@@ -412,20 +451,20 @@
 							...timer.laps,
 							{
 								id: timer.laps.length + 1,
-								atMs: timer.elapsedMs
-							}
-						]
-				  }
-				: timer
+								atMs: timer.elapsedMs,
+							},
+						],
+					}
+				: timer,
 		);
 	}
 
 	function toggleMode(mode: TimerMode) {
 		form.mode = mode;
-		if (mode !== 'countdown') {
+		if (mode !== "countdown") {
 			form.autoRestart = false;
 		}
-		if (mode === 'alarm') {
+		if (mode === "alarm") {
 			const nextDefaults = getDefaultAlarmOffsets();
 			form.alarmDate = nextDefaults.alarmDate;
 			form.alarmTime = nextDefaults.alarmTime;
@@ -440,17 +479,9 @@
 	});
 </script>
 
-<div class="page">
+<section class="mx-auto space-y-6 px-4 py-6">
 	<div class="layout">
 		<section class="create-panel">
-			<header>
-				<h1>Multi Timer</h1>
-				<p>
-					Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat
-					completions to fit any workflow.
-				</p>
-			</header>
-
 			<form class="form" on:submit={createTimer}>
 				<div class="field">
 					<label for="timer-label">Timer name</label>
@@ -468,24 +499,24 @@
 					<div class="mode-buttons">
 						<button
 							type="button"
-							class:active={form.mode === 'countdown'}
-							on:click={() => toggleMode('countdown')}
+							class:active={form.mode === "countdown"}
+							on:click={() => toggleMode("countdown")}
 						>
 							<span>Countdown</span>
 							<small>Set a target duration</small>
 						</button>
 						<button
 							type="button"
-							class:active={form.mode === 'stopwatch'}
-							on:click={() => toggleMode('stopwatch')}
+							class:active={form.mode === "stopwatch"}
+							on:click={() => toggleMode("stopwatch")}
 						>
 							<span>Stopwatch</span>
 							<small>Track elapsed time</small>
 						</button>
 						<button
 							type="button"
-							class:active={form.mode === 'alarm'}
-							on:click={() => toggleMode('alarm')}
+							class:active={form.mode === "alarm"}
+							on:click={() => toggleMode("alarm")}
 						>
 							<span>Alarm</span>
 							<small>Trigger at a specific time</small>
@@ -493,45 +524,72 @@
 					</div>
 				</div>
 
-				{#if form.mode === 'countdown'}
+				{#if form.mode === "countdown"}
 					<div class="field time-picker">
 						<label>Duration</label>
 						<div class="time-inputs">
 							<div>
 								<span>Hours</span>
-								<input type="number" min="0" bind:value={form.hours} />
+								<input
+									type="number"
+									min="0"
+									bind:value={form.hours}
+								/>
 							</div>
 							<div>
 								<span>Minutes</span>
-								<input type="number" min="0" max="59" bind:value={form.minutes} />
+								<input
+									type="number"
+									min="0"
+									max="59"
+									bind:value={form.minutes}
+								/>
 							</div>
 							<div>
 								<span>Seconds</span>
-								<input type="number" min="0" max="59" bind:value={form.seconds} />
+								<input
+									type="number"
+									min="0"
+									max="59"
+									bind:value={form.seconds}
+								/>
 							</div>
 						</div>
 					</div>
 
 					<div class="field checkbox">
 						<label>
-							<input type="checkbox" bind:checked={form.autoRestart} />
-							<span>Auto-restart when the countdown finishes</span>
+							<input
+								type="checkbox"
+								bind:checked={form.autoRestart}
+							/>
+							<span>Auto-restart when the countdown finishes</span
+							>
 						</label>
 					</div>
-				{:else if form.mode === 'alarm'}
+				{:else if form.mode === "alarm"}
 					<div class="field alarm-picker">
 						<label>Alarm time</label>
 						<div class="alarm-inputs">
 							<label>
 								<span>Date</span>
-								<input type="date" bind:value={form.alarmDate} min={new Date().toISOString().slice(0, 10)} />
+								<input
+									type="date"
+									bind:value={form.alarmDate}
+									min={new Date().toISOString().slice(0, 10)}
+								/>
 							</label>
 							<label>
 								<span>Time</span>
-								<input type="time" bind:value={form.alarmTime} />
+								<input
+									type="time"
+									bind:value={form.alarmTime}
+								/>
 							</label>
 						</div>
-						<p class="form-hint">Alarm times use your local timezone.</p>
+						<p class="form-hint">
+							Alarm times use your local timezone.
+						</p>
 					</div>
 				{/if}
 
@@ -543,7 +601,9 @@
 					</ul>
 				{/if}
 
-				<button type="submit" class="primary-action">Create timer</button>
+				<button type="submit" class="primary-action"
+					>Create timer</button
+				>
 
 				<div class="summary-bar">
 					<div>
@@ -566,7 +626,10 @@
 			{#if timers.length === 0}
 				<div class="empty-state">
 					<h2>No timers yet</h2>
-					<p>Create your first countdown, stopwatch, or alarm using the form above.</p>
+					<p>
+						Create your first countdown, stopwatch, or alarm using
+						the form above.
+					</p>
 				</div>
 			{:else}
 				<ul class="timer-list">
@@ -577,37 +640,61 @@
 									<div class="title">
 										<h3>{timer.label}</h3>
 										<span class={`mode ${timer.mode}`}>
-											{timer.mode === 'countdown' ? 'Countdown' : timer.mode === 'stopwatch' ? 'Stopwatch' : 'Alarm'}
+											{timer.mode === "countdown"
+												? "Countdown"
+												: timer.mode === "stopwatch"
+													? "Stopwatch"
+													: "Alarm"}
 										</span>
 									</div>
 									<small>
-										Created {timer.createdAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+										Created {timer.createdAt.toLocaleTimeString(
+											[],
+											{
+												hour: "2-digit",
+												minute: "2-digit",
+											},
+										)}
 									</small>
 								</header>
 
 								<div class="timer-display">
 									<strong>
-										{timer.mode === 'stopwatch'
-											? formatDurationWithMs(timer.elapsedMs)
+										{timer.mode === "stopwatch"
+											? formatDurationWithMs(
+													timer.elapsedMs,
+												)
 											: formatDuration(timer.remainingMs)}
 									</strong>
-									{#if timer.mode === 'countdown' && timer.durationMs > 0}
+									{#if timer.mode === "countdown" && timer.durationMs > 0}
 										<div class="progress">
 											<div
 												class="bar"
 												style={`width: ${Math.max(
 													0,
-													Math.min(100, (100 * (timer.durationMs - timer.remainingMs)) / timer.durationMs)
+													Math.min(
+														100,
+														(100 *
+															(timer.durationMs -
+																timer.remainingMs)) /
+															timer.durationMs,
+													),
 												)}%;`}
 											/>
 										</div>
 									{/if}
-									{#if timer.mode === 'alarm'}
+									{#if timer.mode === "alarm"}
 										<div class="alarm-meta">
 											<span>Scheduled for</span>
 											<div>
-												<strong>{timer.alarmDisplayTime ?? '--:--'}</strong>
-												<span>{timer.alarmDisplayDate ?? ''}</span>
+												<strong
+													>{timer.alarmDisplayTime ??
+														"--:--"}</strong
+												>
+												<span
+													>{timer.alarmDisplayDate ??
+														""}</span
+												>
 											</div>
 										</div>
 									{/if}
@@ -615,45 +702,66 @@
 
 								<footer>
 									<div class="controls">
-										<button type="button" on:click={() => toggleTimer(timer.id)}>
-											{timer.state === 'running'
-												? 'Pause'
-												: timer.state === 'finished'
-												? timer.mode === 'alarm'
-													? 'Rearm'
-													: 'Restart'
-												: 'Start'}
+										<button
+											type="button"
+											on:click={() =>
+												toggleTimer(timer.id)}
+										>
+											{timer.state === "running"
+												? "Pause"
+												: timer.state === "finished"
+													? timer.mode === "alarm"
+														? "Rearm"
+														: "Restart"
+													: "Start"}
 										</button>
-										<button type="button" on:click={() => resetTimer(timer.id)} disabled={timer.state === 'idle'}>
+										<button
+											type="button"
+											on:click={() =>
+												resetTimer(timer.id)}
+											disabled={timer.state === "idle"}
+										>
 											Reset
 										</button>
 										<button
 											type="button"
 											on:click={() => recordLap(timer.id)}
-											disabled={timer.mode !== 'stopwatch' || timer.state !== 'running'}
+											disabled={timer.mode !==
+												"stopwatch" ||
+												timer.state !== "running"}
 										>
 											Lap
 										</button>
 									</div>
-									<button type="button" class="delete" on:click={() => deleteTimer(timer.id)}>
+									<button
+										type="button"
+										class="delete"
+										on:click={() => deleteTimer(timer.id)}
+									>
 										Delete
 									</button>
 								</footer>
 
-								{#if timer.mode === 'stopwatch' && timer.laps.length}
+								{#if timer.mode === "stopwatch" && timer.laps.length}
 									<ul class="lap-list">
 										{#each timer.laps as lap}
 											<li>
 												<span>Lap {lap.id}</span>
-												<span>{formatDurationWithMs(lap.atMs)}</span>
+												<span
+													>{formatDurationWithMs(
+														lap.atMs,
+													)}</span
+												>
 											</li>
 										{/each}
 									</ul>
 								{/if}
 
-								{#if timer.state === 'finished'}
+								{#if timer.state === "finished"}
 									<p class="finished-label">
-										Finished - click {timer.mode === 'alarm' ? 'rearm' : 'restart'} to run again
+										Finished - click {timer.mode === "alarm"
+											? "rearm"
+											: "restart"} to run again
 									</p>
 								{/if}
 							</article>
@@ -663,27 +771,13 @@
 			{/if}
 		</section>
 	</div>
-</div>
+</section>
 
 <style>
-	.page {
-		padding: clamp(1.5rem, 2vw, 2.5rem);
-		background: linear-gradient(160deg, var(--surface-light, #f8f9fc) 0%, var(--surface-light-alt, #eef0f6) 100%);
-		min-height: 100%;
-		color: #111827;
-	}
-
-	:global(.dark) .page {
-		background: linear-gradient(180deg, var(--surface-dark, #0d0e12) 0%, var(--surface-dark-alt, #12131b) 100%);
-		color: #e5e7eb;
-	}
-
 	.layout {
 		display: flex;
 		flex-direction: column;
 		gap: clamp(1.5rem, 2vw, 2.5rem);
-		max-width: 960px;
-		margin: 0 auto;
 	}
 
 	.create-panel {
@@ -701,23 +795,6 @@
 		background: rgba(17, 23, 37, 0.85);
 		border-color: rgba(99, 102, 241, 0.25);
 		box-shadow: 0 32px 70px -48px rgba(2, 6, 23, 0.85);
-	}
-
-	header h1 {
-		margin: 0;
-		font-size: clamp(2rem, 3vw, 2.5rem);
-		font-weight: 800;
-	}
-
-	header p {
-		margin: 0.5rem 0 0;
-		font-size: 0.95rem;
-		color: rgba(71, 85, 105, 0.9);
-		line-height: 1.6;
-	}
-
-	:global(.dark) header p {
-		color: rgba(203, 213, 225, 0.75);
 	}
 
 	.form {
@@ -740,8 +817,8 @@
 		color: rgba(209, 213, 219, 0.9);
 	}
 
-	input[type='text'],
-	input[type='number'] {
+	input[type="text"],
+	input[type="number"] {
 		width: 100%;
 		padding: 0.8rem 1rem;
 		border-radius: 0.9rem;
@@ -749,30 +826,33 @@
 		background: rgba(255, 255, 255, 0.95);
 		color: inherit;
 		font-size: 0.95rem;
-		transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease,
+			background 0.2s ease;
 	}
 
-	input[type='text']:focus,
-	input[type='number']:focus {
+	input[type="text"]:focus,
+	input[type="number"]:focus {
 		outline: none;
 		border-color: rgba(99, 102, 241, 0.6);
 		box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
 		background: rgba(255, 255, 255, 0.98);
 	}
 
-	input[type='number']::-webkit-inner-spin-button,
-	input[type='number']::-webkit-outer-spin-button {
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
 		height: 28px;
 	}
 
-	:global(.dark) input[type='text'],
-	:global(.dark) input[type='number'] {
+	:global(.dark) input[type="text"],
+	:global(.dark) input[type="number"] {
 		background: rgba(23, 31, 47, 0.85);
 		border-color: rgba(99, 102, 241, 0.18);
 	}
 
-	:global(.dark) input[type='text']:focus,
-	:global(.dark) input[type='number']:focus {
+	:global(.dark) input[type="text"]:focus,
+	:global(.dark) input[type="number"]:focus {
 		box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.18);
 		border-color: rgba(168, 85, 247, 0.55);
 	}
@@ -799,7 +879,10 @@
 		text-align: left;
 		display: grid;
 		gap: 0.25rem;
-		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			background 0.2s ease;
 	}
 
 	.mode-buttons button span {
@@ -928,7 +1011,9 @@
 		background: linear-gradient(120deg, #6366f1, #8b5cf6, #ec4899);
 		color: #fff;
 		box-shadow: 0 20px 40px -30px rgba(99, 102, 241, 0.6);
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
 	.primary-action:hover {
@@ -1026,7 +1111,11 @@
 	}
 
 	.timer-list::-webkit-scrollbar-thumb {
-		background: linear-gradient(90deg, rgba(99, 102, 241, 0.6), rgba(168, 85, 247, 0.6));
+		background: linear-gradient(
+			90deg,
+			rgba(99, 102, 241, 0.6),
+			rgba(168, 85, 247, 0.6)
+		);
 		border-radius: 999px;
 	}
 
@@ -1056,12 +1145,20 @@
 	.timer-card.running {
 		border-color: rgba(99, 102, 241, 0.45);
 		box-shadow: 0 30px 55px -42px rgba(79, 70, 229, 0.5);
-		background: linear-gradient(145deg, rgba(244, 247, 255, 0.95), rgba(233, 233, 252, 0.92));
+		background: linear-gradient(
+			145deg,
+			rgba(244, 247, 255, 0.95),
+			rgba(233, 233, 252, 0.92)
+		);
 	}
 
 	.timer-card.finished {
 		border-color: rgba(52, 211, 153, 0.4);
-		background: linear-gradient(145deg, rgba(240, 253, 244, 0.92), rgba(209, 250, 229, 0.88));
+		background: linear-gradient(
+			145deg,
+			rgba(240, 253, 244, 0.92),
+			rgba(209, 250, 229, 0.88)
+		);
 	}
 
 	:global(.dark) .timer-card {
@@ -1073,12 +1170,20 @@
 	:global(.dark) .timer-card.running {
 		border-color: rgba(168, 85, 247, 0.45);
 		box-shadow: 0 36px 70px -54px rgba(168, 85, 247, 0.5);
-		background: linear-gradient(150deg, rgba(31, 41, 55, 0.95), rgba(55, 48, 163, 0.32));
+		background: linear-gradient(
+			150deg,
+			rgba(31, 41, 55, 0.95),
+			rgba(55, 48, 163, 0.32)
+		);
 	}
 
 	:global(.dark) .timer-card.finished {
 		border-color: rgba(16, 185, 129, 0.45);
-		background: linear-gradient(150deg, rgba(17, 24, 39, 0.94), rgba(5, 150, 105, 0.28));
+		background: linear-gradient(
+			150deg,
+			rgba(17, 24, 39, 0.94),
+			rgba(5, 150, 105, 0.28)
+		);
 	}
 
 	header {
@@ -1214,7 +1319,10 @@
 		cursor: pointer;
 		background: rgba(79, 70, 229, 0.14);
 		color: rgba(55, 48, 163, 0.95);
-		transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			background 0.2s ease;
 	}
 
 	.controls button:hover:not(:disabled) {
@@ -1236,7 +1344,9 @@
 		padding: 0.55rem 1.1rem;
 		font-weight: 600;
 		cursor: pointer;
-		transition: background 0.2s ease, transform 0.2s ease;
+		transition:
+			background 0.2s ease,
+			transform 0.2s ease;
 	}
 
 	.delete:hover {

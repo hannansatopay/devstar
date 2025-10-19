@@ -66,62 +66,37 @@
   }
 </script>
 
-<section class="bg-white dark:bg-gray-900">
-  <div class="p-4 md:p-8 mx-auto max-w-screen-xl grid space-y-6 lg:space-y-10">
-    <div class="flex items-stretch">
-      <h1
-        class="text-2xl grow lg:text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-      >
-        {data.meta.title}
-      </h1>
-      <button
-        on:click={toggleBookmark}
-        class="text-md lg:text-xl self-start px-4 py-2 rounded {isBookmarked
-          ? 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white'
-          : 'bg-gray-400 dark:bg-gray-600 text-white dark:text-white'}"
-      >
-        {isBookmarked ? "Remove Bookmark" : "Add to Bookmark"}
-      </button>
-    </div>
+<section
+  class="p-4 md:p-8 mx-auto max-w-screen-xl grid space-y-6 lg:space-y-10"
+>
+  <div class="flex items-stretch">
+    <h1
+      class="text-2xl grow lg:text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
+    >
+      {data.meta.title}
+    </h1>
+    <button
+      on:click={toggleBookmark}
+      class="text-md lg:text-xl self-start px-4 py-2 rounded {isBookmarked
+        ? 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white'
+        : 'bg-gray-400 dark:bg-gray-600 text-white dark:text-white'}"
+    >
+      {isBookmarked ? "Remove Bookmark" : "Add to Bookmark"}
+    </button>
+  </div>
 
-    <div>
-      <slot></slot>
-    </div>
+  <div>
+    <slot></slot>
+  </div>
 
-    <div>
-      <h2
-        class="mb-4 text-lg lg:text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-      >
-        Details
-      </h2>
-      <p
-        class="text-md lg:text-xl font-normal text-gray-500 dark:text-gray-400"
-      >
-        {data.meta.description}
-      </p>
-    </div>
-
-    <div>
-      <h2
-        class="mb-4 text-lg lg:text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-      >
-        Contributors
-      </h2>
-      <div class={layoutClass}>
-        {#each data.meta.contributors as contributor}
-          <a
-            href="https://github.com/{contributor.githubId}"
-            target="_blank"
-            class="flex space-x-2 font-medium items-center justify-center px-2.5 py-1 text-sm text-gray-900 bg-gray-100 dark:bg-white border-primary-400 rounded"
-          >
-            <Avatar
-              src="https://github.com/{contributor.githubId}.png"
-              size="sm"
-            />
-            <div class="overflow-hidden">{contributor.name}</div>
-          </a>
-        {/each}
-      </div>
-    </div>
+  <div>
+    <h2
+      class="mb-4 text-lg lg:text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
+    >
+      Details
+    </h2>
+    <p class="text-md lg:text-xl font-normal text-gray-500 dark:text-gray-400">
+      {data.meta.description}
+    </p>
   </div>
 </section>

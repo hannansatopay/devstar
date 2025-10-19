@@ -31,7 +31,7 @@
 	/>
 </svelte:head>
 
-<section class="mx-auto max-w-6xl px-4 py-16">
+<section class="mx-auto space-y-8">
 	<header class="mb-12 text-center">
 		<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
 			Contributors

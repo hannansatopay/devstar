@@ -1,6 +1,6 @@
 {
-    "name": "Multi-timer",
-    "description": "Multi Timer with alarm mechanism",
+    "name": "Multi Timer",
+    "description": "Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat completions to fit any workflow.",
     "contributors": [
         {
             "name": "Prajwal Dilip Ganar",

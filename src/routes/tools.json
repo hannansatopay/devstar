@@ -7,7 +7,7 @@
                 {
                     "name": "Add Prefix and Suffix",
                     "link": "/add-prefix-suffix",
-                    "description": "Easily modify your text lines by adding custom prefixes and suffixes with our Prefix and Suffix Adder Tool. Input your text, specify the desired prefix and suffix, and watch as it instantly modifies each line according to your preferences. Perfect for formatting lists, coding snippets, or creating structured data. Empower your text editing tasks with this convenient tool, ensuring consistent formatting in various contexts.",
+                    "description": "Add prefixes, suffixes, and optional sequence numbers across whole lists in one pass. Clean up stray whitespace, skip blank rows, and export in the format your workflow needs.",
                     "contributors": [
                         {
                             "name": "Abdur Rehman Shaikh",
@@ -591,7 +591,7 @@
                 {
                     "name": "Advice Generator",
                     "link": "/advice-generator",
-                    "description": "The Advice Generator is a valuable tool that provides developers with inspirational and practical advice to overcome challenges and improve their work. By generating random advice snippets, this tool helps developers find guidance and inspiration. Access a wealth of advice easily with this tool and elevate your mindset.",
+                    "description": "Tap into quick nuggets of wisdom. Pull fresh guidance from the live service or continue with curated offline tips when the network is quiet.",
                     "contributors": [
                         {
                             "name": "Rifat Perween",
@@ -1105,9 +1105,9 @@
                     ]
                 },
                 {
-                    "name": "Multi-timer",
+                    "name": "Multi Timer",
                     "link": "/multi-timer",
-                    "description": "Multi Timer with alarm mechanism",
+                    "description": "Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat completions to fit any workflow.",
                     "contributors": [
                         {
                             "name": "Prajwal Dilip Ganar",
@@ -1172,7 +1172,7 @@
                 {
                     "name": "World Clock",
                     "link": "/world-clock",
-                    "description": "Times of World: showcases time of different countries",
+                    "description": "Monitor global cities with live analog clocks and discover new timezones fast.",
                     "contributors": [
                         {
                             "name": "ILyas Sayyed",
@@ -1513,6 +1513,12 @@
                             "githubId": "hannansatopay"
                         }
                     ]
+                },
+                {
+                    "name": "Scientific Calculator",
+                    "link": "/sciencetific-calculator",
+                    "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
+                    "contributors": []
                 },
                 {
                     "name": "WhatsApp Link Generator",
