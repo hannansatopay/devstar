@@ -1,6 +1,6 @@
 {
     "name": "Finance Calculator",
-    "description": "Optimize your financial decisions with our comprehensive suite of online financial calculators. Whether you're planning investments, converting currencies, calculating your salary after deductions, or estimating home loan payments, our user-friendly tools have you covered. Explore our ROI Calculator, Currency Converter, Salary Calculator, GST Calculator, Home Loan Calculator, TVM Calculator, and Stock Return Calculator to harness the full potential of your financial planning. Make informed decisions and secure your financial future today!",
+    "description": "An all-in-one toolset to instantly calculate ROI, currency conversions, salaries, GST, loans, time value, and stock returns—without page reloads. Get quick, accurate estimates for smarter financial planning.",
     "contributors": [
         {
             "name": "Dalima Sahu",

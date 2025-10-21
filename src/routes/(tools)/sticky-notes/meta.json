@@ -1,6 +1,6 @@
 {
     "name": "Sticky Notes",
-    "description": "Develop a Sticky Notes app featuring quick note-saving, an appealing to-do list, and reminder settings. Users can pin important notes for easy access with highlighting on the screen, while timestamps show the last update time for each note, aiding in organization.",
+    "description": "Capture quick ideas and todos in a lightweight sticky board. Choose a color, pin critical notes to the top, and rely on automatic local storage so every update is saved with a clear timestamp—no sync required.",
     "contributors": [
         {
             "name": "Saket Prabhakar",

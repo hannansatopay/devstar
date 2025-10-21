@@ -1,149 +1,635 @@
-<script>
-	import Crop from './_components/Crop.svelte';
-	import Filter from './_components/Filter.svelte';
-	import ImagePreview from './_components/ImagePreview.svelte';
-	import FillRedact from './_components/FillRedact.svelte';
-	import StickerFrame from './_components/StickerFrame.svelte';
-	import ReSize from './_components/Resize.svelte';
-  import Finetune from './_components/Finetune.svelte';
-  import Annotation from './_components/Annotation.svelte';
-    let currentFeature = '';
-	let imageUrl = '';
-	let image = "https://picsum.photos/500/500"
-    function showFeature(feature) {
-		currentFeature = feature;
-		if(feature==="choose-random"){
-			imageUrl="https://picsum.photos/500/500";
-		}
-    }
-	function uploadImage(){
-		imageUrl = '';
-	}
-	function handleFileChange(event) {
-        const file = event.target.files[0];
-        if (file) {
-            imageUrl = URL.createObjectURL(file);
-        }
-		console.log(imageUrl);
-    }
+<script lang="ts">
+	import { onMount } from "svelte";
 
+	let sourceUrl = "";
+	let fileName = "";
+	let statusMessage = "";
+
+	let brightness = 100;
+	let contrast = 100;
+	let saturation = 100;
+	let grayscale = 0;
+	let blur = 0;
+	let rotation = 0;
+	let flipHorizontal = false;
+	let flipVertical = false;
+
+	let exportFormat: "png" | "jpeg" | "webp" = "png";
+	let exportQuality = 0.92;
+
+	type CropBox = {
+		left: number;
+		top: number;
+		right: number;
+		bottom: number;
+	};
+
+	let crop: CropBox = { left: 0, top: 0, right: 1, bottom: 1 };
+	let isDrawingCrop = false;
+	let dragOrigin = { x: 0, y: 0 };
+
+	let previewContainer: HTMLDivElement;
+	let previewImage: HTMLImageElement;
+
+	let naturalWidth = 0;
+	let naturalHeight = 0;
+
+	let imageMetrics = { width: 0, height: 0, left: 0, top: 0 };
+	let resizeObserver: ResizeObserver | null = null;
+	let metricsFrame: number | null = null;
+
+	function scheduleMetricsUpdate() {
+		if (metricsFrame !== null) {
+			cancelAnimationFrame(metricsFrame);
+		}
+		metricsFrame = requestAnimationFrame(() => {
+			updateImageMetrics();
+			metricsFrame = null;
+		});
+	}
+
+	function resetCrop() {
+		crop = { left: 0, top: 0, right: 1, bottom: 1 };
+	}
+
+	function resetAdjustments() {
+		brightness = 100;
+		contrast = 100;
+		saturation = 100;
+		grayscale = 0;
+		blur = 0;
+		rotation = 0;
+		flipHorizontal = false;
+		flipVertical = false;
+		resetCrop();
+		statusMessage = "";
+	}
+
+	function resetAll() {
+		sourceUrl = "";
+		fileName = "";
+		naturalWidth = 0;
+		naturalHeight = 0;
+		imageMetrics = { width: 0, height: 0, left: 0, top: 0 };
+		resetAdjustments();
+	}
+
+	function handleFileChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		const file = target.files?.[0];
+		if (!file) {
+			resetAll();
+			return;
+		}
+
+		fileName = file.name.replace(/\.[^/.]+$/, "");
+
+		const reader = new FileReader();
+		reader.onload = () => {
+			const result = reader.result as string;
+			sourceUrl = result;
+			const metaImage = new Image();
+			metaImage.onload = () => {
+				naturalWidth = metaImage.naturalWidth;
+				naturalHeight = metaImage.naturalHeight;
+				resetAdjustments();
+				scheduleMetricsUpdate();
+			};
+			metaImage.src = result;
+		};
+		reader.readAsDataURL(file);
+	}
+
+	$: filterStyle = [
+		`brightness(${brightness}%)`,
+		`contrast(${contrast}%)`,
+		`saturate(${saturation}%)`,
+		`grayscale(${grayscale}%)`,
+		`blur(${blur}px)`
+	].join(" ");
+
+	$: transformStyle = `scaleX(${flipHorizontal ? -1 : 1}) scaleY(${flipVertical ? -1 : 1}) rotate(${rotation}deg)`;
+
+	function changeRotation(step: number) {
+		rotation = ((rotation + step) % 360 + 360) % 360;
+	}
+
+	const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+	function updateImageMetrics() {
+		if (!previewContainer || !previewImage) {
+			imageMetrics = { width: 0, height: 0, left: 0, top: 0 };
+			return;
+		}
+
+		const containerRect = previewContainer.getBoundingClientRect();
+		const imageRect = previewImage.getBoundingClientRect();
+
+		const next = {
+			width: imageRect.width,
+			height: imageRect.height,
+			left: imageRect.left - containerRect.left,
+			top: imageRect.top - containerRect.top
+		};
+
+		const epsilon = 0.5;
+		if (
+			Math.abs(next.width - imageMetrics.width) > epsilon ||
+			Math.abs(next.height - imageMetrics.height) > epsilon ||
+			Math.abs(next.left - imageMetrics.left) > epsilon ||
+			Math.abs(next.top - imageMetrics.top) > epsilon
+		) {
+			imageMetrics = next;
+		}
+	}
+
+	function getRelativePoint(event: PointerEvent) {
+		if (!previewImage) return null;
+		const rect = previewImage.getBoundingClientRect();
+		if (!rect.width || !rect.height) return null;
+		const centerX = rect.left + rect.width / 2;
+		const centerY = rect.top + rect.height / 2;
+
+		const dx = event.clientX - centerX;
+		const dy = event.clientY - centerY;
+
+		const theta = (rotation * Math.PI) / 180;
+		const cos = Math.cos(theta);
+		const sin = Math.sin(theta);
+		const sx = flipHorizontal ? -1 : 1;
+		const sy = flipVertical ? -1 : 1;
+
+		const xUnrotated = cos * dx + sin * dy;
+		const yUnrotated = -sin * dx + cos * dy;
+
+		const originalX = xUnrotated / sx;
+		const originalY = yUnrotated / sy;
+
+		const baseWidth = previewImage.clientWidth || rect.width;
+		const baseHeight = previewImage.clientHeight || rect.height;
+		if (!baseWidth || !baseHeight) return null;
+
+		const x = clamp((originalX + baseWidth / 2) / baseWidth, 0, 1);
+		const y = clamp((originalY + baseHeight / 2) / baseHeight, 0, 1);
+
+		return { x, y };
+	}
+
+	function ensureCropBounds(box: CropBox): CropBox {
+		const minSize = 0.01;
+		let left = clamp(Math.min(box.left, box.right), 0, 1);
+		let right = clamp(Math.max(box.left, box.right), 0, 1);
+		let top = clamp(Math.min(box.top, box.bottom), 0, 1);
+		let bottom = clamp(Math.max(box.top, box.bottom), 0, 1);
+
+		if (right - left < minSize) {
+			const center = (left + right) / 2;
+			left = clamp(center - minSize / 2, 0, 1 - minSize);
+			right = left + minSize;
+		}
+
+		if (bottom - top < minSize) {
+			const center = (top + bottom) / 2;
+			top = clamp(center - minSize / 2, 0, 1 - minSize);
+			bottom = top + minSize;
+		}
+
+		return { left, top, right, bottom };
+	}
+
+	function startCrop(event: PointerEvent) {
+		if (!sourceUrl) return;
+		const point = getRelativePoint(event);
+		if (!point) return;
+		isDrawingCrop = true;
+		dragOrigin = point;
+		const overlay = event.currentTarget as HTMLElement;
+		try {
+			overlay.setPointerCapture(event.pointerId);
+		} catch {
+			// ignore capture errors
+		}
+		crop = ensureCropBounds({
+			left: point.x,
+			top: point.y,
+			right: point.x,
+			bottom: point.y
+		});
+	}
+
+	function moveCrop(event: PointerEvent) {
+		if (!isDrawingCrop) return;
+		const point = getRelativePoint(event);
+		if (!point) return;
+		crop = ensureCropBounds({
+			left: dragOrigin.x,
+			top: dragOrigin.y,
+			right: point.x,
+			bottom: point.y
+		});
+	}
+
+	function endCrop(event: PointerEvent) {
+		if (!isDrawingCrop) return;
+		const overlay = event.currentTarget as HTMLElement;
+		try {
+			overlay.releasePointerCapture(event.pointerId);
+		} catch {
+			// ignore release errors
+		}
+		isDrawingCrop = false;
+		crop = ensureCropBounds(crop);
+	}
+
+	onMount(() => {
+		if (typeof ResizeObserver !== "undefined") {
+			resizeObserver = new ResizeObserver(() => updateImageMetrics());
+		}
+		window.addEventListener("resize", updateImageMetrics);
+
+		return () => {
+			window.removeEventListener("resize", updateImageMetrics);
+			resizeObserver?.disconnect();
+			resizeObserver = null;
+		};
+	});
+
+	$: if (resizeObserver && previewContainer) {
+		resizeObserver.observe(previewContainer);
+	}
+
+	$: if (resizeObserver && previewImage) {
+		resizeObserver.observe(previewImage);
+	}
+
+	function handleImageLoad() {
+		scheduleMetricsUpdate();
+	}
+
+	$: cropWidthPx = naturalWidth ? Math.round((crop.right - crop.left) * naturalWidth) : 0;
+	$: cropHeightPx = naturalHeight ? Math.round((crop.bottom - crop.top) * naturalHeight) : 0;
+	$: cropAreaStyle = {
+		left: `${crop.left * 100}%`,
+		top: `${crop.top * 100}%`,
+		width: `${Math.max((crop.right - crop.left) * 100, 0.5)}%`,
+		height: `${Math.max((crop.bottom - crop.top) * 100, 0.5)}%`
+	};
+
+	$: overlayStyle = (() => {
+		const baseWidth = previewImage ? previewImage.clientWidth : 0;
+		const baseHeight = previewImage ? previewImage.clientHeight : 0;
+
+		if (!imageMetrics.width || !imageMetrics.height || !baseWidth || !baseHeight) {
+			return {
+				left: `${imageMetrics.left}px`,
+				top: `${imageMetrics.top}px`,
+				width: `${imageMetrics.width}px`,
+				height: `${imageMetrics.height}px`,
+				transform: ""
+			};
+		}
+
+		const offsetLeft = imageMetrics.left + (imageMetrics.width - baseWidth) / 2;
+		const offsetTop = imageMetrics.top + (imageMetrics.height - baseHeight) / 2;
+
+		return {
+			left: `${offsetLeft}px`,
+			top: `${offsetTop}px`,
+			width: `${baseWidth}px`,
+			height: `${baseHeight}px`,
+			transform: transformStyle
+		};
+	})();
+
+	$: if (previewImage && sourceUrl) {
+		rotation;
+		flipHorizontal;
+		flipVertical;
+		scheduleMetricsUpdate();
+	}
+
+	async function downloadEditedImage() {
+		if (!sourceUrl) {
+			statusMessage = "Upload an image first.";
+			return;
+		}
+
+		statusMessage = "Rendering your image...";
+
+		try {
+			const img = await loadImage(sourceUrl);
+			naturalWidth = img.naturalWidth;
+			naturalHeight = img.naturalHeight;
+
+			const cropLeftPx = crop.left * img.naturalWidth;
+			const cropTopPx = crop.top * img.naturalHeight;
+			const cropWidthPx = Math.max(1, (crop.right - crop.left) * img.naturalWidth);
+			const cropHeightPx = Math.max(1, (crop.bottom - crop.top) * img.naturalHeight);
+
+			const rad = (rotation * Math.PI) / 180;
+			const cos = Math.cos(rad);
+			const sin = Math.sin(rad);
+			const absCos = Math.abs(cos);
+			const absSin = Math.abs(sin);
+
+			const canvas = document.createElement("canvas");
+			canvas.width = Math.round(cropWidthPx * absCos + cropHeightPx * absSin);
+			canvas.height = Math.round(cropWidthPx * absSin + cropHeightPx * absCos);
+			const ctx = canvas.getContext("2d");
+
+			if (!ctx) {
+				statusMessage = "Failed to access the drawing context.";
+				return;
+			}
+
+			ctx.translate(canvas.width / 2, canvas.height / 2);
+			ctx.scale(flipHorizontal ? -1 : 1, flipVertical ? -1 : 1);
+			ctx.rotate(rad);
+
+			const filterList = [
+				`brightness(${brightness / 100})`,
+				`contrast(${contrast / 100})`,
+				`saturate(${saturation / 100})`,
+				`grayscale(${grayscale / 100})`,
+				`blur(${blur}px)`
+			];
+
+			ctx.filter = filterList.join(" ");
+			ctx.drawImage(
+				img,
+				cropLeftPx,
+				cropTopPx,
+				cropWidthPx,
+				cropHeightPx,
+				-cropWidthPx / 2,
+				-cropHeightPx / 2,
+				cropWidthPx,
+				cropHeightPx
+			);
+
+			const mimeType =
+				exportFormat === "png"
+					? "image/png"
+					: exportFormat === "jpeg"
+					? "image/jpeg"
+					: "image/webp";
+
+			const blob: Blob | null = await new Promise((resolve) =>
+				canvas.toBlob(
+					(result) => resolve(result),
+					mimeType,
+					exportFormat === "png" ? undefined : exportQuality
+				)
+			);
+
+			if (!blob) {
+				statusMessage = "Could not export the edited image.";
+				return;
+			}
+
+			const blobUrl = URL.createObjectURL(blob);
+			const anchor = document.createElement("a");
+			anchor.href = blobUrl;
+			anchor.download = `${fileName || "edited-image"}.${exportFormat === "jpeg" ? "jpg" : exportFormat}`;
+			document.body.appendChild(anchor);
+			anchor.click();
+			document.body.removeChild(anchor);
+			URL.revokeObjectURL(blobUrl);
+
+			statusMessage = "Image downloaded.";
+		} catch (error) {
+			console.error(error);
+			statusMessage = "Something went wrong while processing the image.";
+		}
+	}
+
+	function loadImage(src: string) {
+		return new Promise<HTMLImageElement>((resolve, reject) => {
+			const img = new Image();
+			img.crossOrigin = "anonymous";
+			img.onload = () => resolve(img);
+			img.onerror = () => reject(new Error("Failed to load image"));
+			img.src = src;
+		});
+	}
 </script>
 
-<div class="container flex justify-between">
-	<button on:click={() => showFeature('choose-random')} class="flex justify-evenly items-center bg-gray-400 dark:bg-white p-2 my-3 rounded-xl">
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-			<path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
-		  </svg><span class="font-semibold">Choose A Random Image</span>
-	</button>
-</div>
+<section class="py-10">
+	<div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+		<div class="rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/60">
+			<div class="space-y-6">
+				<label class="block space-y-2">
+					<span class="text-sm font-medium text-slate-600 dark:text-slate-300">Upload an image</span>
+					<input
+						type="file"
+						accept="image/*"
+						on:change={handleFileChange}
+						class="w-full cursor-pointer rounded-2xl border border-dashed border-slate-300 bg-white/90 px-4 py-3 text-sm text-slate-600 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
+					/>
+				</label>
 
-<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:flex overflow-hidden rounded-lg">
-	<!-- Add tool here -->
-	<div class="flex lg:flex-col w-full p-4 basis-1 md:flex-row md:justify-around">
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('crop')}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-crop" viewBox="0 0 16 16">
-				<path d="M3.5.5A.5.5 0 0 1 4 1v13h13a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2H3.5a.5.5 0 0 1-.5-.5V4H1a.5.5 0 0 1 0-1h2V1a.5.5 0 0 1 .5-.5m2.5 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4H6.5a.5.5 0 0 1-.5-.5"/>
-			  </svg>Crop
-		</button>
-		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('finetune')}>
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
-			  </svg>Finetune
-		</button>
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('filter')}>
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-			  </svg>Filter
-		</button>
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('annotate')}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-				<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-			  </svg>Annotate
-		</button>
-    </div>
-    <div class="flex justify-center items-center flex-grow w-full bg-inherit rounded-lg">
-        {#if currentFeature === 'crop'}
-            <Crop image={imageUrl} />
-		{:else if currentFeature === 'filter'}
-			<Filter image={imageUrl} />
-		{:else if currentFeature === 'fill'}
-			<FillRedact image={imageUrl}/>
-		{:else if currentFeature === 'finetune'}
-			<Finetune image={imageUrl}/>
-		{:else if currentFeature === 'annotate'}
-			<Annotation image={imageUrl}/>
-		{:else if currentFeature === 'upload-pic'}
-			<div class="flex items-center justify-center w-full">
-				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-					<div class="flex flex-col items-center justify-center pt-5 pb-6">
-						<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-						</svg>
-						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
+				<div class="grid gap-4 sm:grid-cols-2">
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Brightness</span>
+							<span>{brightness}%</span>
+						</div>
+						<input type="range" min="20" max="180" bind:value={brightness} class="w-full accent-indigo-600" />
 					</div>
-					{#if imageUrl}
-						<ImagePreview image={imageUrl} />
-						{:else}
-						<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
+
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Contrast</span>
+							<span>{contrast}%</span>
+						</div>
+						<input type="range" min="20" max="180" bind:value={contrast} class="w-full accent-indigo-600" />
+					</div>
+
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Saturation</span>
+							<span>{saturation}%</span>
+						</div>
+						<input type="range" min="0" max="200" bind:value={saturation} class="w-full accent-indigo-600" />
+					</div>
+
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Grayscale</span>
+							<span>{grayscale}%</span>
+						</div>
+						<input type="range" min="0" max="100" bind:value={grayscale} class="w-full accent-indigo-600" />
+					</div>
+
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Blur</span>
+							<span>{blur}px</span>
+						</div>
+						<input type="range" min="0" max="10" step="0.5" bind:value={blur} class="w-full accent-indigo-600" />
+					</div>
+
+					<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+						<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+							<span>Rotation</span>
+							<span>{rotation}deg</span>
+						</div>
+						<input type="range" min="-180" max="180" step="1" bind:value={rotation} class="w-full accent-indigo-600" />
+						<div class="flex gap-2">
+							<button
+								type="button"
+								class="flex-1 rounded-xl border border-slate-300 bg-white py-2 text-xs font-semibold text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
+								on:click={() => changeRotation(-90)}
+							>
+								-90deg
+							</button>
+							<button
+								type="button"
+								class="flex-1 rounded-xl border border-slate-300 bg-white py-2 text-xs font-semibold text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
+								on:click={() => changeRotation(90)}
+							>
+								+90deg
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="grid gap-3 sm:grid-cols-2">
+					<label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200">
+						<input type="checkbox" bind:checked={flipHorizontal} class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-400" />
+						Flip horizontally
+					</label>
+					<label class="flex items-center gap-3 rounded-xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200">
+						<input type="checkbox" bind:checked={flipVertical} class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-400" />
+						Flip vertically
+					</label>
+				</div>
+
+				<div class="space-y-2 rounded-2xl border border-slate-200/60 bg-slate-50/80 p-4 dark:border-slate-700 dark:bg-slate-800/40">
+					<div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300">
+						<span>Crop</span>
+						<button
+							type="button"
+							class="rounded-lg border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-600 dark:text-slate-200"
+							on:click={resetCrop}
+							disabled={!sourceUrl}
+						>
+							Reset crop
+						</button>
+					</div>
+					<p class="text-xs text-slate-500 dark:text-slate-400">
+						Drag across the preview to choose the area to keep. Works for both landscape and portrait shots.
+					</p>
+					{#if naturalWidth && naturalHeight}
+						<p class="text-xs text-slate-500 dark:text-slate-400">
+							Selection: {cropWidthPx} x {cropHeightPx} px
+						</p>
 					{/if}
-					
-				</label>
+				</div>
+
+				<div class="grid gap-4 sm:grid-cols-2">
+					<label class="space-y-1.5">
+						<span class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+							Export format
+						</span>
+						<select
+							bind:value={exportFormat}
+							class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-2.5 text-sm text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+						>
+							<option value="png">PNG</option>
+							<option value="jpeg">JPEG</option>
+							<option value="webp">WEBP</option>
+						</select>
+					</label>
+
+					{#if exportFormat !== "png"}
+						<label class="space-y-1.5">
+							<span class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+								Quality
+							</span>
+							<input
+								type="range"
+								min="0.2"
+								max="1"
+								step="0.02"
+								bind:value={exportQuality}
+								class="w-full accent-indigo-600"
+							/>
+							<p class="text-xs text-slate-500 dark:text-slate-400">{Math.round(exportQuality * 100)}%</p>
+						</label>
+					{/if}
+				</div>
+
+				<div class="flex flex-wrap gap-3">
+					<button
+						type="button"
+						on:click={downloadEditedImage}
+						class="rounded-2xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 disabled:cursor-not-allowed disabled:bg-indigo-300"
+						disabled={!sourceUrl}
+					>
+						Download edited image
+					</button>
+					<button
+						type="button"
+						on:click={resetAdjustments}
+						class="rounded-2xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400 dark:border-slate-600 dark:text-slate-200"
+						disabled={!sourceUrl}
+					>
+						Reset adjustments
+					</button>
+				</div>
+
+				{#if statusMessage}
+					<p class="text-sm text-slate-500 dark:text-slate-300">{statusMessage}</p>
+				{/if}
 			</div>
-		{:else if currentFeature === 'choose-random'}
-			<ImagePreview image="https://picsum.photos/500/500" />
-		{:else if currentFeature === 'stickers'}
-			<StickerFrame image={imageUrl}/>
-		{:else if currentFeature === 'resize'}
-			<ReSize bind:image = {imageUrl}/>
-		{:else}
-			<div class="flex items-center justify-center w-full">
-				<label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-					<div class="flex flex-col items-center justify-center pt-5 pb-6">
-						<svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-						</svg>
-						<p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-						<p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+		</div>
+
+		<div class="flex flex-col gap-4">
+			<div class="rounded-3xl border border-slate-200 bg-white/80 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/60">
+				{#if sourceUrl}
+					<div
+						class="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800"
+						bind:this={previewContainer}
+					>
+						<img
+							bind:this={previewImage}
+							src={sourceUrl}
+							alt="Editable preview"
+							style={`filter:${filterStyle};transform:${transformStyle};`}
+							class="max-h-[520px] max-w-full origin-center object-contain transition duration-150 ease-in-out"
+							on:load={handleImageLoad}
+						/>
+						{#if imageMetrics.width && imageMetrics.height}
+							<div
+								class="absolute"
+								style={`left:${overlayStyle.left};top:${overlayStyle.top};width:${overlayStyle.width};height:${overlayStyle.height};pointer-events:${sourceUrl ? "auto" : "none"};touch-action:none;transform:${overlayStyle.transform};transform-origin:center center;`}
+							>
+								<div
+									class="absolute inset-0 cursor-crosshair"
+									on:pointerdown|preventDefault={startCrop}
+									on:pointermove|preventDefault={moveCrop}
+									on:pointerup={endCrop}
+									on:pointerleave={endCrop}
+								></div>
+								<div
+									class="absolute border-2 border-indigo-400"
+									style={`left:${cropAreaStyle.left};top:${cropAreaStyle.top};width:${cropAreaStyle.width};height:${cropAreaStyle.height};box-shadow:0 0 0 9999px rgba(15,23,42,0.45);pointer-events:none;`}
+								></div>
+							</div>
+						{/if}
 					</div>
-					{#if imageUrl}
-					<ImagePreview image={imageUrl} />
-					{:else}
-					<input id="dropzone-file" type="file" accept="image/*" class="hidden" on:change={handleFileChange}/>
-			{/if}
-				</label>
+				{:else}
+					<div class="flex min-h-[360px] items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 text-sm text-slate-500 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-400">
+						Upload a photo to start editing. Adjust sliders and orientation, then download your polished image.
+					</div>
+				{/if}
 			</div>
-        {/if}
+
+			<div class="rounded-3xl border border-slate-200 bg-white/80 p-6 text-sm text-slate-600 shadow-sm dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300">
+				The adjustments preview updates live in your browser. When downloading, all filters and transforms are
+				applied on a canvas so the exported image matches this preview.
+			</div>
+		</div>
 	</div>
-	<div class="flex lg:flex-col w-full p-4 border-gray-300 basis-1 md:flex-row md:justify-around">
-        <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('fill')}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-paint-bucket" viewBox="0 0 16 16">
-				<path d="M6.192 2.78c-.458-.677-.927-1.248-1.35-1.643a3 3 0 0 0-.71-.515c-.217-.104-.56-.205-.882-.02-.367.213-.427.63-.43.896-.003.304.064.664.173 1.044.196.687.556 1.528 1.035 2.402L.752 8.22c-.277.277-.269.656-.218.918.055.283.187.593.36.903.348.627.92 1.361 1.626 2.068.707.707 1.441 1.278 2.068 1.626.31.173.62.305.903.36.262.05.64.059.918-.218l5.615-5.615c.118.257.092.512.05.939-.03.292-.068.665-.073 1.176v.123h.003a1 1 0 0 0 1.993 0H14v-.057a1 1 0 0 0-.004-.117c-.055-1.25-.7-2.738-1.86-3.494a4 4 0 0 0-.211-.434c-.349-.626-.92-1.36-1.627-2.067S8.857 3.052 8.23 2.704c-.31-.172-.62-.304-.903-.36-.262-.05-.64-.058-.918.219zM4.16 1.867c.381.356.844.922 1.311 1.632l-.704.705c-.382-.727-.66-1.402-.813-1.938a3.3 3.3 0 0 1-.131-.673q.137.09.337.274m.394 3.965c.54.852 1.107 1.567 1.607 2.033a.5.5 0 1 0 .682-.732c-.453-.422-1.017-1.136-1.564-2.027l1.088-1.088q.081.181.183.365c.349.627.92 1.361 1.627 2.068.706.707 1.44 1.278 2.068 1.626q.183.103.365.183l-4.861 4.862-.068-.01c-.137-.027-.342-.104-.608-.252-.524-.292-1.186-.8-1.846-1.46s-1.168-1.32-1.46-1.846c-.147-.265-.225-.47-.251-.607l-.01-.068zm2.87-1.935a2.4 2.4 0 0 1-.241-.561c.135.033.324.11.562.241.524.292 1.186.8 1.846 1.46.45.45.83.901 1.118 1.31a3.5 3.5 0 0 0-1.066.091 11 11 0 0 1-.76-.694c-.66-.66-1.167-1.322-1.458-1.847z"/>
-			  </svg>Fill
-		</button>
-		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('stickers')}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sticky-fill" viewBox="0 0 16 16">
-				<path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1zm6 8.5a1 1 0 0 1 1-1h4.396a.25.25 0 0 1 .177.427l-5.146 5.146a.25.25 0 0 1-.427-.177z"/>
-			  </svg>Stickers
-		</button>
-		<button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => showFeature('resize')}>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-resize" viewBox="0 0 16 16">
-				<path d="M0 4.5A2.5 2.5 0 0 1 2.5 2h11A2.5 2.5 0 0 1 16 4.5v7a2.5 2.5 0 0 1-2.5 2.5h-11A2.5 2.5 0 0 1 0 11.5zM2.5 3A1.5 1.5 0 0 0 1 4.5v7A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 13.5 3zm10.854 4.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708l3-3a.5.5 0 0 1 .708 0m0 2.5a.5.5 0 0 1 0 .708l-.5.5a.5.5 0 0 1-.708-.708l.5-.5a.5.5 0 0 1 .708 0"/>
-			  </svg>Resize
-		</button>
-		<!-- <button class="flex flex-col justify-center items-center border rounded-lg text-white bg-slate-400 dark:bg-inherit dark:text-white p-2 cursor-pointer mb-2 hover:scale-110" on:click={() => {uploadImage(), showFeature('upload-pic')}}>
-			<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
-			  </svg>Upload
-		</button> -->
-    </div>
-</div>
-
-<style>
-	.card{
-		/* width:max-content; */
-		height:max-content;
-	}
-
-</style>
+</section>

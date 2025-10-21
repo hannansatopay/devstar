@@ -1,320 +1,1480 @@
-<script>
-    import { onMount } from 'svelte';
-   
-    let calculators = [
-      {
-        title: "ROI Calculator",
-        description: "Calculate returns on investments to assess profitability.",
-        id: "roi",
-      },
-      {
-        title: "Currency Converter",
-        description: "Quickly convert currencies using live exchange rates.",
-        id: "currency",
-      },
-      {
-        title: "Salary Calculator",
-        description: "Estimate your monthly or annual salary after deductions.",
-        id: "salary",
-      },
-      {
-        title: "GST Calculator",
-        description: "Calculate Goods and Services Tax for your transactions.",
-        id: "gst",
-      },
-      {
-        title: "Home Loan Calculator",
-        description: "Estimate your home loan EMIs and total payment.",
-        id: "homeLoan",
-      },
-      {
-        title: "TVM Calculator",
-        description: "Plan your financial future by calculating Time Value of Money.",
-        id: "tvm",
-      },
-      {
-        title: "Stock Return Calculator",
-        description: "Estimate your investment’s growth with our stock return calculator.",
-        id: "stockCalculator",
-      },
-    ];
-   
-    let selectedCalculator = null;
-   
-    // ROI Calculator variables and function
-    let initialInvestment = 0, finalValue = 0, roi = 0;
-    function calculateROI() {
-      roi = ((finalValue - initialInvestment) / initialInvestment) * 100;
-    }
-   
-    // Currency Converter variables and function (assuming static exchange rate for simplicity)
-    let amount = 0, convertedAmount = 0, exchangeRate = 1.2; // Example: USD to EUR
-    function convertCurrency() {
-      convertedAmount = amount * exchangeRate;
-    }
-   
-    // Salary Calculator variables and function
-    let grossSalary = 0, deductions = 0, netSalary = 0;
-    function calculateNetSalary() {
-      netSalary = grossSalary - deductions;
-    }
-   
-    // GST Calculator variables and function
-    let priceWithoutGST = 0, gstRate = 18, priceWithGST = 0;
-    function calculateGST() {
-      priceWithGST = priceWithoutGST * (1 + gstRate / 100);
-    }
-   
-    // Home Loan Calculator variables and function
-    let loanAmount = 0, annualInterestRate = 0, loanTenure = 0, emi = 0, totalPayment = 0;
-    function calculateHomeLoan() {
-      let monthlyInterestRate = annualInterestRate / 12 / 100;
-      let numberOfPayments = loanTenure * 12;
-      emi = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -numberOfPayments));
-      totalPayment = emi * numberOfPayments;
-    }
-   
-    // TVM Calculator variables and function
-    let presentValue = 0, interestRate = 0, periods = 0, futureValue = 0;
-    function calculateFutureValue() {
-      futureValue = presentValue * Math.pow(1 + interestRate / 100, periods);
-    }
-   
-    //stock return calculator variable and function
-     let initialPrice = 0;
-      let finalPrice = 0;
-      let numberOfShares = 0;
-      let totalReturn = 0;
+<script lang="ts">
+	const calculators = [
+		{
+			id: "roi",
+			title: "ROI Calculator",
+			description: "Evaluate how an investment performed.",
+			icon: "ROI",
+		},
+		{
+			id: "currency",
+			title: "Currency Converter",
+			description: "Convert between currencies with your own rate.",
+			icon: "FX",
+		},
+		{
+			id: "salary",
+			title: "Salary Calculator",
+			description: "Estimate your take-home pay after deductions.",
+			icon: "PAY",
+		},
+		{
+			id: "gst",
+			title: "GST Calculator",
+			description: "Apply Goods and Services Tax to a price.",
+			icon: "GST",
+		},
+		{
+			id: "homeLoan",
+			title: "Home Loan Calculator",
+			description: "Plan monthly payments for a home loan.",
+			icon: "HOME",
+		},
+		{
+			id: "tvm",
+			title: "TVM Calculator",
+			description: "Project future value using time value of money.",
+			icon: "TVM",
+		},
+		{
+			id: "stock",
+			title: "Stock Return Calculator",
+			description: "Measure total and percentage return on a trade.",
+			icon: "STK",
+		},
+	] as const;
 
-      function calculateReturn() {
-        totalReturn = (finalPrice - initialPrice) * numberOfShares;
-      }
+	type CalculatorId = (typeof calculators)[number]["id"];
 
-    function selectCalculator(id) {
-      selectedCalculator = id;
-    }
+	const currencyCodes = ["USD", "EUR", "GBP", "INR", "AUD", "CAD"] as const;
+	type CurrencyCode = (typeof currencyCodes)[number];
 
-  </script>
-   
-  <style>
-    .card {
-      cursor: pointer;
-    }
-    .calculator {
-      border-radius: 8px;
-      max-width: 400px;
-      box-shadow: 0px -10px 0px rgb(24, 14, 14), 0px 10px 0px rgb(24, 14, 14);
-    }
-    .calculator label {
-      display: block;
-      margin-top: 8px;
-    }
-    .calculator input {
-      margin-top: 4px;
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-  </style>
-   
-  <!-- <header class="bg-white py-4 shadow-md sticky top-0 z-10">
-    <div class="container mx-auto px-4 flex flex-wrap justify-between items-center text-[#374151] p-3">
-      <h1 class="text-2xl font-bold">Craftlab</h1>
-      <div class="flex space-x-4 font-semibold text-base md:text-1xl">
-        <h1 class="text-blue-700">Home</h1>
-        <h1>Free Trial</h1>
-        <h1>Information</h1>
-        <h1>Calculators</h1>
-        <h1>Contact Us</h1>
-      </div>
-    </div>
-  </header> -->
-   
-  <div class="container mx-auto my-5 p-5">
-    <section class="bg-gray-50">
-      <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:px-12">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
-          Powerful Financial Calculators at Your Fingertips
-        </h1>
-        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48">
-          Optimize your financial decisions with our comprehensive suite of online calculators.
-          Explore our user-friendly tools and harness the full potential of your financial planning.
-        </p>
-        <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
-          <div class="relative w-full p-2 border bg-white border-gray-300 rounded-lg">
-            <div class="flex absolute inset-y-0 items-center text-gray-500 left-0 pl-2.5 pointer-events-none">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-              </svg>
-            </div>
-            <input class="hover:border-none block w-full disabled:cursor-not-allowed disabled:opacity-50 pl-11 bg-white text-gray-900 sm:text-base rounded-lg focus:outline-none focus:border-gray-300" placeholder="Search" type="search" />
-          </div>
-        </div>
-      </div>
-    </section>
-   
-    <section class="container mx-auto my-5 p-5">
-      <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {#each calculators as calculator}
-          <div class="card block bg-white shadow-md hover:shadow-lg rounded-lg overflow-hidden hover:bg-gray-100" on:click={() => selectCalculator(calculator.id)}>
-            <div class="card-content p-4">
-              <h5 class="text-lg font-semibold tracking-tight text-gray-900 dark:text-white p-1">
-                {calculator.title}
-              </h5>
-              <p class="card-description text-[#6B7280] p-2 text-base">
-                {calculator.description}
-              </p>
-            </div>
-          </div>
-        {/each}
-      </div>
-    </section>
-   
-    {#if selectedCalculator === 'roi'}
-        <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-        <h2 class="text-2xl font-bold mb-4 text-center py-2 rounded-lg">ROI Calculator</h2>
-    
-        <label class="block mb-2">
-            Initial Investment:
-            <input type="number" bind:value={initialInvestment} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-        </label>
-        <label class="block mb-4">
-            Final Value:
-            <input type="number" bind:value={finalValue} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-        </label>
-        <button on:click={calculateROI} class="bg-blue-500 text-white py-2 px-4 rounded w-full font-bold">
-            Calculate ROI
-        </button>
-        <p class="mt-4 text-lg font-semibold">ROI: {roi.toFixed(2)}%</p>
-        </div>
-     {/if}
+	const currencyOptions = [
+		{ code: "USD", label: "USD - US Dollar" },
+		{ code: "EUR", label: "EUR - Euro" },
+		{ code: "GBP", label: "GBP - British Pound" },
+		{ code: "INR", label: "INR - Indian Rupee" },
+		{ code: "AUD", label: "AUD - Australian Dollar" },
+		{ code: "CAD", label: "CAD - Canadian Dollar" },
+	] as const satisfies Array<{ code: CurrencyCode; label: string }>;
 
-    {#if selectedCalculator === 'stockCalculator'}
-        <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-          <h2 class="text-2xl font-bold mb-4 text-center  py-2 rounded-lg">Stock Return Converter</h2>
-            <label for="initialPrice"  class="block mb-4">Initial Price per Share
-              <input type="number" id="initialPrice" bind:value={initialPrice} min="0" step="0.01" class="border border-gray-300 rounded w-full py-2 px-3 mt-1"/>
-            </label>
+	type RoiOutcome = {
+		roi: number | null;
+		gain: number | null;
+		endingValue: number | null;
+		error: string;
+	};
 
-            <label for="finalPrice"  class="block mb-4">Final Price per Share
-              <input type="number" id="finalPrice" bind:value={finalPrice} min="0" step="0.01" class="border border-gray-300 rounded w-full py-2 px-3 mt-1"/>
-            </label> 
-        
-            <label for="numberOfShares"  class="block mb-4">Number of Shares
-              <input type="number" id="numberOfShares" bind:value={numberOfShares} min="0" class="border border-gray-300 rounded w-full py-2 px-3 mt-1"/>
-            </label>
-                    
-            <button on:click={calculateReturn} class="bg-teal-900 text-white py-2 px-4 rounded w-full font-bold">Calculate Return</button>
-                    
-            {#if totalReturn !== 0}
-              <div class="result mt-5">
-                Total Return: ₹{totalReturn.toFixed(2)}
-              </div>
-            {/if}
-        </div>
-    {/if}
+	type CurrencyOutcome = {
+		converted: number;
+		error: string;
+	};
 
-  {#if selectedCalculator === 'currency'}
-    <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-center  py-2 rounded-lg">Currency Converter</h2>
-   
-      <label class="block mb-2">
-        Amount in USD:
-        <input type="number" bind:value={amount} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <button on:click={convertCurrency} class="bg-teal-600 text-white py-2 px-4 rounded w-full font-bold">
-        Convert to EUR
-      </button>
-        <p class="mt-4 text-lg font-semibold">Converted Amount: {convertedAmount.toFixed(2)} EUR</p>
-    </div>
-  {/if}
-   
-  {#if selectedCalculator === 'salary'}
-    <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-center   py-2 rounded-lg">Salary Calculator</h2>
-   
-      <label class="block mb-2">
-        Gross Salary:
-        <input type="number" bind:value={grossSalary} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        Deductions:
-        <input type="number" bind:value={deductions} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <button on:click={calculateNetSalary} class="bg-green-500 text-white py-2 px-4 rounded w-full font-bold">
-        Calculate Net Salary
-      </button>
-        <p class="mt-4 text-lg font-semibold">Net Salary: {netSalary.toFixed(2)}</p>
-    </div>
-  {/if}
-   
-  {#if selectedCalculator === 'gst'}
-    <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-center py-2 rounded-lg">GST Calculator</h2>
-   
-      <label class="block mb-2">
-        Price without GST:
-        <input type="number" bind:value={priceWithoutGST} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        GST Rate (%):
-        <input type="number" bind:value={gstRate} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <button on:click={calculateGST} class="bg-yellow-400 text-white py-2 px-4 rounded w-full font-bold">
-        Calculate Price with GST
-      </button>
-        <p class="mt-4 text-lg font-semibold">Price with GST: {priceWithGST.toFixed(2)}</p>
-    </div>
-  {/if}
-   
-  {#if selectedCalculator === 'homeLoan'}
-    <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-center   py-2 rounded-lg">Home Loan Calculator</h2>
-   
-      <label class="block mb-2">
-        Loan Amount:
-        <input type="number" bind:value={loanAmount} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        Annual Interest Rate (%):
-        <input type="number" bind:value={annualInterestRate} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        Loan Tenure (years):
-        <input type="number" bind:value={loanTenure} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <button on:click={calculateHomeLoan} class="bg-purple-500 text-white py-2 px-4 rounded w-full font-bold">
-        Calculate EMI
-      </button>
-        <p class="mt-4 text-lg font-semibold">EMI: {emi.toFixed(2)}</p>
-      <p>Total Payment: {totalPayment.toFixed(2)}</p>
-    </div>
-  {/if}
-   
-  {#if selectedCalculator === 'tvm'}
-    <div class="calculator p-6 rounded-lg shadow-lg max-w-md mx-auto mt-10 mb-10">
-      <h2 class="text-2xl font-bold mb-4 text-center  py-2 rounded-lg">TVM Calculator</h2>
-   
-      <label class="block mb-2">
-        Present Value:
-        <input type="number" bind:value={presentValue} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        Interest Rate (%):
-        <input type="number" bind:value={interestRate} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <label class="block mb-2">
-        Number of Periods:
-        <input type="number" bind:value={periods} class="border border-gray-300 rounded w-full py-2 px-3 mt-1" />
-      </label>
-      <button on:click={calculateFutureValue} class="bg-indigo-500 text-white py-2 px-4 rounded w-full font-bold">
-        Calculate Future Value
-      </button>
-        <p class="mt-4 text-lg font-semibold">Future Value: {futureValue.toFixed(2)}</p>
-    </div>
-  {/if}
-   
-    <footer class="bg-gray-100 py-4 text-center mt-10">
-      <p class="text-gray-600">&copy; All rights reserved.</p>
-    </footer>
-  </div>
+	type SalaryOutcome = {
+		net: number;
+		deductionRate: number;
+		takeHomeShare: number;
+		error: string;
+	};
+
+	type GstOutcome = {
+		taxAmount: number;
+		priceWith: number;
+		error: string;
+	};
+
+	type HomeLoanOutcome = {
+		emi: number;
+		totalPayment: number;
+		totalInterest: number;
+		totalMonths: number;
+		error: string;
+	};
+
+	type TvmOutcome = {
+		futureValue: number;
+		growth: number;
+		error: string;
+	};
+
+	type StockOutcome = {
+		totalReturn: number;
+		percentageReturn: number | null;
+		totalValue: number;
+		totalCost: number;
+		error: string;
+	};
+
+	const currencyFormatters = new Map<CurrencyCode, Intl.NumberFormat>();
+
+	function formatCurrency(value: number, code: CurrencyCode) {
+		if (!currencyFormatters.has(code)) {
+			currencyFormatters.set(
+				code,
+				new Intl.NumberFormat("en-US", {
+					style: "currency",
+					currency: code,
+					maximumFractionDigits: 2,
+				}),
+			);
+		}
+		const formatter = currencyFormatters.get(code)!;
+		if (!Number.isFinite(value)) {
+			return formatter.format(0);
+		}
+		return formatter.format(value);
+	}
+
+	const numberFormatter = new Intl.NumberFormat("en-US", {
+		maximumFractionDigits: 2,
+	});
+
+	const percentageFormatter = new Intl.NumberFormat("en-US", {
+		maximumFractionDigits: 2,
+	});
+
+	function formatNumber(value: number) {
+		if (!Number.isFinite(value)) {
+			return "0";
+		}
+		return numberFormatter.format(value);
+	}
+
+	function formatPercentage(value: number) {
+		if (!Number.isFinite(value)) {
+			return "0%";
+		}
+		return `${percentageFormatter.format(value)}%`;
+	}
+
+	function trendClass(value: number | null) {
+		if (value === null) {
+			return "text-slate-900 dark:text-white";
+		}
+		return value >= 0
+			? "text-emerald-600 dark:text-emerald-300"
+			: "text-red-600 dark:text-red-300";
+	}
+
+	function toNumber(value: number | string): number {
+		if (typeof value === "number") {
+			return Number.isFinite(value) ? value : 0;
+		}
+		if (typeof value === "string" && value.trim() !== "") {
+			const parsed = Number(value);
+			return Number.isFinite(parsed) ? parsed : 0;
+		}
+		return 0;
+	}
+
+	const inputClasses =
+		"w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40";
+
+	const baseCardClasses =
+		"rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60";
+
+	const subtleCardClasses =
+		"rounded-2xl border border-slate-200/70 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-800/40";
+
+	let selectedCalculator: CalculatorId = calculators[0].id;
+
+	let roiForm = {
+		initialInvestment: 10_000,
+		finalValue: 12_500,
+		currency: "USD" as CurrencyCode,
+	};
+	$: roiOutcome = computeRoi(roiForm);
+
+	let currencyForm = {
+		amount: 1_000,
+		exchangeRate: 0.92,
+		baseCurrency: "USD" as CurrencyCode,
+		targetCurrency: "EUR" as CurrencyCode,
+	};
+	$: currencyOutcome = computeCurrency(currencyForm);
+
+	let salaryForm = {
+		grossSalary: 75_000,
+		deductions: 15_000,
+		currency: "USD" as CurrencyCode,
+	};
+	$: salaryOutcome = computeSalary(salaryForm);
+
+	let gstForm = {
+		priceWithout: 1_000,
+		gstRate: 18,
+		currency: "USD" as CurrencyCode,
+	};
+	$: gstOutcome = computeGst(gstForm);
+
+	let homeLoanForm = {
+		principal: 350_000,
+		annualRate: 6.5,
+		tenureYears: 30,
+		currency: "USD" as CurrencyCode,
+	};
+	$: homeLoanOutcome = computeHomeLoan(homeLoanForm);
+
+	let tvmForm = {
+		presentValue: 15_000,
+		interestRate: 5,
+		periods: 10,
+		currency: "USD" as CurrencyCode,
+	};
+	$: tvmOutcome = computeFutureValue(tvmForm);
+
+	let stockForm = {
+		initialPrice: 100,
+		finalPrice: 140,
+		shares: 50,
+		currency: "USD" as CurrencyCode,
+	};
+	$: stockOutcome = computeStockReturn(stockForm);
+
+	function computeRoi(form: typeof roiForm): RoiOutcome {
+		const initial = Math.max(toNumber(form.initialInvestment), 0);
+		const ending = Math.max(toNumber(form.finalValue), 0);
+
+		if (initial <= 0) {
+			return {
+				roi: null,
+				gain: null,
+				endingValue: null,
+				error: "Initial investment must be greater than zero.",
+			};
+		}
+
+		const gain = ending - initial;
+		const roi = (gain / initial) * 100;
+
+		return { roi, gain, endingValue: ending, error: "" };
+	}
+
+	function computeCurrency(form: typeof currencyForm): CurrencyOutcome {
+		const amount = Math.max(toNumber(form.amount), 0);
+		const rate = toNumber(form.exchangeRate);
+
+		if (rate <= 0) {
+			return {
+				converted: 0,
+				error: "Exchange rate must be greater than zero.",
+			};
+		}
+
+		return { converted: amount * rate, error: "" };
+	}
+
+	function computeSalary(form: typeof salaryForm): SalaryOutcome {
+		const gross = Math.max(toNumber(form.grossSalary), 0);
+		const deductions = Math.max(toNumber(form.deductions), 0);
+
+		if (gross <= 0) {
+			return {
+				net: 0,
+				deductionRate: 0,
+				takeHomeShare: 0,
+				error: "Gross salary must be greater than zero.",
+			};
+		}
+
+		if (deductions > gross) {
+			return {
+				net: 0,
+				deductionRate: 100,
+				takeHomeShare: 0,
+				error: "Deductions cannot exceed gross salary.",
+			};
+		}
+
+		const net = gross - deductions;
+		const deductionRate = (deductions / gross) * 100;
+		const takeHomeShare = (net / gross) * 100;
+
+		return { net, deductionRate, takeHomeShare, error: "" };
+	}
+
+	function computeGst(form: typeof gstForm): GstOutcome {
+		const price = Math.max(toNumber(form.priceWithout), 0);
+		const rate = Math.max(toNumber(form.gstRate), 0);
+
+		if (price <= 0) {
+			return {
+				taxAmount: 0,
+				priceWith: 0,
+				error: "Enter a price greater than zero.",
+			};
+		}
+
+		const taxAmount = price * (rate / 100);
+		const priceWith = price + taxAmount;
+
+		return { taxAmount, priceWith, error: "" };
+	}
+
+	function computeHomeLoan(form: typeof homeLoanForm): HomeLoanOutcome {
+		const principal = Math.max(toNumber(form.principal), 0);
+		const annualRate = Math.max(toNumber(form.annualRate), 0);
+		const tenureYears = Math.max(toNumber(form.tenureYears), 0);
+
+		if (principal <= 0) {
+			return {
+				emi: 0,
+				totalPayment: 0,
+				totalInterest: 0,
+				totalMonths: 0,
+				error: "Loan amount must be greater than zero.",
+			};
+		}
+
+		const totalMonths = Math.round(tenureYears * 12);
+
+		if (totalMonths <= 0) {
+			return {
+				emi: 0,
+				totalPayment: 0,
+				totalInterest: 0,
+				totalMonths: 0,
+				error: "Provide a loan tenure greater than zero.",
+			};
+		}
+
+		if (annualRate === 0) {
+			const emi = principal / totalMonths;
+			return {
+				emi,
+				totalPayment: principal,
+				totalInterest: 0,
+				totalMonths,
+				error: "",
+			};
+		}
+
+		const monthlyRate = annualRate / 12 / 100;
+		const factor = Math.pow(1 + monthlyRate, totalMonths);
+
+		if (!Number.isFinite(factor) || factor <= 1) {
+			return {
+				emi: 0,
+				totalPayment: 0,
+				totalInterest: 0,
+				totalMonths,
+				error: "Unable to compute EMI with the provided values.",
+			};
+		}
+
+		const emi = (principal * monthlyRate * factor) / (factor - 1);
+		const totalPayment = emi * totalMonths;
+		const totalInterest = totalPayment - principal;
+
+		return { emi, totalPayment, totalInterest, totalMonths, error: "" };
+	}
+
+	function computeFutureValue(form: typeof tvmForm): TvmOutcome {
+		const presentValue = Math.max(toNumber(form.presentValue), 0);
+		const interestRate = toNumber(form.interestRate);
+		const periods = Math.max(toNumber(form.periods), 0);
+
+		if (presentValue <= 0) {
+			return {
+				futureValue: 0,
+				growth: 0,
+				error: "Present value must be greater than zero.",
+			};
+		}
+
+		if (periods < 0) {
+			return {
+				futureValue: 0,
+				growth: 0,
+				error: "Number of periods cannot be negative.",
+			};
+		}
+
+		const ratePerPeriod = interestRate / 100;
+		const growthFactor = Math.pow(1 + ratePerPeriod, periods);
+
+		if (!Number.isFinite(growthFactor)) {
+			return {
+				futureValue: 0,
+				growth: 0,
+				error: "Unable to calculate future value with the provided inputs.",
+			};
+		}
+
+		const futureValue = presentValue * growthFactor;
+		const growth = futureValue - presentValue;
+
+		return { futureValue, growth, error: "" };
+	}
+
+	function computeStockReturn(form: typeof stockForm): StockOutcome {
+		const initialPrice = Math.max(toNumber(form.initialPrice), 0);
+		const finalPrice = Math.max(toNumber(form.finalPrice), 0);
+		const shares = Math.max(toNumber(form.shares), 0);
+
+		if (initialPrice <= 0) {
+			return {
+				totalReturn: 0,
+				percentageReturn: null,
+				totalValue: 0,
+				totalCost: 0,
+				error: "Initial share price must be greater than zero.",
+			};
+		}
+
+		if (shares <= 0) {
+			return {
+				totalReturn: 0,
+				percentageReturn: null,
+				totalValue: 0,
+				totalCost: 0,
+				error: "Number of shares must be greater than zero.",
+			};
+		}
+
+		const totalCost = initialPrice * shares;
+		const totalValue = finalPrice * shares;
+		const totalReturn = totalValue - totalCost;
+		const percentageReturn =
+			((finalPrice - initialPrice) / initialPrice) * 100;
+
+		return {
+			totalReturn,
+			percentageReturn,
+			totalValue,
+			totalCost,
+			error: "",
+		};
+	}
+</script>
+
+<section class="mx-auto space-y-6 px-4 py-6">
+	<div class="grid gap-8 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
+		<aside
+			class="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60"
+		>
+			<h2 class="text-lg font-semibold text-slate-900 dark:text-white">
+				Choose a calculator
+			</h2>
+			<p class="mt-1 text-sm text-slate-600 dark:text-slate-300">
+				Pick a focus area to open its calculator and results panel.
+			</p>
+
+			<div class="mt-6 grid gap-3">
+				{#each calculators as item}
+					<button
+						type="button"
+						class={`flex w-full items-start gap-3 rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-left text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50/80 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-200 dark:hover:border-indigo-500/50 dark:hover:bg-indigo-900/20 ${selectedCalculator === item.id ? "border-indigo-400 bg-indigo-50/90 text-indigo-700 dark:border-indigo-400/80 dark:text-indigo-200" : ""}`}
+						on:click={() => (selectedCalculator = item.id)}
+					>
+						<span class="text-xl leading-none">{item.icon}</span>
+						<span>
+							<span class="block text-sm font-semibold"
+								>{item.title}</span
+							>
+							<span
+								class="mt-1 block text-xs text-slate-500 dark:text-slate-400"
+							>
+								{item.description}
+							</span>
+						</span>
+					</button>
+				{/each}
+			</div>
+		</aside>
+
+		<div class="space-y-8">
+			{#if selectedCalculator === "roi"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Return on Investment
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Compare your starting amount to the ending value
+								to see gain/loss and percentage ROI.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Initial investment
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={roiForm.initialInvestment}
+								placeholder="e.g. 10000"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Ending value
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={roiForm.finalValue}
+								placeholder="e.g. 12500"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={roiForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if roiOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{roiOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-3">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Net gain / loss
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(roiOutcome.gain)}`}
+								>
+									{formatCurrency(
+										roiOutcome.gain ?? 0,
+										roiForm.currency,
+									)}
+								</p>
+							</div>
+
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									ROI
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(roiOutcome.roi)}`}
+								>
+									{formatPercentage(roiOutcome.roi ?? 0)}
+								</p>
+							</div>
+
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Ending value
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										roiOutcome.endingValue ?? 0,
+										roiForm.currency,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							ROI assumes no additional contributions or
+							withdrawals beyond the initial investment.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "currency"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Currency Converter
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Set your own exchange rate to convert a base
+								currency into a target currency.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Amount
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={currencyForm.amount}
+								placeholder="e.g. 1000"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Exchange rate
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.0001"
+								class={inputClasses}
+								bind:value={currencyForm.exchangeRate}
+								placeholder="e.g. 0.92"
+							/>
+							<span
+								class="block text-xs text-slate-500 dark:text-slate-400"
+							>
+								Rate represents 1 {currencyForm.baseCurrency} = X
+								{currencyForm.targetCurrency}.
+							</span>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Base currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={currencyForm.baseCurrency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Target currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={currencyForm.targetCurrency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if currencyOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{currencyOutcome.error}
+						</p>
+					{:else}
+						<div class={`${subtleCardClasses} mt-6`}>
+							<p
+								class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+							>
+								Converted amount
+							</p>
+							<p
+								class="mt-2 text-3xl font-semibold text-slate-900 dark:text-white"
+							>
+								{formatCurrency(
+									currencyOutcome.converted,
+									currencyForm.targetCurrency,
+								)}
+							</p>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							Use a live exchange rate source for precise
+							conversions. Fees and spreads from your bank or
+							broker are not included here.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "salary"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Salary Calculator
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Estimate take-home pay after deductions like
+								taxes, insurance, and retirement contributions.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Gross salary
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={salaryForm.grossSalary}
+								placeholder="Annual, monthly, or per pay period"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Total deductions
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={salaryForm.deductions}
+								placeholder="Taxes, insurance, retirements"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={salaryForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if salaryOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{salaryOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-3">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Take-home pay
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										salaryOutcome.net,
+										salaryForm.currency,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Deduction rate
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(-salaryOutcome.deductionRate)}`}
+								>
+									{formatPercentage(
+										salaryOutcome.deductionRate,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Take-home ratio
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(salaryOutcome.takeHomeShare)}`}
+								>
+									{formatPercentage(
+										salaryOutcome.takeHomeShare,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							Adjust the numbers for your pay cadence. For
+							additional insights separate mandatory and voluntary
+							deductions.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "gst"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								GST Calculator
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Compute the tax amount and the price inclusive
+								of Goods and Services Tax.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Price before GST
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={gstForm.priceWithout}
+								placeholder="e.g. 1000"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								GST rate (%)
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={gstForm.gstRate}
+								placeholder="e.g. 18"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={gstForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if gstOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{gstOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-2">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									GST amount
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										gstOutcome.taxAmount,
+										gstForm.currency,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Price with GST
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										gstOutcome.priceWith,
+										gstForm.currency,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							GST rates can vary based on the type of goods or
+							services. Confirm the correct rate with your local
+							regulations.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "homeLoan"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Home Loan Calculator
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Estimate your monthly EMI, total payment, and
+								total interest for a fixed-rate loan.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Loan amount
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={homeLoanForm.principal}
+								placeholder="e.g. 350000"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Annual interest rate (%)
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={homeLoanForm.annualRate}
+								placeholder="e.g. 6.5"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Tenure (years)
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.1"
+								class={inputClasses}
+								bind:value={homeLoanForm.tenureYears}
+								placeholder="e.g. 30"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={homeLoanForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if homeLoanOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{homeLoanOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-3">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Monthly EMI
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										homeLoanOutcome.emi,
+										homeLoanForm.currency,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Total interest
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										homeLoanOutcome.totalInterest,
+										homeLoanForm.currency,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Total paid
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										homeLoanOutcome.totalPayment,
+										homeLoanForm.currency,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							Calculation assumes a fixed interest rate with equal
+							monthly payments over
+							{formatNumber(homeLoanOutcome.totalMonths)} months.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "tvm"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Time Value of Money (Future Value)
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Estimate how much a present value grows with
+								compound interest over multiple periods.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Present value
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={tvmForm.presentValue}
+								placeholder="e.g. 15000"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Interest rate per period (%)
+							</span>
+							<input
+								type="number"
+								step="0.01"
+								class={inputClasses}
+								bind:value={tvmForm.interestRate}
+								placeholder="e.g. 5"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Number of periods
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="1"
+								class={inputClasses}
+								bind:value={tvmForm.periods}
+								placeholder="e.g. 10"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={tvmForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if tvmOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{tvmOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-2">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Future value
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										tvmOutcome.futureValue,
+										tvmForm.currency,
+									)}
+								</p>
+							</div>
+
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Total growth
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(tvmOutcome.growth)}`}
+								>
+									{formatCurrency(
+										tvmOutcome.growth,
+										tvmForm.currency,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							This calculation assumes growth compounded once per
+							period. For monthly or quarterly compounding adjust
+							the interest rate and periods accordingly.
+						</p>
+					{/if}
+				</div>
+			{/if}
+
+			{#if selectedCalculator === "stock"}
+				<div class={baseCardClasses}>
+					<div
+						class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div>
+							<h2
+								class="text-2xl font-semibold text-slate-900 dark:text-white"
+							>
+								Stock Return Calculator
+							</h2>
+							<p
+								class="mt-1 text-sm text-slate-600 dark:text-slate-300"
+							>
+								Calculate the gain/loss, return percentage, and
+								ending value for a stock position.
+							</p>
+						</div>
+					</div>
+
+					<form
+						class="mt-6 grid gap-6 sm:grid-cols-2"
+						on:submit|preventDefault
+					>
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Initial price per share
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={stockForm.initialPrice}
+								placeholder="e.g. 100"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Final price per share
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="0.01"
+								class={inputClasses}
+								bind:value={stockForm.finalPrice}
+								placeholder="e.g. 140"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Number of shares
+							</span>
+							<input
+								type="number"
+								min="0"
+								step="1"
+								class={inputClasses}
+								bind:value={stockForm.shares}
+								placeholder="e.g. 50"
+							/>
+						</label>
+
+						<label class="space-y-2">
+							<span
+								class="text-sm font-medium text-slate-600 dark:text-slate-300"
+							>
+								Currency
+							</span>
+							<select
+								class={inputClasses}
+								bind:value={stockForm.currency}
+							>
+								{#each currencyOptions as option}
+									<option value={option.code}
+										>{option.label}</option
+									>
+								{/each}
+							</select>
+						</label>
+					</form>
+
+					{#if stockOutcome.error}
+						<p
+							class="mt-6 rounded-2xl border border-red-200/70 bg-red-50/90 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-500/40 dark:bg-red-900/30 dark:text-red-200"
+						>
+							{stockOutcome.error}
+						</p>
+					{:else}
+						<div class="mt-6 grid gap-4 sm:grid-cols-3">
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Total return
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(stockOutcome.totalReturn)}`}
+								>
+									{formatCurrency(
+										stockOutcome.totalReturn,
+										stockForm.currency,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Return %
+								</p>
+								<p
+									class={`mt-2 text-2xl font-semibold ${trendClass(stockOutcome.percentageReturn)}`}
+								>
+									{formatPercentage(
+										stockOutcome.percentageReturn ?? 0,
+									)}
+								</p>
+							</div>
+							<div class={subtleCardClasses}>
+								<p
+									class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+								>
+									Ending value
+								</p>
+								<p
+									class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white"
+								>
+									{formatCurrency(
+										stockOutcome.totalValue,
+										stockForm.currency,
+									)}
+								</p>
+							</div>
+						</div>
+
+						<p
+							class="mt-4 text-xs text-slate-500 dark:text-slate-400"
+						>
+							Dividends, trading fees, and taxes are not included.
+							Add them to your initial or final values for more
+							precise results.
+						</p>
+					{/if}
+				</div>
+			{/if}
+		</div>
+	</div>
+</section>

@@ -1,11 +1,11 @@
 {
     "name": "BMI Calculator",
-    "description": "BMI Calculator: Quickly determine your Body Mass Index (BMI) with this easy-to-use tool. Input your height and weight to assess your body composition instantly.",
+    "description": "Understand where you fall on the Body Mass Index scale and get quick guidance to support your goals. BMI is a screening tool - not a diagnosis - so use these results as a starting point for deeper conversations with a professional.",
     "contributors": [
         {
             "name": "Hannan Satopay",
             "githubId": "hannansatopay"
         }
     ],
-    "categoryTitle": "Data and File Handling Tools"
+    "categoryTitle": "Interactive and Educational Tools"
 }

@@ -9,14 +9,8 @@
 		if (!name?.trim()) {
 			return "??";
 		}
-		const parts = name
-			.trim()
-			.split(/\s+/)
-			.filter(Boolean)
-			.slice(0, 2);
-		return parts
-			.map((segment) => segment[0]?.toUpperCase() ?? "")
-			.join("");
+		const parts = name.trim().split(/\s+/).filter(Boolean).slice(0, 2);
+		return parts.map((segment) => segment[0]?.toUpperCase() ?? "").join("");
 	};
 
 	const getAvatar = (githubId?: string) =>
@@ -31,9 +25,11 @@
 	/>
 </svelte:head>
 
-<section class="mx-auto space-y-8">
+<section class="mx-auto space-y-6 px-4 py-6 max-w-7xl">
 	<header class="mb-12 text-center">
-		<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+		<h1
+			class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl"
+		>
 			Contributors
 		</h1>
 		<p class="mt-4 text-base text-slate-600 dark:text-slate-300 sm:text-lg">
@@ -62,7 +58,9 @@
 						class="pointer-events-none absolute bottom-[-48px] left-[-20px] h-28 w-28 rounded-full bg-cyan-400/30 blur-3xl transition duration-500 group-hover:scale-110 dark:bg-cyan-300/40"
 					/>
 
-					<div class="relative flex h-full flex-col justify-between gap-6">
+					<div
+						class="relative flex h-full flex-col justify-between gap-6"
+					>
 						<div class="flex items-start gap-4">
 							<div class="relative">
 								<div
@@ -85,7 +83,9 @@
 							</div>
 
 							<div class="flex-1">
-								<p class="text-xl font-semibold text-slate-900 transition-colors duration-300 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-300">
+								<p
+									class="text-xl font-semibold text-slate-900 transition-colors duration-300 group-hover:text-primary-600 dark:text-white dark:group-hover:text-primary-300"
+								>
 									{contributor.name}
 								</p>
 
@@ -97,13 +97,19 @@
 										rel="noopener noreferrer"
 									>
 										<span class="relative flex h-2 w-2">
-											<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75" />
-											<span class="relative inline-flex h-2 w-2 rounded-full bg-primary-500" />
+											<span
+												class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-400 opacity-75"
+											/>
+											<span
+												class="relative inline-flex h-2 w-2 rounded-full bg-primary-500"
+											/>
 										</span>
 										GitHub @ {contributor.githubId}
 									</a>
 								{:else}
-									<p class="mt-2 text-sm text-slate-500 dark:text-slate-300">
+									<p
+										class="mt-2 text-sm text-slate-500 dark:text-slate-300"
+									>
 										GitHub profile not available.
 									</p>
 								{/if}

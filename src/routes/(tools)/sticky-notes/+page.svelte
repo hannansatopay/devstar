@@ -1,318 +1,486 @@
-<script>
-    import { onMount } from 'svelte';
-    import { writable } from 'svelte/store';
+<script lang="ts">
+	import { onMount } from "svelte";
+	import { derived, get, writable } from "svelte/store";
 
-    const dbName = 'sticky_notes_db';
-    const dbVersion = 1;
-    let db;
+	type NoteRecord = {
+		id?: number;
+		name: string;
+		content: string;
+		color: string;
+		pinned: boolean;
+		createdAt: string;
+		updatedAt: string;
+	};
 
-    const openDB = () => {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(dbName, dbVersion);
+	const DB_NAME = "sticky_notes_db_v2";
+	const STORE_NAME = "notes";
+	const DB_VERSION = 1;
 
-        request.onerror = (event) => {
-            console.error('Error opening database:', event.target.error);
-            reject(event.target.error);
-        };
+	let db: IDBDatabase | null = null;
+	let opening: Promise<void> | null = null;
 
-        request.onsuccess = (event) => {
-            db = event.target.result;
-            console.log('Database opened successfully');
-            resolve();
-        };
+	const palette = [
+		"#fde68a",
+		"#fca5a5",
+		"#a5f3fc",
+		"#f9a8d4",
+		"#bbf7d0",
+		"#f5f5f4",
+	];
+	let selectedColour = palette[0];
 
-        request.onupgradeneeded = (event) => {
-            db = event.target.result;
-            if (!db.objectStoreNames.contains('notes')) {
-                const store = db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
-                store.createIndex('name', 'name', { unique: false });
-                store.createIndex('color', 'color', { unique: false });
-                store.createIndex('content', 'content', { unique: false });
-            }
-        };
-    });
-};
+	const notes = writable<NoteRecord[]>([]);
+	const searchTerm = writable("");
+	const pinnedOnly = writable(false);
 
-const fetchNotes = async () => {
-    const transaction = db.transaction(['notes'], 'readonly');
-    const store = transaction.objectStore('notes');
-    const request = store.getAll();
-    return new Promise((resolve, reject) => {
-        request.onsuccess = () => {
-            // Sort notes: pinned notes first
-            const notes = request.result;
-            const pinnedNotes = notes.filter(note => note.pinned);
-            const unpinnedNotes = notes.filter(note => !note.pinned);
-            const sortedNotes = [...pinnedNotes, ...unpinnedNotes];
+	const openDB = () =>
+		new Promise<void>((resolve, reject) => {
+			const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-            resolve(sortedNotes);
-        };
-        request.onerror = (event) => {
-            console.error('Error fetching notes:', event.target.error);
-            reject(event.target.error);
-        };
-    });
-};
+			request.onerror = (event) => {
+				opening = null;
+				reject((event.target as IDBRequest).error);
+			};
 
-const saveNote = async (note) => {
-    const transaction = db.transaction(['notes'], 'readwrite');
-    const store = transaction.objectStore('notes');
-    if (note.id) {
-        note.updatedAt = new Date().toISOString();
-        store.put(note);
-    } else {
-        note.createdAt = new Date().toISOString();
-        const request = store.add(note);
-        request.onsuccess = () => {
-            note.id = request.result; 
-        };
-    }
-    return new Promise((resolve, reject) => {
-        transaction.oncomplete = () => {
-            console.log('Note saved successfully');
-            resolve();
-        };
-        transaction.onerror = (event) => {
-            console.error('Error saving note:', event.target.error);
-            reject(event.target.error);
-        };
-    });
-};
+			request.onsuccess = (event) => {
+				db = (event.target as IDBRequest<IDBDatabase>).result;
+				opening = null;
+				resolve();
+			};
 
-   
-    const deleteNote = async (id) => {
-        const transaction = db.transaction(['notes'], 'readwrite');
-        const store = transaction.objectStore('notes');
-        store.delete(id);
-        return new Promise((resolve, reject) => {
-            transaction.oncomplete = () => {
-                console.log('Note deleted successfully');
-                resolve();
-            };
-            transaction.onerror = (event) => {
-                console.error('Error deleting note:', event.target.error);
-                reject(event.target.error);
-            };
-        });
-    };
+			request.onupgradeneeded = (event) => {
+				db = (event.target as IDBRequest<IDBDatabase>).result;
+				opening = null;
+				if (db && !db.objectStoreNames.contains(STORE_NAME)) {
+					const store = db.createObjectStore(STORE_NAME, {
+						keyPath: "id",
+						autoIncrement: true,
+					});
+					store.createIndex("pinned", "pinned", { unique: false });
+					store.createIndex("updatedAt", "updatedAt", {
+						unique: false,
+					});
+				}
+			};
+		});
 
-    
-    onMount(async () => {
-        await openDB();
-        const existingNotes = await fetchNotes();
-        notes.set(existingNotes);
-    });
+	const ensureDB = async () => {
+		if (db) return;
+		opening ??= openDB();
+		await opening;
+	};
 
-    
-    let notes = writable([]);
+	const sortNotes = (entries: NoteRecord[]) => {
+		const byRecency = (a: NoteRecord, b: NoteRecord) =>
+			new Date(b.updatedAt ?? b.createdAt).getTime() -
+			new Date(a.updatedAt ?? a.createdAt).getTime();
 
-    
-    async function addNote() {
-        const newNote = {
-            color: selectedColor,
-            name: `Note ${$notes.length + 1}`,
-            content: "",
-            pinned: false 
-        };
-        
-        await saveNote(newNote);
-        notes.update(existingNotes => [...existingNotes, newNote]);
-    }
+		const pinned = entries.filter((item) => item.pinned).sort(byRecency);
+		const others = entries.filter((item) => !item.pinned).sort(byRecency);
+		return [...pinned, ...others];
+	};
 
-    
-    function togglePin(id) {
-    notes.update(existingNotes => {
-        let updatedNotes = existingNotes.map(note => {
-            if (note.id === id) {
-                note.pinned = !note.pinned;
-                saveNote(note);
-            }
-            return note;
-        });
+	const fetchNotes = async (): Promise<NoteRecord[]> => {
+		await ensureDB();
+		if (!db) return [];
 
-        // Move the pinned notes to the beginning
-        const pinnedNotes = updatedNotes.filter(note => note.pinned);
-        const unpinnedNotes = updatedNotes.filter(note => !note.pinned);
+		const transaction = db.transaction([STORE_NAME], "readonly");
+		const store = transaction.objectStore(STORE_NAME);
+		const request = store.getAll();
 
-        updatedNotes = [...pinnedNotes, ...unpinnedNotes];
+		return new Promise((resolve, reject) => {
+			request.onsuccess = () =>
+				resolve(sortNotes(request.result as NoteRecord[]));
+			request.onerror = (event) =>
+				reject((event.target as IDBRequest).error);
+		});
+	};
 
-        return updatedNotes;
-    });
-}
+	const persistNote = async (note: NoteRecord): Promise<NoteRecord> => {
+		await ensureDB();
+		if (!db) throw new Error("Database is not open");
 
-function unpinNote(id) {
-    notes.update(existingNotes => {
-        let updatedNotes = existingNotes.map(note => {
-            if (note.id === id) {
-                note.pinned = false;
-                saveNote(note);
-            }
-            return note;
-        });
+		const entry: NoteRecord = { ...note };
+		const timestamp = new Date().toISOString();
 
-        // Move the pinned notes to the beginning
-        const pinnedNotes = updatedNotes.filter(note => note.pinned);
-        const unpinnedNotes = updatedNotes.filter(note => !note.pinned);
+		if (typeof entry.id === "number") {
+			entry.updatedAt = timestamp;
+		} else {
+			entry.createdAt = timestamp;
+			entry.updatedAt = timestamp;
+		}
 
-        updatedNotes = [...pinnedNotes, ...unpinnedNotes];
+		const transaction = db.transaction([STORE_NAME], "readwrite");
+		const store = transaction.objectStore(STORE_NAME);
+		const request =
+			typeof entry.id === "number" ? store.put(entry) : store.add(entry);
 
-        return updatedNotes;
-    });
-}
+		return new Promise((resolve, reject) => {
+			request.onsuccess = (event) => {
+				if (typeof entry.id !== "number") {
+					entry.id = (event.target as IDBRequest<IDBValidKey>)
+						.result as number;
+				}
+			};
+			transaction.oncomplete = () => resolve(entry);
+			transaction.onerror = (event) =>
+				reject((event.target as IDBRequest).error);
+		});
+	};
 
-   
-    function updateNoteName(index, event) {
-        notes.update(existingNotes => {
-            const updatedNotes = [...existingNotes];
-            updatedNotes[index].name = event.target.value;
-            saveNote(updatedNotes[index]); 
-            return updatedNotes;
-        });
-    }
+	const deleteNote = async (id: number) => {
+		await ensureDB();
+		if (!db) return;
 
-    
-    function updateNoteContent(index, event) {
-        notes.update(existingNotes => {
-            const updatedNotes = [...existingNotes];
-            updatedNotes[index].content = event.target.value;
-            saveNote(updatedNotes[index]); 
-            return updatedNotes;
-        });
-    }
+		const transaction = db.transaction([STORE_NAME], "readwrite");
+		const store = transaction.objectStore(STORE_NAME);
+		store.delete(id);
 
-    
-    async function handleDelete(id) {
-        await deleteNote(id);
-        notes.update(existingNotes => existingNotes.filter(note => note.id !== id));
-    }
+		return new Promise<void>((resolve, reject) => {
+			transaction.oncomplete = () => resolve();
+			transaction.onerror = (event) =>
+				reject((event.target as IDBRequest).error);
+		});
+	};
 
-    function handleKeyPress(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-        }
-    }
+	const filteredNotes = derived(
+		[notes, searchTerm, pinnedOnly],
+		([items, term, onlyPinned]) => {
+			const normalized = term.trim().toLowerCase();
+			const sorted = sortNotes([...items]);
 
-   
-    let selectedColor = "#ffffff"; 
+			return sorted.filter((note) => {
+				if (onlyPinned && !note.pinned) return false;
+				if (!normalized) return true;
+				const title = note.name?.toLowerCase() ?? "";
+				const body = note.content?.toLowerCase() ?? "";
+				return title.includes(normalized) || body.includes(normalized);
+			});
+		},
+	);
 
-    
-    function changeColor(color) {
-        selectedColor = color;
-    }
+	const boardStats = derived(notes, (items) => ({
+		total: items.length,
+		pinned: items.filter((note) => note.pinned).length,
+	}));
 
-    
+	const formatTimestamp = (note: NoteRecord) => {
+		const source = note.updatedAt ?? note.createdAt;
+		return new Date(source).toLocaleString();
+	};
+
+	onMount(async () => {
+		await ensureDB();
+		const existing = await fetchNotes();
+		if (existing.length) {
+			selectedColour = existing[0]?.color ?? palette[0];
+		}
+		notes.set(existing);
+	});
+
+	const setColour = (colour: string) => {
+		selectedColour = colour;
+	};
+
+	const createNote = async () => {
+		const created = await persistNote({
+			name: "Untitled",
+			content: "",
+			color: selectedColour,
+			pinned: false,
+			createdAt: "",
+			updatedAt: "",
+		});
+
+		const current = get(notes);
+		notes.set(sortNotes([...current, created]));
+	};
+
+	const updateNote = async (
+		id: number | undefined,
+		changes: Partial<NoteRecord>,
+	) => {
+		if (!id) return;
+
+		const current = get(notes);
+		const index = current.findIndex((item) => item.id === id);
+		if (index === -1) return;
+
+		const updated = {
+			...current[index],
+			...changes,
+			updatedAt: new Date().toISOString(),
+		};
+		const next = [...current];
+		next[index] = updated;
+		notes.set(sortNotes(next));
+		await persistNote(updated);
+	};
+
+	const togglePin = (note: NoteRecord) =>
+		updateNote(note.id, { pinned: !note.pinned });
+
+	const removeNote = async (id: number | undefined) => {
+		if (!id) return;
+		await deleteNote(id);
+		notes.update((items) => items.filter((note) => note.id !== id));
+	};
+
+	const clearSearch = () => {
+		searchTerm.set("");
+	};
+
+	const chipBaseClasses =
+		"inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900";
+
+	const pinChipClasses = (pinned: boolean) =>
+		`${chipBaseClasses} ${
+			pinned
+				? "bg-emerald-500 text-white hover:bg-emerald-600 dark:bg-emerald-500 dark:hover:bg-emerald-400"
+				: "bg-sky-100 text-sky-700 hover:bg-sky-200 dark:bg-sky-500/20 dark:text-sky-100 dark:hover:bg-sky-500/30"
+		}`;
+
+	const deleteChipClasses = `${chipBaseClasses} bg-rose-100 text-rose-700 hover:bg-rose-200 dark:bg-rose-500/20 dark:text-rose-100 dark:hover:bg-rose-500/30`;
+
+	const handleTitleInput = (note: NoteRecord) => (event: Event) => {
+		const target = event.target as HTMLInputElement;
+		updateNote(note.id, { name: target.value });
+	};
+
+	const handleContentInput = (note: NoteRecord) => (event: Event) => {
+		const target = event.target as HTMLTextAreaElement;
+		updateNote(note.id, { content: target.value });
+	};
+
+	const autoResize = (node: HTMLTextAreaElement) => {
+		let frame = 0;
+
+		const resize = () => {
+			cancelAnimationFrame(frame);
+			frame = requestAnimationFrame(() => {
+				node.style.height = "auto";
+				node.style.height = `${node.scrollHeight}px`;
+			});
+		};
+
+		const handleInput = () => resize();
+
+		resize();
+		node.addEventListener("input", handleInput);
+
+		return {
+			update: resize,
+			destroy() {
+				cancelAnimationFrame(frame);
+				node.removeEventListener("input", handleInput);
+			},
+		};
+	};
 </script>
 
-<div class="flex h-screen">
-    <aside class="w-64 bg-Gray-500 text-white p-6 shadow-md flex flex-col items-start gap-6 rounded-lg ">
-        <button on:click={addNote} class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800 w-full">Add Note</button>
-        <span class="text-sm font-bold text-white">Select Color:</span>
-        <div class="flex gap-2 mt-2">
-            <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #fbd38d" on:click={() => changeColor("#fbd38d")}></button>
-            <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #fca5a5" on:click={() => changeColor("#fca5a5")}></button>
-            <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #a0e7e5" on:click={() => changeColor("#a0e7e5")}></button>
-            <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #fbb6ce" on:click={() => changeColor("#fbb6ce")}></button>
-            <button class="w-8 h-8 rounded-full cursor-pointer hover:border-black border-2 color-button" style="background-color: #9ef3b3" on:click={() => changeColor("#9ef3b3")}></button>
-        </div>        
-    </aside>
+<section class="mx-auto space-y-6 px-4 py-6 flex flex-col">
+	<header
+		class="space-y-6 rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-xl backdrop-blur-sm sm:p-8 dark:border-slate-700/60 dark:bg-slate-900/70"
+	>
+		<div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+			<div
+				class="flex flex-col gap-4 rounded-2xl border border-slate-200/60 bg-white/70 p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between dark:border-slate-700/60 dark:bg-slate-900/70"
+			>
+				<div class="flex flex-wrap items-center gap-3">
+					<span
+						class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+						>Colour</span
+					>
+					{#each palette as colour}
+						<button
+							type="button"
+							class={`h-10 w-10 rounded-full border-2 border-transparent shadow-sm transition hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 dark:focus-visible:ring-sky-500 dark:focus-visible:ring-offset-slate-900 ${selectedColour === colour ? "border-sky-400 ring-4 ring-sky-200 dark:ring-sky-500/40" : ""}`}
+							style={`background-color:${colour}`}
+							aria-label={`New notes use ${colour}`}
+							on:click={() => setColour(colour)}
+						/>
+					{/each}
+				</div>
+				<button
+					type="button"
+					class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-400 via-indigo-500 to-purple-500 px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-lg transition hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 dark:text-slate-950"
+					on:click={createNote}
+				>
+					<span aria-hidden="true" class="text-lg leading-none"
+						>＋</span
+					>
+					New note
+				</button>
+			</div>
+			<div class="flex flex-wrap items-stretch gap-4 lg:justify-end">
+				<div
+					class="flex flex-col justify-between rounded-2xl border border-slate-200/70 bg-white/90 px-4 py-3 text-slate-600 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/70 dark:text-slate-300"
+				>
+					<span
+						class="text-xs font-medium uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400"
+						>Total</span
+					>
+					<span
+						class="text-2xl font-semibold text-slate-900 dark:text-slate-50"
+						>{$boardStats.total}</span
+					>
+				</div>
+				<div
+					class="flex flex-col justify-between rounded-2xl border border-slate-200/70 bg-white/90 px-4 py-3 text-slate-600 shadow-sm dark:border-slate-700/60 dark:bg-slate-900/70 dark:text-slate-300"
+				>
+					<span
+						class="text-xs font-medium uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400"
+						>Pinned</span
+					>
+					<span
+						class="text-2xl font-semibold text-slate-900 dark:text-slate-50"
+						>{$boardStats.pinned}</span
+					>
+				</div>
+			</div>
+		</div>
+	</header>
 
-    <div class="flex-1 p-4 grid md:grid-cols-3 gap-4 overflow-y-auto">
-        {#each $notes as note, index (note.id)}
-            {#if note.pinned}
-               
-                <div class="note-item p-4 rounded shadow-lg relative hover:cursor-pointer h-64 pinned-note" style="background-color: {note.color};">
-                    <form method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value={note.id} />
-                        <input type="hidden" name="color" value={note.color} />
-                        <input type="text" name="name" class="px-2 py-1 bg-transparent outline-none font-bold text-lg w-full autocomplete-off" value={note.name} on:input={(event) => updateNoteName(index, event)} on:keypress={handleKeyPress} />
-                        <textarea name="content" class="p-2 bg-transparent outline-none text-base w-full resize-none autocomplete-off" rows="4" on:input={(event) => updateNoteContent(index, event)} on:keypress={handleKeyPress}>{note.content}</textarea>
-                        <div class="flex justify-between items-center mt-3">
-                            <span class="text-xs text-gray-500">Last updated: {note.updatedAt ? new Date(note.updatedAt).toLocaleString() : new Date(note.createdAt).toLocaleString()}</span>
-                            <button type="button" class="text-black-500 hover:text-red-600 flex items-center gap-1" on:click={() => handleDelete(note.id)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 64 64">
-                                    <path d="M 28 7 C 25.243 7 23 9.243 23 12 L 23 15 L 13 15 C 11.896 15 11 15.896 11 17 C 11 18.104 11.896 19 13 19 L 15.109375 19 L 16.792969 49.332031 C 16.970969 52.510031 19.600203 55 22.783203 55 L 41.216797 55 C 44.398797 55 47.029031 52.510031 47.207031 49.332031 L 48.890625 19 L 51 19 C 52.104 19 53 18.104 53 17 C 53 15.896 52.104 15 51 15 L 41 15 L 41 12 C 41 9.243 38.757 7 36 7 L 28 7 z M 28 11 L 36 11 C 36.552 11 37 11.449 37 12 L 37 15 L 27 15 L 27 12 C 27 11.449 27.448 11 28 11 z M 32 23.25 C 32.967 23.25 33.75 24.034 33.75 25 L 33.75 45 C 33.75 45.966 32.967 46.75 32 46.75 C 31.033 46.75 30.25 45.966 30.25 45 L 30.25 25 C 30.25 24.034 31.033 23.25 32 23.25 z M 40.007812 23.25 C 40.972813 23.284 41.728313 24.094547 41.695312 25.060547 L 40.998047 45.146484 C 40.965047 46.092484 40.190953 46.836937 39.251953 46.835938 C 39.230953 46.835938 39.210453 46.833984 39.189453 46.833984 C 38.224453 46.799984 37.468953 45.989438 37.501953 45.023438 L 38.197266 24.9375 C 38.231266 23.9725 39.039813 23.223 40.007812 23.25 z M 23.990234 23.251953 C 24.954234 23.228953 25.766781 23.973453 25.800781 24.939453 L 26.498047 45.025391 C 26.532047 45.991391 25.776547 46.801938 24.810547 46.835938 C 24.790547 46.835937 24.769047 46.835938 24.748047 46.835938 C 23.810047 46.835938 23.033 46.091484 23 45.146484 L 22.302734 25.060547 C 22.268734 24.094547 23.024234 23.285953 23.990234 23.251953 z"></path>
-                                </svg> 
-                            </button>
-                            <button type="button" class="text-black-500 hover:text-red-600 flex items-center gap-1" on:click={() => unpinNote(note.id)}>
-                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.61062 6.95916C9.61033 6.95965 9.60913 6.96167 9.6038 6.96549C9.59728 6.97016 9.58336 6.97822 9.56001 6.9848C9.50899 6.99916 9.44234 6.99805 9.38281 6.97599C8.41173 6.61599 6.74483 6.22052 5.01389 6.87251C4.08132 7.22378 3.61596 8.03222 3.56525 8.85243C3.51687 9.63502 3.83293 10.4395 4.41425 11.0208L7.94975 14.5563L1.26973 21.2363C0.879206 21.6269 0.879206 22.26 1.26973 22.6506C1.66025 23.0411 2.29342 23.0411 2.68394 22.6506L9.36397 15.9705L12.8995 19.5061C13.4808 20.0874 14.2853 20.4035 15.0679 20.3551C15.8881 20.3044 16.6966 19.839 17.0478 18.9065C17.6998 17.1755 17.3043 15.5086 16.9444 14.5375C16.9223 14.478 16.9212 14.4114 16.9355 14.3603C16.9421 14.337 16.9502 14.3231 16.9549 14.3165C16.9587 14.3112 16.9606 14.31 16.9611 14.3098L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79853L17.1218 1.87023ZM14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C14.9572 13.2032 14.7469 14.3637 15.0691 15.2327C15.3549 16.0037 15.5829 17.1217 15.1762 18.2015C15.1484 18.2752 15.1175 18.3018 15.0985 18.3149C15.0743 18.3316 15.0266 18.3538 14.9445 18.3589C14.767 18.3699 14.5135 18.2916 14.3137 18.0919L5.82846 9.6066C5.62872 9.40686 5.55046 9.15333 5.56144 8.97583C5.56651 8.8937 5.58877 8.84605 5.60548 8.82181C5.61855 8.80285 5.64516 8.7719 5.71886 8.74414C6.79869 8.33741 7.91661 8.56545 8.68762 8.85128C9.55668 9.17345 10.7171 8.96318 11.3071 8.01845L14.1523 3.46191Z" fill="#0F0F0F"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            {:else}
-                
-                <div class="note-item p-4 rounded shadow-lg relative hover:cursor-pointer h-64" style="background-color: {note.color};">
-                    <form method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value={note.id} />
-                        <input type="hidden" name="color" value={note.color} />
-                        <input type="text" name="name" class="px-2 py-1 bg-transparent outline-none font-bold text-lg w-full autocomplete-off" value={note.name} on:input={(event) => updateNoteName(index, event)} on:keypress={handleKeyPress} />
-                        <textarea name="content" class="p-2 bg-transparent outline-none text-base w-full resize-none autocomplete-off" rows="4" on:input={(event) => updateNoteContent(index, event)} on:keypress={handleKeyPress}>{note.content}</textarea>
-                        <div class="flex justify-between items-center mt-3">
-                            <span class="text-xs text-gray-500">Last updated: {note.updatedAt ? new Date(note.updatedAt).toLocaleString() : new Date(note.createdAt).toLocaleString()}</span>
-                            <button type="button" class="text-black-500 hover:text-red-600 flex items-center gap-1" on:click={() => handleDelete(note.id)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0 0 64 64">
-                                    <path d="M 28 7 C 25.243 7 23 9.243 23 12 L 23 15 L 13 15 C 11.896 15 11 15.896 11 17 C 11 18.104 11.896 19 13 19 L 15.109375 19 L 16.792969 49.332031 C 16.970969 52.510031 19.600203 55 22.783203 55 L 41.216797 55 C 44.398797 55 47.029031 52.510031 47.207031 49.332031 L 48.890625 19 L 51 19 C 52.104 19 53 18.104 53 17 C 53 15.896 52.104 15 51 15 L 41 15 L 41 12 C 41 9.243 38.757 7 36 7 L 28 7 z M 28 11 L 36 11 C 36.552 11 37 11.449 37 12 L 37 15 L 27 15 L 27 12 C 27 11.449 27.448 11 28 11 z M 32 23.25 C 32.967 23.25 33.75 24.034 33.75 25 L 33.75 45 C 33.75 45.966 32.967 46.75 32 46.75 C 31.033 46.75 30.25 45.966 30.25 45 L 30.25 25 C 30.25 24.034 31.033 23.25 32 23.25 z M 40.007812 23.25 C 40.972813 23.284 41.728313 24.094547 41.695312 25.060547 L 40.998047 45.146484 C 40.965047 46.092484 40.190953 46.836937 39.251953 46.835938 C 39.230953 46.835938 39.210453 46.833984 39.189453 46.833984 C 38.224453 46.799984 37.468953 45.989438 37.501953 45.023438 L 38.197266 24.9375 C 38.231266 23.9725 39.039813 23.223 40.007812 23.25 z M 23.990234 23.251953 C 24.954234 23.228953 25.766781 23.973453 25.800781 24.939453 L 26.498047 45.025391 C 26.532047 45.991391 25.776547 46.801938 24.810547 46.835938 C 24.790547 46.835937 24.769047 46.835938 24.748047 46.835938 C 23.810047 46.835938 23.033 46.091484 23 45.146484 L 22.302734 25.060547 C 22.268734 24.094547 23.024234 23.285953 23.990234 23.251953 z"></path>
-                                </svg> 
-                            </button>
-                            <button type="button" class="text-black-500 hover:text-red-600 flex items-center gap-1" on:click={() => togglePin(note.id)}>
-                                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1218 1.87023C15.7573 0.505682 13.4779 0.76575 12.4558 2.40261L9.61062 6.95916C9.61033 6.95965 9.60913 6.96167 9.6038 6.96549C9.59728 6.97016 9.58336 6.97822 9.56001 6.9848C9.50899 6.99916 9.44234 6.99805 9.38281 6.97599C8.41173 6.61599 6.74483 6.22052 5.01389 6.87251C4.08132 7.22378 3.61596 8.03222 3.56525 8.85243C3.51687 9.63502 3.83293 10.4395 4.41425 11.0208L7.94975 14.5563L1.26973 21.2363C0.879206 21.6269 0.879206 22.26 1.26973 22.6506C1.66025 23.0411 2.29342 23.0411 2.68394 22.6506L9.36397 15.9705L12.8995 19.5061C13.4808 20.0874 14.2853 20.4035 15.0679 20.3551C15.8881 20.3044 16.6966 19.839 17.0478 18.9065C17.6998 17.1755 17.3043 15.5086 16.9444 14.5375C16.9223 14.478 16.9212 14.4114 16.9355 14.3603C16.9421 14.337 16.9502 14.3231 16.9549 14.3165C16.9587 14.3112 16.9606 14.31 16.9611 14.3098L21.5177 11.4645C23.1546 10.4424 23.4147 8.16307 22.0501 6.79853L17.1218 1.87023ZM14.1523 3.46191C14.493 2.91629 15.2528 2.8296 15.7076 3.28445L20.6359 8.21274C21.0907 8.66759 21.0041 9.42737 20.4584 9.76806L15.9019 12.6133C14.9572 13.2032 14.7469 14.3637 15.0691 15.2327C15.3549 16.0037 15.5829 17.1217 15.1762 18.2015C15.1484 18.2752 15.1175 18.3018 15.0985 18.3149C15.0743 18.3316 15.0266 18.3538 14.9445 18.3589C14.767 18.3699 14.5135 18.2916 14.3137 18.0919L5.82846 9.6066C5.62872 9.40686 5.55046 9.15333 5.56144 8.97583C5.56651 8.8937 5.58877 8.84605 5.60548 8.82181C5.61855 8.80285 5.64516 8.7719 5.71886 8.74414C6.79869 8.33741 7.91661 8.56545 8.68762 8.85128C9.55668 9.17345 10.7171 8.96318 11.3071 8.01845L14.1523 3.46191Z" fill="#0F0F0F"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            {/if}
-        {/each}
-    </div>
-</div>
-<style>
+	<div
+		class="flex flex-col gap-4 rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-xl backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between dark:border-slate-700/60 dark:bg-slate-900/70"
+	>
+		<label class="relative flex w-full max-w-xl items-center gap-3">
+			<span class="sr-only">Search notes</span>
+			<span class="text-slate-400 dark:text-slate-500">
+				<svg
+					class="h-5 w-5"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					aria-hidden="true"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M9 3.5a5.5 5.5 0 013.966 9.316l3.109 3.109a.75.75 0 11-1.06 1.06l-3.11-3.108A5.5 5.5 0 119 3.5zm0 1.5a4 4 0 100 8 4 4 0 000-8z"
+						clip-rule="evenodd"
+					/>
+				</svg>
+			</span>
+			<input
+				type="search"
+				placeholder="Search notes..."
+				class="w-full rounded-full border border-slate-200/60 bg-white/90 px-4 py-2 text-sm text-slate-700 shadow-sm transition focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-300 dark:border-slate-700/60 dark:bg-slate-900/70 dark:text-slate-100 dark:focus:border-sky-500 dark:focus:ring-sky-500/60"
+				bind:value={$searchTerm}
+			/>
+			{#if $searchTerm}
+				<button
+					type="button"
+					class="absolute right-2 flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+					on:click={clearSearch}
+					aria-label="Clear search"
+				>
+					<svg
+						class="h-4 w-4"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+						aria-hidden="true"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M6.404 5.404a.75.75 0 011.06 0L10 7.94l2.536-2.536a.75.75 0 111.06 1.06L11.06 9l2.536 2.536a.75.75 0 11-1.06 1.06L10 10.06l-2.536 2.536a.75.75 0 11-1.06-1.06L8.94 9 6.404 6.464a.75.75 0 010-1.06z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</button>
+			{/if}
+		</label>
 
-   
-    .bg-Gray-500{
-        background-color: #1c284f;
-    }
-    
-    .pinned-note {
-        border: 4px solid #ff0000; 
-    }
+		<label
+			class="inline-flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-slate-300"
+		>
+			<input
+				type="checkbox"
+				class="h-5 w-5 rounded border-slate-300 text-sky-500 focus:ring-2 focus:ring-sky-400 dark:border-slate-600 dark:bg-slate-800 dark:text-sky-400 dark:focus:ring-sky-500"
+				bind:checked={$pinnedOnly}
+			/>
+			<span>Show pinned only</span>
+		</label>
+	</div>
 
-  
-    .color-button {
-        border: none;
-    }
-
-    :global(body) {
-        margin: 0;
-        font-family: "Roboto", sans-serif;
-        background-color: #3f6fd1;
-        color: black;
-    }
-
-    .note-item {
-        transition: transform 0.2s;
-    }
-
-    .note-item:hover {
-        transform: scale(1.05);
-    }
-
-    .text-black-500 {
-        color: #000;
-    }
-
-    .hover\:text-red-600:hover {
-        color: #f56565;
-    }
-
-    .note-item form .flex > button {
-        padding: 0.25rem;
-        background: transparent;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
-</style>
+	{#if $filteredNotes.length === 0}
+		<div
+			class="grid place-items-center gap-4 rounded-3xl border border-slate-200/60 bg-white/90 p-12 text-center shadow-xl dark:border-slate-700/60 dark:bg-slate-900/70"
+		>
+			<h2
+				class="text-2xl font-semibold text-slate-900 dark:text-slate-50"
+			>
+				No notes yet
+			</h2>
+			<p class="max-w-xl text-base text-slate-600 dark:text-slate-300">
+				{#if $searchTerm}
+					Try a different search or reset your filters to see
+					everything again.
+				{:else if $pinnedOnly}
+					You haven't pinned anything yet. Turn off the toggle or pin
+					a note to see it here.
+				{:else}
+					Start by choosing a colour, then add a note to capture your
+					first idea.
+				{/if}
+			</p>
+			<button
+				type="button"
+				class="inline-flex items-center justify-center rounded-full border border-sky-300 px-6 py-2 text-sm font-semibold text-sky-600 transition hover:border-sky-400 hover:text-sky-700 dark:border-sky-500/50 dark:text-sky-300 dark:hover:border-sky-400 dark:hover:text-sky-200"
+				on:click={createNote}
+			>
+				Create a note
+			</button>
+		</div>
+	{:else}
+		<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+			{#each $filteredNotes as note (note.id)}
+				<article
+					class={`relative flex flex-col gap-4 rounded-3xl border border-black/5 p-5 text-slate-900 shadow-md transition hover:-translate-y-1 hover:shadow-xl dark:border-black/40 ${note.pinned ? "ring-2 ring-emerald-400/60" : ""}`}
+					style={`background-color:${note.color}`}
+				>
+					<div class="flex items-start justify-between gap-3">
+						<input
+							class="w-full border-none bg-transparent text-lg font-semibold text-slate-900 placeholder:text-slate-600 focus:outline-none dark:text-slate-900 dark:placeholder:text-slate-700"
+							type="text"
+							bind:value={note.name}
+							placeholder="Untitled"
+							on:input={handleTitleInput(note)}
+						/>
+						<div class="flex items-center gap-2">
+							<button
+								type="button"
+								class={pinChipClasses(note.pinned)}
+								on:click={() => togglePin(note)}
+							>
+								{note.pinned ? "Pinned" : "Pin"}
+							</button>
+							<button
+								type="button"
+								class={deleteChipClasses}
+								on:click={() => removeNote(note.id)}
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+					<textarea
+						class="min-h-[140px] w-full resize-none border-none bg-transparent text-base leading-relaxed text-slate-800 placeholder:text-slate-600 focus:outline-none dark:text-slate-900 dark:placeholder:text-slate-700"
+						use:autoResize
+						placeholder="Type something memorable..."
+						bind:value={note.content}
+						on:input={handleContentInput(note)}
+					/>
+					<div
+						class="flex items-center justify-between text-xs text-slate-700 dark:text-slate-800"
+					>
+						<span>Updated {formatTimestamp(note)}</span>
+						<span
+							class="h-3 w-3 rounded-full border border-black/10 shadow-sm"
+							style={`background-color:${note.color}`}
+							aria-hidden="true"
+						/>
+					</div>
+				</article>
+			{/each}
+		</div>
+	{/if}
+</section>

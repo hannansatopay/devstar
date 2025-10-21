@@ -2,7 +2,7 @@
     "categories": [
         {
             "title": "Text Conversion Tools",
-            "details": "Convert, encode, and decode text effortlessly using tools designed for seamless data transformation and text manipulation.",
+            "details": "Convert, encode, and manipulate text with encoding, decoding, formatting, and analysis utilities.",
             "tools": [
                 {
                     "name": "Add Prefix and Suffix",
@@ -265,35 +265,8 @@
         },
         {
             "title": "Image and Graphic Tools",
-            "details": "Create, edit, and transform images or graphics with innovative tools to boost your creativity and productivity.",
+            "details": "Design, edit, and generate images, colors, icons, and SVG graphics with creative visual tools.",
             "tools": [
-                {
-                    "name": "App Store Screenshort Generator",
-                    "link": "/app-store-screenshot-generator",
-                    "description": "Our tool makes creating professional app store screenshots easy and efficient. With powerful features, device support, and customization options, it helps you showcase your app beautifully. Enhance your app's visual appeal and make a lasting impression.",
-                    "contributors": [
-                        {
-                            "name": "Nilambari Mahajan",
-                            "githubId": "Nilambari-Mahajan"
-                        },
-                        {
-                            "name": "Vaibhav Dingalwar",
-                            "githubId": "irrereplacable26"
-                        },
-                        {
-                            "name": "",
-                            "githubId": ""
-                        },
-                        {
-                            "name": "",
-                            "githubId": ""
-                        },
-                        {
-                            "name": "",
-                            "githubId": ""
-                        }
-                    ]
-                },
                 {
                     "name": "Camera Filters",
                     "link": "/camera-filters",
@@ -389,41 +362,14 @@
                 {
                     "name": "Image Editor",
                     "link": "/image-editor",
-                    "description": "This tool that allows images to be edited and also converted to different graphics formats.",
-                    "contributors": [
-                        {
-                            "name": "Harshith",
-                            "githubId": "harshith1019"
-                        },
-                        {
-                            "name": "Yedulla Nandavardhan Reddy",
-                            "githubId": "Nandavardhan1405"
-                        },
-                        {
-                            "name": "Chaitanya Reddy Gujjula",
-                            "githubId": "chaitugujjula00"
-                        },
-                        {
-                            "name": "Aimaan Qureshi",
-                            "githubId": "19aimann"
-                        },
-                        {
-                            "name": "Subitha",
-                            "githubId": "Subitha12"
-                        },
-                        {
-                            "name": "AjayRaj",
-                            "githubId": "ajayrajrthd"
-                        },
-                        {
-                            "name": "Sanjana",
-                            "githubId": "sanjanamutkiri"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
+                    "description": "Adjust brightness, contrast, saturation, blur, rotation, and flips in the browser, then export the edited result as PNG, JPEG, or WEBP.",
+                    "contributors": []
+                },
+                {
+                    "name": "Image Resizer",
+                    "link": "/image-resizer",
+                    "description": "Resize photos in the browser while keeping aspect ratios, exporting to PNG, JPEG, or WEBP with adjustable quality.",
+                    "contributors": []
                 },
                 {
                     "name": "Image Text Extractor",
@@ -586,7 +532,7 @@
         },
         {
             "title": "Content Generation and Design Tools",
-            "details": "Generate high-quality content, layouts, and designs using intuitive tools tailored for professional and creative needs.",
+            "details": "Create professional content, layouts, mockups, and brand assets with intuitive design tools.",
             "tools": [
                 {
                     "name": "Advice Generator",
@@ -791,7 +737,7 @@
         },
         {
             "title": "Development and Testing Tools",
-            "details": "Optimize your development workflow with tools for coding, debugging, and responsive design testing.",
+            "details": "Optimize your coding workflow with tools for formatting, validation, debugging, and performance testing.",
             "tools": [
                 {
                     "name": "Code Linter",
@@ -867,8 +813,8 @@
                     ]
                 },
                 {
-                    "name": "Online API Tool",
-                    "link": "/api-tool",
+                    "name": "Online API Testing",
+                    "link": "/online-api-testing",
                     "description": "Our Online API Tool is a versatile and user-friendly platform designed to simplify the process of working with APIs. Just like Postman, it provides developers and teams with powerful features for testing, documenting, and managing APIs. Whether you're building, testing, or monitoring APIs, our tool offers a comprehensive suite of tools to streamline your workflow. With an intuitive interface, collaboration features, and extensive customization options, it's the ideal choice for any development project. Elevate your API development and management experience with our Online API Tool and unlock the full potential of your APIs.",
                     "contributors": [
                         {
@@ -969,7 +915,7 @@
         },
         {
             "title": "Media Editing and Management Tools",
-            "details": "Manage and edit audio, video, and GIFs with tools designed for enhancing media quality and experience.",
+            "details": "Record, convert, and enhance audio, video, and speech with media-centric tools.",
             "tools": [
                 {
                     "name": "GIF-Toolkit",
@@ -1071,8 +1017,20 @@
         },
         {
             "title": "Time and Productivity Tools",
-            "details": "Boost your productivity and time management with tools designed to organize tasks, track time, and stay focused.",
+            "details": "Stay organized and manage your time efficiently with timers, notes, and scheduling tools.",
             "tools": [
+                {
+                    "name": "Annotation Tool",
+                    "link": "/annotation-tool",
+                    "description": "Highlight text, capture colour-coded notes, and keep every annotation organized locally for fast reviews.",
+                    "contributors": []
+                },
+                {
+                    "name": "App Store / Play Store Screenshot Generator",
+                    "link": "/app-store-screenshot-generator",
+                    "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
+                    "contributors": []
+                },
                 {
                     "name": "Flashcard Generator",
                     "link": "/online-flashcard",
@@ -1130,7 +1088,7 @@
                 {
                     "name": "Pomodoro",
                     "link": "/pomodoro",
-                    "description": "The Pomodoro tool is a productivity-enhancing feature designed specifically for developers. Based on the popular Pomodoro Technique, this tool helps you manage your time effectively by breaking your work into focused intervals, typically 25 minutes long, followed by short breaks. This systematic approach aids in maintaining concentration, combating procrastination, and boosting productivity. Integrate this tool into your workflow to optimize your work habits and accomplish tasks more efficiently.",
+                    "description": "Stay in flow with a flexible Pomodoro timer that rotates focus sprints and breaks, adapts to your preferred durations, and keeps your cycle count on track for sustainable productivity.",
                     "contributors": [
                         {
                             "name": "Rifat Perween",
@@ -1141,7 +1099,7 @@
                 {
                     "name": "Sticky Notes",
                     "link": "/sticky-notes",
-                    "description": "Develop a Sticky Notes app featuring quick note-saving, an appealing to-do list, and reminder settings. Users can pin important notes for easy access with highlighting on the screen, while timestamps show the last update time for each note, aiding in organization.",
+                    "description": "Capture quick ideas and todos in a lightweight sticky board. Choose a color, pin critical notes to the top, and rely on automatic local storage so every update is saved with a clear timestamp—no sync required.",
                     "contributors": [
                         {
                             "name": "Saket Prabhakar",
@@ -1200,8 +1158,25 @@
         },
         {
             "title": "Interactive and Educational Tools",
-            "details": "Engage and educate with tools that create quizzes, polls, puzzles, and mindmaps for interactive learning and collaboration.",
+            "details": "Explore learning, puzzles, and visual math tools for interactive engagement and education.",
             "tools": [
+                {
+                    "name": "BMI Calculator",
+                    "link": "/Bmi",
+                    "description": "Understand where you fall on the Body Mass Index scale and get quick guidance to support your goals. BMI is a screening tool - not a diagnosis - so use these results as a starting point for deeper conversations with a professional.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "Health Calculator",
+                    "link": "/health-calculator",
+                    "description": "Estimate BMI, basal metabolic rate, daily energy needs, protein goals, and hydration targets from a single health snapshot.",
+                    "contributors": []
+                },
                 {
                     "name": "Math Toolkit",
                     "link": "/math-toolkit",
@@ -1368,19 +1343,8 @@
         },
         {
             "title": "Data and File Handling Tools",
-            "details": "Streamline file conversions, data management, and handling processes with comprehensive tools.",
+            "details": "Convert, compress, extract, and manage files or data seamlessly across various formats.",
             "tools": [
-                {
-                    "name": "BMI Calculator",
-                    "link": "/Bmi",
-                    "description": "BMI Calculator: Quickly determine your Body Mass Index (BMI) with this easy-to-use tool. Input your height and weight to assess your body composition instantly.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
                 {
                     "name": "File Converter",
                     "link": "/file-converter",
@@ -1402,12 +1366,12 @@
         },
         {
             "title": "Financial Calculators",
-            "details": "Accurately compute financial metrics, payouts, and balances with tools designed for personal and professional financial planning.",
+            "details": "Compute financial metrics, loans, payouts, and ROI with tools built for smart money planning.",
             "tools": [
                 {
                     "name": "Annuity Payout Calculator",
                     "link": "/annuity-payout-calculator",
-                    "description": "This calculator can estimate the annuity payout amount for a fixed payout length or estimate the length that an annuity can last if supplied a fixed payout amount. Please use our Annuity Calculator to estimate the end balance of an annuity for the accumulation phase.",
+                    "description": "Estimate the steady withdrawal you can receive from an annuity investment and understand how interest impacts your long-term payouts.",
                     "contributors": [
                         {
                             "name": "Sumit Mishra",
@@ -1418,7 +1382,7 @@
                 {
                     "name": "Finance Calculator",
                     "link": "/finance-calculator",
-                    "description": "Optimize your financial decisions with our comprehensive suite of online financial calculators. Whether you're planning investments, converting currencies, calculating your salary after deductions, or estimating home loan payments, our user-friendly tools have you covered. Explore our ROI Calculator, Currency Converter, Salary Calculator, GST Calculator, Home Loan Calculator, TVM Calculator, and Stock Return Calculator to harness the full potential of your financial planning. Make informed decisions and secure your financial future today!",
+                    "description": "An all-in-one toolset to instantly calculate ROI, currency conversions, salaries, GST, loans, time value, and stock returns—without page reloads. Get quick, accurate estimates for smarter financial planning.",
                     "contributors": [
                         {
                             "name": "Dalima Sahu",
@@ -1458,7 +1422,7 @@
         },
         {
             "title": "Specialized Utility Tools",
-            "details": "Access unique tools for niche functionalities and specific user needs in various domains.",
+            "details": "Access diverse niche tools like encryption, validation, and lookup services for specialized needs.",
             "tools": [
                 {
                     "name": "Crypto Address Validation",
@@ -1515,12 +1479,6 @@
                     ]
                 },
                 {
-                    "name": "Scientific Calculator",
-                    "link": "/sciencetific-calculator",
-                    "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
-                    "contributors": []
-                },
-                {
                     "name": "WhatsApp Link Generator",
                     "link": "/whatsapp-api-generator",
                     "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
@@ -1532,6 +1490,23 @@
                     ]
                 }
             ]
+        },
+        {
+            "title": "Math Toolkit",
+            "details": "Perform mathematical calculations, integer operations, and conversions with precision tools.",
+            "tools": [
+                {
+                    "name": "Scientific Calculator",
+                    "link": "/sciencetific-calculator",
+                    "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "SEO Tools",
+            "details": "Analyze and optimize website visibility with tools for meta tags, sitemaps, and keyword analysis.",
+            "tools": []
         }
     ]
 }
