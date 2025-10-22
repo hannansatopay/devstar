@@ -527,6 +527,33 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "Youtube Thumbnail Grabber",
+                    "link": "/youtube-thumbnail-grabber",
+                    "description": "Paste a YouTube link to preview every available thumbnail size, check which resolutions exist, and copy or download the image instantly.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "SIDDHARTH MONDAL",
+                            "githubId": "Siddharth-coder-droid"
+                        },
+                        {
+                            "name": "VARSHINI",
+                            "githubId": "varshini-coder"
+                        },
+                        {
+                            "name": "ANURAJ VENKATPURWAR",
+                            "githubId": "Anuraj4"
+                        },
+                        {
+                            "name": "VEDANT MAYEKAR",
+                            "githubId": "VedantM21"
+                        }
+                    ]
                 }
             ]
         },
@@ -569,51 +596,9 @@
                     ]
                 },
                 {
-                    "name": "Document Generator",
-                    "link": "/document-generator",
-                    "description": "Document generator enables users to create dynamic documents with headers , paragraphs and images .Users can customize text (font size, family , boldness , alignment) and highlight headers . Export option includes PDF and DOC formats using jsPDF and docx , with file-saver for downloads",
-                    "contributors": [
-                        {
-                            "name": "Karan Rajkumar Jain",
-                            "githubId": "karanjain09"
-                        },
-                        {
-                            "name": "Asmita Agre",
-                            "githubId": "Asmitaagre46"
-                        },
-                        {
-                            "name": "Maimuna Khatoon",
-                            "githubId": "maimuna01"
-                        },
-                        {
-                            "name": "Vankadari Naga Pallavi",
-                            "githubId": "Pallavi287"
-                        },
-                        {
-                            "name": "Rajendra Kumar ",
-                            "githubId": "rajendrakumar360"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
                     "name": "Lorem Ipsum Generator",
                     "link": "/lorem-ipsum-generator",
                     "description": "Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "Password Generator",
-                    "link": "/password-generator",
-                    "description": "The Password Generator is a reliable and secure tool that enables developers to easily generate strong and unique passwords for their applications. With customizable options, such as password length, character types (uppercase, lowercase, numbers, symbols), and exclusion of ambiguous characters, this tool ensures the creation of robust passwords that meet the highest security standards. Simplify the process of password generation and strengthen the security of your applications with this convenient tool.",
                     "contributors": [
                         {
                             "name": "Hannan Satopay",
@@ -815,7 +800,7 @@
                 {
                     "name": "Online API Testing",
                     "link": "/online-api-testing",
-                    "description": "Our Online API Tool is a versatile and user-friendly platform designed to simplify the process of working with APIs. Just like Postman, it provides developers and teams with powerful features for testing, documenting, and managing APIs. Whether you're building, testing, or monitoring APIs, our tool offers a comprehensive suite of tools to streamline your workflow. With an intuitive interface, collaboration features, and extensive customization options, it's the ideal choice for any development project. Elevate your API development and management experience with our Online API Tool and unlock the full potential of your APIs.",
+                    "description": "Send REST calls from the browser, tweak headers and payloads, inspect latency, response size, headers, and grab an instant cURL snippet.",
                     "contributors": [
                         {
                             "name": "A. Amrutha Sri",
@@ -830,7 +815,7 @@
                 {
                     "name": "Remove Unused CSS",
                     "link": "/remove-unused-css",
-                    "description": "Removing unused CSS boosts website performance by eliminating unnecessary styles, ensuring faster loading times and better user experience.",
+                    "description": "Paste your markup and styles to instantly strip unused selectors, review what was removed, and download the slimmer CSS bundle.",
                     "contributors": [
                         {
                             "name": "Manoj R Gupta",
@@ -985,33 +970,6 @@
                             "githubId": "NamanWadhawan"
                         }
                     ]
-                },
-                {
-                    "name": "Youtube Thumbnail Grabber",
-                    "link": "/youtube-thumbnail-grabber",
-                    "description": "The YouTube Thumbnail Grabber is a tool for fetching and downloading thumbnails from YouTube videos based on user-specified resolutions.",
-                    "contributors": [
-                        {
-                            "name": "ANKITA MISHRA",
-                            "githubId": "ANKITAMISHRA29"
-                        },
-                        {
-                            "name": "SIDDHARTH MONDAL",
-                            "githubId": "Siddharth-coder-droid"
-                        },
-                        {
-                            "name": "VARSHINI",
-                            "githubId": "varshini-coder"
-                        },
-                        {
-                            "name": "ANURAJ VENKATPURWAR",
-                            "githubId": "Anuraj4"
-                        },
-                        {
-                            "name": "VEDANT MAYEKAR",
-                            "githubId": "VedantM21"
-                        }
-                    ]
                 }
             ]
         },
@@ -1030,37 +988,6 @@
                     "link": "/app-store-screenshot-generator",
                     "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
                     "contributors": []
-                },
-                {
-                    "name": "Flashcard Generator",
-                    "link": "/online-flashcard",
-                    "description": "A versatile tool for creating and managing custom flashcards. Easily add text, images, and descriptions to each card. Perfect for studying, teaching, or memorization.",
-                    "contributors": [
-                        {
-                            "name": "Linga Reddy Gari Kavyanjali",
-                            "githubId": "Kavyanjali02"
-                        },
-                        {
-                            "name": "Umeed Mujawar",
-                            "githubId": "Umed24"
-                        },
-                        {
-                            "name": "Prem Verma",
-                            "githubId": "vermaprem1012"
-                        },
-                        {
-                            "name": "Sunidhi Munshi",
-                            "githubId": "Sunidhimu"
-                        },
-                        {
-                            "name": "Laxmi Khilnani",
-                            "githubId": "laxmikhilnani20"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
                 },
                 {
                     "name": "Multi Timer",
@@ -1178,106 +1105,6 @@
                     "contributors": []
                 },
                 {
-                    "name": "Math Toolkit",
-                    "link": "/math-toolkit",
-                    "description": "Number system converter which convert numbers into any other number system like binary,hexadecimal,etc.",
-                    "contributors": [
-                        {
-                            "name": "Prachi Kumathekar",
-                            "githubId": "02skysane"
-                        },
-                        {
-                            "name": "Anupama Patewad",
-                            "githubId": "Anupama-Patewad"
-                        },
-                        {
-                            "name": "Jayesh Jaroli",
-                            "githubId": "JayeshJaroli4917"
-                        },
-                        {
-                            "name": "Shivanshu Kumar",
-                            "githubId": "shivoham79"
-                        }
-                    ]
-                },
-                {
-                    "name": "Online live Quiz",
-                    "link": "/online-live-quiz",
-                    "description": "A quiz app where users create and share quizzes via links, with timed sessions, question display, real-time answers, and choices, and ending with a complete result summary shown as a bar graph.",
-                    "contributors": [
-                        {
-                            "name": "AdityaPratap Singh",
-                            "githubId": "Aditya-Tomer"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Online Poll Tool",
-                    "link": "/online-poll-tool",
-                    "description": "The Online Poll Tool simplifies the creation and management of polls, enabling users to gather feedback and insights effortlessly. It offers customizable options for poll types, answer options, and result analysis, ensuring a user-friendly experience for both creators and respondents.",
-                    "contributors": [
-                        {
-                            "name": "Onkar Mendhapurkar",
-                            "githubId": "onkar69483"
-                        },
-                        {
-                            "name": "Bharath Sagam",
-                            "githubId": "bharathsagam"
-                        },
-                        {
-                            "name": "Prachi Patil",
-                            "githubId": "prachi5791"
-                        },
-                        {
-                            "name": "Piyush Nimbalkar",
-                            "githubId": "piyush1519"
-                        },
-                        {
-                            "name": "Atharva Jadhav",
-                            "githubId": "atharva445"
-                        },
-                        {
-                            "name": "Priyanka Gupta",
-                            "githubId": "priyankag12"
-                        },
-                        {
-                            "name": "Sarthak Chaudhari",
-                            "githubId": "sarthak0205"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Online Presentation Builder",
-                    "link": "/online-presentation-builder",
-                    "description": "This tool helps you create presentations online with an easy-to-use interface, allowing you to save, share, and download your work seamlessly. It ensures a smooth and efficient presentation-building experience",
-                    "contributors": [
-                        {
-                            "name": "Ramani Vemula",
-                            "githubId": "https://github.com/Ramanivemula"
-                        },
-                        {
-                            "name": "Shardul Kulkarni",
-                            "githubId": "https://github.com/shardul9320"
-                        },
-                        {
-                            "name": "Seemin Khan",
-                            "githubId": "https://github.com/SeeminKhan"
-                        },
-                        {
-                            "name": "Vrushant Mukherjee",
-                            "githubId": "https://github.com/Vrushant14"
-                        }
-                    ]
-                },
-                {
                     "name": "Puzzle Maker",
                     "link": "/puzzle-maker",
                     "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
@@ -1301,37 +1128,6 @@
                         {
                             "name": "Tanvi More",
                             "githubId": "Tanvi119"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Virtual Mindmap Maker",
-                    "link": "/virtual-mindmap",
-                    "description": "Curate personalised mindmaps to ease your learning with effective visuals. This tool will help you in making mindmaps to store information as linked cards for easier memorisation. ",
-                    "contributors": [
-                        {
-                            "name": "Snehal Shetye",
-                            "githubId": "Snehalshetye18"
-                        },
-                        {
-                            "name": "Purvi Passi",
-                            "githubId": "pxxpassi"
-                        },
-                        {
-                            "name": "Cheryl Lobo",
-                            "githubId": "cherylobo"
-                        },
-                        {
-                            "name": "Prachi Zodage",
-                            "githubId": "PrachiZodage"
-                        },
-                        {
-                            "name": "Aanchal Mehta",
-                            "githubId": "Aanchal1902"
                         },
                         {
                             "name": "Ashwani Kumar Singh",
@@ -1479,6 +1275,17 @@
                     ]
                 },
                 {
+                    "name": "Password Generator",
+                    "link": "/password-generator",
+                    "description": "Tune the length and character mix to instantly produce unique passwords with entropy guidance and one-click copy.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
                     "name": "WhatsApp Link Generator",
                     "link": "/whatsapp-api-generator",
                     "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
@@ -1496,9 +1303,50 @@
             "details": "Perform mathematical calculations, integer operations, and conversions with precision tools.",
             "tools": [
                 {
+                    "name": "Integer Toolkit",
+                    "link": "/integer-toolkit",
+                    "description": "  Paste any list of integers to reveal their shared structure: GCD, LCM, prime factorizations, divisibility classifications, digital roots, and more. Ideal for spotting numerical patterns in problem sets, datasets, or coding data outputs.",
+                    "contributors": []
+                },
+                {
+                    "name": "Math Toolkit",
+                    "link": "/math-toolkit",
+                    "description": "Handy calculators for base conversion, combinatorics, and quadratic analysis in a single dashboard.",
+                    "contributors": [
+                        {
+                            "name": "Prachi Kumathekar",
+                            "githubId": "02skysane"
+                        },
+                        {
+                            "name": "Anupama Patewad",
+                            "githubId": "Anupama-Patewad"
+                        },
+                        {
+                            "name": "Jayesh Jaroli",
+                            "githubId": "JayeshJaroli4917"
+                        },
+                        {
+                            "name": "Shivanshu Kumar",
+                            "githubId": "shivoham79"
+                        }
+                    ]
+                },
+                {
+                    "name": "Number Tool",
+                    "link": "/number-tool",
+                    "description": "Decompose any number into key representations: rounding, scientific notation, roman numerals, parity, logs, and more in a single dashboard.",
+                    "contributors": []
+                },
+                {
                     "name": "Scientific Calculator",
                     "link": "/sciencetific-calculator",
                     "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
+                    "contributors": []
+                },
+                {
+                    "name": "Unit Converter",
+                    "link": "/unit-converter",
+                    "description": "Switch between measurement systems with live conversions across length, mass, temperature, time, area, volume, and data units.",
                     "contributors": []
                 }
             ]

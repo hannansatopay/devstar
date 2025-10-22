@@ -1,6 +1,6 @@
 {
     "name": "Remove Unused CSS",
-    "description": "Removing unused CSS boosts website performance by eliminating unnecessary styles, ensuring faster loading times and better user experience.",
+    "description": "Paste your markup and styles to instantly strip unused selectors, review what was removed, and download the slimmer CSS bundle.",
     "contributors": [
         {
             "name": "Manoj R Gupta",

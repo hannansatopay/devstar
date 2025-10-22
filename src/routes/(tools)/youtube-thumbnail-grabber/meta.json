@@ -1,6 +1,6 @@
 {
     "name": "Youtube Thumbnail Grabber",
-    "description": "The YouTube Thumbnail Grabber is a tool for fetching and downloading thumbnails from YouTube videos based on user-specified resolutions.",
+    "description": "Paste a YouTube link to preview every available thumbnail size, check which resolutions exist, and copy or download the image instantly.",
     "contributors": [
         {
             "name": "ANKITA MISHRA",
@@ -23,5 +23,5 @@
             "githubId": "VedantM21"
         }
     ],
-    "categoryTitle": "Media Editing and Management Tools"
+    "categoryTitle": "Image and Graphic Tools"
 }
