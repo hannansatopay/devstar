@@ -721,8 +721,8 @@
             ]
         },
         {
-            "title": "Development and Testing Tools",
-            "details": "Optimize your coding workflow with tools for formatting, validation, debugging, and performance testing.",
+            "title": "Web Development & SEO Tools",
+            "details": "Optimize, test, and enhance websites with tools for performance analysis, code validation, and search engine optimization.",
             "tools": [
                 {
                     "name": "Code Linter",
@@ -798,6 +798,18 @@
                     ]
                 },
                 {
+                    "name": "Keyword Density Checker",
+                    "link": "/keyword-density-checker",
+                    "description": "Analyze word usage within your content to surface the top keywords, their frequency, and density while filtering common stop words.",
+                    "contributors": []
+                },
+                {
+                    "name": "Metatag Checker & Generator",
+                    "link": "/metatag-checker-generator",
+                    "description": "Audit existing meta tags from any page or craft new tags with live previews for title, description, keywords, and social sharing.",
+                    "contributors": []
+                },
+                {
                     "name": "Online API Testing",
                     "link": "/online-api-testing",
                     "description": "Send REST calls from the browser, tweak headers and payloads, inspect latency, response size, headers, and grab an instant cURL snippet.",
@@ -866,6 +878,12 @@
                     ]
                 },
                 {
+                    "name": "SEO Checker",
+                    "link": "/seo-checker",
+                    "description": "Run quick on-page SEO diagnostics for any URL: title length, meta description, heading structure, word count, link stats, and image alt coverage.",
+                    "contributors": []
+                },
+                {
                     "name": "SQL Query Builder",
                     "link": "/sql-query-builder",
                     "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
@@ -895,6 +913,54 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "User Agent Generator & Decoder",
+                    "link": "/user-agent-generator-decoder",
+                    "description": "Craft custom user agents or decode existing strings into browser, OS, and device details.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Broken Link Checker",
+                    "link": "/websites-broken-link-checker",
+                    "description": "Scan a page for outgoing links and verify their status codes to flag redirects or errors instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Image Extractor",
+                    "link": "/website-image-extractor",
+                    "description": "Fetch every image from a page, inspect alt text, and export the sources for quick audits or asset downloads.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Links Count",
+                    "link": "/website-links-count",
+                    "description": "Count and categorize all links on a page, distinguishing internal, external, mailto, and nofollow references.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Performance Testing",
+                    "link": "/website-performance-testing",
+                    "description": "Capture key performance metrics (TTFB, DOM load, total requests) for a page using the Resource Timing API.",
+                    "contributors": []
+                },
+                {
+                    "name": "WordPress Theme Detector",
+                    "link": "/wordpress-theme-detector",
+                    "description": "Detect the active WordPress theme and plugins by scanning a site's source for common identifiers.",
+                    "contributors": []
+                },
+                {
+                    "name": "XML Formatter & Beautifier",
+                    "link": "/xml-formatter-beautifier",
+                    "description": "Pretty-print, minify, and validate XML instantly with formatting options and error highlights.",
+                    "contributors": []
+                },
+                {
+                    "name": "XML Sitemap Generator",
+                    "link": "/xml-sitemap-generator",
+                    "description": "Build standards-compliant XML sitemaps by composing URLs, last modified dates, change frequencies, and priority hints.",
+                    "contributors": []
                 }
             ]
         },
@@ -1350,11 +1416,6 @@
                     "contributors": []
                 }
             ]
-        },
-        {
-            "title": "SEO Tools",
-            "details": "Analyze and optimize website visibility with tools for meta tags, sitemaps, and keyword analysis.",
-            "tools": []
         }
     ]
 }

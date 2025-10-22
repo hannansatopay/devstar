@@ -1,0 +1,8 @@
+{
+    "description":  "Count and categorize all links on a page, distinguishing internal, external, mailto, and nofollow references.",
+    "name":  "Website Links Count",
+    "categoryTitle":  "Web Development & SEO Tools",
+    "contributors":  [
+
+                     ]
+}

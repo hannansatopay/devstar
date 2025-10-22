@@ -1,0 +1,8 @@
+{
+    "description":  "Detect the active WordPress theme and plugins by scanning a site\u0027s source for common identifiers.",
+    "name":  "WordPress Theme Detector",
+    "categoryTitle":  "Web Development & SEO Tools",
+    "contributors":  [
+
+                     ]
+}

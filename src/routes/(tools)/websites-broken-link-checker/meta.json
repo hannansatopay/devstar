@@ -1,0 +1,8 @@
+{
+    "description":  "Scan a page for outgoing links and verify their status codes to flag redirects or errors instantly.",
+    "name":  "Website Broken Link Checker",
+    "categoryTitle":  "Web Development & SEO Tools",
+    "contributors":  [
+
+                     ]
+}

@@ -13,8 +13,8 @@
             "details": "Create professional content, layouts, mockups, and brand assets with intuitive design tools."
         },
         {
-            "title": "Development and Testing Tools",
-            "details": "Optimize your coding workflow with tools for formatting, validation, debugging, and performance testing."
+            "title": "Web Development & SEO Tools",
+            "details": "Optimize, test, and enhance websites with tools for performance analysis, code validation, and search engine optimization."
         },
         {
             "title": "Media Editing and Management Tools",
@@ -43,10 +43,6 @@
         {
             "title": "Math Toolkit",
             "details": "Perform mathematical calculations, integer operations, and conversions with precision tools."
-        },
-        {
-            "title": "SEO Tools",
-            "details": "Analyze and optimize website visibility with tools for meta tags, sitemaps, and keyword analysis."
         }
     ]
 }

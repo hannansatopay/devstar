@@ -1,0 +1,8 @@
+{
+    "description":  "Fetch every image from a page, inspect alt text, and export the sources for quick audits or asset downloads.",
+    "name":  "Website Image Extractor",
+    "categoryTitle":  "Web Development & SEO Tools",
+    "contributors":  [
+
+                     ]
+}
