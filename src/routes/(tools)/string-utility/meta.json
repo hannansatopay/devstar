@@ -1,0 +1,8 @@
+{
+    "description":  "Apply common string transforms—case changes, slugifying, camel casing, and sanitisation—in one place.",
+    "name":  "String Utility",
+    "categoryTitle":  "Text Conversion Tools",
+    "contributors":  [
+
+                     ]
+}

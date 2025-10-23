@@ -50,8 +50,8 @@
                 },
                 {
                     "name": "Bionic Reading Converter",
-                    "link": "/Bionic Reading Converter",
-                    "description": "Enhances texts so that the most concise parts of words are highlighted.",
+                    "link": "/bionic-reading-converter",
+                    "description": "Enhance any passage with adjustable Bionic Reading emphasis, custom themes, quick presets, and copy-ready plain text or HTML snippets.",
                     "contributors": [
                         {
                             "name": "Yash Jain",
@@ -99,6 +99,70 @@
                     ]
                 },
                 {
+                    "name": "List Toolkit",
+                    "link": "/list-toolkit",
+                    "description": "Clean, sort, shuffle, and enrich lists with prefixes, numbering, and deduplication helpers.",
+                    "contributors": []
+                },
+                {
+                    "name": "Lorem Ipsum Generator",
+                    "link": "/lorem-ipsum-generator",
+                    "description": "Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "Markdown Tool",
+                    "link": "/markdown-tool",
+                    "description": "Write markdown and preview instant HTML rendering with exportable markup.",
+                    "contributors": []
+                },
+                {
+                    "name": "Random Word Everyday",
+                    "link": "/random-word-everyday",
+                    "description": "Welcome to Random Word Everyday, your go-to destination for discovering a new word each day and much more. This website offers a chance to expand your vocabulary daily.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "Jayant Goyal",
+                            "githubId": "jayantgoyal1502"
+                        },
+                        {
+                            "name": "M Desing Raj",
+                            "githubId": "Desing1joker"
+                        },
+                        {
+                            "name": "TANVI SONTAKKE",
+                            "githubId": "TanV-04"
+                        },
+                        {
+                            "name": "SURABHI SATAM",
+                            "githubId": "SurabhiSatam"
+                        },
+                        {
+                            "name": "HIMANI KORGAONKAR",
+                            "githubId": "Himani9922"
+                        },
+                        {
+                            "name": "Urvi Joshi",
+                            "githubId": "UrviJoshi24"
+                        }
+                    ]
+                },
+                {
+                    "name": "Readibility Score Generator",
+                    "link": "/readability-score-generator",
+                    "description": "Analyse readability with Flesch, Gunning Fog, SMOG and more, plus instant editing tips for long sentences.",
+                    "contributors": []
+                },
+                {
                     "name": "Regex Tool",
                     "link": "/regex-tool",
                     "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
@@ -130,35 +194,10 @@
                     ]
                 },
                 {
-                    "name": "Sql Converter",
-                    "link": "/sql-converter",
-                    "description": "Converts .sql into csv, xlsx and more",
-                    "contributors": [
-                        {
-                            "name": "Somesh Diwan",
-                            "githubId": "Someshdiwan"
-                        },
-                        {
-                            "name": "Suryank Chavan",
-                            "githubId": "suryank05"
-                        },
-                        {
-                            "name": "Akankshasarade",
-                            "githubId": "Akankshasarade"
-                        },
-                        {
-                            "name": "Shristi Kushwaha",
-                            "githubId": "Shri6apr"
-                        },
-                        {
-                            "name": "Aditya Gupta",
-                            "githubId": "AdityaGupta"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
+                    "name": "String Utility",
+                    "link": "/string-utility",
+                    "description": "Apply common string transforms�case changes, slugifying, camel casing, and sanitisation�in one place.",
+                    "contributors": []
                 },
                 {
                     "name": "Text Encryption Decryption Tool",
@@ -205,30 +244,15 @@
                 },
                 {
                     "name": "Text Statistics",
-                    "link": "/Text-Statistics",
-                    "description": "The Text Statistics tool is designed to provide comprehensive analysis and insights into a given text. It helps users understand various attributes of their text by calculating and displaying the Total No. of Word count in the Text, The total number of characters in the text, The total number of sentences in the text, The total number of paragraphs in the text, The average length of words in the text, An estimate of the time it would take to read the text, The number of unique words used in the text, A table displaying the count of words based on their length (number of letters). This helps in analyzing the distribution of word lengths within the text.",
-                    "contributors": [
-                        {
-                            "name": "Sujit Sambhaji Lendave",
-                            "githubId": "Sujit747"
-                        },
-                        {
-                            "name": "Shubham Karne",
-                            "githubId": "shubhamkarne11"
-                        },
-                        {
-                            "name": "Gyan Prakash",
-                            "githubId": "gyanp28"
-                        },
-                        {
-                            "name": "Sudhanshu Marudgan",
-                            "githubId": "Sudhanshu-Marudgan"
-                        },
-                        {
-                            "name": "Anoushka Ramankulat",
-                            "githubId": "Anoushka-Ramankulath"
-                        }
-                    ]
+                    "link": "/text-statistics",
+                    "description": "Analyse passages for counts, reading time, frequency tables, and word-length distribution with a single paste.",
+                    "contributors": []
+                },
+                {
+                    "name": "Word to HTML Converter",
+                    "link": "/word-to-html-converter",
+                    "description": "Convert plain text or notes into structured HTML paragraphs, lists, and headings ready for the web.",
+                    "contributors": []
                 },
                 {
                     "name": "XML Formatter",
@@ -596,17 +620,6 @@
                     ]
                 },
                 {
-                    "name": "Lorem Ipsum Generator",
-                    "link": "/lorem-ipsum-generator",
-                    "description": "Effortlessly generate placeholder text with our Lorem Ipsum Generator. Specify the number of characters required, and instantly receive Lorem Ipsum text tailored to your needs. Ideal for designers, developers, and content creators seeking filler text for projects. Enjoy seamless integration into your layouts, ensuring accurate content spacing and visual appeal. Simplify your creative process with our straightforward Lorem Ipsum Generator, allowing you to focus on design without worrying about text content.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
                     "name": "Random Data Generator",
                     "link": "/random-data-generator",
                     "description": "The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.",
@@ -618,41 +631,6 @@
                         {
                             "name": "Shantanu Badgujar",
                             "githubId": "Shantanuz06"
-                        }
-                    ]
-                },
-                {
-                    "name": "Random Word Everyday",
-                    "link": "/random-word-everyday",
-                    "description": "Welcome to Random Word Everyday, your go-to destination for discovering a new word each day and much more. This website offers a chance to expand your vocabulary daily.",
-                    "contributors": [
-                        {
-                            "name": "ANKITA MISHRA",
-                            "githubId": "ANKITAMISHRA29"
-                        },
-                        {
-                            "name": "Jayant Goyal",
-                            "githubId": "jayantgoyal1502"
-                        },
-                        {
-                            "name": "M Desing Raj",
-                            "githubId": "Desing1joker"
-                        },
-                        {
-                            "name": "TANVI SONTAKKE",
-                            "githubId": "TanV-04"
-                        },
-                        {
-                            "name": "SURABHI SATAM",
-                            "githubId": "SurabhiSatam"
-                        },
-                        {
-                            "name": "HIMANI KORGAONKAR",
-                            "githubId": "Himani9922"
-                        },
-                        {
-                            "name": "Urvi Joshi",
-                            "githubId": "UrviJoshi24"
                         }
                     ]
                 },
@@ -884,6 +862,37 @@
                     "contributors": []
                 },
                 {
+                    "name": "Sql Converter",
+                    "link": "/sql-converter",
+                    "description": "Converts .sql into csv, xlsx and more",
+                    "contributors": [
+                        {
+                            "name": "Somesh Diwan",
+                            "githubId": "Someshdiwan"
+                        },
+                        {
+                            "name": "Suryank Chavan",
+                            "githubId": "suryank05"
+                        },
+                        {
+                            "name": "Akankshasarade",
+                            "githubId": "Akankshasarade"
+                        },
+                        {
+                            "name": "Shristi Kushwaha",
+                            "githubId": "Shri6apr"
+                        },
+                        {
+                            "name": "Aditya Gupta",
+                            "githubId": "AdityaGupta"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
                     "name": "SQL Query Builder",
                     "link": "/sql-query-builder",
                     "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
@@ -913,6 +922,18 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "SSL Checker",
+                    "link": "/ssl-checker",
+                    "description": "Inspect a site's TLS certificate, issuer, and expiry instantly with a direct port 443 handshake.",
+                    "contributors": []
+                },
+                {
+                    "name": "Terminal Generator",
+                    "link": "/terminal-generator",
+                    "description": "Design custom terminal transcripts: tweak prompt tokens, add command/output lines, and copy the final shell session in one click.",
+                    "contributors": []
                 },
                 {
                     "name": "User Agent Generator & Decoder",

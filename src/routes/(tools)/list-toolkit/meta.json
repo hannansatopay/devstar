@@ -1,0 +1,8 @@
+{
+    "description":  "Clean, sort, shuffle, and enrich lists with prefixes, numbering, and deduplication helpers.",
+    "name":  "List Toolkit",
+    "categoryTitle":  "Text Conversion Tools",
+    "contributors":  [
+
+                     ]
+}

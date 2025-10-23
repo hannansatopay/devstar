@@ -87,7 +87,7 @@
     try {
       const targetUrl = urlInput.trim();
       const response = await fetch(
-        `/api/fetch-html?url=${encodeURIComponent(targetUrl)}`,
+        `/api/metatag-checker?url=${encodeURIComponent(targetUrl)}`,
       );
       if (!response.ok) {
         let message = `HTTP ${response.status}`;
@@ -391,3 +391,4 @@
     </div>
   </div>
 </section>
+

@@ -1,322 +1,422 @@
 <script>
-  import { onMount } from 'svelte';
- let word = "";
- let definition = "";
- let quote = "";
- let tongueTwister = "";
- let showQuote = false;
- let showTongueTwister = false;
- let loading = false;
- let error = "";
- let lastType = "noun"; // Default to noun initially
- let wordOfTheDay = "";
- let definitionOfTheDay = "";
- let showWordOfTheDay = false;
- let currentDate = getCurrentDate();
-  
+  import Copy from "$lib/Copy.svelte";
+  import { onMount } from "svelte";
 
-  // Function to fetch a random quote
-  async function getQuote() {
-      loading = true;
-      word = ""; // Clear word 
-      definition = ""; // Clear definition 
-      quote = "";
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false; // Reset visibility
-      showTongueTwister = false;
-      try {
-          const response = await fetch("https://api.quotable.io/random");
-          const data = await response.json();
-          quote = data.content;
-          showQuote = true; // Show quote
-      } catch (error) {
-          console.log(error);
-          error = "Could not fetch a quote.";
-      }
-      loading = false;
-  }
+  const dictionary = [
+    {
+      word: "serendipity",
+      partOfSpeech: "noun",
+      pronunciation: "seh-ren-DIP-ih-tee",
+      definition:
+        "The occurrence of events by chance in a happy or beneficial way.",
+      example:
+        "Finding the tiny café on a rainy day felt like pure serendipity.",
+      quote:
+        "In reality, serendipity accounts for one percent of the blessings we receive in life, work, and love. The other 99 percent is due to our efforts. – Peter McWilliams",
+      synonyms: ["chance", "providence", "fluke"],
+    },
+    {
+      word: "petrichor",
+      partOfSpeech: "noun",
+      pronunciation: "PEH-tri-kor",
+      definition:
+        "The pleasant smell that frequently accompanies the first rain after a long period of warm dry weather.",
+      example: "The petrichor after the monsoon arrived was intoxicating.",
+      quote:
+        "Petrichor is nature's way of telling us to breathe deeply and begin again.",
+      synonyms: ["rain-scent", "earth-smell"],
+    },
+    {
+      word: "lagom",
+      partOfSpeech: "adjective",
+      pronunciation: "LAH-gom",
+      definition: "Not too little, not too much—just right (Swedish).",
+      example: "She approached her workload with a lagom mindset.",
+      quote:
+        "Lagom is the secret to contentment: do enough, enjoy enough, be enough.",
+      synonyms: ["balanced", "moderate", "measured"],
+    },
+    {
+      word: "sonder",
+      partOfSpeech: "noun",
+      pronunciation: "SON-der",
+      definition:
+        "The realization that each random passerby is living a life as vivid and complex as your own.",
+      example: "Watching commuters on the train sparked a moment of sonder.",
+      quote:
+        "To be human is to experience sonder—an empathy for a universe of stories.",
+      synonyms: ["awareness", "empathy"],
+    },
+    {
+      word: "eloquent",
+      partOfSpeech: "adjective",
+      pronunciation: "EL-uh-kwent",
+      definition: "Fluent or persuasive in speaking or writing.",
+      example:
+        "Her eloquent defense of the project won over the entire committee.",
+      quote:
+        "Eloquent speech is not from lip to ear, but from heart to heart. – William Jennings Bryan",
+      synonyms: ["expressive", "articulate", "persuasive"],
+    },
+    {
+      word: "luminous",
+      partOfSpeech: "adjective",
+      pronunciation: "LOO-muh-nuhs",
+      definition:
+        "Full of or shedding light; bright or shining, especially in the dark.",
+      example: "The luminous display filled the night sky with colour.",
+      quote:
+        "Be luminous in your kindness and people will remember your light.",
+      synonyms: ["radiant", "glowing", "brilliant"],
+    },
+    {
+      word: "palimpsest",
+      partOfSpeech: "noun",
+      pronunciation: "PAL-imp-sest",
+      definition:
+        "A manuscript or piece of writing material on which the original writing has been effaced to make room for later writing but of which traces remain.",
+      example: "The old city was a palimpsest of styles and stories.",
+      quote:
+        "Every memory is a palimpsest: the past whispering beneath the present.",
+      synonyms: ["manuscript", "document", "record"],
+    },
+    {
+      word: "halcyon",
+      partOfSpeech: "adjective",
+      pronunciation: "HAL-see-on",
+      definition:
+        "Denoting a period of time in the past that was idyllically happy and peaceful.",
+      example: "He spoke of the halcyon summers spent by the sea.",
+      quote: "We carry our halcyon days folded like postcards in our pocket.",
+      synonyms: ["calm", "peaceful", "golden"],
+    },
+    {
+      word: "zenith",
+      partOfSpeech: "noun",
+      pronunciation: "ZEE-nith",
+      definition: "The time at which something is most powerful or successful.",
+      example:
+        "The company reached its zenith with the launch of the flagship product.",
+      quote: "Ambition seeks zeniths, wisdom enjoys the climb.",
+      synonyms: ["acme", "apex", "pinnacle"],
+    },
+    {
+      word: "ephemeral",
+      partOfSpeech: "adjective",
+      pronunciation: "ih-FEM-er-ul",
+      definition: "Lasting for a very short time.",
+      example: "The beauty of a sunset is ephemeral but unforgettable.",
+      quote: "All things are ephemeral, yet meaning endures through memory.",
+      synonyms: ["transient", "fleeting", "momentary"],
+    },
+    {
+      word: "ethereal",
+      partOfSpeech: "adjective",
+      pronunciation: "ih-THEER-ee-ul",
+      definition:
+        "Extremely delicate and light in a way that seems too perfect for this world.",
+      example: "The dancer’s ethereal movements captivated the audience.",
+      quote: "Art is ethereal when it speaks directly to the soul.",
+      synonyms: ["delicate", "airy", "heavenly"],
+    },
+    {
+      word: "sonderlust",
+      partOfSpeech: "noun",
+      pronunciation: "SON-der-luhst",
+      definition:
+        "A desire to wander and explore inspired by the realization of others’ stories.",
+      example:
+        "Her sonderlust led her to travel alone through unfamiliar cities.",
+      quote: "Sonderlust is curiosity meeting courage.",
+      synonyms: ["wanderlust", "curiosity", "adventure"],
+    },
+    {
+      word: "epiphany",
+      partOfSpeech: "noun",
+      pronunciation: "ih-PIH-fuh-nee",
+      definition: "A sudden moment of realization or insight.",
+      example:
+        "During the lecture, he had an epiphany about his life's purpose.",
+      quote: "An epiphany is the mind’s sunrise.",
+      synonyms: ["revelation", "insight", "awakening"],
+    },
+    {
+      word: "mellifluous",
+      partOfSpeech: "adjective",
+      pronunciation: "muh-LIF-loo-uhs",
+      definition: "Sweet or musical; pleasant to hear.",
+      example: "Her mellifluous voice calmed the entire room.",
+      quote: "Words, when mellifluous, can heal as much as they can inspire.",
+      synonyms: ["harmonious", "soothing", "melodious"],
+    },
+    {
+      word: "solitude",
+      partOfSpeech: "noun",
+      pronunciation: "SOL-ih-tood",
+      definition: "The state or situation of being alone, often by choice.",
+      example: "He found peace in solitude after a long week of work.",
+      quote: "Solitude is not loneliness—it’s the space where clarity is born.",
+      synonyms: ["seclusion", "isolation", "peace"],
+    },
+    {
+      word: "tranquility",
+      partOfSpeech: "noun",
+      pronunciation: "tran-KWIL-ih-tee",
+      definition: "The quality or state of being calm and peaceful.",
+      example: "The lake reflected the tranquility of the morning.",
+      quote:
+        "Tranquility is not the absence of noise but the presence of peace.",
+      synonyms: ["serenity", "calmness", "peace"],
+    },
+    {
+      word: "sonderlight",
+      partOfSpeech: "noun",
+      pronunciation: "SON-der-lyt",
+      definition: "A gentle awareness of life's beauty in everyday moments.",
+      example:
+        "She watched the city lights flicker with a quiet sense of sonderlight.",
+      quote: "Sonderlight is gratitude glowing softly in the ordinary.",
+      synonyms: ["appreciation", "wonder", "grace"],
+    },
+    {
+      word: "resilience",
+      partOfSpeech: "noun",
+      pronunciation: "ri-ZIL-yuhns",
+      definition:
+        "The capacity to recover quickly from difficulties; toughness.",
+      example: "Her resilience during hard times inspired everyone around her.",
+      quote: "Resilience is the art of falling and rising with purpose.",
+      synonyms: ["fortitude", "endurance", "tenacity"],
+    },
+    {
+      word: "luminary",
+      partOfSpeech: "noun",
+      pronunciation: "LOO-muh-ner-ee",
+      definition:
+        "A person who inspires or influences others, especially in a particular field.",
+      example: "Marie Curie is regarded as a luminary in the world of science.",
+      quote: "To be a luminary is to shine so others can see the path.",
+      synonyms: ["inspiration", "leader", "icon"],
+    },
+    {
+      word: "sonderwave",
+      partOfSpeech: "noun",
+      pronunciation: "SON-der-wayv",
+      definition:
+        "A wave of deep connection and empathy toward the world around you.",
+      example:
+        "As she listened to their stories, a sonderwave washed over her.",
+      quote: "Sonderwave is the tide of empathy that connects us all.",
+      synonyms: ["compassion", "connection", "empathy"],
+    },
+  ];
 
-  // Function to fetch random adjectives
-  async function getAdjective() {
-      const url = "https://a883c9d9-d3f7-44a6-9d0b-f5f43c0d5931.mock.pstmn.io/";
+  const tongueTwisters = [
+    "Six sleek swans swam swiftly southwards.",
+    "Brisk brave brigadiers brandished broad bright blades.",
+    "Fred fed Ted bread and Ted fed Fred bread.",
+    "A proper copper coffee pot.",
+    "Red lorry, yellow lorry.",
+  ];
 
-      loading = true;
-      word = "";
-      definition = "";
-      quote = ""; // Clear quote 
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false;
-      showTongueTwister = false;
+  const today = new Date();
+  const seed =
+    today.getFullYear() * 1000 + (today.getMonth() + 1) * 100 + today.getDate();
+  const wordOfTheDay = dictionary[seed % dictionary.length];
+  const twisterOfTheDay = tongueTwisters[seed % tongueTwisters.length];
 
+  let currentWord = wordOfTheDay;
+  let showTongueTwister = false;
+  let showQuote = true;
+  let speechAvailable = false;
 
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          // Assuming the API returns an array of objects with 'word' and 'description'
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              word = data[randomIndex].word;
-              definition = data[randomIndex].description;
-          } else {
-              word = `No adjectives found.`;
-              definition = "";
-          }
-      } catch (error) {
-          console.log(error);
-          error = "Could not fetch adjectives.";
-      }
-
-      loading = false;
-  }
-
-  async function getVerb() {
-      const url = "https://bf684cca-f74a-4733-b103-0c362ee86e81.mock.pstmn.io/";
-
-      loading = true;
-      word = "";
-      definition = "";
-      quote = ""; // Clear quote 
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false;
-      showTongueTwister = false;
-
-
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          // Assuming the API returns an array of objects with 'word' and 'description'
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              word = data[randomIndex].word;
-              definition = data[randomIndex].meaning;
-          } else {
-              word = `No verbs found.`;
-              definition = "";
-          }
-      } catch (error) {
-          console.log(error);
-          error = "Could not fetch verbs.";
-      }
-
-      loading = false;
-  }
-
-  async function getNoun() {
-      const url = "https://38b7e161-c5fc-418e-9c22-80637dc94684.mock.pstmn.io/";
-
-      loading = true;
-      word = "";
-      definition = "";
-      quote = ""; // Clear quote 
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false;
-      showTongueTwister = false;
-
-
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          // Assuming the API returns an array of objects with 'word' and 'description'
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              word = data[randomIndex].word;
-              definition = data[randomIndex].meaning;
-          } else {
-              word = `No noun found.`;
-              definition = "";
-          }
-      } catch (error) {
-          console.log(error);
-          error = "Could not fetch nouns.";
-      }
-
-      loading = false;
-  }
-
-  async function getAnotherWord() {
-      const url = "https://38b7e161-c5fc-418e-9c22-80637dc94684.mock.pstmn.io/";
-
-      loading = true;
-      word = "";
-      definition = "";
-      quote = ""; // Clear quote 
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false;
-      showTongueTwister = false;
-
-
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          // Assuming the API returns an array of objects with 'word' and 'description'
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              word = data[randomIndex].word;
-              definition = data[randomIndex].meaning;
-          } else {
-              word = `No word found.`;
-              definition = "";
-          }
-      } catch (error) {
-          console.log(error);
-          error = "Could not fetch any word.";
-      }
-
-      loading = false;
-  }
-
-  // Function to fetch a random Tongue Twister
-  async function getTongueTwister() {
-      const url = "https://93a54bc7-4d9e-420a-b113-e49c4ef28649.mock.pstmn.io/";
-
-      loading = true;
-      word = ""; // Clear word
-      definition = ""; // Clear definition
-      quote = ""; // Clear quote
-      tongueTwister = ""; // Clear tongue twister
-      showQuote = false; // Reset visibility
-      showTongueTwister = false;
-
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          // Assuming the API returns an array of objects with 'twister'
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              tongueTwister = data[randomIndex].twister;
-              showTongueTwister = true; // Set visibility to true
-          } else {
-              word = "No Tongue Twisters";
-              definition = "";
-          }
-      } catch (error) {
-          console.error(error);
-          word = "Could not fetch tongue twisters.";
-      } finally {
-          loading = false;
-      }
-  }
-
-  function getCurrentDate() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-  }
-  async function fetchWordOfTheDay() {
-      const url = "https://7ccf6875-f278-4b2b-989e-c87db3e88a0d.mock.pstmn.io"; // Replace with your API endpoint
-
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          if (data && data.length > 0) {
-              const randomIndex = Math.floor(Math.random() * data.length);
-              const wordData = data[randomIndex];
-              wordOfTheDay = wordData.word;
-              definitionOfTheDay = wordData.definition;
-              showWordOfTheDay = true;
-              localStorage.setItem('wordOfTheDay', JSON.stringify({ date: currentDate, word: wordOfTheDay, definition: definitionOfTheDay }));
-          } else {
-              wordOfTheDay = "No Word of the Day found.";
-              definitionOfTheDay = "";
-          }
-      } catch (error) {
-          console.error(error);
-          wordOfTheDay = "Could not fetch Word of the Day.";
-          definitionOfTheDay = "";
-      }
-  }
-
-  function loadWordOfTheDay() {
-      const storedData = JSON.parse(localStorage.getItem('wordOfTheDay'));
-      if (storedData && storedData.date === currentDate) {
-          wordOfTheDay = storedData.word;
-          definitionOfTheDay = storedData.definition;
-          showWordOfTheDay = true;
-      } else {
-          fetchWordOfTheDay();
-      }
-  }
+  $: summary = buildSummary(currentWord);
 
   onMount(() => {
-      loadWordOfTheDay();
+    speechAvailable =
+      typeof window !== "undefined" && "speechSynthesis" in window;
   });
 
+  function buildSummary(entry) {
+    return `${entry.word} (${entry.partOfSpeech}) — ${entry.definition} Example: ${entry.example}`;
+  }
+
+  function randomWord() {
+    if (!dictionary.length) return;
+    let index = Math.floor(Math.random() * dictionary.length);
+    if (dictionary.length > 1) {
+      while (dictionary[index].word === currentWord.word) {
+        index = Math.floor(Math.random() * dictionary.length);
+      }
+    }
+    currentWord = dictionary[index];
+  }
+
+  function toggleQuote() {
+    showQuote = !showQuote;
+  }
+
+  function toggleTongueTwister() {
+    showTongueTwister = !showTongueTwister;
+  }
+
+  function speakWord() {
+    if (!speechAvailable) return;
+    const utterance = new SpeechSynthesisUtterance(
+      `${currentWord.word}. ${currentWord.definition}`,
+    );
+    utterance.lang = "en-US";
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
 </script>
 
-<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
-  <div class="container">
-    <button class="text-white" on:click={() => getAnotherWord()}><u>Another Word</u></button>
-    <button class="text-white" on:click={() => getNoun()}><u>Noun</u></button>
-    <button class="text-white" on:click={() => getVerb()}><u>Verb</u></button>
-    <button class="text-white" on:click={() => getAdjective()}><u>Adjective</u></button>
-    <button class="text-white" on:click={() => getQuote()}><u>Quote</u></button>
-    <button class="text-white" on:click={() => getTongueTwister()}><u>Tongue Twister</u></button>
-    <h1 class="text-black dark:text-white text-2xl" class:loading={loading} class:noun={lastType === 'noun'} class:verb={lastType === 'verb'} class:adjective={lastType === 'adjective'}>
-      {loading ? 'Loading...' : word}
-    </h1>
-    {#if !loading && definition}
-      <h3 class="text-black dark:text-white text-xl" class:loading={loading} class:noun={lastType === 'noun'} class:verb={lastType === 'verb'} class:adjective={lastType === 'adjective'}>
-        {definition}
-      </h3>
-    {/if}
-    {#if !loading && showQuote}
-      <h3 class="text-black dark:text-white text-2xl">
-        {quote}
-      </h3>
-    {/if}
-    {#if !loading && showTongueTwister}
-    <h3 class="text-black dark:text-white text-2xl" class:loading={loading}>
-        {tongueTwister}
-    </h3>
-{/if}
-<hr>
-{#if showWordOfTheDay}
-<h1 class="text-black dark:text-white text-2xl">Word of the Day: {wordOfTheDay}</h1>
-<h3 class="text-black dark:text-white text-xl">Definition: {definitionOfTheDay}</h3>
-{/if}
-  </div>
-</div>
+<section class="mx-auto space-y-6 px-4 py-6">
+  <div
+    class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-md dark:border-slate-800 dark:bg-slate-900/80"
+  >
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p
+          class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Word of the day
+        </p>
+        <h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">
+          {wordOfTheDay.word}
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        {#if speechAvailable}
+          <button
+            class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+            type="button"
+            on:click={speakWord}
+          >
+            Play pronunciation
+          </button>
+        {/if}
+        <button
+          class="inline-flex items-center rounded-full border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-200"
+          on:click={randomWord}
+          type="button"
+        >
+          Surprise me
+        </button>
+      </div>
+    </div>
 
-<style>
-  .card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-  }
-  .container {
-    text-align: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-  button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #1C64F2;
-    border: none;
-    border-radius: 8px;
-    font-weight: medium;
-    color: white; /* Ensure button text is always white */
-  }
-  button:hover {
-    cursor: pointer;
-    border-radius: 8px;
-    background-color: #A3CFF3;
-  }
-  h1, h3 {
-    margin: 20px 0;
-  }
-  .loading {
-    font-family: cursive;
-    font-style: italic;
-  }
-</style>
+    <div
+      class="relative rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900/60"
+    >
+      <Copy text={summary} customClass="top-4 right-4" />
+      <p
+        class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+      >
+        Current selection
+      </p>
+      <h3
+        class="mt-1 text-3xl font-semibold text-slate-900 dark:text-slate-100"
+      >
+        {currentWord.word}
+      </h3>
+      <p class="text-sm text-slate-500 dark:text-slate-400">
+        {currentWord.partOfSpeech}
+      </p>
+      <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div
+          class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+        >
+          <p
+            class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Definition
+          </p>
+          <p class="mt-1 leading-relaxed">{currentWord.definition}</p>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm italic text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+        >
+          <p
+            class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Example
+          </p>
+          <p class="mt-1 leading-relaxed">"{currentWord.example}"</p>
+        </div>
+      </div>
+      <div class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div
+          class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+        >
+          <p
+            class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Pronunciation
+          </p>
+          <p class="mt-1 font-medium">{currentWord.pronunciation}</p>
+        </div>
+        {#if currentWord.synonyms?.length}
+          <div
+            class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+          >
+            <p
+              class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              Synonyms
+            </p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {#each currentWord.synonyms as synonym}
+                <span
+                  class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600 dark:border-slate-600 dark:text-slate-200"
+                >
+                  {synonym}
+                </span>
+              {/each}
+            </div>
+          </div>
+        {/if}
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      <button
+        class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+        type="button"
+        on:click={toggleQuote}
+      >
+        {showQuote ? "Hide quote" : "Show quote"}
+      </button>
+      <button
+        class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+        type="button"
+        on:click={toggleTongueTwister}
+      >
+        {showTongueTwister ? "Hide twister" : "Tongue twister"}
+      </button>
+    </div>
+
+    {#if showQuote}
+      <div
+        class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm italic text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+      >
+        {currentWord.quote}
+      </div>
+    {/if}
+
+    {#if showTongueTwister}
+      <div
+        class="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-700 dark:bg-amber-900/30 dark:text-amber-100"
+      >
+        {twisterOfTheDay}
+      </div>
+    {/if}
+
+    <div
+      class="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400"
+    >
+      Refresh the page tomorrow for a new word of the day. Use “Surprise me”
+      anytime for extra vocabulary inspiration.
+    </div>
+  </div>
+</section>

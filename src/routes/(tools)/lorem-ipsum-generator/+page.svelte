@@ -1,100 +1,181 @@
-<script lang="ts">
+<script>
+  import Copy from "$lib/Copy.svelte";
 
-	import { Button } from 'flowbite-svelte';
-	import jsPDF from 'jspdf';
-	
-	export let data;
+  const sourceWords =
+    "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis ipsum suspendisse ultrices gravida risus commodo viverra maecenas accumsan lacus vel facilisis".split(
+      " ",
+    );
 
-	var len = 1000;
+  const presets = [
+    { label: "Paragraphs", value: "paragraphs" },
+    { label: "Sentences", value: "sentences" },
+    { label: "Words", value: "words" },
+  ];
 
-	var output;
+  let generationMode = presets[0].value;
+  let quantity = 3;
+  let includeTitle = false;
+  let includeHtml = false;
+  let generated = "";
 
-	function generateOutput() {
-		const loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ";
+  $: generated = buildLorem({
+    mode: generationMode,
+    quantity,
+    includeTitle,
+    includeHtml,
+  });
 
-		if (len <= 0) {
-			return "Invalid input. Please provide a positive number of characters.";
-		}
+  function buildLorem({ mode, quantity, includeTitle, includeHtml }) {
+    const count = Math.max(1, Math.min(50, Math.floor(quantity)));
 
-		let str = "";
-		while (str.length < len) {
-			str += loremIpsum;
-		}
+    const builder =
+      mode === "words"
+        ? generateWords(count)
+        : mode === "sentences"
+          ? generateSentences(count)
+          : generateParagraphs(count);
 
-		output=str.slice(0, len);
-	}
+    const body = includeHtml
+      ? builder.map((item) => `<p>${item}</p>`).join("\n")
+      : builder.join("\n\n");
+    if (!includeTitle) {
+      return body;
+    }
 
-	generateOutput();
+    const title = includeHtml ? "<h2>Lorem Ipsum</h2>" : "Lorem Ipsum";
+    return includeHtml ? `${title}\n${body}` : `${title}\n\n${body}`;
+  }
 
-	function copyText() {
-		if (output.length > 0) {
-			var textarea = document.createElement("textarea");
-			textarea.value = output;
-			document.body.appendChild(textarea);
-			textarea.select();
-			document.execCommand("copy");
-			document.body.removeChild(textarea);
-		}
-	}
+  function generateWords(count) {
+    const words = [];
+    for (let index = 0; index < count; index += 1) {
+      const next = sourceWords[index % sourceWords.length];
+      words.push(next);
+    }
+    return [sentenceCase(words.join(" "))];
+  }
 
-	function downloadText() {
-		if (output.length > 0) {
-			var filename = "devstar_output.txt";
-			var blob = new Blob([output], { type: 'text/plain' });
-			var url = window.URL.createObjectURL(blob);
-			
-			var a = document.createElement('a');
-			a.href = url;
-			a.download = filename;
-			document.body.appendChild(a);
-			a.click();
-			
-			window.URL.revokeObjectURL(url);
-			document.body.removeChild(a);
-		}
-	}
-  
-	function downloadPDF() {
-		if (output.length > 0) {
-			const doc = new jsPDF();
-			doc.text(output, 20, 20);
-			doc.save('devstar_output.pdf');
-		}
-	}
+  function generateSentences(count) {
+    const sentences = [];
+    let pointer = 0;
+    for (let index = 0; index < count; index += 1) {
+      const length = 8 + ((index * 3) % 8);
+      const words = [];
+      for (let word = 0; word < length; word += 1) {
+        words.push(sourceWords[(pointer + word) % sourceWords.length]);
+      }
+      pointer += length;
+      sentences.push(sentenceCase(words.join(" ")) + ".");
+    }
+    return sentences;
+  }
 
+  function generateParagraphs(count) {
+    return Array.from({ length: count }, (_, index) => {
+      const sentences = generateSentences(3 + (index % 3));
+      return sentences.join(" ");
+    });
+  }
+
+  function sentenceCase(text) {
+    if (!text) {
+      return text;
+    }
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  function download(format) {
+    const type =
+      format === "html"
+        ? "text/html;charset=utf-8"
+        : "text/plain;charset=utf-8";
+    const blob = new Blob([generated], { type });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = format === "html" ? "lorem-ipsum.html" : "lorem-ipsum.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(link.href);
+  }
 </script>
 
+<section class="mx-auto space-y-6 px-4 py-6">
+  <div
+    class="grid gap-6 rounded-2xl border border-slate-200 bg-white p-6 shadow-md dark:border-slate-800 dark:bg-slate-900/80 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]"
+  >
+    <div class="space-y-5">
+      <div class="grid gap-3 md:grid-cols-2">
+        <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">
+          Generate
+          <select
+            class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            bind:value={generationMode}
+          >
+            {#each presets as preset}
+              <option value={preset.value}>{preset.label}</option>
+            {/each}
+          </select>
+        </label>
+        <label class="text-sm font-semibold text-slate-700 dark:text-slate-200">
+          Quantity
+          <input
+            type="number"
+            min="1"
+            max="50"
+            class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            bind:value={quantity}
+          />
+        </label>
+      </div>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-		<div class="card p-8 relative items-center mx-auto max-w-screen-xl overflow-hidden rounded-lg">
+      <div class="flex flex-wrap items-center gap-4">
+        <label
+          class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          <input
+            type="checkbox"
+            class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+            bind:checked={includeTitle}
+          />
+          Include heading
+        </label>
+        <label
+          class="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+        >
+          <input
+            type="checkbox"
+            class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+            bind:checked={includeHtml}
+          />
+          HTML markup
+        </label>
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400">
+        Choose between paragraphs, sentences, or direct word output to fit
+        whichever placeholder text you need.
+      </p>
 
-			<div>
-				<label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Number of Characters</label>
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300">
-					<input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					on:change={generateOutput} bind:value={len} required>
-				</div>
-			</div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button
+          class="inline-flex items-center rounded-full border border-indigo-300 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:border-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-200"
+          on:click={() => download("txt")}
+        >
+          Download .txt
+        </button>
+        <button
+          class="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100 focus:outline-none focus:ring-2 focus:ring-emerald-300 dark:border-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200"
+          on:click={() => download("html")}
+        >
+          Download .html
+        </button>
+      </div>
+    </div>
 
-			<div class="mt-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden" id="boxarea">
-
-				<div class="rounded-lg overflow-hidden bg-gray-50 border border-gray-300" id="tarea2">
-					<textarea placeholder="Result" id="textbox" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					bind:value={output}/>
-				</div>
-
-			</div>
-
-			<div class="items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-1 overflow-hidden">
-				<div class="mt-8 gap-4 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 overflow-hidden">
-					<Button color="blue" on:click={copyText}>Copy</Button>
-					<Button color="blue" on:click={downloadText}>Download as txt</Button>
-					<Button color="blue" on:click={downloadPDF}>Download as pdf</Button>
-				</div>	
-			</div>
-
-		</div>
-	</div>
+    <div class="relative">
+      <Copy text={generated} customClass="top-3 right-3" />
+      <pre
+        class="min-h-[280px] whitespace-pre-wrap break-words rounded-xl border border-slate-200 bg-slate-50 pt-14 p-4 text-sm text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">{generated}</pre>
+    </div>
+  </div>
 </section>
-

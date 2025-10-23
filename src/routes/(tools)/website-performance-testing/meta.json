@@ -1,7 +1,7 @@
 {
     "description":  "Capture key performance metrics (TTFB, DOM load, total requests) for a page using the Resource Timing API.",
     "name":  "Website Performance Testing",
-    "categoryTitle":  "Web Development & SEO Tools",
+    "categoryTitle":  "Web Development \u0026 SEO Tools",
     "contributors":  [
 
                      ]
