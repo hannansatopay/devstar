@@ -1,650 +1,530 @@
-<script>
-    import { onMount } from "svelte";
+<script lang="ts">
+  import { onDestroy, onMount } from "svelte";
 
-    let ctx;
-    let drawing = false;
-    let startX, startY;
-    let currentTool = "line";
-    let strokeColor = "#00bfff";
-    let lineWidth = 2;
-    let actions = [];
-    let undoStack = [];
-    let scale = 1;
-    let panX = 0;
-    let panY = 0;
-    let fillColor = "#ff00ff";
-    let fill = false;
-    let dashedStroke = false;
-    let roundCorners = false;
-    let cornerRadius = 50;
+  type Point = { x: number; y: number };
+  type Tool =
+    | "pen"
+    | "line"
+    | "rectangle"
+    | "circle"
+    | "arrow"
+    | "eraser"
+    | "text";
 
-    let currentFreehandPoints = [];
-    let controlPoint = null;
+  type Action =
+    | { type: "path"; points: Point[]; color: string; width: number }
+    | { type: "erase"; points: Point[]; width: number }
+    | {
+        type: "shape";
+        shape: "line" | "rectangle" | "circle" | "arrow";
+        start: Point;
+        end: Point;
+        stroke: string;
+        width: number;
+        fill?: string | null;
+      }
+    | {
+        type: "text";
+        position: Point;
+        value: string;
+        color: string;
+        size: number;
+      };
 
-    function startDrawing(event) {
-        drawing = true;
-        const rect = event.target.getBoundingClientRect();
-        startX = (event.clientX - rect.left - panX) / scale;
-        startY = (event.clientY - rect.top - panY) / scale;
+  let canvas: HTMLCanvasElement | null = null;
+  let container: HTMLDivElement | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
+  let observer: ResizeObserver | null = null;
 
-        if (currentTool === "freehand") {
-            currentFreehandPoints = [{ x: startX, y: startY }];
-        } else if (currentTool === "curve") {
-            controlPoint = { x: startX, y: startY };
-        }
+  let tool: Tool = "pen";
+  let strokeColor = "#1f2937";
+  let fillColor = "#38bdf8";
+  let lineWidth = 3;
+  let showGrid = true;
+  let snapToGrid = true;
+  let gridSize = 24;
+  let background = "#f8fafc";
+
+  let drawing = false;
+  let startPoint: Point | null = null;
+  let currentPoints: Point[] = [];
+  let preview: Action | null = null;
+
+  let actions: Action[] = [];
+  let redoStack: Action[] = [];
+
+  const toolOptions: Array<{ id: Tool; label: string }> = [
+    { id: "pen", label: "Pen" },
+    { id: "line", label: "Line" },
+    { id: "rectangle", label: "Rectangle" },
+    { id: "circle", label: "Circle" },
+    { id: "arrow", label: "Arrow" },
+    { id: "text", label: "Text" },
+    { id: "eraser", label: "Eraser" },
+  ];
+
+  onMount(() => {
+    if (!canvas) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
+    ctx = context;
+    observer = new ResizeObserver(() => resizeCanvas());
+    if (container) observer.observe(container);
+    resizeCanvas();
+    render();
+  });
+
+  onDestroy(() => {
+    observer?.disconnect();
+  });
+
+  function resizeCanvas() {
+    if (!canvas || !container) return;
+    const { width } = container.getBoundingClientRect();
+    const height = Math.max(360, Math.min(720, width * 0.6));
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    ctx?.setTransform(1, 0, 0, 1, 0, 0);
+    ctx?.scale(dpr, dpr);
+    render();
+  }
+
+  function pointerDown(event: PointerEvent) {
+    if (!ctx || !canvas) return;
+    canvas.setPointerCapture(event.pointerId);
+    drawing = true;
+    redoStack = [];
+    const point = toPoint(event);
+    startPoint = point;
+    if (tool === "pen" || tool === "eraser") {
+      currentPoints = [point];
     }
+  }
 
-    function draw(event) {
-        if (!drawing) return;
-        const rect = event.target.getBoundingClientRect();
-        const x = (event.clientX - rect.left - panX) / scale;
-        const y = (event.clientY - rect.top - panY) / scale;
-
-        redrawCanvas();
-        ctx.lineWidth = lineWidth;
-        ctx.strokeStyle = strokeColor;
-        ctx.fillStyle = fillColor;
-        ctx.lineCap = "round";
-
-        if (dashedStroke) {
-            ctx.setLineDash([5, 5]); // Array represents dash pattern: [dashLength, gapLength]
-        } else {
-            ctx.setLineDash([]); // Set to an empty array to reset to solid line
-        }
-
-        if (currentTool === "line") {
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        } else if (currentTool === "rectangle") {
-            ctx.beginPath();
-            if (roundCorners) {
-                const width = x - startX;
-                const height = y - startY;
-                const radius = cornerRadius;
-                ctx.moveTo(startX + radius, startY);
-                ctx.arcTo(x, startY, x, startY + radius, radius);
-                ctx.arcTo(x, y, x - radius, y, radius);
-                ctx.arcTo(startX, y, startX, y - radius, radius);
-                ctx.arcTo(startX, startY, startX + radius, startY, radius);
-                ctx.closePath();
-            } else {
-                ctx.rect(startX, startY, x - startX, y - startY);
+  function pointerMove(event: PointerEvent) {
+    if (!drawing || !ctx) return;
+    const point = toPoint(event);
+    if (tool === "pen" || tool === "eraser") {
+      currentPoints = [...currentPoints, point];
+      preview =
+        tool === "pen"
+          ? {
+              type: "path",
+              points: currentPoints,
+              color: strokeColor,
+              width: lineWidth,
             }
-            ctx.stroke();
-            if (fill) {
-                ctx.fill();
-            }
-        } else if (currentTool === "circle") {
-            ctx.beginPath();
-            const radius = Math.sqrt(
-                Math.pow(x - startX, 2) + Math.pow(y - startY, 2),
-            );
-            ctx.arc(startX, startY, radius, 0, Math.PI * 2);
-            ctx.stroke();
-        } else if (currentTool === "curve") {
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.quadraticCurveTo(controlPoint.x, controlPoint.y, x, y);
-            ctx.stroke();
-        } else if (currentTool === "arrow") {
-            const headlen = 10;
-            const angle = Math.atan2(y - startY, x - startX);
-            ctx.beginPath();
-            ctx.moveTo(startX, startY);
-            ctx.lineTo(x, y);
-            ctx.lineTo(
-                x - headlen * Math.cos(angle - Math.PI / 6),
-                y - headlen * Math.sin(angle - Math.PI / 6),
-            );
-            ctx.moveTo(x, y);
-            ctx.lineTo(
-                x - headlen * Math.cos(angle + Math.PI / 6),
-                y - headlen * Math.sin(angle + Math.PI / 6),
-            );
-            ctx.stroke();
-        } else if (currentTool === "freehand") {
-            currentFreehandPoints.push({ x, y });
-            ctx.beginPath();
-            for (let i = 0; i < currentFreehandPoints.length - 1; i++) {
-                ctx.moveTo(
-                    currentFreehandPoints[i].x,
-                    currentFreehandPoints[i].y,
-                );
-                ctx.lineTo(
-                    currentFreehandPoints[i + 1].x,
-                    currentFreehandPoints[i + 1].y,
-                );
-            }
-            ctx.stroke();
+          : { type: "erase", points: currentPoints, width: lineWidth * 2 };
+    } else if (startPoint) {
+      preview = {
+        type: "shape",
+        shape: tool === "line" ? "line" : tool === "arrow" ? "arrow" : tool,
+        start: startPoint,
+        end: point,
+        stroke: strokeColor,
+        width: lineWidth,
+        fill: tool === "rectangle" || tool === "circle" ? fillColor : null,
+      };
+    }
+    render();
+  }
+
+  function pointerUp(event: PointerEvent) {
+    if (!drawing) return;
+    canvas?.releasePointerCapture(event.pointerId);
+    const point = toPoint(event);
+    drawing = false;
+    if (tool === "pen") {
+      const points = [...currentPoints, point];
+      if (points.length > 1)
+        actions = [
+          ...actions,
+          { type: "path", points, color: strokeColor, width: lineWidth },
+        ];
+    } else if (tool === "eraser") {
+      const points = [...currentPoints, point];
+      actions = [...actions, { type: "erase", points, width: lineWidth * 2 }];
+    } else if (tool === "text") {
+      const value = window.prompt("Enter text label", "");
+      if (value) {
+        actions = [
+          ...actions,
+          {
+            type: "text",
+            position: point,
+            value,
+            color: strokeColor,
+            size: Math.max(14, lineWidth * 6),
+          },
+        ];
+      }
+    } else if (startPoint) {
+      const shape =
+        tool === "line"
+          ? "line"
+          : tool === "arrow"
+            ? "arrow"
+            : (tool as "rectangle" | "circle");
+      actions = [
+        ...actions,
+        {
+          type: "shape",
+          shape,
+          start: startPoint,
+          end: point,
+          stroke: strokeColor,
+          width: lineWidth,
+          fill: tool === "rectangle" || tool === "circle" ? fillColor : null,
+        },
+      ];
+    }
+    startPoint = null;
+    currentPoints = [];
+    preview = null;
+    render();
+  }
+
+  function cancelDrawing(event?: PointerEvent) {
+    if (event && canvas) {
+      try {
+        canvas.releasePointerCapture(event.pointerId);
+      } catch {
+        /* ignore */
+      }
+    }
+    drawing = false;
+    currentPoints = [];
+    startPoint = null;
+    preview = null;
+    render();
+  }
+
+  function selectTool(next: Tool) {
+    if (tool !== next) {
+      tool = next;
+      preview = null;
+      drawing = false;
+    }
+  }
+
+  function toPoint(event: PointerEvent): Point {
+    if (!canvas) return { x: 0, y: 0 };
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    return snapToGrid ? snapPoint({ x, y }) : { x, y };
+  }
+
+  function snapPoint(point: Point) {
+    const step = Math.max(6, gridSize);
+    return {
+      x: Math.round(point.x / step) * step,
+      y: Math.round(point.y / step) * step,
+    };
+  }
+
+  function render() {
+    if (!ctx || !canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const width = canvas.width / dpr;
+    const height = canvas.height / dpr;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(dpr, dpr);
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, width, height);
+    ctx.restore();
+
+    if (showGrid) drawGrid();
+    for (const action of actions) drawAction(action);
+    if (preview) drawAction(preview, true);
+  }
+
+  function drawGrid() {
+    if (!ctx || !canvas) return;
+    const step = Math.max(8, gridSize);
+    ctx.save();
+    ctx.strokeStyle = "#cbd5f5";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([step * 0.02, step * 0.98]);
+    const width = canvas.width / (window.devicePixelRatio || 1);
+    const height = canvas.height / (window.devicePixelRatio || 1);
+    for (let x = 0; x <= width; x += step) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    for (let y = 0; y <= height; y += step) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawAction(action: Action, isPreview = false) {
+    if (!ctx) return;
+    ctx.save();
+    if (action.type === "path") {
+      ctx.strokeStyle = action.color;
+      ctx.lineWidth = action.width;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.globalAlpha = isPreview ? 0.7 : 1;
+      ctx.beginPath();
+      action.points.forEach((point, index) => {
+        if (index === 0) ctx.moveTo(point.x, point.y);
+        else ctx.lineTo(point.x, point.y);
+      });
+      ctx.stroke();
+    } else if (action.type === "erase") {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineWidth = action.width;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      action.points.forEach((point, index) => {
+        if (index === 0) ctx.moveTo(point.x, point.y);
+        else ctx.lineTo(point.x, point.y);
+      });
+      ctx.stroke();
+    } else if (action.type === "shape") {
+      ctx.strokeStyle = action.stroke;
+      ctx.lineWidth = action.width;
+      ctx.lineCap = "round";
+      ctx.globalAlpha = isPreview ? 0.75 : 1;
+      const { start, end } = action;
+      if (action.shape === "line") {
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+      } else if (action.shape === "rectangle") {
+        const width = end.x - start.x;
+        const height = end.y - start.y;
+        if (action.fill) {
+          ctx.fillStyle = action.fill;
+          ctx.globalAlpha = 0.25;
+          ctx.fillRect(start.x, start.y, width, height);
+          ctx.globalAlpha = 1;
         }
-        if (showGrid) {
-            drawGrid();
+        ctx.strokeRect(start.x, start.y, width, height);
+      } else if (action.shape === "circle") {
+        const radius = Math.hypot(end.x - start.x, end.y - start.y);
+        ctx.beginPath();
+        ctx.arc(start.x, start.y, radius, 0, Math.PI * 2);
+        if (action.fill) {
+          ctx.fillStyle = action.fill;
+          ctx.globalAlpha = 0.25;
+          ctx.fill();
+          ctx.globalAlpha = 1;
         }
+        ctx.stroke();
+      } else if (action.shape === "arrow") {
+        drawArrow(start, end, action.stroke, action.width);
+      }
+    } else if (action.type === "text") {
+      ctx.fillStyle = action.color;
+      ctx.font = `${action.size}px "Inter","Segoe UI",sans-serif`;
+      ctx.fillText(action.value, action.position.x, action.position.y);
     }
+    ctx.restore();
+  }
 
-    function stopDrawing(event) {
-        if (!drawing) return;
-        drawing = false;
-        const rect = event.target.getBoundingClientRect();
-        const endX = (event.clientX - rect.left - panX) / scale;
-        const endY = (event.clientY - rect.top - panY) / scale;
+  function drawArrow(start: Point, end: Point, color: string, width: number) {
+    if (!ctx) return;
+    const head = Math.max(12, width * 4);
+    const angle = Math.atan2(end.y - start.y, end.x - start.x);
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(start.x, start.y);
+    ctx.lineTo(end.x, end.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(end.x, end.y);
+    ctx.lineTo(
+      end.x - head * Math.cos(angle - Math.PI / 8),
+      end.y - head * Math.sin(angle - Math.PI / 8),
+    );
+    ctx.lineTo(
+      end.x - head * Math.cos(angle + Math.PI / 8),
+      end.y - head * Math.sin(angle + Math.PI / 8),
+    );
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
 
-        if (currentTool === "freehand") {
-            actions.push({
-                tool: "freehand",
-                points: currentFreehandPoints,
-                strokeColor,
-                fillColor,
-                lineWidth,
-                fill,
-                dashedStroke,
-                roundCorners,
-            });
-        } else if (currentTool === "text") {
-            const text = prompt("Enter text:");
-            if (text) {
-                actions.push({
-                    tool: "text",
-                    startX,
-                    startY,
-                    text,
-                    strokeColor,
-                    fillColor,
-                    lineWidth,
-                    fill,
-                    dashedStroke,
-                    roundCorners,
-                });
-            }
-        } else if (currentTool === "curve") {
-            actions.push({
-                tool: "curve",
-                startX,
-                startY,
-                controlX: controlPoint.x,
-                controlY: controlPoint.y,
-                endX,
-                endY,
-                strokeColor,
-                fillColor,
-                lineWidth,
-                fill,
-                dashedStroke,
-                roundCorners,
-            });
-        } else if (currentTool === "line") {
-            actions.push({
-                tool: "line",
-                startX,
-                startY,
-                endX,
-                endY,
-                strokeColor,
-                fillColor,
-                lineWidth,
-                fill,
-                dashedStroke,
-                roundCorners,
-            });
-        } else {
-            actions.push({
-                tool: currentTool,
-                startX,
-                startY,
-                endX,
-                endY,
-                strokeColor,
-                fillColor,
-                lineWidth,
-                fill,
-                dashedStroke,
-                roundCorners,
-            });
-        }
-        if (currentTool === "fill") {
-            actions.push({ tool: "fill", startX, startY, color });
-            fillShape(endX, endY);
-        }
+  function undo() {
+    if (!actions.length) return;
+    const last = actions[actions.length - 1];
+    actions = actions.slice(0, -1);
+    redoStack = [...redoStack, last];
+    render();
+  }
 
-        undoStack = [];
-        redrawCanvas();
-    }
+  function redo() {
+    if (!redoStack.length) return;
+    const next = redoStack[redoStack.length - 1];
+    redoStack = redoStack.slice(0, -1);
+    actions = [...actions, next];
+    render();
+  }
 
-    function drawActions() {
-        actions.forEach((action) => {
-            ctx.lineWidth = action.lineWidth;
-            ctx.strokeStyle = action.strokeColor;
-            ctx.fillStyle = action.fillColor;
-            ctx.beginPath();
+  function clearCanvas() {
+    actions = [];
+    redoStack = [];
+    render();
+  }
 
-            if (action.dashedStroke) {
-                ctx.setLineDash([5, 5]); // Array represents dash pattern: [dashLength, gapLength]
-            } else {
-                ctx.setLineDash([]); // Set to an empty array to reset to solid line
-            }
-
-            if (action.tool === "line") {
-                ctx.moveTo(action.startX, action.startY);
-                ctx.lineTo(action.endX, action.endY);
-            } else if (action.tool === "rectangle") {
-                ctx.beginPath();
-                if (action.roundCorners) {
-                    const width = action.endX - action.startX;
-                    const height = action.endY - action.startY;
-                    const radius = cornerRadius;
-                    ctx.moveTo(action.startX + radius, action.startY);
-                    ctx.arcTo(
-                        action.endX,
-                        action.startY,
-                        action.endX,
-                        action.startY + radius,
-                        radius,
-                    );
-                    ctx.arcTo(
-                        action.endX,
-                        action.endY,
-                        action.endX - radius,
-                        action.endY,
-                        radius,
-                    );
-                    ctx.arcTo(
-                        action.startX,
-                        action.endY,
-                        action.startX,
-                        action.endY - radius,
-                        radius,
-                    );
-                    ctx.arcTo(
-                        action.startX,
-                        action.startY,
-                        action.startX + radius,
-                        action.startY,
-                        radius,
-                    );
-                    ctx.closePath();
-                } else {
-                    ctx.rect(
-                        action.startX,
-                        action.startY,
-                        action.endX - action.startX,
-                        action.endY - action.startY,
-                    );
-                }
-                ctx.stroke();
-                if (action.fill) {
-                    ctx.fill();
-                }
-            } else if (action.tool === "circle") {
-                const radius = Math.sqrt(
-                    Math.pow(action.endX - action.startX, 2) +
-                        Math.pow(action.endY - action.startY, 2),
-                );
-                ctx.arc(action.startX, action.startY, radius, 0, Math.PI * 2);
-                if (action.fill) {
-                    ctx.fill();
-                }
-            } else if (action.tool === "curve") {
-                ctx.moveTo(action.startX, action.startY);
-                ctx.quadraticCurveTo(
-                    action.controlX,
-                    action.controlY,
-                    action.endX,
-                    action.endY,
-                );
-                if (action.fill) {
-                    ctx.fill();
-                }
-            } else if (action.tool === "arrow") {
-                const headlen = 10; // length of head in pixels
-                const angle = Math.atan2(
-                    action.endY - action.startY,
-                    action.endX - action.startX,
-                );
-                ctx.moveTo(action.startX, action.startY);
-                ctx.lineTo(action.endX, action.endY);
-                ctx.lineTo(
-                    action.endX - headlen * Math.cos(angle - Math.PI / 6),
-                    action.endY - headlen * Math.sin(angle - Math.PI / 6),
-                );
-                ctx.moveTo(action.endX, action.endY);
-                ctx.lineTo(
-                    action.endX - headlen * Math.cos(angle + Math.PI / 6),
-                    action.endY - headlen * Math.sin(angle + Math.PI / 6),
-                );
-                ctx.stroke();
-            } else if (action.tool === "freehand") {
-                for (let i = 0; i < action.points.length - 1; i++) {
-                    ctx.moveTo(action.points[i].x, action.points[i].y);
-                    ctx.lineTo(action.points[i + 1].x, action.points[i + 1].y);
-                }
-                ctx.stroke();
-            } else if (action.tool === "text") {
-                ctx.font = `${action.lineWidth * 10}px Arial`;
-                ctx.fillText(action.text, action.startX, action.startY);
-            }
-
-            ctx.stroke();
-            ctx.closePath();
-        });
-        if (showGrid) {
-            drawGrid();
-        }
-    }
-
-    function isShapeClosed(action) {
-        if (action.tool === "freehand") {
-            const startPoint = action.points[0];
-            const endPoint = action.points[action.points.length - 1];
-            const distance = Math.sqrt(
-                Math.pow(endPoint.x - startPoint.x, 2) +
-                    Math.pow(endPoint.y - startPoint.y, 2),
-            );
-            return distance < 10; // A small threshold to consider the shape closed
-        }
-        if (
-            action.tool === "line" ||
-            action.tool === "rectangle" ||
-            action.tool === "circle" ||
-            action.tool === "curve"
-        ) {
-            return true; // Consider these shapes always closed
-        }
-        return false;
-    }
-
-    function redrawCanvas() {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        ctx.save();
-        ctx.translate(panX, panY);
-        ctx.scale(scale, scale);
-        drawGrid(ctx);
-        drawActions();
-        ctx.restore();
-    }
-
-    onMount(() => {
-        ctx = document.getElementById("canvas").getContext("2d");
-        redrawCanvas();
-    });
-
-    function drawGrid(ctx) {
-        const width = ctx.canvas.width / scale;
-        const height = ctx.canvas.height / scale;
-        const step = 20;
-
-        ctx.strokeStyle = getComputedStyle(
-            document.documentElement,
-        ).getPropertyValue("--grid-color");
-        ctx.lineWidth = 0.5;
-
-        for (let x = step; x < width; x += step) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, height);
-            ctx.stroke();
-        }
-
-        for (let y = step; y < height; y += step) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(width, y);
-            ctx.stroke();
-        }
-    }
-
-    function fillShape(x, y) {
-        const imageData = ctx.getImageData(
-            0,
-            0,
-            ctx.canvas.width,
-            ctx.canvas.height,
-        );
-        const data = imageData.data;
-        const stack = [{ x, y }];
-        const targetColor = getColorAtPixel(data, x, y);
-        const fillColor = hexToRgb(color);
-
-        if (colorsMatch(targetColor, fillColor)) {
-            return;
-        }
-
-        while (stack.length) {
-            const { x, y } = stack.pop();
-            const currentColor = getColorAtPixel(data, x, y);
-
-            if (colorsMatch(currentColor, targetColor)) {
-                setColorAtPixel(data, x, y, fillColor);
-
-                stack.push({ x: x + 1, y });
-                stack.push({ x: x - 1, y });
-                stack.push({ x, y: y + 1 });
-                stack.push({ x, y: y - 1 });
-            }
-        }
-
-        ctx.putImageData(imageData, 0, 0);
-    }
-
-    function getColorAtPixel(data, x, y) {
-        const index = (y * ctx.canvas.width + x) * 4;
-        return [data[index], data[index + 1], data[index + 2], data[index + 3]];
-    }
-
-    function setColorAtPixel(data, x, y, color) {
-        const index = (y * ctx.canvas.width + x) * 4;
-        data[index] = color[0];
-        data[index + 1] = color[1];
-        data[index + 2] = color[2];
-        data[index + 3] = 255;
-    }
-
-    function colorsMatch(a, b) {
-        return a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
-    }
-
-    function hexToRgb(hex) {
-        const bigint = parseInt(hex.slice(1), 16);
-        const r = (bigint >> 16) & 255;
-        const g = (bigint >> 8) & 255;
-        const b = bigint & 255;
-        return [r, g, b];
-    }
-
-    // Toolbar
-    function undo() {
-        const lastAction = actions.pop();
-        if (lastAction) undoStack.push(lastAction);
-        redrawCanvas();
-    }
-
-    function redo() {
-        const lastUndo = undoStack.pop();
-        if (lastUndo) actions.push(lastUndo);
-        redrawCanvas();
-    }
-
-    function saveCanvas() {
-        const link = document.createElement("a");
-        link.download = "drawing.png";
-        link.href = document.getElementById("canvas").toDataURL();
-        link.click();
-    }
-
-    function printCanvas() {
-        const dataUrl = document.getElementById("canvas").toDataURL();
-        let windowContent = "<!DOCTYPE html>";
-        windowContent += "<html>";
-        windowContent += "<head><title>Print canvas</title>";
-        windowContent += "<style>";
-        windowContent +=
-            "body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }";
-        windowContent += "img { max-width: 100%; max-height: 100%; }";
-        windowContent += "</style>";
-        windowContent += "</head>";
-        windowContent += "<body>";
-        windowContent += `<img src="${dataUrl}">`;
-        windowContent += "</body>";
-        windowContent += "</html>";
-        const printWin = window.open("", "", "width=600,height=400");
-        printWin.document.open();
-        printWin.document.write(windowContent);
-        printWin.document.close();
-        printWin.focus();
-        printWin.onload = function () {
-            printWin.print();
-            printWin.onafterprint = function () {
-                printWin.close();
-            };
-        };
-    }
-
-    function newCanvas() {
-        if (
-            confirm(
-                "Are you sure you want to create a new canvas? Unsaved changes will be lost.",
-            )
-        ) {
-            actions = [];
-            undoStack = [];
-            redrawCanvas();
-        }
-    }
-
-    function shareCanvas() {
-        if (navigator.share) {
-            document.getElementById("canvas").toBlob((blob) => {
-                const file = new File([blob], "drawing.png", {
-                    type: "image/png",
-                });
-                navigator
-                    .share({
-                        title: "My Drawing",
-                        files: [file],
-                    })
-                    .catch(console.error);
-            });
-        } else {
-            alert("Sharing is not supported in this browser.");
-        }
-    }
-
-    function zoomIn() {
-        scale *= 1.1;
-        redrawCanvas();
-    }
-
-    function zoomOut() {
-        scale /= 1.1;
-        redrawCanvas();
-    }
-
+  function downloadPNG() {
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download = "virtual-graph-paper.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
 </script>
 
-<div class="container mx-auto p-4 bg-slate-100 font-bold rounded-3xl shadow shadow-red-100">
+<section class="space-y-6">
+  <div
+    class="space-y-6 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-lg dark:border-slate-700 dark:bg-slate-900/80"
+  >
     <div
-        class="mb-4 flex flex-wrap items-center justify-between border border-slate-400 rounded-xl pr-2"
+      class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
     >
-        <div class="space-x-9 flex justify-center items-center p-2">
-            <select
-                bind:value={currentTool}
-                class="bg-gray-200 p-2 rounded-md gap-4 p-3"
-            >
-                <option value="line">Line</option>
-                <option value="rectangle">Rectangle</option>
-                <option value="circle">Circle</option>
-                <option value="arrow">Arrow</option>
-                <option value="freehand">Freehand</option>
-                <option value="text">Text</option>
-                <option value="curve">Curve</option>
-            </select>
-            <div>
-                <label for="1">Color </label>
-                <input
-                    id="1"
-                    type="color"
-                    bind:value={strokeColor}
-                    class="bg-gray-200 h-9 w-20 p-2 rounded-md"
-                />
-            </div>
-            <div>
-                <label for="2">FillColor</label>
-                <input
-                id={2}
-                    type="color"
-                    bind:value={fillColor}
-                    class="bg-gray-200 p-2 h-9 w-20 rounded-md"
-                />
-            </div>
-
-            <input
-                type="number"
-                bind:value={lineWidth}
-                min="1"
-                max="10"
-                class="bg-gray-200 p-2 rounded-md"
-            />
-            <button on:click={undo} class="bg-gray-200 p-2 rounded-md hover:bg-blue-300"
-                >Undo</button
-            >
-            <button on:click={redo} class="bg-gray-200 p-2 rounded-md  hover:bg-blue-300"
-                >Redo</button
-            >
-        </div>
-        <div class="space-x-2">
-            <button on:click={zoomIn} class="bg-gray-200 p-2 rounded-md hover:bg-blue-300"
-                >Zoom In</button
-            >
-            <button on:click={zoomOut} class="bg-gray-200 p-2 rounded-md hover:bg-blue-300"
-                >Zoom Out</button
-            >
-        </div>
+      <div class="flex flex-wrap items-center gap-2">
+        {#each toolOptions as option}
+          <button
+            class="rounded-full border px-3 py-1.5 text-xs font-semibold transition {tool ===
+            option.id
+              ? 'border-emerald-400 bg-emerald-500/10 text-emerald-500 dark:border-emerald-500'
+              : 'border-slate-300 text-slate-600 hover:border-slate-400 dark:border-slate-700 dark:text-slate-300'}"
+            on:click={() => selectTool(option.id)}
+          >
+            {option.label}
+          </button>
+        {/each}
+      </div>
+      <div class="flex flex-wrap items-center gap-3 text-xs">
+        <label class="flex items-center gap-2">
+          <span class="font-medium text-slate-600 dark:text-slate-300"
+            >Stroke</span
+          >
+          <input
+            type="color"
+            bind:value={strokeColor}
+            class="h-9 w-16 rounded-md border border-slate-300 bg-white/90 dark:border-slate-600 dark:bg-slate-800"
+          />
+        </label>
+        <label class="flex items-center gap-2">
+          <span class="font-medium text-slate-600 dark:text-slate-300"
+            >Fill</span
+          >
+          <input
+            type="color"
+            bind:value={fillColor}
+            class="h-9 w-16 rounded-md border border-slate-300 bg-white/90 dark:border-slate-600 dark:bg-slate-800"
+          />
+        </label>
+        <label class="flex items-center gap-2">
+          <span class="font-medium text-slate-600 dark:text-slate-300"
+            >Width</span
+          >
+          <input
+            type="range"
+            min="1"
+            max="16"
+            bind:value={lineWidth}
+            class="accent-emerald-500"
+          />
+        </label>
+      </div>
     </div>
-    <div class="flex flex-wrap items-center justify-between">
-        <div class="space-x-2 flex mb-6 mt-2 gap-5 text-xl">
-            <label class="flex items-center">
-                <input type="checkbox" bind:checked={fill} class="mr-1" />
-                Fill
-            </label>
-            <label class="flex items-center">
-                <input
-                    type="checkbox"
-                    bind:checked={dashedStroke}
-                    class="mr-1"
-                />
-                Dashed
-            </label>
-            <label class="flex items-center">
-                <input
-                    type="checkbox"
-                    bind:checked={roundCorners}
-                    class="mr-1"
-                />
-                Round Corners
-            </label>
-            {#if roundCorners}
-                <input
-                    type="number"
-                    bind:value={cornerRadius}
-                    min="1"
-                    max="100"
-                    class="bg-gray-200 p-2 rounded-md"
-                />
-            {/if}
-        </div>
+    <div
+      class="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300"
+    >
+      <label class="inline-flex items-center gap-2">
+        <input
+          type="checkbox"
+          bind:checked={showGrid}
+          class="h-4 w-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-400 dark:border-slate-600"
+        />
+        Show grid
+      </label>
+      <label class="inline-flex items-center gap-2">
+        <input
+          type="checkbox"
+          bind:checked={snapToGrid}
+          class="h-4 w-4 rounded border-slate-300 text-emerald-500 focus:ring-emerald-400 dark:border-slate-600"
+        />
+        Snap to grid
+      </label>
+      <label class="flex items-center gap-2">
+        Grid size
+        <input
+          type="range"
+          min="12"
+          max="48"
+          step="2"
+          bind:value={gridSize}
+          class="accent-emerald-500"
+        />
+      </label>
+      <label class="flex items-center gap-2">
+        Canvas background
+        <input
+          type="color"
+          bind:value={background}
+          class="h-9 w-16 rounded-md border border-slate-300 bg-white/90 dark:border-slate-600 dark:bg-slate-800"
+        />
+      </label>
     </div>
-    <div class="relative overflow-hidden w-full h-screen border border-black">
-        <canvas
-            id="canvas"
-            class="absolute top-0 left-0 w-full h-full"
-            width="1024"
-            height="768"
-            on:mousedown={startDrawing}
-            on:mousemove={draw}
-            on:mouseup={stopDrawing}
-            on:wheel={(event) => (event.deltaY < 0 ? zoomIn() : zoomOut())}
-            on:contextmenu|preventDefault
-        ></canvas>
+    <div class="flex flex-wrap gap-3 text-sm">
+      <button
+        class="rounded-full border border-transparent bg-emerald-500 px-4 py-2 font-semibold text-white transition hover:bg-emerald-600"
+        on:click={undo}
+      >
+        Undo
+      </button>
+      <button
+        class="rounded-full border border-slate-300 px-4 py-2 font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200"
+        on:click={redo}
+      >
+        Redo
+      </button>
+      <button
+        class="rounded-full border border-slate-300 px-4 py-2 font-semibold text-slate-700 transition hover:border-slate-400 hover:text-rose-600 dark:border-slate-700 dark:text-slate-200"
+        on:click={clearCanvas}
+      >
+        Clear canvas
+      </button>
+      <button
+        class="rounded-full border border-slate-300 px-4 py-2 font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900 dark:border-slate-700 dark:text-slate-200"
+        on:click={downloadPNG}
+      >
+        Export PNG
+      </button>
     </div>
-</div>
+    <div
+      bind:this={container}
+      class="relative overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-inner dark:border-slate-700 dark:bg-slate-900"
+    >
+      <canvas
+        bind:this={canvas}
+        class="h-full w-full touch-none"
+        on:pointerdown={pointerDown}
+        on:pointermove={pointerMove}
+        on:pointerup={pointerUp}
+        on:pointerleave={cancelDrawing}
+        on:pointercancel={cancelDrawing}
+      >
+        Your browser does not support the HTML canvas element.
+      </canvas>
+    </div>
+  </div>
+</section>

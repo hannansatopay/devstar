@@ -1,48 +1,64 @@
 {
     "categories": [
         {
-            "title": "Text Conversion Tools",
-            "details": "Convert, encode, and manipulate text with encoding, decoding, formatting, and analysis utilities."
-        },
-        {
-            "title": "Image and Graphic Tools",
-            "details": "Design, edit, and generate images, colors, icons, and SVG graphics with creative visual tools."
-        },
-        {
-            "title": "Content Generation and Design Tools",
-            "details": "Create professional content, layouts, mockups, and brand assets with intuitive design tools."
-        },
-        {
             "title": "Web Development & SEO Tools",
-            "details": "Optimize, test, and enhance websites with tools for performance analysis, code validation, and search engine optimization."
+            "details": "Optimize, test, and improve websites using performance analysis, code validation, and SEO optimization tools."
         },
         {
-            "title": "Media Editing and Management Tools",
-            "details": "Record, convert, and enhance audio, video, and speech with media-centric tools."
+            "title": "Developer Utilities & API Tools",
+            "details": "Test, debug, and integrate APIs, manage code snippets, and streamline developer workflows efficiently."
         },
         {
-            "title": "Time and Productivity Tools",
-            "details": "Stay organized and manage your time efficiently with timers, notes, and scheduling tools."
+            "title": "Network & Diagnostic Tools",
+            "details": "Analyze, test, and troubleshoot network connections, latency, and system diagnostics for optimal performance."
         },
         {
-            "title": "Interactive and Educational Tools",
-            "details": "Explore learning, puzzles, and visual math tools for interactive engagement and education."
+            "title": "Data & File Handling Tools",
+            "details": "Convert, compress, extract, and manage structured or unstructured data and files across multiple formats."
         },
         {
-            "title": "Data and File Handling Tools",
-            "details": "Convert, compress, extract, and manage files or data seamlessly across various formats."
+            "title": "Data Visualization & Analytics Tools",
+            "details": "Transform raw data into insights with charting, dashboards, and visualization tools for analytics and reporting."
         },
         {
-            "title": "Financial Calculators",
-            "details": "Compute financial metrics, loans, payouts, and ROI with tools built for smart money planning."
+            "title": "Financial & Fitness Calculators",
+            "details": "Achieve balance in both finance and fitness using precise calculators for budgeting, investments, workouts, and wellness goals."
+        },
+        {
+            "title": "Security & Privacy Tools",
+            "details": "Encrypt, validate, and secure your data and online presence with privacy-focused security utilities."
+        },
+        {
+            "title": "AI & Automation Tools",
+            "details": "Enhance productivity and creativity through AI-driven generation, automation, and intelligent workflow tools."
         },
         {
             "title": "Specialized Utility Tools",
-            "details": "Access diverse niche tools like encryption, validation, and lookup services for specialized needs."
+            "details": "Access a diverse set of niche tools for validation, lookup, and advanced computational tasks."
         },
         {
-            "title": "Math Toolkit",
-            "details": "Perform mathematical calculations, integer operations, and conversions with precision tools."
+            "title": "Text Conversion & Utility Tools",
+            "details": "Convert, encode, and manipulate text efficiently with formatting, analysis, and transformation utilities."
+        },
+        {
+            "title": "Time & Productivity Tools",
+            "details": "Boost your efficiency with smart tools for tracking time, organizing tasks, and optimizing your daily schedule."
+        },
+        {
+            "title": "Interactive & Educational Tools",
+            "details": "Engage with learning resources, quizzes, and simulations that make education interactive and enjoyable."
+        },
+        {
+            "title": "Media Editing & Management Tools",
+            "details": "Record, convert, edit, and enhance audio, video, and other media formats with ease."
+        },
+        {
+            "title": "Image & Graphic Tools",
+            "details": "Design, edit, and generate images, colors, icons, and vector graphics for creative visual projects."
+        },
+        {
+            "title": "Content Generation & Design Tools",
+            "details": "Create high-quality content, layouts, and branding assets with intuitive creative design and writing tools."
         }
     ]
 }

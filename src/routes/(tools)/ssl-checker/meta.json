@@ -1,8 +1,6 @@
 {
-    "name":  "SSL Checker",
-    "description":  "Inspect a site\u0027s TLS certificate, issuer, and expiry instantly with a direct port 443 handshake.",
-    "contributors":  [
-
-                     ],
-    "categoryTitle":  "Web Development \u0026 SEO Tools"
+    "name": "SSL Checker",
+    "description": "Inspect a site\u0027s TLS certificate, issuer, and expiry instantly with a direct port 443 handshake.",
+    "contributors": [],
+    "categoryTitle": "Network & Diagnostic Tools"
 }

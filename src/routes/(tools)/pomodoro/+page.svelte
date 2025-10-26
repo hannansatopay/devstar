@@ -154,7 +154,7 @@
 	});
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="grid gap-8 xl:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
 		<div
 			class="flex flex-col gap-6 rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-xl backdrop-blur-sm dark:border-slate-800/40 dark:bg-slate-900/70"

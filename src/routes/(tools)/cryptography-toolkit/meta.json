@@ -1,0 +1,6 @@
+{
+    "name": "Cryptography Toolkit",
+    "description": "Generate secure hashes, encode/decode Base64, and produce cryptographically strong random secrets from the browser.",
+    "contributors": [],
+    "categoryTitle": "Security & Privacy Tools"
+}

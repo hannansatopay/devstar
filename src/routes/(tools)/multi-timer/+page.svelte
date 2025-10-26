@@ -479,7 +479,7 @@
 	});
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="layout">
 		<section class="create-panel">
 			<form class="form" on:submit={createTimer}>

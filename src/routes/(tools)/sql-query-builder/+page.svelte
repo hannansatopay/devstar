@@ -135,7 +135,7 @@
   }
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
   <div class="grid gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
     <div class="space-y-6">
       <div

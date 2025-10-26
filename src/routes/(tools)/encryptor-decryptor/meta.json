@@ -1,6 +1,6 @@
 {
-    "name": "Text Encryption Decryption Tool",
-    "description": "A Text Encryption Decryption Tool lets you scramble plain text into a coded message and then unscramble it back. These tools are useful for protecting sensitive information you share online.",
+    "name": "Encryption & Decryption Tool",
+    "description": "Protect secrets with passphrase-based AES-GCM encryption directly in your browser. Generate ciphertext, verify passphrases, and manage PBKDF2 strength without installing software.",
     "contributors": [
         {
             "name": "ANKITA MISHRA",
@@ -39,5 +39,5 @@
             "githubId": "Amvic7"
         }
     ],
-    "categoryTitle": "Text Conversion Tools"
+    "categoryTitle": "Security & Privacy Tools"
 }

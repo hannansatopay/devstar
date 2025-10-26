@@ -1,0 +1,6 @@
+{
+    "name": "WHOIS & RDAP Lookup",
+    "description": "Query RDAP servers for detailed registration data, status codes, lifecycle events, registrars, and nameservers for domains or IP addresses.",
+    "contributors": [],
+    "categoryTitle": "Network & Diagnostic Tools"
+}

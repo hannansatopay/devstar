@@ -133,7 +133,7 @@
 		: [];
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div
 		class="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/60"
 	>

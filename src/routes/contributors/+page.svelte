@@ -25,7 +25,7 @@
 	/>
 </svelte:head>
 
-<section class="mx-auto space-y-6 px-4 py-6 max-w-7xl">
+<section class="mx-auto py-14 space-y-6 max-w-7xl">
 	<header class="mb-12 text-center">
 		<h1
 			class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl"

@@ -408,7 +408,7 @@
 	}
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="grid gap-6 lg:grid-cols-2">
 		<div
 			class="min-w-0 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900"

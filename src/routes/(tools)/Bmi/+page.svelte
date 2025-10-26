@@ -163,7 +163,7 @@
 	calculateBMI();
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="grid gap-8 grid-cols-1 lg:grid-cols-3">
 		<form
 			class="rounded-3xl border border-slate-200 bg-white/85 p-8 shadow-sm backdrop-blur-sm dark:border-slate-800 dark:bg-slate-900/60"

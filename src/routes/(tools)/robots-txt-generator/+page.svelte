@@ -134,7 +134,7 @@
   }
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6 flex flex-col">
+<section class="space-y-6 flex flex-col">
   <div
     class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-md dark:border-slate-800 dark:bg-slate-900/80"
   >

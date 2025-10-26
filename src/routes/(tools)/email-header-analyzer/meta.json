@@ -1,0 +1,6 @@
+{
+    "name": "Email Header Analyzer",
+    "description": "Inspect raw email headers to evaluate routing hops, authentication status, and deliverability warnings at a glance.",
+    "contributors": [],
+    "categoryTitle": "Security & Privacy Tools"
+}

@@ -97,7 +97,7 @@
 	}
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
 		<form
 			class="rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur-sm transition dark:border-slate-800 dark:bg-slate-900/60"

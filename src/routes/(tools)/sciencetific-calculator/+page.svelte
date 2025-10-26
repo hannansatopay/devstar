@@ -541,7 +541,7 @@
 	];
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="grid gap-6 lg:grid-cols-[minmax(420px,_2fr)_minmax(0,_1fr)]">
 		<div class="relative overflow-hidden rounded-[2.5rem] bg-slate-900 text-white shadow-2xl shadow-emerald-900/20 ring-1 ring-slate-800">
 			<div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-br from-emerald-500/30 via-slate-900 to-slate-950 blur-2xl"></div>

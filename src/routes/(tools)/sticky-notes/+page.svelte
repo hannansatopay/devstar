@@ -278,7 +278,7 @@
 	};
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6 flex flex-col">
+<section class="space-y-6 flex flex-col">
 	<header
 		class="space-y-6 rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-xl backdrop-blur-sm sm:p-8 dark:border-slate-700/60 dark:bg-slate-900/70"
 	>

@@ -1,0 +1,6 @@
+{
+    "name": "NS Lookup",
+    "description": "Resolve DNS records from the browser using DNS-over-HTTPS and inspect answer, authority, and additional sections in real time.",
+    "contributors": [],
+    "categoryTitle": "Network & Diagnostic Tools"
+}

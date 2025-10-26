@@ -158,7 +158,7 @@
 	$: hydrationMl = hydrationTarget(parsedWeight, activity);
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="flex flex-col gap-8 lg:flex-row">
 		<form
 			class="w-full rounded-3xl border border-slate-200 bg-white/80 p-8 shadow-sm backdrop-blur sm:p-10 dark:border-slate-700 dark:bg-slate-900/60"

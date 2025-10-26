@@ -218,7 +218,7 @@
   ];
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
   <div class="grid gap-4 md:grid-cols-[240px_minmax(0,1fr)]">
     <aside
       class="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"

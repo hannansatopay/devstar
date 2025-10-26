@@ -1,102 +1,103 @@
-<script>
-  import { Avatar } from "flowbite-svelte";
+<script lang="ts">
+  import "../../app.pcss";
+  import { onMount } from "svelte";
+
   export let data;
 
   const isBrowser = typeof window !== "undefined";
+  const title = data?.meta?.title ?? "Devstar Tool";
+  const description = data?.meta?.description ?? "";
+  const categoryTitle = data?.meta?.categoryTitle ?? "Devstar Toolkit";
+
   let isBookmarked = false;
-
-  // Initialize bookmark state from localStorage
-  $: if (isBrowser) {
-    initializeBookmark();
+  function syncBookmark() {
+    if (!isBrowser) return;
+    const stored = JSON.parse(localStorage.getItem("favorites") || "[]");
+    isBookmarked = stored.some(
+      (entry: { name: string }) => entry.name === title,
+    );
   }
 
-  $: layoutClass = (() => {
-    const length = data.meta.contributors.length;
-
-    // Small devices
-    if (length < 5) {
-      return "grid grid-cols-2 gap-2 md:flex md:items-center";
-    }
-
-    // Large devices
-    return "grid grid-cols-2 gap-2 md:grid-cols-5 lg:flex lg:items-center";
-  })();
-
-  // Initialize Bookmark
-  function initializeBookmark() {
-    if (localStorage) {
-      const storedBookmarks =
-        JSON.parse(localStorage.getItem("favorites")) || [];
-      isBookmarked = storedBookmarks.some(
-        (bookmark) => bookmark.name === data.meta.title,
-      );
-    }
-  }
-
-  // Toggle Bookmark
   function toggleBookmark() {
-    if (isBrowser && localStorage) {
-      let bookmarks = JSON.parse(localStorage.getItem("favorites")) || [];
+    if (!isBrowser) return;
+    const stored: Array<{ name: string; link: string; description: string }> =
+      JSON.parse(localStorage.getItem("favorites") || "[]");
+    const exists = stored.some((entry) => entry.name === title);
+    let next = stored;
 
-      if (isBookmarked) {
-        bookmarks = bookmarks.filter(
-          (bookmark) => bookmark.name !== data.meta.title,
-        );
-      } else {
-        bookmarks.push({
-          name: data.meta.title,
+    if (exists) {
+      next = stored.filter((entry) => entry.name !== title);
+    } else {
+      next = [
+        ...stored,
+        {
+          name: title,
           link: window.location.pathname,
-          description: data.meta.description,
-          contributors: data.meta.contributors || [],
-        });
-      }
-
-      localStorage.setItem("favorites", JSON.stringify(bookmarks));
-      isBookmarked = !isBookmarked;
-      dispatchBookmarkEvent(data.meta.title, isBookmarked);
+          description,
+        },
+      ];
     }
+
+    localStorage.setItem("favorites", JSON.stringify(next));
+    isBookmarked = !exists;
+    dispatchBookmarkEvent(title, isBookmarked);
   }
 
-  // Dispatch Custom Event for Bookmark Update
-  function dispatchBookmarkEvent(toolName, isFavorited) {
+  function dispatchBookmarkEvent(toolName: string, favorited: boolean) {
+    if (!isBrowser) return;
     const event = new CustomEvent("bookmarkUpdated", {
-      detail: { name: toolName, isFavorited },
+      detail: { name: toolName, isFavorited: favorited },
     });
     window.dispatchEvent(event);
   }
+
+  onMount(() => {
+    syncBookmark();
+  });
 </script>
 
-<section
-  class="p-4 md:p-8 mx-auto max-w-screen-xl grid space-y-6 lg:space-y-10"
+<div
+  class="mx-auto max-w-7xl space-y-6 px-8 lg:px-12 2xl:px-16 py-12 lg:py-16 2xl:py-20"
 >
-  <div class="flex items-stretch">
-    <h1
-      class="text-2xl grow lg:text-4xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
+  <header
+    class="surface-panel rounded-3xl px-8 py-10 shadow-lg shadow-indigo-100/70 ring-1 ring-white/60 transition dark:shadow-slate-900/80 dark:ring-slate-800/60"
+  >
+    <p
+      class="text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-300"
     >
-      {data.meta.title}
-    </h1>
-    <button
-      on:click={toggleBookmark}
-      class="text-md lg:text-xl self-start px-4 py-2 rounded {isBookmarked
-        ? 'bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-white'
-        : 'bg-gray-400 dark:bg-gray-600 text-white dark:text-white'}"
-    >
-      {isBookmarked ? "Remove Bookmark" : "Add to Bookmark"}
-    </button>
-  </div>
-
-  <div>
-    <slot></slot>
-  </div>
-
-  <div>
-    <h2
-      class="mb-4 text-lg lg:text-2xl font-extrabold tracking-tight leading-none text-gray-900 dark:text-white"
-    >
-      Details
-    </h2>
-    <p class="text-md lg:text-xl font-normal text-gray-500 dark:text-gray-400">
-      {data.meta.description}
+      {categoryTitle}
     </p>
+    <div
+      class="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
+    >
+      <h1 class="gradient-title text-3xl font-bold leading-tight sm:text-4xl">
+        {title}
+      </h1>
+      <div class="flex items-center justify-start lg:justify-end">
+        <button
+          class={`inline-flex items-center rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-700 ${
+            isBookmarked
+              ? "bg-indigo-600 text-white hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400"
+              : "border border-indigo-200 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-700 dark:text-indigo-200 dark:hover:bg-indigo-900/40"
+          }`}
+          type="button"
+          on:click={toggleBookmark}
+        >
+          {isBookmarked ? "Remove from favorites" : "Save to favorites"}
+        </button>
+      </div>
+    </div>
+
+    {#if description}
+      <p
+        class="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300"
+      >
+        {description}
+      </p>
+    {/if}
+  </header>
+
+  <div class="w-full max-w-full [&>*]:w-full [&>*]:max-w-full [&>*]:min-w-0">
+    <slot />
   </div>
-</section>
+</div>

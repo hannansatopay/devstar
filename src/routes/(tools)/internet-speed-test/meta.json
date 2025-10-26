@@ -1,0 +1,6 @@
+{
+    "name": "Internet Speed Test",
+    "description": "Benchmark latency, download, and upload performance using Cloudflare speed endpoints without leaving your browser.",
+    "contributors": [],
+    "categoryTitle": "Network & Diagnostic Tools"
+}

@@ -89,7 +89,7 @@
 	});
 </script>
 
-<section class="mx-auto space-y-6 px-4 py-6">
+<section class="space-y-6">
 	<div class="relative overflow-hidden rounded-3xl bg-slate-900 text-white shadow-2xl shadow-emerald-900/20 ring-1 ring-slate-700">
 		<div class="pointer-events-none absolute -top-24 right-16 h-48 w-48 rounded-full bg-emerald-500/30 blur-3xl"></div>
 		<div class="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-sky-500/20 blur-2xl"></div>

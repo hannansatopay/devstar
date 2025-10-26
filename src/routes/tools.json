@@ -1,8 +1,623 @@
 {
     "categories": [
         {
-            "title": "Text Conversion Tools",
-            "details": "Convert, encode, and manipulate text with encoding, decoding, formatting, and analysis utilities.",
+            "title": "Web Development & SEO Tools",
+            "details": "Optimize, test, and improve websites using performance analysis, code validation, and SEO optimization tools.",
+            "tools": [
+                {
+                    "name": "Code Linter",
+                    "link": "/code-linter",
+                    "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
+                    "contributors": [
+                        {
+                            "name": "Abhirup Mukherjee",
+                            "githubId": "Abhirup2004-p"
+                        },
+                        {
+                            "name": "Aryan Nimbalkar",
+                            "githubId": "Aryan200324"
+                        },
+                        {
+                            "name": "Atufa Akhtar",
+                            "githubId": "atufaakhtar"
+                        },
+                        {
+                            "name": "Swakshar Bora",
+                            "githubId": "DastardlyKat"
+                        },
+                        {
+                            "name": "Tanvi Panchal",
+                            "githubId": "Tanvi54"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "CSS Animator",
+                    "link": "/css-animator",
+                    "description": "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        },
+                        {
+                            "name": "Munsif Satopay",
+                            "githubId": "munsifsatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "JWT Decoder",
+                    "link": "/jwt-decoder",
+                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+                    "contributors": [
+                        {
+                            "name": "Fazal",
+                            "githubId": "Fazalparkar"
+                        },
+                        {
+                            "name": "Aayush",
+                            "githubId": "AayushPaigwar"
+                        },
+                        {
+                            "name": "Jujhar",
+                            "githubId": "jujharsingh2802"
+                        },
+                        {
+                            "name": "Kunal",
+                            "githubId": "KUNALL0ndhe"
+                        },
+                        {
+                            "name": "Hitesh",
+                            "githubId": "Honeykalra22"
+                        }
+                    ]
+                },
+                {
+                    "name": "Keyword Density Checker",
+                    "link": "/keyword-density-checker",
+                    "description": "Analyze word usage within your content to surface the top keywords, their frequency, and density while filtering common stop words.",
+                    "contributors": []
+                },
+                {
+                    "name": "Metatag Checker & Generator",
+                    "link": "/metatag-checker-generator",
+                    "description": "Audit existing meta tags from any page or craft new tags with live previews for title, description, keywords, and social sharing.",
+                    "contributors": []
+                },
+                {
+                    "name": "Remove Unused CSS",
+                    "link": "/remove-unused-css",
+                    "description": "Paste your markup and styles to instantly strip unused selectors, review what was removed, and download the slimmer CSS bundle.",
+                    "contributors": [
+                        {
+                            "name": "Manoj R Gupta",
+                            "githubId": "Manojgupta103"
+                        }
+                    ]
+                },
+                {
+                    "name": "Responsive Design Tester",
+                    "link": "/responsive-design-tester",
+                    "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
+                    "contributors": [
+                        {
+                            "name": "David Kwasi Mensah Akyer",
+                            "githubId": "dkmakyer"
+                        },
+                        {
+                            "name": "Tasnim Munawar Rafee",
+                            "githubId": "Rafee104104"
+                        },
+                        {
+                            "name": "Sahil Navale",
+                            "githubId": "sahiln15"
+                        },
+                        {
+                            "name": "Amila Jayamaha",
+                            "githubId": "AmilaJayamaha"
+                        },
+                        {
+                            "name": "Aditi More",
+                            "githubId": "8897adira"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Robots.txt Generator",
+                    "link": "/robots-txt-generator",
+                    "description": "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "SEO Checker",
+                    "link": "/seo-checker",
+                    "description": "Run quick on-page SEO diagnostics for any URL: title length, meta description, heading structure, word count, link stats, and image alt coverage.",
+                    "contributors": []
+                },
+                {
+                    "name": "User Agent Generator & Decoder",
+                    "link": "/user-agent-generator-decoder",
+                    "description": "Craft custom user agents or decode existing strings into browser, OS, and device details.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Broken Link Checker",
+                    "link": "/websites-broken-link-checker",
+                    "description": "Scan a page for outgoing links and verify their status codes to flag redirects or errors instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Image Extractor",
+                    "link": "/website-image-extractor",
+                    "description": "Fetch every image from a page, inspect alt text, and export the sources for quick audits or asset downloads.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Links Count",
+                    "link": "/website-links-count",
+                    "description": "Count and categorize all links on a page, distinguishing internal, external, mailto, and nofollow references.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Performance Testing",
+                    "link": "/website-performance-testing",
+                    "description": "Capture key performance metrics (TTFB, DOM load, total requests) for a page using the Resource Timing API.",
+                    "contributors": []
+                },
+                {
+                    "name": "WordPress Theme Detector",
+                    "link": "/wordpress-theme-detector",
+                    "description": "Detect the active WordPress theme and plugins by scanning a site's source for common identifiers.",
+                    "contributors": []
+                },
+                {
+                    "name": "XML Sitemap Generator",
+                    "link": "/xml-sitemap-generator",
+                    "description": "Build standards-compliant XML sitemaps by composing URLs, last modified dates, change frequencies, and priority hints.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Developer Utilities & API Tools",
+            "details": "Test, debug, and integrate APIs, manage code snippets, and streamline developer workflows efficiently.",
+            "tools": [
+                {
+                    "name": "Online API Testing",
+                    "link": "/online-api-testing",
+                    "description": "Send REST calls from the browser, tweak headers and payloads, inspect latency, response size, headers, and grab an instant cURL snippet.",
+                    "contributors": [
+                        {
+                            "name": "A. Amrutha Sri",
+                            "githubId": "AmruthaSri852"
+                        },
+                        {
+                            "name": "Nandini Gite",
+                            "githubId": "NandiniGite"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sql Converter",
+                    "link": "/sql-converter",
+                    "description": "Converts .sql into csv, xlsx and more",
+                    "contributors": [
+                        {
+                            "name": "Somesh Diwan",
+                            "githubId": "Someshdiwan"
+                        },
+                        {
+                            "name": "Suryank Chavan",
+                            "githubId": "suryank05"
+                        },
+                        {
+                            "name": "Akankshasarade",
+                            "githubId": "Akankshasarade"
+                        },
+                        {
+                            "name": "Shristi Kushwaha",
+                            "githubId": "Shri6apr"
+                        },
+                        {
+                            "name": "Aditya Gupta",
+                            "githubId": "AdityaGupta"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "SQL Query Builder",
+                    "link": "/sql-query-builder",
+                    "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
+                    "contributors": [
+                        {
+                            "name": "Atharva Sawant",
+                            "githubId": "Satharva2004"
+                        },
+                        {
+                            "name": "Kalyan Sharma",
+                            "githubId": "kalyan123s"
+                        },
+                        {
+                            "name": "Harshita S",
+                            "githubId": "Harshitha0066"
+                        },
+                        {
+                            "name": "Garret Farnandez",
+                            "githubId": "garretfernandezz"
+                        },
+                        {
+                            "name": "Moain Khan",
+                            "githubId": "Moainkhan"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Terminal Generator",
+                    "link": "/terminal-generator",
+                    "description": "Design custom terminal transcripts: tweak prompt tokens, add command/output lines, and copy the final shell session in one click.",
+                    "contributors": []
+                },
+                {
+                    "name": "WhatsApp API Generator",
+                    "link": "/whatsapp-api-generator",
+                    "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "XML Formatter & Beautifier",
+                    "link": "/xml-formatter-beautifier",
+                    "description": "Pretty-print, minify, and validate XML instantly with formatting options and error highlights.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Network & Diagnostic Tools",
+            "details": "Analyze, test, and troubleshoot network connections, latency, and system diagnostics for optimal performance.",
+            "tools": [
+                {
+                    "name": "Internet Speed Test",
+                    "link": "/internet-speed-test",
+                    "description": "Benchmark latency, download, and upload performance using Cloudflare speed endpoints without leaving your browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "NS Lookup",
+                    "link": "/ns-lookup",
+                    "description": "Resolve DNS records from the browser using DNS-over-HTTPS and inspect answer, authority, and additional sections in real time.",
+                    "contributors": []
+                },
+                {
+                    "name": "SSL Checker",
+                    "link": "/ssl-checker",
+                    "description": "Inspect a site's TLS certificate, issuer, and expiry instantly with a direct port 443 handshake.",
+                    "contributors": []
+                },
+                {
+                    "name": "WHOIS & RDAP Lookup",
+                    "link": "/whois-rdap-lookup",
+                    "description": "Query RDAP servers for detailed registration data, status codes, lifecycle events, registrars, and nameservers for domains or IP addresses.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Data & File Handling Tools",
+            "details": "Convert, compress, extract, and manage structured or unstructured data and files across multiple formats.",
+            "tools": []
+        },
+        {
+            "title": "Data Visualization & Analytics Tools",
+            "details": "Transform raw data into insights with charting, dashboards, and visualization tools for analytics and reporting.",
+            "tools": [
+                {
+                    "name": "Chart Generator",
+                    "link": "/chart-generator",
+                    "description": "Transform tabular data into responsive bar, line, or pie charts with instant previews and SVG export.",
+                    "contributors": []
+                },
+                {
+                    "name": "Database Schema Visualizer",
+                    "link": "/database-schema-visualizer",
+                    "description": "Design relational tables, columns, and relationships with live previews and exportable JSON diagrams.",
+                    "contributors": []
+                },
+                {
+                    "name": "File Converter",
+                    "link": "/file-converter",
+                    "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
+                    "contributors": [
+                        {
+                            "name": "Mohammad Adil",
+                            "githubId": "devilzs1"
+                        }
+                    ]
+                },
+                {
+                    "name": "Flowchart Maker",
+                    "link": "/flowchart-maker",
+                    "description": "Draft linear or branching flowcharts with reorderable steps, typed nodes, and interactive connections.",
+                    "contributors": []
+                },
+                {
+                    "name": "Watermark PDF",
+                    "link": "/watermark-pdf",
+                    "description": "Add Text or Image as a watermark to the PDF document",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Financial & Fitness Calculators",
+            "details": "Achieve balance in both finance and fitness using precise calculators for budgeting, investments, workouts, and wellness goals.",
+            "tools": [
+                {
+                    "name": "Annuity Payout Calculator",
+                    "link": "/annuity-payout-calculator",
+                    "description": "Estimate the steady withdrawal you can receive from an annuity investment and understand how interest impacts your long-term payouts.",
+                    "contributors": [
+                        {
+                            "name": "Sumit Mishra",
+                            "githubId": "Sumitm6879"
+                        }
+                    ]
+                },
+                {
+                    "name": "BMI Calculator",
+                    "link": "/Bmi",
+                    "description": "Understand where you fall on the Body Mass Index scale and get quick guidance to support your goals. BMI is a screening tool - not a diagnosis - so use these results as a starting point for deeper conversations with a professional.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "Finance Calculator",
+                    "link": "/finance-calculator",
+                    "description": "An all-in-one toolset to instantly calculate ROI, currency conversions, salaries, GST, loans, time value, and stock returns—without page reloads. Get quick, accurate estimates for smarter financial planning.",
+                    "contributors": [
+                        {
+                            "name": "Dalima Sahu",
+                            "githubId": "DALIMA07"
+                        },
+                        {
+                            "name": "Arushi Bhargava",
+                            "githubId": "Arushibhargava"
+                        },
+                        {
+                            "name": "Ayan Kamaria",
+                            "githubId": "ayan2362003"
+                        },
+                        {
+                            "name": "Noorjahan Ferdous",
+                            "githubId": "nferdous2"
+                        },
+                        {
+                            "name": "Zaid Nasim",
+                            "githubId": "Ruwais-zaid"
+                        },
+                        {
+                            "name": "Nisha Rai",
+                            "githubId": "Rai-nisha"
+                        },
+                        {
+                            "name": "Srushti Bhirud",
+                            "githubId": "Srushti309"
+                        },
+                        {
+                            "name": "Harshita Dalal",
+                            "githubId": "Harshita-Dalal"
+                        }
+                    ]
+                },
+                {
+                    "name": "Health Calculator",
+                    "link": "/health-calculator",
+                    "description": "Estimate BMI, basal metabolic rate, daily energy needs, protein goals, and hydration targets from a single health snapshot.",
+                    "contributors": []
+                },
+                {
+                    "name": "Simple Invoice Generator",
+                    "link": "/simple-invoice-generator",
+                    "description": "Generate professional invoices in minutes. Capture client details, add taxable line items, and export shareable summaries without leaving the browser.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Security & Privacy Tools",
+            "details": "Encrypt, validate, and secure your data and online presence with privacy-focused security utilities.",
+            "tools": [
+                {
+                    "name": "Crypto Address Validation",
+                    "link": "/crypto-address-validation",
+                    "description": "Crypto Address Validator is a tool that validates addresses for multiple cryptocurrencies. It ensures the correctness of Bitcoin, Ethereum, Litecoin, Ripple, Bitcoin Cash, Cardano, Polkadot, and Dogecoin addresses. A must-have for secure crypto transactions.",
+                    "contributors": [
+                        {
+                            "name": "Tilakshankar Sakthikumar",
+                            "githubId": "tilakshankar"
+                        },
+                        {
+                            "name": "Ketaki Vatturkar",
+                            "githubId": "ketakivatturkar"
+                        },
+                        {
+                            "name": "Nikhil Singh",
+                            "githubId": "nikkhil28-29"
+                        },
+                        {
+                            "name": "Mayur Nikam",
+                            "githubId": "MayurNikam989"
+                        },
+                        {
+                            "name": "Mathew Jacob",
+                            "githubId": "mathewjacob123"
+                        },
+                        {
+                            "name": "Tanish Chopra",
+                            "githubId": "TanishC28"
+                        },
+                        {
+                            "name": "Sanjukta Sarkar",
+                            "githubId": "Crystalite0201"
+                        },
+                        {
+                            "name": "Pragya",
+                            "githubId": "Pragya930"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Cryptography Toolkit",
+                    "link": "/cryptography-toolkit",
+                    "description": "Generate secure hashes, encode/decode Base64, and produce cryptographically strong random secrets from the browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "Email Header Analyzer",
+                    "link": "/email-header-analyzer",
+                    "description": "Inspect raw email headers to evaluate routing hops, authentication status, and deliverability warnings at a glance.",
+                    "contributors": []
+                },
+                {
+                    "name": "Encryption & Decryption Tool",
+                    "link": "/encryptor-decryptor",
+                    "description": "Protect secrets with passphrase-based AES-GCM encryption directly in your browser. Generate ciphertext, verify passphrases, and manage PBKDF2 strength without installing software.",
+                    "contributors": [
+                        {
+                            "name": "ANKITA MISHRA",
+                            "githubId": "ANKITAMISHRA29"
+                        },
+                        {
+                            "name": "Sakshi",
+                            "githubId": "Sakshee-24"
+                        },
+                        {
+                            "name": "Navjeet",
+                            "githubId": "navjeet-lohan"
+                        },
+                        {
+                            "name": "Swapnil",
+                            "githubId": "swapniljoshi123"
+                        },
+                        {
+                            "name": "Ravish",
+                            "githubId": "RavishRanjancodes"
+                        },
+                        {
+                            "name": "Kaneez",
+                            "githubId": "Kaneezfatima19"
+                        },
+                        {
+                            "name": "Riya",
+                            "githubId": "riyasawant193"
+                        },
+                        {
+                            "name": "Ram",
+                            "githubId": "ryuk27"
+                        },
+                        {
+                            "name": "Aman",
+                            "githubId": "Amvic7"
+                        }
+                    ]
+                },
+                {
+                    "name": "Password Generator",
+                    "link": "/password-generator",
+                    "description": "Tune the length and character mix to instantly produce unique passwords with entropy guidance and one-click copy.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "AI & Automation Tools",
+            "details": "Enhance productivity and creativity through AI-driven generation, automation, and intelligent workflow tools.",
+            "tools": [
+                {
+                    "name": "Audio & Video Converter",
+                    "link": "/audio-video-converter",
+                    "description": "Convert audio and video files between popular formats directly in your browser using ffmpeg.wasm.",
+                    "contributors": []
+                },
+                {
+                    "name": "Basic Photo Editor",
+                    "link": "/basic-photo-editor",
+                    "description": "Adjust brightness, contrast, saturation, and apply quick filters to images entirely in the browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "Text to Speech & Speech Recognition Lab",
+                    "link": "/text-to-speech-speech-recognition",
+                    "description": "Mix text-to-speech playback with live speech recognition to iterate on AI voice flows in one workspace.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Specialized Utility Tools",
+            "details": "Access a diverse set of niche tools for validation, lookup, and advanced computational tasks.",
+            "tools": [
+                {
+                    "name": "Device Details",
+                    "link": "/device-details",
+                    "description": "The Device Details tool provides developers with essential information about user devices, including browser specifications, screen resolution, operating system details, and more. By integrating this tool into your applications, you can gather valuable insights about your users' devices, allowing you to optimize user experiences, ensure compatibility, and tailor your content or features accordingly.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "QR Code Generator & Scanner",
+                    "link": "/qr-code-generator",
+                    "description": "Create branded QR codes with custom colours, then verify them by decoding uploaded images using native or jsQR fallbacks.",
+                    "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Text Conversion & Utility Tools",
+            "details": "Convert, encode, and manipulate text efficiently with formatting, analysis, and transformation utilities.",
             "tools": [
                 {
                     "name": "Add Prefix and Suffix",
@@ -200,49 +815,6 @@
                     "contributors": []
                 },
                 {
-                    "name": "Text Encryption Decryption Tool",
-                    "link": "/encryptor-decryptor",
-                    "description": "A Text Encryption Decryption Tool lets you scramble plain text into a coded message and then unscramble it back. These tools are useful for protecting sensitive information you share online.",
-                    "contributors": [
-                        {
-                            "name": "ANKITA MISHRA",
-                            "githubId": "ANKITAMISHRA29"
-                        },
-                        {
-                            "name": "Sakshi",
-                            "githubId": "Sakshee-24"
-                        },
-                        {
-                            "name": "Navjeet",
-                            "githubId": "navjeet-lohan"
-                        },
-                        {
-                            "name": "Swapnil",
-                            "githubId": "swapniljoshi123"
-                        },
-                        {
-                            "name": "Ravish",
-                            "githubId": "RavishRanjancodes"
-                        },
-                        {
-                            "name": "Kaneez",
-                            "githubId": "Kaneezfatima19"
-                        },
-                        {
-                            "name": "Riya",
-                            "githubId": "riyasawant193"
-                        },
-                        {
-                            "name": "Ram",
-                            "githubId": "ryuk27"
-                        },
-                        {
-                            "name": "Aman",
-                            "githubId": "Amvic7"
-                        }
-                    ]
-                },
-                {
                     "name": "Text Statistics",
                     "link": "/text-statistics",
                     "description": "Analyse passages for counts, reading time, frequency tables, and word-length distribution with a single paste.",
@@ -253,31 +825,243 @@
                     "link": "/word-to-html-converter",
                     "description": "Convert plain text or notes into structured HTML paragraphs, lists, and headings ready for the web.",
                     "contributors": []
+                }
+            ]
+        },
+        {
+            "title": "Time & Productivity Tools",
+            "details": "Boost your efficiency with smart tools for tracking time, organizing tasks, and optimizing your daily schedule.",
+            "tools": [
+                {
+                    "name": "App Store / Play Store Screenshot Generator",
+                    "link": "/app-store-screenshot-generator",
+                    "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
+                    "contributors": []
                 },
                 {
-                    "name": "XML Formatter",
-                    "link": "/xml-formatter",
-                    "description": "A web-based tool for formatting XML content. Allows users to input XML code, format it with proper indentation, copy formatted XML, download it as a file, and clear the input/output areas. Built using HTML, CSS (Tailwind CSS), and JavaScript.",
+                    "name": "Multi Timer",
+                    "link": "/multi-timer",
+                    "description": "Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat completions to fit any workflow.",
                     "contributors": [
                         {
-                            "name": "Masum Ahmed",
-                            "githubId": "ri-masum"
+                            "name": "Prajwal Dilip Ganar",
+                            "githubId": "Prajwal435"
                         },
                         {
-                            "name": "Enamur Rabbi Ferdausi",
-                            "githubId": "EnamurFerdausi"
+                            "name": "Akanksha Kumbhar",
+                            "githubId": "Akanksha0830"
                         },
                         {
-                            "name": "Nikhil Sarve",
-                            "githubId": "nikhilsarve"
+                            "name": "Yash Mehetre",
+                            "githubId": "YashMehetre"
                         },
                         {
-                            "name": "Akash Gaikwad",
-                            "githubId": "sky-gaikwad"
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Notepad",
+                    "link": "/notepad",
+                    "description": "A distraction-free browser notepad with autosave, templates, and easy export so you can capture thoughts instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Pomodoro",
+                    "link": "/pomodoro",
+                    "description": "Stay in flow with a flexible Pomodoro timer that rotates focus sprints and breaks, adapts to your preferred durations, and keeps your cycle count on track for sustainable productivity.",
+                    "contributors": [
+                        {
+                            "name": "Rifat Perween",
+                            "githubId": "rifatperween"
+                        }
+                    ]
+                },
+                {
+                    "name": "Sticky Notes",
+                    "link": "/sticky-notes",
+                    "description": "Capture quick ideas and todos in a lightweight sticky board. Choose a color, pin critical notes to the top, and rely on automatic local storage so every update is saved with a clear timestamp—no sync required.",
+                    "contributors": [
+                        {
+                            "name": "Saket Prabhakar",
+                            "githubId": "sabotagefrenzy"
                         },
                         {
-                            "name": "Atharva Thakur",
-                            "githubId": "plantindesk"
+                            "name": "Raj Patkar",
+                            "githubId": "Raj-Patkar"
+                        },
+                        {
+                            "name": "Chhaya Sharma",
+                            "githubId": "ChhayaSharma21"
+                        },
+                        {
+                            "name": "Pranjali Jibhakate",
+                            "githubId": "Pranjali2410"
+                        },
+                        {
+                            "name": "Tanuja Yadav",
+                            "githubId": "tanuja1922"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "World Clock",
+                    "link": "/world-clock",
+                    "description": "Monitor global cities with live analog clocks and discover new timezones fast.",
+                    "contributors": [
+                        {
+                            "name": "ILyas Sayyed",
+                            "githubId": "MrPorsche"
+                        },
+                        {
+                            "name": "K Vaishnavi",
+                            "githubId": "Vaishnnavikothmirkar"
+                        },
+                        {
+                            "name": "Joel Geo Abraham",
+                            "githubId": "JoelAbraham16032002"
+                        },
+                        {
+                            "name": "Silla Mariya Roy",
+                            "githubId": "Silla03"
+                        },
+                        {
+                            "name": "Kaberi manjari Prusty",
+                            "githubId": "coder-kbb"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Interactive & Educational Tools",
+            "details": "Engage with learning resources, quizzes, and simulations that make education interactive and enjoyable.",
+            "tools": [
+                {
+                    "name": "Annotation Tool",
+                    "link": "/annotation-tool",
+                    "description": "Highlight text, capture colour-coded notes, and keep every annotation organized locally for fast reviews.",
+                    "contributors": []
+                },
+                {
+                    "name": "Human Benchmark",
+                    "link": "/human-benchmark",
+                    "description": "Challenge your reflexes, accuracy, and memory with a modern Human Benchmark lab featuring reaction, aim, and sequence drills with live progress tracking.",
+                    "contributors": []
+                },
+                {
+                    "name": "Integer Toolkit",
+                    "link": "/integer-toolkit",
+                    "description": "  Paste any list of integers to reveal their shared structure: GCD, LCM, prime factorizations, divisibility classifications, digital roots, and more. Ideal for spotting numerical patterns in problem sets, datasets, or coding data outputs.",
+                    "contributors": []
+                },
+                {
+                    "name": "Math Toolkit",
+                    "link": "/math-toolkit",
+                    "description": "Handy calculators for base conversion, combinatorics, and quadratic analysis in a single dashboard.",
+                    "contributors": [
+                        {
+                            "name": "Prachi Kumathekar",
+                            "githubId": "02skysane"
+                        },
+                        {
+                            "name": "Anupama Patewad",
+                            "githubId": "Anupama-Patewad"
+                        },
+                        {
+                            "name": "Jayesh Jaroli",
+                            "githubId": "JayeshJaroli4917"
+                        },
+                        {
+                            "name": "Shivanshu Kumar",
+                            "githubId": "shivoham79"
+                        }
+                    ]
+                },
+                {
+                    "name": "Number Tool",
+                    "link": "/number-tool",
+                    "description": "Decompose any number into key representations: rounding, scientific notation, roman numerals, parity, logs, and more in a single dashboard.",
+                    "contributors": []
+                },
+                {
+                    "name": "Puzzle Maker",
+                    "link": "/puzzle-maker",
+                    "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
+                    "contributors": [
+                        {
+                            "name": "Mihir Joshi",
+                            "githubId": "mihirjoshi26"
+                        },
+                        {
+                            "name": "Dharmik Satani",
+                            "githubId": "DBSatani88"
+                        },
+                        {
+                            "name": "Sonal Sonarghare",
+                            "githubId": "SonalSonarghare"
+                        },
+                        {
+                            "name": "Sourabh Singh",
+                            "githubId": "SourabhSinghBhadouriya"
+                        },
+                        {
+                            "name": "Tanvi More",
+                            "githubId": "Tanvi119"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Random Maze Generator",
+                    "link": "/random-maze-generator",
+                    "description": "Generate printable mazes with configurable grid sizes and algorithms, overlay optional solutions, and export instantly for games or lesson plans.",
+                    "contributors": []
+                },
+                {
+                    "name": "Scientific Calculator",
+                    "link": "/sciencetific-calculator",
+                    "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
+                    "contributors": []
+                },
+                {
+                    "name": "Unit Converter",
+                    "link": "/unit-converter",
+                    "description": "Switch between measurement systems with live conversions across length, mass, temperature, time, area, volume, and data units.",
+                    "contributors": []
+                },
+                {
+                    "name": "Virtual Graph Paper",
+                    "link": "/virtual-graph-paper",
+                    "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
+                    "contributors": [
+                        {
+                            "name": "Abhishek Rajput",
+                            "githubId": "Abhishek-2502"
+                        },
+                        {
+                            "name": "Darshana Jadhav",
+                            "githubId": "Darshana1011"
+                        },
+                        {
+                            "name": "Nikhil Shukla",
+                            "githubId": "Nikhil-shukla1"
+                        },
+                        {
+                            "name": "Suzanne Sunil Nazareth",
+                            "githubId": "suzannenazareth"
+                        },
+                        {
+                            "name": "Yash Jain",
+                            "githubId": "YashJain999"
                         },
                         {
                             "name": "Ashwani Kumar Singh",
@@ -288,8 +1072,83 @@
             ]
         },
         {
-            "title": "Image and Graphic Tools",
-            "details": "Design, edit, and generate images, colors, icons, and SVG graphics with creative visual tools.",
+            "title": "Media Editing & Management Tools",
+            "details": "Record, convert, edit, and enhance audio, video, and other media formats with ease.",
+            "tools": [
+                {
+                    "name": "GIF-Toolkit",
+                    "link": "/gif-toolkit",
+                    "description": "A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
+                    "contributors": [
+                        {
+                            "name": "Arya Bacchuwar",
+                            "githubId": "Devil-panda"
+                        },
+                        {
+                            "name": "Mukesh Madipelly",
+                            "githubId": "mukeshmadipelly"
+                        },
+                        {
+                            "name": "Satvik Pandey",
+                            "githubId": "worldisconfusion"
+                        },
+                        {
+                            "name": "Shruti Johnson",
+                            "githubId": "SHRUTIJOHNSON"
+                        },
+                        {
+                            "name": "Dinesh D",
+                            "githubId": "dinesh-dh"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
+                        }
+                    ]
+                },
+                {
+                    "name": "Screen Video Recorder",
+                    "link": "/screen-video-recorder",
+                    "description": "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities.",
+                    "contributors": [
+                        {
+                            "name": "Rifat Perween",
+                            "githubId": "rifatperween"
+                        },
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "Voice-Recorder-and-Editor",
+                    "link": "/voice-recorder-and-editor",
+                    "description": "Voice-Recorder-and-Editor",
+                    "contributors": [
+                        {
+                            "name": "Radha Rungta",
+                            "githubId": "Radha Rungta"
+                        },
+                        {
+                            "name": "JatinnSihag",
+                            "githubId": "jatinsihag234"
+                        },
+                        {
+                            "name": "Olive Daniel",
+                            "githubId": "OliveDaniel24"
+                        },
+                        {
+                            "name": "Naman Wadhawan",
+                            "githubId": "NamanWadhawan"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Image & Graphic Tools",
+            "details": "Design, edit, and generate images, colors, icons, and vector graphics for creative visual projects.",
             "tools": [
                 {
                     "name": "Camera Filters",
@@ -522,37 +1381,6 @@
                     ]
                 },
                 {
-                    "name": "Virtual Graph Paper",
-                    "link": "/virtual-graph-paper",
-                    "description": "Virtual Graph Paper is a tool for creating drawings and illustrations on a virtual grid.",
-                    "contributors": [
-                        {
-                            "name": "Abhishek Rajput",
-                            "githubId": "Abhishek-2502"
-                        },
-                        {
-                            "name": "Darshana Jadhav",
-                            "githubId": "Darshana1011"
-                        },
-                        {
-                            "name": "Nikhil Shukla",
-                            "githubId": "Nikhil-shukla1"
-                        },
-                        {
-                            "name": "Suzanne Sunil Nazareth",
-                            "githubId": "suzannenazareth"
-                        },
-                        {
-                            "name": "Yash Jain",
-                            "githubId": "YashJain999"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
                     "name": "Youtube Thumbnail Grabber",
                     "link": "/youtube-thumbnail-grabber",
                     "description": "Paste a YouTube link to preview every available thumbnail size, check which resolutions exist, and copy or download the image instantly.",
@@ -582,8 +1410,8 @@
             ]
         },
         {
-            "title": "Content Generation and Design Tools",
-            "details": "Create professional content, layouts, mockups, and brand assets with intuitive design tools.",
+            "title": "Content Generation & Design Tools",
+            "details": "Create high-quality content, layouts, and branding assets with intuitive creative design and writing tools.",
             "tools": [
                 {
                     "name": "Advice Generator",
@@ -618,6 +1446,18 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "Business Name Generator",
+                    "link": "/business-name-generator",
+                    "description": "Spin up memorable, industry-specific business names in seconds with adjustable tone, structure, and keyword targeting.",
+                    "contributors": []
+                },
+                {
+                    "name": "Legal Policy Generator",
+                    "link": "/legal-policy-generator",
+                    "description": "Draft privacy policies, terms, and refund guidelines tailored to your product inputs in minutes.",
+                    "contributors": []
                 },
                 {
                     "name": "Random Data Generator",
@@ -695,746 +1535,6 @@
                             "githubId": "ashwani2529"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "title": "Web Development & SEO Tools",
-            "details": "Optimize, test, and enhance websites with tools for performance analysis, code validation, and search engine optimization.",
-            "tools": [
-                {
-                    "name": "Code Linter",
-                    "link": "/code-linter",
-                    "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
-                    "contributors": [
-                        {
-                            "name": "Abhirup Mukherjee",
-                            "githubId": "Abhirup2004-p"
-                        },
-                        {
-                            "name": "Aryan Nimbalkar",
-                            "githubId": "Aryan200324"
-                        },
-                        {
-                            "name": "Atufa Akhtar",
-                            "githubId": "atufaakhtar"
-                        },
-                        {
-                            "name": "Swakshar Bora",
-                            "githubId": "DastardlyKat"
-                        },
-                        {
-                            "name": "Tanvi Panchal",
-                            "githubId": "Tanvi54"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "CSS Animator",
-                    "link": "/css-animator",
-                    "description": "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        },
-                        {
-                            "name": "Munsif Satopay",
-                            "githubId": "munsifsatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "JWT Decoder",
-                    "link": "/jwt-decoder",
-                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
-                    "contributors": [
-                        {
-                            "name": "Fazal",
-                            "githubId": "Fazalparkar"
-                        },
-                        {
-                            "name": "Aayush",
-                            "githubId": "AayushPaigwar"
-                        },
-                        {
-                            "name": "Jujhar",
-                            "githubId": "jujharsingh2802"
-                        },
-                        {
-                            "name": "Kunal",
-                            "githubId": "KUNALL0ndhe"
-                        },
-                        {
-                            "name": "Hitesh",
-                            "githubId": "Honeykalra22"
-                        }
-                    ]
-                },
-                {
-                    "name": "Keyword Density Checker",
-                    "link": "/keyword-density-checker",
-                    "description": "Analyze word usage within your content to surface the top keywords, their frequency, and density while filtering common stop words.",
-                    "contributors": []
-                },
-                {
-                    "name": "Metatag Checker & Generator",
-                    "link": "/metatag-checker-generator",
-                    "description": "Audit existing meta tags from any page or craft new tags with live previews for title, description, keywords, and social sharing.",
-                    "contributors": []
-                },
-                {
-                    "name": "Online API Testing",
-                    "link": "/online-api-testing",
-                    "description": "Send REST calls from the browser, tweak headers and payloads, inspect latency, response size, headers, and grab an instant cURL snippet.",
-                    "contributors": [
-                        {
-                            "name": "A. Amrutha Sri",
-                            "githubId": "AmruthaSri852"
-                        },
-                        {
-                            "name": "Nandini Gite",
-                            "githubId": "NandiniGite"
-                        }
-                    ]
-                },
-                {
-                    "name": "Remove Unused CSS",
-                    "link": "/remove-unused-css",
-                    "description": "Paste your markup and styles to instantly strip unused selectors, review what was removed, and download the slimmer CSS bundle.",
-                    "contributors": [
-                        {
-                            "name": "Manoj R Gupta",
-                            "githubId": "Manojgupta103"
-                        }
-                    ]
-                },
-                {
-                    "name": "Responsive Design Tester",
-                    "link": "/responsive-design-tester",
-                    "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
-                    "contributors": [
-                        {
-                            "name": "David Kwasi Mensah Akyer",
-                            "githubId": "dkmakyer"
-                        },
-                        {
-                            "name": "Tasnim Munawar Rafee",
-                            "githubId": "Rafee104104"
-                        },
-                        {
-                            "name": "Sahil Navale",
-                            "githubId": "sahiln15"
-                        },
-                        {
-                            "name": "Amila Jayamaha",
-                            "githubId": "AmilaJayamaha"
-                        },
-                        {
-                            "name": "Aditi More",
-                            "githubId": "8897adira"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Robots.txt Generator",
-                    "link": "/robots-txt-generator",
-                    "description": "The Robots.txt Generator is a must-have tool for developers to create the robots.txt file, which controls search engine crawlers' access to specific pages or directories on a website. This tool offers a user-friendly interface to define crawling rules, including allow and disallow directives, to ensure optimal search engine indexing and prevent unwanted content from being indexed. Create and customize your robots.txt file efficiently with this generator to enhance your website's search engine optimization (SEO) efforts.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "SEO Checker",
-                    "link": "/seo-checker",
-                    "description": "Run quick on-page SEO diagnostics for any URL: title length, meta description, heading structure, word count, link stats, and image alt coverage.",
-                    "contributors": []
-                },
-                {
-                    "name": "Sql Converter",
-                    "link": "/sql-converter",
-                    "description": "Converts .sql into csv, xlsx and more",
-                    "contributors": [
-                        {
-                            "name": "Somesh Diwan",
-                            "githubId": "Someshdiwan"
-                        },
-                        {
-                            "name": "Suryank Chavan",
-                            "githubId": "suryank05"
-                        },
-                        {
-                            "name": "Akankshasarade",
-                            "githubId": "Akankshasarade"
-                        },
-                        {
-                            "name": "Shristi Kushwaha",
-                            "githubId": "Shri6apr"
-                        },
-                        {
-                            "name": "Aditya Gupta",
-                            "githubId": "AdityaGupta"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "SQL Query Builder",
-                    "link": "/sql-query-builder",
-                    "description": "The SQL Query Generator is a powerful tool designed for users to create complex SQL queries effortlessly. It offers a user-friendly interface for selecting tables and columns, applying joins, filters, sorting, and grouping. The tool dynamically generates and displays the SQL query in real-time, simplifying database query creation without needing extensive SQL knowledge. Enhance your data management tasks with this intuitive and efficient query builder.",
-                    "contributors": [
-                        {
-                            "name": "Atharva Sawant",
-                            "githubId": "Satharva2004"
-                        },
-                        {
-                            "name": "Kalyan Sharma",
-                            "githubId": "kalyan123s"
-                        },
-                        {
-                            "name": "Harshita S",
-                            "githubId": "Harshitha0066"
-                        },
-                        {
-                            "name": "Garret Farnandez",
-                            "githubId": "garretfernandezz"
-                        },
-                        {
-                            "name": "Moain Khan",
-                            "githubId": "Moainkhan"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "SSL Checker",
-                    "link": "/ssl-checker",
-                    "description": "Inspect a site's TLS certificate, issuer, and expiry instantly with a direct port 443 handshake.",
-                    "contributors": []
-                },
-                {
-                    "name": "Terminal Generator",
-                    "link": "/terminal-generator",
-                    "description": "Design custom terminal transcripts: tweak prompt tokens, add command/output lines, and copy the final shell session in one click.",
-                    "contributors": []
-                },
-                {
-                    "name": "User Agent Generator & Decoder",
-                    "link": "/user-agent-generator-decoder",
-                    "description": "Craft custom user agents or decode existing strings into browser, OS, and device details.",
-                    "contributors": []
-                },
-                {
-                    "name": "Website Broken Link Checker",
-                    "link": "/websites-broken-link-checker",
-                    "description": "Scan a page for outgoing links and verify their status codes to flag redirects or errors instantly.",
-                    "contributors": []
-                },
-                {
-                    "name": "Website Image Extractor",
-                    "link": "/website-image-extractor",
-                    "description": "Fetch every image from a page, inspect alt text, and export the sources for quick audits or asset downloads.",
-                    "contributors": []
-                },
-                {
-                    "name": "Website Links Count",
-                    "link": "/website-links-count",
-                    "description": "Count and categorize all links on a page, distinguishing internal, external, mailto, and nofollow references.",
-                    "contributors": []
-                },
-                {
-                    "name": "Website Performance Testing",
-                    "link": "/website-performance-testing",
-                    "description": "Capture key performance metrics (TTFB, DOM load, total requests) for a page using the Resource Timing API.",
-                    "contributors": []
-                },
-                {
-                    "name": "WordPress Theme Detector",
-                    "link": "/wordpress-theme-detector",
-                    "description": "Detect the active WordPress theme and plugins by scanning a site's source for common identifiers.",
-                    "contributors": []
-                },
-                {
-                    "name": "XML Formatter & Beautifier",
-                    "link": "/xml-formatter-beautifier",
-                    "description": "Pretty-print, minify, and validate XML instantly with formatting options and error highlights.",
-                    "contributors": []
-                },
-                {
-                    "name": "XML Sitemap Generator",
-                    "link": "/xml-sitemap-generator",
-                    "description": "Build standards-compliant XML sitemaps by composing URLs, last modified dates, change frequencies, and priority hints.",
-                    "contributors": []
-                }
-            ]
-        },
-        {
-            "title": "Media Editing and Management Tools",
-            "details": "Record, convert, and enhance audio, video, and speech with media-centric tools.",
-            "tools": [
-                {
-                    "name": "GIF-Toolkit",
-                    "link": "/gif-toolkit",
-                    "description": "A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
-                    "contributors": [
-                        {
-                            "name": "Arya Bacchuwar",
-                            "githubId": "Devil-panda"
-                        },
-                        {
-                            "name": "Mukesh Madipelly",
-                            "githubId": "mukeshmadipelly"
-                        },
-                        {
-                            "name": "Satvik Pandey",
-                            "githubId": "worldisconfusion"
-                        },
-                        {
-                            "name": "Shruti Johnson",
-                            "githubId": "SHRUTIJOHNSON"
-                        },
-                        {
-                            "name": "Dinesh D",
-                            "githubId": "dinesh-dh"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Screen Video Recorder",
-                    "link": "/screen-video-recorder",
-                    "description": "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities.",
-                    "contributors": [
-                        {
-                            "name": "Rifat Perween",
-                            "githubId": "rifatperween"
-                        },
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "Voice-Recorder-and-Editor",
-                    "link": "/voice-recorder-and-editor",
-                    "description": "Voice-Recorder-and-Editor",
-                    "contributors": [
-                        {
-                            "name": "Radha Rungta",
-                            "githubId": "Radha Rungta"
-                        },
-                        {
-                            "name": "JatinnSihag",
-                            "githubId": "jatinsihag234"
-                        },
-                        {
-                            "name": "Olive Daniel",
-                            "githubId": "OliveDaniel24"
-                        },
-                        {
-                            "name": "Naman Wadhawan",
-                            "githubId": "NamanWadhawan"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Time and Productivity Tools",
-            "details": "Stay organized and manage your time efficiently with timers, notes, and scheduling tools.",
-            "tools": [
-                {
-                    "name": "Annotation Tool",
-                    "link": "/annotation-tool",
-                    "description": "Highlight text, capture colour-coded notes, and keep every annotation organized locally for fast reviews.",
-                    "contributors": []
-                },
-                {
-                    "name": "App Store / Play Store Screenshot Generator",
-                    "link": "/app-store-screenshot-generator",
-                    "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
-                    "contributors": []
-                },
-                {
-                    "name": "Multi Timer",
-                    "link": "/multi-timer",
-                    "description": "Create flexible countdowns, stopwatches, or alarms, run them in parallel, track laps, and auto-repeat completions to fit any workflow.",
-                    "contributors": [
-                        {
-                            "name": "Prajwal Dilip Ganar",
-                            "githubId": "Prajwal435"
-                        },
-                        {
-                            "name": "Akanksha Kumbhar",
-                            "githubId": "Akanksha0830"
-                        },
-                        {
-                            "name": "Yash Mehetre",
-                            "githubId": "YashMehetre"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Pomodoro",
-                    "link": "/pomodoro",
-                    "description": "Stay in flow with a flexible Pomodoro timer that rotates focus sprints and breaks, adapts to your preferred durations, and keeps your cycle count on track for sustainable productivity.",
-                    "contributors": [
-                        {
-                            "name": "Rifat Perween",
-                            "githubId": "rifatperween"
-                        }
-                    ]
-                },
-                {
-                    "name": "Sticky Notes",
-                    "link": "/sticky-notes",
-                    "description": "Capture quick ideas and todos in a lightweight sticky board. Choose a color, pin critical notes to the top, and rely on automatic local storage so every update is saved with a clear timestamp—no sync required.",
-                    "contributors": [
-                        {
-                            "name": "Saket Prabhakar",
-                            "githubId": "sabotagefrenzy"
-                        },
-                        {
-                            "name": "Raj Patkar",
-                            "githubId": "Raj-Patkar"
-                        },
-                        {
-                            "name": "Chhaya Sharma",
-                            "githubId": "ChhayaSharma21"
-                        },
-                        {
-                            "name": "Pranjali Jibhakate",
-                            "githubId": "Pranjali2410"
-                        },
-                        {
-                            "name": "Tanuja Yadav",
-                            "githubId": "tanuja1922"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "World Clock",
-                    "link": "/world-clock",
-                    "description": "Monitor global cities with live analog clocks and discover new timezones fast.",
-                    "contributors": [
-                        {
-                            "name": "ILyas Sayyed",
-                            "githubId": "MrPorsche"
-                        },
-                        {
-                            "name": "K Vaishnavi",
-                            "githubId": "Vaishnnavikothmirkar"
-                        },
-                        {
-                            "name": "Joel Geo Abraham",
-                            "githubId": "JoelAbraham16032002"
-                        },
-                        {
-                            "name": "Silla Mariya Roy",
-                            "githubId": "Silla03"
-                        },
-                        {
-                            "name": "Kaberi manjari Prusty",
-                            "githubId": "coder-kbb"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Interactive and Educational Tools",
-            "details": "Explore learning, puzzles, and visual math tools for interactive engagement and education.",
-            "tools": [
-                {
-                    "name": "BMI Calculator",
-                    "link": "/Bmi",
-                    "description": "Understand where you fall on the Body Mass Index scale and get quick guidance to support your goals. BMI is a screening tool - not a diagnosis - so use these results as a starting point for deeper conversations with a professional.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "Health Calculator",
-                    "link": "/health-calculator",
-                    "description": "Estimate BMI, basal metabolic rate, daily energy needs, protein goals, and hydration targets from a single health snapshot.",
-                    "contributors": []
-                },
-                {
-                    "name": "Puzzle Maker",
-                    "link": "/puzzle-maker",
-                    "description": "Introducing the Ultimate Puzzle Maker! Dive into the world of wordplay with our versatile tool, designed to craft engaging crosswords, thrilling word searches, and exciting Wheel of Fortune puzzles. Whether you're a seasoned puzzle enthusiast or a casual solver, our Puzzle Maker offers a seamless and enjoyable experience, perfect for honing your vocabulary and problem-solving skills. Unleash your creativity and challenge yourself or others with our customizable and fun puzzle options!",
-                    "contributors": [
-                        {
-                            "name": "Mihir Joshi",
-                            "githubId": "mihirjoshi26"
-                        },
-                        {
-                            "name": "Dharmik Satani",
-                            "githubId": "DBSatani88"
-                        },
-                        {
-                            "name": "Sonal Sonarghare",
-                            "githubId": "SonalSonarghare"
-                        },
-                        {
-                            "name": "Sourabh Singh",
-                            "githubId": "SourabhSinghBhadouriya"
-                        },
-                        {
-                            "name": "Tanvi More",
-                            "githubId": "Tanvi119"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Data and File Handling Tools",
-            "details": "Convert, compress, extract, and manage files or data seamlessly across various formats.",
-            "tools": [
-                {
-                    "name": "File Converter",
-                    "link": "/file-converter",
-                    "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
-                    "contributors": [
-                        {
-                            "name": "Mohammad Adil",
-                            "githubId": "devilzs1"
-                        }
-                    ]
-                },
-                {
-                    "name": "Watermark PDF",
-                    "link": "/watermark-pdf",
-                    "description": "Add Text or Image as a watermark to the PDF document",
-                    "contributors": []
-                }
-            ]
-        },
-        {
-            "title": "Financial Calculators",
-            "details": "Compute financial metrics, loans, payouts, and ROI with tools built for smart money planning.",
-            "tools": [
-                {
-                    "name": "Annuity Payout Calculator",
-                    "link": "/annuity-payout-calculator",
-                    "description": "Estimate the steady withdrawal you can receive from an annuity investment and understand how interest impacts your long-term payouts.",
-                    "contributors": [
-                        {
-                            "name": "Sumit Mishra",
-                            "githubId": "Sumitm6879"
-                        }
-                    ]
-                },
-                {
-                    "name": "Finance Calculator",
-                    "link": "/finance-calculator",
-                    "description": "An all-in-one toolset to instantly calculate ROI, currency conversions, salaries, GST, loans, time value, and stock returns—without page reloads. Get quick, accurate estimates for smarter financial planning.",
-                    "contributors": [
-                        {
-                            "name": "Dalima Sahu",
-                            "githubId": "DALIMA07"
-                        },
-                        {
-                            "name": "Arushi Bhargava",
-                            "githubId": "Arushibhargava"
-                        },
-                        {
-                            "name": "Ayan Kamaria",
-                            "githubId": "ayan2362003"
-                        },
-                        {
-                            "name": "Noorjahan Ferdous",
-                            "githubId": "nferdous2"
-                        },
-                        {
-                            "name": "Zaid Nasim",
-                            "githubId": "Ruwais-zaid"
-                        },
-                        {
-                            "name": "Nisha Rai",
-                            "githubId": "Rai-nisha"
-                        },
-                        {
-                            "name": "Srushti Bhirud",
-                            "githubId": "Srushti309"
-                        },
-                        {
-                            "name": "Harshita Dalal",
-                            "githubId": "Harshita-Dalal"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Specialized Utility Tools",
-            "details": "Access diverse niche tools like encryption, validation, and lookup services for specialized needs.",
-            "tools": [
-                {
-                    "name": "Crypto Address Validation",
-                    "link": "/crypto-address-validation",
-                    "description": "Crypto Address Validator is a tool that validates addresses for multiple cryptocurrencies. It ensures the correctness of Bitcoin, Ethereum, Litecoin, Ripple, Bitcoin Cash, Cardano, Polkadot, and Dogecoin addresses. A must-have for secure crypto transactions.",
-                    "contributors": [
-                        {
-                            "name": "Tilakshankar Sakthikumar",
-                            "githubId": "tilakshankar"
-                        },
-                        {
-                            "name": "Ketaki Vatturkar",
-                            "githubId": "ketakivatturkar"
-                        },
-                        {
-                            "name": "Nikhil Singh",
-                            "githubId": "nikkhil28-29"
-                        },
-                        {
-                            "name": "Mayur Nikam",
-                            "githubId": "MayurNikam989"
-                        },
-                        {
-                            "name": "Mathew Jacob",
-                            "githubId": "mathewjacob123"
-                        },
-                        {
-                            "name": "Tanish Chopra",
-                            "githubId": "TanishC28"
-                        },
-                        {
-                            "name": "Sanjukta Sarkar",
-                            "githubId": "Crystalite0201"
-                        },
-                        {
-                            "name": "Pragya",
-                            "githubId": "Pragya930"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
-                    "name": "Device Details",
-                    "link": "/device-details",
-                    "description": "The Device Details tool provides developers with essential information about user devices, including browser specifications, screen resolution, operating system details, and more. By integrating this tool into your applications, you can gather valuable insights about your users' devices, allowing you to optimize user experiences, ensure compatibility, and tailor your content or features accordingly.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "Password Generator",
-                    "link": "/password-generator",
-                    "description": "Tune the length and character mix to instantly produce unique passwords with entropy guidance and one-click copy.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                },
-                {
-                    "name": "WhatsApp Link Generator",
-                    "link": "/whatsapp-api-generator",
-                    "description": "The WhatsApp Link Generator is a specialized tool that simplifies the process of generating API integration code for the WhatsApp Me feature. With this tool, developers can quickly create the necessary code snippets to enable users to initiate conversations with a specific phone number on WhatsApp. This generator streamlines the integration of the WhatsApp Me functionality into your applications, allowing users to reach out and engage with your business or service effortlessly. Enhance user communication and engagement by utilizing this powerful API generator for WhatsApp integration.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "title": "Math Toolkit",
-            "details": "Perform mathematical calculations, integer operations, and conversions with precision tools.",
-            "tools": [
-                {
-                    "name": "Integer Toolkit",
-                    "link": "/integer-toolkit",
-                    "description": "  Paste any list of integers to reveal their shared structure: GCD, LCM, prime factorizations, divisibility classifications, digital roots, and more. Ideal for spotting numerical patterns in problem sets, datasets, or coding data outputs.",
-                    "contributors": []
-                },
-                {
-                    "name": "Math Toolkit",
-                    "link": "/math-toolkit",
-                    "description": "Handy calculators for base conversion, combinatorics, and quadratic analysis in a single dashboard.",
-                    "contributors": [
-                        {
-                            "name": "Prachi Kumathekar",
-                            "githubId": "02skysane"
-                        },
-                        {
-                            "name": "Anupama Patewad",
-                            "githubId": "Anupama-Patewad"
-                        },
-                        {
-                            "name": "Jayesh Jaroli",
-                            "githubId": "JayeshJaroli4917"
-                        },
-                        {
-                            "name": "Shivanshu Kumar",
-                            "githubId": "shivoham79"
-                        }
-                    ]
-                },
-                {
-                    "name": "Number Tool",
-                    "link": "/number-tool",
-                    "description": "Decompose any number into key representations: rounding, scientific notation, roman numerals, parity, logs, and more in a single dashboard.",
-                    "contributors": []
-                },
-                {
-                    "name": "Scientific Calculator",
-                    "link": "/sciencetific-calculator",
-                    "description": "A realistic scientific calculator with a full keypad for arithmetic, trigonometry, logarithms, powers, factorials, and memory recall.",
-                    "contributors": []
-                },
-                {
-                    "name": "Unit Converter",
-                    "link": "/unit-converter",
-                    "description": "Switch between measurement systems with live conversions across length, mass, temperature, time, area, volume, and data units.",
-                    "contributors": []
                 }
             ]
         }
