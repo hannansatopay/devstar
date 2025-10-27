@@ -1,183 +1,409 @@
 <script lang="ts">
-	import { Label } from 'flowbite-svelte';
-	
-	let fileFormats = {
-		image: {
-			name: 'Image Formats',
-			outputFormat: ['bmp', 'fax', 'g3', 'gif', 'hdr', 'ico', 'jp2', 'jpeg', 'jpg', 'map', 'mng', 'mtv', 'odd', 'pal', 'palm', 'pict', 'png', 'pnm', 'svgz', 'webp']
-		},
-		audio: {
-			name: 'Audio Formats',
-			outputFormat: ['aac', 'ac3', 'aiff', 'amr', 'ape', 'caf', 'dts', 'flac', 'm4a', 'mp3', 'ogg', 'wav', 'wma']
-		},
-		video: {
-			name: 'Video Formats',
-			outputFormat: ['3g2', '3gp', 'amv', 'asf', 'avi', 'dvd', 'm4v', 'mov', 'mp4', 'mpeg', 'mpg', 'ogv', 'webm', 'wmv']
-		}
-	};
+  import { onDestroy } from "svelte";
 
-	let selectedFormat = ''; 
-	let inputFile, fileName='', extension='';
-    let outputFile='', fileURL='';
-	let supportedFormats = fileFormats;
-    let imageSrc = '';
-    let downloadUrl = '';
+  type CatalogEntry = {
+    id: string;
+    title: string;
+    description: string;
+    outputs: string[];
+    match: RegExp[];
+    convertable: boolean;
+    note?: string;
+  };
 
-	const getFileFormat = (e) =>{
-        outputFile='';
-		inputFile = e.target.files[0];
-		// console.log(inputFile);
-		if(inputFile['name'].length){
-			let file = inputFile['name'].split('.');
-			let found = false;
-			fileName = file[0];
-			extension = file[1];
-	
-			console.log('File Name:', fileName, extension);
-			for(let format in fileFormats){
-				fileFormats[format]['outputFormat'].forEach((ext)=>{
-					console.log(ext);
-					if(extension===ext){
-						supportedFormats = fileFormats[format];
-						found = true;
-					}
-				})
-			}
-			if(found===false){
-				supportedFormats = {name:'Not Supported', outputFormat:[]};
-			}
-		}else{
-			fileName='';
-			extension='';
-			supportedFormats = fileFormats;
-		}
-	}
+  const FORMAT_CATALOG: CatalogEntry[] = [
+    {
+      id: "image",
+      title: "Image",
+      description:
+        "Convert raster images between popular formats (PNG, JPG, WEBP).",
+      outputs: ["png", "jpg", "webp"],
+      match: [/^image\//i],
+      convertable: true,
+      note: "Conversion runs in your browser using Canvas, so sensitive files stay local.",
+    },
+    {
+      id: "audio",
+      title: "Audio",
+      description:
+        "Inspect basic metadata for audio clips. Browser-based conversion is coming soon.",
+      outputs: ["aac", "flac", "mp3", "ogg", "wav"],
+      match: [/^audio\//i],
+      convertable: false,
+      note: "Use a dedicated audio editor for high-fidelity conversions.",
+    },
+    {
+      id: "video",
+      title: "Video",
+      description: "Preview container and codec information for video files.",
+      outputs: ["mp4", "webm", "mov", "avi"],
+      match: [/^video\//i],
+      convertable: false,
+      note: "Transcoding video requires server-side tooling.",
+    },
+    {
+      id: "document",
+      title: "Document",
+      description:
+        "Quickly preview document metadata such as size and extension.",
+      outputs: ["pdf", "docx", "txt"],
+      match: [/pdf$/i, /(doc|ppt|xls)[x]?$/i],
+      convertable: false,
+    },
+  ];
 
-	const convertFile = async () => {
-		const input = document.getElementById('input-file') as HTMLInputElement;
-		const outputContainer = document.getElementById('output') as HTMLDivElement;
-        const downloadBtn = document.getElementById('download-btn') as HTMLAnchorElement;
-		const outputFormatSelect = document.getElementById('output-format') as HTMLSelectElement;
-		selectedFormat = outputFormatSelect.value;
+  let selectedFile: File | null = null;
+  let fileUrl = "";
+  let convertedUrl = "";
+  let conversionError = "";
+  let converting = false;
+  let selectedCategory: CatalogEntry | null = null;
+  let outputFormat = "";
+  let imagePreviewUrl = "";
+  let metadata: { sizeLabel: string; typeLabel: string } | null = null;
 
-		const file = input.files[0];
-        if (!file) return;
-			const reader = new FileReader();
-			reader.onload = async (e: any) => {
-				imageSrc = e.target.result;
-				const img = new Image();
-				img.src = imageSrc;
-				img.onload = async () => {
-					const canvas = document.createElement('canvas');
-					const ctx = canvas.getContext('2d')!;
-					canvas.width = img.width;
-					canvas.height = img.height;
-					ctx.drawImage(img, 0, 0);
-					const outputData = canvas.toDataURL(`image/${selectedFormat}`);
-					outputContainer.innerHTML = `<img src="${outputData}" alt="Converted Image">`;
-					downloadUrl = outputData;
-					downloadBtn.style.display = 'block';
-					downloadBtn.href = downloadUrl;
-					downloadBtn.download = `converted_image.${selectedFormat}`;
-				};
-			};
-			reader.readAsDataURL(file)
-	}
+  function resetState() {
+    convertedUrl = "";
+    conversionError = "";
+    converting = false;
+  }
 
-	const downloadFile = async () => {
-		const convertedBlob = new Blob([inputFile], { type: inputFile.type });
-		convertedBlob.name = outputFile;
-		const downloadLink = document.createElement('a');
-		downloadLink.href = URL.createObjectURL(convertedBlob);
-		downloadLink.download = outputFile;
-		document.body.appendChild(downloadLink);
-		downloadLink.click();
-		document.body.removeChild(downloadLink);
-	}
+  function revokeUrls() {
+    if (fileUrl) {
+      URL.revokeObjectURL(fileUrl);
+      fileUrl = "";
+    }
+    if (imagePreviewUrl) {
+      URL.revokeObjectURL(imagePreviewUrl);
+      imagePreviewUrl = "";
+    }
+    if (convertedUrl.startsWith("blob:")) {
+      URL.revokeObjectURL(convertedUrl);
+      convertedUrl = "";
+    }
+  }
 
-	const convertFormat = (event) => {
-		event.preventDefault();
-		convertFile();
-	}
-	export let data;
+  onDestroy(() => {
+    revokeUrls();
+  });
+
+  function detectCategory(file: File): CatalogEntry | null {
+    const mime = file.type.toLowerCase();
+    const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+    for (const entry of FORMAT_CATALOG) {
+      if (
+        entry.match.some((regex) => regex.test(mime) || regex.test(extension))
+      ) {
+        return entry;
+      }
+    }
+    return null;
+  }
+
+  function humanFileSize(bytes: number) {
+    if (!bytes) return "0 B";
+    const units = ["B", "KB", "MB", "GB"];
+    const exponent = Math.min(
+      Math.floor(Math.log(bytes) / Math.log(1024)),
+      units.length - 1,
+    );
+    const value = bytes / Math.pow(1024, exponent);
+    return `${value.toFixed(value >= 10 ? 0 : 1)} ${units[exponent]}`;
+  }
+
+  function handleFileChange(event: Event) {
+    const input = event.currentTarget as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    revokeUrls();
+    selectedFile = file;
+    resetState();
+    metadata = null;
+    if (!file) {
+      selectedCategory = null;
+      outputFormat = "";
+      return;
+    }
+
+    selectedCategory = detectCategory(file);
+    outputFormat = selectedCategory?.outputs[0] ?? "";
+    fileUrl = URL.createObjectURL(file);
+    metadata = {
+      sizeLabel: humanFileSize(file.size),
+      typeLabel: file.type || `.${file.name.split(".").pop()}`,
+    };
+
+    if (selectedCategory?.id === "image") {
+      imagePreviewUrl = fileUrl;
+    }
+  }
+
+  function clearFile() {
+    selectedFile = null;
+    selectedCategory = null;
+    outputFormat = "";
+    metadata = null;
+    resetState();
+    revokeUrls();
+  }
+
+  async function convertImage(file: File, format: string) {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("Unable to read file"));
+      reader.onload = () => {
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = image.width;
+          canvas.height = image.height;
+          const context = canvas.getContext("2d");
+          if (!context) {
+            reject(new Error("Canvas context unavailable"));
+            return;
+          }
+          context.drawImage(image, 0, 0);
+          try {
+            const dataUrl = canvas.toDataURL(`image/${format}`);
+            resolve(dataUrl);
+          } catch (error) {
+            reject(
+              new Error("This browser cannot export to the selected format."),
+            );
+          }
+        };
+        image.onerror = () => reject(new Error("Unable to decode image"));
+        image.src = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function handleConvert() {
+    if (!selectedFile || !selectedCategory) return;
+    conversionError = "";
+    convertedUrl && URL.revokeObjectURL(convertedUrl);
+    convertedUrl = "";
+    converting = true;
+    try {
+      if (!selectedCategory.convertable) {
+        throw new Error("This format is read-only in the browser preview.");
+      }
+      if (!outputFormat) {
+        throw new Error("Choose an output format to continue.");
+      }
+      if (selectedCategory.id === "image") {
+        const dataUrl = await convertImage(selectedFile, outputFormat);
+        convertedUrl = dataUrl;
+      } else {
+        throw new Error("Conversion not implemented for this file type yet.");
+      }
+    } catch (error) {
+      conversionError =
+        error instanceof Error ? error.message : "Conversion failed.";
+    } finally {
+      converting = false;
+    }
+  }
 </script>
 
+<section class="space-y-6">
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+    <div class="space-y-6">
+      <div
+        class="flex flex-col gap-4 rounded-3xl border-2 border-dashed border-slate-300 bg-white/80 p-6 text-center shadow-sm transition hover:border-blue-400 dark:border-slate-600 dark:bg-slate-900/60 dark:hover:border-sky-500"
+      >
+        <div class="flex flex-col items-center gap-2">
+          <p class="text-sm font-medium text-slate-700 dark:text-slate-200">
+            {selectedFile ? selectedFile.name : "Choose or drop a file"}
+          </p>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            PNG, JPG, WebP, MP3, MP4, PDF and more.
+          </p>
+        </div>
+        <div class="flex items-center justify-center gap-3">
+          <label
+            class="inline-flex cursor-pointer items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-blue-400 hover:text-blue-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
+          >
+            <input type="file" class="hidden" on:change={handleFileChange} />
+            <span>Select file</span>
+          </label>
+          {#if selectedFile}
+            <button
+              type="button"
+              class="rounded-full border border-rose-300 px-4 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-50 dark:border-rose-400/60 dark:text-rose-300 dark:hover:bg-rose-500/10"
+              on:click={clearFile}
+            >
+              Clear
+            </button>
+          {/if}
+        </div>
+      </div>
 
-<section class="bg-white dark:bg-gray-900">
-	<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12 card overflow-hidden rounded-lg">
-		<form class="gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-3 " on:submit={convertFormat}>
-			<div class="p-8">
-				<Label for="input-file">Input File</Label>
-				<div class="flex items-center">
-					<input type="file" name="input-file" id = "input-file" class="rounded-lg border border-gray-400 dark:border-white dark: bg-white w-full" bind:value={inputFile} on:change={getFileFormat} required/>
-				</div>
-			</div>
-			<div class="p-8">
-				<Label for="output-format">Output Format</Label>
-				<div class="flex items-center">
-					<select id="output-format" bind:value={selectedFormat} class="rounded-lg border border-gray-400 dark:border-white w-full" required>
-					<option value="">Select Output Format</option>
-					{#if fileName===''}
-						{#each Object.keys(supportedFormats) as fileType}
-							<option value={fileType} disabled class="text-center font-bold">*******{supportedFormats[fileType].name}*******</option>
-							{#each supportedFormats[fileType].outputFormat as val}
-								<option value={val}>{val}</option>
-							{/each}
-						{/each}
-					{:else}
-						<option disabled class="text-center font-bold">*******{supportedFormats['name']}*******</option>
-						{#each supportedFormats['outputFormat'] as val}
-							{#if val !== extension}
-								<option value={val}>{val}</option>
-							{/if}
-						{/each}
-					{/if}
-					
-					</select>
-				</div>
+      {#if selectedFile && selectedCategory}
+        <div
+          class="space-y-4 rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/70"
+        >
+          <div class="flex items-center justify-between gap-4">
+            <h2 class="text-lg font-semibold text-slate-900 dark:text-white">
+              File details
+            </h2>
+            <span
+              class="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
+            >
+              {selectedCategory.title}
+            </span>
+          </div>
+          <dl
+            class="grid gap-3 text-sm text-slate-700 dark:text-slate-200 sm:grid-cols-2"
+          >
+            <div>
+              <dt
+                class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                File name
+              </dt>
+              <dd class="font-medium">{selectedFile.name}</dd>
+            </div>
+            <div>
+              <dt
+                class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                Size
+              </dt>
+              <dd class="font-medium">{metadata?.sizeLabel}</dd>
+            </div>
+            <div>
+              <dt
+                class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                Type
+              </dt>
+              <dd class="font-medium text-wrap text-break">
+                {metadata?.typeLabel}
+              </dd>
+            </div>
+            <div>
+              <dt
+                class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                Output format
+              </dt>
+              <dd>
+                <select
+                  class="mt-1 w-full rounded-2xl border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-blue-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100"
+                  bind:value={outputFormat}
+                  disabled={!selectedCategory.outputs.length}
+                >
+                  {#if !selectedCategory.outputs.length}
+                    <option value="">No browser-friendly outputs</option>
+                  {:else}
+                    {#each selectedCategory.outputs as option}
+                      <option value={option}>{option.toUpperCase()}</option>
+                    {/each}
+                  {/if}
+                </select>
+              </dd>
+            </div>
+          </dl>
 
-			</div>
-			<div class="p-8">
-				<div class="p-4 flex rounded-lg  items-center justify-center">
-					<button type="submit" class="bg-gray-800 px-4 py-2 rounded-lg text-white border border-gray-400 dark:border-white w-24 mt-4 card" >Convert</button>
-				</div>
-			</div>
-		</form>
+          {#if selectedCategory.note}
+            <p
+              class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-600 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-300"
+            >
+              {selectedCategory.note}
+            </p>
+          {/if}
 
-		{#if outputFile!==''}
-			<div class="rounded-lg grid grid-cols-1 lg:grid-cols-3  gap-2 lg:gap-16  m-8  overflow-hidden">
-				<div class="py-2 px-8 bg-white border border-gray-200 lg:col-span-2 ">{outputFile} </div>
-				<div class="flex items-center justify-center ">
-					<button class="bg-green-700 border text-white p-2 rounded-lg w-24" on:click={previewFile}>Preview</button>
-					<button class="bg-blue-700 border text-white p-2 rounded-lg w-24 mx-2" on:click={downloadFile}>Download</button>
-				</div>
-			</div>
-		{/if}
-		<div class="flex justify-center" id="output" />
-		<div class="flex justify-center mt-4">
-			<a id="download-btn" href="#top" class="button text-gray-900 dark:text-white mr-3" download>Download Converted Image</a>
-		</div>
-	</div>
+          <div class="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+              on:click={handleConvert}
+              disabled={!selectedCategory.convertable || converting}
+            >
+              {converting
+                ? "Converting�"
+                : selectedCategory.convertable
+                  ? "Convert"
+                  : "Preview only"}
+            </button>
+            {#if convertedUrl}
+              <a
+                class="inline-flex items-center justify-center rounded-full border border-emerald-500 px-5 py-2 text-sm font-semibold text-emerald-600 transition hover:bg-emerald-50 dark:border-emerald-400/60 dark:text-emerald-300 dark:hover:bg-emerald-500/10"
+                href={convertedUrl}
+                download={`converted.${outputFormat || "png"}`}
+              >
+                Download converted
+              </a>
+            {/if}
+            {#if conversionError}
+              <span
+                class="rounded-full border border-rose-400 px-3 py-1 text-xs font-semibold text-rose-500 dark:border-rose-400/70 dark:text-rose-300"
+              >
+                {conversionError}
+              </span>
+            {/if}
+          </div>
+        </div>
+      {/if}
+    </div>
 
+    <div class="space-y-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/70"
+      >
+        <h2 class="text-lg font-semibold text-slate-900 dark:text-white">
+          Preview
+        </h2>
+        {#if selectedCategory?.id === "image" && selectedFile}
+          <div
+            class="mt-4 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/70"
+          >
+            {#if imagePreviewUrl}
+              <img
+                src={imagePreviewUrl}
+                alt="Original preview"
+                class="mx-auto max-h-[320px] w-full object-contain"
+              />
+            {/if}
+          </div>
+        {:else if selectedFile}
+          <div
+            class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-300"
+          >
+            <p>
+              <span class="font-semibold">File selected:</span>
+              {selectedFile.name}
+            </p>
+            <p>
+              The current browser demo focuses on image conversion. Use the
+              controls on the left to inspect metadata or prepare for desktop
+              conversion.
+            </p>
+          </div>
+        {:else}
+          <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
+            Select a file to see a preview or metadata summary.
+          </p>
+        {/if}
+      </div>
 
+      {#if convertedUrl && selectedCategory?.id === "image"}
+        <div
+          class="rounded-3xl border border-emerald-200 bg-emerald-50/80 p-6 shadow-sm dark:border-emerald-500/50 dark:bg-emerald-500/10"
+        >
+          <h3
+            class="text-sm font-semibold text-emerald-700 dark:text-emerald-200"
+          >
+            Converted preview
+          </h3>
+          <img
+            src={convertedUrl}
+            alt="Converted preview"
+            class="mt-3 max-h-[260px] w-full rounded-2xl border border-emerald-200 object-contain dark:border-emerald-500/40"
+          />
+        </div>
+      {/if}
+    </div>
+  </div>
 </section>
-
-<style>
-	#download-btn{
-        display: none;
-    }
-    #download-btn.button {
-        display: none;
-        padding: 0.5rem 1rem;
-        background-color: #3490DC;
-        color: #fff;
-        border: none;
-        border-radius: 0.375rem;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
-    }
-  	#download-btn.button:hover {
-    	background-color: #1D5C8F;
-  	}
-</style>

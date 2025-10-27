@@ -290,7 +290,7 @@
 
 <section class="space-y-6">
   <div
-    class="mx-auto grid w-full max-w-6xl gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
+    class="grid gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
   >
     <div class="space-y-6">
       <div

@@ -1,0 +1,6 @@
+{
+  "name": "CSV Importer Tool",
+  "description": "Upload or paste CSV data, inspect column quality, preview rows, and export cleaned datasets.",
+  "contributors": [],
+  "categoryTitle": "Data & File Handling Tools"
+}

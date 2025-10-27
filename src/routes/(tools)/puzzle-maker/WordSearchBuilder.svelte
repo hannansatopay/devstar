@@ -491,7 +491,7 @@ Focus`;
         {#each grid as row, rowIndex}
           {#each row as cell, colIndex}
             <div
-              class={`aspect-square select-none rounded-xl border text-lg font-semibold uppercase leading-none tracking-wide transition dark:text-white cursor-crosshair ${wordCellClass(rowIndex, colIndex)}`}
+              class={`aspect-square select-none rounded-xl border text-lg font-semibold uppercase hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500/80 leading-none tracking-wide transition dark:text-white cursor-crosshair ${wordCellClass(rowIndex, colIndex)}`}
               data-word-cell
               data-row={rowIndex}
               data-col={colIndex}

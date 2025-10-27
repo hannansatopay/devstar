@@ -276,9 +276,7 @@
 </script>
 
 <section class="space-y-6">
-  <div
-    class="mx-auto grid w-full max-w-6xl gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]"
-  >
+  <div class="grid gap-8 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
     <div class="space-y-6">
       <div
         class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"

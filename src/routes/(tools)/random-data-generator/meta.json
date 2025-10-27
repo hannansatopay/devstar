@@ -1,6 +1,6 @@
 {
     "name": "Random Data Generator",
-    "description": "The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.",
+    "description": "Assemble realistic datasets by customizing fields, seeding output, and exporting records to CSV or JSON.",
     "contributors": [
         {
             "name": "Harshit Lakshakar",
@@ -11,5 +11,5 @@
             "githubId": "Shantanuz06"
         }
     ],
-    "categoryTitle": "Content Generation & Design Tools"
+    "categoryTitle": "Data & File Handling Tools"
 }

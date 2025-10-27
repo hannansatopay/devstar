@@ -331,7 +331,59 @@
         {
             "title": "Data & File Handling Tools",
             "details": "Convert, compress, extract, and manage structured or unstructured data and files across multiple formats.",
-            "tools": []
+            "tools": [
+                {
+                    "name": "CSV Importer Tool",
+                    "link": "/csv-importer-tool",
+                    "description": "Upload or paste CSV data, inspect column quality, preview rows, and export cleaned datasets.",
+                    "contributors": []
+                },
+                {
+                    "name": "File Examples",
+                    "link": "/file-examples",
+                    "description": "Generate ready-to-download sample files (CSV, JSON, PNG, PDF) for testing workflows and automation.",
+                    "contributors": []
+                },
+                {
+                    "name": "Interactive Table Generator",
+                    "link": "/interactive-table-generator",
+                    "description": "Design custom table schemas, populate rows with sample data, and export to CSV or JSON instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "PDF Scan Converter",
+                    "link": "/pdf-scan-converter",
+                    "description": "Batch convert PDFs or note photos into authentic scanned copies with compression, background cleanup, and optional OCR text layers.",
+                    "contributors": []
+                },
+                {
+                    "name": "PDF Toolkit",
+                    "link": "/pdf-toolkit",
+                    "description": "Reorder, rotate, or remove pages from a PDF and export a fresh copy without leaving the browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "Random Data Generator",
+                    "link": "/random-data-generator",
+                    "description": "Assemble realistic datasets by customizing fields, seeding output, and exporting records to CSV or JSON.",
+                    "contributors": [
+                        {
+                            "name": "Harshit Lakshakar",
+                            "githubId": "Hst-13"
+                        },
+                        {
+                            "name": "Shantanu Badgujar",
+                            "githubId": "Shantanuz06"
+                        }
+                    ]
+                },
+                {
+                    "name": "Watermark PDF",
+                    "link": "/watermark-pdf",
+                    "description": "Overlay text or image watermarks on PDFs with flexible placement, opacity, and styling controls.",
+                    "contributors": []
+                }
+            ]
         },
         {
             "title": "Data Visualization & Analytics Tools",
@@ -350,26 +402,9 @@
                     "contributors": []
                 },
                 {
-                    "name": "File Converter",
-                    "link": "/file-converter",
-                    "description": "A file converter is a online tool that allows users to convert files from one format to another. It simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
-                    "contributors": [
-                        {
-                            "name": "Mohammad Adil",
-                            "githubId": "devilzs1"
-                        }
-                    ]
-                },
-                {
                     "name": "Flowchart Maker",
                     "link": "/flowchart-maker",
                     "description": "Draft linear or branching flowcharts with reorderable steps, typed nodes, and interactive connections.",
-                    "contributors": []
-                },
-                {
-                    "name": "Watermark PDF",
-                    "link": "/watermark-pdf",
-                    "description": "Add Text or Image as a watermark to the PDF document",
                     "contributors": []
                 }
             ]
@@ -572,12 +607,6 @@
             "title": "AI & Automation Tools",
             "details": "Enhance productivity and creativity through AI-driven generation, automation, and intelligent workflow tools.",
             "tools": [
-                {
-                    "name": "Audio & Video Converter",
-                    "link": "/audio-video-converter",
-                    "description": "Convert audio and video files between popular formats directly in your browser using ffmpeg.wasm.",
-                    "contributors": []
-                },
                 {
                     "name": "Basic Photo Editor",
                     "link": "/basic-photo-editor",
@@ -1076,6 +1105,29 @@
             "details": "Record, convert, edit, and enhance audio, video, and other media formats with ease.",
             "tools": [
                 {
+                    "name": "Audio & Video Converter",
+                    "link": "/audio-video-converter",
+                    "description": "Convert audio and video files between popular formats directly in your browser using ffmpeg.wasm.",
+                    "contributors": []
+                },
+                {
+                    "name": "Camera Recorder",
+                    "link": "/camera-recorder",
+                    "description": "Capture high-quality webcam footage, grab snapshots, and download recordings without leaving your browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "File Converter",
+                    "link": "/file-converter",
+                    "description": "This tool simplifies the process of converting files between different formats including images, audio, and video, making it an essential tool for professionals, students, and anyone dealing with various types of digital media.",
+                    "contributors": [
+                        {
+                            "name": "Mohammad Adil",
+                            "githubId": "devilzs1"
+                        }
+                    ]
+                },
+                {
                     "name": "GIF-Toolkit",
                     "link": "/gif-toolkit",
                     "description": "A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
@@ -1107,42 +1159,22 @@
                     ]
                 },
                 {
-                    "name": "Screen Video Recorder",
-                    "link": "/screen-video-recorder",
-                    "description": "The Screen Video Recorder is a handy tool designed for developers to capture and record high-quality videos of their screen activities. Whether you need to create software demos, tutorial videos, or bug reports, this tool provides a user-friendly interface to record your screen with customizable options, including video resolution, audio settings, and capture area selection. Enhance your documentation and communication efforts by easily recording and sharing your screen activities.",
-                    "contributors": [
-                        {
-                            "name": "Rifat Perween",
-                            "githubId": "rifatperween"
-                        },
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        }
-                    ]
+                    "name": "Online Video Editor",
+                    "link": "/online-video-editor",
+                    "description": "Trim footage, mute audio, grab thumbnails, and export polished clips without leaving the browser—powered by ffmpeg.wasm.",
+                    "contributors": []
                 },
                 {
-                    "name": "Voice-Recorder-and-Editor",
+                    "name": "Screen Recorder",
+                    "link": "/screen-recorder",
+                    "description": "Capture your screen, window, or browser tab with optional system and microphone audio, then download the recording instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Voice Recorder & Editor",
                     "link": "/voice-recorder-and-editor",
-                    "description": "Voice-Recorder-and-Editor",
-                    "contributors": [
-                        {
-                            "name": "Radha Rungta",
-                            "githubId": "Radha Rungta"
-                        },
-                        {
-                            "name": "JatinnSihag",
-                            "githubId": "jatinsihag234"
-                        },
-                        {
-                            "name": "Olive Daniel",
-                            "githubId": "OliveDaniel24"
-                        },
-                        {
-                            "name": "Naman Wadhawan",
-                            "githubId": "NamanWadhawan"
-                        }
-                    ]
+                    "description": "Record crisp audio, trim or fade sections, adjust playback, and export polished WAV clips right from the browser.",
+                    "contributors": []
                 }
             ]
         },
@@ -1460,21 +1492,6 @@
                     "contributors": []
                 },
                 {
-                    "name": "Random Data Generator",
-                    "link": "/random-data-generator",
-                    "description": "The Random Data Generator is a tool which generates fake/dummy dataset that can be used for testing.",
-                    "contributors": [
-                        {
-                            "name": "Harshit Lakshakar",
-                            "githubId": "Hst-13"
-                        },
-                        {
-                            "name": "Shantanu Badgujar",
-                            "githubId": "Shantanuz06"
-                        }
-                    ]
-                },
-                {
                     "name": "Realistic Tweet Generator",
                     "link": "/realistic-tweet-generator",
                     "description": "Create realistic mockup tweets with this cutting-edge Tweet Generator. Ideal for pranking your friends, strategizing social media content, interface designing, or studying social impacts, this tool allows you to simulate user handles, tweet content, hashtags, and engagement metrics effortlessly. Enhance your projects with authentic-looking tweets without the need for a Twitter account.",
@@ -1504,6 +1521,12 @@
                             "githubId": "bipinpatil12"
                         }
                     ]
+                },
+                {
+                    "name": "Signature Maker",
+                    "link": "/signature-maker",
+                    "description": "Design polished handwritten signatures by sketching with your mouse, stylus, or touch input, or by typesetting custom letterforms. Adjust stroke weight, colour, background, and export ready-to-use transparent PNGs for documents, decks, and branding assets.",
+                    "contributors": []
                 },
                 {
                     "name": "Word Cloud Generator",
