@@ -36,21 +36,6 @@
                     ]
                 },
                 {
-                    "name": "CSS Animator",
-                    "link": "/css-animator",
-                    "description": "The CSS Animator is a powerful tool that simplifies the creation of engaging and interactive CSS animations for developers. With an intuitive interface, you can generate CSS animations by defining keyframes, durations, delays, and easing functions. This tool eliminates the need for manual coding and enables developers to bring their designs to life with captivating CSS animations easily.",
-                    "contributors": [
-                        {
-                            "name": "Hannan Satopay",
-                            "githubId": "hannansatopay"
-                        },
-                        {
-                            "name": "Munsif Satopay",
-                            "githubId": "munsifsatopay"
-                        }
-                    ]
-                },
-                {
                     "name": "JWT Decoder",
                     "link": "/jwt-decoder",
                     "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
@@ -1107,7 +1092,7 @@
                 {
                     "name": "Audio & Video Converter",
                     "link": "/audio-video-converter",
-                    "description": "Convert audio and video files between popular formats directly in your browser using ffmpeg.wasm.",
+                    "description": "Convert audio and video files between popular formats using a server-side ffmpeg pipeline for reliable processing.",
                     "contributors": []
                 },
                 {
@@ -1130,7 +1115,7 @@
                 {
                     "name": "GIF-Toolkit",
                     "link": "/gif-toolkit",
-                    "description": "A GIF toolkit comprises a diverse range of software tools tailored for creating, editing, optimizing, and manipulating GIF (Graphics Interchange Format) images. These toolkits enable users to generate GIFs from images, videos, or sequences of frames, adjusting aspects like frame rate, resolution, and applying effects. They facilitate editing tasks such as cropping, resizing, adding text, stickers, and annotations. Optimization features ensure GIFs maintain quality while reducing file sizes through techniques like color reduction and frame rate adjustment. These toolkits often support conversion to and from other formats, integrate special effects for creative enhancements, provide batch processing for efficiency, and offer export options suited for various digital platforms and sharing methods. GIF toolkits are indispensable for designers, marketers, content creators, and anyone involved in extensive work with animated images in digital media.",
+                    "description": "This tool lets users create, edit, and optimize GIFs. It can turn images or videos into GIFs, adjust frame rate and size, add text or effects, and reduce file size for easy sharing.",
                     "contributors": [
                         {
                             "name": "Arya Bacchuwar",
@@ -1161,7 +1146,7 @@
                 {
                     "name": "Online Video Editor",
                     "link": "/online-video-editor",
-                    "description": "Trim footage, mute audio, grab thumbnails, and export polished clips without leaving the browser—powered by ffmpeg.wasm.",
+                    "description": "Trim footage, mute audio, grab thumbnails, and export polished clips with a dependable server-hosted ffmpeg workflow.",
                     "contributors": []
                 },
                 {
@@ -1196,6 +1181,63 @@
                             "githubId": "ashwani2529"
                         }
                     ]
+                },
+                {
+                    "name": "Clip Path Maker",
+                    "link": "/clip-path-maker",
+                    "description": "Design bespoke CSS polygons with live sliders, copy the generated clip-path, and apply it to your UI components instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Color Blindness Simulator",
+                    "link": "/color-blindness-simulator",
+                    "description": "Preview your artwork through nine common color-vision filters, tune severity, and export simulated screenshots for accessibility reviews.",
+                    "contributors": []
+                },
+                {
+                    "name": "Color Generator + Color Tools",
+                    "link": "/color-generator-color-tools",
+                    "description": "Build accessible palettes, derive tints and shades, and explore complementary color harmonies with copy-ready color tokens.",
+                    "contributors": []
+                },
+                {
+                    "name": "Color Palette Generator",
+                    "link": "/color-palette-generator",
+                    "description": "Spin up cohesive palettes from a base hue, lock favourites, and export CSS tokens in one click.",
+                    "contributors": []
+                },
+                {
+                    "name": "Color Picker",
+                    "link": "/color-picker",
+                    "description": "Inspect HEX, RGB, and HSL values, capture screen colors with the EyeDropper API, and store favourite swatches in a handy history.",
+                    "contributors": []
+                },
+                {
+                    "name": "CSS Animator",
+                    "link": "/css-animator",
+                    "description": "Compose polished keyframe animations, preview them instantly, and export battle-tested CSS tailored to your timing and iteration settings.",
+                    "contributors": [
+                        {
+                            "name": "Hannan Satopay",
+                            "githubId": "hannansatopay"
+                        },
+                        {
+                            "name": "Munsif Satopay",
+                            "githubId": "munsifsatopay"
+                        }
+                    ]
+                },
+                {
+                    "name": "CSS Background Pattern Generator",
+                    "link": "/css-background-pattern-generator",
+                    "description": "Craft stripes, grids, dots, and zigzags with adjustable colors, angles, and spacing. Copy the ready-to-use CSS in one click.",
+                    "contributors": []
+                },
+                {
+                    "name": "CSS Loader Generator",
+                    "link": "/css-loader-generator",
+                    "description": "Dial in spinners, bars, and pulsing dots with custom colors, sizes, and speeds, then copy the CSS instantly.",
+                    "contributors": []
                 },
                 {
                     "name": "Custom Handwriting Font",
@@ -1266,7 +1308,7 @@
                 {
                     "name": "Image Color Picker",
                     "link": "/image-color-picker",
-                    "description": "The Image Color Picker is a versatile tool that allows developers to extract color information from images effortlessly. With a simple interface, you can upload an image and identify specific colors by selecting points on the image. The tool provides the corresponding color codes (e.g., HEX, RGB, HSL) for easy integration into your projects. Streamline your color selection process and enhance your application's visual appeal with this efficient color picker.",
+                    "description": "This tool lets developers easily extract and identify colors from images. Upload an image, click any point to get its color codes (HEX, RGB, HSL), and streamline your design workflow with a simple, efficient interface.",
                     "contributors": [
                         {
                             "name": "Hannan Satopay",
@@ -1332,6 +1374,24 @@
                     ]
                 },
                 {
+                    "name": "Random Image Generator",
+                    "link": "/random-image-generator",
+                    "description": "Grab on-demand Unsplash images with custom dimensions, topics, orientation, grayscale and blur tweaks, and copy-ready URLs.",
+                    "contributors": []
+                },
+                {
+                    "name": "Skeleton Loader",
+                    "link": "/skeleton-loader",
+                    "description": "Design shimmering skeleton screens with adjustable colors, animation speed, and layout, then copy the CSS for production use.",
+                    "contributors": []
+                },
+                {
+                    "name": "SVG Animator",
+                    "link": "/svg-animator",
+                    "description": "Animate SVG strokes with adjustable timing, easing, and looping. Paste path data, preview the animation, and copy ready-to-use CSS.",
+                    "contributors": []
+                },
+                {
                     "name": "SVG Path Visualizer",
                     "link": "/svg-path-visualizer",
                     "description": "The SVG Path Visualizer is a powerful tool designed to simplify the visualization and debugging of SVG path data. By inputting your SVG path code, this tool provides an immediate graphical representation of the path, allowing developers and designers to see real-time changes as they edit the path data. This tool helps in understanding complex path commands, optimizing SVG graphics, and ensuring precise design adjustments. Enhance your workflow with the SVG Path Visualizer, making it easier to create and refine scalable vector graphics with accuracy and efficiency.",
@@ -1383,17 +1443,9 @@
                 },
                 {
                     "name": "SVG Placeholder Generator",
-                    "link": "/SV-Placeholder-Generator",
-                    "description": "Generate svg images to use as a placeholder in your applications",
+                    "link": "/svg-placeholder-generator",
+                    "description": "Create crisp SVG placeholders with custom dimensions, colors, overlays, and typography, then copy the markup or data URI.",
                     "contributors": [
-                        {
-                            "name": "",
-                            "githubId": ""
-                        },
-                        {
-                            "name": "ANKITA MISHRA",
-                            "githubId": "ANKITAMISHRA29"
-                        },
                         {
                             "name": "IQRA MIYAJI",
                             "githubId": "IqraMiyaji"
@@ -1411,6 +1463,18 @@
                             "githubId": "anujaappasopatil"
                         }
                     ]
+                },
+                {
+                    "name": "SVG Shape Generator",
+                    "link": "/svg-shape-generator",
+                    "description": "Generate precise SVG paths for rectangles, pills, polygons, and stars. Adjust parameters and copy the markup instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Website Screenshot Capture",
+                    "link": "/website-screenshot-capture",
+                    "description": "Preview and share fast website screenshots using public services like Thum.io or ScreenshotMachine, with configurable width and full-page options.",
+                    "contributors": []
                 },
                 {
                     "name": "Youtube Thumbnail Grabber",

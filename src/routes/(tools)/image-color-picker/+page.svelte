@@ -1,284 +1,365 @@
 <script lang="ts">
-	import { onMount } from "svelte";
-	import { Label } from "flowbite-svelte";
+  import { onMount } from "svelte";
+  import Copy from "$lib/Copy.svelte";
+  import { normalizeHex, toCssHsl, toCssRgb } from "$lib/utils/color";
 
-	export let data;
+  type RGB = { r: number; g: number; b: number };
+  type PaletteColor = { hex: string; rgb: string; hsl: string };
 
-	let fileInput;
-	let canvas: HTMLCanvasElement;
-	let colors = [];
+  let fileInput: HTMLInputElement;
+  let canvas: HTMLCanvasElement;
+  let containerEl: HTMLDivElement;
 
-	function drawImageOnCanvas(file) {
-		const ctx = canvas.getContext("2d");
-		canvas.width = canvas.offsetWidth;
-		canvas.height = canvas.offsetHeight;
+  let colors: PaletteColor[] = [];
+  let hasImage = false;
 
-		// Create new image element
-		const img = new Image();
+  function drawImageOnCanvas(source: File | string) {
+    if (!canvas || !containerEl) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-		// Set image source to the uploaded file
-		if (typeof file === "string") {
-			img.src = file;
-		} else {
-			img.src = URL.createObjectURL(file);
-		}
+    const image = new Image();
+    let objectUrl: string | null = null;
 
-		// When image is loaded, draw it on the canvas
-		img.onload = function () {
-			// Calculate the dimensions to fit the image within the container
-			var container = document.getElementById("container");
-			// Calculate the dimensions to fit the image within the container
-			var maxWidth = container.offsetWidth;
-			var imageWidth = img.width;
-			var imageHeight = img.height;
-			var scaleFactor = maxWidth / imageWidth;
-			var canvasWidth = imageWidth * scaleFactor;
-			var canvasHeight = imageHeight * scaleFactor;
+    if (typeof source === "string") {
+      image.src = source;
+    } else {
+      objectUrl = URL.createObjectURL(source);
+      image.src = objectUrl;
+    }
 
-			// Set the canvas size and draw the image
-			canvas.width = canvasWidth;
-			canvas.height = canvasHeight;
+    image.onload = () => {
+      const maxWidth = containerEl.offsetWidth || 640;
+      const scale = Math.min(maxWidth / image.width, 1);
+      const canvasWidth = image.width * scale;
+      const canvasHeight = image.height * scale;
 
-			// Update the container's height
-			container.style.height = canvasHeight + "px";
-			ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
-			getDominantColors();
-		};
-	}
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      containerEl.style.height = `${canvasHeight}px`;
 
-	function getDominantColors() {
-		const ctx = canvas.getContext("2d");
-		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-		const rgbArray = buildRgb(imageData.data);
-		// 	colors = quantization(rgbArray, 0).map(rgbToHex);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
 
-		// Get initial colors
-		let dominantColors = quantization(rgbArray, 0);
+      hasImage = true;
+      extractPalette();
 
-		// Ensure only 8 unique colors
-		const uniqueColors = [];
-		const colorMap = new Map();
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
 
-		for (const color of dominantColors) {
-			const hex = rgbToHex(color);
-			if (!colorMap.has(hex)) {
-				colorMap.set(hex, color);
-				uniqueColors.push(color);
-			}
-			if (uniqueColors.length === 8) break; // Limit to 8
-		}
+    image.onerror = () => {
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+  }
 
-		// If duplicates dominate, adjust
-		if (uniqueColors.length < 8) {
-			while (uniqueColors.length < 8) {
-				uniqueColors.push(
-					...dominantColors.slice(0, 8 - uniqueColors.length),
-				);
-			}
-		}
+  function extractPalette() {
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const rgbValues = buildRgb(imageData.data);
+    const dominant = quantize(rgbValues, 0);
 
-		colors = uniqueColors.map(rgbToHex);
-	}
+    const unique: RGB[] = [];
+    const seen = new Set<string>();
 
-	// function buildRgb(imageData) {
-	// 	const rgbValues = new Array(Math.floor(imageData.length / 4));
+    for (const color of dominant) {
+      const hex = rgbToHex(color);
+      if (!seen.has(hex)) {
+        seen.add(hex);
+        unique.push(color);
+      }
+      if (unique.length === 6) break;
+    }
 
-	// 	for (let i = 0, j = 0; i < imageData.length; i += 4, j++) {
-	// 		rgbValues[j] = {
-	// 			r: imageData[i],
-	// 			g: imageData[i + 1],
-	// 			b: imageData[i + 2],
-	// 		};
-	// 	}
+    if (unique.length < 6) {
+      for (const color of dominant) {
+        if (unique.length === 6) break;
+        unique.push(color);
+      }
+    }
 
-	// 	return rgbValues;
-	// }
+    colors = unique.slice(0, 6).map(formatColor);
+  }
 
-	function buildRgb(imageData) {
-		const rgbValues = [];
+  function buildRgb(buffer: Uint8ClampedArray) {
+    const values: RGB[] = [];
+    for (let index = 0; index < buffer.length; index += 4) {
+      const alpha = buffer[index + 3];
+      if (alpha === 0) continue;
+      values.push({
+        r: buffer[index],
+        g: buffer[index + 1],
+        b: buffer[index + 2],
+      });
+    }
+    return values;
+  }
 
-		for (let i = 0; i < imageData.length; i += 4) {
-			const alpha = imageData[i + 3]; // Alpha value
-			if (alpha > 0) {
-				// Ignore fully transparent pixels
-				rgbValues.push({
-					r: imageData[i],
-					g: imageData[i + 1],
-					b: imageData[i + 2],
-				});
-			}
-		}
+  function findLargestRange(pixels: RGB[]) {
+    let rMin = Number.POSITIVE_INFINITY;
+    let gMin = Number.POSITIVE_INFINITY;
+    let bMin = Number.POSITIVE_INFINITY;
+    let rMax = Number.NEGATIVE_INFINITY;
+    let gMax = Number.NEGATIVE_INFINITY;
+    let bMax = Number.NEGATIVE_INFINITY;
 
-		return rgbValues;
-	}
+    for (const pixel of pixels) {
+      rMin = Math.min(rMin, pixel.r);
+      gMin = Math.min(gMin, pixel.g);
+      bMin = Math.min(bMin, pixel.b);
+      rMax = Math.max(rMax, pixel.r);
+      gMax = Math.max(gMax, pixel.g);
+      bMax = Math.max(bMax, pixel.b);
+    }
 
-	function findBiggestColorRange(rgbValues) {
-		let rMin = Number.MAX_VALUE;
-		let gMin = Number.MAX_VALUE;
-		let bMin = Number.MAX_VALUE;
-		let rMax = Number.MIN_VALUE;
-		let gMax = Number.MIN_VALUE;
-		let bMax = Number.MIN_VALUE;
+    const rRange = rMax - rMin;
+    const gRange = gMax - gMin;
+    const bRange = bMax - bMin;
 
-		for (let i = 0; i < rgbValues.length; i++) {
-			const pixel = rgbValues[i];
-			rMin = Math.min(rMin, pixel.r);
-			gMin = Math.min(gMin, pixel.g);
-			bMin = Math.min(bMin, pixel.b);
-			rMax = Math.max(rMax, pixel.r);
-			gMax = Math.max(gMax, pixel.g);
-			bMax = Math.max(bMax, pixel.b);
-		}
+    if (rRange >= gRange && rRange >= bRange) return "r";
+    if (gRange >= rRange && gRange >= bRange) return "g";
+    return "b";
+  }
 
-		const rRange = rMax - rMin;
-		const gRange = gMax - gMin;
-		const bRange = bMax - bMin;
+  function quantize(pixels: RGB[], depth: number): RGB[] {
+    const MAX_DEPTH = 3;
+    if (depth === MAX_DEPTH || pixels.length === 0) {
+      const color = pixels.reduce(
+        (acc, curr) => {
+          acc.r += curr.r;
+          acc.g += curr.g;
+          acc.b += curr.b;
+          return acc;
+        },
+        { r: 0, g: 0, b: 0 },
+      );
 
-		if (rRange >= gRange && rRange >= bRange) {
-			return "r";
-		} else if (gRange >= rRange && gRange >= bRange) {
-			return "g";
-		} else {
-			return "b";
-		}
-	}
+      const count = pixels.length || 1;
+      color.r = Math.round(color.r / count);
+      color.g = Math.round(color.g / count);
+      color.b = Math.round(color.b / count);
+      return [color];
+    }
 
-	function quantization(rgbValues, depth) {
-		const MAX_DEPTH = 3;
+    const component = findLargestRange(pixels);
+    pixels.sort((a, b) => a[component] - b[component]);
 
-		if (depth === MAX_DEPTH || rgbValues.length === 0) {
-			const color = rgbValues.reduce(
-				(prev, curr) => {
-					prev.r += curr.r;
-					prev.g += curr.g;
-					prev.b += curr.b;
-					return prev;
-				},
-				{ r: 0, g: 0, b: 0 },
-			);
+    const mid = Math.floor(pixels.length / 2);
+    return [
+      ...quantize(pixels.slice(0, mid), depth + 1),
+      ...quantize(pixels.slice(mid), depth + 1),
+    ];
+  }
 
-			const count = rgbValues.length || 1;
-			color.r = Math.round(color.r / count);
-			color.g = Math.round(color.g / count);
-			color.b = Math.round(color.b / count);
-			return [color];
-		}
+  function rgbToHex({ r, g, b }: RGB) {
+    return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b
+      .toString(16)
+      .padStart(2, "0")}`.toUpperCase();
+  }
 
-		const componentToSortBy = findBiggestColorRange(rgbValues);
-		rgbValues.sort(
-			(p1, p2) => p1[componentToSortBy] - p2[componentToSortBy],
-		);
+  function formatColor(rgb: RGB): PaletteColor {
+    const hex = normalizeHex(rgbToHex(rgb));
+    return {
+      hex: hex.toUpperCase(),
+      rgb: toCssRgb(hex),
+      hsl: toCssHsl(hex),
+    };
+  }
 
-		const mid = Math.floor(rgbValues.length / 2);
-		return [
-			...quantization(rgbValues.slice(0, mid), depth + 1),
-			...quantization(rgbValues.slice(mid), depth + 1),
-		];
-	}
+  function getContrastColor(hex: string) {
+    const normalized = hex.replace("#", "");
+    const r = Number.parseInt(normalized.substring(0, 2), 16);
+    const g = Number.parseInt(normalized.substring(2, 4), 16);
+    const b = Number.parseInt(normalized.substring(4, 6), 16);
+    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    return luminance > 0.55 ? "#0f172a" : "#f8fafc";
+  }
 
-	function rgbToHex(rgb) {
-		// Separate the RGB components
-		var r = rgb.r;
-		var g = rgb.g;
-		var b = rgb.b;
+  function handleFileUpload(event: Event) {
+    const target = event.currentTarget as HTMLInputElement | null;
+    const file = target?.files?.[0];
+    if (!file) return;
+    drawImageOnCanvas(file);
+    if (target) target.value = "";
+  }
 
-		// Convert each component to a hexadecimal string
-		var rHex = r.toString(16).padStart(2, "0");
-		var gHex = g.toString(16).padStart(2, "0");
-		var bHex = b.toString(16).padStart(2, "0");
+  function handleDrop(event: DragEvent) {
+    event.preventDefault();
+    const file = event.dataTransfer?.files?.[0];
+    if (!file || !file.type.startsWith("image/")) return;
+    drawImageOnCanvas(file);
+  }
 
-		// Combine the hexadecimal values
-		var hex = "#" + rHex + gHex + bHex;
+  function handleDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
 
-		return hex;
-	}
+  function openFileDialog() {
+    fileInput?.click();
+  }
 
-	function getContrastColor(hexColor) {
-		// Remove the leading '#' if present
-		hexColor = hexColor.replace("#", "");
-
-		// Convert the hex color to RGB
-		var r = parseInt(hexColor.substr(0, 2), 16);
-		var g = parseInt(hexColor.substr(2, 2), 16);
-		var b = parseInt(hexColor.substr(4, 2), 16);
-
-		// Calculate the relative luminance of the color
-		var relativeLuminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-
-		// Determine the contrast color based on the relative luminance
-		var contrastColor = relativeLuminance > 0.5 ? "#000000" : "#ffffff";
-
-		return contrastColor;
-	}
-
-	function copy(e, text) {
-		e.target.innerText = "Copied";
-		const element = document.createElement("textarea");
-		element.value = text;
-		document.body.appendChild(element);
-		element.select();
-		document.execCommand("copy");
-		document.body.removeChild(element);
-		setTimeout(() => {
-			e.target.innerText = text;
-		}, 1000);
-	}
-
-	function handleFileUpload(event) {
-		const file = event.target.files[0];
-		drawImageOnCanvas(file);
-	}
-
-	onMount(() => {
-		drawImageOnCanvas("/quino-al-J1_1YigSUPA-unsplash.jpg");
-	});
+  onMount(() => {
+    drawImageOnCanvas("/quino-al-J1_1YigSUPA-unsplash.jpg");
+  });
 </script>
 
-<section class="py-2">
-	<div
-		class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg"
-	>
-		<div class="p-8 flex h-full flex-col justify-between">
-			<div>
-				<Label class="mb-1 text-sm lg:text-lg">Palette</Label>
+<section class="space-y-6">
+  <div
+    class="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,0.58fr)_minmax(0,1.42fr)]"
+  >
+    <div class="space-y-4">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition dark:border-slate-800 dark:bg-slate-900/80"
+        on:dragover={handleDragOver}
+        on:drop={handleDrop}
+      >
+        <div
+          class="group relative overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-900/90 transition hover:border-indigo-400 hover:bg-slate-900/80 dark:border-slate-700"
+          on:click={openFileDialog}
+        >
+          <div
+            bind:this={containerEl}
+            class="relative flex h-full min-h-[260px] w-full cursor-pointer items-center justify-center overflow-hidden"
+          >
+            <canvas bind:this={canvas} class="absolute inset-0 h-full w-full" />
+            {#if !hasImage}
+              <div
+                class="pointer-events-none flex flex-col items-center gap-2 text-center text-xs font-semibold uppercase tracking-wide text-slate-300 dark:text-slate-400"
+              >
+                <span class="rounded-full border border-slate-400/50 px-3 py-1"
+                  >Click or drop an image</span
+                >
+                <span class="text-[11px] text-slate-400 dark:text-slate-500"
+                  >Drag files into this area to sample colors</span
+                >
+              </div>
+            {/if}
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-slate-900/15 dark:from-white/10"
+          ></div>
+        </div>
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="space-y-1 text-xs text-slate-500 dark:text-slate-400">
+            <p
+              class="font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              Need inspiration?
+            </p>
+            <p>
+              Try cropping before upload to focus the extractor on a specific
+              subject.
+            </p>
+          </div>
+          <button
+            class="inline-flex items-center rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus:ring-indigo-700"
+            type="button"
+            on:click={openFileDialog}
+          >
+            Browse image
+          </button>
+          <input
+            class="hidden"
+            type="file"
+            accept="image/*"
+            bind:this={fileInput}
+            on:change={handleFileUpload}
+          />
+        </div>
+      </div>
 
-				<div
-					class="palette grid grid-cols-2 md:grid-cols-4 rounded-lg overflow-hidden"
-				>
-					{#each colors as color}
-						<div
-							on:click={(event) => copy(event, color)}
-							class="p-2 cursor-pointer text-sm lg:text-lg relative flex flex-grow items-center justify-center"
-							style="color:{getContrastColor(
-								color,
-							)}; background: {color};"
-						>
-							{color}
-						</div>
-					{/each}
-				</div>
-			</div>
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 text-xs text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
+      >
+        <p
+          class="font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Tips
+        </p>
+        <ul class="mt-2 space-y-2 leading-relaxed">
+          <li>Use high-contrast images for richer palette variety.</li>
+          <li>
+            Click any swatch row to copy a specific format; use “Copy all
+            formats” for quick sharing.
+          </li>
+          <li>
+            The sampled colors are approximations of dominant hues—tweak them
+            further in your design tool if needed.
+          </li>
+        </ul>
+      </div>
+    </div>
 
-			<button
-				on:click={() => fileInput.click()}
-				type="button"
-				class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs lg:text-base px-5 py-2.5 my-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-				>Browse image</button
-			>
-			<input
-				type="file"
-				class="hidden"
-				accept="image/*"
-				bind:this={fileInput}
-				on:change={handleFileUpload}
-			/>
-		</div>
-		<div
-			class="p-8 h-full flex rounded-lg relative justify-center bg-gray-100"
-		>
-			<div class="w-full" id="container">
-				<canvas bind:this={canvas} class="absolute" />
-			</div>
-		</div>
-	</div>
+    <div class="space-y-4">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Palette
+        </p>
+        {#if colors.length === 0}
+          <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
+            Upload an image to generate color swatches.
+          </p>
+        {:else}
+          <div class="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {#each colors as swatch, index}
+              <div
+                class="flex h-full flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg dark:border-slate-700 dark:bg-slate-950"
+              >
+                <div class="space-y-3">
+                  <div
+                    class="h-20 w-full rounded-xl border border-white/60 shadow-inner dark:border-white/10"
+                    style={`background:${swatch.hex};`}
+                  />
+                  <div class="flex items-center justify-between">
+                    <p
+                      class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300"
+                    >
+                      Swatch {index + 1}
+                    </p>
+                  
+                  </div>
+                  <div class="space-y-3 text-[13px]">
+                    {#each [{ label: "HEX", value: swatch.hex }, { label: "RGB", value: swatch.rgb }, { label: "HSL", value: swatch.hsl }] as entry}
+                      <div
+                        class="flex items-center justify-between gap-2 rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-800"
+                      >
+                        <div class="flex flex-col">
+                          <span
+                            class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500"
+                            >{entry.label}</span
+                          >
+                          <span
+                            class="font-mono text-sm text-slate-700 dark:text-slate-200"
+                            >{entry.value}</span
+                          >
+                        </div>
+                        <Copy
+                          text={entry.value}
+                          label="Copy"
+                          floating={false}
+                          customClass="!bg-white !text-slate-600 !shadow-none border border-slate-300 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide hover:!bg-indigo-50 focus:!outline-none focus:!ring-2 focus:!ring-indigo-200 rounded-full dark:border-slate-700 dark:!bg-slate-900/60 dark:!text-slate-200 dark:hover:!bg-slate-800 dark:focus:!ring-indigo-900"
+                        />
+                      </div>
+                    {/each}
+                  </div>
+                </div>
+                <Copy
+                  text={`${swatch.hex} | ${swatch.rgb} | ${swatch.hsl}`}
+                  label="Copy all formats"
+                  floating={false}
+                  customClass="mt-4"
+                />
+              </div>
+            {/each}
+          </div>
+        {/if}
+      </div>
+    </div>
+  </div>
 </section>

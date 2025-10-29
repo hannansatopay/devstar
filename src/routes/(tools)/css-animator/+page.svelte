@@ -1,156 +1,288 @@
-<svelte:head>
-	<link rel="stylesheet" href="animation.css">
-</svelte:head>
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { Label, Input } from 'flowbite-svelte';
-	import Copy from '$lib/Copy.svelte';
-	export let data;
+  import Copy from "$lib/Copy.svelte";
 
-	const animationGroup = {
-		'scale-up': ['scale-up-center', 'scale-up-top', 'scale-up-tr', 'scale-up-right', 'scale-up-br', 'scale-up-bottom', 'scale-up-bl', 'scale-up-left', 'scale-up-tl', 'scale-up-hor-center', 'scale-up-hor-left', 'scale-up-hor-right', 'scale-up-ver-center', 'scale-up-ver-top', 'scale-up-ver-bottom'],
-		'scale-down': ['scale-down-center', 'scale-down-top', 'scale-down-tr', 'scale-down-right', 'scale-down-br', 'scale-down-bottom', 'scale-down-bl', 'scale-down-left', 'scale-down-tl', 'scale-down-hor-center', 'scale-down-hor-left', 'scale-down-hor-right', 'scale-down-ver-center', 'scale-down-ver-top', 'scale-down-ver-bottom'],
-		'rotate':['rotate-center', 'rotate-top', 'rotate-tr', 'rotate-right', 'rotate-br', 'rotate-bottom', 'rotate-bl', 'rotate-left', 'rotate-tl', 'rotate-hor-center', 'rotate-hor-top', 'rotate-hor-bottom', 'rotate-vert-center', 'rotate-vert-left', 'rotate-vert-right', 'rotate-diagonal-1', 'rotate-diagonal-2', 'rotate-diagonal-tr', 'rotate-diagonal-br', 'rotate-diagonal-bl', 'rotate-diagonal-tl'],
-		'rotate-scale':['rotate-scale-up', 'rotate-scale-down', 'rotate-scale-up-hor', 'rotate-scale-down-hor', 'rotate-scale-up-ver', 'rotate-scale-down-ver', 'rotate-scale-up-diag-1', 'rotate-scale-down-diag-1', 'rotate-scale-up-diag-2', 'rotate-scale-down-diag-2'],
-		'rotate-90':['rotate-90-cw', 'rotate-90-ccw', 'rotate-90-top-cw', 'rotate-90-top-ccw', 'rotate-90-tr-cw', 'rotate-90-tr-ccw', 'rotate-90-right-cw', 'rotate-90-right-ccw', 'rotate-90-br-cw', 'rotate-90-br-ccw', 'rotate-90-bottom-cw', 'rotate-90-bottom-ccw', 'rotate-90-bl-cw', 'rotate-90-bl-ccw', 'rotate-90-left-cw', 'rotate-90-left-ccw', 'rotate-90-tl-cw', 'rotate-90-tl-ccw', 'rotate-90-horizontal-fwd', 'rotate-90-horizontal-bck', 'rotate-90-vertical-fwd', 'rotate-90-vertical-bck'],
-		'flip':['flip-horizontal-bottom', 'flip-horizontal-top', 'flip-horizontal-bck', 'flip-horizontal-fwd', 'flip-vertical-right', 'flip-vertical-left', 'flip-vertical-bck', 'flip-vertical-fwd', 'flip-diagonal-1-tr', 'flip-diagonal-1-bl', 'flip-diagonal-1-bck', 'flip-diagonal-1-fwd',  'flip-diagonal-2-br', 'flip-diagonal-2-tl', 'flip-diagonal-2-bck', 'flip-diagonal-2-fwd'],
-		'flip-2':['flip-2-hor-top-1','flip-2-hor-top-2', 'flip-2-hor-top-bck', 'flip-2-hor-top-fwd', 'flip-2-ver-right-1', 'flip-2-ver-right-2', 'flip-2-ver-right-bck', 'flip-2-ver-right-fwd', 'flip-2-hor-bottom-1', 'flip-2-hor-bottom-2', 'flip-2-hor-bottom-bck', 'flip-2-hor-bottom-fwd', 'flip-2-ver-left-1', 'flip-2-ver-left-2', 'flip-2-ver-left-bck', 'flip-2-ver-left-fwd'],
-		'flip-scale':['flip-scale-up-hor', 'flip-scale-down-hor', 'flip-scale-up-ver', 'flip-scale-down-ver', 'flip-scale-up-diag-1', 'flip-scale-down-diag-1', 'flip-scale-up-diag-2', 'flip-scale-down-diag-2'],
-		'flip-scale-2':['flip-scale-2-hor-top', 'flip-scale-2-ver-right', 'flip-scale-2-hor-bottom', 'flip-scale-2-ver-left'],
-		'swing':['swing-top-fwd', 'swing-top-bck', 'swing-top-right-fwd', 'swing-top-right-bck', 'swing-right-fwd', 'swing-right-bck', 'swing-bottom-right-fwd', 'swing-bottom-right-bck', 'swing-bottom-fwd', 'swing-bottom-bck', 'swing-bottom-left-fwd', 'swing-bottom-left-bck', 'swing-left-fwd', 'swing-left-bck', 'swing-top-left-fwd', 'swing-top-left-bck'],
-		'slide':['slide-top', 'slide-tr', 'slide-right', 'slide-br', 'slide-bottom', 'slide-bl', 'slide-left', 'slide-tl'],
-		'slide-bck':['slide-bck-center', 'slide-bck-top', 'slide-bck-tr', 'slide-bck-right', 'slide-bck-br', 'slide-bck-bottom', 'slide-bck-bl', 'slide-bck-left', 'slide-bck-tl'],
-		'slide-fwd':['slide-fwd-center', 'slide-fwd-top', 'slide-fwd-tr', 'slide-fwd-right', 'slide-fwd-br', 'slide-fwd-bottom', 'slide-fwd-bl', 'slide-fwd-left', 'slide-fwd-tl'],
-		'slide-rotate':['slide-rotate-hor-top', 'slide-rotate-hor-t-bck', 'slide-rotate-hor-t-fwd','slide-rotate-ver-right', 'slide-rotate-ver-r-bck', 'slide-rotate-ver-r-fwd', 'slide-rotate-hor-bottom', 'slide-rotate-hor-b-bck', 'slide-rotate-hor-b-fwd', 'slide-rotate-ver-left', 'slide-rotate-ver-l-bck', 'slide-rotate-ver-l-fwd'],
-		'shadow-drop':['shadow-drop-center', 'shadow-drop-top', 'shadow-drop-right', 'shadow-drop-bottom', 'shadow-drop-left', 'shadow-drop-lr', 'shadow-drop-tb', 'shadow-drop-tr', 'shadow-drop-br', 'shadow-drop-bl', 'shadow-drop-tl'],
-		'shadow-drop-2':['shadow-drop-2-center', 'shadow-drop-2-top', 'shadow-drop-2-right', 'shadow-drop-2-bottom', 'shadow-drop-2-left', 'shadow-drop-2-lr', 'shadow-drop-2-tb', 'shadow-drop-2-tr', 'shadow-drop-2-br', 'shadow-drop-2-bl', 'shadow-drop-2-tl'],
-		'shadow-pop':['shadow-pop-tr', 'shadow-pop-br', 'shadow-pop-bl', 'shadow-pop-tl'],
-		'shadow-inset':['shadow-inset-center', 'shadow-inset-top', 'shadow-inset-right', 'shadow-inset-bottom', 'shadow-inset-left', 'shadow-inset-lr', 'shadow-inset-tb', 'shadow-inset-tr', 'shadow-inset-br', 'shadow-inset-bl', 'shadow-inset-tl']
-	};
+  type AnimationPreset = {
+    id: string;
+    label: string;
+    description: string;
+    keyframes: (name: string) => string;
+  };
 
-	let duration = 0.4;
-	let iteration = 1;
-	let infiniteIteration = false;
-	let timingFunction = 'linear';
-	let timingFunctionMapping = {"ease":"ease","ease-in":"ease-in","ease-out":"ease-out","ease-in-out":"ease-in-out","linear":"linear","easeIn":"ease-in","easeOut":"ease-out","easeInOut":"ease-in-out","easeInQuad":"cubic-bezier(0.550, 0.085, 0.680, 0.530)","easeInCubic":"cubic-bezier(0.550, 0.055, 0.675, 0.190)","easeInQuart":"cubic-bezier(0.895, 0.030, 0.685, 0.220)","easeInQuint":"cubic-bezier(0.755, 0.050, 0.855, 0.060)","easeInSine":"cubic-bezier(0.470, 0.000, 0.745, 0.715)","easeInExpo":"cubic-bezier(0.950, 0.050, 0.795, 0.035)","easeInCirc":"cubic-bezier(0.600, 0.040, 0.980, 0.335)","easeInBack":"cubic-bezier(0.600, -0.280, 0.735, 0.045)","easeOutQuad":"cubic-bezier(0.250, 0.460, 0.450, 0.940)","easeOutCubic":"cubic-bezier(0.215, 0.610, 0.355, 1.000)","easeOutQuart":"cubic-bezier(0.165, 0.840, 0.440, 1.000)","easeOutQuint":"cubic-bezier(0.230, 1.000, 0.320, 1.000)","easeOutSine":"cubic-bezier(0.390, 0.575, 0.565, 1.000)","easeOutExpo":"cubic-bezier(0.190, 1.000, 0.220, 1.000)","easeOutCirc":"cubic-bezier(0.075, 0.820, 0.165, 1.000)","easeOutBack":"cubic-bezier(0.175, 0.885, 0.320, 1.275)","easeInOutQuad":"cubic-bezier(0.455, 0.030, 0.515, 0.955)","easeInOutCubic":"cubic-bezier(0.645, 0.045, 0.355, 1.000)","easeInOutQuart":"cubic-bezier(0.770, 0.000, 0.175, 1.000)","easeInOutQuint":"cubic-bezier(0.860, 0.000, 0.070, 1.000)","easeInOutSine":"cubic-bezier(0.445, 0.050, 0.550, 0.950)","easeInOutExpo":"cubic-bezier(1.000, 0.000, 0.000, 1.000)","easeInOutCirc":"cubic-bezier(0.785, 0.135, 0.150, 0.860)","easeInOutBack":"cubic-bezier(0.680, -0.550, 0.265, 1.550)"};
-	let steps = 2;
-	let stepType = 'start';
-	let timingType = false;
-	let delay = 0;
-	let direction = 'normal';
-	let fillMode = 'both';
-	let animationType = 'scale-up';
-	let animationSubType = 'scale-up-center';
+  const PRESETS: AnimationPreset[] = [
+    {
+      id: "fade-up",
+      label: "Fade up",
+      description: "Soft fade with a subtle upward drift.",
+      keyframes: (name) => `@keyframes ${name} {
+  0% { opacity: 0; transform: translateY(18px); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); }
+}`,
+    },
+    {
+      id: "pop-bounce",
+      label: "Pop bounce",
+      description: "Bouncy entrance with a spring feel.",
+      keyframes: (name) => `@keyframes ${name} {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}`,
+    },
+    {
+      id: "slide-left",
+      label: "Slide in (left)",
+      description: "Slides from the left edge while fading in.",
+      keyframes: (name) => `@keyframes ${name} {
+  0% { transform: translateX(-40px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}`,
+    },
+    {
+      id: "flip-card",
+      label: "Flip card",
+      description: "3D flip animation perfect for card reveals.",
+      keyframes: (name) => `@keyframes ${name} {
+  0% { transform: rotateY(-90deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: rotateY(0deg); opacity: 1; }
+}`,
+    },
+    {
+      id: "pulse-glow",
+      label: "Pulse glow",
+      description: "Continuous pulsing with glow emphasis.",
+      keyframes: (name) => `@keyframes ${name} {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
+}`,
+    },
+    {
+      id: "swing",
+      label: "Swing",
+      description: "Swinging motion around the top edge.",
+      keyframes: (name) => `@keyframes ${name} {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(12deg); }
+  40% { transform: rotate(-9deg); }
+  60% { transform: rotate(6deg); }
+  80% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}`,
+    },
+  ];
 
-	let animation = '';
-	let css = '';
+  const TIMINGS = [
+    "ease",
+    "ease-in",
+    "ease-out",
+    "ease-in-out",
+    "linear",
+    "cubic-bezier(0.4, 0, 0.2, 1)",
+    "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  ];
 
-	function calculateAnimation() {
-		setTimeout(() => {
-			if (!animationGroup[animationType].includes(animationSubType)) animationSubType = animationGroup[animationType][0];
-			if (timingType == false) {
-				animation = `${duration}s ${timingFunctionMapping[timingFunction]} ${delay}s ${infiniteIteration?'infinite':iteration} ${direction} ${fillMode} ${animationSubType}`;
-			} else {
-				animation = `${duration}s steps(${steps}, ${stepType}) ${delay}s ${infiniteIteration?'infinite':iteration} ${direction} ${fillMode} ${animationSubType}`;
-			}
-			getKeyFrame();
-		}, 10);
-	}
+  const DIRECTIONS = ["normal", "reverse", "alternate", "alternate-reverse"];
 
-	function getKeyFrame() {
-		const keyframes = getAnimationKeyframes(animationSubType);
-		let keyframeProcessed = '';
-		for (let i = 0; i < keyframes.length; i++) {
-			keyframeProcessed += keyframes[i].cssText;
-			keyframeProcessed += ' ';
-		}
-		css = `.${animationSubType} { animation: ${animation}; } \n\n @keyframes ${animationSubType} { ${keyframeProcessed}}`;
-		console.log(css);
-	}
+  let selectedId = PRESETS[0].id;
+  let duration = 0.9;
+  let delay = 0;
+  let iterations = 1;
+  let infinite = false;
+  let timing = TIMINGS[0];
+  let direction = DIRECTIONS[0];
+  let previewSeed = 0;
 
-	// Function to retrieve keyframes from a given animation name
-	function getAnimationKeyframes(name: string) {
-		const styleSheets = document.styleSheets;
-		for (let i = 0; i < styleSheets.length; i++) {
-			const cssRules = styleSheets[i].cssRules;
-			for (let j = 0; j < cssRules.length; j++) {
-				// @ts-ignore
-				if (cssRules[j].name == name && cssRules[j] instanceof CSSKeyframesRule) {
-					// @ts-ignore
-					return cssRules[j].cssRules;
-				}
-			}
-		}
-		return null;
-	}
-	
-	onMount(async () => {
-		calculateAnimation();
-	});
+  $: animationName = `anim-${selectedId}`;
+  $: selectedPreset =
+    PRESETS.find((preset) => preset.id === selectedId) ?? PRESETS[0];
+  $: iterationString = infinite ? "infinite" : `${Math.max(iterations, 1)}`;
+  $: animationDeclaration = `${animationName} ${duration.toFixed(2)}s ${timing} ${delay.toFixed(2)}s ${iterationString} ${direction}`;
+  $: keyframesCss = selectedPreset.keyframes(animationName);
+  $: cssSnippet = `${keyframesCss}
+
+.animate-demo {
+  animation: ${animationDeclaration};
+  transform-origin: center;
+  will-change: transform, opacity;
+}`;
+  $: previewStyle = `<style>${keyframesCss}</style>`;
+  $: animationTrigger = `${selectedId}|${duration}|${delay}|${iterations}|${infinite}|${timing}|${direction}|${previewSeed}`;
 </script>
 
+<section class="space-y-6">
+  <div class="grid gap-6 lg:grid-cols-2">
+    <div class="space-y-4">
+      <div
+        class="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <label
+          class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Animation preset
+        </label>
+        <select
+          class="mt-3 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-600 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+          bind:value={selectedId}
+        >
+          {#each PRESETS as preset}
+            <option value={preset.id}>{preset.label}</option>
+          {/each}
+        </select>
+        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+          {selectedPreset.description}
+        </p>
+      </div>
 
-<div class="card gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 overflow-hidden rounded-lg">
-	<div class="p-8">
-		<Label>Animation Type</Label>
-		<select on:change={calculateAnimation} bind:value={animationType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-			{#each Object.keys(animationGroup) as animation}
-				<option>{animation}</option>
-			{/each}
-		</select>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <label
+            class="flex justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <span>Duration</span>
+            <span>{duration.toFixed(2)}s</span>
+          </label>
+          <input
+            class="mt-2 w-full accent-indigo-600"
+            type="range"
+            min="0.1"
+            max="3"
+            step="0.05"
+            bind:value={duration}
+          />
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <label
+            class="flex justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <span>Delay</span>
+            <span>{delay.toFixed(2)}s</span>
+          </label>
+          <input
+            class="mt-2 w-full accent-indigo-600"
+            type="range"
+            min="0"
+            max="3"
+            step="0.05"
+            bind:value={delay}
+          />
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <label
+            class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Timing function
+          </label>
+          <select
+            class="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-600 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            bind:value={timing}
+          >
+            {#each TIMINGS as value}
+              <option {value}>{value}</option>
+            {/each}
+          </select>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <label
+            class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Direction
+          </label>
+          <select
+            class="mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-600 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+            bind:value={direction}
+          >
+            {#each DIRECTIONS as value}
+              <option {value}>{value}</option>
+            {/each}
+          </select>
+        </div>
+        <div
+          class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+        >
+          <label
+            class="flex justify-between text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <span>Iterations</span>
+            <span>{infinite ? "∞" : iterations}</span>
+          </label>
+          <input
+            class="mt-2 w-full accent-indigo-600"
+            type="range"
+            min="1"
+            max="10"
+            step="1"
+            bind:value={iterations}
+            disabled={infinite}
+          />
+          <label
+            class="mt-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <input
+              class="h-4 w-4 accent-indigo-600"
+              type="checkbox"
+              bind:checked={infinite}
+            />
+            Infinite
+          </label>
+        </div>
+      </div>
+    </div>
 
-		<Label class="mt-3">Animation Sub-type</Label>
-		<select on:change={calculateAnimation} bind:value={animationSubType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-			{#each animationGroup[animationType] as animation}
-				<option>{animation}</option>
-			{/each}
-		</select>
+    <div class="space-y-4">
+      <div
+        class="rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-100 via-slate-50 to-white p-6 shadow-sm dark:border-slate-800 dark:bg-gradient-to-br dark:from-slate-900 dark:via-slate-950 dark:to-slate-900"
+      >
+        <div
+          class="flex h-48 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white/70 dark:border-slate-800 dark:bg-slate-900"
+        >
+          {@html previewStyle}
+          {#key animationTrigger}
+            <div
+              class="animate-demo relative flex h-28 w-28 items-center justify-center rounded-2xl bg-indigo-500 text-lg font-semibold text-white shadow-lg dark:bg-indigo-400"
+              style={`animation: ${animationDeclaration}; transform-origin:center; will-change:transform,opacity;`}
+            >
+              Play
+            </div>
+          {/key}
+        </div>
+        <button
+          class="mt-4 inline-flex w-full items-center justify-center rounded-full border border-indigo-500 px-4 py-2 text-sm font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-indigo-400 dark:text-indigo-300 dark:hover:bg-indigo-500/10 dark:focus:ring-indigo-700"
+          type="button"
+          on:click={() => {
+            previewSeed += 1;
+          }}
+        >
+          Replay animation
+        </button>
+      </div>
 
-		<Label class="mt-3">Duration</Label>
-		<Input type="number" step="0.1" bind:value={duration} on:change={calculateAnimation} />
-
-		<Label class="mt-3">Timing Functions</Label>
-		<select on:change={calculateAnimation} disabled={timingType} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" bind:value={timingFunction}><optgroup label="Native"><option>linear</option><option>ease</option><option>easeIn</option><option>easeOut</option><option>easeInOut</option></optgroup><optgroup label="Penner Equations"><option>easeInQuad</option><option>easeInCubic</option><option>easeInQuart</option><option>easeInQuint</option><option>easeInSine</option><option>easeInExpo</option><option>easeInCirc</option><option>easeInBack</option><option>easeOutQuad</option><option>easeOutCubic</option><option>easeOutQuart</option><option>easeOutQuint</option><option>easeOutSine</option><option>easeOutExpo</option><option>easeOutCirc</option><option>easeOutBack</option><option>easeInOutQuad</option><option>easeInOutCubic</option><option>easeInOutQuart</option><option>easeInOutQuint</option><option>easeInOutSine</option><option>easeInOutExpo</option><option>easeInOutCirc</option><option>easeInOutBack</option></optgroup></select>
-
-		<div class="flex items-center mt-3">
-			<input bind:checked={timingType} on:change={calculateAnimation} id="timing-type" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-			<label for="timing-type" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Use steps</label>
-		</div>
-		<div class="flex mt-3 bg-gray-50 border border-gray-300 rounded-lg overflow-hidden">
-			<Input type="number" bind:value={steps} on:change={calculateAnimation} disabled={!timingType} class="border-0"/>
-			<select on:change={calculateAnimation} bind:value={stepType} disabled={!timingType} class="border border-white border-l-2 bg-gray-50 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>start</option><option>end</option></select>
-		</div>
-
-		<Label class="mt-3">Delay</Label>
-		<Input type="number" step="0.1" bind:value={delay} on:change={calculateAnimation} />
-
-		<Label class="mt-3">Iteration Count</Label>
-		<div class="flex">
-			<div>
-				<Input type="number" bind:value={iteration} on:change={calculateAnimation} disabled={infiniteIteration}/>
-			</div>
-			<div class="flex items-center ml-3">
-				<input bind:checked={infiniteIteration} on:change={calculateAnimation} id="infinite-iteration" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-				<label for="infinite-iteration" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Infinite</label>
-			</div>
-		</div>
-
-		<Label class="mt-3">Direction</Label>
-		<select on:change={calculateAnimation} bind:value={direction} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>normal</option><option>reverse</option><option>alternate</option><option>alternate-reverse</option></select>
-
-		<Label class="mt-3">Fill Mode</Label>
-		<select on:change={calculateAnimation} bind:value={fillMode} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><option>none</option><option>forwards</option><option>backwards</option><option>both</option></select>
-	</div>
-	<div class="p-8 h-full flex rounded-lg relative bg-gray-100">
-		<Copy text={css}/>
-		{#key animation}
-			<div class="box m-auto bg-black" style="width: 150px; height: 150px; border-radius: 4px; animation: width: 150px; height: 150px; border-radius: 4px; animation: {animation};"/>
-		{/key}
-	</div>
-</div>
-
-<style>
-	.box {
-		border-radius: 20px;
-	}
-</style>
+      <div
+        class="rounded-2xl border border-slate-200 bg-slate-50 p-6 text-xs text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-300"
+      >
+        <div class="mb-2 flex items-center justify-between">
+          <p
+            class="font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            CSS output
+          </p>
+          <Copy
+            text={cssSnippet}
+            customClass="!relative !top-auto !right-auto"
+          />
+        </div>
+        <pre
+          class="max-h-64 overflow-x-auto rounded-lg bg-slate-900/90 p-4 text-[12px] text-emerald-300 shadow-inner dark:bg-black">{cssSnippet}</pre>
+      </div>
+    </div>
+  </div>
+</section>

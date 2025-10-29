@@ -51,6 +51,7 @@
 		"express": "^4.19.2",
 		"file-saver": "^2.0.5",
 		"file-server": "^2.2.1",
+		"ffmpeg-static": "^5.2.0",
 		"gif.js.optimized": "^1.0.1",
 		"gifshot": "^0.4.5",
 		"gifuct-js": "^2.1.2",
