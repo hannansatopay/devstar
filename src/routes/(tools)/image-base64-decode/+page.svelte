@@ -1,65 +1,154 @@
 <script lang="ts">
-	import { Label, Textarea, Button } from 'flowbite-svelte';
-	
-	export let data;
+  import Copy from "$lib/Copy.svelte";
 
-	let string = '';
+  let base64Input = "";
+  let errorMessage = "";
+  let fileName = "decoded-image";
 
-	function download() {
-		const link = document.createElement('a');
+  $: previewUrl = computePreviewUrl(base64Input);
+  $: errorMessage = previewUrl.error;
+  $: dataUrl = previewUrl.dataUrl;
 
-		const mimeType = string.split(';')[0].split(':')[1];
-		const extension = mimeType.split('/')[1];
+  function computePreviewUrl(value: string) {
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return { dataUrl: "", error: "" };
+    }
 
-		const imageUrl = b64toBlob(string);
-		link.href = imageUrl;
-		link.download = `image.${extension}`;
+    try {
+      if (trimmed.startsWith("data:")) {
+        validateBase64(trimmed.split(",")[1] ?? "");
+        return { dataUrl: ensureFileName(trimmed), error: "" };
+      }
 
-		document.body.appendChild(link);
-		link.click();
-		document.body.removeChild(link);
-		URL.revokeObjectURL(imageUrl);
-	}
+      const clean = trimmed.replace(/\s+/g, "");
+      validateBase64(clean);
+      return {
+        dataUrl: ensureFileName(`data:image/png;base64,${clean}`),
+        error: "",
+      };
+    } catch (error) {
+      return {
+        dataUrl: "",
+        error:
+          "The provided string is not valid Base64 or includes unsupported characters.",
+      };
+    }
+  }
 
-	// Helper function to convert Base64 to Blob
-	function b64toBlob(b64Data) {
-		b64Data = b64Data.split(',')[1];
-		const mimeType = b64Data.split(';')[0].split(':')[1];
-		const byteCharacters = atob(b64Data);
-		const byteArrays = [];
+  function validateBase64(value: string) {
+    if (!value) throw new Error("Empty string");
+    atob(value);
+  }
 
-		for (let offset = 0; offset < byteCharacters.length; offset += 512) {
-			const slice = byteCharacters.slice(offset, offset + 512);
+  function ensureFileName(url: string) {
+    return url;
+  }
 
-			const byteNumbers = new Array(slice.length);
-			for (let i = 0; i < slice.length; i++) {
-			byteNumbers[i] = slice.charCodeAt(i);
-			}
+  function downloadImage() {
+    if (!dataUrl) return;
+    const anchor = document.createElement("a");
+    anchor.href = dataUrl;
+    const extension = detectExtension(dataUrl);
+    anchor.download = `${fileName || "image"}.${extension}`;
+    anchor.click();
+  }
 
-			const byteArray = new Uint8Array(byteNumbers);
-			byteArrays.push(byteArray);
-		}
-
-		return URL.createObjectURL(new Blob(byteArrays, { type: mimeType }));
-	}
+  function detectExtension(url: string) {
+    if (!url.startsWith("data:")) return "png";
+    const mime = url.slice(5, url.indexOf(";"));
+    const suffix = mime.split("/")[1];
+    return suffix || "png";
+  }
 </script>
 
+<section class="space-y-6">
+  <div class="flex flex-col gap-6 px-4 lg:flex-row">
+    <div class="flex flex-1 flex-col gap-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <div class="space-y-4">
+          <label
+            class="flex flex-col gap-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Base64 string
+            <textarea
+              class="h-64 w-full rounded-2xl border border-slate-200 bg-white/80 p-4 text-[13px] font-mono text-slate-600 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+              placeholder="Paste a Base64 string or data URL here"
+              bind:value={base64Input}
+            />
+          </label>
 
-<div class="py-8 px-4 mx-auto max-w-screen-xl lg:px-12">
-	<div class="lg:grid lg:grid-cols-2 gap-8 card items-center mx-auto max-w-screen-xl rounded-lg">
-	<div class="p-8 h-full flex flex-col">
-		<Label for="textarea" class="mb-2">Base64 String</Label>
-		<Textarea id="textarea" rows="4" bind:value={string} class="h-full max-h-96 resize-none"/>
-	</div>
-	<div class="p-8 relative bg-gray-100">
-		{#if string}
-			<img src={b64toBlob(string)} class="w-full">
-			<Button color="green" on:click={download} class="absolute top-4 right-4">Download</Button>
-		{:else}
-			<div role="status" class="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center">
-				<div class="flex justify-center items-center w-full h-64 bg-gray-300 rounded dark:bg-gray-700"><svg width="48" height="48" class="text-gray-200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" viewBox="0 0 640 512"><path d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z"></path></svg></div>
-			</div>
-		{/if}
-	</div>
-	</div>
-</div>
+          <div class="flex flex-wrap items-center gap-3">
+            <label
+              class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              File name
+              <input
+                class="ml-3 w-48 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-600 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+                type="text"
+                bind:value={fileName}
+              />
+            </label>
+            <Copy
+              text={dataUrl}
+              label="Copy data URL"
+              floating={false}
+            />
+            <button
+              class="rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-emerald-400 hover:text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-200 dark:hover:border-emerald-400 dark:hover:text-emerald-300 dark:focus:ring-emerald-900"
+              type="button"
+              on:click={downloadImage}
+              disabled={!dataUrl || Boolean(errorMessage)}
+            >
+              Download image
+            </button>
+          </div>
+
+          <div
+            class="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-500 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+          >
+            Supports full `data:` URLs (e.g., <code
+              >data:image/png;base64,…</code
+            >) as well as raw Base64 strings. If no MIME type is present, the
+            tool assumes a PNG output.
+          </div>
+        </div>
+      </div>
+
+      {#if errorMessage}
+        <div
+          class="rounded-2xl border border-rose-200 bg-rose-100/70 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/40 dark:bg-rose-500/10 dark:text-rose-200"
+        >
+          {errorMessage}
+        </div>
+      {/if}
+    </div>
+
+    <div class="flex flex-1 flex-col gap-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <div
+          class="flex min-h-[360px] items-center justify-center rounded-2xl border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-900"
+        >
+          {#if dataUrl && !errorMessage}
+            <img
+              alt="Decoded preview"
+              class="max-h-72 w-full rounded-xl object-contain"
+              src={dataUrl}
+            />
+          {:else}
+            <div
+              class="max-w-sm text-center text-sm text-slate-500 dark:text-slate-400"
+            >
+              Paste a Base64 string to display a preview and download the
+              decoded image.
+            </div>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,6 @@
+{
+  "name": "Mock Webhook Service",
+  "description": "Spin up mock webhook endpoints, craft sample payloads, and inspect delivery logs without provisioning external infrastructure.",
+  "contributors": [],
+  "categoryTitle": "Developer Utilities & API Tools"
+}

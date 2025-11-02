@@ -190,13 +190,6 @@
           class="text-xs font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-300"
           >QR toolkit</span
         >
-        <h1 class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">
-          QR code generator & scanner
-        </h1>
-        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-          Build campaign-ready QR codes with custom colours, then validate
-          existing codes directly in the browser.
-        </p>
       </div>
       <div
         class="flex rounded-full bg-slate-100 p-1 text-xs font-semibold dark:bg-slate-800"
@@ -345,9 +338,6 @@
         <article
           class="relative rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
         >
-          {#if qrDataUrl}
-            <Copy text={qrDataUrl} label="Copy data URL" />
-          {/if}
           <div class="flex items-center justify-between gap-3">
             <span
               class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"

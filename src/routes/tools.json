@@ -5,6 +5,18 @@
             "details": "Optimize, test, and improve websites using performance analysis, code validation, and SEO optimization tools.",
             "tools": [
                 {
+                    "name": "Code Comparison Tool",
+                    "link": "/code-comparison-tool",
+                    "description": "Compare files, review changes, and highlight exact edits before committing to git or deploying updates.",
+                    "contributors": []
+                },
+                {
+                    "name": "Code Formatter / Parser / Beautifier",
+                    "link": "/code-formatter-parser-Beautifier",
+                    "description": "Format source files across multiple languages and inspect a trimmed AST tree for JavaScript or TypeScript snippets.",
+                    "contributors": []
+                },
+                {
                     "name": "Code Linter",
                     "link": "/code-linter",
                     "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
@@ -36,29 +48,24 @@
                     ]
                 },
                 {
-                    "name": "JWT Decoder",
-                    "link": "/jwt-decoder",
-                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+                    "name": "CSS Toolkit",
+                    "link": "/css-toolkit",
+                    "description": "Generate fluid typography clamps, soft box/text shadows, Flexbox and Grid layouts, sprite maps, unit conversions, and gradient text without leaving your workflow.",
                     "contributors": [
                         {
-                            "name": "Fazal",
-                            "githubId": "Fazalparkar"
-                        },
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        }
+                    ]
+                },
+                {
+                    "name": "Diff Checker",
+                    "link": "/diff-checker",
+                    "description": "Compare two snippets at line, word, or character level. Review additions, deletions, and unchanged content in a single glance.",
+                    "contributors": [
                         {
-                            "name": "Aayush",
-                            "githubId": "AayushPaigwar"
-                        },
-                        {
-                            "name": "Jujhar",
-                            "githubId": "jujharsingh2802"
-                        },
-                        {
-                            "name": "Kunal",
-                            "githubId": "KUNALL0ndhe"
-                        },
-                        {
-                            "name": "Hitesh",
-                            "githubId": "Honeykalra22"
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
                         }
                     ]
                 },
@@ -73,6 +80,17 @@
                     "link": "/metatag-checker-generator",
                     "description": "Audit existing meta tags from any page or craft new tags with live previews for title, description, keywords, and social sharing.",
                     "contributors": []
+                },
+                {
+                    "name": "Page Speed Test",
+                    "link": "/page-speed-test",
+                    "description": "Run lightweight fetch-based timing tests (TTFB, download duration, transfer size) to gauge endpoint responsiveness before a full Lighthouse audit.",
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        }
+                    ]
                 },
                 {
                     "name": "Remove Unused CSS",
@@ -182,6 +200,45 @@
             "details": "Test, debug, and integrate APIs, manage code snippets, and streamline developer workflows efficiently.",
             "tools": [
                 {
+                    "name": "Fake Data Generator",
+                    "link": "/faker",
+                    "description": "Seed prototypes with realistic user, company, product, internet, or location data. Copy results as JSON or CSV, and control randomness with deterministic seeds.",
+                    "contributors": []
+                },
+                {
+                    "name": "JWT Decoder",
+                    "link": "/jwt-decoder",
+                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+                    "contributors": [
+                        {
+                            "name": "Fazal",
+                            "githubId": "Fazalparkar"
+                        },
+                        {
+                            "name": "Aayush",
+                            "githubId": "AayushPaigwar"
+                        },
+                        {
+                            "name": "Jujhar",
+                            "githubId": "jujharsingh2802"
+                        },
+                        {
+                            "name": "Kunal",
+                            "githubId": "KUNALL0ndhe"
+                        },
+                        {
+                            "name": "Hitesh",
+                            "githubId": "Honeykalra22"
+                        }
+                    ]
+                },
+                {
+                    "name": "Mock Webhook Service",
+                    "link": "/mock-webhook-service",
+                    "description": "Spin up mock webhook endpoints, craft sample payloads, and inspect delivery logs without provisioning external infrastructure.",
+                    "contributors": []
+                },
+                {
                     "name": "Online API Testing",
                     "link": "/online-api-testing",
                     "description": "Send REST calls from the browser, tweak headers and payloads, inspect latency, response size, headers, and grab an instant cURL snippet.",
@@ -193,6 +250,43 @@
                         {
                             "name": "Nandini Gite",
                             "githubId": "NandiniGite"
+                        }
+                    ]
+                },
+                {
+                    "name": "Pastebin",
+                    "link": "/pastebin",
+                    "description": "Create, store, and share textual snippets locally with copyable share URLs scoped to your browser.",
+                    "contributors": []
+                },
+                {
+                    "name": "Regex Tool",
+                    "link": "/regex-tool",
+                    "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+                    "contributors": [
+                        {
+                            "name": "Soham Jayakar",
+                            "githubId": "SohamJayakar"
+                        },
+                        {
+                            "name": "Amey Patil",
+                            "githubId": "Ameypatil07"
+                        },
+                        {
+                            "name": "Mohmad Danish Rehman",
+                            "githubId": "dannish110"
+                        },
+                        {
+                            "name": "Darshana Jadhav",
+                            "githubId": "Darshana1011"
+                        },
+                        {
+                            "name": "Vijay Kalidas Pawar",
+                            "githubId": "vijay-pawar-99"
+                        },
+                        {
+                            "name": "Ashwani Kumar Singh",
+                            "githubId": "ashwani2529"
                         }
                     ]
                 },
@@ -593,12 +687,6 @@
             "details": "Enhance productivity and creativity through AI-driven generation, automation, and intelligent workflow tools.",
             "tools": [
                 {
-                    "name": "Basic Photo Editor",
-                    "link": "/basic-photo-editor",
-                    "description": "Adjust brightness, contrast, saturation, and apply quick filters to images entirely in the browser.",
-                    "contributors": []
-                },
-                {
                     "name": "Text to Speech & Speech Recognition Lab",
                     "link": "/text-to-speech-speech-recognition",
                     "description": "Mix text-to-speech playback with live speech recognition to iterate on AI voice flows in one workspace.",
@@ -624,7 +712,7 @@
                 {
                     "name": "QR Code Generator & Scanner",
                     "link": "/qr-code-generator",
-                    "description": "Create branded QR codes with custom colours, then verify them by decoding uploaded images using native or jsQR fallbacks.",
+                    "description": "Build campaign-ready QR codes with custom colours, then validate existing codes directly in the browser.",
                     "contributors": []
                 }
             ]
@@ -697,37 +785,6 @@
                     ]
                 },
                 {
-                    "name": "JSON Beautifier",
-                    "link": "/json-beautifier",
-                    "description": "JSON Beautifier help to auto format JSON and validate your JSON text. It also provides a tree view that helps to navigate your formatted JSON data.",
-                    "contributors": [
-                        {
-                            "name": "Atharva Raut",
-                            "githubId": "A7h4rv4"
-                        },
-                        {
-                            "name": "Ayush Udayakumar Nair",
-                            "githubId": "techgeekAyush"
-                        },
-                        {
-                            "name": "Sarath Parayil",
-                            "githubId": "sarathp22"
-                        },
-                        {
-                            "name": "Shriya Prashant Ise",
-                            "githubId": "shriya7ise"
-                        },
-                        {
-                            "name": "Yusra Mukadam",
-                            "githubId": "YusraMukadam"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
                     "name": "List Toolkit",
                     "link": "/list-toolkit",
                     "description": "Clean, sort, shuffle, and enrich lists with prefixes, numbering, and deduplication helpers.",
@@ -792,37 +849,6 @@
                     "contributors": []
                 },
                 {
-                    "name": "Regex Tool",
-                    "link": "/regex-tool",
-                    "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
-                    "contributors": [
-                        {
-                            "name": "Soham Jayakar",
-                            "githubId": "SohamJayakar"
-                        },
-                        {
-                            "name": "Amey Patil",
-                            "githubId": "Ameypatil07"
-                        },
-                        {
-                            "name": "Mohmad Danish Rehman",
-                            "githubId": "dannish110"
-                        },
-                        {
-                            "name": "Darshana Jadhav",
-                            "githubId": "Darshana1011"
-                        },
-                        {
-                            "name": "Vijay Kalidas Pawar",
-                            "githubId": "vijay-pawar-99"
-                        },
-                        {
-                            "name": "Ashwani Kumar Singh",
-                            "githubId": "ashwani2529"
-                        }
-                    ]
-                },
-                {
                     "name": "String Utility",
                     "link": "/string-utility",
                     "description": "Apply common string transforms�case changes, slugifying, camel casing, and sanitisation�in one place.",
@@ -846,12 +872,6 @@
             "title": "Time & Productivity Tools",
             "details": "Boost your efficiency with smart tools for tracking time, organizing tasks, and optimizing your daily schedule.",
             "tools": [
-                {
-                    "name": "App Store / Play Store Screenshot Generator",
-                    "link": "/app-store-screenshot-generator",
-                    "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
-                    "contributors": []
-                },
                 {
                     "name": "Multi Timer",
                     "link": "/multi-timer",
@@ -1168,6 +1188,39 @@
             "details": "Design, edit, and generate images, colors, icons, and vector graphics for creative visual projects.",
             "tools": [
                 {
+                    "name": "App Store / Play Store Screenshot Generator",
+                    "link": "/app-store-screenshot-generator",
+                    "description": "Design device mockups with customizable gradients, copy, and App Store or Play Store framing, then export crisp PNGs in native store resolutions.",
+                    "contributors": [
+                        {
+                            "name": "Nilambari Mahajan",
+                            "githubId": "Nilambari-Mahajan"
+                        },
+                        {
+                            "name": "Vaibhav Dingalwar",
+                            "githubId": "irrereplacable26"
+                        },
+                        {
+                            "name": "",
+                            "githubId": ""
+                        },
+                        {
+                            "name": "",
+                            "githubId": ""
+                        },
+                        {
+                            "name": "",
+                            "githubId": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Basic Photo Editor",
+                    "link": "/basic-photo-editor",
+                    "description": "Adjust brightness, contrast, saturation, and apply quick filters to images entirely in the browser.",
+                    "contributors": []
+                },
+                {
                     "name": "Camera Filters",
                     "link": "/camera-filters",
                     "description": "This project is a Svelte-based live camera filter application. It captures a video stream from your device's camera and applies real-time filters using a canvas element. The application includes filters like grayscale, sepia, blur, brightness, and more. Users can select filters from a dropdown menu to see their effects instantly. The video feed is processed and displayed on the canvas with the chosen filter applied. This setup provides an interactive way to experiment with live camera filters.",
@@ -1186,6 +1239,12 @@
                     "name": "Clip Path Maker",
                     "link": "/clip-path-maker",
                     "description": "Design bespoke CSS polygons with live sliders, copy the generated clip-path, and apply it to your UI components instantly.",
+                    "contributors": []
+                },
+                {
+                    "name": "Code to Image Converter",
+                    "link": "/code-to-image-converter",
+                    "description": "Design shareable code screenshots with gradients, window chrome, line numbers, and instant PNG export.",
                     "contributors": []
                 },
                 {
@@ -1240,9 +1299,9 @@
                     "contributors": []
                 },
                 {
-                    "name": "Custom Handwriting Font",
-                    "link": "/custom-handwriting-font",
-                    "description": "The Custom Handwriting Font Generator is a unique tool that allows you to create a personalized font from your own handwriting. Whether you want to add a personal touch to your documents, create custom greeting cards, or enhance your digital designs, this tool provides a seamless way to transform your handwriting into a digital font.",
+                    "name": "Custom Handwriting Font Generator",
+                    "link": "/custom-handwriting-font-generator",
+                    "description": "Sketch each glyph of your handwriting, preview the font live, and export a ready-to-install TTF without leaving the browser.",
                     "contributors": [
                         {
                             "name": "RIYA KUSHWAHA",
@@ -1267,9 +1326,9 @@
                     ]
                 },
                 {
-                    "name": "Font Generator",
-                    "link": "/font-generator",
-                    "description": "Design a full handwriting font by drawing each character, preview it instantly, and export it as a TTF you can install anywhere.",
+                    "name": "Favicon Generator",
+                    "link": "/favicon-generator",
+                    "description": "Create favicon-ready icons in multiple sizes directly in the browser, complete with live previews and download links.",
                     "contributors": []
                 },
                 {
@@ -1286,7 +1345,7 @@
                 {
                     "name": "Image Base64 Decode",
                     "link": "/image-base64-decode",
-                    "description": "The Image Base64 Decode tool offers developers an efficient way to decode Base64-encoded image data back into image files. This tool accepts Base64-encoded strings and converts them into their corresponding image file formats, enabling developers to handle and manipulate image data seamlessly. Simplify your image data processing workflow with this tool and ensure efficient utilization of Base64-encoded images in your applications.",
+                    "description": "This tool allows developers to decode Base64-encoded image data into image files, simplifying image data management and integration in applications.",
                     "contributors": [
                         {
                             "name": "Hannan Satopay",
@@ -1297,13 +1356,19 @@
                 {
                     "name": "Image Base64 Encode",
                     "link": "/image-base64-encode",
-                    "description": "The Image Base64 Encode tool enables developers to convert image files into Base64-encoded strings effortlessly. By simply uploading an image file, this tool converts the image into a Base64-encoded representation, which can be easily integrated into HTML, CSS, or JavaScript code. Integrate this tool into your development workflow to efficiently handle image data and optimize its usage in various web applications.",
+                    "description": "This tool lets developers easily convert Base64-encoded image data into usable image files, streamlining image data handling in applications.",
                     "contributors": [
                         {
                             "name": "Hannan Satopay",
                             "githubId": "hannansatopay"
                         }
                     ]
+                },
+                {
+                    "name": "Image Bulk Resize Tool",
+                    "link": "/image-bulk-resize-tool",
+                    "description": "Resize multiple images at once directly in the browser. Set target dimensions, maintain aspect ratio, and download each result in seconds.",
+                    "contributors": []
                 },
                 {
                     "name": "Image Color Picker",
@@ -1315,6 +1380,12 @@
                             "githubId": "hannansatopay"
                         }
                     ]
+                },
+                {
+                    "name": "Image Compression",
+                    "link": "/image-compression",
+                    "description": "Unlock text from images effortlessly with our Image Text Extractor. Using advanced OCR technology, it converts printed or handwritten content into editable digital text—perfect for digitizing documents, extracting quotes, and enhancing accessibility.",
+                    "contributors": []
                 },
                 {
                     "name": "Image Editor",
@@ -1331,7 +1402,7 @@
                 {
                     "name": "Image Text Extractor",
                     "link": "/image-text-extractor",
-                    "description": "Unlock the textual content hidden within images with our Image Text Extractor. Utilizing advanced optical character recognition (OCR) technology, our tool effortlessly extracts text from images, making printed or handwritten content accessible and editable. Simply upload your image, and watch as the tool accurately identifies and converts text into digital format. Ideal for digitizing documents, extracting quotes, or enhancing accessibility, our Image Text Extractor simplifies the process of converting visual information into editable text. Empower your data extraction tasks with our efficient and precise tool, ensuring valuable textual content is readily available for your digital endeavors.",
+                    "description": "Unlock text from images effortlessly with our Image Text Extractor. Using advanced OCR technology, it converts printed or handwritten content into editable digital text—perfect for digitizing documents, extracting quotes, and enhancing accessibility.",
                     "contributors": [
                         {
                             "name": "Pratik Vinayak More",
@@ -1550,10 +1621,33 @@
                     "contributors": []
                 },
                 {
+                    "name": "Custom Icon Font Generator",
+                    "link": "/custom-icon-font-generator",
+                    "description": "Map semantic icon names to unicode points, generate @font-face boilerplate, and preview glyph metadata before bundling fonts.",
+                    "contributors": []
+                },
+                {
+                    "name": "Font Pairing Tool",
+                    "link": "/font-pairing-tool",
+                    "description": "Preview curated heading/body font combinations, tailor sample copy, and copy CSS stacks for your typography system.",
+                    "contributors": []
+                },
+                {
                     "name": "Legal Policy Generator",
                     "link": "/legal-policy-generator",
                     "description": "Draft privacy policies, terms, and refund guidelines tailored to your product inputs in minutes.",
                     "contributors": []
+                },
+                {
+                    "name": "Mockup Generator",
+                    "link": "/mockup-generator",
+                    "description": "Drop screenshots or uploads into polished browser, phone, or laptop frames, then export crisp PNGs for presentations or launch posts.",
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        }
+                    ]
                 },
                 {
                     "name": "Realistic Tweet Generator",

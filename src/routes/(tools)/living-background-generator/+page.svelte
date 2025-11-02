@@ -1,551 +1,691 @@
 <script lang="ts">
-	import { Label, Range } from 'flowbite-svelte';
-	import { onMount } from 'svelte';
-	import Copy from '$lib/Copy.svelte';
+  import { onMount } from "svelte";
+  import Copy from "$lib/Copy.svelte";
 
-	export let data;
+  type GradientKind =
+    | "linear"
+    | "linear-diagonal"
+    | "radial"
+    | "radial-ellipse"
+    | "conic"
+    | "solid";
 
-	let colorInput: HTMLInputElement;
-	let alphaSlider: HTMLInputElement;
-	let colorDisplay: HTMLElement;
-	let css = '';
+  type MotionStyle =
+    | "none"
+    | "drift"
+    | "pulse"
+    | "rotate"
+    | "heartbeat"
+    | "snowfall";
 
-	onMount(() => {
-		colorInput = document.getElementById('color-input') as HTMLInputElement;
-		alphaSlider = document.getElementById('alpha-slider') as HTMLInputElement;
-		colorDisplay = document.getElementById('color-display') as HTMLElement;
-	});
+  const MAX_COLORS = 6;
+  const DEFAULT_COLORS = ["#000000", "#bb2d6f", "#fd9d1d", "#fcf437"];
 
-	let clrList = ['#000000', '#bb2d6f', '#fd9d1d', '#fcf437'];
-	let clrVal3 = '#70DD33';
-	let angle = 90;
-	let speed = 7;
-	let myBtn;
-	let output: HTMLElement;
+  const gradientOptions: Array<{ label: string; value: GradientKind }> = [
+    { label: "Linear (vertical)", value: "linear" },
+    { label: "Linear (diagonal)", value: "linear-diagonal" },
+    { label: "Radial circle", value: "radial" },
+    { label: "Radial ellipse", value: "radial-ellipse" },
+    { label: "Conic sweep", value: "conic" },
+    { label: "Solid fill", value: "solid" },
+  ];
 
-	$: gradientSpeed = `animation-duration: ${speed}s;`;
+  const motionOptions: Array<{ label: string; value: MotionStyle }> = [
+    { label: "No motion", value: "none" },
+    { label: "Slow drift", value: "drift" },
+    { label: "Soft pulse", value: "pulse" },
+    { label: "Orbit rotate", value: "rotate" },
+    { label: "Heartbeat", value: "heartbeat" },
+    { label: "Snowfall", value: "snowfall" },
+  ];
 
-	// Define reactive variables to check the currently selected gradient type
-	let isLinear = true;
-	let isAngular = false;
-	let isRadial = false;
+  const snowflakes = Array.from({ length: 36 }, (_, index) => ({
+    id: index,
+    left: Math.random() * 100,
+    delay: Math.random() * 8,
+    duration: 6 + Math.random() * 6,
+    size: 4 + Math.random() * 6,
+    opacity: 0.3 + Math.random() * 0.4,
+  }));
 
-	const pushArr = () => {
-		clrList.length < 6 ? (clrList = [...clrList, clrVal3]) : alert('Too many colors');
-	};
+  let colors = [...DEFAULT_COLORS];
+  let newColor = "#70dd33";
+  let newColorAlpha = 1;
+  let gradientKind: GradientKind = "linear";
+  let motionStyle: MotionStyle = "drift";
+  let animationSpeed = 7;
+  let angle = 90;
 
-	const removeOnClick = (e) => {
-		clrList.splice(Number(e.target.id), 1);
-		clrList = clrList;
-	};
+  let previewEl: HTMLDivElement;
+  let cssSnippet = "";
+  let htmlSnippet = "";
+  let jsSnippet = "";
 
-	$: clrStyle = clrList.map((x) => {
-		return `background: ${x};`;
-	});
+  let status = "";
 
-	let gradientType: 'linear' | 'angular' | 'radial' = 'linear';
+  function notify(message: string) {
+    status = message;
+    setTimeout(() => (status = ""), 2000);
+  }
 
-	const setGradientType = (type) => {
-		gradientType = type;
+  function formatColor(value: string, alpha = 1) {
+    const hex = value.startsWith("#") ? value : `#${value}`;
+    if (alpha >= 0.99) return hex;
+    return hexToRgba(hex, alpha);
+  }
 
-		if (type === 'linear') {
-			isLinear = true;
-			isAngular = false;
-			isRadial = false;
-		} else if (type === 'angular') {
-			isLinear = false;
-			isAngular = true;
-			isRadial = false;
-		} else if (type === 'radial') {
-			isLinear = false;
-			isAngular = false;
-			isRadial = true;
-		}
-	};
+  function hexToRgba(hex: string, alpha: number) {
+    const normalized = hex.replace("#", "");
+    const bigint = parseInt(normalized, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    const clamped = Math.min(1, Math.max(0.05, alpha));
+    return `rgba(${r}, ${g}, ${b}, ${clamped.toFixed(2)})`;
+  }
 
-	$: if (output) {
-		if (gradientType === 'linear') {
-			if (clrList.length > 1) {
-				output.style.setProperty(
-					'background-image',
-					`linear-gradient(${angle}deg, ${clrList.join(', ')})`
-				);
-				output.style.setProperty('background-size', `400% 400%`);
-				output.style.setProperty('animation-duration', `${speed}s`);
-			} else {
-				output.style.setProperty('background-image', `none`);
-				output.style.setProperty('background-color', `${clrList}`);
-			}
-		} else if (gradientType === 'angular') {
-			if (clrList.length > 1) {
-				output.style.setProperty(
-					'background-image',
-					`conic-gradient(from var(--angle), ${clrList.join(', ')}`
-				);
+  function randomHex() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i += 1) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-				output.style.setProperty('background-size', `100% 100%`);
-				let angle = 0;
+  function addColor() {
+    if (!newColor) return;
+    if (colors.length >= MAX_COLORS) {
+      notify("You've reached the 6 color limit.");
+      return;
+    }
+    colors = [...colors, formatColor(newColor, newColorAlpha)];
+    applyGradient();
+  }
 
-				const animateAngle = () => {
-					angle += 1;
-					angle %= 360;
-					output.style.setProperty('--angle', `${angle}deg`);
-					requestAnimationFrame(animateAngle);
-				};
+  function removeColor(index: number) {
+    if (colors.length === 1) {
+      notify("Keep at least one color.");
+      return;
+    }
+    colors = colors.filter((_, i) => i !== index);
+    applyGradient();
+  }
 
-				requestAnimationFrame(animateAngle);
-			} else {
-				output.style.setProperty('background-image', `none`);
-				output.style.setProperty('background-color', `${clrList}`);
-			}
-		} else {
-			if (clrList.length > 1) {
-				output.style.setProperty(
-					'background-image',
-					`radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(', ')}`
-				);
+  function resetPalette() {
+    colors = [...DEFAULT_COLORS];
+    newColorAlpha = 1;
+    applyGradient();
+  }
 
-				output.style.setProperty('background-size', `100% 100%`);
+  function randomizeColors() {
+    colors = Array.from({ length: 4 }, randomHex);
+    newColorAlpha = 1;
+    applyGradient();
+  }
 
-				let zoom = 100;
-				let zoomDirection = 1;
+  function setGradientKind(kind: GradientKind) {
+    gradientKind = kind;
+    applyGradient();
+  }
 
-				const animateZoom = () => {
-					if (zoom >= 200) {
-						zoomDirection = -1;
-					} else if (zoom <= 20) {
-						zoomDirection = 1;
-					}
+  function setMotionStyle(style: MotionStyle) {
+    motionStyle = style;
+    applyMotion();
+    buildCSSSnippet();
+  }
 
-					zoom += zoomDirection;
-					output.style.setProperty('--zoom', `${zoom}%`);
-					requestAnimationFrame(animateZoom);
-				};
+  function applyGradient() {
+    if (!previewEl) return;
 
-				requestAnimationFrame(animateZoom);
-			} else {
-				output.style.setProperty('background-image', `none`);
-				output.style.setProperty('background-color', `${clrList}`);
-			}
-		}
-	}
+    const palette = colors.join(", ");
+    previewEl.style.backgroundColor = "transparent";
+    previewEl.style.backgroundImage = "none";
+    previewEl.style.backgroundRepeat = "no-repeat";
+    previewEl.style.backgroundSize = "200% 200%";
 
-	$: bgGradient =
-		gradientType === 'linear'
-			? clrList.length > 1
-				? `background-image: linear-gradient(${angle}deg, ${clrList.join(', ')});`
-				: `background-color: ${clrList};`
-			: gradientType === 'angular'
-			? clrList.length > 1
-				? `background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});`
-				: `background-color: ${clrList};`
-			: gradientType === 'radial'
-			? clrList.length > 1
-				? `background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
-						', '
-				  )});`
-				: `background-color: ${clrList};`
-			: `background-color: ${clrList};`;
+    switch (gradientKind) {
+      case "linear":
+        previewEl.style.backgroundImage = `linear-gradient(${angle}deg, ${palette})`;
+        previewEl.style.backgroundSize = "400% 400%";
+        break;
+      case "linear-diagonal":
+        previewEl.style.backgroundImage = `linear-gradient(${(angle + 45) % 360}deg, ${palette})`;
+        previewEl.style.backgroundSize = "400% 400%";
+        break;
+      case "radial":
+        previewEl.style.backgroundImage = `radial-gradient(circle at center, ${palette})`;
+        previewEl.style.backgroundSize = "160% 160%";
+        break;
+      case "radial-ellipse":
+        previewEl.style.backgroundImage = `radial-gradient(ellipse at center, ${palette})`;
+        previewEl.style.backgroundSize = "180% 180%";
+        break;
+      case "conic":
+        previewEl.style.backgroundImage = `conic-gradient(${palette})`;
+        previewEl.style.backgroundSize = "180% 180%";
+        break;
+      case "solid":
+        previewEl.style.backgroundColor = colors[0] ?? DEFAULT_COLORS[0];
+        previewEl.style.backgroundImage = "none";
+        previewEl.style.backgroundSize = "100% 100%";
+        break;
+    }
 
-	const updateColorDisplay = () => {
-		const selectedColor = colorInput.value;
-		const alphaValue = alphaSlider.value;
-		colorDisplay.style.backgroundColor = selectedColor;
-		colorDisplay.style.opacity = alphaValue;
-	};
+    applyMotion();
+    buildCSSSnippet();
+  }
 
-	// Function for the Random button
-	const changeGradient = () => {
-		clrList = [getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor()];
-	};
+  function applyMotion() {
+    if (!previewEl) return;
+    previewEl.dataset.motion = motionStyle;
+    previewEl.style.setProperty(
+      "--motion-duration",
+      `${Math.max(2, animationSpeed)}s`,
+    );
+  }
 
-	const getRandomColor = () => {
-		const letters = '0123456789ABCDEF';
-		let color = '#';
-		for (let i = 0; i < 6; i++) {
-			color += letters[Math.floor(Math.random() * 16)];
-		}
-		return color;
-	};
+  function buildCSSSnippet() {
+    const palette = colors.join(", ");
+    const duration = Math.max(2, animationSpeed);
 
-	// Define a reactive variable for the generated CSS code
+    let base = "";
+    switch (gradientKind) {
+      case "linear":
+        base = `background-image: linear-gradient(${angle}deg, ${palette});\n  background-size: 400% 400%;`;
+        break;
+      case "linear-diagonal":
+        base = `background-image: linear-gradient(${(angle + 45) % 360}deg, ${palette});\n  background-size: 400% 400%;`;
+        break;
+      case "radial":
+        base = `background-image: radial-gradient(circle at center, ${palette});`;
+        break;
+      case "radial-ellipse":
+        base = `background-image: radial-gradient(ellipse at center, ${palette});`;
+        break;
+      case "conic":
+        base = `background-image: conic-gradient(${palette});`;
+        break;
+      case "solid":
+        base = `background-color: ${colors[0] ?? DEFAULT_COLORS[0]};`;
+        break;
+    }
 
-	let html = `
-		<div class="living-background" id="living-background">
-			<h1>Living Background Generator</h1>
-		</div>`;
+    let motionDecl = "";
+    let motionExtra = "";
+    switch (motionStyle) {
+      case "drift":
+        motionDecl = `\n  animation: gradient-drift ${duration}s ease-in-out infinite;`;
+        motionExtra = `
+.living-background[data-motion="drift"] {
+  background-size: 400% 400%;
+}
 
-	let js = '';
+@keyframes gradient-drift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}`;
+        break;
+      case "pulse":
+        motionDecl = `\n  animation: gradient-pulse ${Math.max(2, duration * 0.6)}s ease-in-out infinite;`;
+        motionExtra = `
+@keyframes gradient-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.06); }
+}`;
+        break;
+      case "rotate":
+        motionDecl = `\n  animation: gradient-rotate ${Math.max(2, duration * 0.8)}s linear infinite;\n  transform-origin: center;`;
+        motionExtra = `
+@keyframes gradient-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}`;
+        break;
+      case "heartbeat":
+        motionDecl = `\n  animation: gradient-heartbeat ${Math.max(2, duration * 0.7)}s ease-in-out infinite;\n  transform-origin: center;`;
+        motionExtra = `
+@keyframes gradient-heartbeat {
+  0%, 20%, 100% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  45% { transform: scale(0.98); }
+  60% { transform: scale(1.06); }
+}`;
+        break;
+      case "snowfall":
+        motionDecl = `\n  position: relative;\n  overflow: hidden;`;
+        motionExtra = `
+.living-background[data-motion="snowfall"] .snowflake {
+  animation: snow-fall linear infinite;
+}
 
-	$: {
-		if (gradientType === 'linear') {
-			css = `
-          	.living-background {
-			position: fixed;
-			height: 100vh;
-			widht: 100vw;
-			z-index: -1;
-            ${bgGradient}
-            background-size: 400% 400%;
-            animation: gradient ${speed}s ease infinite;
-          }
-  
-          @keyframes gradient {
-            0% {
-              background-position: 0% 50%;
-            }
-            50% {
-              background-position: 100% 50%;
-            }
-            100% {
-              background-position: 0% 50%;
-            }
-          }
-        `;
+@keyframes snow-fall {
+  0% { transform: translate3d(0, -10vh, 0); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate3d(15px, 110vh, 0); opacity: 0; }
+}`;
+        break;
+      default:
+        motionDecl = "";
+        motionExtra = "";
+    }
 
-			js = '//None';
-		} else if (gradientType === 'angular') {
-			css = `
-				.living-background {
-					position: fixed;
-					height: 100vh;
-					width: 100vw;
-					z-index: -1;
-					--angle: 0deg;
-            		background-image: conic-gradient(from var(--angle), ${clrList.join(', ')});
-					background-size: 100% 100%;
-    			}`;
+    const baseLines = [base, "background-repeat: no-repeat;"];
+    if (motionDecl) {
+      baseLines.push(motionDecl.trim());
+    }
 
-			js =
-				`const livingBackground = document.getElementById('living-background');
-				let angle = 0;
+    cssSnippet = `.living-background {\n  ${baseLines.join("\n  ")}\n}`;
+    if (motionExtra) {
+      cssSnippet += `\n${motionExtra}`;
+    }
 
-				const animateAngle = () => {
-					angle += 1;
-					angle %= 360;
-				` +
-				'livingBackground.style.setProperty("--angle", `${angle}deg`);' +
-				`
-					requestAnimationFrame(animateAngle);
-				};
-				
-				requestAnimationFrame(animateAngle);`;
-		} else if (gradientType === 'radial') {
-			css = `
-			.living-background {
-					position: fixed;
-					height: 100vh;
-					width: 100vw;
-					z-index: -1;
-					--zoom: 0%;
-            		background-image: radial-gradient(ellipse var(--zoom) var(--zoom) at center, ${clrList.join(
-									', '
-								)});
-					background-size: 100% 100%;
-    		}`;
+    htmlSnippet = `<div class="living-background" data-motion="${motionStyle}"></div>`;
 
-			js =
-				`let zoom = 100;
-			let zoomDirection = 1;
+    if (motionStyle === "snowfall") {
+      htmlSnippet = `<div class="living-background" data-motion="snowfall">
+  <!-- render snowflake spans inside this element -->
+</div>`;
+    }
 
-			const livingBackground = document.getElementById('living-background');
+    if (motionStyle === "rotate" && gradientKind === "conic") {
+      jsSnippet =
+        "const el = document.querySelector('.living-background');\n// Optional: adjust rotation speed or pause on demand\nel?.style.setProperty('--motion-duration', '18s');";
+    } else if (gradientKind === "solid") {
+      jsSnippet = "// No additional JS required for solid backgrounds.";
+    } else {
+      jsSnippet =
+        "const el = document.querySelector('.living-background');\n// Example: update gradient angle\nel?.style.setProperty('--gradient-angle', '120deg');";
+    }
+  }
 
-			const animateZoom = () => {
-				if (zoom >= 200) {
-					zoomDirection = -1;
-				} else if (zoom <= 20) {
-					zoomDirection = 1;
-				}
-				zoom += zoomDirection;
-			
-				` +
-				'livingBackground.style.setProperty("--zoom", `${zoom}%`);' +
-				`
-			requestAnimationFrame(animateZoom);
-			};
-
-			requestAnimationFrame(animateZoom);
-			`;
-		}
-	}
-
-	// Output Tabs Logic
-	let outputTab = 'CSS';
-
-	const displayTab = (tab) => {
-		outputTab = tab;
-	};
+  onMount(() => {
+    applyGradient();
+  });
 </script>
 
+<section class="bg-slate-50 dark:bg-slate-950">
+  <div
+    class="mx-auto grid max-w-6xl gap-6 px-4 py-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:py-16"
+  >
+    <div class="space-y-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <h1
+          class="text-2xl font-semibold text-slate-900 dark:text-white md:text-3xl"
+        >
+          Living background generator
+        </h1>
+        <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          Blend animated gradients and ambient motion for hero sections,
+          dashboards, or ambient visuals. Tune palette, style, and motion
+          instantly.
+        </p>
+        {#if status}
+          <p
+            class="mt-3 text-xs font-semibold text-emerald-600 dark:text-emerald-300"
+          >
+            {status}
+          </p>
+        {/if}
+      </div>
 
-<section class="bg-white dark:bg-gray-900">
-	<br />
-	<hr />
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Colors
+        </p>
+        <div class="mt-3 flex flex-wrap items-center gap-3">
+          {#each colors as color, index}
+            <button
+              type="button"
+              class="relative h-10 w-10 rounded-full border border-slate-200 shadow-sm transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:border-slate-700 dark:focus:ring-indigo-700"
+              style={`background: ${color}`}
+              on:click={() => removeColor(index)}
+              aria-label={`Remove color ${color}`}
+            >
+              <span class="sr-only">Remove</span>
+            </button>
+          {/each}
+          <label
+            class="flex w-full flex-col gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs font-semibold text-slate-500 dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-300 sm:w-auto sm:flex-row sm:items-center"
+          >
+            <div class="flex items-center gap-2">
+              <span>Add</span>
+              <input
+                class="h-8 w-8 cursor-pointer rounded-full border border-slate-200 dark:border-slate-600"
+                type="color"
+                bind:value={newColor}
+              />
+            </div>
+            <div class="flex flex-1 items-center gap-2">
+              <input
+                class="w-full accent-indigo-600"
+                type="range"
+                min="0.1"
+                max="1"
+                step="0.05"
+                bind:value={newColorAlpha}
+              />
+              <div
+                class="h-8 w-8 rounded-full border border-slate-300 shadow-sm dark:border-slate-600"
+                style={`background:${newColor};opacity:${newColorAlpha}`}
+              ></div>
+            </div>
+            <button
+              class="rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold text-white shadow-sm transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-700"
+              type="button"
+              on:click={addColor}
+            >
+              Add
+            </button>
+          </label>
+          <button
+            class="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-600 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800 dark:focus:ring-slate-700"
+            type="button"
+            on:click={resetPalette}
+          >
+            Reset palette
+          </button>
+          <button
+            class="rounded-full border border-indigo-200 px-3 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-indigo-700 dark:text-indigo-200 dark:hover:bg-indigo-900/30 dark:focus:ring-indigo-800"
+            type="button"
+            on:click={randomizeColors}
+          >
+            Random palette
+          </button>
+        </div>
+      </div>
 
-	<div
-		class="color-div py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-12 items-center content-center"
-	>
-		<!-- The color div part -->
-		<div
-			class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 2xl:grid-cols-14 gap-2 justify-center items-center"
-		>
-			{#each clrStyle as clr, i}
-				<div class="relative rounded-lg w-20 h-20">
-					<button
-						class="absolute top-[-4px] right-0 rounded-full h-6 w-6 bg-[#B8DBD9] flex justify-center items-center"
-						on:click={removeOnClick}
-						bind:this={myBtn}
-						id={`${i}`}
-					>
-						<svg
-							class="cross w-[12px] h-[12px] text-gray-500"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="none"
-							viewBox="0 0 14 14"
-						>
-							<path
-								stroke="currentColor"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-							/>
-						</svg>
-					</button>
-					<div class="aspect-square h-[50px] mx-4" style={clr} />
-				</div>
-			{/each}
-		</div>
+      <div
+        class="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+      >
+        <div>
+          <p
+            class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            Gradient type
+          </p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {#each gradientOptions as option}
+              <button
+                type="button"
+                class={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 ${
+                  gradientKind === option.value
+                    ? "bg-indigo-600 text-white shadow-sm dark:bg-indigo-500"
+                    : "border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+                }`}
+                on:click={() => setGradientKind(option.value)}
+              >
+                {option.label}
+              </button>
+            {/each}
+          </div>
+        </div>
+        {#if gradientKind === "linear" || gradientKind === "linear-diagonal"}
+          <div class="space-y-2">
+            <div
+              class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              <span>Angle</span>
+              <span>{angle}deg</span>
+            </div>
+            <input
+              class="w-full accent-indigo-600"
+              type="range"
+              min="0"
+              max="360"
+              bind:value={angle}
+              on:input={applyGradient}
+            />
+          </div>
+        {/if}
+        <div class="space-y-2">
+          <div
+            class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <span>Animation speed</span>
+            <span>{animationSpeed}s</span>
+          </div>
+          <input
+            class="w-full accent-indigo-600"
+            type="range"
+            min="3"
+            max="30"
+            bind:value={animationSpeed}
+            on:input={() => {
+              applyMotion();
+              buildCSSSnippet();
+            }}
+          />
+        </div>
+      </div>
 
-		<br />
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Motion
+        </p>
+        <div class="mt-3 flex flex-wrap gap-2">
+          {#each motionOptions as option}
+            <button
+              type="button"
+              class={`rounded-full px-4 py-1.5 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 ${
+                motionStyle === option.value
+                  ? "bg-indigo-600 text-white shadow-sm dark:bg-indigo-500"
+                  : "border border-slate-300 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+              }`}
+              on:click={() => setMotionStyle(option.value)}
+            >
+              {option.label}
+            </button>
+          {/each}
+        </div>
+      </div>
 
-		<!-- Color Palette part -->
-		<div
-			class="card gap-16 m-4 items-center mx-auto max-w-screen-xl md:grid md:grid-cols-2 overflow-hidden rounded-lg"
-		>
-			<div class="p-8 text-center">
-				<Label class="mt-3 text-2xl">COLOR PALETTE</Label>
-				<br />
-				<Label class="mt-3">Choose color from the box</Label>
-				<br />
-				<div class="color-picker">
-					<input type="color" id="color-input" bind:value={clrVal3} on:input={updateColorDisplay} />
-					<div id="color-display" />
-				</div>
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200"
+      >
+        <div class="flex flex-wrap items-center gap-3">
+          <Copy text={cssSnippet} label="Copy CSS" floating={false} />
+          <Copy text={htmlSnippet} label="Copy HTML" floating={false} />
+          <Copy text={jsSnippet} label="Copy JS" floating={false} />
+        </div>
+        <div class="mt-4 grid gap-3">
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              HTML
+            </p>
+            <pre
+              class="mt-2 max-h-40 overflow-auto rounded-xl bg-slate-900/95 p-4 font-mono text-xs text-emerald-300 dark:bg-black">{htmlSnippet}</pre>
+          </div>
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              CSS
+            </p>
+            <pre
+              class="mt-2 max-h-60 overflow-auto rounded-xl bg-slate-900/95 p-4 font-mono text-xs text-emerald-300 dark:bg-black">{cssSnippet}</pre>
+          </div>
+          <div>
+            <p
+              class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              JS (optional)
+            </p>
+            <pre
+              class="mt-2 max-h-40 overflow-auto rounded-xl bg-slate-900/95 p-4 font-mono text-xs text-emerald-300 dark:bg-black">{jsSnippet}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
 
-				<div class="my-8">
-					<div class="row-1">
-						<button class="m-4 w-40 p-4 rounded-lg" on:click={pushArr}><b>+</b> Add color </button>
-						<br />
-						<button class="m-4 w-40 p-4 rounded-lg" on:click={changeGradient}>
-							Random Colors
-						</button>
-						<br />
-					</div>
-
-					<!-- Add the gradient type buttons -->
-					<div class="m-4 flex justify-center items-center space-x-4">
-						<button
-							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
-							class:opacity-50={!isLinear}
-							class:glow={isLinear}
-							on:click={() => setGradientType('linear')}
-						>
-							Linear Gradient
-						</button>
-						<button
-							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
-							class:opacity-50={!isAngular}
-							class:glow={isAngular}
-							on:click={() => setGradientType('angular')}
-						>
-							Angular Gradient
-						</button>
-						<button
-							class="w-30 p-4 rounded-lg transition-transform transform hover:scale-105"
-							class:opacity-50={!isRadial}
-							class:glow={isRadial}
-							on:click={() => setGradientType('radial')}
-						>
-							Radial Gradient
-						</button>
-					</div>
-				</div>
-				<br />
-
-				{#if isLinear}
-					<!-- Angle input -->
-					<Label class="mt-3">ANGLE&nbsp;&nbsp;&nbsp;{angle}°</Label>
-					<Range
-						bind:value={angle}
-						min="0"
-						max="360"
-						on:change={() => {
-							console.log(angle);
-						}}
-					/>
-					<br />
-
-					<!-- Duration input -->
-					<Label class="mt-3">DURATION&nbsp;&nbsp;&nbsp;{speed}s</Label>
-					<Range
-						bind:value={speed}
-						min="1"
-						max="20"
-						on:change={() => {
-							console.log(speed);
-						}}
-					/>
-				{/if}
-			</div>
-
-			<div class="p-8 h-full flex rounded-lg relative output" bind:this={output}>
-				{#if gradientType === 'linear'}
-					<div class="linear" />
-				{/if}
-				{#if gradientType === 'angular'}
-					<div class="angular" />
-				{/if}
-				{#if gradientType === 'radial'}
-					<div class="radial" />
-				{/if}
-			</div>
-		</div>
-		<br />
-
-		<!-- The text area part -->
-		<div
-			class="card m-4 p-1 bg-gray-100 items-center mx-auto max-w-screen-xl lg:grid rounded-lg relative"
-		>
-			<div class="tab-buttons">
-				<button on:click={() => displayTab('HTML')}>HTML</button>
-				<button on:click={() => displayTab('CSS')}>CSS</button>
-				<button on:click={() => displayTab('JS')}>JS</button>
-			</div>
-			<pre class="whitespace-pre-line p-2">
-				{#if outputTab === 'HTML'}
-					{html}
-					<Copy text={html} />
-				{/if}
-					{#if outputTab === 'CSS'}
-					{css}
-					<Copy text={css} />
-				{/if}
-					{#if outputTab === 'JS'}
-					{js}
-					<Copy text={js} />
-				{/if}
-			</pre>
-		</div>
-	</div>
+    <aside class="space-y-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <div
+          class="relative overflow-hidden rounded-[28px] border border-white/40 bg-slate-100 p-6 dark:border-white/10 dark:bg-slate-950/60"
+        >
+          <div
+            class="living-preview relative min-h-[340px] rounded-[20px] border border-white/30 shadow-inner dark:border-white/10"
+            bind:this={previewEl}
+            data-motion={motionStyle}
+          >
+            <div
+              class:opacity-100={motionStyle === "snowfall"}
+              class:opacity-0={motionStyle !== "snowfall"}
+              class="snow-layer pointer-events-none opacity-0 transition-opacity duration-500"
+            >
+              {#each snowflakes as flake}
+                <span
+                  class="snowflake"
+                  style={`left:${flake.left}%;animation-delay:${flake.delay}s;animation-duration:${flake.duration}s;width:${flake.size}px;height:${flake.size}px;opacity:${flake.opacity}`}
+                ></span>
+              {/each}
+            </div>
+          </div>
+          <div
+            class="pointer-events-none absolute inset-0 rounded-[28px] bg-gradient-to-br from-white/10 via-transparent to-slate-900/40 dark:from-white/5"
+          ></div>
+        </div>
+      </div>
+    </aside>
+  </div>
 </section>
 
 <style>
-	/* Styles for output screen */
-	.output {
-		background-image: linear-gradient(90deg, #000000, #bb2d6f, #fd9d1d, #fcf437);
-		animation: gradient 7s ease infinite;
-	}
+  .living-preview {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    transition:
+      transform 0.6s ease,
+      filter 0.6s ease;
+  }
 
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
+  .living-preview[data-motion="none"] {
+    animation: none;
+    transform: none;
+  }
 
-	button {
-		background-color: #2f4550;
-		color: #b8dbd9;
-		transition: background-color 0.3s ease;
-		cursor: pointer;
-	}
+  .living-preview[data-motion="drift"] {
+    animation: gradient-drift var(--motion-duration, 16s) ease-in-out infinite;
+    background-size: 400% 400%;
+  }
 
-	:is(.dark button) {
-		background-color: #b8dbd9;
-		color: #2f4550;
-		transition: background-color 0.3s ease;
-		cursor: pointer;
-	}
+  .living-preview[data-motion="pulse"] {
+    animation: gradient-pulse calc(var(--motion-duration, 16s) * 0.6)
+      ease-in-out infinite;
+  }
 
-	button::after {
-		background: rgba(0, 0, 0, 0);
-		color: #b8dbd9;
-		transition: all 0.3s ease;
-	}
+  .living-preview[data-motion="rotate"] {
+    animation: gradient-rotate calc(var(--motion-duration, 16s) * 0.8) linear
+      infinite;
+    transform-origin: center;
+  }
 
-	:is(.dark button::after) {
-		color: #2f4550;
-		background-color: whitesmoke;
-		transition: all 0.3s ease;
-	}
+  .living-preview[data-motion="heartbeat"] {
+    animation: gradient-heartbeat calc(var(--motion-duration, 14s) * 0.7)
+      ease-in-out infinite;
+    transform-origin: center;
+  }
 
-	button:hover {
-		color: #b8dbd9;
-		background-color: black;
-	}
+  .living-preview[data-motion="snowfall"] {
+    animation: none;
+    transform: none;
+  }
 
-	:is(.dark button:hover) {
-		color: #2f4550;
-		background-color: whitesmoke;
-	}
+  .snow-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
 
-	button:hover::after {
-		background: rgba(184, 219, 217, 0.3);
-	}
+  .snowflake {
+    position: absolute;
+    top: -10%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 9999px;
+    animation-name: snow-fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
 
-	:is(.dark button:hover::after) {
-		color: #2f4550;
-		background: whitesmoke;
-	}
-	
-	.h-full {
-		min-height: 300px;
-	}
+  @keyframes gradient-drift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 
-	.cross {
-		pointer-events: none;
-	}
+  @keyframes gradient-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% {
+      transform: scale(1.05);
+      filter: brightness(1.06);
+    }
+  }
 
-	/* Add a class for glowing effect when selected */
-	.glow {
-		box-shadow: 0 0 20px rgb(47, 69, 80);
-	}
+  @keyframes gradient-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
-	:is(.dark .glow) {
-		box-shadow: 0 0 20px rgb(255, 255, 255);
-	}
+  @keyframes gradient-heartbeat {
+    0%,
+    20%,
+    100% {
+      transform: scale(1);
+    }
+    30% {
+      transform: scale(1.08);
+    }
+    45% {
+      transform: scale(0.98);
+    }
+    60% {
+      transform: scale(1.06);
+    }
+  }
 
-	.row-1 {
-		display: inline-flex;
-	}
-
-	@media only screen and (max-width: 700px) {
-		pre,
-		.row-1 {
-			display: block;
-		}
-
-		pre,
-		button {
-			font-size: 2.2vh;
-		}
-	}
-
-	.tab-buttons {
-		padding: 0.4rem;
-	}
-
-	.tab-buttons button {
-		padding: 0.2rem;
-		border-radius: 0.2rem;
-		font-weight: bold;
-		border: 1px solid black;
-	}
+  @keyframes snow-fall {
+    0% {
+      transform: translate3d(0, -10vh, 0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(15px, 110vh, 0);
+      opacity: 0;
+    }
+  }
 </style>

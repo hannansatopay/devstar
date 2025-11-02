@@ -1,0 +1,11 @@
+{
+  "name": "Page Speed Test",
+  "description": "Run lightweight fetch-based timing tests (TTFB, download duration, transfer size) to gauge endpoint responsiveness before a full Lighthouse audit.",
+  "contributors": [
+    {
+      "name": "RIYA KUSHWAHA",
+      "githubId": "RIYA1001"
+    }
+  ],
+  "categoryTitle": "Web Development & SEO Tools"
+}

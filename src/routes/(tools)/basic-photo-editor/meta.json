@@ -1,1 +1,6 @@
-{"name":"Basic Photo Editor","description":"Adjust brightness, contrast, saturation, and apply quick filters to images entirely in the browser.","contributors":[],"categoryTitle":"AI & Automation Tools"}
+{
+    "name": "Basic Photo Editor",
+    "description": "Adjust brightness, contrast, saturation, and apply quick filters to images entirely in the browser.",
+    "contributors": [],
+    "categoryTitle": "Image & Graphic Tools"
+}

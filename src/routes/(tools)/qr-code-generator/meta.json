@@ -1,6 +1,6 @@
 {
     "name": "QR Code Generator & Scanner",
-    "description": "Create branded QR codes with custom colours, then verify them by decoding uploaded images using native or jsQR fallbacks.",
+    "description": "Build campaign-ready QR codes with custom colours, then validate existing codes directly in the browser.",
     "contributors": [],
     "categoryTitle": "Specialized Utility Tools"
 }

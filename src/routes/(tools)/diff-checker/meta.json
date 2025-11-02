@@ -1,0 +1,11 @@
+{
+  "name": "Diff Checker",
+  "description": "Compare two snippets at line, word, or character level. Review additions, deletions, and unchanged content in a single glance.",
+  "contributors": [
+    {
+      "name": "RIYA KUSHWAHA",
+      "githubId": "RIYA1001"
+    }
+  ],
+  "categoryTitle": "Web Development & SEO Tools"
+}
