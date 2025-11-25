@@ -1,207 +1,599 @@
 <script lang="ts">
-  import { Button, Dropdown, DropdownItem, DropdownDivider, Popover,Label, Input} from 'flowbite-svelte';
-  import { onMount } from 'svelte';
+  import Copy from "$lib/Copy.svelte";
 
-  export let data;
+  type GradientKind =
+    | "linear"
+    | "radial"
+    | "radial-ellipse"
+    | "conic"
+    | "repeating-linear"
+    | "repeating-radial";
 
-  let Types = ['Linear','Radial','Conic','Repeating-linear-gradient','Repeating-radial-gradient'];
-  let percentages = [0,10,20,30,40,50,60,70,80,90,100];
-  let Rotations = [0,45,90,135,180,225,270,315,360];
-  
-  let gradienttype = `${Types[0]}`;
-  let gradientrotation = 0;
-  let gradientColors = ['',''];
-  let gradientper = 0;
-  let gradientCode = `Linear-gradient(${gradientrotation}deg ,${gradientColors[0]}, ${gradientColors[1]})`;
+  type GradientStop = {
+    id: number;
+    color: string;
+    position: number;
+  };
 
-  function generateGradient() {
-      gradientCode = `Linear-gradient(${gradientrotation}deg ,${gradientColors[0]}, ${gradientColors[1]})`;
+  const clamp = (value: number | string, min = 0, max = 100) => {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return min;
+    return Math.min(max, Math.max(min, Math.round(parsed)));
+  };
 
-      if (gradienttype === 'Linear')
-      {
-        gradientCode = `Linear-gradient(${gradientrotation}deg, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
-      }
-      else if (gradienttype === 'Radial')
-      {
-        gradientCode = `Radial-gradient(at center, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]} 100%)`;
-      }
-      else if (gradienttype === 'Conic')
-      {
-        gradientCode = `conic-gradient(${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
-      }
-      else if (gradienttype === 'Repeating-linear-gradient')
-      {
-        gradientCode = `repeating-linear-gradient(to right, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
-      }
-      else if (gradienttype === 'Repeating-radial-gradient')
-      {
-        gradientCode = `repeating-radial-gradient(circle, ${gradientColors[0]} ${gradientper}%, ${gradientColors[1]})`;
-      }
+  const randomHex = () =>
+    `#${Math.floor(Math.random() * 0xffffff)
+      .toString(16)
+      .padStart(6, "0")}`;
+
+  let stopId = 0;
+  const createStop = (color: string, position: number): GradientStop => ({
+    id: ++stopId,
+    color,
+    position: clamp(position),
+  });
+
+  let gradientKind: GradientKind = "linear";
+  let angle = 45;
+  let centreX = 50;
+  let centreY = 50;
+  let repeatScale = 120;
+  let previewHeight = 320;
+
+  let stops: GradientStop[] = [
+    createStop("#6366f1", 0),
+    createStop("#ec4899", 40),
+    createStop("#fbbf24", 100),
+  ];
+
+  let gradientCss = "";
+  let cssSnippet = "";
+  let htmlSnippet = "";
+  let inlineStyle = "";
+  let summary = "";
+
+  const gradientOptions: Array<{
+    value: GradientKind;
+    label: string;
+    meta: string;
+  }> = [
+    {
+      value: "linear",
+      label: "Linear",
+      meta: "Directional blend with angle",
+    },
+    {
+      value: "radial",
+      label: "Radial (circle)",
+      meta: "Soft centre fade for spotlight",
+    },
+    {
+      value: "radial-ellipse",
+      label: "Radial (ellipse)",
+      meta: "Elliptical focal emphasis",
+    },
+    {
+      value: "conic",
+      label: "Conic",
+      meta: "Angular sweep great for charts",
+    },
+    {
+      value: "repeating-linear",
+      label: "Repeating linear",
+      meta: "Striped backgrounds or loaders",
+    },
+    {
+      value: "repeating-radial",
+      label: "Repeating radial",
+      meta: "Rippled rings and waveforms",
+    },
+  ];
+
+  const requiresAngle = (kind: GradientKind) =>
+    kind === "linear" || kind === "repeating-linear" || kind === "conic";
+
+  const requiresCentre = (kind: GradientKind) =>
+    kind === "radial" ||
+    kind === "radial-ellipse" ||
+    kind === "repeating-radial";
+
+  const requiresRepeatScale = (kind: GradientKind) =>
+    kind === "repeating-linear" || kind === "repeating-radial";
+
+  const buildStops = (list: GradientStop[], reverse = false) => {
+    const ordered = [...list].sort((a, b) => a.position - b.position);
+    const data = reverse ? ordered.slice().reverse() : ordered;
+    return data
+      .map((stop, index, array) => {
+        const position =
+          array.length === 1
+            ? 0
+            : Math.round((index / Math.max(1, array.length - 1)) * 100);
+        return `${stop.color} ${position}%`;
+      })
+      .join(", ");
+  };
+
+  const buildRepeatingStops = (list: GradientStop[]) => {
+    const ordered = [...list].sort((a, b) => a.position - b.position);
+    const scale = Math.max(10, repeatScale);
+    return ordered
+      .map((stop, index) => {
+        const position = Math.round(
+          (index / Math.max(1, ordered.length - 1)) * scale,
+        );
+        return `${stop.color} ${position}px`;
+      })
+      .join(", ");
+  };
+
+  function regenerateGradient() {
+    const stopInfo = buildStops(stops);
+    const reversedStopInfo = buildStops(stops, true);
+    const repeatStops = buildRepeatingStops(stops);
+
+    switch (gradientKind) {
+      case "linear":
+        gradientCss = `linear-gradient(${angle}deg, ${stopInfo})`;
+        break;
+      case "radial":
+        gradientCss = `radial-gradient(circle at ${centreX}% ${centreY}%, ${stopInfo})`;
+        break;
+      case "radial-ellipse":
+        gradientCss = `radial-gradient(ellipse at ${centreX}% ${centreY}%, ${stopInfo})`;
+        break;
+      case "conic":
+        gradientCss = `conic-gradient(from ${angle}deg at ${centreX}% ${centreY}%, ${stopInfo})`;
+        break;
+      case "repeating-linear":
+        gradientCss = `repeating-linear-gradient(${angle}deg, ${repeatStops})`;
+        break;
+      case "repeating-radial":
+        gradientCss = `repeating-radial-gradient(circle at ${centreX}% ${centreY}%, ${repeatStops})`;
+        break;
+      default:
+        gradientCss = `linear-gradient(${angle}deg, ${stopInfo})`;
+        break;
     }
 
- function generateRandomGradient() {
-  const r = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
-  const g = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
-  const b = Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+    inlineStyle = `background: ${gradientCss}; min-height: ${previewHeight}px;`;
+    cssSnippet = `background: ${gradientCss};`;
+    htmlSnippet = `<div class="gradient-background"></div>`;
+    summary = `${gradientKind.replace("-", " ")} • ${stops.length} stop${
+      stops.length === 1 ? "" : "s"
+    }`;
+  }
 
-  const color1 = `#${r}${g}${b}`;
-  const color2 = `#${g}${b}${r}`;
-
-  gradientColors = [color1,color2];
-  generateGradient();
-}
-
-const copyCode = async () => {
-    try {
-      await navigator.clipboard.writeText(gradientCode);
-      console.log("CSS Copied");
-    } catch (error) {
-      console.error("Error copying text to clipboard:", error);
+  const addStop = () => {
+    if (stops.length >= 8) return;
+    const ordered = [...stops].sort((a, b) => a.position - b.position);
+    if (!ordered.length) {
+      stops = [createStop(randomHex(), 0)];
+      regenerateGradient();
+      return;
     }
-  }
+    let widestGap = -1;
+    let insertPosition = 50;
+    for (let i = 0; i < ordered.length - 1; i += 1) {
+      const gap = ordered[i + 1].position - ordered[i].position;
+      if (gap > widestGap) {
+        widestGap = gap;
+        insertPosition = ordered[i].position + gap / 2;
+      }
+    }
+    stops = [...ordered, createStop(randomHex(), insertPosition)];
+    regenerateGradient();
+  };
 
-  onMount(generateRandomGradient);
+  const randomizeStops = () => {
+    stops = stops.map((stop) => ({ ...stop, color: randomHex() }));
+    regenerateGradient();
+  };
 
-   function updateGradient() {
-    generateGradient();
-  }
+  const distributeStops = () => {
+    if (stops.length < 2) return;
+    const ordered = [...stops].sort((a, b) => a.position - b.position);
+    const spread = 100 / (ordered.length - 1);
+    stops = ordered.map((stop, index) => ({
+      ...stop,
+      position: Math.round(index * spread),
+    }));
+    regenerateGradient();
+  };
 
-  function downloadAsText() {
-  const hexColor1 = gradientColors[0];
-  const hexColor2 = gradientColors[1];
-  
-  function hexToRgb(hex) {
-    hex = hex.replace(/^#/, '');
-    const bigint = parseInt(hex, 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return `${r}, ${g}, ${b}`;
-  }
-  const gradientText = `background: ${gradientCode};`;
-  const hexText = `Hex Color 1: ${hexColor1}, Hex Color 2: ${hexColor2}`;
-  const rgbText = `RGB Color 1: ${hexToRgb(hexColor1)}, RGB Color 2: ${hexToRgb(hexColor2)}`;
-  const text = `${gradientText}\n${hexText}\n${rgbText}`;
-  const blob = new Blob([text], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'gradient.txt';
-  link.click();
-}
+  const reverseStops = () => {
+    const ordered = [...stops].sort((a, b) => a.position - b.position);
+    stops = ordered.reverse().map((stop, index) => ({
+      ...stop,
+      position: Math.round((index / Math.max(1, ordered.length - 1)) * 100),
+    }));
+    regenerateGradient();
+  };
+
+  const updateStopColor = (id: number, color: string) => {
+    stops = stops.map((stop) => (stop.id === id ? { ...stop, color } : stop));
+    regenerateGradient();
+  };
+
+  const updateStopPosition = (id: number, position: number | string) => {
+    stops = stops.map((stop) =>
+      stop.id === id ? { ...stop, position: clamp(position) } : stop,
+    );
+    regenerateGradient();
+  };
+
+  const removeStop = (id: number) => {
+    if (stops.length <= 1) return;
+    stops = stops.filter((stop) => stop.id !== id);
+    regenerateGradient();
+  };
+
+  const copyCss = () => navigator.clipboard.writeText(cssSnippet);
+  const copyInline = () => navigator.clipboard.writeText(inlineStyle);
+  const copyHtml = () => navigator.clipboard.writeText(htmlSnippet);
+
+  const handleKindChange = (value: GradientKind) => {
+    gradientKind = value;
+    regenerateGradient();
+  };
+
+  const handleAngleInput = (event: Event) => {
+    const input = event.currentTarget as HTMLInputElement | null;
+    if (!input) return;
+    angle = Number(input.value);
+    regenerateGradient();
+  };
+
+  const handleCentreInput = (event: Event, axis: "x" | "y") => {
+    const input = event.currentTarget as HTMLInputElement | null;
+    if (!input) return;
+    const value = Number(input.value);
+    if (axis === "x") {
+      centreX = clamp(value);
+    } else {
+      centreY = clamp(value);
+    }
+    regenerateGradient();
+  };
+
+  const handleRepeatScale = (event: Event) => {
+    const input = event.currentTarget as HTMLInputElement | null;
+    if (!input) return;
+    repeatScale = clamp(input.value, 8, 240);
+    regenerateGradient();
+  };
+
+  const resetDefaults = () => {
+    gradientKind = "linear";
+    angle = 45;
+    centreX = 50;
+    centreY = 50;
+    repeatScale = 120;
+    previewHeight = 320;
+    stops = [
+      createStop("#6366f1", 0),
+      createStop("#ec4899", 40),
+      createStop("#fbbf24", 100),
+    ];
+    regenerateGradient();
+  };
+
+  const handleStopColorInput = (id: number, event: Event) => {
+    const input = event.currentTarget as HTMLInputElement | null;
+    if (!input) return;
+    updateStopColor(id, input.value);
+  };
+
+  const handleStopPositionInput = (id: number, event: Event) => {
+    const input = event.currentTarget as HTMLInputElement | null;
+    if (!input) return;
+    updateStopPosition(id, input.value);
+  };
+
+  const exportCss = () => {
+    const blob = new Blob([`/* gradient generator */\n${cssSnippet}\n`], {
+      type: "text/plain",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "gradient.css";
+    link.click();
+  };
+
+  regenerateGradient();
 </script>
 
-<div class="bg-white dark:bg-gray-900"> 
-<main class="min-h-screen flex items-center justify-center">
-  <div class="w-full max-w-4xl p-8 bg-white rounded-lg shadow-md dark:bg-gray-800 flex">
-    <!-- Settings (Left Half) -->
-    <div class="w-1/2 p-2 grid grid-cols-2 gap-8">
-
-      <!-- Gradient Type Selector -->
-      <div class="mt-4">
-        <Label for="gradientType" class="text-gray-700 dark:text-gray-400">Gradient Type:</Label>
-        <select bind:value={gradienttype} on:click={updateGradient} class="text-gray-900 bg-white text-center w-full col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-        {gradienttype}
-        {#each Types as type}
-          <option>{type}</option>
-        {/each}
-        </select>
-      </div>
-
-      <!-- Color Pickers -->
-      <div class="mt-4">
-        <Label class="text-gray-700 dark:text-gray-400">Gradient Colors:</Label>
-        <div class="flex space-x-2">
-          {#each gradientColors as color,index}
-            <input
-              type="color"
-              bind:value={gradientColors[index]}
-              class="mt-1"
-              on:input={updateGradient}
+<section class="space-y-6">
+  <div class="flex flex-col lg:flex-row-reverse gap-6">
+    <aside class="flex-1 space-y-6">
+      <div
+        class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <div class="border-b border-slate-100 px-6 py-5 dark:border-slate-800">
+          <h2 class="text-lg font-semibold text-slate-900 dark:text-white">
+            Gradient preview
+          </h2>
+          <p
+            class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            {summary}
+          </p>
+        </div>
+        <div class="p-6">
+          <div
+            class="rounded-[28px] border border-white/40 bg-slate-100/60 shadow-inner backdrop-blur dark:border-white/10 dark:bg-slate-950/60"
+          >
+            <div
+              class="gradient-preview rounded-[24px]"
+              style={inlineStyle}
+            ></div>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <Copy text={cssSnippet} label="Copy CSS" floating={false} />
+            <Copy
+              text={inlineStyle}
+              label="Copy inline style"
+              floating={false}
             />
+            <Copy text={copyHtml} label="Copy HTML" floating={false} />
+          </div>
+          <div class="mt-6 grid gap-4 md:grid-cols-2">
+            <div>
+              <p
+                class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                HTML snippet
+              </p>
+              <pre
+                class="mt-2 max-h-36 overflow-auto rounded-2xl bg-slate-900/95 p-4 text-[12px] text-emerald-200 shadow-inner dark:bg-black">{htmlSnippet}</pre>
+            </div>
+            <div>
+              <p
+                class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+              >
+                CSS snippet
+              </p>
+              <pre
+                class="mt-2 max-h-36 overflow-auto rounded-2xl bg-slate-900/95 p-4 text-[12px] text-emerald-200 shadow-inner dark:bg-black">{cssSnippet}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex-1 space-y-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <p
+          class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+        >
+          Presets
+        </p>
+        <div class="mt-3 grid gap-2 sm:grid-cols-2">
+          {#each gradientOptions as option}
+            <button
+              type="button"
+              class={`flex w-full flex-col rounded-xl border px-4 py-3 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 ${
+                gradientKind === option.value
+                  ? "border-indigo-500 bg-indigo-100 text-indigo-600 dark:border-indigo-400 dark:bg-indigo-500/10 dark:text-indigo-200"
+                  : "border-slate-300 text-slate-600 hover:border-indigo-400 hover:text-indigo-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-indigo-400 dark:hover:text-indigo-200"
+              }`}
+              on:click={() => handleKindChange(option.value)}
+            >
+              <span class="font-semibold">{option.label}</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400"
+                >{option.meta}</span
+              >
+            </button>
           {/each}
         </div>
       </div>
 
-      <!-- Rotation -->
-      <div class="flex-grow-1 space-x-2">
-        <Label class="text-gray-700 dark:text-gray-400">Rotation:</Label>
-          <select bind:value={gradientrotation} on:click={updateGradient} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-            {#each Rotations as Rotation,index}
-                <option>{Rotation}</option>
-            {/each}
-          </select>
+      <div
+        class="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+      >
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            class="inline-flex items-center rounded-full border border-indigo-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-indigo-600 transition hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-indigo-400 dark:text-indigo-200 dark:hover:bg-indigo-500/10 dark:focus:ring-indigo-900"
+            on:click={addStop}
+            disabled={stops.length >= 8}
+          >
+            Add color
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center rounded-full border border-emerald-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-emerald-600 transition hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-emerald-400 dark:text-emerald-200 dark:hover:bg-emerald-500/10 dark:focus:ring-emerald-900"
+            on:click={randomizeStops}
+          >
+            Randomize colours
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:text-slate-100 dark:focus:ring-slate-800"
+            on:click={distributeStops}
+            disabled={stops.length < 2}
+          >
+            Even spacing
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-slate-400 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-200 dark:border-slate-700 dark:text-slate-200 dark:hover:border-slate-500 dark:hover:text-slate-100 dark:focus:ring-slate-800"
+            on:click={reverseStops}
+            disabled={stops.length < 2}
+          >
+            Reverse order
+          </button>
+          <button
+            type="button"
+            class="inline-flex items-center rounded-full border border-slate-400 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-rose-400 hover:text-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200 dark:border-slate-600 dark:text-slate-200 dark:hover:border-rose-500 dark:hover:text-rose-300 dark:focus:ring-rose-900"
+            on:click={resetDefaults}
+          >
+            Reset all
+          </button>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          {#each [...stops].sort((a, b) => a.position - b.position) as stop, index (stop.id)}
+            <div
+              class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+            >
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    class="h-12 w-20 cursor-pointer rounded border border-slate-200 bg-white shadow-sm transition hover:shadow dark:border-slate-700 dark:bg-slate-950"
+                    type="color"
+                    value={stop.color}
+                    on:input={(event) => handleStopColorInput(stop.id, event)}
+                  />
+                  <input
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-mono uppercase tracking-wide text-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-indigo-400 dark:focus:ring-indigo-900"
+                    value={stop.color}
+                    on:input={(event) => handleStopColorInput(stop.id, event)}
+                  />
+                </div>
+                <div class="flex items-center gap-3">
+                  <input
+                    class="flex-1 accent-indigo-500"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={stop.position}
+                    on:input={(event) =>
+                      handleStopPositionInput(stop.id, event)}
+                  />
+                  <span
+                    class="w-12 text-right text-xs font-semibold text-slate-500 dark:text-slate-400"
+                  >
+                    {stop.position}%
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  class="self-start rounded-full border border-rose-400 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-rose-500 transition hover:bg-rose-50 disabled:opacity-50 dark:border-rose-500 dark:text-rose-300 dark:hover:bg-rose-500/10"
+                  on:click={() => removeStop(stop.id)}
+                  disabled={stops.length <= 1}
+                >
+                  Remove
+                </button>
+              </div>
+              <p class="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
+                Color {index + 1} • {stop.color} at {stop.position}%
+              </p>
+            </div>
+          {/each}
+        </div>
       </div>
 
-      <!-- Position -->
-      <div class="flex-grow-1 space-x-2">
-        <Label class="text-gray-700 dark:text-gray-400">Position:</Label>
-        <select bind:value={gradientper} on:click={updateGradient} class="text-gray-900 w-full bg-white text-center col-sm border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-          {#each percentages as percentage}
-            <option>{percentage}</option>
-            {/each}
-          </select>
+      <div
+        class="grid gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 md:grid-cols-2"
+      >
+        <div class="space-y-4">
+          <label
+            class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+          >
+            <span>Preview height</span>
+            <input
+              class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-500 dark:focus:ring-indigo-700/40"
+              type="range"
+              min="200"
+              max="520"
+              step="20"
+              bind:value={previewHeight}
+              on:input={regenerateGradient}
+            />
+            <span class="mt-1 block text-xs text-slate-400 dark:text-slate-500">
+              {previewHeight}px tall
+            </span>
+          </label>
+
+          {#if requiresAngle(gradientKind)}
+            <label
+              class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              <span>Angle</span>
+              <input
+                class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-500 dark:focus:ring-indigo-700/40"
+                type="range"
+                min="0"
+                max="360"
+                value={angle}
+                on:input={handleAngleInput}
+              />
+              <span
+                class="mt-1 block text-xs text-slate-400 dark:text-slate-500"
+              >
+                {angle}°
+              </span>
+            </label>
+          {/if}
+
+          {#if requiresRepeatScale(gradientKind)}
+            <label
+              class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              <span>Repeat scale</span>
+              <input
+                class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-500 dark:focus:ring-indigo-700/40"
+                type="range"
+                min="20"
+                max="200"
+                step="5"
+                bind:value={repeatScale}
+                on:input={handleRepeatScale}
+              />
+              <span
+                class="mt-1 block text-xs text-slate-400 dark:text-slate-500"
+              >
+                {repeatScale}px stripe width
+              </span>
+            </label>
+          {/if}
+        </div>
+
+        <div class="space-y-4">
+          {#if requiresCentre(gradientKind) || gradientKind === "conic"}
+            <label
+              class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              <span>Centre X</span>
+              <input
+                class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-500 dark:focus:ring-indigo-700/40"
+                type="range"
+                min="0"
+                max="100"
+                value={centreX}
+                on:input={(event) => handleCentreInput(event, "x")}
+              />
+              <span
+                class="mt-1 block text-xs text-slate-400 dark:text-slate-500"
+              >
+                {centreX}%
+              </span>
+            </label>
+            <label
+              class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400"
+            >
+              <span>Centre Y</span>
+              <input
+                class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-600 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:focus:border-indigo-500 dark:focus:ring-indigo-700/40"
+                type="range"
+                min="0"
+                max="100"
+                value={centreY}
+                on:input={(event) => handleCentreInput(event, "y")}
+              />
+              <span
+                class="mt-1 block text-xs text-slate-400 dark:text-slate-500"
+              >
+                {centreY}%
+              </span>
+            </label>
+          {/if}
+        </div>
       </div>
-
-      <!-- Button Container -->
-      <div class="grid grid-cols-2 col-span-2 gap-4 mr-4">
-        <!-- Generate Gradient Button -->
-        <button
-          type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2"
-          on:click={updateGradient}
-        >
-        Generate Gradient
-        </button>
-
-        <!-- Random Button -->
-        <button
-          type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-2"
-          on:click={generateRandomGradient}
-        >
-        Random
-        </button>
-
-        <!-- Copy CSS Button -->
-        <button
-          id="b1"
-          type="button"
-          class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-          on:click={copyCode}
-        >
-        Copy CSS
-        </button>
-
-        <Popover class="w-64 text-sm font-light " title="CSS Output" triggeredBy="#b1">
-          background: {gradientCode}
-        </Popover>
-
-        <!-- More Button with Dropdown -->
-        <button
-          type="button"
-          class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mt-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"        
-        >
-        More
-        <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-        </svg>
-        </button>
-        <Dropdown>
-          <DropdownItem on:click={copyCode}>Copy</DropdownItem>
-          <DropdownDivider />
-          <DropdownItem on:click={downloadAsText}><svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 19"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15h.01M4 12H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-3M9.5 1v10.93m4-3.93-4 4-4-4"/>
-          </svg>Download</DropdownItem>
-        </Dropdown>
-     </div>    
+    </div>
   </div>
-
-  <!-- Gradient Display (Right Half) {gradientCode}-->
-  <div class="w-1/2 p-2">
-    <div
-      class="w-full h-full rounded-lg"
-      style="background-Image: {gradientCode};"
-    >
-  </div>
-</main>
-</div>
+</section>

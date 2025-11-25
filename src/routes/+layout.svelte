@@ -264,8 +264,7 @@
 				(a, b) => b._score - a._score || a.name.localeCompare(b.name),
 			);
 
-            filteredTools = matches
-                .map(({ _score, ...tool }) => tool);
+			filteredTools = matches.map(({ _score, ...tool }) => tool);
 		}
 	}
 
@@ -383,16 +382,16 @@
 				</div>
 			</div>
 			<div class="flex items-center w-full md:w-auto">
-				<NavUl {hidden}>
+				<NavUl {hidden} class="flex items-center gap-2">
 					<NavLi
 						href="/about"
-						class={`nav-link ${$page.url.pathname === "/about" ? "is-active" : ""}`}
+						class={`nav-link font-semibold ${$page.url.pathname === "/about" ? "is-active" : ""}`}
 					>
 						About
 					</NavLi>
 					<NavLi
 						href="/contact"
-						class={`nav-link ${$page.url.pathname === "/contact" ? "is-active" : ""}`}
+						class={`nav-link font-semibold ${$page.url.pathname === "/contact" ? "is-active" : ""}`}
 					>
 						Contact
 					</NavLi>
@@ -488,7 +487,6 @@
 							autocomplete="off"
 							on:keydown={handleInputKeydown}
 						/>
-                        
 					</div>
 
 					<!-- Results -->

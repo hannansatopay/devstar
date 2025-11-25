@@ -262,7 +262,7 @@
                 {
                     "name": "Regex Tool",
                     "link": "/regex-tool",
-                    "description": "The Regex tool is a powerful feature used for pattern matching within text. It allows users to define specific sequences of characters, known as regular expressions (regex), to identify, match, and manipulate strings based on complex patterns. This tool is highly versatile and is used in various applications such as Data Validation, Text Search, Data Extraction etc.",
+                    "description": "A powerful feature for matching and manipulating text using regular expressions. It helps identify, validate, and extract data efficiently.",
                     "contributors": [
                         {
                             "name": "Soham Jayakar",
@@ -1245,7 +1245,12 @@
                     "name": "Code to Image Converter",
                     "link": "/code-to-image-converter",
                     "description": "Design shareable code screenshots with gradients, window chrome, line numbers, and instant PNG export.",
-                    "contributors": []
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        }
+                    ]
                 },
                 {
                     "name": "Color Blindness Simulator",
@@ -1299,33 +1304,6 @@
                     "contributors": []
                 },
                 {
-                    "name": "Custom Handwriting Font Generator",
-                    "link": "/custom-handwriting-font-generator",
-                    "description": "Sketch each glyph of your handwriting, preview the font live, and export a ready-to-install TTF without leaving the browser.",
-                    "contributors": [
-                        {
-                            "name": "RIYA KUSHWAHA",
-                            "githubId": "RIYA1001"
-                        },
-                        {
-                            "name": "Vaibhav Rathod",
-                            "githubId": "VR-Rathod"
-                        },
-                        {
-                            "name": "Soumili mondal",
-                            "githubId": "Soumelee"
-                        },
-                        {
-                            "name": "Prabir Kumar Majee",
-                            "githubId": "prabirkr"
-                        },
-                        {
-                            "name": "Devishree nadar",
-                            "githubId": "devishree2305"
-                        }
-                    ]
-                },
-                {
                     "name": "Favicon Generator",
                     "link": "/favicon-generator",
                     "description": "Create favicon-ready icons in multiple sizes directly in the browser, complete with live previews and download links.",
@@ -1334,7 +1312,7 @@
                 {
                     "name": "Gradient Generator",
                     "link": "/gradient-generator",
-                    "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+                    "description": "Craft gradients, stripes, and animated backgrounds. Add or reorder stops, tweak angles, centre points, and generate clean CSS ready for production.",
                     "contributors": [
                         {
                             "name": "Yash Mankar",
@@ -1413,7 +1391,7 @@
                 {
                     "name": "Living Background Generator",
                     "link": "/living-background-generator",
-                    "description": "The Living Background Generator is a tool that allows developers to select the colour of their choice along with the type of gradient of their choice. The tool then outputs the style code for the user customized background in the output window.  This tool allows the user to create the animated background visually allowing the user to visualize it better than the oldie way.",
+                    "description": "It allows developers to easily create and customize animated gradient backgrounds. Users can choose colors and gradient types, then instantly generate the style code—making background design more visual and intuitive.",
                     "contributors": [
                         {
                             "name": "RIYA KUSHWAHA",
@@ -1619,6 +1597,33 @@
                     "link": "/business-name-generator",
                     "description": "Spin up memorable, industry-specific business names in seconds with adjustable tone, structure, and keyword targeting.",
                     "contributors": []
+                },
+                {
+                    "name": "Custom Handwriting Font Generator",
+                    "link": "/custom-handwriting-font-generator",
+                    "description": "Sketch each glyph of your handwriting, preview the font live, and export a ready-to-install TTF without leaving the browser.",
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        },
+                        {
+                            "name": "Vaibhav Rathod",
+                            "githubId": "VR-Rathod"
+                        },
+                        {
+                            "name": "Soumili mondal",
+                            "githubId": "Soumelee"
+                        },
+                        {
+                            "name": "Prabir Kumar Majee",
+                            "githubId": "prabirkr"
+                        },
+                        {
+                            "name": "Devishree nadar",
+                            "githubId": "devishree2305"
+                        }
+                    ]
                 },
                 {
                     "name": "Custom Icon Font Generator",

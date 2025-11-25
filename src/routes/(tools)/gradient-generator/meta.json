@@ -1,6 +1,6 @@
 {
     "name": "Gradient Generator",
-    "description": "The Gradient Generator is a tool for Developers which allows you to create Gradient between 2 Colors and Copy its CSS Output.",
+    "description": "Craft gradients, stripes, and animated backgrounds. Add or reorder stops, tweak angles, centre points, and generate clean CSS ready for production.",
     "contributors": [
         {
             "name": "Yash Mankar",
