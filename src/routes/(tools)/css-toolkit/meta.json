@@ -1,0 +1,11 @@
+{
+  "name": "CSS Toolkit",
+  "description": "Generate fluid typography clamps, soft box/text shadows, Flexbox and Grid layouts, sprite maps, unit conversions, and gradient text without leaving your workflow.",
+  "contributors": [
+    {
+      "name": "RIYA KUSHWAHA",
+      "githubId": "RIYA1001"
+    }
+  ],
+  "categoryTitle": "Web Development & SEO Tools"
+}

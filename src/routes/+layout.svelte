@@ -1,4 +1,5 @@
 ﻿<script>
+	import { goto, afterNavigate } from "$app/navigation";
 	import { page } from "$app/stores";
 	import { onDestroy, onMount, tick } from "svelte";
 	import "../app.pcss";
@@ -23,6 +24,13 @@
 	const isBrowser = typeof window !== "undefined";
 	const isMac = isBrowser ? /mac/i.test(navigator.platform) : false;
 	const searchShortcutKeys = isMac ? ["Cmd", "K"] : ["Ctrl", "K"];
+	/** @type {(() => void) | null} */
+	let removeNavigationHook = null;
+	if (isBrowser) {
+		removeNavigationHook = afterNavigate(() => {
+			window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+		});
+	}
 
 	function resultId(index) {
 		return `search-result-${index}`;
@@ -302,6 +310,7 @@
 		if (isBrowser) {
 			document.body.classList.remove("modal-open");
 		}
+		removeNavigationHook?.();
 	});
 </script>
 
@@ -499,7 +508,7 @@
 							<p class="muted text-sm">No results found.</p>
 						{:else}
 							<div
-								class="search-modal__list"
+								class="search-modal__list text-xs"
 								role="listbox"
 								aria-label="Search results"
 								aria-activedescendant={filteredTools.length
@@ -513,7 +522,7 @@
 										id={resultId(index)}
 										href={tool.link}
 										on:click={handleToolClick}
-										class={`search-result-card card-gradient cursor-pointer h-12 ${index === activeResultIndex ? "is-active" : ""}`}
+										class={`search-result-card card-gradient cursor-pointer px-4 py-3 lg:min-h-[3.25rem] ${index === activeResultIndex ? "is-active" : ""}`}
 										data-search-result
 										data-active={index ===
 											activeResultIndex}
@@ -525,16 +534,18 @@
 										on:focus={() =>
 											(activeResultIndex = index)}
 									>
-										<div class="search-result-card__header">
+										<div class="flex flex-col gap-2 text-left sm:flex-row sm:items-center sm:justify-between sm:gap-3">
 											<span
-												class="search-result-card__title"
-												>{tool.name}</span
+												class="search-result-card__title text-sm font-semibold leading-snug break-words"
 											>
+												{tool.name}
+											</span>
 											{#if tool.category}
 												<span
-													class="search-result-card__category"
-													>{tool.category}</span
+													class="search-result-card__category text-xs uppercase tracking-wide break-words text-left sm:text-right"
 												>
+													{tool.category}
+												</span>
 											{/if}
 										</div>
 									</a>

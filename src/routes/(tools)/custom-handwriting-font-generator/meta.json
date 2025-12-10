@@ -1,6 +1,6 @@
 {
-    "name": "Custom Handwriting Font",
-    "description": "The Custom Handwriting Font Generator is a unique tool that allows you to create a personalized font from your own handwriting. Whether you want to add a personal touch to your documents, create custom greeting cards, or enhance your digital designs, this tool provides a seamless way to transform your handwriting into a digital font.",
+    "name": "Custom Handwriting Font Generator",
+    "description": "Sketch each glyph of your handwriting, preview the font live, and export a ready-to-install TTF without leaving the browser.",
     "contributors": [
         {
             "name": "RIYA KUSHWAHA",
@@ -23,5 +23,5 @@
             "githubId": "devishree2305"
         }
     ],
-    "categoryTitle": "Image & Graphic Tools"
+    "categoryTitle": "Content Generation & Design Tools"
 }

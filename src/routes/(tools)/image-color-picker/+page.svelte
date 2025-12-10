@@ -200,6 +200,13 @@
     fileInput?.click();
   }
 
+  function handleDropAreaKey(event: KeyboardEvent) {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openFileDialog();
+    }
+  }
+
   onMount(() => {
     drawImageOnCanvas("/quino-al-J1_1YigSUPA-unsplash.jpg");
   });
@@ -218,6 +225,9 @@
         <div
           class="group relative overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-900/90 transition hover:border-indigo-400 hover:bg-slate-900/80 dark:border-slate-700"
           on:click={openFileDialog}
+          on:keydown={handleDropAreaKey}
+          role="button"
+          tabindex="0"
         >
           <div
             bind:this={containerEl}

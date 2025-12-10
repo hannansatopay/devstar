@@ -19,7 +19,7 @@
                 {
                     "name": "Code Linter",
                     "link": "/code-linter",
-                    "description": "A code linter is a software tool that analyzes source code to detect and report on programming errors, bugs, stylistic inconsistencies, and suspicious patterns. It helps developers ensure their code adheres to coding standards, best practices, and predefined rules specific to the programming language or project requirements. Code linters are essential in improving code quality, maintaining consistency across development teams, and preventing common coding mistakes before they become problematic in software development projects. They often provide feedback in the form of warnings or errors directly within integrated development environments (IDEs) or through command-line interfaces, aiding developers in writing cleaner, more reliable code.",
+                    "description": "A tool that analyzes source code to find errors, bugs, and style issues. It helps developers follow coding standards, maintain consistency, and catch problems early by providing warnings or errors in the editor or command line.",
                     "contributors": [
                         {
                             "name": "Abhirup Mukherjee",
@@ -106,7 +106,7 @@
                 {
                     "name": "Responsive Design Tester",
                     "link": "/responsive-design-tester",
-                    "description": "This app is designed to help users see how their web pages look on different devices by previewing URLs in various screen resolutions. With a sidebar for quick access to mobile, desktop, and tablet options, it offers a straightforward way to switch between device views. Simply input a URL, choose a device, and watch the app adjust to show the selected screen size. Featuring a sticky URL input area and smooth scrolling, this tool enhances the user experience by making responsive design testing seamless and efficient.",
+                    "description": "Preview any URL across curated mobile, tablet, and desktop breakpoints with live zoom, orientation toggles, and instant loading once you choose to render the page. Responsive Design Tester keeps controls on the left and a resizable device frame on the right so you can tweak layouts without leaving the browser.",
                     "contributors": [
                         {
                             "name": "David Kwasi Mensah Akyer",
@@ -208,7 +208,7 @@
                 {
                     "name": "JWT Decoder",
                     "link": "/jwt-decoder",
-                    "description": "The JWT Decoder is a valuable tool that enables developers to decode JSON Web Tokens (JWT) and extract the information contained within them. By simply pasting a JWT string, this tool decodes the token and displays its header, payload, and signature components. Gain insights into the data stored in JWTs and verify their integrity with this efficient decoder. Simplify the process of working with JWTs and enhance your token validation tasks with this user-friendly tool.",
+                    "description": "The JWT Decoder lets developers quickly decode JSON Web Tokens to view their header, payload, and signature. Just paste a token to inspect its data and verify its integrity, making JWT validation fast and simple.",
                     "contributors": [
                         {
                             "name": "Fazal",
@@ -1491,33 +1491,15 @@
                     ]
                 },
                 {
-                    "name": "SVG Placeholder Generator",
-                    "link": "/svg-placeholder-generator",
-                    "description": "Create crisp SVG placeholders with custom dimensions, colors, overlays, and typography, then copy the markup or data URI.",
-                    "contributors": [
-                        {
-                            "name": "IQRA MIYAJI",
-                            "githubId": "IqraMiyaji"
-                        },
-                        {
-                            "name": "AAKANKSH MISHRA",
-                            "githubId": "Aaka22"
-                        },
-                        {
-                            "name": "HARSHALA PATIL",
-                            "githubId": "Harshala15"
-                        },
-                        {
-                            "name": "ANUJA PATIL",
-                            "githubId": "anujaappasopatil"
-                        }
-                    ]
-                },
-                {
                     "name": "SVG Shape Generator",
                     "link": "/svg-shape-generator",
                     "description": "Generate precise SVG paths for rectangles, pills, polygons, and stars. Adjust parameters and copy the markup instantly.",
-                    "contributors": []
+                    "contributors": [
+                        {
+                            "name": "RIYA KUSHWAHA",
+                            "githubId": "RIYA1001"
+                        }
+                    ]
                 },
                 {
                     "name": "Website Screenshot Capture",

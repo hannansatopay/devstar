@@ -1,0 +1,6 @@
+{
+  "name": "Code Formatter / Parser / Beautifier",
+  "description": "Format source files across multiple languages and inspect a trimmed AST tree for JavaScript or TypeScript snippets.",
+  "contributors": [],
+  "categoryTitle": "Web Development & SEO Tools"
+}

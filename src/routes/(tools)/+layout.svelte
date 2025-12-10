@@ -5,9 +5,19 @@
   export let data;
 
   const isBrowser = typeof window !== "undefined";
-  const title = data?.meta?.title ?? "Devstar Tool";
-  const description = data?.meta?.description ?? "";
-  const categoryTitle = data?.meta?.categoryTitle ?? "Devstar Toolkit";
+  let title = "Devstar Tool";
+  let description = "";
+  let categoryTitle = "Devstar Toolkit";
+  let lastSyncedTitle: string | null = null;
+  $: title = data?.meta?.title ?? "Devstar Tool";
+  $: description = data?.meta?.description ?? "";
+  $: categoryTitle = data?.meta?.categoryTitle ?? "Devstar Toolkit";
+  $: {
+    if (isBrowser && title !== lastSyncedTitle) {
+      syncBookmark();
+      lastSyncedTitle = title;
+    }
+  }
 
   let isBookmarked = false;
   function syncBookmark() {

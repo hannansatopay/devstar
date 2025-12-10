@@ -192,15 +192,31 @@
   .search-modal {
     position: fixed;
     inset: 0;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: clamp(1rem, 5vw, 2rem);
+    min-height: 100vh;
     overflow: hidden;
   }
 
   @media (max-width: 640px) {
     .search-modal {
       padding: 1rem;
+    }
+
+    .search-modal__dialog {
+      width: 100%;
+      max-height: calc(100vh - 2rem);
+    }
+
+    .search-modal__results {
+      flex: 1;
+    }
+
+    .search-modal__list {
+      max-height: none;
+      padding: 0.5rem;
     }
   }
 
@@ -215,6 +231,7 @@
     max-height: min(85vh, 24rem);
     display: flex;
     pointer-events: none;
+    margin: auto;
   }
 
   .search-shell {
@@ -319,12 +336,6 @@
     border-top: 1px solid rgba(148, 163, 184, 0.25);
   }
 
-  @media (max-width: 640px) {
-    .search-modal__list {
-      max-height: clamp(10rem, 50vh, 16rem);
-    }
-  }
-
   @media (min-width: 1024px) {
     .search-modal__list {
       max-height: clamp(14rem, 45vh, 20rem);
@@ -352,6 +363,13 @@
       border-color 0.35s ease;
     will-change: transform, background;
     outline: none;
+    min-height: 4.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .search-result-card {
+      min-height: 3.5rem;
+    }
   }
   /* Ensure content sits above the hover overlay bubble */
   .search-result-card > * { position: relative; z-index: 2; }

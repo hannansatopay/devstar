@@ -3,8 +3,6 @@ type ContributorSummary = {
 	githubId?: string;
 };
 
-const collator = new Intl.Collator(undefined, { sensitivity: "base" });
-
 import contributorsSource from "./contributors.json";
 
 import type { PageLoad } from "./$types";
@@ -21,12 +19,19 @@ const normalizeContributor = (contributor: ContributorSummary) => {
 	};
 };
 
-export const load: PageLoad = async () => {
-	const contributors = contributorsRaw
-		.map(normalizeContributor)
-		.sort((a, b) => collator.compare(a.name, b.name));
+const normalizeSortValue = (value: string) =>
+	(value ?? "").trim().toLowerCase();
 
-	return {
-		contributors,
-	};
-};
+const contributorsOrdered = contributorsRaw
+	.map(normalizeContributor)
+	.sort((a, b) => {
+		const nameA = normalizeSortValue(a.name);
+		const nameB = normalizeSortValue(b.name);
+		if (nameA < nameB) return -1;
+		if (nameA > nameB) return 1;
+		return 0;
+	});
+
+export const load: PageLoad = async () => ({
+	contributors: [...contributorsOrdered],
+});

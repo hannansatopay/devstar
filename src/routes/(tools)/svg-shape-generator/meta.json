@@ -1,6 +1,11 @@
 {
-  "name": "SVG Shape Generator",
-  "description": "Generate precise SVG paths for rectangles, pills, polygons, and stars. Adjust parameters and copy the markup instantly.",
-  "contributors": [],
-  "categoryTitle": "Image & Graphic Tools"
+    "name": "SVG Shape Generator",
+    "description": "Generate precise SVG paths for rectangles, pills, polygons, and stars. Adjust parameters and copy the markup instantly.",
+    "contributors": [
+        {
+            "name": "RIYA KUSHWAHA",
+            "githubId": "RIYA1001"
+        }
+    ],
+    "categoryTitle": "Image & Graphic Tools"
 }
