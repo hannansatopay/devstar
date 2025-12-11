@@ -130,11 +130,13 @@
   });
 </script>
 
-<section class="py-2">
+<section class="space-y-6">
   <div
     class="gap-16 items-center mx-auto max-w-screen-xl grid grid-cols-1 lg:grid-cols-3 overflow-hidden rounded-lg"
   >
-    <div class="lg:col-span-2 card-editor p-8 bg-gray-100 rounded-lg">
+    <div
+      class="lg:col-span-2 card-editor rounded-2xl border border-slate-200 bg-white p-4 text-xs font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+    >
       <div class="editor mb-8">
         <div class="business-card {style}" style="background-color: {bgColor};">
           <div class="logo">
@@ -175,24 +177,41 @@
 
       <div class="controls mb-8">
         <div>
-          <label>Full Name</label>
-          <input type="text" bind:value={fullName} />
-        </div>
-        <div>
-          <label>Title</label>
-          <input type="text" bind:value={title} />
-        </div>
-        <div>
-          <label>Email</label>
-          <input type="text" bind:value={email} />
-        </div>
-        <div>
-          <label>Phone</label>
-          <input type="text" bind:value={phone} />
-        </div>
-        <div>
-          <label>Logo</label>
+          <label class="my-2">Full Name</label>
           <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
+            type="text"
+            bind:value={fullName}
+          />
+        </div>
+        <div>
+          <label class="my-2">Title</label>
+          <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
+            type="text"
+            bind:value={title}
+          />
+        </div>
+        <div>
+          <label class="my-2">Email</label>
+          <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
+            type="text"
+            bind:value={email}
+          />
+        </div>
+        <div>
+          <label class="my-2">Phone</label>
+          <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
+            type="text"
+            bind:value={phone}
+          />
+        </div>
+        <div>
+          <label class="my-2">Logo</label>
+          <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
             type="file"
             on:change={(e) => (logo = URL.createObjectURL(e.target.files[0]))}
           />
@@ -203,13 +222,17 @@
           {/if}
         </div>
         <div>
-          <label>Slogan</label>
-          <input type="text" bind:value={slogan} />
+          <label class="my-2">Slogan</label>
+          <input
+            class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
+            type="text"
+            bind:value={slogan}
+          />
         </div>
       </div>
 
       <div class="my-5">
-        <label>Font Family</label>
+        <label class="my-2 mr-2">Font Family</label>
         <select bind:value={fontFamily}>
           <option value="Arial, sans-serif">Arial</option>
           <option value="Verdana, sans-serif">Verdana</option>
@@ -219,8 +242,9 @@
         </select>
       </div>
       <div>
-        <label>Font Size</label>
+        <label class="my-2">Font Size</label>
         <input
+          class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
           type="number"
           bind:value={fontSize}
           placeholder="Enter font size in px"
@@ -228,8 +252,11 @@
       </div>
       <div class="my-5">
         <!-- Input for URL -->
-        <label for="url">Create QR Code for your business card:</label>
+        <label class="my-2" for="url"
+          >Create QR Code for your business card:</label
+        >
         <input
+          class="w-full rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-base text-slate-900 shadow-inner focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200/70 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/40"
           type="text"
           id="url"
           bind:value={url}
@@ -254,7 +281,9 @@
       </div>
     </div>
 
-    <div class="template-selector p-8 bg-gray-200 rounded-lg h-full">
+    <div
+      class="template-selector h-full rounded-2xl border border-slate-200 bg-white p-4 text-xs font-semibold uppercase tracking-wide text-slate-500 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+    >
       <label class="block mb-4">Select a Template</label>
       <div
         class="template-options grid grid-cols-1 gap-4 overflow-y-auto max-h-96"

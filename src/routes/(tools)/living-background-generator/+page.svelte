@@ -643,18 +643,8 @@
             </span>
           </div>
           <div class="mt-6 flex flex-wrap gap-3">
-            <Copy
-              text={htmlSnippet}
-              label="Copy HTML"
-              floating={false}
-              customClass="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-indigo-400 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:text-slate-200 dark:hover:border-indigo-500 dark:hover:text-indigo-300 dark:focus:ring-indigo-900"
-            />
-            <Copy
-              text={cssSnippet}
-              label="Copy CSS"
-              floating={false}
-              customClass="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-slate-600 transition hover:border-emerald-400 hover:text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200 dark:border-slate-700 dark:text-slate-200 dark:hover:border-emerald-500 dark:hover:text-emerald-200 dark:focus:ring-emerald-900"
-            />
+            <Copy text={htmlSnippet} label="Copy HTML" floating={false} />
+            <Copy text={cssSnippet} label="Copy CSS" floating={false} />
           </div>
           <div class="mt-6 grid gap-4">
             <div>

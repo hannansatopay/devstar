@@ -521,9 +521,9 @@
 			class="process rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/80"
 		>
 			<div class="grid gap-6">
-				<fieldset class="grid gap-2">
+				<fieldset class="grid gap-3">
 					<legend
-						class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 mb-3"
 						>Platform</legend
 					>
 					<div class="flex flex-wrap gap-2">
@@ -548,9 +548,9 @@
 					</div>
 				</fieldset>
 
-				<fieldset class="grid gap-2">
+				<fieldset class="grid gap-3">
 					<legend
-						class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500"
+						class="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500 mb-3"
 						>Orientation</legend
 					>
 					<div class="flex flex-wrap gap-2">
@@ -730,7 +730,8 @@
 			class="final-output rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur dark:border-slate-800 dark:bg-slate-900/80"
 		>
 			<div class="flex flex-col items-center gap-4">
-				<canvas bind:this={canvas} class="max-w-full max-h-fit"></canvas>
+				<canvas bind:this={canvas} class="max-w-full max-h-fit"
+				></canvas>
 				<div class="flex flex-wrap items-center justify-center gap-3">
 					<button
 						type="button"
@@ -761,7 +762,7 @@
 				</div>
 			</div>
 			<p
-				class="text-sm leading-relaxed text-slate-500 dark:text-slate-300"
+				class="text-sm leading-relaxed text-slate-500 dark:text-slate-300 mt-3"
 			>
 				Canvas exports use native store ratios (1242x2688 portrait,
 				2688x1242 landscape) so you can upload screenshots without
